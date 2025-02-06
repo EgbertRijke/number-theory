@@ -1,0 +1,1447 @@
+\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{totcount}
+\usepackage{enumitem}
+
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries} % Format of the text
+  {Lecture \thechapter}       % Label (e.g., "Lecture 1")
+  {0.5em}                     % Spacing between label and title
+  {\Huge}                     % Format of the title
+
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
+% Theorem-like environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Lectures on Elementary Number Theory}
+\author{Egbert Rijke}
+\date{\today}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=purple,
+    filecolor=magenta,
+    urlcolor=blue,
+    citecolor=purple,
+    pdftitle={Lecture notes on Number Theory},
+    pdfpagemode=FullScreen,
+}
+\usepackage[capitalize,english]{cleveref}
+
+  % We set up the exercise environment, which produces list environment in a new
+% unnumbered subsection that also gets mentioned in the table of contents.
+
+\newtotcounter{exercisecounter}
+\newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+
+\newlist{exenum}{enumerate}{1}
+\setlist[exenum]{noitemsep,label=\thechapter.\arabic*}
+  %,ref=\thechapter.\arabic*}
+
+\crefname{exenumi}{Exercise}{Exercises}
+  
+\newlist{subexenum}{enumerate}{1}
+\setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
+\crefname{subexenumi}{Exercise}{Exercises}
+  
+\newenvironment{exercises}
+{%
+\subsection*{Exercises}%
+\addcontentsline{toc}{section}{Exercises}%
+\sectionmark{Exercises}%
+\begin{exenum}}
+{%
+%\addtocounter{exercisecounter}{\theexenumi}%
+\end{exenum}}
+
+\setcounter{tocdepth}{2}
+
+\newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
+
+\begin{document}
+
+\maketitle
+
+\frontmatter
+
+\tableofcontents
+
+\chapter{Course information}
+
+\section*{Course materials}
+
+We will use these course notes and \emph{Number Theory} by Andrews \cite{andrews1994}.
+
+\section*{Important dates}
+\begin{itemize}
+\item First lecture: January 21st.
+\item First midterm: February 25th.
+\item Spring break: March 17-24th.
+\item Second midterm: April 1st.
+\item Final lecture: April 24th
+\item Final exam: May 8th.
+\end{itemize}
+
+The first midterm covers content up to February 13th. The second midterm covers content up to the spring break.
+
+\newpage
+
+\section*{Grading}
+The course grade will be determined as follows:
+
+\begin{itemize}
+    \item Homework: 60\%
+    \item Each exam (two midterms and final): 20\% each
+\end{itemize}
+
+This adds up to a total of 120\%, allowing students the opportunity to earn extra credit. The grading scale is as follows:
+
+\begin{itemize}
+    \item $>100\%$: A+
+    \item $90$--$100\%$: A
+    \item $80$--$90\%$: B
+    \item $70$--$80\%$: C
+    \item $60$--$70\%$: D
+    \item $<60\%$: F
+\end{itemize}
+
+If the median score for the class falls below a B, grades may be adjusted (curved) so that the median corresponds to a B. Any adjustments will be made consistently for all students.
+
+
+\mainmatter
+
+\chapter{Introduction to Number Theory}
+
+Number theory is the study of numbers, particularly the natural numbers (the numbers $0$, $1$, $2$, $\ldots$ increasing indefinitely in increments of $1$), the integers (the numbers $\ldots, -2, -1, 0, 1, 2, \ldots$), and occasionally the rational numbers (fractions of integers). Its central themes include questions about divisibility, prime numbers, modular arithmetic, arithmetic functions, and finding integer solutions to equations. Additionally, number theory explores combinatorial questions, such as determining how numbers can be decomposed into sums or products of specific forms, like squares or primes. More advanced branches of number theory are occasionally also concerned with the properties of other number systems, such as the real numbers, complex numbers, or $p$-adic numbers. However, in \emph{elementary number theory} these explorations are primarily motivated by how these number systems relate back to the integers.
+
+\section{A short history of number theory}
+Number theory has a long history that dates back to antiquity. One of the earliest and most influential systematic treatments of mathematics is Euclid's Elements \cite{euclid1908}, written around 300 BC in Alexandria. In this work, Euclid established several key results in number theory, including the infinitude of primes and the algorithm for finding the greatest common divisor, which bears his name.
+
+Around 250 AD, the Greek mathematician Diophantus of Alexandria wrote his \emph{Arithmetica} \cite{diophantus1910}, which focused on solving what are now known as Diophantine equations. This 13-volume work is often considered the first comprehensive treatment of algebra, though Diophantus relied on rhetorical descriptions rather than modern algebraic notation. Only six of the original volumes have survived, but they profoundly influenced later mathematicians.
+
+The works of Euclid and Diophantus were preserved and studied by scholars in the Byzantine Empire, such as Theon of Alexandria and his daughter Hypatia. They added commentaries that clarified and expanded upon the original text.
+
+During the Islamic Golden Age, scholars like Al-Khwarizmi, Ibn al-Haytham, and Omar Khayyam preserved and expanded upon the works of Euclid and Diophantus. Al-Khwarizmi’s work, especially his \emph{Kitab al-Mukhtasar fi Hisab al-Jabr wal-Muqabala} (from which the term "algebra" originates), introduced systematic methods for solving linear and quadratic equations. He used rhetorical algebra, like Diophantus, but began a transition toward symbolic representation by relying on consistent terminology for operations and equations.
+
+After the invention of the printing press, Erhard Ratdolt, a German printer based in Venice, produced the first printed edition of the Elements in 1482. This edition included mathematical diagrams and marked an important step in the dissemination of Euclid’s work. The first printed edition of Diophantus' Arithmetica was published in 1575 by Wilhelm Xylander, a German mathematician. The printing was done in Basel, Switzerland, a major hub for academic publishing at the time. By the time of Pierre de Fermat in the 17th century, both the Elements and Arithmetica had become essential texts for mathematicians across Europe, influencing the development of number theory and inspiring Fermat’s groundbreaking contributions.
+
+Pierre de Fermat (1607–1665) is often considered the founder of modern number theory. He was a contemporary of Blaise Pascal and Marin Mersenne, both of whom he corresponded with, and also of Galileo Galilei. He wrote a manuscript titled \emph{Éléments de Géométrie}, which served as an extension and commentary on Euclid’s Elements. In this work, he sought to modernize Euclid’s geometry by applying the emerging methods of algebra and analytic geometry to classical geometric problems.
+
+Fermat made several groundbreaking contributions to number theory. He proved \emph{Fermat's Little Theorem}, which is a central theorem of this course, and he formulated the \emph{sum of two squares theorem} asserting that an odd prime $p$ can be expressed as the sum of two squares if and only if $p\equiv 1\pmod{4}$. He also introduced the method of \emph{infinite descent}, and formulated the \emph{Polygonal Number Theorem}, which states that every positive integer can be expressed as the sum of at most $n$ $n$-gonal numbers.
+
+Fermat also made several famous conjectures. He conjectured that the equation $x^2+Ny^2=1$ has infinitely many solutions for any non-square integer $N$. Euler made a significant advance to this problem by proving it for specific values of $N$. The general form of the solution to equations of the form $x^2+Ny^2=1$ was found later by Legendre and Lagrange.
+
+Finally, Fermat famously asserted that there could be no three nonzero integers $x$, $y$, and $z$ such that the equation
+\begin{equation*}
+  x^n+y^n=z^n
+\end{equation*}
+holds, when $n\geq 3$. This statement is now known as \emph{Fermat's Last Theorem}. He claimed to have a "truly marvelous proof", but that the margin of his copy of \emph{Arithmetica} was too small to contain it. His assertion, known as \emph{Fermat’s Last Theorem}, captivated mathematicians for centuries. It was finally proven in 1995 by Andrew Wiles, about 350 years after Fermat made his famous note in the margin, using advanced techniques from algebraic geometry and modular forms. Wiles’s achievement is considered one of the most remarkable milestones in the history of mathematics.
+
+While Fermat laid the groundwork for modern number theory, we should mention that the concept of \emph{function} hasn't been crystallized until Leibniz coined the term in 1673, using it to describe quantities related to curves, such as slopes, tangents, and areas. Bernoulli played a significant role in expanding the idea of functions. He used the term explicitly in 1718, describing it as a quantity dependent on another variable. Euler provided the first modern definition of a function in his \emph{Introductio in Analysin Infinitorum} (1748) \cite{euler1988}. He emphasized that functions could include both algebraic (e.g., polynomials) and transcendental forms (e.g., trigonometric and exponential functions). Peter Gustav Lejeune Dirichlet was the first to define functions abstractly as a correspondence between two sets, removing the requirement for expressions or formulas. This abstraction was a key insight for the theorem that we now know as \emph{Dirichlet's theorem}: Every arithmetic progression
+\begin{equation*}
+  a,\ a+b,\ a+2b,\ a+3b,\ \ldots
+\end{equation*}
+in which $a$ and $b$ are coprime, contains an infinitude of primes. Dirichlet proved his theorem in 1837, more than 150 years after Leibniz first coined the term of function.
+
+Euler's Introductio in Analysin Infinitorum marked the beginning of \emph{analytical number theory}. As we mentioned before, Euler defined functions here and established the notation $f(x)$ of a function applied to its variable, which we still use today. He derived the famous formula for complex exponentials
+\begin{equation*}
+  e^{ix}=\cos(x) + i \sin(x).
+\end{equation*}
+This identity connects the exponential function, trigonometric functions, and the imaginary unit. The Riemann zeta function $\zeta(s)$ makes its first appearance here in a complex variable $s$, and he derived the celebrated \emph{product formula}
+\begin{equation*}
+  \zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}=\prod_{p\,\mathrm{prime}}\frac{1}{1-p^{-s}}.
+\end{equation*}
+More generally, Euler explored infinite series and products. The \emph{Basel summation formula}
+\begin{equation*}
+  \sum_{n=1}^\infty \frac{1}{n^2}=\frac{\pi^2}{6}
+\end{equation*}
+was first proven here, which was one of Euler's most celebrated achievements. Euler was keen to explore the connection between geometry and analysis, and in Introductio in Analysin Infinitorum, he advanced the idea that the study of functions and infinite series could provide new insights into geometric problems. He showed how techniques from analysis could be used to solve problems in geometry and vice versa, fostering the development of applied mathematics.
+
+Building on the work of Euler, Gauss began using the properties of the zeta function and other analytic methods to investigate the distribution of the primes. His seminal work \emph{Disquisitiones Arithmeticae} \cite{gauss1986} is often considered the starting point of the study of the distribution of primes, ultimately leading up to the \emph{Prime Number Theorem}. Gauss conjectured that the number $\pi(n)$ of primes below a number $n$ satisfies the asymptotic law
+\begin{equation*}
+  \pi(n)\sim\frac{n}{\log(n)}.
+\end{equation*}
+This conjecture was proved independently by Jacques Hadamard and Charles Jean de la Vallée Poussin. Furthermore, Gauss laid the foundation for modular arithmetic, and proved the celebrated law of quadratic reciprocity, which tells us when a quadratic equation modulo a prime number is solvable. More precisely, it states that if $q\equiv 1\pmod{4}$ then the congruence $x^2\equiv p \pmod{q}$ is solvable if and only if the congruence $x^2\equiv q\pmod{p}$ is solvable.
+
+So far, we have covered some of the most celebrated advances in humanity's understanding of numbers up to the early 19th century. Mathematics has made rapid progress since then. Bertrand's postulate, which asserts that there is always at least one prime $p$ between $n$ and $2n$, for any $n>1$, was proven by Pafnuty Chebyshev in 1852, and Ben Green and Terence Tau proved in 2004 that the sequence of prime numbers contains arbitrarily long arithmetic progressions.
+
+The 20th century saw the emergence of the Langlands program, a far-reaching research program that aims to connect number theory, representation theory, and algebraic geometry. With the contributions of mathematicians like André Weil, Robert Langlands, and many others, the program has shaped much of the direction of modern research in number theory and its applications to other branches of mathematics.
+
+Even today fundamental concepts such as sets and functions continue to evolve. We live in an era of digital computation, with tools far beyond the reach of Fermat, Euler, and Gauss, where essentially all recorded knowledge is readily available to almost anyone. This computational revolution has also given rise to powerful tools like proof assistants—computer programs designed to construct and formally verify mathematical proofs. Since proof assistants are programming languages, they are often based on type theory rather than set theory, slightly changing the way mathematics is done. Functions in type theory are even more general than Leibniz, Euler, and Dirichlet envisioned: unlike in set theory where functions are a specific kind of relations between sets, functions in type theory are primitive entities satisfying certain rules for evaluation, and they have an extra dependency built in, allowing types of their outputs to depend on the input. Proof assistants are being used with great success to formally verify advanced mathematical theorems. Georges Gonthier formally verified the Four Color Theorem and the Odd Order Theorem, and Tom Hales verified Kepler's conjecture about sphere packings. A current effort led by Kevin Buzzard aims to formally verify Fermat's Last Theorem.
+
+Today, number theory continues to be one of the most active and fruitful areas of mathematical research, all of which started simply with counting on ten fingers.
+
+\section{Overview of the course}
+
+An integer $a$ is said to \emph{divide} an integer $b$ if there exists an integer $x$ such that $ax=b$. In other words, the number $a$ divides $b$ if the equation
+\begin{equation*}
+  ax=b  
+\end{equation*}
+has a solution in the integers. In this case we say that $a$ is a \emph{divisor} of $b$, and we write $a \mid b$. This equation is the simplest example of a Diophantine equation. Diophantine equations are equations expressed using variables, integers, and arithmetic operations. The primary goal of solving a Diophantine equation is to find integers for each of the variables for which the equation is true. The study of Diophantine equations is a cornerstone of number theory.
+
+For example, the equation
+\begin{equation*}
+  x^2 - 1 = 0
+\end{equation*}
+is a \emph{quadradic Diophantine equation} with two solutions: $x=\pm 1$. One of the most well-known quadratic Diophantine equations is the equation
+\begin{equation*}
+  x^2 + y^2 = z^2,
+\end{equation*}
+which is a Diophantine equation in \emph{three variables}. Its solutions are known as \emph{Pythagorean triples}. These triples, such as $(3,4,5)$ and $(5,12,13)$, corresponds to the side lengths of right-angled triangles and have been studied since antiquity. Perhaps the most famous Diophantine equation is Fermat's equation
+\begin{equation*}
+  x^n + y^n = z^n,
+\end{equation*}
+which has no solutions for nonzero integers $x$, $y$, and $z$ when $n\geq 3$.
+
+In this course, however, we will not go as far as proving Fermat's last theorem. The first target of this course is the Fundamental Theorem of Arithmetic, which establishes the prime numbers as the building blocks of all natural numbers. A number $n$ is said to be prime if it has exactly one divisor $d \mid n$ such that $d\neq n$. If this is the case, then its unique divisor that is not equal to itself is the number $1$. The Fundamental Theorem of Arithmetic asserts that any nonzero natural number $n$ can be written as a product of primes
+\begin{equation*}
+  n=p_1p_2\cdots p_k,
+\end{equation*}
+and that this decomposition of $n$ as a product of primes is unique up to the ordering of the primes.
+
+In order to study divisibility properties more deeply, Gauss introduced in his \emph{Disquisitiones Arithmeticae} the congruence relations of modular arithmetic. Following Gauss, we say that a number $a$ is congruent to $b$ modulo $n$, i.e.,
+\begin{equation*}
+  a \equiv b \pmod{n}
+\end{equation*}
+if $n \mid b - a$. Gauss used this new formalism to study quadratic residues, the Chinese Remainder theorem, and a variety of other problems in number theory, a thread we will also pick up on in this course.
+
+Some of the most important theorems in this context are Fermat's Little Theorem, Euler's Theorem, and Wilson's Theorem. Fermat's theorem asserts that given any prime number $p$ and any number $a$ that is not divisible by $p$ we have
+\begin{equation*}
+  a^{p-1}\equiv 1 \pmod{p}.
+\end{equation*}
+Fermat's theorem is an important ingredient in primality tests: If the congruence $a^{n-1}\equiv 1 \pmod{n}$ is false then the number $n$ cannot be prime. Testing this congruence for several values of $a$ is a simple way of discovering that $n$ is composite. This test is by itself, however, not conclusive because there are some numbers, the Carmichael numbers, that satisfy Fermat's congruence for all $a$ relatively prime to $n$.
+
+Euler's theorem is a sharper version of Fermat's Little Theorem, but it involves a new function: \emph{Euler's totient function}. Euler's totient function $\phi$ counts the numbers less than $n$ that are relatively prime to $n$, which means that they share no common divisors with $n$ other than $1$. For example, if $p$ is a prime number then $\phi(p)=p-1$ since every number $0<n<p$ is relatively prime to $p$. Using the totient function, Euler's theorem asserts that the congruence relation
+\begin{equation*}
+  a^{\phi(n)}\equiv 1 \pmod{n}
+\end{equation*}
+holds for any natural number $n$ and any number $a$ relatively prime to $n$. Euler's theorem has applications in cryptography.
+
+Wilson's theorem states that a number $p$ is a prime number if and only if the congruence
+\begin{equation*}
+  (p-1)!\equiv -1 \pmod{p}
+\end{equation*}
+holds. Here, the exclamation mark is used for the \emph{factorial function}: The number $n!$ is the product $1\cdots n$ of all the numbers from $1$ through $n$. Wilson's theorem therefore gives another criterion for primality testing.
+
+Euler's totient function is an example of an arithmetic function. Other such functions include the function $\tau(n)$, which returns the number of divisors of a number $n$, the function $\sigma(n)$, which returnts the sum of the divisors of a number $n$, and the \emph{M\"obius function} $\mu$. These and other functions have important relations between them, that we will investigate next. The M\"obius inversion formula, for instance, states that if $f$ and $g$ are two arithmetic functions, then we have
+\begin{equation*}
+  f(n)=\sum_{d\mid n} g(d)\qquad\text{if and only if}\qquad g(n)=\sum_{d\mid n}\mu(d)f\left(\frac{n}{d}\right).
+\end{equation*}
+This result allows us to "invert" summation relations involving divisors. For example, we will use the M\"obius inversion formula to show that
+\begin{equation*}
+  n=\sum_{d\mid n}\phi(d).
+\end{equation*}
+The M\"obius inversion is only one aspect of an algebraic structure that is present on the set of all arithmetic functions. Arithmetic functions can be multiplied by an operation known as \emph{Dirichlet convolution}, which gives the set of arithmetic functions the structure of a \emph{commutative ring}. Commutative rings are sets with operations of addition and multiplication satisfying the usual laws of arithmetic, and having such a structure on a set gives us a great opportunity to study them further. In our case, we get to study the primes more closely!
+
+\section{Reasoning about infinitely many natural numbers}
+
+Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns of truths and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Thruths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs—conclusive arguments that establish why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out what the natural numbers really are.
+
+When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \emph{successor function} $n\mapsto n+1$. The collection of all natural numbers forms a set or type
+
+\begin{equation}
+  \mathbb{N}:=\{0,1,2,\ldots\}.
+\end{equation}
+
+Mathematicians often prefer to work with sets, while computer scientists might prefer to work with types, both of which are collections of abstract objects often referred to as \emph{elements}. The distinction is merely that of the logical framework being used: Most mathematicians rely on the Zermelo-Fraenkel set theory, while computer scientist rely on programming languages that often have a type theory in its foundation. Theorem proving in computer programs called \emph{proof assistants} is rapidly becoming a more essential mathematical activity for students and researchers alike. However, many of the most popular proof assistants are based on type theory, in which collections of mathematical objects are called types. While types behave in many respects very Thus $0$, $1$, $2$, $\ldots$ are elemements of the set of natural numbers. The set $\mathbb{N}$ also comes equipped with a successor function
+
+\begin{equation*}
+  S : \mathbb{N} \to \mathbb{N},
+\end{equation*}
+
+which is defined by $S(n):=n+1$. Furthermore, the zero element and the successor function together are sufficient to describe all the natural numbers. The mathematician's way to express this sufficiency is by stating the principle of \emph{mathematical induction}: Given any property $P(n)$ expressing a condition of an arbitrary natural number $n$, in order to prove that $P(n)$ is true for all $n$ it suffices to prove that:
+\begin{enumerate}
+\item The property $P(0)$ is true.
+\item For all $n$, if the property $P(n)$ holds then the property $P(n+1)$ holds.
+\end{enumerate}
+Mathematical induction works, because every natural number is either $0$ or it is the successor of a previous natural number. Proving a property for all natural numbers therefore breaks down in two cases: The \emph{base case} in which we prove that $P(0)$ is true, and the \emph{inductive step} where we prove that $P(n+1)$ is true provided that $P(n)$ is true.
+
+Proofs by induction can be broken down into the following steps: First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is to prove that $P(n)$ is true for all $n$. Then prove the base case. While this step is often trivial, it is a necessary part of an induction proof. Finally, for the inductive step write down the exact induction hypothesis, i.e., the property $P(n)$ and the exact goal of the inductive step, i.e., the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds. After these steps the proof that $P(n)$ holds is complete.
+
+\begin{theorem}
+  For any natural number $n$ we have
+  \begin{equation*}
+    0 + \cdots + n = \frac{n(n+1)}{2}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Let $S_n:=0+\cdots+n$, and let $P(n)$ be the property that $S_n=\frac{n(n+1)}{2}$. We will prove that $P(n)$ is true for all $n$ by induction. In the base case, we have to show that $P(0)$ holds, i.e., that the identity
+  \begin{equation*}
+    0=\frac{0\cdot 1}{2}
+  \end{equation*}
+  is true. This is indeed true, because the numerator in the fraction on the right-hand side is $0$.
+
+  For the induction step, let $n$ be a natural number and assume as our inductive hypothesis that $P(n)$ is true. Our goal is now to prove $P(n+1)$, i.e., that the identity
+  \begin{equation*}
+    S_{n+1}=\frac{(n+1)(n+2)}{2}
+  \end{equation*}
+  Note that $S_{n+1}=S_n+(n+1)$. By the inductive hypothesis we have that $S_n=\frac{n(n+1)}{2}$, which we may now use to rewrite
+  \begin{equation*}
+    S_n + (n+1) = \frac{n(n+1)}{2} + (n+1).
+  \end{equation*}
+  Recall that $(n+1)=\frac{2(n+1)}{2}$. Therefore we can make the following computation:
+  \begin{equation*}
+    \frac{n(n+1)}{2} + (n+1) = \frac{n(n+1)}{2}+\frac{2(n+1)}{2} = \frac{n(n+1)+2(n+1)}{2}=\frac{(n+2)(n+1)}{2}.
+  \end{equation*}
+  Since $(n+2)(n+1)=(n+1)(n+2)$ it follows that $S_{n+1}=\frac{(n+1)(n+2)}{2}$ as desired.
+\end{proof}
+
+\section{Literature}
+In this course we will be following \cite{andrews1994} fairly closely. One distictive feature of this book is that it presents many of the most important theorems from two perspectives: a combinatorial one and an abstract one. This dual approach helps to clarify not only why these results are true but also appreciate why they are natural and inevitable within the broader framework of mathematics. However, there are many excellent sources to learn number theory from. One of my personal favorites for its clarity and accessibility is \cite{leveque1956vol1,leveque1956vol2}. Both Andrews' and LeVeque's textbooks contain plenty of exercises, most of which are very fun. Another all-time favourite textbook on number theory is \cite{hardy2008}, which is more comprehensive and also provides more historical notes. The textbook of Hardy and Wright does not provide exercises, but it contains the proofs of many important facts in number theory that are stated as exercises elsewhere.
+
+\begin{exercises}
+  \exercise The \emph{factorial function} $n\mapsto n!$ is defined recursively by
+  \begin{align*}
+    0! & := 1 \\
+    (n+1)! & := n!(n+1).
+  \end{align*}
+  Prove that $2^n<n!$ for all $n\geq 4$.
+  \exercise Prove that that the sum of the first $n$ odd numbers is a perfect square, i.e., prove that
+  \begin{equation*}
+    \sum_{k=0}^{n-1} 2k+1 = n^2.
+  \end{equation*}
+  Note: It is usual in mathematics that an empty sum $\sum_{k=0}^{-1}a_k$ is taken to be $0$, because no numbers are added.
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^n k(k+1) = \frac{n(n+1)(n+2)}{3}.
+  \end{equation*}
+  \exercise Prove the \emph{formula for the square pyramidal numbers}
+  \begin{equation*}
+    \sum_{k=0}^n k^2 = \frac{n(n+1)(2n+1)}{6}.
+  \end{equation*}
+  Can you explain why the numbers of the form $\sum_{k=0}^n k^2$ are called square pyramidal numbers?
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^{n-1}(2k+1)^2 = \frac{n(4n^2-1)}{3}.
+  \end{equation*}
+  \exercise Prove \emph{Nicomachus's Theorem}
+  \begin{equation*}
+    \sum_{k=0}^n k^3 = \frac{n^2(n+1)^2}{4}.
+  \end{equation*}
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^{n-1}(2k+1)^3=n^2(2n^2-1).
+  \end{equation*}
+  \exercise Prove the \emph{formula for the difference of $n$th powers}
+  \begin{equation*}
+    x^n-y^n=(x-y)\sum_{k=0}^{n-1}x^ky^{n-1-k}.
+  \end{equation*}
+  Note that this formula generalizes the \emph{formula for the difference of squares}
+  \begin{equation*}
+    x^2-y^2 = (x-y)(x+y).
+  \end{equation*}
+  \exercise \label{exercise:product-formula-fermat-numbers}Define the $n$th \emph{Fermat number} to be
+  \begin{equation*}
+    \Phi_n := 2^{2^n}+1.
+  \end{equation*}
+  Prove that
+  \begin{equation*}
+    \Phi_n - 2 = \prod_{k=0}^{n-1}\Phi_k.
+  \end{equation*}
+  Hint: Use the formula for the difference of squares.
+  \exercise Consider the Fibonacci numbers $F(n)$ given by
+  \begin{align*}
+    F_0 & := 0 \\
+    F_1 & := 1 \\
+    F_{n+2} & := F_{n+1}+F_n.
+  \end{align*}
+  Prove that
+  \begin{equation*}
+    \sum_{k=0}^nF_k = F_{n+2}-1.
+  \end{equation*}
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^{n-1}F_{2k+1}=F_{2n}.
+  \end{equation*}
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^{n}F_{2k}=F_{2n+1}-1.
+  \end{equation*}
+  \exercise Prove \emph{Cassini's identity}
+  \begin{equation*}
+    F_{n+1}^2-F_nF_{n+2}=(-1)^n.
+  \end{equation*}
+  \exercise Consider two nonzero natural numbers $a$ and $b$ satisfying $a(a+b) < b^2$. Prove that the strict inequality
+  \begin{equation*}
+    F_n<\left(\frac{b}{a}\right)^n
+  \end{equation*}
+  holds for all $n$. Use Cassini's identity to give some examples of natural numbers $a$ and $b$ that satisfy this inequality.
+\end{exercises}
+
+\chapter{Euclidean division and the representation theorem}
+
+\section{The induction principle revisited}
+
+Recall that mathematical induction is a proof strategy that can be used to prove properties of all infinitely many natural numbers. To prove that a property $P(n)$ is true for all $n$, we have to make two steps:
+\begin{enumerate}
+\item The property $P(0)$ is true.
+\item For all $n$, if the property $P(n)$ holds then the property $P(n+1)$ holds.
+\end{enumerate}
+
+We illustrate induction with another example, the \emph{formula for the geometric series}.
+
+\begin{theorem}
+  For any real number $x$ not equal to $1$, the identity
+  \begin{equation*}
+    \sum_{k=0}^{n-1}x^k = \frac{x^n-1}{x-1}
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  The proof is by induction on $n$. In the case $n=0$ the sum
+  \begin{equation*}
+    \sum_{k=0}^{-1}x^k
+  \end{equation*}
+  is an empty sum, because it sums over all elements $0\leq k \leq -1$ of which there are none. In empty sums, nothing is being added, so they are always $0$. On the right hand side, we also see that
+  \begin{equation*}
+    \frac{x^0-1}{x-1}=\frac{1-1}{x-1}=0,
+  \end{equation*}
+  and hence the base case holds.
+
+  For the inductive step, assume that $\sum_{k=0}^{n-1}x^k=\frac{x^n-1}{x-1}$. Our goal is to show that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  Note that $\sum_{k=0}^{n}x^k=(\sum_{k=0}^{n-1}x^k)+x^n$. By applying the induction hypothesis we therefore find that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^n-1}{x-1}+x^n.
+  \end{equation*}
+  Note that $x^n=\frac{(x-1)x^n}{x-1}$. Therefore we can bring the two summands under one fraction as follows:
+  \begin{equation*}
+    \frac{x^n-1}{x-1}+x^n=\frac{x^n-1}{x-1}+\frac{(x-1)x^n}{x-1}=\frac{x^n-1+x^{n+1}-x^n}{x-1}=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  This completes the inductive step, and therefore the proof.
+\end{proof}
+
+The induction principle of the natural numbers implies other important reasoning principles. One of them is the \emph{well-ordering principle}. The well-ordering principle has many practical implications. For example, in the next section we will apply a variation of the well-ordering principle, which we will describe below, to construct division with remainder.
+
+\begin{theorem}\label{theorem:well-ordering-natural-numbers}
+  Any inhabited subset of the natural numbers has a least element.
+\end{theorem}
+
+\begin{proof}
+  We will prove, by induction on $n$, that every subset $A\subseteq \mathbb{N}$ with $n\in A$ has a least element.
+
+  In the base case we have to show that every subset $A\subseteq \mathbb{N}$ containing $0$ has a least element. Since $0$ is the least natural number, it follows that any subset containing $0$ must have a least element.
+
+  For the inductive step assume that every subset $A\subseteq \mathbb{N}$ containing $n$ has a least element. Our goal is to show that every subset $A\subseteq \mathbb{N}$ containing $n+1$ has a least element. There are two cases to consider: either $0\in A$ or $0\notin A$. In the first case, where $0\in A$ is assumed, then $A$ clearly has a least element. In the second case, define the subset $B\subseteq\mathbb{N}$ to be
+  \begin{equation*}
+    \{x\in\mathbb{N} \mid x+1\in A\}.
+  \end{equation*}
+  In other words, $B$ is the set of all natural numbers $x$ such that $x+1$ is in $A$. Since $n+1$ is in $A$ by assumption, it follows that $n\in B$. However, note that we are in position to apply the induction hypothesis now: The set $B$ must have a least element $m$.
+
+  We claim that $m+1$ must be the least element of $A$. First of all, we know that $m+1\in A$ because $m\in B$. Second of all, if $x\in A$ then we know that $x$ is nonzero. This means that $x=x'+1$ for some natural number $x'$. In other words, we have $x'+1\in A$, which means that $x'\in B$. Since $m$ is the least element of $B$ it follows that $m\leq x'$. This implies that $m+1\leq x'+1$, i.e., $m+1\leq x$. This shows that any element of $A$ must be greater than or equal to $m+1$. In other words, $m+1$ is the least element of $A$.
+\end{proof}
+
+We also have some variations of the well-ordering principle that apply to subsets of the integers. For the following theorem, we say that a subset $A\subseteq \mathbb{Z}$ is \emph{bounded from below} if there is an integer $b$ such that $b\leq x$ for every element $x\in A$. Similarly, we say that a subset $A\subseteq \mathbb{Z}$ is \emph{bounded from above} if there is an integer $b$ such that $x\leq b$ for every element $x\in A$.
+
+\begin{theorem}\label{theorem:well-ordering-integers}
+  Let $A$ be a subset of the integers. We make the following two claims:
+  \begin{enumerate}
+  \item If $A$ is inhabited and bounded from below, then $A$ has a least element.
+  \item If $A$ is inhabited and bounded from above, then $A$ has a largest element.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  For the first claim, assume that $A$ is inhabited and suppose that $b\leq x$ for every element $x\in A$. Then we define the subset
+  \begin{equation*}
+    B := \{x\in \mathbb{Z}\mid x+b \in A\}.
+  \end{equation*}
+  The subset $B$ is inhabited and it is bounded from below by $0$. This means that $B$ is in fact a subset of the natural numbers, and so it has a least element by the well-ordering principle, \cref{theorem:well-ordering-natural-numbers}. Observe that $x\in B$ if and only if $x+b\in A$, so if $x$ is the least element of $B$ then $x+b$ is the least element of $A$. This proves the first claim.
+
+  The second claim follows from the first, because if $A$ is inhabited and bounded from above, then the set
+  \begin{equation*}
+    B := \{x\in \mathbb{Z}\mid -x\in A\}
+  \end{equation*}
+  is inhabited and bounded from below. Since the set $B$ has a least element by the previous claim, it follows that the set $A$ has a largest element.
+\end{proof}
+
+\section{Euclidean division}
+
+The Euclidean division operation with a divisor $d>0$ is the operation that returns for each integer $a$ the division with remainder of $a$ by $d$. More specifically, the Euclidean division operation of $a$ by an integer $d$ returns two integers, the \emph{quotient} $q$ and the \emph{remainder} $r$, such that $0\leq r <d$ and such that
+\begin{equation*}
+  a= q\cdot d + r
+\end{equation*}
+For example, if $a:=23$ and $d:=5$, then the Euclidean division operation returns $q:=4$ for the quotient, and $r:=3$ for the remainder. Note that we have $0\leq 3<5$, and the identity
+\begin{equation*}
+  23=4\cdot 5+3
+\end{equation*}
+holds. We will prove that for every $d>0$ there is always a unique such pair $(q,r)$ of integers satisfying the two constraints for Euclidean division. Before we do so, we first explain in more detail how to go about \emph{unique existence} proofs.
+
+Suppose $X$ is a set and $P(x)$ is a property of the elements of the set $X$. For a concrete example, which we will work out below, take $X$ to be the set $\mathbb{N}$ of natural numbers and $P(x)$ to be the property that $x=0$. Now suppose someone asks you to prove that there is a unique element $x$ that satisfies $P(x)$. Then your task splits up in two parts:
+\begin{enumerate}
+\item First, you have to prove existence. Here, your task is to find a concrete element $a\in X$ and prove that it satisfies the property $P(a)$.
+\item Second, you have to prove uniqueness. This means that you have to show for any two elements $x$ and $y$, if both $P(x)$ and $P(y)$ hold then we must have $x=y$. In other words, in the uniqueness part of the proof you are tasked with showing that there is \emph{at most one} element satisfying $P$.
+\end{enumerate}
+The existence part of the proof ensures that at least one solution exists, while the uniqueness part of the proof ensures that there is at most one solution. Both steps combined allow us to conclude that there exists exactly one element of $x$ such that $P(x)$ holds. In a logical formula, it is customary to write $\exists!_{(x\in X)}P(x)$ for the unique existence property.
+
+The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it captures the essence of unique existence proofs. To show that there is a unique natural number equal to $0$, we first have to give an example of a natural number that is equal to $0$. We simply take the number $0$ itself. For the uniqueness part of the proof, we have to show that any two numbers that are equal to $0$ are equal to each other. This is evident, because they are both equal to $0$. Thus we conclude that
+\begin{equation*}
+  \exists!_{(n\in\mathbb{N})}n=0.
+\end{equation*}
+
+\begin{theorem}\label{theorem:euclidean-division}
+  Consider an integer $a$ and an integer $d>0$. Then there exists a unique pair of integers $(q,r)$ such that $0\leq r<d$ satisfying the identity
+  \begin{equation*}
+    a= q\cdot d + r.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Consider the set
+  \begin{equation*}
+    A:=\{x\in\mathbb{Z} \mid xd\leq a\}
+  \end{equation*}
+  of integers $x$ whose product with $d$ is at most $a$. We will show that $A$ is bounded from above and that $A$ is inhabited. Together, this will imply by \cref{theorem:well-ordering-integers} that $A$ has a largest element, which will be our quotient $q$.
+
+  First, we show that the set $A$ has an upper bound. There are two cases to consider: either $a\geq 0$ or $a<0$. If $a\geq 0$, the integer $a$ is an upper bound because for any $x\in A$ we have $x \leq \max(0,xd)\leq a$. If $a<0$ then the integer $0$ is an upper bound because $xd\leq a<0$ implies that $x$ must be negative.
+
+  Next, we observe that the integer $-|a|$ is always in the set $A$, because $-|a|d \leq -|a|\leq a$. Therefore it follows that the set $A$ has a largest element, which we will call $q$.
+
+  By definition $q$ satisfies $qd\leq a$ and $q$ is the largest such element. By maximality of $q$ it follows that $a < (q+1)d=qd + d$. Now we take $r:= a-qd$. Since $qd\leq a$ it follows that $0\leq r$, and since $a< qd+d$ it follows that $r<d$. This completes the existence of $q$ and $r$.
+
+  It remains to prove uniqueness. Suppose that $(q,r)$ and $(q',r')$ are two pairs of integers satisfying $0\leq r<d$, $0\leq r'<d$, and the equations
+  \begin{equation*}
+    a=qd+r,\qquad\text{and}\qquad{}a=q'd+r'.
+  \end{equation*}
+  It follows that
+  \begin{equation*}
+    (q-q')d=r'-r.
+  \end{equation*}
+  However, the integer $r'-r$ satisfies the strict inequalities $-d<r'-r<d$ and it is divisible by $d$. This implies that $r'-r=0$, i.e., that $r=r'$. Now it also follows that $(q-q')d=0$. Since $d$ was assumed to be positive, this implies that $q-q'=0$, i.e., that $q=q'$. This completes the proof of uniqueness.
+\end{proof}
+
+\section{The representability theorem}
+
+The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number
+\begin{equation*}
+  2\cdot 10^2+3\cdot 10^1+1\cdot 10^0.
+\end{equation*}
+Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $11100111$, while the hexadecimal representation of this number is $E7$. More generally, for any \emph{base} $k$ there is a unique representation of all integers using powers of $k$.
+
+\begin{theorem}\label{theorem:representation}
+  Consider a natural number $k>1$. Then there exists for every natural number $n$ a unique list $\ell$ of digits $d_0,\ldots,d_{l-1}$ of length $l$, such that the inequalities $0\leq d_i<k$ hold for each $i<l$, such that the \emph{leading digit} $d_{l-1}\neq 0$, and satisfying the equation
+  \begin{equation*}
+    n= \sum_{i=0}^{l-1}d_i k^i.
+  \end{equation*}
+\end{theorem}
+
+Before proving the theorem, let's first discuss the main idea behind the proof. Since we assumed that $k>0$, it follows from the Euclidean division theorem, \cref{theorem:euclidean-division}, that there is a unique pair $(q,r)$ of numbers such that $n=qk+r$ and $0\leq r<k$. This gives us the first digit in the representation theorem\footnote{It should be noted that this digit appears last in the actual representation. It is the "ones digit" of the representation.}: the number $d_0:=r$.
+
+The representation theorem would now follow if we already knew that $q$ has a unique representation. If $d_0=r$ and if $d_1,\ldots,d_{l-1}$ is the unique representation of $q$, then the list $d_0,\ldots,d_{l-1}$ is a unique representation of $n$. However, the usual induction principle doesn't allow us to make this step, because $n$ is not necessarily the successor of $q$. Therefore we need something stronger: the \emph{strong induction principle}.
+
+\begin{theorem}\label{theorem:strong-induction}
+  Consider a property $P(n)$ of the natural numbers, and assume that the following two conditions hold:
+  \begin{enumerate}
+  \item The property $P(0)$ is true.
+  \item If the property $P(k)$ is true for all $k\leq n$, then the property $P(n+1)$ is true.
+  \end{enumerate}
+  Then $P(n)$ is true for all $n$.
+\end{theorem}
+
+The strong induction principle can be formulated more succinctly using the \emph{universal quantifier}. The universal quantifiery $\forall$ is used to express that a property is true for all elements in a domain of discourse. In other words, when we say that a property $P(n)$ is true for all natural numbers $n$, we can write that as the logical formula
+\begin{equation*}
+  \forall_{(n\in\mathbb{N})}P(n).
+\end{equation*}
+  Using universal quantification, we can state the strong induction principle as follows. Suppose that the following two conditions hold:
+  \begin{enumerate}
+  \item The property $P(0)$ is true.
+  \item If the property $\forall_{k\leq n} P(k)$ is true, then the property $P(n+1)$ is true.
+  \end{enumerate}
+  Then $P(n)$ is true for all $n$. The universal quantifier is helpful in the proof of the strong induction principle.
+
+\begin{proof}
+  Let $P(n)$ be a property of an arbitrary natural number $n$, and define
+  \begin{equation*}
+    Q(n) := \forall_{(m\leq n)} P(m)
+  \end{equation*}
+  Note that in order to prove that $P(n)$ is true for all $n$, it suffices to prove that $Q(n)$ is true for all $n$. Indeed, if $Q(n)$ is true for all $n$, that just means that $P(m)$ is true for all $m\leq n$, for all $n$. In particular $P(n)$ is true for all $n$.
+
+  With that out of the way, assume that $P(0)$ is true, and that $Q(n)$ implies $P(n+1)$ as in the induction step of the strong induction principle. Our goal is to show that $P(n)$ is true for all $n$, and we have already shown that it suffices to show that $Q(n)$ is true for all $n$. We proceed by induction on $n$.
+
+  For the base case we need to prove that $Q(0)$ is true, i.e., that $P(m)$ is true for all $m\leq 0$. Note that $m\leq 0$ implies $m=0$, so the base case follows from the assumption that $P(0)$ is true.
+
+  For the inductive step, assume that $Q(n)$ is true. Our goal is to show that $Q(n+1)$ is true. However, we have assumed that $Q(n)$ implies $P(n+1)$. Now notice that if $Q(n)$ is true, i.e., if $P(m)$ is true for all $m\leq n$, and if $P(n+1)$ is true, then $P(m)$ is true for all $m\leq n+1$. In other words, $Q(n+1)$ is true. This completes the inductive step and therefore the proof.
+\end{proof}
+
+Our earlier idea to prove the representability theorem can finally be made into a proof.
+
+\begin{proof}[Proof of \cref{theorem:representation}]
+  We prove the theorem by strong induction. For the base case, note that the empty list satisfies the requirements vacuously since there are no digits in the empty list and empty sums are set to be $0$. Thus the empty list is a representation of $0$. Now suppose that $\ell=(d_0,\ldots,d_{l-1})$ is a representation of $0$ and $\ell$ is a list of nonzero length $l$. By the requirement that the leading digit $d_{l-1}$ is nonzero it follows that the sum
+  \begin{equation*}
+    \sum_{i=0}^{l-1}d_ik^i
+  \end{equation*}
+  is nonzero. Such a list is therefore not a representation of $0$. The only representation of $0$ is therefore the empty list.
+
+  Now suppose that every number $m\leq n$ has a unique representation. To show that the number $n+1$ has a unique representation, first note that there is a unique pair $(q,r)$ of numbers $q$ and $0\leq r<k$ such that
+  \begin{equation*}
+    n+1=qk+r.
+  \end{equation*}
+  There are two cases to consider: either $q=0$ or $q\neq 0$. In the first case we find that $n+1=r<k$. We let $\ell$ be the list $(d_0)$ of length $1$ with $d_0:= r$. Its leading digit is nonzero because $n+1$ is nonzero, and clearly we have
+  \begin{equation*}
+    \sum_{i=0}^0 d_ik^i = d_0 = n+1.
+  \end{equation*}
+  Furthermore, this representation is unique because any representation of $n+1$ must be a list of digits of length $1$, which fixes its digit $d_0$ to $n+1$.
+
+  If $q\neq 0$, then we have the inequalies
+  \begin{equation*}
+    q+1 \leq 2q \leq qk \leq qk+r=n+1.
+  \end{equation*}
+  The second inequality follows from the assumption that $k>1$. Since $q+1\leq n+1$ it follows that $q\leq n$. This puts us in position to apply the induction hypothesis of the strong induction principle: The number $q$ has a unique representation $(e_0,\ldots,e_{l-1})$. Now we define the representation of $n+1$ to be $(d_0,\ldots,d_l)$, where $d_0:=r$ and $d_{i+1}:=e_i$ for $0\leq i<l$.
+
+  This representation of $n+1$ is unique, because for any representation of $n+1$, its $d_0$ must be equal to $r$, and the list $(d_1,\ldots,d_{l-1})$ must be a representation of $q$, which is unique, thus completing the proof.
+\end{proof}
+
+\begin{exercises}
+\exercise Show that a number written as $d_{l-1}\cdots d_0$ in its decimal representation is divisible by $11$ if and only if the alternating sum
+  \begin{equation*}
+    \sum_{i=0}^{l-1}(-1)^{i}d_i
+  \end{equation*}
+  is divisible by $11$. For example, the number $2541$ is divisible by $11$ because $-2+5-4+1=0$ is divisible by $11$.
+\exercise \emph{Zeckendorf's representation theorem}. Show that for any natural number $n$ there is a unique list $\ell=(d_0,\ldots,d_{l-1})$ of digits $0$ and $1$, such that its leading digit $d_{l-1}$ is nonzero, no two consecutive digits are both $1$, and satisfying the identity
+  \begin{equation*}
+    n=\sum_{i=0}^{l-1}d_iF_{i+2},
+  \end{equation*}
+  where $F_j$ is the $j$th Fibonacci number. Zeckendorf representations have some fun applications:
+  \begin{enumerate}
+  \item The Zeckendorf representation theorem can be used in the design of any document to get meaningful relative font sizes: If $d_{l-1}\cdots d_0$ is the Zeckendorf representation of a font size $n$, then adding an extra zero at the end gives the Zeckendorf representation $d_{l-1}\cdots d_00$ of a good next font size. If you are working with font size $12$, what is the next sensible font size?
+  \item Zeckendorf representations can also be used to convert miles to kilometers with a fair degree of accuracy. Again, given a number $n$ of miles, with Zeckendorf representation $d_{l-1}\cdots d_0$, add a $0$ at the end to get the Zeckendorf representation $d_{l-1}\cdots d_00$ of the number of kilometers. How fast is $65$ mph in kph according to this conversion?
+  \end{enumerate}
+\end{exercises}
+
+\chapter{Linear Diophantine Equations}
+
+In this section we study \emph{linear Diophantine equations}, i.e., equations of the form
+\begin{equation*}
+  a_0x_0+\cdots +a_kx_k=b,
+\end{equation*}
+with integer coefficients $a_0,\ldots,a_k$. The objective of a linear Diophantine equation such as the one above is to find integers $x_0,\ldots,x_k$ for which the equation holds, to study conditions under which the equation has integer solutions, and ultimately to characterize all solutions.
+
+\section{Divisibility}
+
+The simplest linear Diophantine equation is the equation $ax=b$ in one variable $x$. The condition of its solvability leads to the concept of \emph{divisibility}.
+
+\begin{definition}
+  We say that an integer $a$ \emph{divides} an integer $b$ if there exists an integer $x$ such that the equation
+  \begin{equation*}
+    ax=b
+  \end{equation*}
+  holds. When $a$ divides $b$, we write $a\mid b$ and we say that $a$ is a \emph{divisor} of $b$. Sometimes we also refer to $b$ as the \emph{dividend}.
+\end{definition}
+
+The integers $-1$, $0$, and $1$ have special properties with respect to divisibility:
+\begin{enumerate}
+\item The integers $1$ and $-1$ divide any integer $b$. Indeed, the integer $b$ itself is a solution to the equation $1x=b$, and the integer $-b$ is a solution to the equation $-1x=b$.
+\item Every integer $a$ divides $0$. Indeed, $x=0$ is a solution to the equation $ax=0$.
+\item If $0\mid b$ for some integer $b$, then it follows that $b=0$. Indeed, if $0x=b$ has a solution, then $b=0$ because $0x=0$. Furthermore, we observe that \emph{every} integer is a solution to the equation $0x=0$.
+  
+  On the other hand, it follows that $0\nmid 1$, and indeed that $0\nmid b$ for any nonzero integer $b$.
+\item Similarly, but slightly more complicated, if $a\mid 1$ for some integer $a$, then it follows that $a=\pm 1$. Indeed, if $ax=1$ has a solution, then the absolute value $|a|$ of $a$ cannot be greater than $1$, because its nonzero multiples would be of absolute value greater than $1$. Therefore it follows that $|a|=1$, which proves the claim. In the situation where $a\mid 1$, we say that $a$ is \emph{invertible}, or that it is a \emph{multiplicative unit}, because the solution to the equation $ax=1$ is a multiplicative inverse of $a$.
+\end{enumerate}
+
+If $a$ is a nonzero integer, then there is always at most one solution to the equation $ax=b$. In other words, if a nonzero integer $a$ divides an integer $b$, then its quotient is uniquely defined. On the other hand, we just saw that every integer is a solution to the equation $0x=0$. The quotient is therefore not uniquely defined in this case. In the following lemma we remove this abiguity by imposing an extra bound on the solution, that $|x|\leq |b|$. In the case where $a$ is nonzero, then this condition is automatically satisfied, while in the case where $a=0$ it imposes the zero solution.
+
+\begin{lemma}
+  Suppose that $a\mid b$. Then there is a unique integer $x$ such that $|x|\leq |b|$ satisfying the equation $ax=b$. We will write $a/b$ for this unique integer, which is called the \emph{quotient} of $b$ divided by $a$.
+\end{lemma}
+
+\begin{proof}
+  There are two cases to consider: either $a=0$ or $a\neq 0$. In the case where $a=0$, having a solution $ax=b$ implies that $b=0$. In this case, any $x$ is a solution to the equation $ax=b$. However, only one solution $x$ satisfies $|x|\leq b$, namely $x=0$. Thus, the quotient $0/0$ is set to be $0$.
+
+  If $a\neq 0$, then the function $x\mapsto ax$ is \emph{injective}. This means that $ax=ay$ implies $x=y$. Consequently, there can be at most one integer $x$ such that $ax=b$. Since we assumed that there is at least one such a solution, it follows that it is unique. Moreover, if $ax=b$, then $|x|\leq |a||x|=|ax|=|b|$, so $x$ indeed satisfies the required bound.
+\end{proof}
+
+\begin{remark}
+  While we have given an informal description, the definition of divisibility features the \emph{existential quantifier} $\exists$. When we write the logical formula $\exists_{(x\in X)}P(x)$, this means that there exists an element $x\in X$ for which $P(x)$ holds. The definition of divisibility translates to the following logical formula:
+  \begin{equation*}
+    a\mid b := \exists_{(x\in\mathbb{Z})}ax=b.
+  \end{equation*}
+  In order to use existential quantification in proofs, it is useful to know how to break them down systematically. There are two cases to consider: (1) How to \emph{prove} an existence claim, and (2) how to \emph{use} an existence claim as an assumption to prove something else.
+  \begin{enumerate}
+  \item The principal way to prove that there exists an element $x\in X$ such that $P(x)$ holds, is to construct an element $x$ of $X$ and prove that the property $P(x)$ is holds.
+  \item To use that there exists an $x\in X$ such that $P(x)$ holds in the proof of another property $Q$, you may assume to have an element $x$ and you may assume that the property $P(x)$ holds. However, in this scenario we may not assume anything else about $x$ unless that is otherwise warranted.
+  \end{enumerate}
+  In the case of divisibility, in order to prove that $a\mid b$ holds we must find a solution to the equation $ax=b$, and in order to use that $a\mid b$ holds as an assumption, we may assume $x$ is an integer for which the equation $ax=b$ holds.
+\end{remark}
+
+\begin{proposition}
+  If $d$ divides $a$ and $b$, then $d$ divides $ax+by$ for any two integers $x$ and $y$.
+\end{proposition}
+
+\begin{proof}
+  Suppose that $d$ divides both $a$ and $b$. Let $u$ and $v$ be integers such that $du=a$ and $dv=b$. Then we have
+  \begin{equation*}
+    ax+by = dux + dvy = d(ux + vy),
+  \end{equation*}
+  which shows that $ax + by$ is a multiple of $d$.
+\end{proof}
+
+Sometimes, the hardest thing is to figure out how to rigorously prove a property that looks completely self-evident. The following proposition, for instance, asserts that in any set of $k$ consecutive integers, exactly one of them is divisible by $k$.
+
+There are, as is commonly the case in mathematics, several ways to approach this problem, but the question is how to generate ideas towards a full proof. One good way of generating ideas is by looking at special cases. In our problem at hand, a special case of interest is the set $\{0,1,\ldots,k-1\}$. There should be exactly one element in the set $\{0,1,\ldots,k-1\}$ divisible by $k$.
+
+Indeed, this is a direct consequence of the Euclidean division theorem: the only element in this set that has remainder $0$ after division by $k$ is the integer $0$. This suggests using the Euclidean division theorem for the general claim as well. Furthermore, we will also use the common proof technique of assuming something \emph{without loss of generality}.
+
+\begin{proposition}
+  In any set of $k>0$ consecutive integers
+  \begin{equation*}
+    \{a,a+1,\ldots,a+k-1\}
+  \end{equation*}
+  there is exactly one element divisible by $k$.
+\end{proposition}
+
+\begin{proof}
+  First, consider the function
+  \begin{equation*}
+    r : \{a,a+1,\ldots,a+k-1\} \to \{0,1,\ldots,k-1\},
+  \end{equation*}
+  where $r(x)$ is defined to be the remainder of $x$ after division by $k$. We claim that this map is injective, meaning that if $r(x)=r(y)$ for two elements $x$ and $y$, then $x=y$. To see this, consider two elements $x$ and $y$ in the set $\{a,\ldots,a+k-1\}$. Without loss of generality we may assume that $x\leq y$. Indeed, either $x\leq y$ or $y\leq x$ holds, and these situations are completely similar, so nothing is lost if we just assume that $x\leq y$.
+
+  We have the equalities $x=q(x)k+r(x)$ and $y=q(y)k+r(y)$, where $q(x)$ and $q(y)$ are the quotients of $x$ and $y$ after division by $k$, respectively. Since we assumed that $r(x)=r(y)$, it follows that $y-x=(q(y)-q(x))k$. In other words, $y-x$ is divisible by $k$. Furthermore, we have $0\leq y-x <k$ because both $x$ and $y$ are in the set $\{a,\ldots,a+k-1\}$. It follows from Euclidean division theorem that the only integer $0\leq z <k$ divisible by $k$ is $0$, so we find that $y-x=0$. We conclude that $x=y$.
+
+  It now follows that every element $y\in\{0,1,\ldots,k-1\}$ is the value of $r$ of exactly one element $x\in\{a,a+1,\ldots,a+k-1\}$, because both sets have $k$ elements and the map $r$ doesn't take any value more than once. In particular, there is exacly one element $x\in\{a,a+1,\ldots,a+k-1\}$ whose remainder after division by $k$ is $0$. In other words, exactly one element of this set is divisible by $k$.
+\end{proof}
+
+Another approach that often works well, which was suggested in class by Lucy, is a proof by contradiction. In proofs by contradiction, you assume the contrary and derive a contradiction. If the contrary is impossible, then the original claim must be true.
+
+\begin{proof}[Proof by contradiction]
+  Let's assume that there isn't a unique integer in the set
+  \begin{equation*}
+    \{a,\ldots,a+k-1\}
+  \end{equation*}
+  divisible by $k$. There are two cases to consider: Either there are no elements divisible by $k$, or there are at least two distinct elements divisible by $k$.
+
+  In the first case, by Euclid's division theorem there is a unique pair $(q,r)$ such that $a=qk+r$, and since $a$ is not divisible by $k$ it must be the case that $r \neq 0$. Now it follows that $qk+k$ is an element in $\{a,\ldots,a+k-1\}$, which is divisible by $k$, contrary to our assumption. Thus we conclude that it is not true that none of the elements of $\{a,\ldots,a+k-1\}$ is divisible by $k$.
+
+  In the second case, let $x$ and $y$ be distinct elements of $\{a,\ldots,a+k-1\}$ that are both divisible by $k$. Assume without loss of generality, that $x\leq y$. Then we have $0\leq y-x < k$, and $y-x$ is divisible by $k$. By the Euclidean division theorem, we must have $y-x=0$, which contradicts our assumption that $x$ and $y$ are distinct.
+\end{proof}
+
+\section{Ideals of integers}
+
+Ideals are a concept from \emph{ring theory}, which studies \emph{rings}, which are sets equipped with addition, subtraction, and multiplication, satisfying the most familiar laws of arithmetic:
+\begin{align*}
+  (x+y)+z & = x+(y+z) & (xy)z & = x(yz) \\
+  0+x & = x & 1x & = x \\
+  x+0 & = x & x1 & = x \\
+  x-x & = 0 & x(y+z) & = xy + xz \\
+  -x+x & = 0 & (x+y)z & = xz + yz \\
+  x+y & = y+x.
+\end{align*}
+Rings such as the integers satisfy additionally the law $xy=yx$ of commutativity; such rings are called \emph{commutative rings}. Notice that the set $\mathbb{N}$ of natural numbers isn't a ring, because it lacks subtraction. Sets with the structure of a ring appeared in David Hilbert's \emph{Zahlbericht}, but their formal definition was first given by Emmy Noether in \emph{Idealtheorie in Ringbereichen}, who was also the first to study them systematically.
+
+An \emph{ideal of integers} is a subset $I\subseteq \mathbb{Z}$ that contains $0$, and contains the linear combination $kx+ly$ for any $x,y\in I$, and any $k,l\in\mathbb{Z}$. The subset $\{0\}\subseteq{Z}$ satisfies the conditions of being an ideal in a trivial way; this ideal is called the \emph{zero ideal}. The subset $(a):=\{ka \mid k\in\mathbb{Z}\}$ also satisfies the conditions of being an ideal; ideals of this form are called \emph{principal ideals}, since they are generated by a single integer. In the following theorem we show that every ideal of integers is of this form.
+
+\begin{theorem}\label{theorem:integers-principal-ideal-domain}
+  For every ideal $I\subseteq\mathbb{Z}$ there is a unique natural number $n$ such that $I=(n)$.
+\end{theorem}
+
+\begin{proof}
+  There are two cases to consider: Either $I$ is the zero ideal, or $I$ contains a nonzero integer. In the first case it is clear that $I=(0)$, and that $0$ is the unique natural number $n$ such that $I=(n)$. Thus we focus on the nonzero case.
+
+  Suppose that $I$ contains a nonzero integer $x$. Then $I$ contains the integer $|x|$, because $|x|=\pm x$. In particular, $I$ contains a positive integer. Therefore it follows that $I$ contains a least positive integer $n$. To see that $I=(n)$, consider an element $x\in I$. By the Euclidean division theorem, it follows that $x=qn+r$, where $0\leq r<n$. Notice that $r\in I$, since it is the difference $x-qn$ of two elements in $I$. Since $r$ is nonnegative and $n$ is the least positive integer in $I$, it follows that $r=0$, i.e., that $x=qn$. Thus, every element in $I$ is a multiple of $n$.
+
+  Now suppose that $I=(n)$ and $I=(m)$ for two nonzero natural numbers $n$ and $m$. Then it follows that $m=qn$ and $n=pm$. Thus, we see that $m=(pq)m$, which implies that $pq=1$. Furthermore, both $p$ and $q$ are positive integers, so we have $p=1$ and $q=1$. This shows that $m=1n=n$, establishing uniqueness.
+\end{proof}
+
+The set of ideals of $\mathbb{Z}$ is ordered by inclusion, i.e., we write $I\subseteq J$ for two ideals $I$ and $J$, if every element of $I$ is an element of $J$. Note that $(b)\subseteq (a)$ holds if and only if $a\mid b$. The theory of ideals of integers is therefore closely related to the theory of divisibility of integers.
+
+\section{The ordering by divisibility}
+The divisibility relation equips the sets of integers and natural numbers with a useful extra structure, a \emph{partial ordering} of their elements. The set of natural numbers equipped with the divisibility relation is a poset, while the set of integers equipped with the divisibility relation is a preorder, a slightly weaker structure.
+
+\begin{definition}
+  A \emph{preorder} consists of a set $X$ and an ordering $\leq$ of the elements of $X$, such that
+  \begin{enumerate}
+  \item The ordering is \emph{reflexive}. This means that $x\leq x$ holds for every $x$.
+  \item The ordering is \emph{transitive}. This means that if $x \leq y$ and $y \leq z$ both hold, then $x\leq z$ also holds.
+  \end{enumerate}
+  A \emph{poset}, or \emph{partially ordered set} in full, is a preorder $(X,{\leq})$ satisfying additionally the condition:
+  \begin{enumerate}[start=3]
+  \item The ordering is \emph{antisymmetric}. This means that if both $x\leq y$ and $y\leq x$ hold, then $x=y$.
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+  The set of integers equipped with the divisibility relation $\mid$ is a preorder, and the set of natural numbers equipped with the divisibility relation $\mid$ is a poset.
+\end{theorem}
+
+\begin{proof}
+  We first show that the set of integers with divisibility is a preorder. To see that the divisibility relation is reflexive, note that $x=1$ is a solution of the equation
+  \begin{equation*}
+    ax=a.
+  \end{equation*}
+  Therefore, it follows that $a\mid a$ for every integer $a$. To see that the divisibility relation is transitive, assume that $a\mid b$ and $b\mid c$. That is, assume that we have integers $x$ and $y$ such that $ax=b$ and $by=c$. Then it follows that
+  \begin{equation*}
+    a(xy)=(ax)y=by=c.
+  \end{equation*}
+  In other words, $c$ is divisible by $a$. This completes the proof that $\mathbb{Z}$ equipped with the divisibility relation is a preorder.
+
+  To see that the natural numbers equipped with divisibility forms a poset, it remains to show that the divisibility relation is antisymmetric on the natural numbers. Suppose that $m\mid n$ and $n\mid n$, i.e., that there are natural numbers $x$ and $y$ so that $mx=n$ and $ny=m$. By transitivity of divisibility it follows that $m(xy)=m$.
+\end{proof}
+
+Despite lacking antisymmetry, the preorder of the integers with divisibility is essentially equivalent to the poset of natural numbers with divisibility. For every integer $a$ there is a unique natural number $n$ satisfying $n\mid a$ and $a\mid n$. This unique number is of course the absolute value of $a$. The absolute value function $x\mapsto |x|$ preserves divisibility, which means that $a\mid b$ implies $|a| \mid |b|$, and it satisfies the logical equivalence
+\begin{equation*}
+  (a\mid b)\land (b\mid a) \Leftrightarrow |a|=|b|
+\end{equation*}
+for any integer $a$ and any natural number $n$. Order preserving maps $f : (P,\leq_P) \to (Q,\leq_Q)$ from a preorder $(P,\leq_P)$ to a poset $(Q,\leq_Q)$ that satisfy the logical equivalence $(x\leq_P y)\land (y\leq_P x) \Leftrightarrow f(x)=f(y)$ for every $x,y\in P$ are also called \emph{poset reflections}. Every preorder has a poset refection, but we will not need to go into that aspect of order theory in this course.
+
+\section{Greatest common divisors}
+
+Some preorders $(P,\leq)$ satisfy the property that for any two elements $a,b\in P$ there is a maximal element below both of them. This property can be formulated succinctly as follows: An element $d$ is a maximal element below $a$ and $b$ if it satisfies the logical equivalence
+\begin{equation*}
+  (x \leq a) \land (x \leq b) \Leftrightarrow (x \leq d)
+\end{equation*}
+for every element $x\in P$. If $d$ satisfies this property, we also say that $d$ is the \emph{meet} of $a$ and $b$. It is common to write $a\wedge b$ for the meet of $a$ and $b$, if $P$ is a poset in which any two elements have a meet.
+
+The definition of meets needs some explanation. It uses the \emph{conjunction} ($\land$) and it uses \emph{logical equivalence} ($\Leftrightarrow$). The conjunction $p\land q$ of two propositions $p$ and $q$ is the proposition that both $p$ and $q$ are true. The logical equivalence $p \Leftrightarrow q$ is the proposition that $p$ is true if and only if $q$ is true. In other words, it is the conjunction of the proposition that $p$ implies $q$ and the proposition that $q$ implies $p$.
+
+If $d$ is the meet of $a$ and $b$, then the logical equivalence gives two implications back and forth:
+\begin{enumerate}
+\item Any element $x$ that is below both $a$ and $b$, must be below $d$.
+\item Any element $x$ that is below $d$, must be below both $a$ and $b$. In particular, $d$ itself satisfies $d\leq d$, so it follows that $d\leq a$ and $d\leq b$. That is, $d$ itself is below both $a$ and $b$, and by the first property it is the maximal such element.
+\end{enumerate}
+
+We wouldn't have this discussion if it didn't apply for us. Indeed, we will show that the preorder of integers with divisibility has meets. In the case of the integers, we will call such meets \emph{greatest common divisors}.
+
+\begin{definition}
+  Consider two integers $a$ and $b$. An integer $d$ is said to be a \emph{greatest common divisor} of $a$ and $b$ if it satisfies the following logical equivalence
+  \begin{equation*}
+    (x\mid a)\land(x\mid b) \Leftrightarrow (x\mid d).
+  \end{equation*}
+  for every integer $x$.
+\end{definition}
+
+Thus, a greatest common divisor of $a$ and $b$ is an integer $d$ that divides both $a$ and $b$, and any integer that divides both $a$ and $b$ is a divisor of $d$. In other words, the signifier "greatest" refers to the divisibility ordering of the integers.
+
+\begin{example}
+  The greatest common divisor of $0$ and $0$ is $0$. To see this, simply note that the proposition
+  \begin{equation*}
+    (x\mid 0)\land(x\mid 0) \Leftrightarrow (x\mid 0)
+  \end{equation*}
+  is true because any proposition is logically equivalent to the conjunction with itself. Here we see why it was relevant to note that the word "greatest" referls to the divisibility ordering: Any integer is a divisor of $0$, but none of them are the greatest in the standard ordering $\leq$.
+\end{example}
+
+\begin{theorem}\label{theorem:definition-gcd}
+  Any two integers $a$ and $b$ have a greatest common divisor, for which we write $\gcd(a,b)$. Furthermore, there are integers $k$ and $l$ satisfying \emph{B\'ezout's identity}
+  \begin{equation*}
+    ax+by = \gcd(a,b).
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Consider two integers $a$ and $b$, and let $I:=(a)$ and $J:=(b)$ be the principal ideals generated by $a$ and $b$. Now consider the set
+  \begin{equation*}
+    I+J := \{x+y \mid x\in I,\,y\in J\}
+  \end{equation*}
+  of all sums of elements of $I$ and elements of $J$. We claim that the set $I+J$ is again an ideal. It contains $0$, because $0=0+0$ is a sum of elements in $I$ and $J$. Furthermore, to see that $I+J$ is closed under linear combinations of its elements, consider two elements $u,v\in I+J$. If $u=x_u+y_u$ and $v=x_v+y_v$, then we can write any linear combination $ku+lv$ of $u$ and $v$ in the form
+  \begin{equation*}
+    ku+lv = (kx_u + lx_v) + (ky_u + ly_v),
+  \end{equation*}
+  which is the sum of an element in $I$ and an element in $J$. Thus, it follows that $I+J$ is an ideal.
+
+  Now let $d$ be the unique natural number such that $I+J=(d)$, which exists by \cref{theorem:integers-principal-ideal-domain}. We claim that $d$ is the greatest common divisor of $a$ and $b$. Notice that $a=a+0\in I+J$, so $a$ must be a multiple of $d$. Similarly, we have $b=0+b\in I+J$, so $b$ must be a multiple of $d$. In other words, $d$ is a common divisor of $a$ and $b$. Furthermore, if $e$ is any common divisor of $a$ and $b$, then $e$ is a divisor of any element in $I+J$. In particular, we must have $e\mid d$, allowing us to conclude that $d$ is the greatest common divisor.
+
+  The last claim follows, because $d$ is an element of $I+J$, which consists elements of the form $ax+by$.
+\end{proof}
+
+A very important condition on pairs of integers $a$ and $b$, which occurs as an assumption in many lemmas, propositions, and theorems, is the condition that $\gcd(a,b)=1$. In other words, that any common divisor of $a$ and $b$ must be $1$. Such numbers are called \emph{relatively prime} or \emph{coprime}.
+
+\begin{definition}
+  Two integers $a$ and $b$ are said to be \emph{relatively prime} or \emph{coprime} if
+  \begin{equation*}
+    \gcd(a,b)=1.
+  \end{equation*}
+\end{definition}
+
+The following proposition is a must-know fact about the integers.
+
+\begin{proposition}\label{proposition:coprime-divides-product}
+  Consider two relatively prime integers $a$ and $b$, and an arbitrary integer $c$. Then we have
+  \begin{equation*}
+    a\mid bc \Leftrightarrow a\mid c.
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  The fact that $a\mid c$ implies $a\mid bc$ is obvious, since if $c$ is a multiple of $a$, then so is $bc$. This establishes the converse direction of the logical equivalence.
+
+  For the forward direction, assume that $a\mid bc$. Since we have assumed that $a$ and $b$ are relatively prime, there is a solution to the equation
+  \begin{equation*}
+    ax+by=1.
+  \end{equation*}
+  Consequently, there is a solution to the equation $cax+cby=c$. However, both $cax$ and $cby$ are divisible by $a$, so $c$ must be divisible by $a$.
+\end{proof}
+
+\section{Euclid's algorithm}
+
+The previous theorem shows that any two integers $a$ and $b$ have a greatest common divisor $\gcd(a,b)$, and that there are integers $k$ and $l$ such that
+\begin{equation*}
+  ka+lb=\gcd(a,b),
+\end{equation*}
+but it doesn't reveal much about how the integers $k$ and $l$ can be found. Euclid's algorithm is an efficent way to compute the greatest common divisor and to find integers $k$ and $l$ establishing the greatest common divisor as a linear combination.
+
+\begin{proposition}
+  Suppose $a$ and $b$ are two integers and $b=qa+r$. Then we have
+  \begin{equation*}
+    \gcd(b,a)=\gcd(a,r).
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  Suppose that $d$ is a divisor of $a$. Then we claim that $d\mid b$ if and only if $d\mid r$. Indeed, since $b=qa +r$ it follows that $b$ is a linear combination of $a$ and $r$, and also that $r$ is a linear combination of $a$ and $b$. Thus, any divisor of $a$ and $b$ is also a divisor of $r$, and any divisor of $a$ and $r$ is also a divisor of $b$. I.e., we have
+  \begin{equation*}
+    d\mid b \Leftrightarrow d\mid r.
+  \end{equation*}
+  It follows that $d$ is a common divisor of $a$ and $b$ if and only if $d$ is a common divisor of $a$ and $r$. This implies that their greatest common divisors coincide.
+\end{proof}
+
+The proposition above implies a useful way of calculating the greatest common divisor of two numbers. Suppose we want to calculate the greatest common divisor of $578$ and $732$. Then we write $732$ in the form $q\cdot 578+r$, i.e., we write
+\begin{equation*}
+  732 = 1 \cdot 578 + 154.
+\end{equation*}
+By the proposition, it follows that $\gcd(732,578)=\gcd(578,154)$. We now proceed in the same manner, by writing
+\begin{equation*}
+  578 = 3\cdot 154 + 116, 
+\end{equation*}
+and we observe that $\gcd(732,578)=\gcd(154,116)$. We proceed with this process until we find that $\gcd(732,578)=\gcd(d,0)$ for some number $d$. Once we reach this stage, we conclude that $\gcd(732,578)=d$. Putting words to action:
+\begin{align*}
+  154 & = 1\cdot 116 + 38 & \gcd(732,578) & = \gcd(116,38) \\
+  116 & = 3 \cdot 38 + 2 & \gcd(732,578) & = \gcd(38,2) \\
+  12 & = 6 \cdot 2 + 0 & \gcd(732,578) & = \gcd(2,0).
+\end{align*}
+Thus, we conclude that $\gcd(732,578)=2$. The process outlined above is called \emph{Euclid's Algorithm}.
+
+By closer inspection of Euclid's algorithm, we can even find an integer solution to the equation
+\begin{equation*}
+  \gcd(a,b) = ax + by.
+\end{equation*}
+
+The best way to see how this works is by example, so let us use the previous example. Euclid's algorithm has given us that $\gcd(732,578)=2$. In the second to last equation, we find that $2$ is a linear combination of $38$ and $116$, i.e.,
+\begin{align*}
+  2 & = 116 - 3\cdot 38
+\end{align*}
+However, by the equation before that we see that $38$ itself is a linear combination of $154$ and $116$. This can be used to express $2$ as a linear combination of $154$ and $116$, i.e.,
+\begin{align*}
+  2 & = 116 - 3\cdot (154 - 116) & \Rightarrow & & 2 & = 4\cdot 116 - 3\cdot 154.
+\intertext{Furthermore, $116$ is a linear combination of $154$ and $578$, giving us that}
+  2 & = 4\cdot (578-3\cdot 154) - 3\cdot 154 & \Rightarrow & & 2 & = 4\cdot 578 - 15\cdot 154.
+\intertext{In the final step, we use that $154$ is a linear combination of $732$ and $578$ to find}
+  2 & = 4\cdot 578 - 15\cdot (732 - 578) & \Rightarrow & & 2 & = - 15\cdot 732 + 19\cdot 578.
+\end{align*}
+
+\begin{example}
+  In class, we computed the greatest common divisor of $721$ and $450$. These numbers were suggested by Marwa and Dylan.
+  \begin{align*}
+    721 & = 1\cdot 450 + 271 & 1 & = 181\cdot (721 - 450) - 109\cdot 450 \\
+    & & & = 181\cdot 721 - 290\cdot 450\\
+    450 & = 1\cdot 271 + 179 & 1 & = 72 \cdot 271 - 109 \cdot (450 - 271) \\
+    & & & = 181\cdot 271 - 109\cdot 450 \\
+    271 & = 1\cdot 179 + 92 & 1 & = 72\cdot(271 - 179) - 37\cdot 179 \\
+    & & & = 72\cdot 271 - 109\cdot 179 \\
+    179 & = 1\cdot 92 + 87 & 1 & = 35\cdot 92 - 37\cdot (179 - 92) \\
+    & & & = 72\cdot 92 - 37\cdot 179 \\
+    92 & = 1 \cdot 87 + 5 & 1 & = 35\cdot (92- 87) - 2 \cdot 87 \\
+    & & & = 35\cdot 92 - 37\cdot 87 \\
+    87 & = 17\cdot 5 + 2 & 1 & = 5 - 2\cdot (87 - 17\cdot 5) \\
+    & & & = 35\cdot 5 - 2\cdot 87 \\
+    5 & = 2\cdot 2 + 1 & 1 & = 5 - 2\cdot 2 \\
+    & \\
+    2 & = 2 \cdot 1 + 0
+  \end{align*}
+  Thus we find that $\gcd(721,450)=1$, in other words, that $721$ and $450$ are relatively prime, and that
+  \begin{equation*}
+    181\cdot 721 - 290\cdot 450 = 1.
+  \end{equation*}
+\end{example}
+
+\section{Linear Diophantine equations in multiple variables}
+
+In this section we turn our attention to linear Diophantine equations in two variables, i.e., to integer equations of the form
+\begin{equation*}
+  ax + by = c.
+\end{equation*}
+We begin by applying the theory of ideals to establish that this equation has a solution if and only if $\gcd(a,b)\mid c$.
+
+\begin{theorem}
+  Consider integers $a$, $b$, and $c$, and let $d=\gcd(a,b)$. The linear Diophantine equation
+  \begin{equation*}
+    ax + by = c
+  \end{equation*}
+  is solvable with integers $x$ and $y$ if and only if $d\mid c$.
+\end{theorem}
+
+\begin{proof}
+  The first part of the claim is equivalent to the claim that we have an equality of ideals
+  \begin{equation*}
+    (a)+(b) = (\gcd(a,b)).
+  \end{equation*}
+  We recall that the ideal $I+J$ consists of sums $x+y$ of $x\in I$ and $y\in J$. Furthermore, the ideals $(a)$ and $(b)$ consist of multiples of $a$ and $b$, respectively. Thus the ideal $(a)+(b)$ consists of all the linear combinations of $a$ and $b$, i.e., all the possible integers $c$ for which there is a solution to the equation $ax+by=c$.
+
+  In \cref{theorem:definition-gcd} we defined $\gcd(a,b)$ to be the unique natural number $d$ such that $(a)+(b)=(d)$. Such a natural number exists by \cref{theorem:integers-principal-ideal-domain}. Now we observe that the equality
+  \begin{equation*}
+    (a)+(b)=(\gcd(a,b))
+  \end{equation*}
+  tells us exactly that the set of integers $c$ for which there exists a solution of the equation $ax+by=c$ has the same elements as the set of multiples of $\gcd(a,b)$. In other words, a solution to $ax+by=c$ exists if and only if $c$ is a multiple of the greatest common divisor of $a$ and $b$.
+\end{proof}
+
+As an immediate corollary of the previous theorem, we note that:
+
+\begin{corollary}
+  If $a$ and $b$ are relatively prime integers, then the linear Diophantine equation
+  \begin{equation*}
+    ax + by = c
+  \end{equation*}
+  is solvable for any $c$.
+\end{corollary}
+
+Now that we have established a necessary and sufficient condition for its solvability, it remains to describe a way of finding all solutions, if there are any. Notice that we have already collected quite a bit of useful information. Euclid's algorithm allows find a solution to the equation
+\begin{equation*}
+  ax + by = d,
+\end{equation*}
+where $d=\gcd(a,b)$. Thus, if $c=kd$, then we can solve
+\begin{equation*}
+  ax + by = c
+\end{equation*}
+by first finding a solution $ax_0+by_0 = d$ by Euclid's algorithm. Then we find that
+\begin{equation*}
+  a(kx_0)+b(ky_0)=kd = c.
+\end{equation*}
+In other words, we can use Euclid's algorithm to find a solution to the equation $ax+by=c$ if it has any.
+
+\begin{proposition}
+  Consider integers $a$, $b$, and $c$, and assume that $a$ and $b$ are relatively prime. If $ax_0 + by_0=c$ is a solution to the Diophantine equation
+  \begin{equation*}
+    ax + by = c,
+  \end{equation*}
+  then every solution is of the form
+  \begin{equation*}
+    x = x_0 + bk,\qquad\text{and}\qquad y = y_0-ak.
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  Suppose that $ax+by=c$ is another solution. Then it follows that
+  \begin{equation*}
+    a(x-x_0)+b(y-y_0)=0
+  \end{equation*}
+  In other words, we have $a(x-x_0)=-b(y-y_0)$. Thus we see that $b(y-y_0)$ is divisible by $a$. Since $a$ and $b$ are relatively prime, this implies that $a\mid y-y_0$. Similarly, $a(x-x_0)$ is divisible by $b$, and therefore it follows that $b\mid x-x_0$. Furthermore, if $ka=y-y_0$ and $lb=x-x_0$. Then the equation
+  \begin{equation*}
+    lab - kab = 0
+  \end{equation*}
+  implies that $k=l$. In other words, $x=x_0+bk$ and $y=y_0-ak$.
+\end{proof}
+
+\begin{theorem}
+  Suppose that $ax_0,by_0=c$ is a solution to the Diophantine equation
+  \begin{equation*}
+    ax + by = c.
+  \end{equation*}
+  Then every solution is of the form
+  \begin{equation*}
+    x = x_0 + \frac{b}{d}k,\qquad\text{and}\qquad y = y_0-\frac{a}{d}k.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  This theorem follows from the previous proposition. If $d=\gcd(a,b)$, then we find that
+  \begin{equation*}
+    \frac{a}{d}x+\frac{b}{d}y=\frac{c}{d}.
+  \end{equation*}
+  The integers $\frac{a}{d}$ and $\frac{b}{d}$ are relatively prime, so we find that $x=x_0+\frac{b}{d}k$ and $y=y_0-\frac{a}{d}k$ for some integer $k$.
+\end{proof}
+
+\begin{exercises}
+  \exercise Show that if $a\mid b$, then $d\mid b/a$ if and only if $ad\mid b$.
+  \exercise Suppose that $a\mid b$ and $b\mid c$. Show that if $d\mid b/a$ then $d\mid c/a$.
+  \exercise Show that $a\mid b$ implies $ac\mid bc$. Furthermore, show that if $c$ is nonzero, then $ac\mid bc$ implies $a\mid b$. Conclude that $a^n\mid b^n$ if and only if $a\mid b$ for any natural number $n$.
+  \exercise Suppose that $d$ is a common divisor of two nonzero integers $a$ and $b$.
+  \begin{subexenum}
+  \item Show that the greatest common divisor of $a/d$ and $b/d$ is $\gcd(a,b)/d$.
+  \item Show that $d$ is a greatest common divisor of $a$ and $b$ if and only if $a/d$ and $b/d$ are relatively prime.  
+  \end{subexenum}
+  
+  \exercise Show that $a\mid bc$ if and only if $a/\gcd(a,b) \mid c$.
+  \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
+  \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
+  \exercise Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
+  \exercise Show that $a^3-a$ is divisible by $6$ for every integer $a$.
+  \exercise Show that $a^5-a$ is divisible by $30$ for every integer $a$.
+  \exercise Show that any two consecutive Fibonacci numbers are relatively prime.
+  \exercise \emph{Goldbach's theorem}. Show that any two distinct Fermat numbers are relatively prime.
+  \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime.
+  \exercise
+  \begin{subexenum}
+  \item Prove the \emph{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
+  \item For any integer $d$ and any two natural numbers $m$ and $n$, show that if two of the three following conditions hold, then so does the third:
+    \begin{enumerate}
+    \item $d\mid F_m$.
+    \item $d\mid F_n$.
+    \item $d\mid F_{n+m}$.
+    \end{enumerate}
+  \item Show that the Fibonacci sequence preserves divisibility: if $m\mid n$ then $F_m\mid F_n$.
+  \end{subexenum}
+  \exercise Suppose that $a$ and $b$ are relatively prime integers. Show that for any positive natural number $k$, there is exactly one element in the set
+  \begin{equation*}
+    \{a,a+b,\ldots,a+(k-1)b\}
+  \end{equation*}
+  divisible by $k$.
+\end{exercises}
+
+\chapter{The Fundamental Theorem of Arithmetic}
+
+\section{Prime numbers}
+
+\begin{definition}
+  An integer $a$ is said to be \emph{prime} if it has exactly one positive proper divisor. Any integer $a\neq \pm 1$ that is not prime is said to be a \emph{composite number}.
+\end{definition}
+
+The numbers $0$ and $1$ are not prime. To see that $0$ isn't prime, simply note that any positive integer is a proper divisor of $0$. To see that $1$ isn't prime, note that $1$ doesn't have any proper divisors. Indeed, it has exactly one positive divisor, namely $1$ itself, but this divisor isn't proper. We also note that if $a>1$ is prime, then the number $1$ is always a positive proper divisor. Thus we see that $a>1$ is prime if and only if the number $1$ is its unique positive proper divisor.
+
+To see that the number $2$ is prime, note that its positive divisors are a subset of the set $\{1,2\}$ consisting of all the positive integers below $2$. Its proper divisors are therefore a subset of $\{1\}$. The integer $1$ is indeed a positive divisor, so we see that $2$ has exactly one positive proper divisor.
+
+To see that the number $3$ is prime, note that its positive divisors are a subset of the set $\{1,2,3\}$ consisting of all positive integers below $3$. The number $1$ is a proper divisor, the number $2$ doesn't divide $3$, and $3$ itself is a divisor but it isn't proper. Therefore we see that the number $3$ has exactly one positive proper divisor.
+
+The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \emph{sieve of Eratosthenes}, which we will now describe.
+
+The sieve of Eratosthenes is an iterative process that generates at stage $n$ a set $P_n$ of numbers known to be prime at stage $n$, and a set $Q_n$ of prime candidates. In other words, the sets $P_n$ form an increasing sequence
+\begin{equation*}
+  P_0\subseteq P_1\subseteq P_2 \subseteq \cdots
+\end{equation*}
+of sets of numbers known to be prime, where at each higher stage the set of known primes becomes larger, and the sets $Q_n$ form a decreasing sequence
+\begin{equation*}
+  Q_0\supseteq Q_1 \supseteq Q_2 \supseteq \cdots
+\end{equation*}
+of candidates, from which we pick our next prime. We will define the sets $P_n$ and $Q_n$ by a recursive process. Initially, the set $P_0$ is empty and $Q_0=\{n\in\mathbb{N}\mid n\geq 2\}$ is the set of all numbers $\geq 2$. Now we define $P_{n+1}$ to be $P_n\cup \{p(n)\}$, where $p(n):=\min(Q_n)$, and we define
+\begin{equation*}
+  Q_{n+1}:=Q_n\setminus \{kp(n)\mid k\geq 1\}.
+\end{equation*}
+In other words, the $n$th prime $p(n)$ is the minimal element of $Q(n)$, and the set $Q_{n+1}$ of candidates is the set $Q_n$ minus all the multiples of $p(n)$. In the first five stages, these sets look as follows:
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.2} % Adjust row spacing
+  \setlength{\tabcolsep}{10pt}      % Adjust column spacing
+  \begin{tabular}{r|l l}
+    \textbf{$n$} & \textbf{$P_n$} & \textbf{$Q_n$} \\ \hline
+    0 & $\emptyset$ & $\{2,3,4,5,6,7,8,\ldots\}$ \\
+    1 & $\{2\}$ & $\{3,5,7,9,11,13,15,\ldots\}$ \\
+    2 & $\{2,3\}$ & $\{5,7,11,13,17,19,23,\ldots\}$ \\
+    3 & $\{2,3,5\}$ & $\{7,11,13,17,19,23,29,\ldots\}$ \\
+    4 & $\{2,3,5,7\}$ & $\{11,13,17,19,23,29,31,\ldots\}$ \\
+    5 & $\{2,3,5,7,11\}$ & $\{13,17,19,23,29,31,37,\ldots\}$ \\
+  \end{tabular}
+\end{center}
+
+Notice that not only the minimal element of $Q_n$ is prime, but every element $q\in Q_n$ such that $q<(\max(P_n))^2$ is prime. This is because if $q<(\max(P_n))^2$ is composite, then its lowest factor must be a prime number $p<\max(P_n)$, i.e., it must be a prime number in $P_n$. However, all the multiples of the primes in $P_n$ have been removed from $Q_n$, so there are no such composite numbers.
+
+We can use this observation to obtain the list of all primes below $100$, at stage $5$ in the sieve of Eratosthenes. The list of primes below $100$ is
+\begin{equation*}
+2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97.
+\end{equation*}
+
+The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which $Q_n$ is empty, or there are infinitely many primes. We will now show that there are infinitely many primes. In the following lemma we use the concept of \emph{nontrivial divisors}, which are divisors $d$ of a natural number $n$ such that $d\neq 1$. The concept of nontrivial divisors should not be confused with the concept of proper divisors, which are divisors $d$ of a natural number $n$ such that $d\neq n$.
+
+\begin{lemma}
+  Any natural number $n>1$ has a least nontrivial divisor, and this divisor is prime.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by the well-ordering principle of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
+\end{proof}
+
+\begin{lemma}
+  If $a$ and $b$ are relatively prime integers, then any prime divisors of $a$ are distinct from any prime divisors of $b$.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $a$ and $b$ are relatively prime, and that $p$ and $q$ are prime divisors of $a$ and $b$, respectively. By the assumption that $a$ and $b$ are relatively prime, it follows that $p\nmid b$ and that $q\nmid a$. Therefore it follows that $p$ and $q$ cannot be the same.
+\end{proof}
+
+\begin{theorem}\label{theorem:infinitude-of-primes}
+  There are infinitely many prime numbers.
+\end{theorem}
+
+\begin{proof}[Euclid's proof of \cref{theorem:infinitude-of-primes}]
+  We will prove that there are infinitely many prime numbers by showing that for any finite set of prime numbers, there is a prime number not belonging to the finite set.
+  
+  Consider a finite set $\{p_0,\ldots,p_k\}$ of primes, and define
+  \begin{equation*}
+    n:= 1+\prod_{i=0}^k p_i
+  \end{equation*}
+  Then there exists, for each $0\leq i\leq k$, a natural number $q_i$ such that $n=q_ip_i+1$. Indeed, we can simply define
+  \begin{equation*}
+    q_i := \prod_{j=0,j\neq i}^k p_j.
+  \end{equation*}
+  Since $n$ can be written in this way, it follows that $n$ is relatively prime to each $p_i$. Consequently, the least prime divisor of $n$ is relatively prime to each $p_i$. In other words, the least prime divisor of $n$ is not in the set of primes $\{p_0,\ldots,p_k\}$.
+\end{proof}
+
+There are many proofs of the infinitude of primes. The following is due to Filip Saidak \cite{Saidak2006}, who published his proof in 2006, based on the idea that if $n=ab$ is the product of two numbers that are relatively prime and both at least $2$, then $n$ must have two prime factors.
+
+\begin{proof}[Saidak's proof of \cref{theorem:infinitude-of-primes}]
+  Let $N_0:= 1$, and define
+  \begin{equation*}
+    N_{n+1} := N_n(N_n + 1).
+  \end{equation*}
+  We claim that $N_n$ has at least $n$ prime factors. In the base case, we note that it is indeed true that $1$ has at least zero prime factors. For the inductive step, suppose that $N_n$ has at least $n$ prime factors. The number $N_n+1$ is relatively prime to $N_n$, so its prime factors are all distinct from the prime factors of $N_n$. Furthermore, we have $1<N_n+1$, so $N_n+1$ indeed has at least one prime factor. Thus it follows that $N_{n+1}$ has at least $n+1$ prime factors, and therefore there must be infinitely many primes.
+\end{proof}
+
+Finally, we present a proof of the infinitude of primes due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private corresponcences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
+
+Recall that the Fermat numbers $\Phi_n$ are defined by
+\begin{equation*}
+  \Phi_n := 2^{2^n}+1.
+\end{equation*}
+
+\begin{lemma}
+  Any two distinct Fermat numbers are relatively prime.
+\end{lemma}
+
+\begin{proof}
+  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Recall from \cref{exercise:product-formula-fermat-numbers} that
+  \begin{equation*}
+    \Phi_n-2 = \prod_{k<n}\Phi_k.
+  \end{equation*}
+  Thus we see that $\Phi_m \mid \Phi_n - 2$. It follows that any common divisor $d$ of $\Phi_m$ and $\Phi_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $\Phi_m$ and $\Phi_n$ is $1$. In other words, $\Phi_m$ and $\Phi_n$ are relatively prime.
+\end{proof}
+
+\begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]
+  Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $\Phi_n$, then we picked infinitely many distinct prime numbers.
+\end{proof}
+
+\section{The Fundamental Theorem of Arithmetic}
+
+The following proposition is due to Euclid, who included it as proposition 30 of book VII of the \emph{Elements}.
+
+\begin{lemma}\label{lemma:cases-prime-divisibility}
+  Suppose that $p$ is prime, and that $a$ is an integer. Then either $p\mid a$ or $\gcd(p,a)=1$.
+\end{lemma}
+
+\begin{proof}
+  The greatest common divisor of $p$ and $a$ is in particular a divisor of $p$, so it is either $1$ or $p$. If $\gcd(p,a)=p$, then we have $p\mid a$.
+\end{proof}
+
+\begin{proposition}\label{proposition:euclid-divisibility-primes}
+  Consider a positive integer $a$. The following are equivalent:
+  \begin{enumerate}
+  \item The integer $a$ is prime.
+  \item We have $a>1$, and for any two integers $b$ and $c$ such that $a\mid bc$, we have that $a\mid b$ or $a\mid c$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Suppose first that $a$ is prime. Since $0$ and $1$ aren't prime, it follows that $a>1$. Now consider two integers $b$ and $c$ such that $a\mid bc$. There are two cases to consider: either $a\mid b$, in which case we are done immediately, or $a\nmid b$. In the case where $a\nmid b$, it follows from \cref{lemma:cases-prime-divisibility} that $a$ and $b$ are relatively prime. This allows us to apply \cref{proposition:coprime-divides-product}, by which we conclude that $a\mid c$.
+
+  For the converse, suppose that for any two integers $b$ and $c$ such that $a\mid bc$, we have $a\mid b$ or $a\mid c$, and let $d$ be a proper divisor of $a$. Now consider any positive proper divisor $d$ of $a$, and write $a=dk$. Then it follows in particular that $a \mid dk$, so by assumption we have either $a\mid d$ or $a\mid k$. The first condition can be ruled out, because $d$ is assumed to be a proper divisor and therefore $a \nmid d$. Thus we find ourselves in the second case, where $a\mid k$ and $k\mid a$. The integer $k$ is also positive, since $a$ and $d$ are positive, so it follows that $a=k$. This implies that $d=1$, and hence we conclude that $a$ is prime.
+\end{proof}
+
+\begin{theorem}\label{theorem:fundamental-theorem-of-arithmetic}
+  For any natural number $n>0$, there is a unique list $\ell=(p_0,\ldots,p_{l-1})$ of length $l$, consisting of primes $p_0\leq p_1\leq \cdots \leq p_{l-1}$ such that
+  \begin{equation*}
+    n=\prod_{i=0}^{l-1}p_i.
+  \end{equation*}
+  This unique list of primes is called the \emph{prime decomposition of $n$}.
+\end{theorem}
+
+\begin{proof}
+  We apply strong induction on $n$, with base case $1$. In the base case, we let $\ell$ be the empty list. The empty list satisfies the increasing primes condition vacuously, and empty products are $1$ by definition, so the empty list is indeed a prime decomposition of $1$.
+
+  For the inductive step, recall that any natural number $n+1>1$ has a least prime divisor. If $p$ is the least prime divisor of $n+1$, then it follows that $(n+1)/p\leq n$. By the strong induction hypothesis we have a unique prime decomposition $(q_0,\ldots,q_{l-1})$ of $(n+1)/p$. Now define the list $\ell:=(p_0,p_1,\ldots,p_l)$ by $p_0:=p$ and $p_{i+1}:=q_i$. Then each $p_i$ is a prime divisor of $n+1$, and since $p_0$ is the least prime divisor of $n+1$ we have the inequalities
+  \begin{equation*}
+    p_0\leq p_1 \leq \cdots \leq p_l.
+  \end{equation*}
+  Furthermore, we have
+  \begin{equation*}
+    n+1 = p\cdot ((n+1)/p) = p_0 \cdot \prod_{i=1}^l p_i = \prod_{i=0}^l p_i.
+  \end{equation*}
+  This proves that the prime decomposition of $n+1$ exists.
+
+  To show that the prime decomposition of $n+1$ is unique, let $(r_0,\cdots,r_k)$ be a prime decomposition of $n+1$. The smallest prime divisor $p$ of $n+1$ then divides the product
+  \begin{equation*}
+    p \mid \prod_{i=0}^k r_i.
+  \end{equation*}
+  This implies that $p\mid r_i$ for some $0\leq i \leq k$, i.e., that $p=r_i$. However, $p$ is assumed to be the smallest prime factor of $n+1$, so it follows that $p=r_0$. Now it follows that $(r_1,\ldots,r_k)$ is a prime decomposition of $(n+1)/p$, which is unique, and therefore we conclude that $n+1$ has a unique prime factorization.
+\end{proof}
+
+\begin{exercises}
+  \exercise Define the $n$th \emph{Mersenne number} $M_n$ to be
+  \begin{equation*}
+    M_n:=2^n-1.
+  \end{equation*}
+  Show that if $n$ is composite, then so is $M_n$. Conclude that if $M_n$ is prime, then so is $n$. Prime numbers of the form $M_p$ for some prime number $p$ are called \emph{Mersenne primes}.
+  \exercise A natural number $n$ is said to be \emph{perfect} if it is the sum of its proper divisors. Show that an even number is perfect if and only if it is of the form $2^{p-1}M_p$, where $M_p$ is a Mersenne prime.
+\end{exercises}
+
+\chapter{Combinatorial methods in number theory}
+
+\section{Counting bijections}
+
+\begin{definition}
+  A function $f:A \to B$ is said to be a \emph{bijection} if for every $y\in B$, the \emph{preimage} of $b$
+\begin{equation*}
+  f^{-1}(y) := \{x\in A\mid f(x)=y\}
+\end{equation*}
+has exactly one element. We write $A\cong B$ for the set of bijections from $A$ to $B$.
+\end{definition}
+
+A function $f:A \to B$ is a bijection precisely when it is \emph{invertible} in the sense that there is a function $g:B\to A$ such that $f\circ g=\mathrm{id}_B$ and $g\circ f=\mathrm{id}_A$. Here, the composite $g\circ f$ of $g$ and $f$ is the function $x\mapsto g(f(x))$ defined by applying $g$ to the value $f(x)$ of $f$ at the input variable $x$.
+
+In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set}
+\begin{equation*}
+  [n] := \{0,\ldots,n-1\}.
+\end{equation*}
+is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
+
+\begin{proposition}
+  The number of bijections $[n]\cong [n]$ from the standard $n$-element set to itself is exactly $n!$.
+\end{proposition}
+
+\begin{proof}
+  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exacly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction.
+
+  Now suppose that the number of bijections $[n]\cong[n]$ is $n!$. We claim that for each $y\in[n+1]$ there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ such that $f(n)=y$.
+
+  To see this, we first define the \emph{transposition function} $s_{y,n}$ defined by
+  \begin{equation*}
+    s_{y,n}(x) =
+    \begin{cases}
+      n & \text{if }x=y \\
+      y & \text{if }x=n \\
+      x & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  In other words, the function $s_{y,n}$ swaps the elements $n$ and $y$, and leaves the other elements fixed. This function is a bijection, because we can verify that the preimage $s_{y,n}^{-1}(z)$ is a singleton set for every $z\in[n+1]$. The preimage $s_{y,n}^{-1}(n)$ is the singleton set $\{y\}$; the preimage $s_{y,n}^{-1}(y)$ is the singleton set $\{n\}$, and the preimage $s_{y,n}^{-1}(x)$ is the singleton set $\{x\}$ otherwise.
+
+  Now we observe that the function
+  \begin{equation*}
+    ([n+1]\cong[n+1])\to ([n+1]\cong[n+1])
+  \end{equation*}
+  given by $g\mapsto s\circ g$ is itself a bijection, because it is an invertible function. Indeed, it is its own inverse, because $s\circ s\circ g = g$ for any bijection $g$.
+
+  Thus, if $f:[n+1]\cong[n+1]$ is a bijection such that $f(n)=y$, then $s\circ f$ is a bijection satisfying $s(f(n))=n$. In other words, every bijection satisfying $f(n)=y$ corresponds uniquely to a bijection satsfying $f(n)=n$.
+
+  Now we observe that there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ satisfying $f(n)=n$. Indeed, such bijections are uniquely determined by their restriction to the set $[n]$, and by the induction hypothesis there are $n!$ such bijections. Since there are $n+1$ possible choices of a value $y$, we conclude that there are $n!(n+1)$ bijections altogether from $[n+1]$ to $[n+1]$.
+\end{proof}
+
+\section{Counting subsets}
+
+\begin{definition}
+  The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
+  \begin{align*}
+    \binom{0}{0} & := 1 & \binom{0}{k+1} & := 0 \\
+    \binom{n+1}{0} & := 1 & \binom{n+1}{k+1} & := \binom{n}{k} + \binom{n}{k+1}.
+  \end{align*}
+\end{definition}
+
+\begin{theorem}
+  Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
+\end{theorem}
+
+\begin{proof}
+  Since the binomial coefficients are defined recursively, this theorem is best proven by induction on both variables.
+
+  If \(S\) has no elements and \(k=0\), then there is exactly one subset of \(S\) having \(k\) elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{0}{0}\).
+
+  If \(S\) has no elements, then there are no \((k+1)\)-element subsets of \(S\), since any \((k+1)\)-element subset has at least one element, but \(S\) has no elements. This shows that the number of \((k+1)\)-element subsets of \(S\) is \(\binom{0}{k+1}\).
+
+  If \(S\) has \(n+1\) elements, then there is exactly one subset of \(S\) with no elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{n+1}{0}\).
+
+  If \(S\) has \(n+1\) elements, then \(S\) has at least one element \(x_0\). Now there are two classes of subsets having \((k+1)\) elements: the subsets containing \(x_0\) and the subsets not containing \(x_0\). A \((k+1)\)-element subset of \(S\) containing \(x_0\) is equivalently described as a \(k\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\), because its \((k+1)\)st element is the element \(x_0\). By the induction hypothesis, there are exactly \(\binom{n}{k}\) such subsets. Furthermore, a \((k+1)\)-element subset of \(S\) not containing \(x_0\) is equivalently described as a \((k+1)\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\). By the induction hypothesis, there are exactly \(\binom{n}{k+1}\) such subsets. Combining these two observations, we find that the number of \((k+1)\)-element subsets of \(S\) is
+  \begin{equation*}
+    \binom{n}{k+1} + \binom{n}{k} = \binom{n+1}{k+1}.
+  \end{equation*}
+\end{proof}
+
+\begin{definition}
+  We define the set $P_S(k)$ of $k$-permutations of a set $S$ recursively by:
+  \begin{enumerate}
+  \item The set $P_S(0)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
+  \item The set $P_S(k+1)$ of $(k+1)$-permutations of $S$ is the set
+    \begin{equation*}
+      \{(s,t) \mid s\in S,\ t\in P_{S\setminus\{s\}}(r)\}
+    \end{equation*}
+    of pairs $(s,t)$ consisting of an element in $S$ and an $k$-permutation of the set $S\setminus\{s\}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  The number of $k$-permutations of an $n$-element set $S$ is the number $\rpermutation{n}{k}$ defined by
+  \begin{equation*}
+    \rpermutation{n}{k} := n\cdot(n-1)\cdot \cdots \cdot (n-k+1).
+  \end{equation*}
+\end{lemma}
+
+\begin{proposition}
+  There is a bijection between the set of $k$-permutations of an $n$-element set $S$, and the set
+  \begin{equation*}
+    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+  \end{equation*}
+  of pairs $(A,f)$ consisting of a subset $A\subseteq S$ and a bijection $\{0,\ldots,k-1\}\cong A$.
+\end{proposition}
+
+\begin{proposition}
+  The product $n(n-1)\cdots(n-k+1)$ of any $k$ consecutive numbers is divisible by $k!$.
+\end{proposition}
+
+\begin{proof}[Proof by induction]
+  We prove the claim by induction on $n$. In the base case, we have $0!=1$, and any number id divisible by $1$.
+
+  For the inductive step, suppose that the product of $n(n-1)\cdots(n-k+1)$ is divisible by $k!$. 
+\end{proof}
+
+\section{The binomial theorem}
+
+\begin{theorem}
+  \emph{The binomial theorem.} In any number system, such as the natural numbers, the integers, the rational numbers, the reals, the complex numbers\footnote{More generally, the binomial theorem applies to any commutative semiring}, we have
+  \begin{equation*}
+    (x+y)^n = \sum_{k=0}^n \binom{n}{k}x^ky^{n-k}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  We prove the statement by induction on $n$. In the base case, we find that both sides of the equation
+  \begin{equation*}
+    (x+y)^0=\sum_{k=0}^0 \binom{n}{k}x^ky^{0-k}
+  \end{equation*}
+  evaluate to $1$, so the equation is true. In the inductive step, we have that
+  \begin{align*}
+    (x+y)^{n+1} & =(x+y)\sum_{k=0}^n \binom{n}{k}x^ky^{n-k} \\
+                & = \sum_{k=0}^n \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=0}^n\binom{n}{k}x^ky^{n-k+1} \\
+                & = x^{n+1} + \sum_{k=0}^{n-1} \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
+                & = x^{n+1} + \sum_{k=1}^{n} \binom{n}{k-1}x^{k}y^{n-k+1} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
+                & = x^{n+1} + \sum_{k=1}^n \left(\binom{n}{k-1}+\binom{n}{k}\right)x^ky^{n-k+1}+y^{n+1} \\
+    & = \sum_{k=0}^{n+1} \binom{n+1}{k}x^ky^{(n+1)-k}.\qedhere
+  \end{align*}
+\end{proof}
+
+\printbibliography
+
+\end{document}
+
+\chapter{Modular arithmetic}
+
+\begin{exercises}
+\exercise Prove that $(n-1)^2\mid n^k-1$ if and only if $n-1\mid k$
+\end{exercises}
