@@ -1,0 +1,107 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{totcount}
+\usepackage{enumitem}
+
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries} % Format of the text
+  {Lecture \thechapter}       % Label (e.g., "Lecture 1")
+  {0.5em}                     % Spacing between label and title
+  {\Huge}                     % Format of the title
+
+% Theorem-like environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Practice Midterm 1 for Elementary Number Theory}
+\author{Egbert Rijke}
+\date{\today}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=purple,
+    filecolor=magenta,
+    urlcolor=blue,
+    citecolor=purple,
+    pdftitle={Lecture notes on Number Theory},
+    pdfpagemode=FullScreen,
+}
+\usepackage[capitalize,english]{cleveref}
+
+  % We set up the exercise environment, which produces list environment in a new
+% unnumbered subsection that also gets mentioned in the table of contents.
+
+\newtotcounter{exercisecounter}
+\newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+
+\newlist{exenum}{enumerate}{1}
+\setlist[exenum]{noitemsep,label=\arabic*}
+  %,ref=\thechapter.\arabic*}
+
+\crefname{exenumi}{Exercise}{Exercises}
+  
+\newlist{subexenum}{enumerate}{1}
+\setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
+\crefname{subexenumi}{Exercise}{Exercises}
+  
+\newenvironment{exercises}
+{%
+\subsection*{Exercises}%
+\addcontentsline{toc}{section}{Exercises}%
+\sectionmark{Exercises}%
+\begin{exenum}}
+{%
+%\addtocounter{exercisecounter}{\theexenumi}%
+\end{exenum}}
+
+\begin{document}
+\maketitle
+
+\begin{exercises}
+  \exercise (10 points) Recall that the Fibonacci sequence $F$ is given by
+  \begin{equation*}
+    F_0 := 0, \quad F_1 := 1, \qquad\text{and}\qquad F_{n+2}=F_{n+1}+F_n.
+  \end{equation*}
+  Prove by induction that
+  \begin{equation*}
+    \sum_{k=0}^{n-1} F_{2k+1} = F_{2n}.
+  \end{equation*}
+  \exercise (10 points) Use Euclid's algorithm to compute the following greatest common divisors, and express them as linear combinations via B\'ezout's identity:
+  \begin{subexenum}
+  \item $\gcd(1023,255)$
+  \item $\gcd(378,273)$
+  \item $\gcd(8128,496)$
+  \end{subexenum}
+  Note: In the actual midterm we will choose numbers that are easier to compute with by hand.
+  \exercise (10 points) Prove that for any natural number $n$ there is a largest square dividing $n$, i.e., there is a natural number $m$ such that for every natural number $k$ we have
+  \begin{equation*}
+    k^2 \mid n \Leftrightarrow k \mid m.
+  \end{equation*}
+  Make sure to be explicit about how you use the well-ordering theorem, strong induction, or ordinary induction.
+  \exercise (10 points) Show that for any natural number $n>0$ there is a unique pair of numbers $(m,r)$ such that the only square dividing $r$ is $1$, and
+  \begin{equation*}
+    n = m^2r.
+  \end{equation*}
+  This is called the \emph{square-free decomposition} of $n$.
+\end{exercises}
+\end{document}

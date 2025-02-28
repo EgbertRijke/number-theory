@@ -4,19 +4,24 @@
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{wrapfig}
 
+\usepackage{tocbibind}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{mathtools}
 \usepackage{totcount}
 \usepackage{enumitem}
 \usepackage{tikz}
 
+\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc}
+
 \usepackage{newtxtext,newtxmath}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
   {\normalfont\huge\bfseries} % Format of the text
-  {Lecture \thechapter}       % Label (e.g., "Lecture 1")
+  {Chapter \thechapter}       % Label (e.g., "Lecture 1")
   {0.5em}                     % Spacing between label and title
   {\Huge}                     % Format of the title
 
@@ -50,7 +55,7 @@
     pdftitle={Lecture notes on Number Theory},
     pdfpagemode=FullScreen,
 }
-\usepackage[capitalize,english]{cleveref}
+\usepackage[capitalize,english,noabbrev]{cleveref}
 
   % We set up the exercise environment, which produces list environment in a new
 % unnumbered subsection that also gets mentioned in the table of contents.
@@ -81,6 +86,8 @@
 \setcounter{tocdepth}{2}
 
 \newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
+\renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
+\DeclareMathOperator{\ord}{ord}
 
 \begin{document}
 
@@ -90,7 +97,7 @@
 
 \tableofcontents
 
-\chapter{Course information}
+\chapter{Course Information}
 
 \section*{Course materials}
 
@@ -107,6 +114,10 @@ We will use these course notes and \emph{Number Theory} by Andrews \cite{andrews
 \end{itemize}
 
 The first midterm covers content up to February 13th. The second midterm covers content up to the spring break.
+
+\begin{enumerate}
+\item Midterm $1$ covers \cref{chapter:introduction,chapter-euclidean-division-and-representability,chapter:linear-diophantine-equations,chapter:fundamental-theorem-of-arithmetic,chapter:combinatorial-methods} from these notes, and Chapters 1, 2, and 3 from Andrews \emph{Number Theory}. Note that parts of Chapter 3 of Andrews' book do not have an equivalent in these notes, so don't forget to study Chapter 3 of Andrews.
+\end{enumerate}
 
 \newpage
 
@@ -131,14 +142,18 @@ This adds up to a total of 120\%, allowing students the opportunity to earn extr
 
 If the median score for the class falls below a B, grades may be adjusted (curved) so that the median corresponds to a B. Any adjustments will be made consistently for all students.
 
-
-\mainmatter
-
-\chapter{Introduction to Number Theory}
+\chapter{Introduction}\label{chapter:introduction}
 
 Number theory is the study of numbers, particularly the natural numbers (the numbers $0$, $1$, $2$, $\ldots$ increasing indefinitely in increments of $1$), the integers (the numbers $\ldots, -2, -1, 0, 1, 2, \ldots$), and occasionally the rational numbers (fractions of integers). Its central themes include questions about divisibility, prime numbers, modular arithmetic, arithmetic functions, and finding integer solutions to equations. Additionally, number theory explores combinatorial questions, such as determining how numbers can be decomposed into sums or products of specific forms, like squares or primes. More advanced branches of number theory are occasionally also concerned with the properties of other number systems, such as the real numbers, complex numbers, or $p$-adic numbers. However, in \emph{elementary number theory} these explorations are primarily motivated by how these number systems relate back to the integers.
 
-\section{A short history of number theory}
+\section*{A Short History of Number Theory}
+
+\begin{wrapfigure}[20]{r}{0.35\textwidth}
+  \centering
+  \includegraphics[width=0.3\textwidth]{Euclid-Beyssent-line-engraving.jpg}
+  \caption{Line engraving by S. Beyssent after Mlle. C. Reydell}
+  \label{fig:euclid}
+\end{wrapfigure}
 Number theory has a long history that dates back to antiquity. One of the earliest and most influential systematic treatments of mathematics is Euclid's Elements \cite{euclid1908}, written around 300 BC in Alexandria. In this work, Euclid established several key results in number theory, including the infinitude of primes and the algorithm for finding the greatest common divisor, which bears his name.
 
 Around 250 AD, the Greek mathematician Diophantus of Alexandria wrote his \emph{Arithmetica} \cite{diophantus1910}, which focused on solving what are now known as Diophantine equations. This 13-volume work is often considered the first comprehensive treatment of algebra, though Diophantus relied on rhetorical descriptions rather than modern algebraic notation. Only six of the original volumes have survived, but they profoundly influenced later mathematicians.
@@ -148,6 +163,13 @@ The works of Euclid and Diophantus were preserved and studied by scholars in the
 During the Islamic Golden Age, scholars like Al-Khwarizmi, Ibn al-Haytham, and Omar Khayyam preserved and expanded upon the works of Euclid and Diophantus. Al-Khwarizmi’s work, especially his \emph{Kitab al-Mukhtasar fi Hisab al-Jabr wal-Muqabala} (from which the term "algebra" originates), introduced systematic methods for solving linear and quadratic equations. He used rhetorical algebra, like Diophantus, but began a transition toward symbolic representation by relying on consistent terminology for operations and equations.
 
 After the invention of the printing press, Erhard Ratdolt, a German printer based in Venice, produced the first printed edition of the Elements in 1482. This edition included mathematical diagrams and marked an important step in the dissemination of Euclid’s work. The first printed edition of Diophantus' Arithmetica was published in 1575 by Wilhelm Xylander, a German mathematician. The printing was done in Basel, Switzerland, a major hub for academic publishing at the time. By the time of Pierre de Fermat in the 17th century, both the Elements and Arithmetica had become essential texts for mathematicians across Europe, influencing the development of number theory and inspiring Fermat’s groundbreaking contributions.
+
+\begin{wrapfigure}[21]{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.38\textwidth]{Fermat.jpg}
+  \caption{Pierre de Fermat. Engraving in Oeuvres Mathématiques Diverses.}
+  \label{fig:fermat}
+\end{wrapfigure}
 
 Pierre de Fermat (1607–1665) is often considered the founder of modern number theory. He was a contemporary of Blaise Pascal and Marin Mersenne, both of whom he corresponded with, and also of Galileo Galilei. He wrote a manuscript titled \emph{Éléments de Géométrie}, which served as an extension and commentary on Euclid’s Elements. In this work, he sought to modernize Euclid’s geometry by applying the emerging methods of algebra and analytic geometry to classical geometric problems.
 
@@ -165,6 +187,12 @@ While Fermat laid the groundwork for modern number theory, we should mention tha
 \begin{equation*}
   a,\ a+b,\ a+2b,\ a+3b,\ \ldots
 \end{equation*}
+\begin{wrapfigure}[21]{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.38\textwidth]{Euler.jpg}
+  \caption{Leonhard Euler. Engraving by Friedrich Weber.}
+  \label{fig:euler}
+\end{wrapfigure}
 in which $a$ and $b$ are coprime, contains an infinitude of primes. Dirichlet proved his theorem in 1837, more than 150 years after Leibniz first coined the term of function.
 
 Euler's Introductio in Analysin Infinitorum marked the beginning of \emph{analytical number theory}. As we mentioned before, Euler defined functions here and established the notation $f(x)$ of a function applied to its variable, which we still use today. He derived the famous formula for complex exponentials
@@ -181,6 +209,12 @@ More generally, Euler explored infinite series and products. The \emph{Basel sum
 \end{equation*}
 was first proven here, which was one of Euler's most celebrated achievements. Euler was keen to explore the connection between geometry and analysis, and in Introductio in Analysin Infinitorum, he advanced the idea that the study of functions and infinite series could provide new insights into geometric problems. He showed how techniques from analysis could be used to solve problems in geometry and vice versa, fostering the development of applied mathematics.
 
+\begin{wrapfigure}[21]{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.38\textwidth]{Gauss.jpg}
+  \caption{Carl Friedrich Gauss. Painting by Christian Albrecht Jensen.}
+  \label{fig:gauss}
+\end{wrapfigure}
 Building on the work of Euler, Gauss began using the properties of the zeta function and other analytic methods to investigate the distribution of the primes. His seminal work \emph{Disquisitiones Arithmeticae} \cite{gauss1986} is often considered the starting point of the study of the distribution of primes, ultimately leading up to the \emph{Prime Number Theorem}. Gauss conjectured that the number $\pi(n)$ of primes below a number $n$ satisfies the asymptotic law
 \begin{equation*}
   \pi(n)\sim\frac{n}{\log(n)}.
@@ -195,7 +229,7 @@ Even today fundamental concepts such as sets and functions continue to evolve. W
 
 Today, number theory continues to be one of the most active and fruitful areas of mathematical research, all of which started simply with counting on ten fingers.
 
-\section{Overview of the course}
+\section*{Overview of the Course}
 
 An integer $a$ is said to \emph{divide} an integer $b$ if there exists an integer $x$ such that $ax=b$. In other words, the number $a$ divides $b$ if the equation
 \begin{equation*}
@@ -241,11 +275,11 @@ Euler's theorem is a sharper version of Fermat's Little Theorem, but it involves
 \end{equation*}
 holds for any natural number $n$ and any number $a$ relatively prime to $n$. Euler's theorem has applications in cryptography.
 
-Wilson's theorem states that a number $p$ is a prime number if and only if the congruence
+Wilson's Theorem states that a number $p$ is a prime number if and only if the congruence
 \begin{equation*}
   (p-1)!\equiv -1 \pmod{p}
 \end{equation*}
-holds. Here, the exclamation mark is used for the \emph{factorial function}: The number $n!$ is the product $1\cdots n$ of all the numbers from $1$ through $n$. Wilson's theorem therefore gives another criterion for primality testing.
+holds. Here, the exclamation mark is used for the \emph{factorial function}: The number $n!$ is the product $1\cdots n$ of all the numbers from $1$ through $n$. Wilson's Theorem therefore gives another criterion for primality testing.
 
 Euler's totient function is an example of an arithmetic function. Other such functions include the function $\tau(n)$, which returns the number of divisors of a number $n$, the function $\sigma(n)$, which returnts the sum of the divisors of a number $n$, and the \emph{M\"obius function} $\mu$. These and other functions have important relations between them, that we will investigate next. The M\"obius inversion formula, for instance, states that if $f$ and $g$ are two arithmetic functions, then we have
 \begin{equation*}
@@ -257,7 +291,20 @@ This result allows us to "invert" summation relations involving divisors. For ex
 \end{equation*}
 The M\"obius inversion is only one aspect of an algebraic structure that is present on the set of all arithmetic functions. Arithmetic functions can be multiplied by an operation known as \emph{Dirichlet convolution}, which gives the set of arithmetic functions the structure of a \emph{commutative ring}. Commutative rings are sets with operations of addition and multiplication satisfying the usual laws of arithmetic, and having such a structure on a set gives us a great opportunity to study them further. In our case, we get to study the primes more closely!
 
-\section{Reasoning about infinitely many natural numbers}
+\section*{Literature}
+In this course we will be following \cite{andrews1994} fairly closely. One distictive feature of this book is that it presents many of the most important theorems from two perspectives: a combinatorial one and an abstract one. This dual approach helps to clarify not only why these results are true but also appreciate why they are natural and inevitable within the broader framework of mathematics.
+
+However, there are many excellent sources to learn number theory from. One of my personal favorites for its clarity and accessibility is LeVeque's \emph{Topics in Number Theory} \cite{leveque1956vol1,leveque1956vol2}. Both Andrews' and LeVeque's textbooks contain plenty of exercises, most of which are very fun.
+
+Silverman's \emph{Friendly Introduction to Number Theory} \cite{silverman2012} is another wonderful textbook, explaining the ideas behind many theorems and methods in number theory in a very accessible way, with practical examples and exercises. If you find some parts of Andrews or these notes hard to follow, you may well find the Friendly Introduction very helpful.
+
+The undisputed classic textbook on number theory is Hardy and Wright's \emph{Introduction to the Theory of Numbers} \cite{hardy2008}. This book covers all the essential topics in number theory, including elementary number theory and analytical number theory. It is more comprehensive and also provides more historical notes. The textbook of Hardy and Wright does not provide exercises, but it contains the proofs of many important facts in number theory that are stated as exercises elsewhere.
+
+\mainmatter
+
+\chapter{Mathematical induction}
+
+\section{Reasoning About Infinitely Many Natural Numbers}
 
 Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns of truths and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Thruths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs—conclusive arguments that establish why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out what the natural numbers really are.
 
@@ -311,9 +358,6 @@ Proofs by induction can be broken down into the following steps: First identify 
   Since $(n+2)(n+1)=(n+1)(n+2)$ it follows that $S_{n+1}=\frac{(n+1)(n+2)}{2}$ as desired.
 \end{proof}
 
-\section{Literature}
-In this course we will be following \cite{andrews1994} fairly closely. One distictive feature of this book is that it presents many of the most important theorems from two perspectives: a combinatorial one and an abstract one. This dual approach helps to clarify not only why these results are true but also appreciate why they are natural and inevitable within the broader framework of mathematics. However, there are many excellent sources to learn number theory from. One of my personal favorites for its clarity and accessibility is \cite{leveque1956vol1,leveque1956vol2}. Both Andrews' and LeVeque's textbooks contain plenty of exercises, most of which are very fun. Another all-time favourite textbook on number theory is \cite{hardy2008}, which is more comprehensive and also provides more historical notes. The textbook of Hardy and Wright does not provide exercises, but it contains the proofs of many important facts in number theory that are stated as exercises elsewhere.
-
 \begin{exercises}
   \exercise The \emph{factorial function} $n\mapsto n!$ is defined recursively by
   \begin{align*}
@@ -321,7 +365,7 @@ In this course we will be following \cite{andrews1994} fairly closely. One disti
     (n+1)! & := n!(n+1).
   \end{align*}
   Prove that $2^n<n!$ for all $n\geq 4$.
-  \exercise Prove that that the sum of the first $n$ odd numbers is a perfect square, i.e., prove that
+  \exercise \label{exercise:sum-of-odd-numbers}Prove that that the sum of the first $n$ odd numbers is a perfect square, i.e., prove that
   \begin{equation*}
     \sum_{k=0}^{n-1} 2k+1 = n^2.
   \end{equation*}
@@ -347,7 +391,7 @@ In this course we will be following \cite{andrews1994} fairly closely. One disti
   \begin{equation*}
     \sum_{k=0}^{n-1}(2k+1)^3=n^2(2n^2-1).
   \end{equation*}
-  \exercise Prove the \emph{formula for the difference of $n$th powers}
+  \exercise \label{exercise:difference-of-powers}Prove the \emph{formula for the difference of $n$th powers}
   \begin{equation*}
     x^n-y^n=(x-y)\sum_{k=0}^{n-1}x^ky^{n-1-k}.
   \end{equation*}
@@ -393,9 +437,250 @@ In this course we will be following \cite{andrews1994} fairly closely. One disti
   holds for all $n$. Use Cassini's identity to give some examples of natural numbers $a$ and $b$ that satisfy this inequality.
 \end{exercises}
 
-\chapter{Euclidean division and the representation theorem}
+\chapter{Combinatorial Methods in Number Theory}\label{chapter:combinatorial-methods}
 
-\section{The induction principle revisited}
+Combinatorics, or discrete mathematics, is mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Sometimes, counting methods can be used to obtain results in number theory. In this lecture we will use a combinatorial argument to show that the product
+\begin{equation*}
+  n(n+1)\cdots(n+k-1)
+\end{equation*}
+of any $k$ consecutive natural numbers is always divisible by $k!$. We will also establish the binomial theorem, which has a myriad of applications throughout mathematics.
+
+\section{Counting Bijections}
+
+\begin{definition}
+  A function $f:A \to B$ is said to be a \emph{bijection} if for every $y\in B$, the \emph{preimage} of $b$
+\begin{equation*}
+  f^{-1}(y) := \{x\in A\mid f(x)=y\}
+\end{equation*}
+has exactly one element. We write $A\cong B$ for the set of bijections from $A$ to $B$.
+\end{definition}
+
+A function $f:A \to B$ is a bijection precisely when it is \emph{invertible} in the sense that there is a function $g:B\to A$ such that $f\circ g=\mathrm{id}_B$ and $g\circ f=\mathrm{id}_A$. Here, the composite $g\circ f$ of $g$ and $f$ is the function $x\mapsto g(f(x))$ defined by applying $g$ to the value $f(x)$ of $f$ at the input variable $x$.
+
+In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set}
+\begin{equation*}
+  [n] := \{0,\ldots,n-1\}.
+\end{equation*}
+is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
+
+\begin{proposition}
+  The number of bijections $[n]\cong [n]$ from the standard $n$-element set to itself is exactly $n!$.
+\end{proposition}
+
+\begin{proof}
+  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exacly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction.
+
+  Now suppose that the number of bijections $[n]\cong[n]$ is $n!$. We claim that for each $y\in[n+1]$ there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ such that $f(n)=y$.
+
+  To see this, we first define the \emph{transposition function} $s_{y,n}$ defined by
+  \begin{equation*}
+    s_{y,n}(x) =
+    \begin{cases}
+      n & \text{if }x=y \\
+      y & \text{if }x=n \\
+      x & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  In other words, the function $s_{y,n}$ swaps the elements $n$ and $y$, and leaves the other elements fixed. This function is a bijection, because we can verify that the preimage $s_{y,n}^{-1}(z)$ is a singleton set for every $z\in[n+1]$. The preimage $s_{y,n}^{-1}(n)$ is the singleton set $\{y\}$; the preimage $s_{y,n}^{-1}(y)$ is the singleton set $\{n\}$, and the preimage $s_{y,n}^{-1}(x)$ is the singleton set $\{x\}$ otherwise.
+
+  Now we observe that the function
+  \begin{equation*}
+    ([n+1]\cong[n+1])\to ([n+1]\cong[n+1])
+  \end{equation*}
+  given by $g\mapsto s\circ g$ is itself a bijection, because it is an invertible function. Indeed, it is its own inverse, because $s\circ s\circ g = g$ for any bijection $g$.
+
+  Thus, if $f:[n+1]\cong[n+1]$ is a bijection such that $f(n)=y$, then $s\circ f$ is a bijection satisfying $s(f(n))=n$. In other words, every bijection satisfying $f(n)=y$ corresponds uniquely to a bijection satsfying $f(n)=n$.
+
+  Now we observe that there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ satisfying $f(n)=n$. Indeed, such bijections are uniquely determined by their restriction to the set $[n]$, and by the induction hypothesis there are $n!$ such bijections. Since there are $n+1$ possible choices of a value $y$, we conclude that there are $n!(n+1)$ bijections altogether from $[n+1]$ to $[n+1]$.
+\end{proof}
+
+\section{Counting Subsets}
+
+\begin{definition}
+  The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
+  \begin{align*}
+    \binom{0}{0} & := 1 & \binom{0}{k+1} & := 0 \\
+    \binom{n+1}{0} & := 1 & \binom{n+1}{k+1} & := \binom{n}{k} + \binom{n}{k+1}.
+  \end{align*}
+\end{definition}
+
+The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$th row of Pascal's triangle. In the $n$th row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
+
+\begin{center}
+\begin{tikzpicture}
+    \foreach \n in {0,...,6} {
+        \foreach \r in {0,...,\n} {
+            \pgfmathparse{int(factorial(\n)/(factorial(\r)*factorial(\n-\r)))}
+            \let\value\pgfmathresult
+            \node at (\r-\n/2,-\n) {\value};
+        }
+    }
+\end{tikzpicture}
+\end{center}
+
+\begin{theorem}
+  Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
+\end{theorem}
+
+\begin{proof}
+  Since the binomial coefficients are defined recursively, this theorem is best proven by induction on both variables.
+
+  If \(S\) has no elements and \(k=0\), then there is exactly one subset of \(S\) having \(k\) elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{0}{0}\).
+
+  If \(S\) has no elements, then there are no \((k+1)\)-element subsets of \(S\), since any \((k+1)\)-element subset has at least one element, but \(S\) has no elements. This shows that the number of \((k+1)\)-element subsets of \(S\) is \(\binom{0}{k+1}\).
+
+  If \(S\) has \(n+1\) elements, then there is exactly one subset of \(S\) with no elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{n+1}{0}\).
+
+  If \(S\) has \(n+1\) elements, then \(S\) has at least one element \(x_0\). Now there are two classes of subsets having \((k+1)\) elements: the subsets containing \(x_0\) and the subsets not containing \(x_0\). A \((k+1)\)-element subset of \(S\) containing \(x_0\) is equivalently described as a \(k\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\), because its \((k+1)\)st element is the element \(x_0\). By the induction hypothesis, there are exactly \(\binom{n}{k}\) such subsets. Furthermore, a \((k+1)\)-element subset of \(S\) not containing \(x_0\) is equivalently described as a \((k+1)\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\). By the induction hypothesis, there are exactly \(\binom{n}{k+1}\) such subsets. Combining these two observations, we find that the number of \((k+1)\)-element subsets of \(S\) is
+  \begin{equation*}
+    \binom{n}{k+1} + \binom{n}{k} = \binom{n+1}{k+1}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{definition}
+  We define the set $P_S(k)$ of $k$-permutations of a set $S$ recursively by:
+  \begin{enumerate}
+  \item The set $P_S(0)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
+  \item The set $P_S(k+1)$ of $(k+1)$-permutations of $S$ is the set
+    \begin{equation*}
+      \{(s,t) \mid s\in S,\ t\in P_{S\setminus\{s\}}(r)\}
+    \end{equation*}
+    of pairs $(s,t)$ consisting of an element in $S$ and an $k$-permutation of the set $S\setminus\{s\}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  The number of $k$-permutations of an $n$-element set $S$ is the number $\rpermutation{n}{k}$ defined by
+  \begin{equation*}
+    \rpermutation{n}{k} := n(n-1)\cdots(n-k+1).
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  The proof is by induction on $k$. There is exactly one $0$-permutation of any $n$-element set. To see that the number of $(k+1)$-permutations of an $n$-element set is $n\cdots(n-k)$, note that such a $(k+1)$-permutation consists of a choice of an element of $S$, and a $k$-permutation on the remaining $n-1$-element set of elements. Thus, the number of $(k+1)$-permutations on an $n$-element set is $n$ times the number of $k$-permuations on an $(n-1)$-element set, i.e., it is
+  \begin{equation*}
+    n(n-1)\cdots((n-1)-k+1)=n(n-1)\cdots(n-k).\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{proposition}\label{proposition:characterize-k-permutations}
+  There is a bijection between the set of $k$-permutations of an $n$-element set $S$, and the set
+  \begin{equation*}
+    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+  \end{equation*}
+  of pairs $(A,f)$ consisting of a subset $A\subseteq S$ and a bijection $\{0,\ldots,k-1\}\cong A$.
+\end{proposition}
+
+\begin{proof}
+  There is exactly one $0$-permutation of any $n$-element set $S$, and likewise the set of empty subsets $A$ of $S$ equipped with a bijection $[0]\cong A$ also contains exactly one element: the empty subset equipped with the empty bijection.
+
+  For the inductive step, consider a $(k+1)$-permutation $(s,t)$ of $S$, consisting of an element $s$ and a $k$-permutation $t$ of the set $S\setminus\{s\}$. By the induction hypothesis, the $k$-permutation $t$ corresponds uniquely to a subset $A\subseteq S\setminus\{s\}$ equipped with a bijection $f:[n]\cong A$. Thus, the $(k+1)$-permutation $(s,t)$ corresponds to the subset $B:=A\cup\{s\}\subseteq S$, equipped with the bijection $g:[n+1]\cong B$ given by $g(x):=f(x)$ for $x<n$ and $g(n):= s$.
+\end{proof}
+
+\begin{proposition}
+  The product $n(n-1)\cdots(n-k+1)$ of any $k$ consecutive numbers is divisible by $k!$.
+\end{proposition}
+
+\begin{proof}
+  By \cref{proposition:characterize-k-permutations} there is a bijection between the set of $k$-permutations of the set $S:=[n]$, and the set
+  \begin{equation*}
+    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+  \end{equation*}
+  These two sets therefore have the same number of elements. Thus, it follows that
+  \begin{equation*}
+    n(n-1)\cdots(n-k+1) = \binom{n}{k}\cdot k!,
+  \end{equation*}
+  showing that the left-hand side is divisible by $k!$.
+\end{proof}
+
+\begin{corollary}
+  \emph{Formula for binomial coefficients.} For any two natural numbers $n$ and $k$, we have
+  \begin{equation*}
+    \binom{n}{k}=\frac{n!}{k!(n-k)!}
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  By the previous proposition we have $\binom{n}{k}\cdot k!= \rpermutation{n}{k}= n!/k!$.
+\end{proof}
+
+\section{The Binomial Theorem}
+
+If we expand the exponent $(x+y)^3$, we get
+\begin{align*}
+  (x+y)^3  & = (x+y)^2(x+y) \\
+           & = (x^2 + 2xy + y^2)(x+y) \\
+           & = x^3 + 2x^2y + xy^2 + x^2y + 2xy^2 + y^3 \\
+           & = x^3 + 3x^2y + 3xy^2 + y^3.
+\intertext{Going further, if we expand the exponent $(x+y)^4$, we get}
+  (x+y)^4 & = (x^3 + 3x^2y + 3xy^2 + y^3)(x + y) \\
+          & = x^4 + 3x^3y + 3x^2y^2 + xy^3 + x^3y + 3x^2y^2 + 3xy^3 + y^4 \\
+          & = x^4 + 4x^3y + 6x^2y^2 + 4xy^3 + y^4.
+\end{align*}
+
+Now we might recognize an emerging pattern in the coefficients of these polynomials: they are all binomial coefficients! The binomial theorem generalizes this result for all exponents $n$.
+
+The binomial theorem has many proofs, including combinatorial proofs and algebraic proofs. All these proofs have their own merits. We will present here an algebraic proof, using induction, since it is the most easily applicable to settings other than the integers.
+
+\begin{theorem}
+  \emph{The binomial theorem.} In any number system, such as the natural numbers, the integers, the rational numbers, the reals, the complex numbers\footnote{More generally, the binomial theorem applies to any commutative semiring}, we have
+  \begin{equation*}
+    (x+y)^n = \sum_{k=0}^n \binom{n}{k}x^ky^{n-k}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  We prove the statement by induction on $n$. In the base case, we find that both sides of the equation
+  \begin{equation*}
+    (x+y)^0=\sum_{k=0}^0 \binom{n}{k}x^ky^{0-k}
+  \end{equation*}
+  evaluate to $1$, so the equation is true. In the inductive step, we have that
+  \begin{align*}
+    (x+y)^{n+1} & =(x+y)\sum_{k=0}^n \binom{n}{k}x^ky^{n-k} \\
+                & = \sum_{k=0}^n \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=0}^n\binom{n}{k}x^ky^{n-k+1} \\
+                & = x^{n+1} + \sum_{k=0}^{n-1} \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
+                & = x^{n+1} + \sum_{k=1}^{n} \binom{n}{k-1}x^{k}y^{n-k+1} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
+                & = x^{n+1} + \sum_{k=1}^n \left(\binom{n}{k-1}+\binom{n}{k}\right)x^ky^{n-k+1}+y^{n+1} \\
+    & = \sum_{k=0}^{n+1} \binom{n+1}{k}x^ky^{(n+1)-k}.\qedhere
+  \end{align*}
+\end{proof}
+
+The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2nd century BCE. Around the 11th century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13th century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
+
+\begin{exercises}
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^n \binom{n}{k} = 2^n
+  \end{equation*}
+  in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^n\binom{n}{k}(-1)^k = 0.
+  \end{equation*}
+  Conclude that
+  \begin{equation*}
+    \sum_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k} =\sum_{k=0}^{\lfloor (n-1)/2\rfloor}\binom{n}{2k+1}.
+  \end{equation*}
+  In this formula, the floor $\lfloor x\rfloor$ of a number $x$ is the largest integer below or equal to $x$.
+  \exercise \emph{The Chu-Vandermonde identity.} Use the binomial theorem at the polynomial $(x+1)^m(x+1)^n$ to show that
+  \begin{equation*}
+    \sum_{i=0}^k \binom{m}{i}\binom{n}{k-i} = \binom{m+n}{k}.
+  \end{equation*}
+  \exercise Show that
+  \begin{equation*}
+    \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
+  \end{equation*}
+  The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
+  \exercise Consider a fixed set $\{p_1,\ldots,p_n\}$ of $n$ distinct primes. Given a natural number $k$, how many numbers can be written as a product
+  \begin{equation*}
+    p_1^{m_1}\cdots p_n^{m_n}
+  \end{equation*}
+  such that $m_1+\cdots +m_n=k$?
+\end{exercises}
+
+\chapter{Euclidean Division and the Representability Theorem}\label{chapter-euclidean-division-and-representability}
+
+\section{The Induction Principle Revisited}
 
 Recall that mathematical induction is a proof strategy that can be used to prove properties of all infinitely many natural numbers. To prove that a property $P(n)$ is true for all $n$, we have to make two steps:
 \begin{enumerate}
@@ -405,7 +690,7 @@ Recall that mathematical induction is a proof strategy that can be used to prove
 
 We illustrate induction with another example, the \emph{formula for the geometric series}.
 
-\begin{theorem}
+\begin{theorem}\label{theorem:formula-geometric-series}
   For any real number $x$ not equal to $1$, the identity
   \begin{equation*}
     \sum_{k=0}^{n-1}x^k = \frac{x^n-1}{x-1}
@@ -482,7 +767,7 @@ We also have some variations of the well-ordering principle that apply to subset
   is inhabited and bounded from below. Since the set $B$ has a least element by the previous claim, it follows that the set $A$ has a largest element.
 \end{proof}
 
-\section{Euclidean division}
+\section{Euclidean Division}
 
 The Euclidean division operation with a divisor $d>0$ is the operation that returns for each integer $a$ the division with remainder of $a$ by $d$. More specifically, the Euclidean division operation of $a$ by an integer $d$ returns two integers, the \emph{quotient} $q$ and the \emph{remainder} $r$, such that $0\leq r <d$ and such that
 \begin{equation*}
@@ -537,7 +822,7 @@ The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it capt
   However, the integer $r'-r$ satisfies the strict inequalities $-d<r'-r<d$ and it is divisible by $d$. This implies that $r'-r=0$, i.e., that $r=r'$. Now it also follows that $(q-q')d=0$. Since $d$ was assumed to be positive, this implies that $q-q'=0$, i.e., that $q=q'$. This completes the proof of uniqueness.
 \end{proof}
 
-\section{The representability theorem}
+\section{The Representability Theorem}
 
 The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number
 \begin{equation*}
@@ -545,7 +830,7 @@ The \emph{decimal representation} of integers is well-embedded in our culture: A
 \end{equation*}
 Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $11100111$, while the hexadecimal representation of this number is $E7$. More generally, for any \emph{base} $k$ there is a unique representation of all integers using powers of $k$.
 
-\begin{theorem}\label{theorem:representation}
+\begin{theorem}\label{theorem:representability}
   Consider a natural number $k>1$. Then there exists for every natural number $n$ a unique list $\ell$ of digits $d_0,\ldots,d_{l-1}$ of length $l$, such that the inequalities $0\leq d_i<k$ hold for each $i<l$, such that the \emph{leading digit} $d_{l-1}\neq 0$, and satisfying the equation
   \begin{equation*}
     n= \sum_{i=0}^{l-1}d_i k^i.
@@ -554,7 +839,7 @@ Similar representations exists in binary (using only the digits $0$ and $1$), an
 
 Before proving the theorem, let's first discuss the main idea behind the proof. Since we assumed that $k>0$, it follows from the Euclidean division theorem, \cref{theorem:euclidean-division}, that there is a unique pair $(q,r)$ of numbers such that $n=qk+r$ and $0\leq r<k$. This gives us the first digit in the representation theorem\footnote{It should be noted that this digit appears last in the actual representation. It is the "ones digit" of the representation.}: the number $d_0:=r$.
 
-The representation theorem would now follow if we already knew that $q$ has a unique representation. If $d_0=r$ and if $d_1,\ldots,d_{l-1}$ is the unique representation of $q$, then the list $d_0,\ldots,d_{l-1}$ is a unique representation of $n$. However, the usual induction principle doesn't allow us to make this step, because $n$ is not necessarily the successor of $q$. Therefore we need something stronger: the \emph{strong induction principle}.
+The representability theorem would now follow if we already knew that $q$ has a unique representation. If $d_0=r$ and if $d_1,\ldots,d_{l-1}$ is the unique representation of $q$, then the list $d_0,\ldots,d_{l-1}$ is a unique representation of $n$. However, the usual induction principle doesn't allow us to make this step, because $n$ is not necessarily the successor of $q$. Therefore we need something stronger: the \emph{strong induction principle}.
 
 \begin{theorem}\label{theorem:strong-induction}
   Consider a property $P(n)$ of the natural numbers, and assume that the following two conditions hold:
@@ -592,7 +877,7 @@ The strong induction principle can be formulated more succinctly using the \emph
 
 Our earlier idea to prove the representability theorem can finally be made into a proof.
 
-\begin{proof}[Proof of \cref{theorem:representation}]
+\begin{proof}[Proof of \cref{theorem:representability}]
   We prove the theorem by strong induction. For the base case, note that the empty list satisfies the requirements vacuously since there are no digits in the empty list and empty sums are set to be $0$. Thus the empty list is a representation of $0$. Now suppose that $\ell=(d_0,\ldots,d_{l-1})$ is a representation of $0$ and $\ell$ is a list of nonzero length $l$. By the requirement that the leading digit $d_{l-1}$ is nonzero it follows that the sum
   \begin{equation*}
     \sum_{i=0}^{l-1}d_ik^i
@@ -624,7 +909,7 @@ Our earlier idea to prove the representability theorem can finally be made into 
     \sum_{i=0}^{l-1}(-1)^{i}d_i
   \end{equation*}
   is divisible by $11$. For example, the number $2541$ is divisible by $11$ because $-2+5-4+1=0$ is divisible by $11$.
-\exercise \emph{Zeckendorf's representation theorem}. Show that for any natural number $n$ there is a unique list $\ell=(d_0,\ldots,d_{l-1})$ of digits $0$ and $1$, such that its leading digit $d_{l-1}$ is nonzero, no two consecutive digits are both $1$, and satisfying the identity
+\exercise \label{exercise:zeckendorf}\emph{Zeckendorf's representation theorem}. Show that for any natural number $n$ there is a unique list $\ell=(d_0,\ldots,d_{l-1})$ of digits $0$ and $1$, such that its leading digit $d_{l-1}$ is nonzero, no two consecutive digits are both $1$, and satisfying the identity
   \begin{equation*}
     n=\sum_{i=0}^{l-1}d_iF_{i+2},
   \end{equation*}
@@ -635,7 +920,7 @@ Our earlier idea to prove the representability theorem can finally be made into 
   \end{enumerate}
 \end{exercises}
 
-\chapter{Linear Diophantine Equations}
+\chapter{Linear Diophantine Equations}\label{chapter:linear-diophantine-equations}
 
 In this section we study \emph{linear Diophantine equations}, i.e., equations of the form
 \begin{equation*}
@@ -742,7 +1027,7 @@ Another approach that often works well, which was suggested in class by Lucy, is
   In the second case, let $x$ and $y$ be distinct elements of $\{a,\ldots,a+k-1\}$ that are both divisible by $k$. Assume without loss of generality, that $x\leq y$. Then we have $0\leq y-x < k$, and $y-x$ is divisible by $k$. By the Euclidean division theorem, we must have $y-x=0$, which contradicts our assumption that $x$ and $y$ are distinct.
 \end{proof}
 
-\section{Ideals of integers}
+\section{Ideals of Integers}
 
 Ideals are a concept from \emph{ring theory}, which studies \emph{rings}, which are sets equipped with addition, subtraction, and multiplication, satisfying the most familiar laws of arithmetic:
 \begin{align*}
@@ -771,7 +1056,7 @@ An \emph{ideal of integers} is a subset $I\subseteq \mathbb{Z}$ that contains $0
 
 The set of ideals of $\mathbb{Z}$ is ordered by inclusion, i.e., we write $I\subseteq J$ for two ideals $I$ and $J$, if every element of $I$ is an element of $J$. Note that $(b)\subseteq (a)$ holds if and only if $a\mid b$. The theory of ideals of integers is therefore closely related to the theory of divisibility of integers.
 
-\section{The ordering by divisibility}
+\section{The Ordering by Divisibility}
 The divisibility relation equips the sets of integers and natural numbers with a useful extra structure, a \emph{partial ordering} of their elements. The set of natural numbers equipped with the divisibility relation is a poset, while the set of integers equipped with the divisibility relation is a preorder, a slightly weaker structure.
 
 \begin{definition}
@@ -871,7 +1156,7 @@ Despite lacking antisymmetry, the preorder of the integers with divisibility is 
 \end{equation*}
 for any integer $a$ and any natural number $n$. Order preserving maps $f : (P,\leq_P) \to (Q,\leq_Q)$ from a preorder $(P,\leq_P)$ to a poset $(Q,\leq_Q)$ that satisfy the logical equivalence $(x\leq_P y)\land (y\leq_P x) \Leftrightarrow f(x)=f(y)$ for every $x,y\in P$ are also called \emph{poset reflections}. Every preorder has a poset refection, but we will not need to go into that aspect of order theory in this course.
 
-\section{Greatest common divisors}
+\section{Greatest Common Divisors}
 
 Some preorders $(P,\leq)$ satisfy the property that for any two elements $a,b\in P$ there is a maximal element below both of them. This property can be formulated succinctly as follows: An element $d$ is a maximal element below $a$ and $b$ if it satisfies the logical equivalence
 \begin{equation*}
@@ -958,7 +1243,7 @@ The following proposition is a must-know fact about the integers.
   Consequently, there is a solution to the equation $cax+cby=c$. However, both $cax$ and $cby$ are divisible by $a$, so $c$ must be divisible by $a$.
 \end{proof}
 
-\section{Euclid's algorithm}
+\section{Euclid's Algorithm}
 
 The previous theorem shows that any two integers $a$ and $b$ have a greatest common divisor $\gcd(a,b)$, and that there are integers $k$ and $l$ such that
 \begin{equation*}
@@ -966,7 +1251,7 @@ The previous theorem shows that any two integers $a$ and $b$ have a greatest com
 \end{equation*}
 but it doesn't reveal much about how the integers $k$ and $l$ can be found. Euclid's algorithm is an efficent way to compute the greatest common divisor and to find integers $k$ and $l$ establishing the greatest common divisor as a linear combination.
 
-\begin{proposition}
+\begin{proposition}\label{proposition:gcd-euclidean-division}
   Suppose $a$ and $b$ are two integers and $b=qa+r$. Then we have
   \begin{equation*}
     \gcd(b,a)=\gcd(a,r).
@@ -981,7 +1266,13 @@ but it doesn't reveal much about how the integers $k$ and $l$ can be found. Eucl
   It follows that $d$ is a common divisor of $a$ and $b$ if and only if $d$ is a common divisor of $a$ and $r$. This implies that their greatest common divisors coincide.
 \end{proof}
 
-The proposition above implies a useful way of calculating the greatest common divisor of two numbers. Suppose we want to calculate the greatest common divisor of $578$ and $732$. Then we write $732$ in the form $q\cdot 578+r$, i.e., we write
+As an immediate corollary, we obtain:
+
+\begin{corollary}
+  If $b$ is of the form $ka+1$, then $a$ and $b$ are always relatively prime.
+\end{corollary}
+
+\cref{proposition:gcd-euclidean-division} implies a useful way of calculating the greatest common divisor of two numbers. Suppose we want to calculate the greatest common divisor of $578$ and $732$. Then we write $732$ in the form $q\cdot 578+r$, i.e., we write
 \begin{equation*}
   732 = 1 \cdot 578 + 154.
 \end{equation*}
@@ -1040,7 +1331,7 @@ However, by the equation before that we see that $38$ itself is a linear combina
   \end{equation*}
 \end{example}
 
-\section{Linear Diophantine equations in multiple variables}
+\section{Linear Diophantine Equations in Multiple Variables}
 
 In this section we turn our attention to linear Diophantine equations in two variables, i.e., to integer equations of the form
 \begin{equation*}
@@ -1048,7 +1339,7 @@ In this section we turn our attention to linear Diophantine equations in two var
 \end{equation*}
 We begin by applying the theory of ideals to establish that this equation has a solution if and only if $\gcd(a,b)\mid c$.
 
-\begin{theorem}
+\begin{theorem}\label{theorem:solve-linear-diophantine-equation}
   Consider integers $a$, $b$, and $c$, and let $d=\gcd(a,b)$. The linear Diophantine equation
   \begin{equation*}
     ax + by = c
@@ -1117,7 +1408,7 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   implies that $k=l$. In other words, $x=x_0+bk$ and $y=y_0-ak$.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{theorem:set-of-solutions-binary-linear-diophantine-equation}
   Suppose that $ax_0,by_0=c$ is a solution to the Diophantine equation
   \begin{equation*}
     ax + by = c.
@@ -1154,7 +1445,7 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \exercise Show that $a^5-a$ is divisible by $30$ for every integer $a$.
   \exercise Show that any two consecutive Fibonacci numbers are relatively prime.
   \exercise \emph{Goldbach's theorem}. Show that any two distinct Fermat numbers are relatively prime.
-  \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime.
+  \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
   \exercise
   \begin{subexenum}
   \item Prove the \emph{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
@@ -1166,11 +1457,16 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
     \end{enumerate}
   \item Show that the Fibonacci sequence preserves and reflects divisibility: we have $m\mid n$ if and only if $F_m\mid F_n$.
   \end{subexenum}
+  \exercise Consider three integers $a$, $b$, and $c$. Show that the following are equivalent:
+  \begin{enumerate}
+  \item The integers $a$ and $b$ are both relatively prime to $c$.
+  \item The integer $ab$ is relatively prime to $c$.
+  \end{enumerate}
 \end{exercises}
 
-\chapter{The Fundamental Theorem of Arithmetic}
+\chapter{The Fundamental Theorem of Arithmetic}\label{chapter:fundamental-theorem-of-arithmetic}
 
-\section{Prime numbers}
+\section{Prime Numbers}
 
 \begin{definition}
   An integer $a$ is said to be \emph{prime} if it has exactly one positive proper divisor. Any integer $a\neq \pm 1$ that is not prime is said to be a \emph{composite number}.
@@ -1343,6 +1639,16 @@ The following proposition is due to Euclid, who included it as proposition 30 of
 \end{proof}
 
 \begin{exercises}
+  \exercise Show that
+  \begin{equation*}
+    p\mid \binom{p}{k}
+  \end{equation*}
+  for any $0<k<p$, and any prime number $p$.
+  \exercise Show that
+  \begin{equation*}
+    4^{\frac{p-1}{2}}\equiv 1\pmod{p}
+  \end{equation*}
+  for any odd prime number $p$.
   \exercise Define the $n$th \emph{Mersenne number} $M_n$ to be
   \begin{equation*}
     M_n:=2^n-1.
@@ -1351,253 +1657,1609 @@ The following proposition is due to Euclid, who included it as proposition 30 of
   \exercise A natural number $n$ is said to be \emph{perfect} if it is the sum of its proper divisors. Show that an even number is perfect if and only if it is of the form $2^{p-1}M_p$, where $M_p$ is a Mersenne prime.
 \end{exercises}
 
-\chapter{Combinatorial methods in number theory}
+\chapter{Pythagorean triples}
 
-Combinatorics, or discrete mathematics, is mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Sometimes, counting methods can be used to obtain results in number theory. In this lecture we will use a combinatorial argument to show that the product
-\begin{equation*}
-  n(n+1)\cdots(n+k-1)
-\end{equation*}
-of any $k$ consecutive natural numbers is always divisible by $k!$. We will also establish the binomial theorem, which has a myriad of applications throughout mathematics.
+\section{The Pythagorean Theorem}
 
-\section{Counting bijections}
-
-\begin{definition}
-  A function $f:A \to B$ is said to be a \emph{bijection} if for every $y\in B$, the \emph{preimage} of $b$
-\begin{equation*}
-  f^{-1}(y) := \{x\in A\mid f(x)=y\}
-\end{equation*}
-has exactly one element. We write $A\cong B$ for the set of bijections from $A$ to $B$.
-\end{definition}
-
-A function $f:A \to B$ is a bijection precisely when it is \emph{invertible} in the sense that there is a function $g:B\to A$ such that $f\circ g=\mathrm{id}_B$ and $g\circ f=\mathrm{id}_A$. Here, the composite $g\circ f$ of $g$ and $f$ is the function $x\mapsto g(f(x))$ defined by applying $g$ to the value $f(x)$ of $f$ at the input variable $x$.
-
-In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set}
-\begin{equation*}
-  [n] := \{0,\ldots,n-1\}.
-\end{equation*}
-is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
-
-\begin{proposition}
-  The number of bijections $[n]\cong [n]$ from the standard $n$-element set to itself is exactly $n!$.
-\end{proposition}
-
-\begin{proof}
-  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exacly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction.
-
-  Now suppose that the number of bijections $[n]\cong[n]$ is $n!$. We claim that for each $y\in[n+1]$ there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ such that $f(n)=y$.
-
-  To see this, we first define the \emph{transposition function} $s_{y,n}$ defined by
-  \begin{equation*}
-    s_{y,n}(x) =
-    \begin{cases}
-      n & \text{if }x=y \\
-      y & \text{if }x=n \\
-      x & \text{otherwise.}
-    \end{cases}
-  \end{equation*}
-  In other words, the function $s_{y,n}$ swaps the elements $n$ and $y$, and leaves the other elements fixed. This function is a bijection, because we can verify that the preimage $s_{y,n}^{-1}(z)$ is a singleton set for every $z\in[n+1]$. The preimage $s_{y,n}^{-1}(n)$ is the singleton set $\{y\}$; the preimage $s_{y,n}^{-1}(y)$ is the singleton set $\{n\}$, and the preimage $s_{y,n}^{-1}(x)$ is the singleton set $\{x\}$ otherwise.
-
-  Now we observe that the function
-  \begin{equation*}
-    ([n+1]\cong[n+1])\to ([n+1]\cong[n+1])
-  \end{equation*}
-  given by $g\mapsto s\circ g$ is itself a bijection, because it is an invertible function. Indeed, it is its own inverse, because $s\circ s\circ g = g$ for any bijection $g$.
-
-  Thus, if $f:[n+1]\cong[n+1]$ is a bijection such that $f(n)=y$, then $s\circ f$ is a bijection satisfying $s(f(n))=n$. In other words, every bijection satisfying $f(n)=y$ corresponds uniquely to a bijection satsfying $f(n)=n$.
-
-  Now we observe that there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ satisfying $f(n)=n$. Indeed, such bijections are uniquely determined by their restriction to the set $[n]$, and by the induction hypothesis there are $n!$ such bijections. Since there are $n+1$ possible choices of a value $y$, we conclude that there are $n!(n+1)$ bijections altogether from $[n+1]$ to $[n+1]$.
-\end{proof}
-
-\section{Counting subsets}
-
-\begin{definition}
-  The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
-  \begin{align*}
-    \binom{0}{0} & := 1 & \binom{0}{k+1} & := 0 \\
-    \binom{n+1}{0} & := 1 & \binom{n+1}{k+1} & := \binom{n}{k} + \binom{n}{k+1}.
-  \end{align*}
-\end{definition}
-
-The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$th row of Pascal's triangle. In the $n$th row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
-
-\begin{center}
-\begin{tikzpicture}
-    \foreach \n in {0,...,6} {
-        \foreach \r in {0,...,\n} {
-            \pgfmathparse{int(factorial(\n)/(factorial(\r)*factorial(\n-\r)))}
-            \let\value\pgfmathresult
-            \node at (\r-\n/2,-\n) {\value};
-        }
-    }
-\end{tikzpicture}
-\end{center}
+Recall that a right triangle is a triangle in which one of the angles is a right angle, i.e., it is exactly $90^\circ$. The Pythagorean theorem relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the trigonometric proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as highschool students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
 
 \begin{theorem}
-  Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
+  Consider a right triangle with side lengths $a$ and $b$, and a hypotenuse of length $c$. Then
+  \begin{equation*}
+    a^2 + b^2 = c^2.
+  \end{equation*}
 \end{theorem}
 
-\begin{proof}
-  Since the binomial coefficients are defined recursively, this theorem is best proven by induction on both variables.
-
-  If \(S\) has no elements and \(k=0\), then there is exactly one subset of \(S\) having \(k\) elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{0}{0}\).
-
-  If \(S\) has no elements, then there are no \((k+1)\)-element subsets of \(S\), since any \((k+1)\)-element subset has at least one element, but \(S\) has no elements. This shows that the number of \((k+1)\)-element subsets of \(S\) is \(\binom{0}{k+1}\).
-
-  If \(S\) has \(n+1\) elements, then there is exactly one subset of \(S\) with no elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{n+1}{0}\).
-
-  If \(S\) has \(n+1\) elements, then \(S\) has at least one element \(x_0\). Now there are two classes of subsets having \((k+1)\) elements: the subsets containing \(x_0\) and the subsets not containing \(x_0\). A \((k+1)\)-element subset of \(S\) containing \(x_0\) is equivalently described as a \(k\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\), because its \((k+1)\)st element is the element \(x_0\). By the induction hypothesis, there are exactly \(\binom{n}{k}\) such subsets. Furthermore, a \((k+1)\)-element subset of \(S\) not containing \(x_0\) is equivalently described as a \((k+1)\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\). By the induction hypothesis, there are exactly \(\binom{n}{k+1}\) such subsets. Combining these two observations, we find that the number of \((k+1)\)-element subsets of \(S\) is
+\begin{proof}[The Chinese proof]
+  Consider a square with side lengths $a+b$, and include four right triangles with side lengths $a$ and $b$ in the square, so that their right angles coincide with the four right angles of the square.
+\begin{center}
+\begin{tikzpicture}[scale=.7,thick,line join=round]
+    % Define points of the outer square
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (5,0);
+    \coordinate (C) at (5,5);
+    \coordinate (D) at (0,5);
+    
+    % Define points of the inner square
+    \coordinate (E) at (2,0);
+    \coordinate (F) at (5,2);
+    \coordinate (G) at (3,5);
+    \coordinate (H) at (0,3);
+    
+    % Draw the outer square
+    \draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
+    
+    % Draw the four right triangles
+    \draw (A) -- node[below] {$a$} (E) -- (H) -- node[left] {$b$} cycle;
+    \draw (E) -- node[below] {$b$} (B) -- node[right] {$a$} (F) -- cycle;
+    \draw (F) -- node[right] {$b$} (C) -- node[above] {$a$} (G) -- cycle;
+    \draw (G) -- node[above] {$b$} (D) -- node[left] {$a$} (H) -- cycle;
+    
+    % Draw the inner square
+    \draw[line join=bevel] (E) -- node[midway,above] {$c$} (F) -- node[midway,left] {$c$} (G) -- node[midway,below] {$c$} (H) -- node[midway,right] {$c$} cycle;
+\end{tikzpicture}
+\end{center}
+  The area of the square is $(a+b)^2$. On the other hand, the area of each triangle is $ab/2$. Combined with the area of the inner square, whose sides are the hypotenuses of the four triangles, we obtain that
   \begin{equation*}
-    \binom{n}{k+1} + \binom{n}{k} = \binom{n+1}{k+1}.\qedhere
+    (a+b)^2 = c^2 + 4\frac{ab}{2} = c^2 + 2ab.
+  \end{equation*}
+  Since $(a+b)^2=a^2+2ab+b^2$, we find that $a^2+b^2=c^2$.
+\end{proof}
+
+\begin{proof}[Euclid's proof]
+  Consider a right triangle $ACB$ with hypotenuse $AB$, and draw a line from $C$ through $AB$ at a right angle. The intersection point is called $M$.
+  \begin{equation*}
+    \begin{tikzpicture}[scale=.1,line join=round,line cap=round]
+      \pgfmathsetmacro{\myangle}{atan(28/45)}
+      \pgfmathsetmacro{\CM}{28*45/53}
+      
+      \coordinate (A) at (0,0);
+      \coordinate (B) at (53,0);
+      \coordinate (C) at ($(A) + ({90-\myangle}:28)$);
+      \coordinate (M) at ($(C) + (270:\CM)$);
+      
+      \draw[thick] (A) -- (C) -- (B) -- cycle;
+      \draw[thick] (C) -- (M);
+      
+      \draw (M) ++(0:2) -- ++(90:2) -- ++(180:2);
+      
+      \node[below left]  at (A) {$A$};
+      \node[below right] at (B) {$B$};
+      \node[above]       at (C) {$C$};
+      \node[below right] at (M) {$M$};
+      
+      \draw pic[draw=black, angle radius=10] {angle=B--A--C};
+      \draw pic[draw=black, angle radius=10] {angle=M--C--B};
+      
+      \path (B) -- (C) node[midway, above right] {$a$};
+      \path (A) -- (C) node[midway, above left] {$b$};
+      
+      % Add a brace for the entire segment AB
+      \draw[decorate, decoration={brace, amplitude=3pt, mirror}]
+      ($(A)+(0,-5)$) -- ($(B)+(0,-5)$) node[midway, yshift=-3mm] {$c$};
+    \end{tikzpicture}
+  \end{equation*}
+  Let $x$ be the length of the line segment $AM$, and let $y$ be the length of the line segment $BM$, so that $x+y=c$. The line $CM$ divides the triangle $ACB$ into two triangles $CMA$ and $CMB$, both of which are similar to the original triangle $ACB$. Thus, the ratio $a:c$ is the same as the ratio $y:a$, and the ratio $b:c$ is the same as the ratio $x:b$. This gives us the equalities
+  \begin{equation*}
+    a^2 = cy\qquad\text{and}\qquad b^2 = cx.
+  \end{equation*}
+  Since $x+y=c$, we find that $a^2+b^2=c^2$.
+\end{proof}
+
+Our third proof and final proof in this section, which is due to Ne'Kiya Jackson and Calcea Johnson, is remarkable because it makes essential use of trigonometric functions sine and cosine and the addition law, which can be derived trigonometrically, rather than on calculations involving areas of shapes. Besides its use of trigonometry, it is remarkable because Ne'Kiya Jackson and Calcea Johnson were still in high school when they found their proof, and it stands out for its inventive creativity.
+
+\begin{wrapfigure}{r}{.4\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
+    % Draw the triangle
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (4,3);
+    \coordinate (C) at (4,0);
+    
+    \draw[thick] (A) -- (C) node[midway, below] {$\cos(\theta)$} -- (B) node[midway, right] {$\sin(\theta)$} -- cycle node[midway, above] {$1$};
+    
+    % Mark right angle
+    \draw (4,0) -- ++(-0.4,0) -- ++(0,0.4) -- ++(0.4,0);
+
+    \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=13,yshift=4}] {angle=C--A--B};
+
+    \node[above right] at (B) {$B$};
+    \node[below left] at (A) {$A$};
+    \node[below right] at (C) {$C$};
+  \end{tikzpicture}
+\end{wrapfigure}
+Recall that the sine and cosine functions are defined to be the lengths of the vertical and horizontal sides of a right triangle, as indicated in the diagram on the side.
+
+This means that if $ABC$ is a right triangle with side $BC$ of length $a$, side $AC$ of length $b$, hypotenuse $AB$ of length $c$, and angle $\theta:=\angle CAB$, then we have
+\begin{equation*}
+  \sin(\theta) = \frac{a}{c}\qquad\text{and}\qquad \cos(\theta)=\frac{b}{c}.
+\end{equation*}
+In the proof of the Pythagorean theorem, we will make use of the addition formulas for sine and cosine:
+\begin{align*}
+  \sin(\theta + \phi) & = \sin(\theta)\cos(\phi) + \cos(\theta)\sin(\phi) \\
+  \cos(\theta + \phi) & = \sin(\theta)\sin(\phi) - \cos(\theta)\cos(\phi).
+\end{align*}
+In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. These laws can be derived geometrically if $\theta+\phi$ is an accute angle, i.e., if it is strictly less than $90^\circ$, see \cref{exercise:addition-laws-sin-cos}.
+
+\begin{proof}[The Jackson-Johnson proof \cite{jacksonjohnson2024}]
+  Consider a right triangle $ABC$ with the right angle at $C$, and label the sides $a=BC$, $b=AC$, and $c=AB$ so $c$ is the hypotenuse.
+
+  In the special case where $ABC$ is isosceles, i.e., if $a=b$, the hypotenuse is the diagonal of an $a$-by-$a$ square, which gives us that $c^2=2a^2$. Hence, we may assume that $ABC$ is nonisoceles.
+
+  Without loss of generality, we will assume that $a<b$, i.e., that $BC$ is the shorter side. We reflect the triangle along the longer side $AC$, as indicated in the diagram below:
+  \begin{equation*}
+    \begin{tikzpicture}[scale=.2,line join=round,line cap=round]
+      \pgfmathsetmacro{\length}{((2 * (64 / 225)) / (1 - (64 / 225)))}
+
+      \coordinate (B) at (0,0);
+      \coordinate (C) at (8,0);
+      \coordinate (B') at (16,0);
+      \coordinate (A) at (8,15);
+
+      \node[below left] at (B) {$B$};
+      \node[above] at (A) {$A$};
+      \node[below] at (C) {$C$};
+      \node[below right] at (B') {$B'$};      
+
+      \draw[thick] (B) -- (C) -- (B') -- (A) -- cycle;
+      \draw[thick] (A) -- (C);
+
+      \path (B) -- (C) node[midway, below] {$a$};
+      \path (B) -- (A) node[midway, above left] {$c$};
+      \path (B') -- (C) node[midway, below] {$a$};
+      \path (A) -- (B') node[midway, above right] {$c$};
+      \path (A) -- (C) node[pos=0.66,left] {$b$};
+      
+      \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=-3,yshift=-13}] {angle=B--A--C};
+      \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=3,yshift=-13}] {angle=C--A--B'};
+
+    \end{tikzpicture}
+  \end{equation*}
+
+  Observe that the angle $\theta := \angle BAC$ is strictly less than $45^\circ$, so that the angle $2\theta = \angle BAB'$ is still an acute angle.
+
+  Using this combined triangle, we draw a line from $B$ perpendicular to the line $AB$, and we extend the line $AB'$ until they meet in an intersection point, which we call $D$. This construction yields a new right triangle $ABD$ with the right angle at $B$, as in \cref{figure:jackson-johnson-pythagorean-theorem}.
+  \begin{figure}[t]
+    \centering
+    \begin{tikzpicture}[scale=.2,line join=round,line cap=round]
+      \pgfmathsetmacro{\length}{((2 * (64 / 225)) / (1 - (64 / 225)))}
+
+      \coordinate (B) at (0,0);
+      \coordinate (C) at (8,0);
+      \coordinate (B') at (16,0);
+      \coordinate (A) at (8,15);
+      \coordinate (D) at ($ (B')!\length!180:(A)$);
+
+      \node[left] at (B) {$B$};
+      \node[right] at (B') {$B'$};
+      \node[above] at (A) {$A$};
+      \node[below right] at (D) {$D$};      
+
+
+      \draw[thick,gray,dashed] (B') -- (A) -- (B);
+      \draw[thick,gray,dashed] (A) -- (C);
+      \draw[thick] (B) -- (C) -- (B') -- (D) -- cycle;
+
+      \draw[thick] (B') -- (D);
+      \draw[thick] (D) -- (B);
+
+      \draw pic [draw=black, angle radius=3mm] {right angle=A--B--D};
+
+      \draw[thick,line join=bevel]
+      (B') -- ++(0,{-16 * (8/15)}) coordinate (E)
+      -- ++({16 * (8/15)^2},0) coordinate (F)
+      -- ++(0,{-16 * (8/15)^3}) coordinate (G)
+      -- ++({16 * (8/15)^4},0) coordinate (H)
+      -- ++(0,{-16 * (8/15)^5})
+      -- ++({16 * (8/15)^6},0)
+      -- ++(0,{-16 * (8/15)^7});
+
+      \node[below left] at (E) {$E$};
+      \node[above right] at (F) {$F$};
+      \node[below left] at (G) {$G$};
+      \node[above right] at (H) {$H$};
+
+      \draw pic[draw=black, angle radius=15] {angle=B--A--C};
+      \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=13,yshift=-3}] {angle=D--B--C};
+      \draw pic[draw=black, angle radius=12] {angle=E--B'--D};
+      \draw pic[draw=black, angle radius=10] {angle=D--E--F};
+    \end{tikzpicture}
+    \caption{The recursive subdivision of the triangle $BDB'$.}
+    \label{figure:jackson-johnson-pythagorean-theorem}
+  \end{figure}
+
+  We will now subdivide the triangle $BDB'$ by first dropping a line down from $B'$ at a right angle from the line $BB'$, creating a new right triangle $BEB'$. Since this triangle also has an angle $\theta$, it is similar to the original triangle $ABC$. Its sides have lengths $2a$ and $2a^2/b$.
+
+  We continue subdividing the triangle $BDB'$ into ever smaller right triangles, as indicated in the figure. The successive triangles in this sequence are all right triangles with an angle $\theta$, so they are all similar. Corresponding sides in these successive triangles have a ratio of $a/b$. The hypotenuses of these triangles therefore have length
+  \begin{equation*}
+    2c\left(\frac{a}{b}\right)^n
+  \end{equation*}
+  This allows us to calculate the length of the side $B'D$ via the formula for the geometric series, which we proved in \cref{theorem:formula-geometric-series}:
+  \begin{equation*}
+    |B'D| = \sum_{k=0}^\infty 2c\left(\frac{a}{b}\right)^{2k+2} = 2c\left(\frac{a}{b}\right)^2\sum_{k=0}^\infty \left(\frac{a}{b}\right)^{2k} = \frac{2c\left(\frac{a}{b}\right)^2}{1-\left(\frac{a}{b}\right)^2}=\frac{2ca^2}{b^2-a^2}.
+  \end{equation*}
+  Now we can find two expressions for the length of the line $AD$. First, it consists of the lines $AB'$ and $B'D$, so it is of length $c+|B'D|$, which we calculated above. On the other hand, by trigonometry we have that $c/|AD|=\cos(2\theta)$, which gives us that $|AD|=c/\cos(2\theta)$. Since both expressions give the length of the line $AD$, both involving a factor of $c$ which we can factor out, we obtain the following equation:
+  \begin{equation*}
+    1+\frac{2a^2}{b^2-a^2} = \frac{1}{\cos(2\theta)}.
+  \end{equation*}
+  Furthermore, the addition formula for cosines gives us that $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. Since $\sin(\theta)=\frac{b}{c}$ and $\cos(\theta)=\frac{a}{c}$, we find that
+  \begin{equation*}
+    1+\frac{2a^2}{b^2-a^2} = \frac{c^2}{b^2-a^2}.
+  \end{equation*}
+  Rearranging this equation gives us that $(b^2 - a^2)+2a^2 = c^2$, which yields
+  \begin{equation*}
+    a^2+b^2=c^2.\qedhere
   \end{equation*}
 \end{proof}
 
+\section{Euclid's Parametrization of the Pythagorean Triples}
+
+Our goal in this section is to describe all the solutions of the quadratic Diophantine equation
+\begin{equation*}
+  x^2 + y^2 = z^2,
+\end{equation*}
+where $z$ is a nonzero integer. By the Pythagorean Theorem, any such triple $(x,y,z)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(x,y,z)$ is a Pythagorean triple, then so is $(kx,ky,kz)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
+
+\begin{wrapfigure}{r}{.4\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
+    % Draw the triangle
+    \draw[thick] (0,0) -- (4,0) node[midway, below] {$4$};
+    \draw[thick] (4,0) -- (4,3) node[midway, right] {$3$};
+    \draw[thick] (4,3) -- (0,0) node[midway, above] {$5$};
+    
+    % Mark right angle
+    \draw (4,0) -- ++(-0.4,0) -- ++(0,0.4) -- ++(0.4,0);
+  \end{tikzpicture}
+\end{wrapfigure}
+The trivial solutions are $(0,1,1)$ and $(1,0,1)$. The simplest nontrivial solution is the famous equation
+\begin{equation*}
+  3^2 + 4^2 = 5^2.
+\end{equation*}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.68\textwidth]{Plimpton_322.jpg}
+  \caption{The Babylonian tablet Plimpton 322, listing Pythagorean triples. }
+  \label{fig:plimpton322}
+\end{figure}
+The triangle with side lengths $3$ and $4$ and a hypotenuse of length $5$ is sometimes called the \emph{Egyptian triangle}, since it is believed that the ancient Egyptians used this triangle for practical applications. The oldest surviving table of Pythagorean triples was created by the Babylonians, in what is now known as the tablet \emph{Plimpton 322}. This clay tablet, which is estimated to date from 1800 BCE, contains a mathematical table written in cuneiform script, where each row describes a Pythagorean triple in sexagesimal notation, i.e., base 60.
+
+Some further Pythagorean triples include
+\begin{equation*}
+  (5,12,13),\qquad (21,20,29),\qquad\text{and}\qquad (15,8,17).
+\end{equation*}
+
+Fibonacci devised in his book \emph{Liber Quadratorum} (The Book of Squares) \cite{fibonacci1225} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, i.e., if $a^2=2n+1$, then there are positive integers $b$ and $c$ such that
+\begin{equation*}
+  b^2 = \sum_{i=0}^{n-1}(2i+1),\qquad\text{and}\qquad c^2=\sum_{i=0}^{n}(2i+1)
+\end{equation*}
+by \cref{exercise:sum-of-odd-numbers}. For this choice of $a$, $b$, and $c$, we have
+\begin{equation*}
+  a^2 + b^2 = c^2.
+\end{equation*}
+Note that this is just the equation
+\begin{equation*}
+  (2b + 1) + b^2 = (b+1)^2
+\end{equation*}
+in disguise, and indeed we don't need to refer to \cref{exercise:sum-of-odd-numbers} to see that if $a^2=2b+1$, then $(a,b,b+1)$ is a Pythagorean triple.
+
+The Pythagorean triples $(a,b,c)$ generated by Fibonacci's method always satisfy $c=b+1$. However, we have already seen that $(21,20,29)$ is a Pythagorean triple that is not of this form. Therefore we see that, even though Fibonacci's method can be used to see that there are infinitely many Pythagorean triples, it does not generate all of them.
+
+In the remainder of this section we will derive the classic formula that describes all the Pythagorean triples. The method leading to this formula was described by Euclid in Book X, Proposition 29 and Book 6, Proposition 21 of the Elements.
+
 \begin{definition}
-  We define the set $P_S(k)$ of $k$-permutations of a set $S$ recursively by:
-  \begin{enumerate}
-  \item The set $P_S(0)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
-  \item The set $P_S(k+1)$ of $(k+1)$-permutations of $S$ is the set
-    \begin{equation*}
-      \{(s,t) \mid s\in S,\ t\in P_{S\setminus\{s\}}(r)\}
-    \end{equation*}
-    of pairs $(s,t)$ consisting of an element in $S$ and an $k$-permutation of the set $S\setminus\{s\}$.
-  \end{enumerate}
+  A \emph{primitive Pythagorean triple} is a triple $(x,y,z)$ satisfying
+  \begin{equation*}
+    x^2 + y^2 = z^2
+  \end{equation*}
+  such that $\gcd(x,y)=1$.
 \end{definition}
 
+\begin{example}
+  All the Pythagorean triples generated by Fibonacci's method are primitive, since $\gcd(2b+1,b)=1$.
+\end{example}
+
 \begin{lemma}
-  The number of $k$-permutations of an $n$-element set $S$ is the number $\rpermutation{n}{k}$ defined by
-  \begin{equation*}
-    \rpermutation{n}{k} := n(n-1)\cdots(n-k+1).
-  \end{equation*}
+  For any Pythagorean triple $(x,y,z)$ there is a unique primitive Pythagorean triple $(x',y',z')$ consisting of positive integers for which there is an integer $k$ such that $(kx',ky',kz')=(x,y,z)$.
 \end{lemma}
 
 \begin{proof}
-  The proof is by induction on $k$. There is exactly one $0$-permutation of any $n$-element set. To see that the number of $(k+1)$-permutations of an $n$-element set is $n\cdots(n-k)$, note that such a $(k+1)$-permutation consists of a choice of an element of $S$, and a $k$-permutation on the remaining $n-1$-element set of elements. Thus, the number of $(k+1)$-permutations on an $n$-element set is $n$ times the number of $k$-permuations on an $(n-1)$-element set, i.e., it is
+  Given a Pythagorean triple $(x,y,z)$, let $k:=\gcd(x,y)$. Since $k\mid x$ and $k\mid y$, it follows from the equation $x^2+y^2=z^2$ that $k\mid z$. Thus, we define
   \begin{equation*}
-    n(n-1)\cdots((n-1)-k+1)=n(n-1)\cdots(n-k).\qedhere
+    x' := x/k, \qquad y' := y/k, \qquad\text{and}\qquad z' := z/k.
   \end{equation*}
+  Then $x'$ and $y'$ are relatively prime, and we have
+  \begin{equation*}
+    x'^2 + y'^2 = \frac{x^2+y^2}{k^2} = \frac{z^2}{k^2} = z'^2.
+  \end{equation*}
+  The triple $(x',y',z')$ is therefore a primitive Pythagorean triple such that
+  \begin{equation*}
+    (kx',ky',kz') = (x,y,z).
+  \end{equation*}
+  For uniqueness, suppose that $(x'',y'',z'')$ is an other such primitive Pythagorean triple, satisfying $(lx'',ly'',lz'')=(x,y,z)$. Since $\gcd(x'',y'')=1$, it follows that
+  \begin{equation*}
+    k=\gcd(x,y)=\gcd(lx'',ly'')=l
+  \end{equation*}
+  Furthermore, since at least one of $x$ or $y$ is nonzero, it follows both $k$ and $l$ are nonzero. Thus we get $x'=x''$ from the equation $kx'=kx''$, and we get $y'=y''$ from the equation $ky'=ky''$. We conclude that $(x',y',z')=(x'',y'',z'')$.
 \end{proof}
 
-\begin{proposition}\label{proposition:characterize-k-permutations}
-  There is a bijection between the set of $k$-permutations of an $n$-element set $S$, and the set
-  \begin{equation*}
-    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
-  \end{equation*}
-  of pairs $(A,f)$ consisting of a subset $A\subseteq S$ and a bijection $\{0,\ldots,k-1\}\cong A$.
-\end{proposition}
+By the previous lemma we can restrict our attention to primitive Pythagorean triples. Next, we do a parity analysis of the components of a primitive Pythagorean triple.
+
+\begin{lemma}
+  Consider a primitive Pythagorean triple $(x,y,z)$. Then exactly one of $x$ and $y$ is even, the other is odd, and $z$ is always odd.
+\end{lemma}
 
 \begin{proof}
-  There is exactly one $0$-permutation of any $n$-element set $S$, and likewise the set of empty subsets $A$ of $S$ equipped with a bijection $[0]\cong A$ also contains exactly one element: the empty subset equipped with the empty bijection.
+  Since $(x,y,z)$ is a primitive Pythagorean triple, it is clearly impossible for both $x$ and $y$ to be even. It is also impossible for both of them to be odd, since in that case we would have
+  \begin{equation*}
+    z^2 = x^2 + y^2 \equiv 2 \pmod{4}.
+  \end{equation*}
+  However, every square is either congruent to $0$ or to $1$ modulo $4$, so this is impossible.
 
-  For the inductive step, consider a $(k+1)$-permutation $(s,t)$ of $S$, consisting of an element $s$ and a $k$-permutation $t$ of the set $S\setminus\{s\}$. By the induction hypothesis, the $k$-permutation $t$ corresponds uniquely to a subset $A\subseteq S\setminus\{s\}$ equipped with a bijection $f:[n]\cong A$. Thus, the $(k+1)$-permutation $(s,t)$ corresponds to the subset $B:=A\cup\{s\}\subseteq S$, equipped with the bijection $g:[n+1]\cong B$ given by $g(x):=f(x)$ for $x<n$ and $g(n):= s$.
+  Thus, one of $x$ and $y$ is even and the other is odd. This gives us that $z^2$ is odd, which is only possible if $z$ is odd.
 \end{proof}
 
-\begin{proposition}
-  The product $n(n-1)\cdots(n-k+1)$ of any $k$ consecutive numbers is divisible by $k!$.
-\end{proposition}
+By the previous lemma we may assume, without loss of generality, that in a primitive Pythagorean triple $(x,y,z)$, the integer $x$ is odd and the integer $y$ is even.
+
+Next, we note that $x^2=z^2-y^2$, which factors by the formula for the difference of squares as
+\begin{equation*}
+  x^2=(z-y)(z+y).
+\end{equation*}
+In the following lemma we will show that for any primitive Pythagorean triple $(x,y,z)$, the factors $z-y$ and $z+y$ of $x^2$ are relatively prime. This immediately implies that they are both squares, which is the key to Euclid's parametrization of the Pythagorean triples.
+
+\begin{lemma}\label{lemma:pythagorean-triples}
+  Suppose that $(x,y,z)$ is a primitive Pythagorean triple in which $y$ is even. Then the integers $z-y$ and $z+y$ are relatively prime, and they are both squares.
+\end{lemma}
 
 \begin{proof}
-  By \cref{proposition:characterize-k-permutations} there is a bijection between the set of $k$-permutations of the set $S:=[n]$, and the set
+  Consider a common divisor $d$ of $z-y$ and $z+y$. Then we have
   \begin{equation*}
-    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+    d\mid (z+y)-(z-y) = 2y, \qquad\text{and}\qquad d\mid (z+y) + (z-y) = 2z.
   \end{equation*}
-  These two sets therefore have the same number of elements. Thus, it follows that
-  \begin{equation*}
-    n(n-1)\cdots(n-k+1) = \binom{n}{k}\cdot k!,
-  \end{equation*}
-  showing that the left-hand side is divisible by $k!$.
+  The integer $d$ is therefore a common divisor of $2y$ and $2z$. Since $y$ and $z$ are relatively prime, it follows that $d\mid 2$.
+
+  Furthermore, we note that $d\mid (z-y)(z+y)= z^2-y^2 = x^2$. Since $x$ is odd, it follows that $d$ must be odd, and therefore we conclude that $d=1$. This shows that $z+y$ and $z-y$ are relatively prime.
+
+  Now we note again that $(z-y)(z+y)=x^2$. Since $z-y$ and $z+y$ are both factors of $x^2$ and they are relatively prime, it follows that they must both be squares.
 \end{proof}
 
-\begin{corollary}
-  \emph{Formula for binomial coefficients.} For any two natural numbers $n$ and $k$, we have
+\begin{theorem}[The Pythagorean Triples Theorem]
+  For every primitive Pythagorean triple $(x,y,z)$ in which $y$ is even there is a unique pair $(s,t)$ of relatively prime odd integers with $1\leq t< s$, such that
   \begin{equation*}
-    \binom{n}{k}=\frac{n!}{k!(n-k)!}
-  \end{equation*}
-\end{corollary}
-
-\begin{proof}
-  By the previous proposition we have $\binom{n}{k}\cdot k!= \rpermutation{n}{k}= n!/k!$.
-\end{proof}
-
-\section{The binomial theorem}
-
-If we expand the exponent $(x+y)^3$, we get
-\begin{align*}
-  (x+y)^3  & = (x+y)^2(x+y) \\
-           & = (x^2 + 2xy + y^2)(x+y) \\
-           & = x^3 + 2x^2y + xy^2 + x^2y + 2xy^2 + y^3 \\
-           & = x^3 + 3x^2y + 3xy^2 + y^3.
-\intertext{Going further, if we expand the exponent $(x+y)^4$, we get}
-  (x+y)^4 & = (x^3 + 3x^2y + 3xy^2 + y^3)(x + y) \\
-          & = x^4 + 3x^3y + 3x^2y^2 + xy^3 + x^3y + 3x^2y^2 + 3xy^3 + y^4 \\
-          & = x^4 + 4x^3y + 6x^2y^2 + 4xy^3 + y^4.
-\end{align*}
-
-Now we might recognize an emerging pattern in the coefficients of these polynomials: they are all binomial coefficients! The binomial theorem generalizes this result for all exponents $n$.
-
-The binomial theorem has many proofs, including combinatorial proofs and algebraic proofs. All these proofs have their own merits. We will present here an algebraic proof, using induction, since it is the most easily applicable to settings other than the integers.
-
-\begin{theorem}
-  \emph{The binomial theorem.} In any number system, such as the natural numbers, the integers, the rational numbers, the reals, the complex numbers\footnote{More generally, the binomial theorem applies to any commutative semiring}, we have
-  \begin{equation*}
-    (x+y)^n = \sum_{k=0}^n \binom{n}{k}x^ky^{n-k}.
+    x=st,\qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad c=\frac{s^2+t^2}{2}.
   \end{equation*}
 \end{theorem}
 
 \begin{proof}
-  We prove the statement by induction on $n$. In the base case, we find that both sides of the equation
+  First, we show that for any two odd integers $0\leq t<s$ that are relatively prime, the integers
   \begin{equation*}
-    (x+y)^0=\sum_{k=0}^0 \binom{n}{k}x^ky^{0-k}
+    x=st, \qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad z=\frac{s^2+t^2}{2}.
   \end{equation*}
-  evaluate to $1$, so the equation is true. In the inductive step, we have that
-  \begin{align*}
-    (x+y)^{n+1} & =(x+y)\sum_{k=0}^n \binom{n}{k}x^ky^{n-k} \\
-                & = \sum_{k=0}^n \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=0}^n\binom{n}{k}x^ky^{n-k+1} \\
-                & = x^{n+1} + \sum_{k=0}^{n-1} \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
-                & = x^{n+1} + \sum_{k=1}^{n} \binom{n}{k-1}x^{k}y^{n-k+1} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
-                & = x^{n+1} + \sum_{k=1}^n \left(\binom{n}{k-1}+\binom{n}{k}\right)x^ky^{n-k+1}+y^{n+1} \\
-    & = \sum_{k=0}^{n+1} \binom{n+1}{k}x^ky^{(n+1)-k}.\qedhere
-  \end{align*}
+  form a primitive Pythagorean triple. It is easy to see that they form a Pythagorean triple. We simply calculate
+  \begin{equation*}
+    s^2t^2 + \frac{(s^2-t^2)^2}{4} = \frac{s^4 + 2s^2t^2 + t^4}{4} = \frac{(s^2+t^2)^2}{4}.
+  \end{equation*}
+  To see that $st$ and $(s^2-t^2)/2$ are relatively prime, consider a common prime divisor $p$ of $st$ and $(s^2-t^2)/2$. Since $p\mid st$, it follows that either $p\mid s$ or $p\mid t$. Since $p\mid s^2-t^2$ and $p$ divides one of the integers $s$ and $t$, it follows that $p$ also divides the other one. However, $s$ and $t$ have no common prime factors, so we have reached a contradiction. Thus we conclude that there are no common prime factors of $st$ and $(s^2-t^2)/2$, and hence they must be relatively prime. This proves the claim that $(x,y,z)$ is a primitive Pythagorean triple.
+  
+  Now consider a primitive Pythagorean triple $(x,y,z)$ in which $y$ is even. By \cref{lemma:pythagorean-triples} it follows that $z-y$ and $z+y$ are relatively prime, and are both squares. Thus there are nonnegative integers $s$ and $t$ with $t<s$ such that
+  \begin{equation*}
+    s^2 = z + y, \qquad\text{and}\qquad t^2=z-y.
+  \end{equation*}
+  Since $z$ is odd and $y$ is even, it follows that both $s$ and $t$ are odd. Furthermore, since $z+y$ and $z-y$ are relatively prime, it follows that $s$ and $t$ are relatively prime.
+
+  Then we see by a direct calculation that
+  \begin{equation*}
+    x=st, \qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad z=\frac{s^2+t^2}{2}.\qedhere
+  \end{equation*}
 \end{proof}
 
-The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2nd century BCE. Around the 11th century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13th century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
+\section{The Tree of Primitive Pythagorean Triples}
+
+The set of all primitive Pythagorean triples has the structure of a rooted ternary tree. This structure was first discovered by Berggren in 1934 \cite{berggren1934}.
+
+\begin{equation*}
+  A =
+  \left(
+    \begin{matrix}
+      1 & -2 & 2 \\
+      2 & -1 & 2 \\
+      2 & -2 & 3
+    \end{matrix}
+  \right),\qquad
+  B =
+  \left(
+    \begin{matrix}
+      1 & 2 & 2 \\
+      2 & 1 & 2 \\
+      2 & 2 & 3
+    \end{matrix}
+  \right),\qquad\text{and}\qquad
+  C =
+  \left(
+    \begin{matrix}
+      -1 & 2 & 2 \\
+      -2 & 1 & 2 \\
+      -2 & 2 & 3
+    \end{matrix}
+  \right)
+\end{equation*}
+
+\section{Rational Points on the Unit Circle}
+
+\section{Transformations of Rational Points on the Unit Circle}
 
 \begin{exercises}
-  \exercise Prove that
+  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the Pythagorean Theorem:
+    \begin{equation*}
+      \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
+        \pgfmathsetmacro{\myangle}{atan(28/45)}
+        \draw (0,0) rectangle (53,53);
+        \foreach \k/\x/\y in {0/0/0, 1/53/0, 2/53/53, 3/0/53}
+          \draw (\x,\y) -- ++({\myangle + 90*\k}:45);
+      \end{tikzpicture}
+    \end{equation*}
+  \exercise \label{exercise:addition-laws-sin-cos}
+\end{exercises}
+
+\chapter{Congruences}\label{chapter:congruences}
+
+\section{The Congruence Relations}
+
+Carl Friedrich Gauss introduced the congruence relations in his monumental work, \emph{Disquisitiones Arithmeticae} \cite{gauss1986}. The congruence relations allowed him to systematically simplify the study of the integers. Prior to Gauss's invention, number theory was pursued with a variety of ad hoc techniques that often made proofs less transparent than they could be. His key insight was that many properties of the integers depend not on their exact size, but rather on their remainder when divided by a fixed number.
+
+\begin{definition}
+  We say that $a$ is \emph{congruent to} $b$ \emph{modulo} $c$, written
   \begin{equation*}
-    \sum_{k=0}^n \binom{n}{k} = 2^n
+    a \equiv b \pmod{c},
   \end{equation*}
-  in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
-  \exercise Prove that
+  if $c\mid a-b$. The number $c$ is called the \emph{modulus} of the congruence.
+\end{definition}
+
+\begin{example}
+  We have
   \begin{equation*}
-    \sum_{k=0}^n\binom{n}{k}(-1)^k = 0.
+    17 \equiv 2 \pmod{3}
   \end{equation*}
-  Conclude that
+  because $17-2=15$ and $15$ is divisible by $3$. Similarly, we have
   \begin{equation*}
-    \sum_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k} =\sum_{k=0}^{\lfloor (n-1)/2\rfloor}\binom{n}{2k+1}.
+    28 \equiv 3 \pmod{5}
   \end{equation*}
-  In this formula, the floor $\lfloor x\rfloor$ of a number $x$ is the largest integer below or equal to $x$.
-  \exercise \emph{The Chu-Vandermonde identity.} Use the binomial theorem at the polynomial $(x+1)^m(x+1)^n$ to show that
+  because $28-3=25$ and $25$ is divisible by $5$.
+\end{example}
+
+\begin{example}
+  The 24-hour clock is widely used in Europe, Asia, and Africa, while in North and South America, the 12-hour clock is more common. For instance, what is written as $19{:}05$ in the 24-hour format corresponds to $7{:}05$pm in the 12-hour format. The numbers $19$ and $7$ are congruent modulo $12$ because 
+  \[
+  19 \equiv 7 \pmod{12}.
+  \]
+  This follows from the fact that $19 - 7 = 12$ is a multiple of $12$.
+\end{example}
+
+\begin{remark}
+  Congruence modulo $0$ is equality, because $0\mid b-a$ holds if and only if $b-a=0$. Congruence modulo $1$, on the other hand, is true for any two integers $a$ and $b$, because $1\mid b-a$ is always true.
+
+  Also, we note that $a\equiv b\pmod{c}$ holds if and only if $a\equiv b\pmod{{-}c}$ holds. For this reason, the modulus is usually taken to be a natural number $n$.
+\end{remark}
+
+In the following lemma we establish that $a$ and $b$ are congruent modulo $n$ if and only if they have the same remainder after division by $n$.
+
+\begin{lemma}
+  Consider integers $a$ and $b$, and a positive natural number $n$, and suppose that $a=qn+r$ and $b=pn+s$, where $0\leq r,s<n$. Then the congruence
   \begin{equation*}
-    \sum_{i=0}^k \binom{m}{i}\binom{n}{k-i} = \binom{m+n}{k}.
+    a\equiv b\pmod{n}
+  \end{equation*}
+  holds if and only if $r=s$.
+\end{lemma}
+
+\begin{proof}
+  By definition, the congruence $a\equiv b\pmod{n}$ holds if and only if $n\mid a-b$. Since $a=qn+r$ and $b=pn+s$, where $0\leq r,s<n$ we see that $n\mid a-b$ holds if and only if $n\mid (qn+r)-(pn+s)$. Rewriting the expressing $(qn+r)-(pn+s)$, we see that
+  \begin{equation*}
+    n\mid (qn+r)-(pn+s)\qquad\text{if and only if}\qquad n\mid (q-p)n+(r-s).
+  \end{equation*}
+  Now we note that the number $(q-p)n$ is divisible by $n$, so we find that $n\mid (q-p)n+(r-s)$ holds if and only if $n\mid r-s$. However, the number $r-s$ satisfies the strict inequalities
+  \begin{equation*}
+    -n<r-s<n,
+  \end{equation*}
+  and the only integer in this range that is divisible by $n$ is the integer $0$. Thus we see that $n\mid r-s$ holds if and only if $r=s$, completing the chain of logical equivalences.
+\end{proof}
+
+\begin{example}
+  Recall from \cref{theorem:representability} that any number $n$ can be written as
+  \begin{equation*}
+    n = \sum_{i=0}^{l-1} d_i b^{i}
+  \end{equation*}
+  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using the Euclidean Division Theorem as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
+\end{example}
+
+An important property of the congruence relations, which makes them so useful in the study of the integers, is that they are compatible with the arithmetic operations of addition and multiplication.
+
+\begin{proposition}\label{proposition:addition-and-multiplication-congruence}
+Suppose that $a \equiv a' \pmod{n}$ and $b \equiv b' \pmod{n}$. Then the following congruences hold:
+\[
+\begin{aligned}
+a+b &\equiv a'+b' \pmod{n},\\[1mm]
+ab   &\equiv a'b' \pmod{n}.
+\end{aligned}
+\]
+Consequently, for any integers \(x\) and \(y\),
+\[
+ax+by \equiv a'x+b'y \pmod{n}.
+\]
+\end{proposition}
+
+\begin{proof}
+  By assumption we have that $n\mid a-a'$ and $n\mid b-b'$. Thus it follows that $n$ divides the sum
+  \begin{equation*}
+    n\mid (a-a')+(b-b') = (a+b)-(a'+b'),
+  \end{equation*}
+  which shows that $a+b\equiv a'+b'\pmod{n}$. Moreover, $n$ divides any linear combination of $a-a'$ and $b-b'$, so in particular we have
+  \begin{equation*}
+    n\mid (a-a')b + a'(b-b') = ab -a'b + a'b - a'b' = ab - a'b'.
+  \end{equation*}
+  This shows that $ab\equiv a'b'\pmod{n}$.
+\end{proof}
+
+One way of thinking about the following corollary, is that every polynomial is periodic modulo $n$, i.e., every polynomial repeats itself modulo $n$ after every $n$ steps.
+
+\begin{corollary}
+  If $x\equiv y\pmod {n}$, then we have
+  \begin{equation*}
+    \sum_{k=0}^{l-1} a_kx^k \equiv \sum_{k=0}^{l-1} a_ky^k \pmod{n}.
+  \end{equation*}
+\end{corollary}
+
+The power of modular arithmetic is effectively demonstrated with divisibility tests. Consider a number $n$ written in base $10$ as
+\begin{equation*}
+  n = \sum_{k=0}^{l-1} d_k10^k.
+\end{equation*}
+Then $n$ is divisible by $9$ if and only if the sum of its digits is divisible by $9$. Indeed, since $10\equiv 1\pmod{9}$, it follows that
+\begin{equation*}
+  \sum_{k=0}^{l-1} d_k10^k \equiv \sum_{k=0}^{l-1} d_k1^k \pmod{9},
+\end{equation*}
+and we recognize that the right-hand side is just the sum of the digits of $n$. For example, the number $34,524$ is divisible by $9$ because $3+4+5+2+4=18$ and the number $18$ is divisible by $9$ because $1+8=9$.
+
+\begin{remark}
+  One might wonder whether congruence relations are also preserved by operations like the greatest common divisor. However, this is not the case. For a counter example, consider the congruences $6\equiv 16\pmod{10}$ and $15\equiv 25\pmod{10}$. The greatest common divisor of $6$ and $15$ is $3$, while the greatest common divisor of $16$ and $25$ is $1$. Thus we see that, even though $6\equiv 16$ and $15\equiv 25$ modulo $10$, we have
+  \begin{equation*}
+    \gcd(6,15)\nequiv\gcd(16,25) \pmod{10}.
+  \end{equation*}
+\end{remark}
+
+\begin{example}
+  Fermat's Little Theorem and Wilson's Theorem can be expressed succinctly with Gauss's notation for modular arithmetic.
+
+  Recall that Fermat's Little Theorem states that any prime number $p$ divides $n^p-n$. Using the language of modular arithmetic, we can state Fermat's Little Theorem as follows: For any prime $p$ and any natural number $n$, we have the congruence
+  \begin{equation*}
+    n^p \equiv n \pmod{p}.
+  \end{equation*}
+  for any prime number $p$. Notice that although $n^p$ is a degree $p$ polynomial, and $n$ is a linear polynomial, they have the same values modulo $p$. In other words, Fermat's Little Theorem shows that it is possible for two polynomials of different degrees to be congruent modulo $p$.
+
+  Wilson's Theorem states that any prime number $p$ divides $(p-1)!+1$. In the language of modular arithmetic, Wilson's Theorem states that we have the congruence
+  \begin{equation*}
+    (p-1)! \equiv -1 \pmod{p}
+  \end{equation*}
+  for any prime number $p$.
+\end{example}
+
+\section{Equivalence Relations}
+
+The congruence relations are examples of equivalence relations, which we will now define.
+
+\begin{definition}
+  An equivalence relation on a set $A$ is a binary relation $\sim$ satisfying the following three conditions:
+  \begin{enumerate}
+  \item \emph{Reflexivity.} For any element $a\in A$, we have
+    \begin{equation*}
+      a\sim a.
+    \end{equation*}
+  \item \emph{Symmetry.} For any two elements $a,b\in A$, we have
+    \begin{equation*}
+      (a \sim b) \Rightarrow (b\sim a).
+    \end{equation*}
+  \item \emph{Transitivity.}
+    For any three elements $a,b,c\in A$, we have
+    \begin{equation*}
+      (a \sim b)\land (b\sim c) \Rightarrow (a\sim c).
+    \end{equation*}
+  \end{enumerate}
+\end{definition}
+
+Thus, where the ordering relation of a poset is reflexive, \emph{antisymmetric} and transitive, an equivalence relation is reflexive, \emph{symmetric} and transitive. The standard example of an equivalence relation is equality itself, which is indeed reflexive, symmetric and transitive.
+
+\begin{proposition}
+  For any natural number $n$, the congruence relation $\equiv$ modulo $n$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  To see that the congruence relation modulo $n$ is reflexive, note that $a-a=0$ and any number divides $0$. Thus the congruence $a\equiv a\pmod{n}$ always holds. To see that the congruence relation modulo $n$ is symmetric, note that if $n\mid a-b$ then $n\mid -(a-b)=b-a$. This shows that $a\equiv b\pmod{n}$ implies $b\equiv a\pmod{n}$. To see that the congruence relation modulo $n$ is transitive, assume that $n\mid a-b$ and that $n\mid b-c$. Then it follows that
+  \begin{equation*}
+    n\mid (a-b)+(b-c)=a-c,
+  \end{equation*}
+  showing that $a\equiv c\pmod{n}$.
+\end{proof}
+
+Equivalence relations come about in many forms, and one can get quite creative in defining them. We illustrate the generality of equivalence relations with some examples.
+
+\begin{example}
+  Consider a prime number $p$. Every nonzero integer $a$ can be written in the form $p^k u$ where $u$ is not divisible by $p$. The number $u$ is called the \emph{$p$-core} or the \emph{$p$-free part} of $a$. The relation $a\sim b$ defined by the condition that $a$ and $b$ have the same $p$-core is an equivalence relation.
+\end{example}
+
+The equivalence relation of the previous example is an instance of a general class of equivalence relations. Given a function $f:A\to B$, there is an equivalence relation $\sim_f$ on the set $A$, given by
+\begin{equation*}
+  x\sim_f y \qquad\text{if and only if}\qquad f(x)=f(y).
+\end{equation*}
+This relation is also called the \emph{kernel} of $f$. In the previous example, the function $f:\mathbb{Z}_{\neq 0} \to\mathbb{Z}_{\neq 0}$ is the function that sends $a$ to the unique integer $u$ not divisible by $p$ for which there is a \emph{valuation} $k$ such that $p^ku=a$.
+
+\begin{proposition}
+  For any function $f:A\to B$, the relation $\sim_f$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  To see that any relation of the form $\sim_f$ is an equivalence relation, we need to check reflexivity, symmetry, and transitivity. Note that we have reflexivity because $f(x)=f(x)$ for any $x\in A$. The relation $\sim_f$ is symmetric because $f(y)=f(x)$ holds whenever $f(x)=f(y)$ holds. Finally, the relation $\sim_f$ is transitive because $f(x)=f(z)$ holds whenever both $f(x)=f(y)$ and $f(y)=f(z)$ hold.
+\end{proof}
+
+\begin{example}
+  Recall from \cref{exercise:zeckendorf} that Zeckendorf's representation theorem established that any natural number $n$ can be written uniquely as a sum
+  \begin{equation*}
+    n= \sum_{k=0}^{l_n-1} d_{n,k}F_{k+2}
+  \end{equation*}
+  of nonconsecutive Fibonacci numbers with index at least $2$. Now we define an equivalence relation $\sim_F$ by declaring that two natural numbers $m$ and $n$ are equivalent, if one can be obtained from the other by shifting their Zeckendorf representation. More precisely, we define $m\sim_F n$ to hold if and only if there exist natural numbers $s$ and $t$ such that
+  \begin{equation*}
+    \sum_{k=0}^{l_m-1}d_{m,k}F_{k+s+2} = \sum_{k=0}^{l_n-1} d_{n,k}F_{k+t+2}.
+  \end{equation*}
+  For example, the number $17$ is written $(100101)_F$ in the Zeckendorf notation, and its shifts are the numbers $(1001010)_F=28$, $(10010100)_F=45$, and so on. Thus we have
+  \begin{equation*}
+    17 \sim_F 28 \sim_F 45 \sim_F\cdots.
+  \end{equation*}
+\end{example}
+
+The equivalence relation of the previous example is an instance of another general way of constructing equivalence relations. Given an operation $T:A \to A$, define the equivalence relation $\sim_T$ by declaring that
+\begin{equation*}
+  x\sim_T y \qquad\text{if and only if}\qquad \exists_{(s,t\in\mathbb{N})} T^s(x)=T^t(y).
+\end{equation*}
+In technical terminology, the set $A$ equipped with the operation $T$ form a \emph{dynamical system}, and when $x\sim_T y$ holds we say that $x$ and $y$ have the same \emph{eventual orbit}. The operation $T$ in the equivalence relation $\sim_F$ of the previous example is the shift operation on the Zeckendorf representation, which simply appends a digit $0$.
+
+\begin{proposition}
+  For any operation $T$ on a set $A$, the relation $\sim_T$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  To see that the relation $\sim_T$ is indeed an equivalence relation, we need to verify reflexivity, symmetry, and transitivity.
+
+  The relation $\sim_T$ is reflexive, because $T^0(x)=x=T^0(x)$, and the relation $\sim_T$ is symmetric because the condition that $\exists_{(s,t\in\mathbb{N})}(T^s(x)=T^t(y))$ is symmetric in $x$ and $y$. To see that $\sim_T$ is transitive, consider $s,t,u,v$ such that $T^s(x)=T^t(y)$ and $T^u(y)=T^v(z)$. Then we have
+  \begin{equation*}
+    T^{u+s}(x)=T^u(T^s(x))=T^u(T^t(y))=T^t(T^u(y))=T^t(T^v(z))=T^{t+v}(z),
+  \end{equation*}
+  showing that $x\sim_T z$.
+\end{proof}
+
+Perhaps one of the most famous dynamical systems on the set of positive integers is due to Collatz, whose function $T$ is defined by
+\begin{equation*}
+  T(n) :=
+  \begin{cases}
+    n/2 & \text{if $n$ is even} \\
+    3n+1 & \text{otherwise.}
+  \end{cases}
+\end{equation*}
+For example, starting at the number $3$, repeated application of the Collatz function produces the sequence:
+\begin{equation*}
+  3,\,10,\,5,\,16,\,8,\,4,\,2,\,1,\,4,\cdots.
+\end{equation*}
+Once the sequence reaches $1$, it enters the cycle
+\begin{equation*}
+  1\mapsto 4\mapsto 2\mapsto 1\mapsto \cdots
+\end{equation*}
+The famous and elusive \emph{Collatz conjecture} states that for every positive integer $n$, the sequence
+\begin{equation*}
+  n,\,T(n),\,T^2(n),\,\ldots
+\end{equation*}
+eventually reaches the value $1$. In our notation, the Collatz conjecture asserts that $n\sim_T 1$ for every positive natural number $n$.
+
+\section{Equivalence Classes and Residue Systems}
+
+\begin{definition}
+  Consider an equivalence relation $\sim$ on a set $A$. Then the \emph{equivalence class} of an element $a\in A$ is the set
+  \begin{equation*}
+    [a] := \{x\in A \mid a \sim x\}.
+  \end{equation*}
+\end{definition}
+
+\begin{example}
+  In the case where the equivalence relation under consideration is a congruence relation with modulus $n$, then the equivalence classes are called \emph{congruence classes}. For any positive integer $n$, there are exactly $n$ distinct congruence classes modulo $n$, corresponding to the $n$ possible residues $0\leq r<n$ after division by $n$ with remainder.
+
+  The congruence class modulo $2$ of any even integer consists precisely of all the even integers, and the congruence class of any odd integer consists precisely of all the odd integers.
+
+  To see this, suppose that $a$ is an even integer. Then $a \equiv x\pmod{2}$ holds if and only if $a$ and $x$ have the same remainder after division by $2$. Since the remainder of $a$ divided by $2$ is $0$, it follows that $a$ is congruent to $x$ precisely when $x$ is divisible by $2$, i.e., when $x$ is even. This shows that for an even integer $a$, the congruence class
+  \begin{equation*}
+    [a] := \{x\in A \mid a \equiv x\pmod {2}\}
+  \end{equation*}
+  is the set of even numbers.
+
+  Similarly, if $a$ is an odd integer, then $a\equiv x\pmod{2}$ holds if and only if $x$ is also odd, because $a\equiv x\pmod{2}$ holds if and only if $x$ divided by $2$ has remainder $1$, which means that $x$ is odd.
+\end{example}
+
+The equivalence classes of an equivalence relation $\sim$ on a set $A$ form a set
+\begin{equation*}
+  A/{\sim} := \{U\subseteq A \mid \exists_{(a\in A)}U=[a]\}
+\end{equation*}
+In other words, the set of equivalence classes of $\sim$ is the set of subsets $U\subseteq A$ such that $U=[a]$ for some $a\in A$. The set $A/{\sim}$ is called the \emph{quotient} of $A$ by the equivalence relation $\sim$. Furthermore, the function
+\begin{equation*}
+  a\mapsto [a]:A\to A/{\sim}
+\end{equation*}
+sending an element to its equivalence class is called the \emph{quotient map}. We often write $q$ for the quotient map.
+
+\begin{proposition}\label{proposition:quotient-map}
+  For any equivalence relation $\sim$ on a set $A$, the quotient map
+  \begin{equation*}
+    a\mapsto [a] : A \to A/{\sim}
+  \end{equation*}
+  satisfies the following two conditions:
+  \begin{enumerate}
+  \item The quotient map is \emph{surjective}. This means that for any equivalence class $U\subseteq A$ there is an element $a\in A$ such that $U=[a]$.
+  \item The quotient map is \emph{effective}. This means that for any two elements $a,b\in A$ we have
+    \begin{equation*}
+      [a]=[b]\qquad\text{if and only if}\qquad a\sim b.
+    \end{equation*}
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  The first claim is true by definition: the set of equivalence classes is defined as
+  \begin{equation*}
+    \{U\subseteq A\mid \exists_{(a\in A)}U=[a]\},
+  \end{equation*}
+  i.e., it is defined as the set of subsets of $A$ of the form $[a]$ for some $a\in A$.
+
+  For the second claim, let $a,b\in A$. If we have the equality $[a]=[b]$, then it follows that $b\in [a]$, so that $a\sim b$. For the converse, if $a\sim b$ holds, and $x\in A$, then we have $a\sim x$ if and only if $b\sim x$ by symmetry and transitivity of the relation $\sim$. This shows that $x\in [a]$ if and only if $x\in [b]$. Thus, the subsets $[a]$ and $[b]$ contain the same elements, so they must be the same.
+\end{proof}
+
+\begin{definition}
+  A \emph{complete residue system} modulo $n$ is a choice of exactly one element from each congruence class modulo $n$. In other words, a complete residue system is a set
+\begin{equation*}
+  \{r_1,\ldots,r_n\}
+\end{equation*}
+satisfying the condition that for every integer $a$ there is a exactly one index $1\leq i\leq n$ such that
+\begin{equation*}
+  a\equiv r_i \pmod{n}.
+\end{equation*}
+\end{definition}
+
+\begin{example}
+  For every nonnegative integer $n$, the set
+  \begin{equation*}
+    \{0,\ldots,n-1\}
+  \end{equation*}
+  forms a complete residue system modulo $n$. Similarly, any set
+  \begin{equation*}
+    \{a,\ldots,a+n-1\}
+  \end{equation*}
+  of $n$ consecutive integers is a complete residue system modulo $n$.
+\end{example}
+
+\begin{remark}
+  Since complete residue systems contain a unique element in every congruence class, there is for every complete residue system $\{r_0,\ldots,r_{n-1}\}$ a bijection
+  \begin{equation*}
+    \mathbb{N}/{({\equiv}\pmod{n})} \cong \{r_0,\ldots,r_{n-1}\}.
+  \end{equation*}
+\end{remark}
+
+\section{Reduced Residue Systems}
+
+Before we introduce reduced residue systems, let us prove a lemma.
+
+\begin{lemma}
+  Suppose that $a\equiv b\pmod{n}$. Then $\gcd(a,n)=\gcd(b,n)$. Consequently, we have $\gcd(a,n)=1$ if and only if $\gcd(b,n)=1$.
+\end{lemma}
+
+\begin{proof}
+  By the assumption that $a$ and $b$ are congruent modulo $n$, it follows that they have the same remainder after division by $n$. Let $r$ be this remainder. Since $\gcd(a,n)=\gcd(r,n)$ and $\gcd(b,n)=\gcd(r,n)$ we see that
+  \begin{equation*}
+    \gcd(a,n)=\gcd(b,n).
+  \end{equation*}
+  This equality implies that the left hand side equals $1$ if and only if the right hand side equals $1$.
+\end{proof}
+
+By the previous lemma, we can test whether an integer is relatively prime to $n$ by testing any element in its congruence class. This allows us to make the following definition.
+
+\begin{definition}
+  A \emph{reduced residue system} modulo $n$ is a set
+  \begin{equation*}
+    \{r_1,\ldots,r_k\}
+  \end{equation*}
+  of integers satisfying the condition that for every integer $a$ relatively prime to $n$, there is exactly one index $1\leq i\leq k$ such that
+  \begin{equation*}
+    a\equiv r_i\pmod{n}.
+  \end{equation*}
+\end{definition}
+
+\begin{corollary}
+  Any two reduced residue systems modulo $n$ have the same size, for which we write $\phi(n)$. The function $\phi$ is called \emph{Euler's totient function}.
+\end{corollary}
+
+\begin{proof}
+  Reduced residue systems are choices of representatives of the congruence classes in which all elements are relatively prime to $n$. Thus, the size of a reduced residue system is always equal to the number of such congruence classes.
+\end{proof}
+
+\begin{exercises}
+  \exercise Describe a complete residue system modulo $7$ consisting entirely of multiples of $3$.
+  \exercise List all the numbers $0\leq a<6$ such that $a\equiv x^2\pmod 6$ for some $x$, and all the numbers $0\leq a<8$ such that $a\equiv x^2\pmod 8$ for some $x$.
+  \exercise Compute $\phi(n)$ for $n=1,\ldots,12$.
+  \exercise
+  \begin{subexenum}
+  \item Find integers $k$, $a$, and $b$ such that
+    \begin{equation*}
+      ka\equiv kb\pmod{4},\qquad\text{but}\qquad a\nequiv b\pmod{4}.
+    \end{equation*}
+  \item Prove that if $\gcd(k,n)=d$, then we have
+    \begin{equation*}
+      ka\equiv kb\pmod{n}\qquad\text{if and only if}\qquad a\equiv b\pmod{\frac{n}{d}}.
+    \end{equation*}
+  \end{subexenum}
+  \exercise Show that the following are equivalent for any $n>0$ and any integer $a$:
+  \begin{enumerate}
+  \item $\gcd(a,n)=1$.
+  \item There exists an integer $b$ such that $ab\equiv 1\pmod{n}$.
+  \end{enumerate}
+  \exercise \label{exercise:self-inverse-modulo-prime}Consider a prime number $p$ and an integer $a$. Show that
+  \begin{equation*}
+    a^2\equiv 1\pmod{p}\qquad\text{if and only if}\qquad a\equiv \pm 1\pmod{p}.
+  \end{equation*}
+  \exercise Prove that for any $n>1$ and any $k$, we have
+  \begin{equation*}
+    (n-1)^2\mid n^k-1\qquad\text{if and only if}\qquad n-1\mid k.
+  \end{equation*}
+  \exercise A pair of \emph{twin primes} is a pair of primes $p$ and $q$ such that $q-p=2$. Show that if $p$ and $q$ are twin primes strictly greater than $3$, then $pq\equiv 8\pmod{9}$.
+  \exercise Given a prime $p>3$, show that $p^2\equiv 1\pmod{24}$.
+\end{exercises}
+
+\chapter{Modular Arithmetic}\label{chapter:linear-congruences}
+
+\section{The Integers Modulo $n$}
+
+We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
+
+\begin{definition}
+  We define the set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ as the set of congruence classes modulo $n$.
+\end{definition}
+
+The set of integers modulo $n$ can be equipped with addition and multiplication in the following way:
+\begin{align*}
+  [a] + [b] & := [a+b] \\
+  [a][b] & := [ab]
+\end{align*}
+Notice that the result of these operations depends only on the equivalence classes, not on the particular integers $a$ and $b$ chosen to represent the equivalence classes $[a]$ and $[b]$. Recall from \cref{proposition:quotient-map} that we have $[a]=[a']$ if and only if $a\equiv a'\pmod{n}$, and similarly we have $[b]=[b']$ if and only if $b\equiv b'\pmod{n}$. Thus, for any $a\equiv a'\pmod{n}$ and $b\equiv b'\pmod{n}$, it follows from \cref{proposition:addition-and-multiplication-congruence} that $a+b\equiv a'+b'\pmod{n}$ and $ab\equiv a'b'\pmod{n}$. In other words, if $[a]=[a']$ and $[b]=[b']$, then we have
+\begin{align*}
+  [a]+[b] & = [a']+[b'] \\
+  [a][b] & = [a'][b'].
+\end{align*}
+This ensures that the definitions of addition and multiplication on the integers modulo $n$ is \emph{well-defined} on the congruence classes modulo $n$.
+
+\begin{remark}
+  The definitions of addition and multiplication on the integers modulo $n$ follow a general pattern of defining functions $f:A/{\sim}\to B$ out of quotient sets. Given a function $g:A\to B$, a function $f:A/{\sim}\to B$ is said to be \emph{defined by descent} from $g$ if $f$ is defined by
+  \begin{equation*}
+    f([a]) := g(a).
+  \end{equation*}
+  For this definition to make sense, the values of $f$ must depend only on the equivalence classes. In other words, if $a$ and $a'$ represent the same equivalence class, i.e., if $a\sim a'$, then we must have that $f([a])=f([a'])$, i.e., we must have that
+  \begin{equation*}
+    g(a)=g(a').
+  \end{equation*}
+  By verifying that $a\sim a'$ implies $f([a])=f([a'])$, we ensure that $f$ is \emph{well-defined}. The well-definedness condition ensures that $f$ returns the same output for all elements of the same equivalence class.
+\end{remark}
+
+\begin{example}
+  The well-definedness condition is important to verify, because not all functions are well-defined with respect to the congruence relations modulo $n$.
+
+  Take, for example, the absolute value function $a\mapsto |a|$ on the integers. Then the operation
+  \begin{equation*}
+    [a]\mapsto |a|
+  \end{equation*}
+  is not well-defined on the integers modulo $3$, because $2\equiv -1\pmod{3}$ while
+  \begin{equation*}
+    |2|\nequiv |-1|\pmod{3}.
+  \end{equation*}
+
+  Typical functions that \emph{are} well defined on congruence classes modulo $n$, include functions that are entirely built up from arithmetic operations, such as polynomials.
+\end{example}
+
+\begin{theorem}
+  The set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ form a commutative ring, i.e., it satisfies the following laws of arithmetic:
+  \begin{align*}
+    (x+y)+z & = x + (y+z) & (xy)z & = x(yz) \\
+    0+x & = x & 1x & = x \\
+    x+0 & = x & x1 & = x \\
+    x-x & = 0 & x(y+z) & = xy + xz \\
+    -x+x & = 0 & (x+y)z & = xz + yz \\
+    x+y & = y+x & xy & = yx.
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  To see that $(x+y)+z=x+(y+z)$, we first note that the variables $x$, $y$, and $z$ represent congruence classes of integers modulo $n$. Since for every congruence class there is an integer representing it, it suffices to prove that
+  \begin{equation*}
+    ([a]+[b])+[c]=[a]+([b]+[c]).
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [(a+b)+c]=[a+(b+c)].
+  \end{equation*}
+  However, the integers $(a+b)+c$ and $a+(b+c)$ are equal, so their equivalence classes are the same.
+
+  The proofs of the other properties follow a very similar pattern. We will give the proofs of commutativity of addition and distributivity of multiplication over addition from the left, but leave the other proofs to the reader.
+
+  To see that $x+y=y+x$, it suffices to show that
+  \begin{equation*}
+    [a]+[b] = [b]+[a].
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [a+b]=[b+a],
+  \end{equation*}
+  and indeed those equivalence classes are the same, because $a+b=b+a$ holds for any two integers $a$ and $b$.
+
+  To see that $x(y+z)=xy+xz$, it suffices to show that
+  \begin{equation*}
+    [a]([b]+[c]) = [a][b] + [a][c].
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [a(b+c)] = [ab+ac].
+  \end{equation*}
+  Again, this identification of equivalence classes holds, because we have the equality $a(b+c)=ab+ac$.
+\end{proof}
+
+\section{Solving Linear Congruences}
+
+The simplest linear congruence is the linear congruence
+\begin{equation*}
+  ax\equiv b\pmod{n}.
+\end{equation*}
+To solve this linear congruence, we are tasked with finding an integer for which the congruence $ax\equiv b\pmod{n}$ holds. However, we may immediately observe that if $x\equiv x' \mod{n}$, then the congruence $ax\equiv b\pmod{n}$ holds if and only if the congruence $ax'\equiv b\pmod{n}$ holds. Thus, we are really interested in solving such congruences in $\mathbb{Z}/n\mathbb{Z}$, i.e., in finding a congruence class $[x]$ modulo $n$ for which the congruence $ax\equiv b\pmod{n}$ holds.
+
+A complete solution to the linear congruence $ax\equiv b\pmod{n}$ is a description of the set of all congruence classes $[x]$ modulo $n$ that satisfy the linear congruence. We typically list these solutions by listing the numbers $0\leq x < n$ for which the congruence holds. For example, the linear congruence
+\begin{equation*}
+  4x\equiv 2\pmod{6}
+\end{equation*}
+has two incongruent solutions modulo $6$, the congruence classes of $2$ and $5$ modulo $6$.
+
+\begin{definition}
+  We say that $a$ \emph{divides} $b$ modulo $n$ if there exists an integer $x$ for which the congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}.
+  \end{equation*}
+\end{definition}
+
+By the definition of congruence relations, the congruence $ax\equiv b\pmod{n}$ holds if and only if $n\mid ax-b$, which is equivalent to the problem of finding an integer $y$ such that the equation
+\begin{equation*}
+  ax+ny=b
+\end{equation*}
+holds. By \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} we have an exact description of the set of solutions of this equation: Given a solution $ax_0+ny_0=b$, every solution is of the form
+\begin{equation*}
+  x = x_0 + k\frac{n}{d},\qquad\text{and}\qquad y=y_0-k\frac{a}{d},
+\end{equation*}
+where $d=\gcd(a,n)$. Furthermore, a solution can be found if and only if $d\mid b$, and in this case we can find $x_0$ and $y_0$ through Euclid's algorithm for finding the greatest common divisor.
+
+Now, observe that there are exactly $d$ incongruent solutions of the equation $ax+ny=b$ modulo $n$. Thus, we can reformulate \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} in modular arithmetic as follows.
+
+\begin{theorem}\label{theorem:linear-congruence-one-variable}
+  Consider two integers $a$ and $b$, and a natural number $n$ with $d=\gcd(a,n)$. The linear congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}
+  \end{equation*}
+  is solvable if and only if $d\mid b$, and in this case the number of incongruent solutions is exactly $d$. Furthermore, if we have one solution $ax_0\equiv b\pmod{n}$, then all the solutions are of the form
+  \begin{equation*}
+    x \equiv x_0 + k\frac{n}{d}
+  \end{equation*}
+  for $0\leq k < d$.
+\end{theorem}
+
+\begin{example}
+  Consider the linear congruence
+  \begin{equation*}
+    6x \equiv 15 \pmod{21}.
+  \end{equation*}
+  The greatest common divisor of $6$ and $21$ is $\gcd(6,21)=3$. Since $15$ is divisible by $3$, we expect to find exactly $3$ incongruent solutions modulo $21$.
+
+  To find one solution, we first express $3$ as a linear combination of $6$ and $21$. Normally, we would use Euclid's algorithm to do this, but the numbers here are small enough to immediately see that
+  \begin{equation*}
+    3 = 4\cdot 6 - 21.
+  \end{equation*}
+  From this expression we find that
+  \begin{equation*}
+    15 = 20\cdot 6 - 5\cdot 21.
+  \end{equation*}
+  This gives us the solution $6\cdot 20\equiv 15\pmod{21}$. The remaining solutions are now of the form
+  \begin{equation*}
+    x\equiv 20 + k\cdot 7
+  \end{equation*}
+  for $0\leq k < 3$. In other words, the full set of incongruent solutions of the equation $6x\equiv 15\pmod{21}$ is
+  \begin{equation*}
+    \{6,13,20\}.
+  \end{equation*}
+\end{example}
+
+\begin{corollary}
+  The linear congruence $ax\equiv 1\pmod{n}$ has at most one solution, and it is solvable if and only if $\gcd(a,n)=1$.
+\end{corollary}
+
+The previous corollary connects integers relatively prime to $n$ to the integers that are \emph{invertible} modulo $n$. Indeed, if $ax\equiv 1\pmod{n}$ has a solution, then its solution $x$ also guarantees that the equality
+\begin{equation*}
+  [a][x]=[1]
+\end{equation*}
+holds in $\mathbb{Z}/n\mathbb{Z}$. In other words, the integer $a$ represents an invertible congruence class modulo $n$.
+
+\begin{example}
+  The invertible congruence classes modulo $5$ are the congruence classes of $1$, $2$, $3$, and $4$. Indeed, one can verify that
+  \begin{align*}
+    1\cdot 1 & \equiv 1\pmod{5} & 2\cdot 3 & \equiv 1\pmod{5} \\
+    3\cdot 2 & \equiv 1\pmod{5} & 4\cdot 4 & \equiv 1\pmod {5}.
+  \end{align*}
+\end{example}
+
+\begin{corollary}
+  Consider an integer $a$ relatively prime to $n$. Then the operation $x\mapsto [a]x$ is a bijection on $\mathbb{Z}/n\mathbb{Z}$.
+\end{corollary}
+
+\section{The Theorems of Fermat and Euler}
+
+\begin{theorem}[Euler's Theorem]
+  Consider a natural number $n$ and an integer $a$ such that $\gcd(a,n)=1$. The congruence
+  \begin{equation*}
+    a^{\phi(n)}\equiv 1\pmod{n}
+  \end{equation*}
+  holds
+\end{theorem}
+
+We present two proofs of Euler's theorem. The first is the standard proof, and the other is inspired by methods of group theory.
+
+\begin{proof}[First proof of Euler's Theorem]
+  Consider an integer $a$ relatively prime to $n$, and consider a reduced residue system $r_1,\ldots,r_{\phi(n)}$ modulo $n$. We claim that
+  \begin{equation*}
+    ar_1,\ldots,ar_{\phi(n)}
+  \end{equation*}
+  is again a reduced residue system modulo $n$. Indeed, since multiplying by $a$ induces a bijection on $\mathbb{Z}/n\mathbb{Z}$, we see that all integers $ar_1,\ldots,ar_{\phi(n)}$ are incongruent. Furthermore, the product of any two integers relatively prime to $n$ is again relatively prime to $n$, so all the integers $ar_i$ are relatively prime to $n$. Since any set of $\phi(n)$ incongruent integers relatively prime to $n$ form a reduced residue system, the claim follows.
+
+  Using that the integers $ar_1,\ldots,ar_{\phi(n)}$ form a reduced residue system, it follows that
+  \begin{equation*}
+    \prod_{i=1}^{\phi(n)}r_i\equiv \prod_{i=1}^{\phi(n)}ar_i = a^{\phi(n)}\prod_{i=1}^{\phi(n)}r_i\pmod{n}
+  \end{equation*}
+  Since $\prod_{i=1}^{\phi(n)}r_i$ is relatively prime to $n$, it follows that $a^{\phi(n)}\equiv 1\pmod{n}$.
+\end{proof}
+
+\begin{proof}[Second proof of Euler's Theorem]
+  Consider the least positive integer $k$ such that $a^k\equiv 1\pmod{n}$, and consider the relation $\sim$ on the set of integers $0\leq b<n$ relatively prime to $n$, where
+  \begin{equation*}
+    b\sim c \qquad\text{if and only if}\qquad \exists_{0\leq i< k} ba^i\equiv c\pmod{n}.
+  \end{equation*}
+  This relation is reflexive, because $ba^0 \equiv b\pmod{n}$. It is symmetric, because if $ba^i\equiv c\pmod{n}$ for some nonzero $i$, then $ca^{k-i}\equiv ba^ia^{k-i}\equiv b\pmod{n}$. Furthermore, it is transitive, because if $ba^i\equiv c$ and $ca^j\equiv d$, then $ba^{i+j}\equiv d$. If $k\leq i+j$, then we find that also $ba^{i+j-k}\equiv d$. Thus, the relation $\sim$ is an equivalence relation.
+
+  We claim that each equivalence class has size $k$. Indeed, for each $b$, the set
+  \begin{equation*}
+    \{b,ba,ba^2,\ldots,ba^{k-1}\}
+  \end{equation*}
+  consists of $k$ distinct elements, because multiplying with $b$ is a bijection. Thus we have partitioned the set of all numbers $0\leq b<n$ relatively prime to $n$ into equivalence classes of size $k$. On the other hand, the total number of elements $0\leq b<n$ relatively prime to $n$ is the number $\phi(n)$. This shows that $k\mid \phi(n)$, so it follows that $a^{\phi(n)}\equiv 1\pmod{n}$.
+\end{proof}
+
+\begin{remark}
+  The second proof of Euler's theorem can be simplified using the language of group theory. A \emph{group} is a set $G$ equipped with a binary operation $x,y\mapsto xy$, a unary operation $x\mapsto x^{-1}$, and a unit element $1$, satisfying the axioms
+  \begin{align*}
+    (xy)z & = x(yz) \\
+    x1 & = x \\
+    1x & = x \\
+    xx^{-1} & = 1 \\
+    x^{-1}x & = 1.
+  \end{align*}
+  One can show that the set of integers modulo $n$ relatively prime to $n$ forms a group, where the binary operation is multiplication, the unit element is the integer $1$, and the inverse $x^{-1}$ of an integer $x$ modulo $n$ is the unique solution to the equation $xy\equiv 1\pmod{n}$. The number of elements in this group is $\phi(n)$. For any integer $a$ modulo $n$ relatively prime to $n$ such that $a^k\equiv 1\pmod{n}$, the set $\{1,a,a^2,\ldots,a^{k-1}\}$ is a subgroup, which means that it is closed under the group operations. The argument where we introduced an equivalence relation $\sim$ to partition the set of all integers modulo $n$ relatively prime to $n$ into equivalence classes of size $k$ is an instance of a much more general result, Lagrange's Theorem, which asserts that the size of any subgroup of a finite group divides the size of the entire group.
+\end{remark}
+
+As a corollary of Euler's theorem, we obtain Fermat's Little Theorem.
+
+\begin{theorem}[Fermat's Little Theorem]
+  Consider a prime number $p$ and an integer $a$ such that $p \nmid a$. Then the congruence
+  \begin{equation*}
+    a^{p-1}\equiv 1\pmod{p}
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  For any prime number $p$, we have $\phi(p)=p-1$, since any integer $0<x<p$ is relatively prime to $p$.
+\end{proof}
+
+Some questions about Euler's totient function remain unresolved. While we have seen that $\phi(p)=p-1$ for any prime number $p$, Lehmer asked whether there is any composite number $n$ such that
+\begin{equation*}
+  \phi(n)\mid n-1.
+\end{equation*}
+This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
+
+\section{Wilson's Theorem}
+
+\begin{theorem}
+  A natural number $n$ is prime if and only if
+  \begin{equation*}
+    (n-1)!\equiv -1 \pmod{n}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  First, we observe that the claim holds for $n=2$, since $1\equiv -1\pmod{2}$.
+  
+  Suppose that $n$ is prime strictly greater than $2$. Then every integer $0<a<n$ has a multiplicative inverse modulo $n$, i.e., for every integer $a$ there is an integer $a^{-1}$ such that
+  \begin{equation*}
+    aa^{-1}\equiv 1.
+  \end{equation*}
+  Now we group the integers $1\leq a < n$ into pairs with their own inverses.
+  By \cref{exercise:self-inverse-modulo-prime} and the assumption that $n\neq 2$, there are exactly two integers that would pair up with themselves because they are their own inverses: The integers $1$ and $-1$ are the only two integers $a$ modulo $n$ for which the congruence $a^2\equiv 1\pmod{n}$ holds. The other integers come in proper pairs $(a,a^{-1})$.
+
+  Each pair $(a,a^{-1})$ contributes $1$ to the product
+  \begin{equation*}
+    (n-1)!:=\prod_{a=1}^{n-1}a.
+  \end{equation*}
+  Therefore, there is exactly one factor that contributes a something to this product: the factor $-1$. Thus we see that $(n-1)!\equiv -1\pmod{n}$.
+
+  Conversely, suppose that $(n-1)!\equiv -1\pmod{n}$. Then it follows that
+  \begin{equation*}
+    -(n-1)!\equiv 1\pmod{n}.
+  \end{equation*}
+  For any proper divisor $a$ of $n$, we therefore find that $a$ divides $1$ modulo $n$, i.e., that there is a solution to the linear congruence
+  \begin{equation*}
+    ax\equiv 1\pmod{n}.
+  \end{equation*}
+  This implies that $\gcd(a,n)=1$. It follows that the only proper divisor of $n$ is $1$, i.e., that $n$ is prime.
+\end{proof}
+
+\begin{exercises}
+  \exercise Find the multiplicative inverses of $1$, $2$, $3$, $4$, $5$, and $6$ modulo $7$.
+  \exercise Find the multiplicative inverses of $1$, $3$, $7$, $9$, $11$, $13$, $17$, and $19$ modulo $20$.
+  \exercise For how many congruence classes $b \pmod{n}$ is the linear congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}
+  \end{equation*}
+  solvable?
+  \exercise Consider two integers $a$ and $b$, and a prime number $p$. Show that
+  \begin{equation*}
+    (a+b)^p\equiv a^p+b^p\pmod{p}.
   \end{equation*}
   \exercise Show that
   \begin{equation*}
-    \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
+    2^{p-2}+3^{p-2}+6^{p-2} \equiv 1 \pmod{p}
   \end{equation*}
-  The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
-  \exercise Consider a fixed set $\{p_1,\ldots,p_n\}$ of $n$ distinct primes. Given a natural number $k$, how many numbers can be written as a product
+  for any prime number $p\neq 3$.
+  \exercise Prove that if
   \begin{equation*}
-    p_1^{m_1}\cdots p_n^{m_n}
+    a^n\equiv a \pmod{n}
   \end{equation*}
-  such that $m_1+\cdots +m_n=k$?
+  for every integer $a$, then $n=2$ or $n$ is odd.
+  \exercise Find all the solutions to the equation
+  \begin{equation*}
+    p^q-q^p=p+q,
+  \end{equation*}
+  where $p$ and $q$ are prime numbers.
+  \exercise For any integer $a$ and any prime number $p$, show that
+  \begin{equation*}
+    a^{p^k} \equiv a^{p^{k-1}} \pmod{p^k}.
+  \end{equation*}
+  \exercise Consider two distinct primes $p$ and $q$, and an integer $a\geq 0$. Prove that
+  \begin{equation*}
+    a^{pq}+a\equiv a^p + a^q \pmod{pq}
+  \end{equation*}
+\end{exercises}
+
+\chapter{Systems of Linear Congruences}
+
+\section{Solving Multiple Linear Congruences Simultaneously}
+
+Consider the linear congruences
+\begin{align*}
+  10x & \equiv 4 \pmod{12} \\
+  15x & \equiv 6 \pmod{21},
+\end{align*}
+and suppose our goal is to find a single solution $x$ that simultaneously solves both of them. To start off, we observe that if we can find such a solution, then each individual congruence must be solvable in its own right. By \cref{theorem:linear-congruence-one-variable}, this is the case if and only if $\gcd(10,12)\mid 4$ and $\gcd(15,21)\mid 6$. Indeed, $\gcd(10,12)=2$ and $\gcd(15,21)=3$, so the divisibility requirements are satisfied.
+
+By dividing through with $\gcd(10,12)$, we see that the linear congruence $10x\equiv 4\pmod{12}$ has the same set of solutions as the linear congruence $5x\equiv 2\pmod{6}$, which we can work out to be $x\equiv 4\pmod{6}$. Similarly the linear congruence $15x\equiv 6\pmod{21}$ has the same set of solutions as the linear congruence $5x\equiv 2\pmod{7}$, which we can work out to be $x\equiv 6\pmod{7}$. Thus, the original system of linear congruences has the same set of solutions as the system of linear congruences
+\begin{align*}
+  x & \equiv 4 \pmod{6} \\
+  x & \equiv 6 \pmod{7}.
+\end{align*}
+In other words, $x$ is simultaneously of the form $6y + 4$ and of the form $7z+6$. We can find such $y$ and $z$ by solving the linear Diophantine equation
+\begin{equation*}
+  6y+4=7z+6,
+\end{equation*}
+which reduces to $6y-7z=2$. By \cref{theorem:solve-linear-diophantine-equation}, it follows that this equation solves if and only if $\gcd(6,7)\mid 2$, which is indeed the case since $6$ and $7$ are relatively prime. Using the extended Euclid's algorithm, we find that $y=5$ and $z=4$ gives a solution. In this case, we have $x=34$. Note that any integer in the congruence class of $34$ modulo $42$ is also a solution, so we see that
+\begin{equation*}
+  x\equiv 34\pmod{42}
+\end{equation*}
+is a solution to our original system of linear congruences. Indeed, we can check that $10\cdot 34 = 28\cdot 12 + 4$ and $15\cdot 34 = 24\cdot 21+6$.
+
+To summarize the method by which we found this solution, we first reduced each individual linear congruence by dividing through by the greatest common divisor of the scalar and the modulus. This way we obtained a system of linear congruences that were individually uniquely solvable. Their solutions gave two expressions for the variable $x$, which combined into a single linear Diophantine equation, which we solved by \cref{theorem:solve-linear-diophantine-equation} and Euclid's algorithm. As the saying goes, any good method in mathematics begs to become a theorem. The essential theorem to solve systems of linear congruences is the Chinese Remainder Theorem, which we will state and prove in the next section.
+
+We also note that the methods we used to solve two linear congruences simultaneously can be used to solve three or more linear congruences simultaneously. Suppose our original problem included a third linear congruence
+\begin{align*}
+  10x & \equiv 4 \pmod{12} \\
+  15x & \equiv 6 \pmod{21} \\
+  6x & \equiv 3 \pmod{15}.
+\end{align*}
+Then we'd simply solve the first two as before, and continue solving the system of two linear congruences
+\begin{align*}
+  x & \equiv 34 \pmod{42} \\
+  x & \equiv 3 \pmod {5}.
+\end{align*}
+This system of linear congruences has solution $x\equiv 118 \pmod{210}$.
+
+\section{The Chinese Remainder Theorem}
+
+An essential step in the previous example was the reduction of a system of linear congruences, to a system of congruences of the form
+\begin{align*}
+  x & \equiv a \pmod{m} \\
+  x & \equiv b \pmod{n}.
+\end{align*}
+In the following theorem we will prove that this system of congruences is uniquely solvable modulo $mn$, provided that $m$ and $n$ are relatively prime.
+
+\begin{theorem}[Chinese Remainder Theorem]
+  Consider two linear congruences
+  \begin{align*}
+    x\equiv a \pmod{m} \\
+    x\equiv b \pmod{n},
+  \end{align*}
+  where $m$ and $n$ are relatively prime. Then there is a unique solution $x$ modulo $mn$ that solves both linear congruences simultaneously.
+\end{theorem}
+
+\begin{proof}
+  By the first linear congruence, we finde that $x=my+a$ for some integer $y$. Substituting this into the second linear congruence, we obtain that
+  \begin{equation*}
+    my\equiv b-a \pmod{n}.
+  \end{equation*}
+  This linear congruence has a unique solution modulo $n$, since $\gcd(m,n)=1$. Therefore, there is exactly one integer $0\leq y_0 < n$ such that $x=my_0 + a$. Consequently, there is exactly one $0\leq x < mn$ that solves both linear congruences simultaneously.
+\end{proof}
+
+\begin{theorem}
+  A system of two linear congruences
+  \begin{align*}
+    ax\equiv b \pmod{m} \\
+    cx\equiv d \pmod{n}.
+  \end{align*}
+  is solvable if and only if $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$, and if
+  \begin{equation*}
+    \gcd\left(\frac{m}{\gcd(a,m)},\frac{n}{\gcd(c,n)}\right)=1.
+  \end{equation*}
+  In this case, there is a unique solution modulo
+  \begin{equation*}
+    \frac{mn}{\gcd(a,m)\gcd(c,n)}
+  \end{equation*}
+\end{theorem}
+
+Consider two linear congruences
+\begin{align*}
+  ax & \equiv b \pmod{m} \\
+  cx & \equiv d \pmod{n}
+\end{align*}
+in a single variable $x$. In this section we will study solutions $x$ that simultaneously solve both linear congruences.
+
+To solve both linear congruences at once, we must clearly be able to solve them separately. We have already seen in \cref{theorem:linear-congruence-one-variable} that in order to solve them separately, we must have $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$. Assuming this is the case, the sets of solutions $x$ simultaneously solving both linear congruences, is the same as the set of solutions for the two linear congruences obtained by dividing through by $\gcd(a,m)$ and $\gcd(c,n)$. In other words, to solve the system of linear congruences as above, we must first learn to solve the system of linear congruences
+\begin{align*}
+  ax & \equiv b \pmod{m} \\
+  cx & \equiv d \pmod{n}
+\end{align*}
+where $\gcd(a,m)=1$ and $\gcd(c,n)=1$. 
+
+
+\section{Linear Congruences in Multiple Variables}
+
+\section{Multiplicativity of Euler's Totient Function}
+
+\begin{proposition}
+  Any ring homomorphism preserves invertible elements.
+\end{proposition}
+
+\begin{proof}
+  Suppose $f:R\to S$ is a homomorphism of rings, and let $x$ be an invertible element in $R$ with inverse $x^{-1}$. Then $f(x^{-1})$ is an inverse of $f(x)$, since
+  \begin{equation*}
+    f(x)f(x^{-1})=f(xx^{-1})=f(1)=1
+  \end{equation*}
+  and
+  \begin{equation*}
+    f(x^{-1})f(x)=f(x^{-1}x)=f(1)=1.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{exercises}
+  \exercise Show that $m\mid n$ implies $\phi(m)\mid\phi(n)$.
+  \exercise Prove that if $\gcd(a,b)=d$, then
+  \begin{equation*}
+    \phi(ab)=\frac{d\phi(a)\phi(b)}{\phi(d)}
+  \end{equation*}
+  \exercise For any $n>1$, prove that
+  \begin{equation*}
+    \sum_{a<n\\\gcd(a,n)=1}a = \frac{n\phi(n)}{2}
+  \end{equation*}
+  \exercise How many fractions $\frac{a}{b}$ are there where $\gcd(a,b)=1$, and $0\leq a\leq b\leq n$. Such fractions are called \emph{Farey fractions} of order $n$.
+\end{exercises}
+
+\chapter{Polynomial Congruences}
+
+\section{Polynomial Congruences Modulo a Prime}
+
+\begin{definition}
+  An \emph{integer polynomial} in one variable $x$ is an expression of the form
+  \begin{equation*}
+    a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
+  \end{equation*}
+  in which the leading term $a_n$ is assumed to be nonzero.
+  
+  A function $f:\mathbb{Z}\to\mathbb{Z}$ is said to be \emph{polynomial in the integers} if there is an integer polynomial such as the above, such that
+  \begin{equation*}
+    f(x)=a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
+  \end{equation*}
+  for all $x\in \mathbb{Z}$.
+\end{definition}
+
+\begin{remark}
+  Two polynomials
+  \begin{equation*}
+    a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0\qquad\text{and}\qquad b_nx^n+ b_{n-1}x^{n-1} +\cdots + b_0
+  \end{equation*}
+  are said to be equal if their coefficients are equal, i.e., if $a_i=b_i$ for all $0\leq i\leq n$, while functions are considered equal if their values are equal. This is an important distinction, because polynomials modulo $n$ aren't necessarily equal as polynomials when they are equal as functions. For instance, by Fermat's Little Theorem we have that
+  \begin{equation*}
+    x^p=x\qquad\text{on }\mathbb{Z}/p\mathbb{Z},
+  \end{equation*}
+  while the polynomials $x^p$ and $x$ clearly can be distinguished on their coefficients.
+  
+  The viewpoint that polynomials are formal expressions, and not functions, was emphasized by Leopold Kronecker, in the 19th century.
+\end{remark}
+
+While it is fairly well-known that a polynomial
+\begin{equation*}
+  f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
+\end{equation*}
+has at most $n$ solutions in the integers, the same is not true in modular arithmetic. A fairly easy example, the quadratic congruence
+\begin{equation*}
+  x^2 \equiv 1\pmod{8}
+\end{equation*}
+has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we will prove in this section that the number of solutions of a polynomial congruence modulo a prime is, just as in the integer case, at most the degree of the polynomial.
+
+\begin{theorem}[Factor Theorem]
+  An integer $r$ is a solution to the polynomial congruence
+  \begin{equation*}
+    f(x) \equiv 0\pmod{n},
+  \end{equation*}
+  if and only if
+  \begin{equation*}
+    f(x) \equiv (x-r)g(x) \pmod{n}
+  \end{equation*}
+  for some polynomial $g(x)$.
+\end{theorem}
+
+\begin{proof}
+  
+\end{proof}
+
+\begin{theorem}[Lagrange's Theorem]
+  Consider a polynomial
+  \begin{equation*}
+    f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0,
+  \end{equation*}
+  and a prime $p$ such that $p\nmid a_n$. Then the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv 0 \pmod{p}
+  \end{equation*}
+  has at most $n$ solutions.
+\end{theorem}
+
+\begin{proof}
+  We prove the claim by induction on the degree $n$ of the polynomial $f$. If $f$ has degree zero, then $f(x)=a_0$, and since the leading term of $f$ is assumed to be not divisible by $p$, it follows that $a_0\nequiv 0\pmod{p}$. Thus, the polynomial $f$ has no solutions modulo $p$.
+
+  Now suppose that any polynomial congruence modulo $p$ of degree $n$ has at most $n$ solutions, and consider a polynomial congruence $f(x)\equiv 0\pmod{p}$ of degree $n+1$. If this congruence has no roots, then the number of solutions is certainly below $n+1$.
+
+  On the other hand, if $f(r)\equiv 0\pmod{p}$ is a solution, consider the polynomial $f(x)-f(r)\equiv 0\pmod{p}$. Observe that $x^i-r^i$ is divisible by $x-r$ by the difference of powers formula \cref{exercise:difference-of-powers}. Therefore it follows that the polynomial
+  \begin{equation*}
+    f(x)-f(r)= a_{n+1}(x^{n+1}-r^{n+1})+\cdots +a_1(x-r)
+  \end{equation*}
+  is divisible by $x-r$, i.e., it is of the form
+  \begin{equation*}
+    (x-r)g(x)
+  \end{equation*}
+  for some polynomial $g(x)$. The polynomial $g(x)$ is necessarily of degree $n-1$. Furthermore, since $f(r)\equiv 0\pmod{p}$ it follows that
+  \begin{equation*}
+    f(x)\equiv (x-r)g(x)\pmod{p}.
+  \end{equation*}
+  It follows that the polynomial congruences $f(x)\equiv 0\pmod{p}$ and
+  \begin{equation*}
+    (x-r)g(x)\equiv \pmod{p}
+  \end{equation*}
+  have the same sets of solutions. Since $p$ is prime, any solution $x$ must satisfy $x-r\equiv 0\pmod{p}$ or $g(x)\equiv 0\pmod{p}$. There are at most $d$ solutions of the polynomial congruence $g(x)\equiv 0\pmod{p}$, so we conclude that there are at most $d+1$ solutions to the polynomial congruence $f(x)\equiv 0\pmod{p}$.
+\end{proof}
+
+The previous theorem is due to Joseph-Louis Lagrange, published in 1770 in \emph{Réflexions sur la résolution algébrique des équations} \cite{lagrange1770}. Lagrange demonstrated that the roots of polynomials can be studied by their permutations. His ideas would eventually lead to the emergence of group theory (the study of symmetry), and Galois theory.
+
+While Lagrange's theorem establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use Fermat's Little Theorem to find examples of polynomial congruences that have the maximum allowable number of solutions.
+
+\begin{theorem}
+  Consider a prime $p$ and a positive integer $n$ such that $n\mid p-1$. Then the polynomial congruence
+  \begin{equation*}
+    x^n\equiv 1\pmod{p}
+  \end{equation*}
+  has exactly $n$ incongruent solutions.
+\end{theorem}
+
+\begin{proof}
+  Note that the polynomial congruence $x^{p-1}-1\equiv 0\pmod{p}$ has exactly $p-1$ solutions. By the formula for the difference of powers, we have
+  \begin{equation*}
+    (x^{p-1}-1)\equiv (x^n-1)q(x) \pmod{p}
+  \end{equation*}
+  for some polynomial $q$ of degree $p-1-n$. Now we observe that the polynomial congruences
+  \begin{equation*}
+    x^n-1\equiv 0\pmod{p}\qquad\text{and}\qquad q(x)\equiv 0\pmod{p}
+  \end{equation*}
+  have at most $n$ and $p-1-n$ solutions, respectively. Since their product has $p-1$ solutions, it follows that the polynomial congruence $x^n-1\equiv 0\pmod{p}$ must have exactly $n$ solutions.
+\end{proof}
+
+\chapter{Primitive Roots}
+
+\section{The Multiplicative Order of an Integer Modulo $n$}
+
+This section is about the function $n\mapsto a^n-1$. We will begin by showing that this function preserves divisibility.
+
+\begin{proposition}
+  Suppose that $m\mid n$. Then we have
+  \begin{equation*}
+    a^m-1\mid a^n-1.
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  Suppose that $qm=n$. Then we can write
+  \begin{equation*}
+    a^n-1 = (a^m)^{q} -1^q = (a^m-1)\sum_{k=0}^{q-1}a^{km}
+  \end{equation*}
+  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}).
+\end{proof}
+
+  We saw the multiplicative order featuring in the second proof of Euler's Theorem.
+
+\begin{definition}
+  Consider an integer $a$ and a natural number $n$ such that $\gcd(a,n)=1$. The \emph{multiplicative order} of $a$ modulo $n$ is the least positive integer $k$ such that
+  \begin{equation*}
+    a^k \equiv 1\pmod{n}.
+  \end{equation*}
+  We will define the function $n\mapsto \ord_n(a)$ for all natural numbers $n$ by
+  \begin{equation*}
+    \ord_n(a):=
+    \begin{cases}
+      \min\{0<k\mid a^k\equiv 1 \pmod{n}\} & \text{if }\gcd(a,n)=1 \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \end{equation*}
+\end{definition}
+
+The specification of the values $\ord_n(a)=0$ when $\gcd(a,n)\neq 1$ is not as arbitrary as it perhaps seems. In the following theorem, which is also known as the \emph{Order Theorem}, we will see that by setting the value of the order of $a$ modulo $n$ to be $0$ when $\gcd(a,n)\neq 1$, we prove a powerful duality principle between multiples of $\ord_n(a)$ and numbers dividing $a^k-1$.
+
+\begin{theorem}
+  The multiplicative order of an integer $a$ modulo $n$ satisfies the logical equivalence
+  \begin{equation*}
+    \ord_n(a)\mid k \Leftrightarrow n \mid a^k-1
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  We have two cases to consider: either $\gcd(a,n)=1$ or $\gcd(a,n)\neq 1$. In the first case, $\ord_n(a)$ is the least positive integer $m$ such that
+  \begin{equation*}
+    a^m\equiv 1 \pmod{n}.
+  \end{equation*}
+  It is immediate from this condition that if $m\mid k$, then it follows that $a^k\equiv 1\pmod{n}$. Conversely, if $a^k\equiv 1\pmod{n}$, then we can write $k=qm+r$ by the Euclidean division theorem, where $0\leq r<m$. It follows that
+  \begin{equation*}
+    a^r \equiv a^{qm}a^r \equiv a^{qm+r} \equiv a^k \equiv 1\pmod{n}. 
+  \end{equation*}
+  Since $r$ is strictly less than $m$ and $m$ is the least positive integer such that $a^m\equiv 1\pmod{n}$, it follows that $r=0$. Thus we conclude that $\ord_n(a)\mid k$. This proves the claim in the first case.
+
+  In the second case we have $\ord_n(a)=0$. Then the condition that $\ord_n(a)\mid k$ is equivalent to the condition that $k=0$. Thus, our task is to show that $n\mid a^k-1$ if and only if $k=0$. Consider a common divisor $d>1$ of $a$ and $n$. Then we have $d\mid a^k-1$, so it follows that $d\mid a^k$ if and only if $d\mid 1$. Since we have assumed that $d>1$, it therefore follows that $d\nmid a^k$. However, since $d$ divides $a$, the only way in which this is possible is that $k=0$.
+  \begin{equation*}
+    \ord_n(a)\mid k.\qedhere
+  \end{equation*}
+\end{proof}
+
+The previous theorem has strong implications about the function $k\mapsto a^k-1$, which we will present as a corollary of the following definition and theorem.
+
+\begin{definition}
+  A function $f:\mathbb{N}\to\mathbb{N}$ is said to be a \emph{divisibility sequence} if it preserves divisibility, i.e., if it satisfies the condition
+  \begin{equation*}
+    m\mid n \Rightarrow f(m)\mid f(n)
+  \end{equation*}
+  for all $m$ and $n$. A divisibility sequence is said to be a \emph{strong divisibility sequence} if $f(0)=0$ and $f$ preserves greatest common divisors, i.e., if
+  \begin{equation*}
+    f(\gcd(m,n))=\gcd(f(m),f(n))
+  \end{equation*}
+  for all $m$ and $n$.
+\end{definition}
+
+\begin{theorem}\label{theorem:galois-connections-divisibility}
+  Suppose that $f:\mathbb{N}\to\mathbb{N}$ is a divisibility sequence. Then the following are equivalent:
+  \begin{enumerate}
+  \item There is a function $g:\mathbb{N}\to\mathbb{N}$ satisfying the logical equivalence
+  \begin{equation*}
+    g(m)\mid n \Leftrightarrow m\mid f(n).
+  \end{equation*}
+  \item The divisibility sequence $f$ is a strong divisibility sequence.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Suppose first that a function $g$ exists satisfying the logical equivalence
+  \begin{equation*}
+    g(m)\mid n \Leftrightarrow m\mid f(n).
+  \end{equation*}
+  Then it follows that
+  \begin{align*}
+    d\mid f(\gcd(m,n)) & \Leftrightarrow g(d)\mid \gcd(m,n) \\
+                       & \Leftrightarrow g(d)\mid m \land g(d)\mid n \\
+                       & \Leftrightarrow d\mid f(m) \land d\mid f(n) \\
+                       & \Leftrightarrow d\mid \gcd(f(m),f(n)).
+  \end{align*}
+  Since $f(\gcd(m,n))$ and $\gcd(f(m),f(n))$ have the exact same set of divisors, they must be equal.
+  
+  For the converse, suppose $f$ preserves greatest common divisors. Then consider the ideal
+  \begin{equation*}
+    I_m := \left\{ k_1n_1+\cdots+ k_rn_r \mathbin{\big|} m\mid f(n_i) \text{ for all } i \right\}
+  \end{equation*}
+  and define the function $g$ by letting $g(m)$ be the unique natural number such that $I_m=(g(m))$. In other words, $g(m)$ is the least natural number that can be written as a linear combination of numbers $n_i$, such that $m\mid f(n_i)$.
+
+  To see that $g$ is a divisibility sequence, suppose that $m\mid m'$, i.e., suppose that $qm=m'$. Then any linear combination of natural numbers $n$ such that $m'\mid f(n)$ is also a linear combination of natural numbers $n$ such that $m\mid f(n)$. In particular $g(m')$ is in the ideal $(g(m))$, which means that $g(m)\mid g(m')$.
+
+  We claim that the function $g$ satisfies the desired logical equivalence. Suppose first that $g(m)\mid n$, say $qg(m)=n$. Note that $g(m)$ can be written in the form $k_1n_1+\cdots+ k_rn_r$, so we can proceed by induction on $r$. In the base case, we have that $g(m)=0$. Then it follows that $n=0$, and it also follows that every linear combination of natural numbers $n$ such that $m\mid f(n)$ must be $0$. Since $f(0)=0$ by the assumption that $f$ is a strong divisibility sequence, this shows that $m\mid f(n)$.
+
+  For the inductive step, suppose that for every $m$ such that $g(m)$ can be written in the form $k_1n_1+\cdots+ k_rn_r$, we have $g(m)\mid n$ implies $m\mid f(n)$, and consider $m$ such that $g(m)$ can be written in the form
+  \begin{equation*}
+    k_1n_1+\cdots+ k_rn_r + k_{r+1}n_{r+1}.
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  Consider an integer $a$ and two natural numbers $m$ and $n$ relatively prime to $a$. Then
+  \begin{equation*}
+    \gcd(a^m-1,a^n-1)=a^{\gcd(m,n)}-1.
+  \end{equation*}
+\end{corollary}
+
+\begin{remark}
+  More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \emph{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
+  \begin{equation*}
+    g(x)\leq_P y \Leftrightarrow x\leq_Q f(x)
+  \end{equation*}
+  for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \emph{upper adjoint}, and the map $g$ is said to be the \emph{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \cref{theorem:galois-connections-divisibility} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
+
+  Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
+\end{remark}
+
+\begin{exercises}
+  \exercise Show that if $ab\equiv 1\pmod{n}$, then
+  \begin{equation*}
+    \ord_n(a)=\ord_n(b).
+  \end{equation*}
+  \exercise Consider an integer $a$. Show that if
+  \begin{equation*}
+    a^m-1 \mid a^n-1,
+  \end{equation*}
+  then $m\mid n$.
+  \exercise
+  \begin{subexenum}
+  \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
+  \item Show that for any $m$, the Fibonacci sequence is periodic modulo $m$. Its period is called the \emph{Pisano period}.
+  \item Show that for any natural number $m$, there is a least positive number $n$ such that
+    \begin{equation*}
+      m\mid F_n.
+    \end{equation*}
+    We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \emph{cofibonacci sequence}.
+  \item Show that $G(m)$ satisfies the following logical equivalence
+    \begin{equation*}
+      G_m\mid n \Leftrightarrow m \mid F_n.
+    \end{equation*}
+    Conclude that the Fibonacci sequence is a strong division sequence.
+  \end{subexenum}
+  \exercise Use methods similar to the previous exercise to show that the Pell numbers $P_n$, which are defined by
+  \begin{equation*}
+    P_0:=0,\qquad P_1:=1\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
+  \end{equation*}
+  form a strong division sequence.
 \end{exercises}
 
 \printbibliography
 
 \end{document}
-
-\chapter{Modular arithmetic}
-
-\begin{exercises}
-\exercise Prove that $(n-1)^2\mid n^k-1$ if and only if $n-1\mid k$
-\end{exercises}
