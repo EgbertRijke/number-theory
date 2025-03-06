@@ -13,6 +13,8 @@
 \usepackage{totcount}
 \usepackage{enumitem}
 \usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 \usetikzlibrary{angles,quotes,decorations.pathreplacing,calc}
 
@@ -41,21 +43,46 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
+\newcommand{\crefnamed}[2]{\hyperref[#1]{#2}}
+
 \title{Lectures on Elementary Number Theory}
 \author{Egbert Rijke}
 \date{\today}
 
+\definecolor{grayblue}{HTML}{0047AB}
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=purple,
-    filecolor=magenta,
-    urlcolor=blue,
-    citecolor=purple,
+    linkcolor=grayblue,
+    filecolor=grayblue,
+    urlcolor=grayblue,
+    citecolor=grayblue,
     pdftitle={Lecture notes on Number Theory},
     pdfpagemode=FullScreen,
 }
-\usepackage[capitalize,english,noabbrev]{cleveref}
+\usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
+
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+
+\crefname{example}{Example}{Examples}
+\Crefname{example}{Example}{Examples}
+
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
 
   % We set up the exercise environment, which produces list environment in a new
 % unnumbered subsection that also gets mentioned in the table of contents.
@@ -116,7 +143,7 @@ We will use these course notes and \emph{Number Theory} by Andrews \cite{andrews
 The first midterm covers content up to February 13th. The second midterm covers content up to the spring break.
 
 \begin{enumerate}
-\item Midterm $1$ covers \cref{chapter:introduction,chapter-euclidean-division-and-representability,chapter:linear-diophantine-equations,chapter:fundamental-theorem-of-arithmetic,chapter:combinatorial-methods} from these notes, and Chapters 1, 2, and 3 from Andrews \emph{Number Theory}. Note that parts of Chapter 3 of Andrews' book do not have an equivalent in these notes, so don't forget to study Chapter 3 of Andrews.
+\item Midterm $1$ covers \cref{chapter:induction,chapter-euclidean-division-and-representability,chapter:linear-diophantine-equations,chapter:fundamental-theorem-of-arithmetic,chapter:combinatorial-methods} from these notes, and Chapters 1, 2, and 3 from Andrews \emph{Number Theory}. Note that parts of Chapter 3 of Andrews' book do not have an equivalent in these notes, so don't forget to study Chapter 3 of Andrews.
 \end{enumerate}
 
 \newpage
@@ -302,7 +329,7 @@ The undisputed classic textbook on number theory is Hardy and Wright's \emph{Int
 
 \mainmatter
 
-\chapter{Mathematical induction}
+\chapter{Mathematical Induction}\label{chapter:induction}
 
 \section{Reasoning About Infinitely Many Natural Numbers}
 
@@ -437,7 +464,7 @@ Proofs by induction can be broken down into the following steps: First identify 
   holds for all $n$. Use Cassini's identity to give some examples of natural numbers $a$ and $b$ that satisfy this inequality.
 \end{exercises}
 
-\chapter{Combinatorial Methods in Number Theory}\label{chapter:combinatorial-methods}
+\chapter[Combinatorial Methods]{Combinatorial Methods in Number Theory}\label{chapter:combinatorial-methods}
 
 Combinatorics, or discrete mathematics, is mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Sometimes, counting methods can be used to obtain results in number theory. In this lecture we will use a combinatorial argument to show that the product
 \begin{equation*}
@@ -622,7 +649,7 @@ Now we might recognize an emerging pattern in the coefficients of these polynomi
 
 The binomial theorem has many proofs, including combinatorial proofs and algebraic proofs. All these proofs have their own merits. We will present here an algebraic proof, using induction, since it is the most easily applicable to settings other than the integers.
 
-\begin{theorem}
+\begin{theorem}\label{theorem:binomial-theorem}
   \emph{The binomial theorem.} In any number system, such as the natural numbers, the integers, the rational numbers, the reals, the complex numbers\footnote{More generally, the binomial theorem applies to any commutative semiring}, we have
   \begin{equation*}
     (x+y)^n = \sum_{k=0}^n \binom{n}{k}x^ky^{n-k}.
@@ -671,14 +698,9 @@ The binomial theorem has a long history. The earliest known references to aspect
     \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
   \end{equation*}
   The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
-  \exercise Consider a fixed set $\{p_1,\ldots,p_n\}$ of $n$ distinct primes. Given a natural number $k$, how many numbers can be written as a product
-  \begin{equation*}
-    p_1^{m_1}\cdots p_n^{m_n}
-  \end{equation*}
-  such that $m_1+\cdots +m_n=k$?
 \end{exercises}
 
-\chapter{Euclidean Division and the Representability Theorem}\label{chapter-euclidean-division-and-representability}
+\chapter[Euclidean Division and Representability]{Euclidean Division and the Representability Theorem}\label{chapter-euclidean-division-and-representability}
 
 \section{The Induction Principle Revisited}
 
@@ -1436,15 +1458,16 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \item Show that the greatest common divisor of $a/d$ and $b/d$ is $\gcd(a,b)/d$.
   \item Show that $d$ is a greatest common divisor of $a$ and $b$ if and only if $a/d$ and $b/d$ are relatively prime.  
   \end{subexenum}
-  
   \exercise Show that $a\mid bc$ if and only if $a/\gcd(a,b) \mid c$.
+  \exercise Show that if $d\mid a + b$, then $\gcd(d,a)\mid \gcd(a,b)$ and $\gcd(d,b)\mid\gcd(a,b)$. Conclude that if $a$ and $b$ are relatively prime, then $d$ is relatively prime to both $a$ and $b$.
   \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
   \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
   \exercise Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
-  \exercise Show that $a^3-a$ is divisible by $6$ for every integer $a$.
-  \exercise Show that $a^5-a$ is divisible by $30$ for every integer $a$.
+  \exercise \label{exercise:div-third-power-minus-first-power}Show that $a^3-a$ is divisible by $6$ for every integer $a$.
+  \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
   \exercise Show that any two consecutive Fibonacci numbers are relatively prime.
   \exercise \emph{Goldbach's theorem}. Show that any two distinct Fermat numbers are relatively prime.
+  \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
   \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
   \exercise
   \begin{subexenum}
@@ -1462,6 +1485,342 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \item The integers $a$ and $b$ are both relatively prime to $c$.
   \item The integer $ab$ is relatively prime to $c$.
   \end{enumerate}
+  \exercise Prove that if $a$ and $b$ are relatively prime integers, and $n$ is an arbitrary natural number, then in the arithmetical progression
+  \begin{equation*}
+    a+kb,\qquad k=0,1,2,\ldots
+  \end{equation*}
+  there are infinitely many numbers relatively prime to $n$.
+\end{exercises}
+
+\chapter{Polynomials}
+
+\section{Polynomials with Integer Coefficients}
+
+\begin{definition}
+  An \emph{polynomial with integer coefficients} in one variable $x$ is an expression of the form
+  \begin{equation*}
+    f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0,
+  \end{equation*}
+  in which we require that if $n\neq 0$ then the \emph{leading coefficient} $a_n$ is nonzero. The integers $a_k$ are called the \emph{coefficients} of $f(x)$. The \emph{zero polynomial} is the constant polynomial $0$ and the \emph{unit polynomial} is the constant polynomial $1$. The \emph{degree} of a polynomial is the highest power of $x$ with a nonzero coefficient. 
+\end{definition}
+
+There is a subtle, yet important distinction between polynomials and the functions they describe, which has to do with equality of polynomials. Two polynomials
+  \begin{equation*}
+    a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0\qquad\text{and}\qquad b_nx^n+ b_{n-1}x^{n-1} +\cdots + b_0
+  \end{equation*}
+  are said to be equal if their coefficients are equal, i.e., if $a_i=b_i$ for all $0\leq i\leq n$, while functions are considered equal if their values are equal. This is an important distinction, because for some number systems such as the integers modulo $n$, polynomials aren't necessarily equal as polynomials when they are equal as functions. For instance, by \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} we have that
+  \begin{equation*}
+    x^p \equiv x\pmod{p},
+  \end{equation*}
+  while the polynomials $x^p$ and $x$ clearly can be distinguished by their coefficients. Nevertheless, we will show in \cref{corollary:extensionality-integer-polynomials} that two polynomials with integer coefficients have equal coefficients if and only if they define equal functions.
+
+  The viewpoint that polynomials are formal expressions, and not functions, was emphasized by Leopold Kronecker, in the 19th century. With this distinction in mind, we make the following definition.
+
+\begin{definition}
+  A function $f:\mathbb{Z}\to\mathbb{Z}$ is said to be \emph{polynomial in the integers} if there is a polynomial with integer coefficients such as the above, such that
+  \begin{equation*}
+    f(x)=a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
+  \end{equation*}
+  for all $x\in \mathbb{Z}$.
+\end{definition}
+
+\begin{remark}
+  Polynomials can be added, subtracted, and multiplied in the same way as integers. To add two polynomials, we add their corresponding coefficients, taking missing coefficients as zero when necessary. Polynomials are multiplied by the formula
+  \begin{align*}
+    \Biggl(\sum_{i=0}^n a_ix^i\Biggr)\Biggl(\sum_{j=0\vphantom{i=0}}^mb_jx^j\Biggr)
+    & = \sum_{i=0}^n\sum_{j=0}^ma_ib_jx^{i+j} \\
+    & = \sum_{k=0}^{n+m}\sum_{i=0}^n a_i b_{k-i}x^{k}.    
+  \end{align*}
+  These operations of addition, subtraction, and multiplication, polynomials satisfy the laws of arithmetic. More precisely, the polynomials with integer coefficients form a commutative ring.
+\end{remark}
+
+\begin{definition}
+  A \emph{root} of a polynomial $f(x)$ is an element $r$ such that
+  \begin{equation*}
+    f(r)=0.
+  \end{equation*}
+  Sometimes we will write $N(f)$ for the set of roots of $f$.
+\end{definition}
+
+\begin{theorem}[Factor Theorem]\label{theorem:factor-theorem}
+  Consider a nonzero polynomial $f(x)$ of degree $n$.
+  An integer $r$ is a root of $f(x)$ if and only if there is a polynomial $g(x)$ of degree $n-1$ such that $f(x)=(x-r)g(x)$.
+\end{theorem}
+
+\begin{proof}
+  We will prove the claim by induction on $n$. In the base case $f(x)$ is a nonzero constant polynomial, so it has no roots and there is no polynomial $g(x)$ of degree $-1$ such that $f(x)=(x-r)g(x)$.
+
+  For the inductive step, it is clear that if there is a polynomial $g(x)$ such that $f(x)=(x-r)g(x)$, then $r$ is a root of the polynomial $f(x)$. For the converse, suppose that $r$ is a root of $f(x)$. Then
+  \begin{equation*}
+    f(x) = f(x)-f(r) = a_n(x^n-r^n)+\cdots + a_1(x-r).
+  \end{equation*}
+  By the formula for the difference of $n$th powers, we can factor $x^n-r^n$ as
+  \begin{equation*}
+    x^k-r^k=(x-r)q_k(x),
+  \end{equation*}
+  for some polynomial $q_k(x)$ of degree $k-1$. Now let
+  \begin{equation*}
+    g(x) := \sum_{k=1}^{n}a_k q_k(x).
+  \end{equation*}
+  Then we have $f(x)=(x-r)q_k(x)$ by rearranging the terms.
+\end{proof}
+
+The factor theorem has some useful corollaries. The first is that a polynomial of degree has at most $n$ roots, and the second is a factor theorem for modular arithmetic, which we will establish in the next section.
+
+\begin{corollary}\label{corollary:number-of-roots-polynomial}
+  A polynomial of degree $n$ with nonzero leading coefficient has at most $n$ roots.
+\end{corollary}
+
+\begin{proof}
+  The proof is by induction on the degree $n$. If $f(x)$ is a constant polynomial of degree $0$ and its leading coefficient is nonzero, then $f(x)$ is always nonzero and so $f(x)$ has no roots.
+
+  For the inductive step, assume that all polynomials of degree $n$ have at most $n$ roots, and consider a polynomial $f(x)$ of degree $n+1$. Then either $f(x)$ has no roots, in which case we are done immediately, or $f(x)$ has a root $r$, in which case $f(x)$ factors as
+  \begin{equation*}
+    f(x)=(x-r)g(x)
+  \end{equation*}
+  by the \crefnamed{theorem:factor-theorem}{Factor Theorem}, where $g(x)$ is a polynomial of degree $n$. Then the product $(x-r)g(x)=0$ if and only if $x-r=0$ or $g(x)=0$. Thus we see that $x$ is a root of $f(x)$ if and only if $x=r$ or $x$ is a root of $g(x)$, so there are at most $n+1$ roots of the polynomial $f(x)$.
+\end{proof}
+
+\section{Lagrange's Interpolation Theorem}
+
+Lagrange's Interpolation Theorem establishes that for any set of data points, there is always a way of defining a polynomial that exactly matches the data. Moreover, it gives the unique way of defining such a polynomial in the lowest degree. Lagrange's Interpolation Theorem has the important consequence that any polynomial of degree $n$ is uniquely determined by any $n+1$ of its values. We will also use Lagrange's Interpolation Theorem in the next section to derive a divisibility property of polynomials due to Hensel.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      axis lines = middle,
+      xlabel = $x$, ylabel = $y$,
+      samples = 100,
+      domain = -0.5:4.5,
+      enlargelimits = true,
+      xmin = -1, xmax = 5, % More space on x-axis
+      ymin = -3, ymax = 3, % More space on y-axis
+      legend pos = north east,
+      legend cell align={left}
+      ]
+      % Plot the Lagrange interpolating polynomial
+      \addplot[black, thick] {(x-1)*(x-2)*(x-3)*(-1/6) + x*(x-2)*(x-3)*(-1) + x*(x-1)*(x-2)*(1/6)};
+      \addlegendentry{Interpolation}
+      
+      % Plot the given points
+      \addplot[only marks, mark=*, mark options={draw=black, fill=white, line width=1pt}, mark size=2pt] coordinates {(0,1) (1,-2) (2,0) (3,1)};
+      \addlegendentry{Data points}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{A polynomial of degree $3$ obtained by Lagrange Interpolation.}
+  \label{figure:lagrange-interpolation}
+\end{figure}
+
+The idea underlying Lagrange's Interpolation Theorem is to break the problem into several subproblems: For each data point $(x_i,y_i)$, we create a polynomial that has roots at $x_j$ for all the other data points $(x_j,y_j)$. This is very easy to do: we just take the product
+\begin{equation*}
+  g_i(x)=(x-x_0)\cdots (x-x_{i-1})(x-x_{i+1})\cdots (x-x_j).
+\end{equation*}
+Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus there is some constant $c_i$ such that $c_ig_i(x_i)=y_i$. Adding them all up gives the Lagrange Interpolation.
+
+\begin{example}
+  In \cref{figure:lagrange-interpolation}, we started with the set of points
+  \begin{equation*}
+    (0,1),\ (1,-2),\ (2,0),\ (3,1).
+  \end{equation*}
+  Then we define the polynomials
+  \begin{align*}
+    g_0 & := {\textstyle \frac{1}{6}}(x-1)(x-2)(x-3) \\
+    g_1 & := -x(x-2)(x-3) \\
+    g_2 & := 0 \\
+    g_3 & := {\textstyle \frac{1}{6}}x(x-1)(x-2),
+  \end{align*}
+  which we have already rescaled so that $g_0(0)=1$, $g_1(1)=-2$, $g_2(2)=0$, and $g_3(3)=1$. Adding them up gives the polynomial
+  \begin{equation*}
+    f(x) := \frac{1}{6}(x-1)(x-2)(x-3) - x(x-2)(x-3) + \frac{1}{6}x(x-1)(x-2),
+  \end{equation*}
+  which we have plotted.
+\end{example}
+
+\begin{theorem}[Lagrange's Interpolation Theorem]
+  For any choice of $n+1$ points $(x_i,y_i)$ such that the $x_i$ are pairwise distinct, there is a unique polynomial $f(x)$ of degree at most $n$ such that
+  \begin{equation*}
+    f(x_i)=y_i
+  \end{equation*}
+  for all $0\leq i\leq n$.
+\end{theorem}
+
+\begin{proof}
+  For any $0\leq i\leq n$, define the \emph{basis polynomial} for Lagrange interpolation $g_i(x)$ by
+  \begin{equation*}
+    g_i(x) := \prod_{\substack{j=0\\j\neq i}}^n \frac{x-x_j}{x_i-x_j}.
+  \end{equation*}
+  Then $g_i(x)$ is a polynomial of degree $n$, whose $n$ roots are the points $x_j$ for $j\neq i$. Furthermore, we have defined $g_i$ in such a way that $g_i(x_i)=1$. Now we define the polynomial $f(x)$ of degree $n$ by
+  \begin{equation*}
+    f(x)=\sum_{i=0}^n y_ig_i(x).
+  \end{equation*}
+  Then $f(x_i)=y_i$ since $g_j(x_i)=0$ for $j\neq i$ and $g_i(x_i)=1$. Thus $f$ satisfies the criteria of the theorem.
+
+  To see that the polynomial $f(x)$ is the unique polynomial of degree at most $n$ that satisfies $f(x_i)=y_i$, consider a second polynomial $g(x)$ of degree at most $n$ that satisfies the same requirement. Then the polynomial
+  \begin{equation*}
+    f(x)-g(x)
+  \end{equation*}
+  is a polynomial of degree at most $n$ with $n+1$ roots. By virtue of \cref{corollary:number-of-roots-polynomial} this is only possible if $f(x)-g(x)$ is the zero polynomial, i.e., if $f(x)=g(x)$.
+\end{proof}
+
+\begin{corollary}
+  Any polynomial $f(x)$ of degree $n$ is uniquely determined by any $n+1$ of its values. In particular, it is uniquely determined by the values
+  \begin{equation*}
+    f(0),\ldots,f(n).
+  \end{equation*}
+\end{corollary}
+
+Even though the basis polynomials of Lagrange's Interpolation Theorem don't always have integer coefficients, we can use Lagrange's Interpolation Theorem to show that for any polynomial $f$ with real coefficients, if
+\begin{equation*}
+  f(0),\ldots,f(n)
+\end{equation*}
+are integers, then $f(x)$ is an integer for every integer $x$.
+
+\begin{definition}
+  A polynomial $f(x)$ with real coefficients is said to be \emph{integer valued}
+  if $f(x)$ is an integer for every integer $x$.
+\end{definition}
+
+A simple example of an integer valued polynomial, yet doesn't have integer coefficients is the polynomial
+\begin{equation*}
+  \frac{x(x+1)}{2},
+\end{equation*}
+which returns the triangular numbers.
+
+Lagrange's Interpolation Theorem establishes a polynomial $f(x)$ as a linear combination of the basis polynomials, thus obtaining
+\begin{equation*}
+  \sum_{k=0}^n f(k)g_i(x).
+\end{equation*}
+However, we can turn this perspective around. Each value $f(x)$ can be written as a linear combination of the values $f(k)$ for $0\leq k\leq n$. This observation is important enough that we establish it in its own lemma, which is a direct corollary of Lagrange's Interpolation Theorem.
+
+\begin{lemma}\label{lemma:is-linear-combination-values-polynomials}
+  Consider a polynomial $f(x)$. Then each value $f(x)$ can be written as a linear combination of the values $f(0)$, \ldots, $f(n)$, i.e., there are coefficients $a_i(x)$ for each $0\leq i\leq n$ depending on $x$ such that
+  \begin{equation*}
+    f(x) = \sum_{i=0}^na_i(x)f(i).
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  The coefficients $a_k(x)$ are given by the basis polynomials $g_k(x)$.
+\end{proof}
+
+Equipped with this change of perspective, we can prove that a polynomial of degree $n$ is integer values as soon as its values $f(0)$, \ldots, $f(n)$ are integers.
+
+\begin{theorem}\label{theorem:integer-valued-polynomials}
+  Consider a polynomial $f(x)$ of degree $n$ with real coefficients. If the values
+  \begin{equation*}
+    f(0),\ldots,f(n)
+  \end{equation*}
+  are integers, then $f(x)$ is an integer for every integer $x$.
+\end{theorem}
+
+\begin{proof}
+  The basis polynomials of $f$ are
+  \begin{equation*}
+    g_i(x)=\prod_{\substack{j=0\\j\neq i}}^{n}\frac{x-j}{i-j}.
+  \end{equation*}
+  We can express $g_i(x)$ using binomial coefficients as
+  \begin{equation*}
+    g_i(x)=\binom{x}{i}\binom{x-i-1}{n-i},
+  \end{equation*}
+  which is an integer for every integer $x$. Therefore it follows by \crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem} that every value $f(x)$ can be written as an integer linear combination of the integers $f(0),\ldots,f(n)$, which proves the theorem.
+\end{proof}
+
+\begin{corollary}\label{corollary:extensionality-integer-polynomials}
+  Two polynomials $f(x)$ and $g(x)$ with integer coefficients have equal coefficients if and only if their values are equal.
+\end{corollary}
+
+\begin{proof}
+  The forward direction, which asserts that if $f(x)$ and $g(x)$ have equal coefficients then they define the same function, is immediate. For the converse, assume that $f(x)=g(x)$ for every $x$. Then the polynomial $f(x)-g(x)$ must be the $0$ polynomial, since any other polynomial has a degree and a polynomial of degree $n$ has at most $n$ roots by \cref{corollary:number-of-roots-polynomial}.
+  
+  On the other hand, the polynomial $f(x)-g(x)$ is defined as
+  \begin{equation*}
+    f(x)-g(x) = (a_n-b_n)x^n+\cdots (a_0-b_0),
+  \end{equation*}
+  where $a_i$ and $b_i$ are the coefficients of $f$ and $g$, respectively, or taken to be $0$ if there is no such coefficient. Thus it follows that $a_i-b_i=0$ for all $i$, which proves that $a_i=b_i$.
+\end{proof}
+
+\section{Fixed Divisors of Integer Polynomials}
+
+In the previous chapter, we have done a few exercises which asked us to show that integers in certain polynomial forms satisfy a divisibility property. For example, we showed that $a^3-a$ is always divisible by $6$, and that $a^5-a$ is always divisible by $30$. We also showed that the product of any $n$ consecutive integers is always divisible by $n!$. In this section we will establish a vast generalization of these facts.
+
+\begin{definition}
+  The \emph{fixed divisor} of a function $f:X\to \mathbb{Z}$ into the integers is the greatest common divisor of all values of $f$, i.e.,
+  \begin{equation*}
+    \gcd(\{f(x)\mid x\in X\}).
+  \end{equation*}
+\end{definition}
+
+\crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem} can be used to determine the gratest common divisor of all the values of a polynomial, by examining only one more value than its degree. This observation is due to Kurt Hensel, who was a student of Leopold Kronecker.
+
+\begin{theorem}[Hensel's Fixed Divisor Theorem \cite{hensel1896}]
+  Consider a polynomial $f(x)$ of degree $n$, with integer coefficients. Then the fixed divisor of $f$ is the greatest common divisor
+  \begin{equation*}
+    \gcd(f(a),\ldots,f(a+n))
+  \end{equation*}
+  of any $n+1$ values of consecutive inputs of $f$.
+\end{theorem}
+
+\begin{proof}
+  First, we note that by translating the polynomial along the $x$-axis, which we can do by considering the polynomial $f(a)$, it suffices to show that for any polynomial $f(x)$ of degree $n$ with integer coefficients, the fixed divisor of $f$ is the greatest common divisor of the integers
+  \begin{equation*}
+    f(0),\ldots,f(n).
+  \end{equation*}
+  Now recall from \cref{theorem:integer-valued-polynomials} that the values $f(x)$ are integer linear combinations of the values $f(0),\ldots,f(n)$:
+  \begin{equation*}
+    f(x)=\sum_{i=0}^nf(i)g_i(x).
+  \end{equation*}
+  It follows that
+  \begin{equation*}
+    \gcd(f(0),\ldots,f(n))\mid f(x).
+  \end{equation*}
+  Since the fixed divisor of $f$ divides this greatest common divisor, this establishes the theorem.
+\end{proof}
+
+\begin{example}
+  Consider the polynomial
+  \begin{equation*}
+    f(x)=x^n-x.
+  \end{equation*}
+  When $n$ is even, then $f$ is an \emph{even function}, which means that $f(-x)=f(x)$, and when $n$ is odd, then $f$ is an \emph{odd function} which means that $f(-x)=-f(x)$. In either case, this implies that the fixed divisor of $x^n-x$ is equal to the greatest common divisor of the elements
+  \begin{equation*}
+    f(0),\ldots,f(m),
+  \end{equation*}
+  where $m$ is the largest integer such that $2m\leq n+1$.
+  In other words, to compute the fixed divisor of $x^n-x$, we only have to inspect about half the amount of values of Hensel's Fixed Divisor Theorem. Furthermore, the polynomial $f(x)=x^n-x$ always satisfies $f(0)=0$ and $f(1)=0$, reducing the amount of cases even further. Thus, the fixed divisor of $x^n-x$ is
+  \begin{equation*}
+    \gcd(\{f(k)\mid 2\leq k \leq (n+1)/2\}).
+  \end{equation*}
+  \begin{enumerate}
+  \item For $n=3$, the only number $2\leq k\leq (n+1)/2$ is the number $2$. The polynomial $f(x)=x^3-x$ from \cref{exercise:div-third-power-minus-first-power} has the value
+    \begin{equation*}
+      f(2)=6,
+    \end{equation*}
+    so the fixed divisor of $x^3-x$ is $6$, which is $2\cdot 3$.
+  \item For $n=5$, the only two numbers $2\leq k \leq (n+1)/2$ are the numbers $2$ and $3$. The polynomial $f(x)=x^5-x$ from \cref{exercise:div-fifth-power-minus-first-power} has the values
+    \begin{equation*}
+      f(2)=30 \qquad\text{and}\qquad f(3)=240.
+    \end{equation*}
+    Since $240$ is divisible by $30$ it follows that the fixed divisor of $x^5-x$ is $30$, which is $2\cdot 3\cdot 5$.
+  \item For $n=7$, the only three numbers $2\leq k \leq (n+1)/2$ are the numbers $2$, $3$, and $4$. The polynomial $f(x)=x^7-x$ has the values
+    \begin{equation*}
+      f(2)=126\qquad\text{and}\qquad f(3)=2184.
+    \end{equation*}
+    Furthermore, using that $4^7=(2^7)^2$ we see that $f(4)$ factors as $(2^7-2)(2^7+2)$ by the formula for the difference of squares. Therefore it follows that the fixed divisor of $f(x)$ is the greatest common divisor of $f(2)$, $f(3)$, and $f(4)$, is just the greatest common divisor of $f(2)$ and $f(3)$, which is
+    \begin{equation*}
+      \gcd(126,2184)=42=2\cdot 3\cdot 7.
+    \end{equation*}
+  \end{enumerate}
+  We will generalize these examples in \cref{theorem:fixed-divisors-fermat-polynomials}.
+\end{example}
+  
+
+
+\begin{exercises}
+  \exercise Show that $x^{13}-x$ has fixed divisor
+  \begin{equation*}
+    2\cdot 3\cdot 5\cdot 7\cdot 13.
+  \end{equation*}
 \end{exercises}
 
 \chapter{The Fundamental Theorem of Arithmetic}\label{chapter:fundamental-theorem-of-arithmetic}
@@ -1655,15 +2014,20 @@ The following proposition is due to Euclid, who included it as proposition 30 of
   \end{equation*}
   Show that if $n$ is composite, then so is $M_n$. Conclude that if $M_n$ is prime, then so is $n$. Prime numbers of the form $M_p$ for some prime number $p$ are called \emph{Mersenne primes}.
   \exercise A natural number $n$ is said to be \emph{perfect} if it is the sum of its proper divisors. Show that an even number is perfect if and only if it is of the form $2^{p-1}M_p$, where $M_p$ is a Mersenne prime.
+  \exercise Consider a fixed set $\{p_1,\ldots,p_n\}$ of $n$ distinct primes. Given a natural number $k$, how many numbers can be written as a product
+  \begin{equation*}
+    p_1^{m_1}\cdots p_n^{m_n}
+  \end{equation*}
+  such that $m_1+\cdots +m_n=k$?
 \end{exercises}
 
-\chapter{Pythagorean triples}
+\chapter{Pythagorean Triples}
 
 \section{The Pythagorean Theorem}
 
 Recall that a right triangle is a triangle in which one of the angles is a right angle, i.e., it is exactly $90^\circ$. The Pythagorean theorem relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the trigonometric proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as highschool students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
 
-\begin{theorem}
+\begin{theorem}\label{theorem:pythagorean-theorem}
   Consider a right triangle with side lengths $a$ and $b$, and a hypotenuse of length $c$. Then
   \begin{equation*}
     a^2 + b^2 = c^2.
@@ -1898,7 +2262,7 @@ Our goal in this section is to describe all the solutions of the quadratic Dioph
 \begin{equation*}
   x^2 + y^2 = z^2,
 \end{equation*}
-where $z$ is a nonzero integer. By the Pythagorean Theorem, any such triple $(x,y,z)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(x,y,z)$ is a Pythagorean triple, then so is $(kx,ky,kz)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
+where $z$ is a nonzero integer. By the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}, any such triple $(x,y,z)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(x,y,z)$ is a Pythagorean triple, then so is $(kx,ky,kz)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
 
 \begin{wrapfigure}{r}{.4\textwidth}
   \centering
@@ -1938,11 +2302,19 @@ by \cref{exercise:sum-of-odd-numbers}. For this choice of $a$, $b$, and $c$, we 
 \begin{equation*}
   a^2 + b^2 = c^2.
 \end{equation*}
-Note that this is just the equation
+
+\begin{proposition}
+  There are infinitely many Pythagorean triples $(a,b,c)$ such that $c=b+1$.
+\end{proposition}
+
+Note that while Fibonacci used the sum of odd numbers to find a triple $(a,b,c)$ of integers such that $a^2+b^2=c^2$, these Fibonacci triples follow the pattern
 \begin{equation*}
-  (2b + 1) + b^2 = (b+1)^2
+  (2b + 1) + b^2 = (b+1)^2.
 \end{equation*}
-in disguise, and indeed we don't need to refer to \cref{exercise:sum-of-odd-numbers} to see that if $a^2=2b+1$, then $(a,b,b+1)$ is a Pythagorean triple.
+Here we immediately see that if $2b+1$ is a square number $a^2$, and indeed any odd square is of this form, then we obtain a Pythagorean triple of the form $(a,b,b+1)$. Rewriting $a=2k+1$, we see that Fibonacci's Pythagorean triples are of the form
+\begin{equation*}
+  (2k+1,\,2k^2 + 2k,\,2k^2 + 2k+1).
+\end{equation*}
 
 The Pythagorean triples $(a,b,c)$ generated by Fibonacci's method always satisfy $c=b+1$. However, we have already seen that $(21,20,29)$ is a Pythagorean triple that is not of this form. Therefore we see that, even though Fibonacci's method can be used to see that there are infinitely many Pythagorean triples, it does not generate all of them.
 
@@ -2090,7 +2462,7 @@ The set of all primitive Pythagorean triples has the structure of a rooted terna
 \section{Transformations of Rational Points on the Unit Circle}
 
 \begin{exercises}
-  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the Pythagorean Theorem:
+  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}:
     \begin{equation*}
       \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
         \pgfmathsetmacro{\myangle}{atan(28/45)}
@@ -2169,7 +2541,7 @@ In the following lemma we establish that $a$ and $b$ are congruent modulo $n$ if
   \begin{equation*}
     n = \sum_{i=0}^{l-1} d_i b^{i}
   \end{equation*}
-  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using the Euclidean Division Theorem as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
+  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
 \end{example}
 
 An important property of the congruence relations, which makes them so useful in the study of the integers, is that they are compatible with the arithmetic operations of addition and multiplication.
@@ -2225,22 +2597,6 @@ and we recognize that the right-hand side is just the sum of the digits of $n$. 
     \gcd(6,15)\nequiv\gcd(16,25) \pmod{10}.
   \end{equation*}
 \end{remark}
-
-\begin{example}
-  Fermat's Little Theorem and Wilson's Theorem can be expressed succinctly with Gauss's notation for modular arithmetic.
-
-  Recall that Fermat's Little Theorem states that any prime number $p$ divides $n^p-n$. Using the language of modular arithmetic, we can state Fermat's Little Theorem as follows: For any prime $p$ and any natural number $n$, we have the congruence
-  \begin{equation*}
-    n^p \equiv n \pmod{p}.
-  \end{equation*}
-  for any prime number $p$. Notice that although $n^p$ is a degree $p$ polynomial, and $n$ is a linear polynomial, they have the same values modulo $p$. In other words, Fermat's Little Theorem shows that it is possible for two polynomials of different degrees to be congruent modulo $p$.
-
-  Wilson's Theorem states that any prime number $p$ divides $(p-1)!+1$. In the language of modular arithmetic, Wilson's Theorem states that we have the congruence
-  \begin{equation*}
-    (p-1)! \equiv -1 \pmod{p}
-  \end{equation*}
-  for any prime number $p$.
-\end{example}
 
 \section{Equivalence Relations}
 
@@ -2700,9 +3056,50 @@ holds in $\mathbb{Z}/n\mathbb{Z}$. In other words, the integer $a$ represents an
   Consider an integer $a$ relatively prime to $n$. Then the operation $x\mapsto [a]x$ is a bijection on $\mathbb{Z}/n\mathbb{Z}$.
 \end{corollary}
 
-\section{The Theorems of Fermat and Euler}
+\section{Fermat's Little Theorem}
 
-\begin{theorem}[Euler's Theorem]
+\begin{theorem}[Fermat's Little Theorem]\label{theorem:fermats-little-theorem}
+  Consider a prime number $p$ and an integer $a$. Then the congruence
+  \begin{equation*}
+    a^{p}\equiv a\pmod{p}
+  \end{equation*}
+  holds.
+\end{theorem}
+
+\begin{proof}[Fermat's proof]
+  Note that the congruence $(-a)^p\equiv -a^p\pmod{p}$ holds for all primes $p$, so it suffices to prove the claim for the nonnegative integers. We proceed by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds.
+
+  For the inductive step, assume that $a^p\equiv a\pmod{p}$. The \crefnamed{theorem:binomial-theorem}{Binomial Theorem} then gives us that
+  \begin{equation*}
+    (a+1)^p=\sum_{k=0}^p \binom{p}{k}a^k
+  \end{equation*}
+  However, note that $p\mid\binom{p}{k}$ for any $0<k<p$. We therefore find that
+  \begin{equation*}
+    (a+1)^p\equiv a^p+1\pmod{p}.
+  \end{equation*}
+  Since $a^p\equiv a\pmod{p}$ holds by the induction hypothesis, the claim follows.
+\end{proof}
+
+\begin{corollary}
+  Consider a prime number $p$ and an integer $a$ not divisible by $p$. Then the congruence
+  \begin{equation*}
+    a^{p-1}\equiv 1\pmod{p}
+  \end{equation*}
+  holds.
+\end{corollary}
+
+\begin{proof}
+  Since $a$ is not divisible by $p$, it follows that $a$ is relatively prime to $p$, and therefore the claim follows from the cancellation law
+  \begin{equation*}
+    ax\equiv ay\pmod{p}\qquad\Rightarrow\qquad x\equiv y\pmod{p}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\section{Euler's Theorem}
+
+Euler figured out a way to generalize Fermat's Little Theorem to the composite moduli. He made use of his totient function $\phi$, which counts for each $n$ the number of $0\leq m<n$ relatively prime to $n$.
+
+\begin{theorem}[Euler's Theorem]\label{theorem:eulers-theorem}
   Consider a natural number $n$ and an integer $a$ such that $\gcd(a,n)=1$. The congruence
   \begin{equation*}
     a^{\phi(n)}\equiv 1\pmod{n}
@@ -2710,7 +3107,7 @@ holds in $\mathbb{Z}/n\mathbb{Z}$. In other words, the integer $a$ represents an
   holds
 \end{theorem}
 
-We present two proofs of Euler's theorem. The first is the standard proof, and the other is inspired by methods of group theory.
+We present two proofs of Euler's Theorem. The first is the standard proof, and the other is inspired by methods of group theory.
 
 \begin{proof}[First proof of Euler's Theorem]
   Consider an integer $a$ relatively prime to $n$, and consider a reduced residue system $r_1,\ldots,r_{\phi(n)}$ modulo $n$. We claim that
@@ -2752,18 +3149,7 @@ We present two proofs of Euler's theorem. The first is the standard proof, and t
   One can show that the set of integers modulo $n$ relatively prime to $n$ forms a group, where the binary operation is multiplication, the unit element is the integer $1$, and the inverse $x^{-1}$ of an integer $x$ modulo $n$ is the unique solution to the equation $xy\equiv 1\pmod{n}$. The number of elements in this group is $\phi(n)$. For any integer $a$ modulo $n$ relatively prime to $n$ such that $a^k\equiv 1\pmod{n}$, the set $\{1,a,a^2,\ldots,a^{k-1}\}$ is a subgroup, which means that it is closed under the group operations. The argument where we introduced an equivalence relation $\sim$ to partition the set of all integers modulo $n$ relatively prime to $n$ into equivalence classes of size $k$ is an instance of a much more general result, Lagrange's Theorem, which asserts that the size of any subgroup of a finite group divides the size of the entire group.
 \end{remark}
 
-As a corollary of Euler's theorem, we obtain Fermat's Little Theorem.
-
-\begin{theorem}[Fermat's Little Theorem]
-  Consider a prime number $p$ and an integer $a$ such that $p \nmid a$. Then the congruence
-  \begin{equation*}
-    a^{p-1}\equiv 1\pmod{p}
-  \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  For any prime number $p$, we have $\phi(p)=p-1$, since any integer $0<x<p$ is relatively prime to $p$.
-\end{proof}
+Since $\phi(p)=p-1$, it follows that \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} is also a direct corollary of \crefnamed{theorem:eulers-theorem}{Euler's Theorem}.
 
 Some questions about Euler's totient function remain unresolved. While we have seen that $\phi(p)=p-1$ for any prime number $p$, Lehmer asked whether there is any composite number $n$ such that
 \begin{equation*}
@@ -2773,7 +3159,7 @@ This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
 
 \section{Wilson's Theorem}
 
-\begin{theorem}
+\begin{theorem}[Wilson's Theorem]\label{theorem:wilsons-theorem}
   A natural number $n$ is prime if and only if
   \begin{equation*}
     (n-1)!\equiv -1 \pmod{n}.
@@ -2870,7 +3256,7 @@ which reduces to $6y-7z=2$. By \cref{theorem:solve-linear-diophantine-equation},
 \end{equation*}
 is a solution to our original system of linear congruences. Indeed, we can check that $10\cdot 34 = 28\cdot 12 + 4$ and $15\cdot 34 = 24\cdot 21+6$.
 
-To summarize the method by which we found this solution, we first reduced each individual linear congruence by dividing through by the greatest common divisor of the scalar and the modulus. This way we obtained a system of linear congruences that were individually uniquely solvable. Their solutions gave two expressions for the variable $x$, which combined into a single linear Diophantine equation, which we solved by \cref{theorem:solve-linear-diophantine-equation} and Euclid's algorithm. As the saying goes, any good method in mathematics begs to become a theorem. The essential theorem to solve systems of linear congruences is the Chinese Remainder Theorem, which we will state and prove in the next section.
+To summarize the method by which we found this solution, we first reduced each individual linear congruence by dividing through by the greatest common divisor of the scalar and the modulus. This way we obtained a system of linear congruences that were individually uniquely solvable. Their solutions gave two expressions for the variable $x$, which combined into a single linear Diophantine equation, which we solved by \cref{theorem:solve-linear-diophantine-equation} and Euclid's algorithm. As the saying goes, any good method in mathematics begs to become a theorem. The essential theorem to solve systems of linear congruences is the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem}, which we will state and prove in the next section.
 
 We also note that the methods we used to solve two linear congruences simultaneously can be used to solve three or more linear congruences simultaneously. Suppose our original problem included a third linear congruence
 \begin{align*}
@@ -2911,57 +3297,58 @@ In the following theorem we will prove that this system of congruences is unique
   This linear congruence has a unique solution modulo $n$, since $\gcd(m,n)=1$. Therefore, there is exactly one integer $0\leq y_0 < n$ such that $x=my_0 + a$. Consequently, there is exactly one $0\leq x < mn$ that solves both linear congruences simultaneously.
 \end{proof}
 
-\begin{theorem}
-  A system of two linear congruences
-  \begin{align*}
-    ax\equiv b \pmod{m} \\
-    cx\equiv d \pmod{n}.
-  \end{align*}
-  is solvable if and only if $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$, and if
-  \begin{equation*}
-    \gcd\left(\frac{m}{\gcd(a,m)},\frac{n}{\gcd(c,n)}\right)=1.
-  \end{equation*}
-  In this case, there is a unique solution modulo
-  \begin{equation*}
-    \frac{mn}{\gcd(a,m)\gcd(c,n)}
-  \end{equation*}
-\end{theorem}
+% \begin{theorem}
+%   A system of two linear congruences
+%   \begin{align*}
+%     ax\equiv b \pmod{m} \\
+%     cx\equiv d \pmod{n}.
+%   \end{align*}
+%   is solvable if and only if $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$, and if
+%   \begin{equation*}
+%     \gcd\left(\frac{m}{\gcd(a,m)},\frac{n}{\gcd(c,n)}\right)=1.
+%   \end{equation*}
+%   In this case, there is a unique solution modulo
+%   \begin{equation*}
+%     \frac{mn}{\gcd(a,m)\gcd(c,n)}
+%   \end{equation*}
+% \end{theorem}
 
-Consider two linear congruences
-\begin{align*}
-  ax & \equiv b \pmod{m} \\
-  cx & \equiv d \pmod{n}
-\end{align*}
-in a single variable $x$. In this section we will study solutions $x$ that simultaneously solve both linear congruences.
+% Consider two linear congruences
+% \begin{align*}
+%   ax & \equiv b \pmod{m} \\
+%   cx & \equiv d \pmod{n}
+% \end{align*}
+% in a single variable $x$. In this section we will study solutions $x$ that simultaneously solve both linear congruences.
 
-To solve both linear congruences at once, we must clearly be able to solve them separately. We have already seen in \cref{theorem:linear-congruence-one-variable} that in order to solve them separately, we must have $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$. Assuming this is the case, the sets of solutions $x$ simultaneously solving both linear congruences, is the same as the set of solutions for the two linear congruences obtained by dividing through by $\gcd(a,m)$ and $\gcd(c,n)$. In other words, to solve the system of linear congruences as above, we must first learn to solve the system of linear congruences
-\begin{align*}
-  ax & \equiv b \pmod{m} \\
-  cx & \equiv d \pmod{n}
-\end{align*}
-where $\gcd(a,m)=1$ and $\gcd(c,n)=1$. 
+% To solve both linear congruences at once, we must clearly be able to solve them separately. We have already seen in \cref{theorem:linear-congruence-one-variable} that in order to solve them separately, we must have $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$. Assuming this is the case, the sets of solutions $x$ simultaneously solving both linear congruences, is the same as the set of solutions for the two linear congruences obtained by dividing through by $\gcd(a,m)$ and $\gcd(c,n)$. In other words, to solve the system of linear congruences as above, we must first learn to solve the system of linear congruences
+% \begin{align*}
+%   ax & \equiv b \pmod{m} \\
+%   cx & \equiv d \pmod{n}
+% \end{align*}
+% where $\gcd(a,m)=1$ and $\gcd(c,n)=1$. 
 
 
 \section{Linear Congruences in Multiple Variables}
 
 \section{Multiplicativity of Euler's Totient Function}
 
-\begin{proposition}
-  Any ring homomorphism preserves invertible elements.
-\end{proposition}
+% \begin{proposition}
+%   Any ring homomorphism preserves invertible elements.
+% \end{proposition}
 
-\begin{proof}
-  Suppose $f:R\to S$ is a homomorphism of rings, and let $x$ be an invertible element in $R$ with inverse $x^{-1}$. Then $f(x^{-1})$ is an inverse of $f(x)$, since
-  \begin{equation*}
-    f(x)f(x^{-1})=f(xx^{-1})=f(1)=1
-  \end{equation*}
-  and
-  \begin{equation*}
-    f(x^{-1})f(x)=f(x^{-1}x)=f(1)=1.\qedhere
-  \end{equation*}
-\end{proof}
+% \begin{proof}
+%   Suppose $f:R\to S$ is a homomorphism of rings, and let $x$ be an invertible element in $R$ with inverse $x^{-1}$. Then $f(x^{-1})$ is an inverse of $f(x)$, since
+%   \begin{equation*}
+%     f(x)f(x^{-1})=f(xx^{-1})=f(1)=1
+%   \end{equation*}
+%   and
+%   \begin{equation*}
+%     f(x^{-1})f(x)=f(x^{-1}x)=f(1)=1.\qedhere
+%   \end{equation*}
+% \end{proof}
 
 \begin{exercises}
+  \exercise Three musicians perform a piece with interwoven, cyclic rhythms. One plays on the first of every four beats, the second plays on the third of every five beats, and the third plays on the second of every third beat. The performance concludes when all three musicians play simultaneously for the first time. How many beats does the composition last?
   \exercise Show that $m\mid n$ implies $\phi(m)\mid\phi(n)$.
   \exercise Prove that if $\gcd(a,b)=d$, then
   \begin{equation*}
@@ -2976,47 +3363,19 @@ where $\gcd(a,m)=1$ and $\gcd(c,n)=1$.
 
 \chapter{Polynomial Congruences}
 
-\section{Polynomial Congruences Modulo a Prime}
+\section{Polynomial Congruences of Prime Moduli}
 
-\begin{definition}
-  An \emph{integer polynomial} in one variable $x$ is an expression of the form
-  \begin{equation*}
-    a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
-  \end{equation*}
-  in which the leading term $a_n$ is assumed to be nonzero.
-  
-  A function $f:\mathbb{Z}\to\mathbb{Z}$ is said to be \emph{polynomial in the integers} if there is an integer polynomial such as the above, such that
-  \begin{equation*}
-    f(x)=a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
-  \end{equation*}
-  for all $x\in \mathbb{Z}$.
-\end{definition}
-
-\begin{remark}
-  Two polynomials
-  \begin{equation*}
-    a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0\qquad\text{and}\qquad b_nx^n+ b_{n-1}x^{n-1} +\cdots + b_0
-  \end{equation*}
-  are said to be equal if their coefficients are equal, i.e., if $a_i=b_i$ for all $0\leq i\leq n$, while functions are considered equal if their values are equal. This is an important distinction, because polynomials modulo $n$ aren't necessarily equal as polynomials when they are equal as functions. For instance, by Fermat's Little Theorem we have that
-  \begin{equation*}
-    x^p=x\qquad\text{on }\mathbb{Z}/p\mathbb{Z},
-  \end{equation*}
-  while the polynomials $x^p$ and $x$ clearly can be distinguished on their coefficients.
-  
-  The viewpoint that polynomials are formal expressions, and not functions, was emphasized by Leopold Kronecker, in the 19th century.
-\end{remark}
-
-While it is fairly well-known that a polynomial
+Even though a polynomial
 \begin{equation*}
   f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
 \end{equation*}
-has at most $n$ solutions in the integers, the same is not true in modular arithmetic. A fairly easy example, the quadratic congruence
+has at most $n$ roots in the integers, the same is not true in modular arithmetic. A fairly easy example, the quadratic congruence
 \begin{equation*}
   x^2 \equiv 1\pmod{8}
 \end{equation*}
 has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we will prove in this section that the number of solutions of a polynomial congruence modulo a prime is, just as in the integer case, at most the degree of the polynomial.
 
-\begin{theorem}[Factor Theorem]
+\begin{theorem}[Factor Theorem in Modular Arithmetic]\label{theorem:factor-theorem-modular-arithmetic}
   An integer $r$ is a solution to the polynomial congruence
   \begin{equation*}
     f(x) \equiv 0\pmod{n},
@@ -3029,7 +3388,15 @@ has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we wi
 \end{theorem}
 
 \begin{proof}
-  
+  The proof is very similar to the proof of \cref{theorem:factor-theorem}. First, we note that the converse direction is trivial, so we focus on the forward direction. Suppose that
+  \begin{equation*}
+    f(r) \equiv 0 \pmod{n}
+  \end{equation*}
+  and consider the polynomial $f(x)-f(r)$. Then we have
+  \begin{equation*}
+    f(x)\equiv f(x)-f(r) \pmod{n},
+  \end{equation*}
+  and the factorization of $f(x)-f(r)$ as $(x-r)g(x)$ follows in the same way as for \cref{theorem:factor-theorem}.
 \end{proof}
 
 \begin{theorem}[Lagrange's Theorem]
@@ -3049,28 +3416,20 @@ has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we wi
 
   Now suppose that any polynomial congruence modulo $p$ of degree $n$ has at most $n$ solutions, and consider a polynomial congruence $f(x)\equiv 0\pmod{p}$ of degree $n+1$. If this congruence has no roots, then the number of solutions is certainly below $n+1$.
 
-  On the other hand, if $f(r)\equiv 0\pmod{p}$ is a solution, consider the polynomial $f(x)-f(r)\equiv 0\pmod{p}$. Observe that $x^i-r^i$ is divisible by $x-r$ by the difference of powers formula \cref{exercise:difference-of-powers}. Therefore it follows that the polynomial
+  On the other hand, if $f(r)\equiv 0\pmod{p}$ is a solution, then by the \crefnamed{theorem:factor-theorem-modular-arithmetic}{Factor Theorem for Modular Arithmetic} we can find a polynomial $g(x)$ of degree $n$ such that
   \begin{equation*}
-    f(x)-f(r)= a_{n+1}(x^{n+1}-r^{n+1})+\cdots +a_1(x-r)
-  \end{equation*}
-  is divisible by $x-r$, i.e., it is of the form
-  \begin{equation*}
-    (x-r)g(x)
-  \end{equation*}
-  for some polynomial $g(x)$. The polynomial $g(x)$ is necessarily of degree $n-1$. Furthermore, since $f(r)\equiv 0\pmod{p}$ it follows that
-  \begin{equation*}
-    f(x)\equiv (x-r)g(x)\pmod{p}.
+    f(x)\equiv (x-r)g(x) \pmod{p}.
   \end{equation*}
   It follows that the polynomial congruences $f(x)\equiv 0\pmod{p}$ and
   \begin{equation*}
-    (x-r)g(x)\equiv \pmod{p}
+    (x-r)g(x)\equiv 0 \pmod{p}
   \end{equation*}
-  have the same sets of solutions. Since $p$ is prime, any solution $x$ must satisfy $x-r\equiv 0\pmod{p}$ or $g(x)\equiv 0\pmod{p}$. There are at most $d$ solutions of the polynomial congruence $g(x)\equiv 0\pmod{p}$, so we conclude that there are at most $d+1$ solutions to the polynomial congruence $f(x)\equiv 0\pmod{p}$.
+  have the same sets of solutions. Since $p$ is prime, we have by \cref{proposition:euclid-divisibility-primes} that $ab\equiv 0\pmod{p}$ if and only if $a\equiv 0\pmod{p}$ or $b\equiv 0\pmod{p}$. Any solution $x$ of the congruence $(x-r)g(x)\equiv 0\pmod{p}$ must therefore satisfy $x-r\equiv 0\pmod{p}$ or $g(x)\equiv 0\pmod{p}$. There are at most $d$ solutions of the polynomial congruence $g(x)\equiv 0\pmod{p}$, so we conclude that there are at most $d+1$ solutions to the polynomial congruence $f(x)\equiv 0\pmod{p}$.
 \end{proof}
 
 The previous theorem is due to Joseph-Louis Lagrange, published in 1770 in \emph{Réflexions sur la résolution algébrique des équations} \cite{lagrange1770}. Lagrange demonstrated that the roots of polynomials can be studied by their permutations. His ideas would eventually lead to the emergence of group theory (the study of symmetry), and Galois theory.
 
-While Lagrange's theorem establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use Fermat's Little Theorem to find examples of polynomial congruences that have the maximum allowable number of solutions.
+While Lagrange's theorem establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} to find examples of polynomial congruences that have the maximum allowable number of solutions.
 
 \begin{theorem}
   Consider a prime $p$ and a positive integer $n$ such that $n\mid p-1$. Then the polynomial congruence
@@ -3091,6 +3450,118 @@ While Lagrange's theorem establishes an upper bound for the number of incongruen
   \end{equation*}
   have at most $n$ and $p-1-n$ solutions, respectively. Since their product has $p-1$ solutions, it follows that the polynomial congruence $x^n-1\equiv 0\pmod{p}$ must have exactly $n$ solutions.
 \end{proof}
+
+\section{Polynomial Congruences of Composite Moduli}
+
+In the following theorem we generalize the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem} to polynomial congruences.
+
+\begin{theorem}
+  Consider an integer polynomial $f$ and consider two relatively prime integers $m$ and $n$. Then any solution of the system
+  \begin{align*}
+    f(x) & \equiv 0 \pmod{m} \\
+    f(x) & \equiv 0 \pmod{n} \\  
+  \intertext{of polynomial congruences corresponds uniquely to a solution of the polynomial congruence}
+    f(x) & \equiv 0 \pmod{mn}.
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  First note that if $f(x)\equiv 0\pmod{mn}$, then it follows that $f(x)\equiv 0\pmod{m}$ and $f(x)\equiv 0\pmod{n}$, simply because divisibility is transitive.
+  Consequently, if $y$ is the unique nonnegative integer strictly below $m$ such that $x\equiv y\pmod{m}$, then $f(y)\equiv \pmod{m}$ is also a solution, and similar for the modulus $n$. Thus if we write $N_{mn}(f)$ for the set of roots of $f$ modulo $mn$, and $N_m(f)$ and $N_n(f)$ for the sets of roots of $f$ modulo $m$ and $n$, respectively, then we define a map
+  \begin{equation*}
+    \pi : N_{mn}(f)\to N_m(f)\times N_n(f)
+  \end{equation*}
+  by $x\mapsto (x\pmod{m},x\pmod{n})$. We claim that the map $\pi$ is a bijection.
+
+  To see that the map $\pi$ is a bijection, consider $0\leq y<m$ and $0\leq z<n$ such that
+  \begin{align*}
+    f(y) & \equiv 0 \pmod{m} \\
+    f(z) & \equiv 0 \pmod{n}.
+  \end{align*}
+  By the assumption that $\gcd(m,n)=1$, we obtain from the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem} there a unique $0\leq x < mn$ such that
+  \begin{align*}
+    x \equiv y \pmod {m} \\
+    x \equiv z \pmod {n}.
+  \end{align*}
+  Consequently, we have that $f(x)\equiv 0\pmod{m}$ and $f(x)\equiv 0\pmod{n}$.
+  Applying the Chinese Remainder Theorem once more to the number $f(x)$, using that $0$ is the only integer $u$ modulo $mn$ such that $u\equiv 0\pmod{m}$ and $u\equiv 0\pmod{n}$, we find that $f(x)\equiv 0\pmod{mn}$.
+\end{proof}
+
+\begin{corollary}
+  Consider $n=p_1^{k_1}\cdots p_m^{k_m}$, where all the primes $p_i$ are distinct. A polynomial congruence
+  \begin{equation*}
+    f(x)\equiv 0 \pmod{n}
+  \end{equation*}
+  is solvable if and only if the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv 0 \pmod{p_i^{k_i}}
+  \end{equation*}
+  is solvable for each $i$.
+\end{corollary}
+
+\begin{proof}
+  By induction on the number of prime factors of $n$.
+\end{proof}
+
+\section{Reduced polynomials modulo a prime}
+
+\begin{definition}
+  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
+\end{definition}
+
+\begin{definition}
+  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv g(x)\pmod{p}
+  \end{equation*}
+  holds.
+\end{definition}
+
+\begin{definition}
+  A polynomial $f(x)$ is said to be \emph{reduced} modulo $p$ if it is of degree less than $p$.
+\end{definition}
+
+\begin{theorem}
+  Any two equivalent reduced polynomials modulo $p$ are congruent.
+\end{theorem}
+
+\begin{proof}
+  Consider two equivalent reduced polynomials $f(x)$ and $g(x)$. Then $f(x)-g(x)$ is a reduced polynomial equivalent to $0$. However, if $f(x)-g(x)$ were nonzero then its number of roots would be strictly less than $p$. Since the number of roots is $p$, it follows that $f(x)-g(x)$ is congruent to the zero polynomial.
+\end{proof}
+
+\begin{corollary}
+  Consider a prime $p$. Then we have
+  \begin{equation*}
+    x^{p-1}-1 \equiv (x-1)\cdots (x-p+1)\pmod{p}
+  \end{equation*}
+  for every $x$. Hence their coefficients are congruent.
+\end{corollary}
+
+\begin{proof}
+  Both polynomials are equivalent and reduced, so they must be congruent.
+\end{proof}
+
+The previous corollary provides another way of proving Wilson's theorem. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
+
+\begin{corollary}[Wilson's Theorem]
+  The congruence
+  \begin{equation*}
+    (p-1)!\equiv -1\pmod{p}
+  \end{equation*}
+  holds for every prime $p$.
+\end{corollary}
+
+\begin{proof}
+  The integer $(p-1)!$ is the constant coefficient of the polynomial $(x-1)\cdots(x-p+1)$, which is congruent to the polynomial $x^{p-1}-1$ with constant coefficient $-1$.
+\end{proof}
+
+\begin{theorem}
+  For every polynomial $f(x)$ there is a unique reduced polynomial $g(x)$ equivalent to $f(x)$.
+\end{theorem}
+
+\begin{exercises}
+  \exercise Show that there are only two polynomials $f$ such that any two values $f(x)$ and $f(y)$ are relatively prime for distinct inputs $x$ and $y$.
+\end{exercises}
 
 \chapter{Primitive Roots}
 
@@ -3113,26 +3584,31 @@ This section is about the function $n\mapsto a^n-1$. We will begin by showing th
   by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}).
 \end{proof}
 
-  We saw the multiplicative order featuring in the second proof of Euler's Theorem.
+We will now define the multiplicative order of an element $a$ modulo $n$. If $\gcd(a,n)=1$, then we can simply define the multiplicative order of $a$ to be the least positive integer $k$ such that
+\begin{equation*}
+  a^k\equiv 1\pmod{n}.
+\end{equation*}
+However, if $\gcd(a,n)\neq 1$ then there will not be such a positive integer. In this case we set the multiplicative order of $a$ modulo $n$ to be $0$. At first glance, this may look quite arbitrary. However, there is a natural way of looking at it.
 
 \begin{definition}
-  Consider an integer $a$ and a natural number $n$ such that $\gcd(a,n)=1$. The \emph{multiplicative order} of $a$ modulo $n$ is the least positive integer $k$ such that
+  Consider an integer $a$ and a natural number $n$. We define he \emph{multiplicative order} of $a$ modulo $n$ to be the unique natural number $m$ such that the ideal
   \begin{equation*}
-    a^k \equiv 1\pmod{n}.
+    I_{a,n}:=\{k\in\mathbb{Z}\mid a^{|k|} \equiv 1\pmod{n}\}
   \end{equation*}
-  We will define the function $n\mapsto \ord_n(a)$ for all natural numbers $n$ by
-  \begin{equation*}
-    \ord_n(a):=
-    \begin{cases}
-      \min\{0<k\mid a^k\equiv 1 \pmod{n}\} & \text{if }\gcd(a,n)=1 \\
-      0 & \text{otherwise}.
-    \end{cases}
-  \end{equation*}
+  is the ideal $(m)$ generated by $m$.
 \end{definition}
 
-The specification of the values $\ord_n(a)=0$ when $\gcd(a,n)\neq 1$ is not as arbitrary as it perhaps seems. In the following theorem, which is also known as the \emph{Order Theorem}, we will see that by setting the value of the order of $a$ modulo $n$ to be $0$ when $\gcd(a,n)\neq 1$, we prove a powerful duality principle between multiples of $\ord_n(a)$ and numbers dividing $a^k-1$.
+Using this definition, we see that if $\gcd(a,n)=1$, then indeed the order $\ord_n(a)$ of $a$ modulo $n$ is the least positive integer $k$ such that $a^k\equiv 1\pmod{n}$. If $\gcd(a,n)\neq 1$, then the ideal $I_{a,n}$ is the zero ideal $(0)$, which implies that $\ord_n(a)=0$.
 
-\begin{theorem}
+We saw the multiplicative order featuring in the second proof of \crefnamed{theorem:eulers-theorem}{Euler's Theorem}. Thus, using the second proof of Euler's theorem we immediately observe that
+\begin{equation*}
+  \ord_n(a)\mid \phi(n),
+\end{equation*}
+for any $a$ and $n$ such that $\gcd(a,n)=1$.
+
+In the following theorem, which is also known as the \emph{Order Theorem}, we will see that by setting the value of the order of $a$ modulo $n$ to be $0$ when $\gcd(a,n)\neq 1$, we prove a powerful duality principle between multiples of $\ord_n(a)$ and numbers dividing $a^k-1$.
+
+\begin{theorem}[Order Theorem]\label{theorem:order-theorem}
   The multiplicative order of an integer $a$ modulo $n$ satisfies the logical equivalence
   \begin{equation*}
     \ord_n(a)\mid k \Leftrightarrow n \mid a^k-1
@@ -3228,6 +3704,83 @@ The previous theorem has strong implications about the function $k\mapsto a^k-1$
   Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
 \end{remark}
 
+\section{Primitive roots}
+
+\crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} tells us that
+\begin{equation*}
+  a^{p-1}\equiv 1\pmod{p}
+\end{equation*}
+for every integer $a$ such that $\gcd(a,p)=1$. By the \crefnamed{theorem:order-theorem}{Order Theorem} this implies that
+\begin{equation*}
+  \ord_p(a)\mid p-1.
+\end{equation*}
+For example the orders of the elements $1$ through $12$ modulo $13$ are
+\begin{align*}
+  \ord_{13}(1) & = 1 & \ord_{13}(2) & = 12 & \ord_{13}(3) & = 3 \\
+  \ord_{13}(4) & = 6 & \ord_{13}(5) & = 4 & \ord_{13}(6) & = 12 \\
+  \ord_{13}(7) & = 12 & \ord_{13}(8) & = 4 & \ord_{13}(9) & = 3 \\
+  \ord_{13}(10) & = 6 & \ord_{13}(11) & = 12 & \ord_{13}(12) & = 2. 
+\end{align*}
+There are four integers modulo $13$ that have order $12$, the maximal possible order by Fermat's Little Theorem. In this section we will show that for each prime $p$ there always exists an integer of order $p-1$ modulo $p$. Furthermore, we will show that there are exactly $\phi(p-1)$ such integers.
+
+\begin{definition}
+  A \emph{primitive root} modulo a prime $p$ is an integer $a$ such that
+  \begin{equation*}
+    \ord_p(a)=p-1.
+  \end{equation*}
+\end{definition}
+
+\begin{lemma}
+  If $\ord_n(a)=k$, then $\ord_n(a^m)=k/\gcd(m,n)$.
+\end{lemma}
+
+\begin{lemma}
+  If $\ord_p(a)=k$, then there are exactly $\phi(k)$ incongruent integers of order $k$ modulo $p$.
+\end{lemma}
+
+\begin{lemma}
+  If $k\mid p-1$, then there are $\phi(k)$ incongruent integers of order $k$ modulo $p$.
+\end{lemma}
+
+\begin{theorem}
+  There are exactly $\phi(p-1)$ incongruent integers of order $p-1$ modulo $p$.
+\end{theorem}
+
+\section{Primitive Roots in a Fixed Divisor Problem}
+
+Using \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} we can calculate the fixed divisors of polynomials of the form $x^n-x$.
+
+\begin{theorem}\label{theorem:fixed-divisors-fermat-polynomials}
+  Consider the polynomial $x^n-x$, for some natural number $n\neq 1$. Its fixed divisor is
+  \begin{equation*}
+    \prod_{\substack{p\ \textup{prime} \\ p-1 \mid n-1}} p.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  First, we claim that a prime number $p$ appears as a factor of the fixed divisor of $x^n-x$ if and only if
+  \begin{equation*}
+    p-1\mid n-1.
+  \end{equation*}
+  To see this, suppose that $p$ divides every integer of the form $x^n-x$. Since $x^n-x=x(x^{n-1}-1)$ and $p$ is prime, it follows that $p\mid x$ or $p\mid x^{n-1}-1$ for every $x$ not divisible by $p$. From this, it follows that
+  \begin{equation*}
+    \ord_p(x)\mid n-1
+  \end{equation*}
+  for every $x$ not divisible by $p$. In particular, if $x$ is a primitive root modulo $p$, we find that
+  \begin{equation*}
+    p-1\mid n-1.
+  \end{equation*}
+  Thus we see that if $p$ divides $x^n-x$ for every integer $x$, then we must have $p-1\mid n-1$.
+
+  Conversely, if $p-1\mid n-1$, then it follows by \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} that
+  \begin{equation*}
+    x^{n-1}\equiv 1\pmod{p}
+  \end{equation*}
+  for every $x$ not divisible by $p$. This implies that $x(x^{n-1}-1)$ is divisible by $p$ for every $x$, completing the proof of the first claim.
+
+  To finish the proof, it remains to show that the fixed divisor of $x^n-x$ is square-free, i.e., that for each prime number $p$ there is an integer $x$ such that $p^2\nmid x^n-x$. We choose $x=p$, because the integer $p^n-p=p(p^{n-1}-1)$ is indeed not divisible by $p^2$.
+\end{proof}
+
 \begin{exercises}
   \exercise Show that if $ab\equiv 1\pmod{n}$, then
   \begin{equation*}
@@ -3260,6 +3813,81 @@ The previous theorem has strong implications about the function $k\mapsto a^k-1$
   form a strong division sequence.
 \end{exercises}
 
-\printbibliography
+\printbibliography[heading=bibintoc]
 
 \end{document}
+
+\chapter{Quadratic Reciprocity}
+
+\section{Euler's Prime Generating Polynomial}
+
+In the early 1770s, Leonhard Euler divised his famous prime generating polynomial
+\begin{equation*}
+  n^2 + n + 41.
+\end{equation*}
+This polynomial produces prime numbers for any $0\leq n \leq 39$. Note that
+\begin{equation*}
+  40^2 + 40 + 41 = 40(40+1) + 41 = 41^2
+\end{equation*}
+isn't prime anymore. We could easily imagine Euler pondering one day over the question of creating a quadratic polynomial that returns a surprising amount of primes, and it would be natural to wonder how he might have approached the problem.
+
+Of course, there is no polynomial $f(x)$ other than a constant polynomial such that $f(x)$ is a prime number for every integer $x$.
+
+\begin{proposition}
+  If every value of a polynomial $f(x)$ is prime, then $f(x)$ is constant.
+\end{proposition}
+
+\begin{proof}
+  Suppose $f(x)$ is a polynomial, all of whose values are prime. Then in particular $p:=f(0)$ is prime. Then $p\mid f(kp)$ for every integer $k$. Since each value of $f$ is prime, it follows that $f(kp)=p$ for every integer $k$. This implies that $f(x)-p$ has infinitely many roots, i.e., $f(x)$ is the constant polynomial with value $p$.
+\end{proof}
+
+Thus we are faced with the task of finding a prime $q$ such that $n^2+n+q$ is prime for $0\leq n \leq q-2$. One thing to note is that if the number
+\begin{equation*}
+  n^2 + n+q
+\end{equation*}
+is composite for some $0\leq n\leq q-2$, then it must have a prime factor below $q$. Indeed, the integer $n^2+n+q$ is always below $q^2$, so any composite numbers below $q^2$ have a prime factor below $q$.
+
+\begin{proposition}
+  Consider a prime $p$. If there is a solution to the quadratic congruence
+  \begin{equation*}
+    ax^2 + bx + c \equiv 0 \pmod{p},
+  \end{equation*}
+  then the discriminant $\Delta=b^2-4ac$ is congruent to a square modulo $p$.
+\end{proposition}
+
+\begin{proof}
+  Note that any number is a square modulo $2$, so we may assume that $p$ is an odd prime. Also note that if $p\mid a$, then $\Delta\equiv b^2\pmod{p}$, so we may assume that $p\nmid a$, i.e., that $a$ is invertible in $\mathbb{Z}/p\mathbb{Z}$. Since $p$ is odd, we also have that $4$ is invertible modulo $p$. The quadratic congruence in the statement of the proposition is therefore solvable if and only if the quadratic congruence
+  \begin{equation*}
+    4a^2x^2 + 4abx + 4ac \equiv 0 \pmod{p}
+  \end{equation*}
+  is solvable. Given a solution of this quadratic congruence, we calculate
+  \begin{align*}
+    (2ax + b)^2 & = 4a^2x^2 + 4abx + b^2 \\
+                & = 4a^2x^2 + 4abx + 4ac + b^2 - 4ac \\
+    & \equiv b^2 - 4ac
+  \end{align*}
+  modulo $p$.
+\end{proof}
+
+In other words, if the discriminant $\Delta$ of a polynomial $ax^2 + bx + c$ is not a square modulo $p$ for any prime $0\leq p<q$, then the polynomial congruence
+\begin{equation*}
+  ax^2 + bx + c \equiv 0 \pmod{p}
+\end{equation*}
+is impossible for any $0\leq p <q$.
+
+This opens up a method of searching for a polynomial $n^2 + n + q$ returning primes for any $0\leq n \leq q-2$. The discriminant of this polynomial is $1-4q$, and our goal is to find a prime number $q$ such that $1-4q$ is not a square modulo $p$ for any $0\leq p < q$.
+
+For example, the number $2$ is not a square modulo $3$, and the numbers $2$ and $3$ are both not squares modulo $5$.
+
+Euler had a deep understanding of numbers that are congruent to a square modulo a prime. In 1748 he had published a result now known as \emph{Euler's criterion}, which characterized precisely the squares modulo a prime.
+
+\begin{theorem}[Euler's criterion]\label{theorem:eulers-criterion}
+  Consider an integer $a$ and a prime $p$. Then we have
+  \begin{equation*}
+    a^{\frac{p-1}{2}} \equiv
+    \begin{cases}
+      1 & \text{if $x^2\equiv a\pmod{p}$ for some $x$} \\
+      -1 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+\end{theorem}
