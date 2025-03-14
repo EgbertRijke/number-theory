@@ -1,0 +1,132 @@
+% -*- TeX-master: "lectures-on-number-theory" -*-
+
+\chapter{Systems of Linear Congruences}\label{chapter:systems-of-linear-congruences}
+
+\section{Solving Multiple Linear Congruences Simultaneously}
+
+Consider the linear congruences
+\begin{align*}
+  10x & \equiv 4 \pmod{12} \\
+  15x & \equiv 6 \pmod{21},
+\end{align*}
+and suppose our goal is to find a single solution $x$ that simultaneously solves both of them. To start off, we observe that if we can find such a solution, then each individual congruence must be solvable in its own right. By \cref{theorem:linear-congruence-one-variable}, this is the case if and only if $\gcd(10,12)\mid 4$ and $\gcd(15,21)\mid 6$. Indeed, $\gcd(10,12)=2$ and $\gcd(15,21)=3$, so the divisibility requirements are satisfied.
+
+By dividing through with $\gcd(10,12)$, we see that the linear congruence $10x\equiv 4\pmod{12}$ has the same set of solutions as the linear congruence $5x\equiv 2\pmod{6}$, which we can work out to be $x\equiv 4\pmod{6}$. Similarly the linear congruence $15x\equiv 6\pmod{21}$ has the same set of solutions as the linear congruence $5x\equiv 2\pmod{7}$, which we can work out to be $x\equiv 6\pmod{7}$. Thus, the original system of linear congruences has the same set of solutions as the system of linear congruences
+\begin{align*}
+  x & \equiv 4 \pmod{6} \\
+  x & \equiv 6 \pmod{7}.
+\end{align*}
+In other words, $x$ is simultaneously of the form $6y + 4$ and of the form $7z+6$. We can find such $y$ and $z$ by solving the linear Diophantine equation
+\begin{equation*}
+  6y+4=7z+6,
+\end{equation*}
+which reduces to $6y-7z=2$. By \cref{theorem:solve-linear-diophantine-equation}, it follows that this equation solves if and only if $\gcd(6,7)\mid 2$, which is indeed the case since $6$ and $7$ are relatively prime. Using the extended Euclid's algorithm, we find that $y=5$ and $z=4$ gives a solution. In this case, we have $x=34$. Note that any integer in the congruence class of $34$ modulo $42$ is also a solution, so we see that
+\begin{equation*}
+  x\equiv 34\pmod{42}
+\end{equation*}
+is a solution to our original system of linear congruences. Indeed, we can check that $10\cdot 34 = 28\cdot 12 + 4$ and $15\cdot 34 = 24\cdot 21+6$.
+
+To summarize the method by which we found this solution, we first reduced each individual linear congruence by dividing through by the greatest common divisor of the scalar and the modulus. This way we obtained a system of linear congruences that were individually uniquely solvable. Their solutions gave two expressions for the variable $x$, which combined into a single linear Diophantine equation, which we solved by \cref{theorem:solve-linear-diophantine-equation} and Euclid's algorithm. As the saying goes, any good method in mathematics begs to become a theorem. The essential theorem to solve systems of linear congruences is the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem}, which we will state and prove in the next section.
+
+We also note that the methods we used to solve two linear congruences simultaneously can be used to solve three or more linear congruences simultaneously. Suppose our original problem included a third linear congruence
+\begin{align*}
+  10x & \equiv 4 \pmod{12} \\
+  15x & \equiv 6 \pmod{21} \\
+  6x & \equiv 3 \pmod{15}.
+\end{align*}
+Then we'd simply solve the first two as before, and continue solving the system of two linear congruences
+\begin{align*}
+  x & \equiv 34 \pmod{42} \\
+  x & \equiv 3 \pmod {5}.
+\end{align*}
+This system of linear congruences has solution $x\equiv 118 \pmod{210}$.
+
+\section{The Chinese Remainder Theorem}
+
+An essential step in the previous example was the reduction of a system of linear congruences, to a system of congruences of the form
+\begin{align*}
+  x & \equiv a \pmod{m} \\
+  x & \equiv b \pmod{n}.
+\end{align*}
+In the following theorem we will prove that this system of congruences is uniquely solvable modulo $mn$, provided that $m$ and $n$ are relatively prime.
+
+\begin{theorem}[Chinese Remainder Theorem]
+  Consider two linear congruences
+  \begin{align*}
+    x\equiv a \pmod{m} \\
+    x\equiv b \pmod{n},
+  \end{align*}
+  where $m$ and $n$ are relatively prime. Then there is a unique solution $x$ modulo $mn$ that solves both linear congruences simultaneously.
+\end{theorem}
+
+\begin{proof}
+  By the first linear congruence, we finde that $x=my+a$ for some integer $y$. Substituting this into the second linear congruence, we obtain that
+  \begin{equation*}
+    my\equiv b-a \pmod{n}.
+  \end{equation*}
+  This linear congruence has a unique solution modulo $n$, since $\gcd(m,n)=1$. Therefore, there is exactly one integer $0\leq y_0 < n$ such that $x=my_0 + a$. Consequently, there is exactly one $0\leq x < mn$ that solves both linear congruences simultaneously.
+\end{proof}
+
+% \begin{theorem}
+%   A system of two linear congruences
+%   \begin{align*}
+%     ax\equiv b \pmod{m} \\
+%     cx\equiv d \pmod{n}.
+%   \end{align*}
+%   is solvable if and only if $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$, and if
+%   \begin{equation*}
+%     \gcd\left(\frac{m}{\gcd(a,m)},\frac{n}{\gcd(c,n)}\right)=1.
+%   \end{equation*}
+%   In this case, there is a unique solution modulo
+%   \begin{equation*}
+%     \frac{mn}{\gcd(a,m)\gcd(c,n)}
+%   \end{equation*}
+% \end{theorem}
+
+% Consider two linear congruences
+% \begin{align*}
+%   ax & \equiv b \pmod{m} \\
+%   cx & \equiv d \pmod{n}
+% \end{align*}
+% in a single variable $x$. In this section we will study solutions $x$ that simultaneously solve both linear congruences.
+
+% To solve both linear congruences at once, we must clearly be able to solve them separately. We have already seen in \cref{theorem:linear-congruence-one-variable} that in order to solve them separately, we must have $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$. Assuming this is the case, the sets of solutions $x$ simultaneously solving both linear congruences, is the same as the set of solutions for the two linear congruences obtained by dividing through by $\gcd(a,m)$ and $\gcd(c,n)$. In other words, to solve the system of linear congruences as above, we must first learn to solve the system of linear congruences
+% \begin{align*}
+%   ax & \equiv b \pmod{m} \\
+%   cx & \equiv d \pmod{n}
+% \end{align*}
+% where $\gcd(a,m)=1$ and $\gcd(c,n)=1$. 
+
+
+\section{Linear Congruences in Multiple Variables}
+
+\section{Multiplicativity of Euler's Totient Function}
+
+% \begin{proposition}
+%   Any ring homomorphism preserves invertible elements.
+% \end{proposition}
+
+% \begin{proof}
+%   Suppose $f:R\to S$ is a homomorphism of rings, and let $x$ be an invertible element in $R$ with inverse $x^{-1}$. Then $f(x^{-1})$ is an inverse of $f(x)$, since
+%   \begin{equation*}
+%     f(x)f(x^{-1})=f(xx^{-1})=f(1)=1
+%   \end{equation*}
+%   and
+%   \begin{equation*}
+%     f(x^{-1})f(x)=f(x^{-1}x)=f(1)=1.\qedhere
+%   \end{equation*}
+% \end{proof}
+
+\begin{exercises}
+  \exercise Three musicians perform a piece with interwoven, cyclic rhythms. One plays on the first of every four beats, the second plays on the third of every five beats, and the third plays on the second of every third beat. The performance concludes when all three musicians play simultaneously for the first time. How many beats does the composition last?
+  \exercise Show that $m\mid n$ implies $\phi(m)\mid\phi(n)$.
+  \exercise Prove that if $\gcd(a,b)=d$, then
+  \begin{equation*}
+    \phi(ab)=\frac{d\phi(a)\phi(b)}{\phi(d)}
+  \end{equation*}
+  \exercise For any $n>1$, prove that
+  \begin{equation*}
+    \sum_{a<n\\\gcd(a,n)=1}a = \frac{n\phi(n)}{2}
+  \end{equation*}
+  \exercise How many fractions $\frac{a}{b}$ are there where $\gcd(a,b)=1$, and $0\leq a\leq b\leq n$. Such fractions are called \emph{Farey fractions} of order $n$.
+\end{exercises}

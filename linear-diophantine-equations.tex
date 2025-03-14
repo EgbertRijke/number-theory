@@ -1,0 +1,549 @@
+\chapter{Linear Diophantine Equations}\label{chapter:linear-diophantine-equations}
+
+In this section we study \emph{linear Diophantine equations}. These are equations of the form
+\begin{equation*}
+  a_0x_0+\cdots +a_kx_k=b,
+\end{equation*}
+with integer coefficients $a_0,\ldots,a_k$. The objective of a linear Diophantine equation such as the one above is to find integers $x_0,\ldots,x_k$ for which the equation holds, to study conditions under which the equation has integer solutions, and ultimately to characterize all solutions.
+
+\section{Divisibility}
+
+The simplest linear Diophantine equation is the equation $ax=b$ in one variable $x$. The condition of its solvability leads to the concept of \emph{divisibility}.
+
+\begin{definition}
+  We say that an integer $a$ \emph{divides} an integer $b$ if there exists an integer $x$ such that the equation
+  \begin{equation*}
+    ax=b
+  \end{equation*}
+  holds. When $a$ divides $b$, we write $a\mid b$ and we say that $a$ is a \emph{divisor} of $b$. Sometimes we also refer to $b$ as the \emph{dividend}.
+\end{definition}
+
+The integers $-1$, $0$, and $1$ have special properties with respect to divisibility:
+\begin{enumerate}
+\item The integers $1$ and $-1$ divide any integer $b$. Indeed, the integer $b$ itself is a solution to the equation $1x=b$, and the integer $-b$ is a solution to the equation $-1x=b$.
+\item Every integer $a$ divides $0$. Indeed, $x=0$ is a solution to the equation $ax=0$.
+\item If $0\mid b$ for some integer $b$, then it follows that $b=0$. Indeed, if $0x=b$ has a solution, then $b=0$ because $0x=0$. Furthermore, we observe that \emph{every} integer is a solution to the equation $0x=0$.
+  
+  On the other hand, it follows that $0\nmid 1$, and indeed that $0\nmid b$ for any nonzero integer $b$.
+\item Similarly, but slightly more complicated, if $a\mid 1$ for some integer $a$, then it follows that $a=\pm 1$. Indeed, if $ax=1$ has a solution, then the absolute value $|a|$ of $a$ cannot be greater than $1$, because its nonzero multiples would be of absolute value greater than $1$. Therefore it follows that $|a|=1$, which proves the claim. In the situation where $a\mid 1$, we say that $a$ is \emph{invertible}, or that it is a \emph{multiplicative unit}, because the solution to the equation $ax=1$ is a multiplicative inverse of $a$.
+\end{enumerate}
+
+If $a$ is a nonzero integer, then there is always at most one solution to the equation $ax=b$. In other words, if a nonzero integer $a$ divides an integer $b$, then its quotient is uniquely defined. On the other hand, we just saw that every integer is a solution to the equation $0x=0$. The quotient is therefore not uniquely defined in this case. In the following lemma we remove this abiguity by imposing an extra bound on the solution, that $|x|\leq |b|$. In the case where $a$ is nonzero, then this condition is automatically satisfied, while in the case where $a=0$ it imposes the zero solution.
+
+\begin{lemma}
+  Suppose that $a\mid b$. Then there is a unique integer $x$ such that $|x|\leq |b|$ satisfying the equation $ax=b$. We will write $a/b$ for this unique integer, which is called the \emph{quotient} of $b$ divided by $a$.
+\end{lemma}
+
+\begin{proof}
+  There are two cases to consider: either $a=0$ or $a\neq 0$. In the case where $a=0$, having a solution $ax=b$ implies that $b=0$. In this case, any $x$ is a solution to the equation $ax=b$. However, only one solution $x$ satisfies $|x|\leq b$, namely $x=0$. Thus, the quotient $0/0$ is set to be $0$.
+
+  If $a\neq 0$, then the function $x\mapsto ax$ is \emph{injective}. This means that $ax=ay$ implies $x=y$. Consequently, there can be at most one integer $x$ such that $ax=b$. Since we assumed that there is at least one such a solution, it follows that it is unique. Moreover, if $ax=b$, then $|x|\leq |a||x|=|ax|=|b|$, so $x$ indeed satisfies the required bound.
+\end{proof}
+
+\begin{remark}
+  While we have given an informal description, the definition of divisibility features the \emph{existential quantifier} $\exists$. When we write the logical formula $\exists_{(x\in X)}P(x)$, this means that there exists an element $x\in X$ for which $P(x)$ holds. The definition of divisibility translates to the following logical formula:
+  \begin{equation*}
+    a\mid b := \exists_{(x\in\mathbb{Z})}ax=b.
+  \end{equation*}
+  In order to use existential quantification in proofs, it is useful to know how to break them down systematically. There are two cases to consider: (1) How to \emph{prove} an existence claim, and (2) how to \emph{use} an existence claim as an assumption to prove something else.
+  \begin{enumerate}
+  \item The principal way to prove that there exists an element $x\in X$ such that $P(x)$ holds, is to construct an element $x$ of $X$ and prove that the property $P(x)$ is holds.
+  \item To use that there exists an $x\in X$ such that $P(x)$ holds in the proof of another property $Q$, you may assume to have an element $x$ and you may assume that the property $P(x)$ holds. However, in this scenario we may not assume anything else about $x$ unless that is otherwise warranted.
+  \end{enumerate}
+  In the case of divisibility, in order to prove that $a\mid b$ holds we must find a solution to the equation $ax=b$, and in order to use that $a\mid b$ holds as an assumption, we may assume $x$ is an integer for which the equation $ax=b$ holds.
+\end{remark}
+
+\begin{proposition}
+  If $d$ divides $a$ and $b$, then $d$ divides $ax+by$ for any two integers $x$ and $y$.
+\end{proposition}
+
+\begin{proof}
+  Suppose that $d$ divides both $a$ and $b$. Let $u$ and $v$ be integers such that $du=a$ and $dv=b$. Then we have
+  \begin{equation*}
+    ax+by = dux + dvy = d(ux + vy),
+  \end{equation*}
+  which shows that $ax + by$ is a multiple of $d$.
+\end{proof}
+
+Sometimes, the hardest thing is to figure out how to rigorously prove a property that looks completely self-evident. The following proposition, for instance, asserts that in any set of $k$ consecutive integers, exactly one of them is divisible by $k$.
+
+There are, as is commonly the case in mathematics, several ways to approach this problem, but the question is how to generate ideas towards a full proof. One good way of generating ideas is by looking at special cases. In our problem at hand, a special case of interest is the set $\{0,1,\ldots,k-1\}$. There should be exactly one element in the set $\{0,1,\ldots,k-1\}$ divisible by $k$.
+
+Indeed, this is a direct consequence of the Euclidean division theorem: the only element in this set that has remainder $0$ after division by $k$ is the integer $0$. This suggests using the Euclidean division theorem for the general claim as well. Furthermore, we will also use the common proof technique of assuming something \emph{without loss of generality}.
+
+\begin{proposition}
+  In any set of $k>0$ consecutive integers
+  \begin{equation*}
+    \{a,a+1,\ldots,a+k-1\}
+  \end{equation*}
+  there is exactly one element divisible by $k$.
+\end{proposition}
+
+\begin{proof}
+  First, consider the function
+  \begin{equation*}
+    r : \{a,a+1,\ldots,a+k-1\} \to \{0,1,\ldots,k-1\},
+  \end{equation*}
+  where $r(x)$ is defined to be the remainder of $x$ after division by $k$. We claim that this map is injective, meaning that if $r(x)=r(y)$ for two elements $x$ and $y$, then $x=y$. To see this, consider two elements $x$ and $y$ in the set $\{a,\ldots,a+k-1\}$. Without loss of generality we may assume that $x\leq y$. Indeed, either $x\leq y$ or $y\leq x$ holds, and these situations are completely similar, so nothing is lost if we just assume that $x\leq y$.
+
+  We have the equalities $x=q(x)k+r(x)$ and $y=q(y)k+r(y)$, where $q(x)$ and $q(y)$ are the quotients of $x$ and $y$ after division by $k$, respectively. Since we assumed that $r(x)=r(y)$, it follows that $y-x=(q(y)-q(x))k$. In other words, $y-x$ is divisible by $k$. Furthermore, we have $0\leq y-x <k$ because both $x$ and $y$ are in the set $\{a,\ldots,a+k-1\}$. It follows from Euclidean division theorem that the only integer $0\leq z <k$ divisible by $k$ is $0$, so we find that $y-x=0$. We conclude that $x=y$.
+
+  It now follows that every element $y\in\{0,1,\ldots,k-1\}$ is the value of $r$ of exactly one element $x\in\{a,a+1,\ldots,a+k-1\}$, because both sets have $k$ elements and the map $r$ doesn't take any value more than once. In particular, there is exacly one element $x\in\{a,a+1,\ldots,a+k-1\}$ whose remainder after division by $k$ is $0$. In other words, exactly one element of this set is divisible by $k$.
+\end{proof}
+
+Another approach that often works well, which was suggested in class by Lucy, is a proof by contradiction. In proofs by contradiction, you assume the contrary and derive a contradiction. If the contrary is impossible, then the original claim must be true.
+
+\begin{proof}[Proof by contradiction]
+  Let's assume that there isn't a unique integer in the set
+  \begin{equation*}
+    \{a,\ldots,a+k-1\}
+  \end{equation*}
+  divisible by $k$. There are two cases to consider: Either there are no elements divisible by $k$, or there are at least two distinct elements divisible by $k$.
+
+  In the first case, by Euclid's division theorem there is a unique pair $(q,r)$ such that $a=qk+r$, and since $a$ is not divisible by $k$ it must be the case that $r \neq 0$. Now it follows that $qk+k$ is an element in $\{a,\ldots,a+k-1\}$, which is divisible by $k$, contrary to our assumption. Thus we conclude that it is not true that none of the elements of $\{a,\ldots,a+k-1\}$ is divisible by $k$.
+
+  In the second case, let $x$ and $y$ be distinct elements of $\{a,\ldots,a+k-1\}$ that are both divisible by $k$. Assume without loss of generality, that $x\leq y$. Then we have $0\leq y-x < k$, and $y-x$ is divisible by $k$. By the Euclidean division theorem, we must have $y-x=0$, which contradicts our assumption that $x$ and $y$ are distinct.
+\end{proof}
+
+\section{Ideals of Integers}
+
+Ideals are a concept from \emph{ring theory}, which studies \emph{rings}, which are sets equipped with addition, subtraction, and multiplication, satisfying the most familiar laws of arithmetic:
+\begin{align*}
+  (x+y)+z & = x+(y+z) & (xy)z & = x(yz) \\
+  0+x & = x & 1x & = x \\
+  x+0 & = x & x1 & = x \\
+  x-x & = 0 & x(y+z) & = xy + xz \\
+  -x+x & = 0 & (x+y)z & = xz + yz \\
+  x+y & = y+x.
+\end{align*}
+Rings such as the integers satisfy additionally the law $xy=yx$ of commutativity; such rings are called \emph{commutative rings}. Notice that the set $\mathbb{N}$ of natural numbers isn't a ring, because it lacks subtraction. Sets with the structure of a ring appeared in David Hilbert's \emph{Zahlbericht}, but their formal definition was first given by Emmy Noether in \emph{Idealtheorie in Ringbereichen}, who was also the first to study them systematically.
+
+An \emph{ideal of integers} is a subset $I\subseteq \mathbb{Z}$ that contains $0$, and contains the linear combination $kx+ly$ for any $x,y\in I$, and any $k,l\in\mathbb{Z}$. The subset $\{0\}\subseteq{Z}$ satisfies the conditions of being an ideal in a trivial way; this ideal is called the \emph{zero ideal}. The subset $(a):=\{ka \mid k\in\mathbb{Z}\}$ also satisfies the conditions of being an ideal; ideals of this form are called \emph{principal ideals}, since they are generated by a single integer. In the following theorem we show that every ideal of integers is of this form.
+
+\begin{theorem}\label{theorem:integers-principal-ideal-domain}
+  For every ideal $I\subseteq\mathbb{Z}$ there is a unique natural number $n$ such that $I=(n)$.
+\end{theorem}
+
+\begin{proof}
+  There are two cases to consider: Either $I$ is the zero ideal, or $I$ contains a nonzero integer. In the first case it is clear that $I=(0)$, and that $0$ is the unique natural number $n$ such that $I=(n)$. Thus we focus on the nonzero case.
+
+  Suppose that $I$ contains a nonzero integer $x$. Then $I$ contains the integer $|x|$, because $|x|=\pm x$. In particular, $I$ contains a positive integer. Therefore it follows that $I$ contains a least positive integer $n$. To see that $I=(n)$, consider an element $x\in I$. By the Euclidean division theorem, it follows that $x=qn+r$, where $0\leq r<n$. Notice that $r\in I$, since it is the difference $x-qn$ of two elements in $I$. Since $r$ is nonnegative and $n$ is the least positive integer in $I$, it follows that $r=0$, which gives us that $x=qn$. Thus, every element in $I$ is a multiple of $n$.
+
+  Now suppose that $I=(n)$ and $I=(m)$ for two nonzero natural numbers $n$ and $m$. Then it follows that $m=qn$ and $n=pm$. Thus, we see that $m=(pq)m$, which implies that $pq=1$. Furthermore, both $p$ and $q$ are positive integers, so we have $p=1$ and $q=1$. This shows that $m=1n=n$, establishing uniqueness.
+\end{proof}
+
+The set of ideals of $\mathbb{Z}$ is ordered by inclusion: We write $I\subseteq J$ for two ideals $I$ and $J$, if every element of $I$ is an element of $J$. Note that $(b)\subseteq (a)$ holds if and only if $a\mid b$. The theory of ideals of integers is therefore closely related to the theory of divisibility of integers.
+
+\section{The Ordering by Divisibility}
+The divisibility relation equips the sets of integers and natural numbers with a useful extra structure, a \emph{partial ordering} of their elements. The set of natural numbers equipped with the divisibility relation is a poset, while the set of integers equipped with the divisibility relation is a preorder, a slightly weaker structure.
+
+\begin{definition}
+  A \emph{preorder} consists of a set $X$ and an ordering $\leq$ of the elements of $X$, such that
+  \begin{enumerate}
+  \item The ordering is \emph{reflexive}. This means that $x\leq x$ holds for every $x$.
+  \item The ordering is \emph{transitive}. This means that if $x \leq y$ and $y \leq z$ both hold, then $x\leq z$ also holds.
+  \end{enumerate}
+  A \emph{poset}, or \emph{partially ordered set} in full, is a preorder $(X,{\leq})$ satisfying additionally the condition:
+  \begin{enumerate}[start=3]
+  \item The ordering is \emph{antisymmetric}. This means that if both $x\leq y$ and $y\leq x$ hold, then $x=y$.
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+  The set of integers equipped with the divisibility relation $\mid$ is a preorder, and the set of natural numbers equipped with the divisibility relation $\mid$ is a poset.
+\end{theorem}
+
+\begin{proof}
+  We first show that the set of integers with divisibility is a preorder. To see that the divisibility relation is reflexive, note that $x=1$ is a solution of the equation
+  \begin{equation*}
+    ax=a.
+  \end{equation*}
+  Therefore, it follows that $a\mid a$ for every integer $a$. To see that the divisibility relation is transitive, assume that $a\mid b$ and $b\mid c$. That is, assume that we have integers $x$ and $y$ such that $ax=b$ and $by=c$. Then it follows that
+  \begin{equation*}
+    a(xy)=(ax)y=by=c.
+  \end{equation*}
+  In other words, $c$ is divisible by $a$. This completes the proof that $\mathbb{Z}$ equipped with the divisibility relation is a preorder.
+
+  To see that the natural numbers equipped with divisibility forms a poset, it remains to show that the divisibility relation is antisymmetric on the natural numbers. Suppose that $m\mid n$ and $n\mid m$; that is, that there are natural numbers $x$ and $y$ so that $mx=n$ and $ny=m$. By transitivity of divisibility it follows that $m(xy)=m$.
+\end{proof}
+
+The diagram below is the \emph{Hasse diagram} of the positive divisors of the number $120$, a fragment of the poset of the natural numbers ordered by divisibility.
+
+\begin{center}
+  \begin{tikzpicture}
+    \node (1)  at (0,0) {1};
+    
+    \node (2)  at (-2,1) {2};
+    \node (3)  at (0,1) {3};
+    \node (5)  at (2,1) {5};
+  
+    \node (4)  at (-3,2) {4};
+    \node (6)  at (-1,2) {6};
+    \node (10)  at (1,2) {10};
+    \node (15) at (3,2) {15};
+  
+    \node (8)  at (-3,3) {8};
+    \node (12) at (-1,3) {12};
+    \node (20) at (1,3) {20};
+    \node (30) at (3,3) {30};
+
+    \node (24) at (-2,4) {24};
+    \node (40) at (0,4) {40};
+    \node (60) at (2,4) {60};
+
+    \node (120) at (0,5) {120};
+    
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (1) -- (5);
+    
+    \draw (2) -- (4);
+    \draw (2) -- (6);
+    \draw (2) -- (10);
+    \draw (3) -- (6);
+    \draw (3) -- (15);
+    \draw (5) -- (10);  
+    \draw (5) -- (15);
+    
+    \draw (4) -- (8);
+    \draw (4) -- (12);
+    \draw (4) -- (20);
+    \draw (6) -- (12);
+    \draw (6) -- (30);
+    \draw (10) -- (20);
+    \draw (10) -- (30);
+    \draw (15) -- (30);
+
+    \draw (8) -- (24);
+    \draw (8) -- (40);
+    \draw (12) -- (24);
+    \draw (12) -- (60);
+    \draw (20) -- (40);
+    \draw (20) -- (60);
+    \draw (30) -- (60);
+
+    \draw (24) -- (120);
+    \draw (40) -- (120);
+    \draw (60) -- (120);
+  \end{tikzpicture}
+\end{center}
+
+Despite lacking antisymmetry, the preorder of the integers with divisibility is essentially equivalent to the poset of natural numbers with divisibility. For every integer $a$ there is a unique natural number $n$ satisfying $n\mid a$ and $a\mid n$. This unique number is of course the absolute value of $a$. The absolute value function $x\mapsto |x|$ preserves divisibility, which means that $a\mid b$ implies $|a| \mid |b|$, and it satisfies the logical equivalence
+\begin{equation*}
+  (a\mid b)\land (b\mid a) \Leftrightarrow |a|=|b|
+\end{equation*}
+for any integer $a$ and any natural number $n$. Order preserving maps $f : (P,\leq_P) \to (Q,\leq_Q)$ from a preorder $(P,\leq_P)$ to a poset $(Q,\leq_Q)$ that satisfy the logical equivalence $(x\leq_P y)\land (y\leq_P x) \Leftrightarrow f(x)=f(y)$ for every $x,y\in P$ are also called \emph{poset reflections}. Every preorder has a poset refection, but we will not need to go into that aspect of order theory in this course.
+
+\section{Greatest Common Divisors}
+
+Some preorders $(P,\leq)$ satisfy the property that for any two elements $a,b\in P$ there is a maximal element below both of them. This property can be formulated succinctly as follows: An element $d$ is a maximal element below $a$ and $b$ if it satisfies the logical equivalence
+\begin{equation*}
+  (x \leq a) \land (x \leq b) \Leftrightarrow (x \leq d)
+\end{equation*}
+for every element $x\in P$. If $d$ satisfies this property, we also say that $d$ is the \emph{meet} of $a$ and $b$. It is common to write $a\wedge b$ for the meet of $a$ and $b$, if $P$ is a poset in which any two elements have a meet.
+
+The definition of meets needs some explanation. It uses the \emph{conjunction} ($\land$) and it uses \emph{logical equivalence} ($\Leftrightarrow$). The conjunction $p\land q$ of two propositions $p$ and $q$ is the proposition that both $p$ and $q$ are true. The logical equivalence $p \Leftrightarrow q$ is the proposition that $p$ is true if and only if $q$ is true. In other words, it is the conjunction of the proposition that $p$ implies $q$ and the proposition that $q$ implies $p$.
+
+If $d$ is the meet of $a$ and $b$, then the logical equivalence gives two implications back and forth:
+\begin{enumerate}
+\item Any element $x$ that is below both $a$ and $b$, must be below $d$.
+\item Any element $x$ that is below $d$, must be below both $a$ and $b$. In particular, $d$ itself satisfies $d\leq d$, so it follows that $d\leq a$ and $d\leq b$. That is, $d$ itself is below both $a$ and $b$, and by the first property it is the maximal such element.
+\end{enumerate}
+
+We wouldn't have this discussion if it didn't apply for us. Indeed, we will show that the preorder of integers with divisibility has meets. In the case of the integers, we will call such meets \emph{greatest common divisors}.
+
+\begin{definition}
+  Consider two integers $a$ and $b$. An integer $d$ is said to be a \emph{greatest common divisor} of $a$ and $b$ if it satisfies the following logical equivalence
+  \begin{equation*}
+    (x\mid a)\land(x\mid b) \Leftrightarrow (x\mid d).
+  \end{equation*}
+  for every integer $x$.
+\end{definition}
+
+Thus, a greatest common divisor of $a$ and $b$ is an integer $d$ that divides both $a$ and $b$, and any integer that divides both $a$ and $b$ is a divisor of $d$. In other words, the signifier "greatest" refers to the divisibility ordering of the integers.
+
+\begin{example}
+  The greatest common divisor of $0$ and $0$ is $0$. To see this, simply note that the proposition
+  \begin{equation*}
+    (x\mid 0)\land(x\mid 0) \Leftrightarrow (x\mid 0)
+  \end{equation*}
+  is true because any proposition is logically equivalent to the conjunction with itself. Here we see why it was relevant to note that the word "greatest" referls to the divisibility ordering: Any integer is a divisor of $0$, but none of them are the greatest in the standard ordering $\leq$.
+\end{example}
+
+\begin{theorem}\label{theorem:definition-gcd}
+  Any two integers $a$ and $b$ have a greatest common divisor, for which we write $\gcd(a,b)$. Furthermore, there are integers $k$ and $l$ satisfying \emph{B\'ezout's identity}
+  \begin{equation*}
+    ax+by = \gcd(a,b).
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Consider two integers $a$ and $b$, and let $I:=(a)$ and $J:=(b)$ be the principal ideals generated by $a$ and $b$. Now consider the set
+  \begin{equation*}
+    I+J := \{x+y \mid x\in I,\,y\in J\}
+  \end{equation*}
+  of all sums of elements of $I$ and elements of $J$. We claim that the set $I+J$ is again an ideal. It contains $0$, because $0=0+0$ is a sum of elements in $I$ and $J$. Furthermore, to see that $I+J$ is closed under linear combinations of its elements, consider two elements $u,v\in I+J$. If $u=x_u+y_u$ and $v=x_v+y_v$, then we can write any linear combination $ku+lv$ of $u$ and $v$ in the form
+  \begin{equation*}
+    ku+lv = (kx_u + lx_v) + (ky_u + ly_v),
+  \end{equation*}
+  which is the sum of an element in $I$ and an element in $J$. Thus, it follows that $I+J$ is an ideal.
+
+  Now let $d$ be the unique natural number such that $I+J=(d)$, which exists by \cref{theorem:integers-principal-ideal-domain}. We claim that $d$ is the greatest common divisor of $a$ and $b$. Notice that $a=a+0\in I+J$, so $a$ must be a multiple of $d$. Similarly, we have $b=0+b\in I+J$, so $b$ must be a multiple of $d$. In other words, $d$ is a common divisor of $a$ and $b$. Furthermore, if $e$ is any common divisor of $a$ and $b$, then $e$ is a divisor of any element in $I+J$. In particular, we must have $e\mid d$, allowing us to conclude that $d$ is the greatest common divisor.
+
+  The last claim follows, because $d$ is an element of $I+J$, which consists elements of the form $ax+by$.
+\end{proof}
+
+A very important condition on pairs of integers $a$ and $b$, which occurs as an assumption in many lemmas, propositions, and theorems, is the condition that $\gcd(a,b)=1$. In other words, that any common divisor of $a$ and $b$ must be $1$. Such numbers are called \emph{relatively prime} or \emph{coprime}.
+
+\begin{definition}
+  Two integers $a$ and $b$ are said to be \emph{relatively prime} or \emph{coprime} if
+  \begin{equation*}
+    \gcd(a,b)=1.
+  \end{equation*}
+\end{definition}
+
+The following proposition is a must-know fact about the integers.
+
+\begin{proposition}\label{proposition:coprime-divides-product}
+  Consider two relatively prime integers $a$ and $b$, and an arbitrary integer $c$. Then we have
+  \begin{equation*}
+    a\mid bc \Leftrightarrow a\mid c.
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  The fact that $a\mid c$ implies $a\mid bc$ is obvious, since if $c$ is a multiple of $a$, then so is $bc$. This establishes the converse direction of the logical equivalence.
+
+  For the forward direction, assume that $a\mid bc$. Since we have assumed that $a$ and $b$ are relatively prime, there is a solution to the equation
+  \begin{equation*}
+    ax+by=1.
+  \end{equation*}
+  Consequently, there is a solution to the equation $cax+cby=c$. However, both $cax$ and $cby$ are divisible by $a$, so $c$ must be divisible by $a$.
+\end{proof}
+
+\section{Euclid's Algorithm}
+
+The previous theorem shows that any two integers $a$ and $b$ have a greatest common divisor $\gcd(a,b)$, and that there are integers $k$ and $l$ such that
+\begin{equation*}
+  ka+lb=\gcd(a,b),
+\end{equation*}
+but it doesn't reveal much about how the integers $k$ and $l$ can be found. Euclid's algorithm is an efficent way to compute the greatest common divisor and to find integers $k$ and $l$ establishing the greatest common divisor as a linear combination.
+
+\begin{proposition}\label{proposition:gcd-euclidean-division}
+  Suppose $a$ and $b$ are two integers and $b=qa+r$. Then we have
+  \begin{equation*}
+    \gcd(b,a)=\gcd(a,r).
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  Suppose that $d$ is a divisor of $a$. Then we claim that $d\mid b$ if and only if $d\mid r$. Indeed, since $b=qa +r$ it follows that $b$ is a linear combination of $a$ and $r$, and also that $r$ is a linear combination of $a$ and $b$. Thus, any divisor of $a$ and $b$ is also a divisor of $r$, and any divisor of $a$ and $r$ is also a divisor of $b$. In other words, we have
+  \begin{equation*}
+    d\mid b \Leftrightarrow d\mid r.
+  \end{equation*}
+  It follows that $d$ is a common divisor of $a$ and $b$ if and only if $d$ is a common divisor of $a$ and $r$. This implies that their greatest common divisors coincide.
+\end{proof}
+
+As an immediate corollary, we obtain:
+
+\begin{corollary}
+  If $b$ is of the form $ka+1$, then $a$ and $b$ are always relatively prime.
+\end{corollary}
+
+\cref{proposition:gcd-euclidean-division} implies a useful way of calculating the greatest common divisor of two numbers. Suppose we want to calculate the greatest common divisor of $578$ and $732$. Then we write $732$ in the form $q\cdot 578+r$; that is, we write
+\begin{equation*}
+  732 = 1 \cdot 578 + 154.
+\end{equation*}
+By the proposition, it follows that $\gcd(732,578)=\gcd(578,154)$. We now proceed in the same manner, by writing
+\begin{equation*}
+  578 = 3\cdot 154 + 116, 
+\end{equation*}
+and we observe that $\gcd(732,578)=\gcd(154,116)$. We proceed with this process until we find that $\gcd(732,578)=\gcd(d,0)$ for some number $d$. Once we reach this stage, we conclude that $\gcd(732,578)=d$. Putting words to action:
+\begin{align*}
+  154 & = 1\cdot 116 + 38 & \gcd(732,578) & = \gcd(116,38) \\
+  116 & = 3 \cdot 38 + 2 & \gcd(732,578) & = \gcd(38,2) \\
+  12 & = 6 \cdot 2 + 0 & \gcd(732,578) & = \gcd(2,0).
+\end{align*}
+Thus, we conclude that $\gcd(732,578)=2$. The process outlined above is called \emph{Euclid's Algorithm}.
+
+By closer inspection of Euclid's algorithm, we can even find an integer solution to the equation
+\begin{equation*}
+  \gcd(a,b) = ax + by.
+\end{equation*}
+
+The best way to see how this works is by example, so let us use the previous example. Euclid's algorithm has given us that $\gcd(732,578)=2$. In the second to last equation, we find that $2$ is a linear combination of $38$ and $116$; that is,
+\begin{align*}
+  2 & = 116 - 3\cdot 38
+\end{align*}
+However, by the equation before that we see that $38$ itself is a linear combination of $154$ and $116$. This can be used to express $2$ as a linear combination of $154$ and $116$; that is,
+\begin{align*}
+  2 & = 116 - 3\cdot (154 - 116) & \Rightarrow & & 2 & = 4\cdot 116 - 3\cdot 154.
+\intertext{Furthermore, $116$ is a linear combination of $154$ and $578$, giving us that}
+  2 & = 4\cdot (578-3\cdot 154) - 3\cdot 154 & \Rightarrow & & 2 & = 4\cdot 578 - 15\cdot 154.
+\intertext{In the final step, we use that $154$ is a linear combination of $732$ and $578$ to find}
+  2 & = 4\cdot 578 - 15\cdot (732 - 578) & \Rightarrow & & 2 & = - 15\cdot 732 + 19\cdot 578.
+\end{align*}
+
+\begin{example}
+  In class, we computed the greatest common divisor of $721$ and $450$. These numbers were suggested by Marwa and Dylan.
+  \begin{align*}
+    721 & = 1\cdot 450 + 271 & 1 & = 181\cdot (721 - 450) - 109\cdot 450 \\
+    & & & = 181\cdot 721 - 290\cdot 450\\
+    450 & = 1\cdot 271 + 179 & 1 & = 72 \cdot 271 - 109 \cdot (450 - 271) \\
+    & & & = 181\cdot 271 - 109\cdot 450 \\
+    271 & = 1\cdot 179 + 92 & 1 & = 72\cdot(271 - 179) - 37\cdot 179 \\
+    & & & = 72\cdot 271 - 109\cdot 179 \\
+    179 & = 1\cdot 92 + 87 & 1 & = 35\cdot 92 - 37\cdot (179 - 92) \\
+    & & & = 72\cdot 92 - 37\cdot 179 \\
+    92 & = 1 \cdot 87 + 5 & 1 & = 35\cdot (92- 87) - 2 \cdot 87 \\
+    & & & = 35\cdot 92 - 37\cdot 87 \\
+    87 & = 17\cdot 5 + 2 & 1 & = 5 - 2\cdot (87 - 17\cdot 5) \\
+    & & & = 35\cdot 5 - 2\cdot 87 \\
+    5 & = 2\cdot 2 + 1 & 1 & = 5 - 2\cdot 2 \\
+    & \\
+    2 & = 2 \cdot 1 + 0
+  \end{align*}
+  Thus we find that $\gcd(721,450)=1$, in other words, that $721$ and $450$ are relatively prime, and that
+  \begin{equation*}
+    181\cdot 721 - 290\cdot 450 = 1.
+  \end{equation*}
+\end{example}
+
+\section{Linear Diophantine Equations in Multiple Variables}
+
+In this section we turn our attention to linear Diophantine equations in two variables, that is, integer equations of the form
+\begin{equation*}
+  ax + by = c.
+\end{equation*}
+We begin by applying the theory of ideals to establish that this equation has a solution if and only if $\gcd(a,b)\mid c$.
+
+\begin{theorem}\label{theorem:solve-linear-diophantine-equation}
+  Consider integers $a$, $b$, and $c$, and let $d=\gcd(a,b)$. The linear Diophantine equation
+  \begin{equation*}
+    ax + by = c
+  \end{equation*}
+  is solvable with integers $x$ and $y$ if and only if $d\mid c$.
+\end{theorem}
+
+\begin{proof}
+  The first part of the claim is equivalent to the claim that we have an equality of ideals
+  \begin{equation*}
+    (a)+(b) = (\gcd(a,b)).
+  \end{equation*}
+  We recall that the ideal $I+J$ consists of sums $x+y$ of $x\in I$ and $y\in J$. Furthermore, the ideals $(a)$ and $(b)$ consist of multiples of $a$ and $b$, respectively. Thus the ideal $(a)+(b)$ consists of all the linear combinations of $a$ and $b$; in other words, all the possible integers $c$ for which there is a solution to the equation $ax+by=c$.
+
+  In \cref{theorem:definition-gcd} we defined $\gcd(a,b)$ to be the unique natural number $d$ such that $(a)+(b)=(d)$. Such a natural number exists by \cref{theorem:integers-principal-ideal-domain}. Now we observe that the equality
+  \begin{equation*}
+    (a)+(b)=(\gcd(a,b))
+  \end{equation*}
+  tells us exactly that the set of integers $c$ for which there exists a solution of the equation $ax+by=c$ has the same elements as the set of multiples of $\gcd(a,b)$. In other words, a solution to $ax+by=c$ exists if and only if $c$ is a multiple of the greatest common divisor of $a$ and $b$.
+\end{proof}
+
+As an immediate corollary of the previous theorem, we note that:
+
+\begin{corollary}
+  If $a$ and $b$ are relatively prime integers, then the linear Diophantine equation
+  \begin{equation*}
+    ax + by = c
+  \end{equation*}
+  is solvable for any $c$.
+\end{corollary}
+
+Now that we have established a necessary and sufficient condition for its solvability, it remains to describe a way of finding all solutions, if there are any. Notice that we have already collected quite a bit of useful information. Euclid's algorithm allows find a solution to the equation
+\begin{equation*}
+  ax + by = d,
+\end{equation*}
+where $d=\gcd(a,b)$. Thus, if $c=kd$, then we can solve
+\begin{equation*}
+  ax + by = c
+\end{equation*}
+by first finding a solution $ax_0+by_0 = d$ by Euclid's algorithm. Then we find that
+\begin{equation*}
+  a(kx_0)+b(ky_0)=kd = c.
+\end{equation*}
+In other words, we can use Euclid's algorithm to find a solution to the equation $ax+by=c$ if it has any.
+
+\begin{proposition}
+  Consider integers $a$, $b$, and $c$, and assume that $a$ and $b$ are relatively prime. If $ax_0 + by_0=c$ is a solution to the Diophantine equation
+  \begin{equation*}
+    ax + by = c,
+  \end{equation*}
+  then every solution is of the form
+  \begin{equation*}
+    x = x_0 + bk,\qquad\text{and}\qquad y = y_0-ak.
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  Suppose that $ax+by=c$ is another solution. Then it follows that
+  \begin{equation*}
+    a(x-x_0)+b(y-y_0)=0
+  \end{equation*}
+  In other words, we have $a(x-x_0)=-b(y-y_0)$. Thus we see that $b(y-y_0)$ is divisible by $a$. Since $a$ and $b$ are relatively prime, this implies that $a\mid y-y_0$. Similarly, $a(x-x_0)$ is divisible by $b$, and therefore it follows that $b\mid x-x_0$. Furthermore, if $ka=y-y_0$ and $lb=x-x_0$. Then the equation
+  \begin{equation*}
+    lab - kab = 0
+  \end{equation*}
+  implies that $k=l$. In other words, $x=x_0+bk$ and $y=y_0-ak$.
+\end{proof}
+
+\begin{theorem}\label{theorem:set-of-solutions-binary-linear-diophantine-equation}
+  Suppose that $ax_0,by_0=c$ is a solution to the Diophantine equation
+  \begin{equation*}
+    ax + by = c.
+  \end{equation*}
+  Then every solution is of the form
+  \begin{equation*}
+    x = x_0 + \frac{b}{d}k,\qquad\text{and}\qquad y = y_0-\frac{a}{d}k.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  This theorem follows from the previous proposition. If $d=\gcd(a,b)$, then we find that
+  \begin{equation*}
+    \frac{a}{d}x+\frac{b}{d}y=\frac{c}{d}.
+  \end{equation*}
+  The integers $\frac{a}{d}$ and $\frac{b}{d}$ are relatively prime, so we find that $x=x_0+\frac{b}{d}k$ and $y=y_0-\frac{a}{d}k$ for some integer $k$.
+\end{proof}
+
+\begin{exercises}
+  \exercise Show that if $a\mid b$, then $d\mid b/a$ if and only if $ad\mid b$.
+  \exercise Suppose that $a\mid b$ and $b\mid c$. Show that if $d\mid b/a$ then $d\mid c/a$.
+  \exercise Show that $a\mid b$ implies $ac\mid bc$. Furthermore, show that if $c$ is nonzero, then $ac\mid bc$ implies $a\mid b$. Conclude that $a^n\mid b^n$ if and only if $a\mid b$ for any natural number $n$.
+  \exercise Suppose that $d$ is a common divisor of two nonzero integers $a$ and $b$.
+  \begin{subexenum}
+  \item Show that the greatest common divisor of $a/d$ and $b/d$ is $\gcd(a,b)/d$.
+  \item Show that $d$ is a greatest common divisor of $a$ and $b$ if and only if $a/d$ and $b/d$ are relatively prime.  
+  \end{subexenum}
+  \exercise Show that $a\mid bc$ if and only if $a/\gcd(a,b) \mid c$.
+  \exercise Show that if $d\mid a + b$, then $\gcd(d,a)\mid \gcd(a,b)$ and $\gcd(d,b)\mid\gcd(a,b)$. Conclude that if $a$ and $b$ are relatively prime, then $d$ is relatively prime to both $a$ and $b$.
+  \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
+  \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
+  \exercise Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
+  \exercise \label{exercise:div-third-power-minus-first-power}Show that $a^3-a$ is divisible by $6$ for every integer $a$.
+  \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
+  \exercise Show that any two consecutive Fibonacci numbers are relatively prime.
+  \exercise \emph{Goldbach's theorem}. Show that any two distinct Fermat numbers are relatively prime.
+  \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
+  \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
+  \exercise
+  \begin{subexenum}
+  \item Prove the \emph{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
+  \item For any integer $d$ and any two natural numbers $m$ and $n$, show that if two of the three following conditions hold, then so does the third:
+    \begin{enumerate}
+    \item $d\mid F_m$.
+    \item $d\mid F_n$.
+    \item $d\mid F_{n+m}$.
+    \end{enumerate}
+  \item Show that the Fibonacci sequence preserves and reflects divisibility: we have $m\mid n$ if and only if $F_m\mid F_n$.
+  \end{subexenum}
+  \exercise Consider three integers $a$, $b$, and $c$. Show that the following are equivalent:
+  \begin{enumerate}
+  \item The integers $a$ and $b$ are both relatively prime to $c$.
+  \item The integer $ab$ is relatively prime to $c$.
+  \end{enumerate}
+  \exercise Prove that if $a$ and $b$ are relatively prime integers, and $n$ is an arbitrary natural number, then in the arithmetical progression
+  \begin{equation*}
+    a+kb,\qquad k=0,1,2,\ldots
+  \end{equation*}
+  there are infinitely many numbers relatively prime to $n$.
+\end{exercises}

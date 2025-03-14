@@ -1,0 +1,237 @@
+% -*- TeX-master: "lectures-on-number-theory" -*-
+
+\chapter[Combinatorial Methods]{Combinatorial Methods in Number Theory}\label{chapter:combinatorial-methods}
+
+Combinatorics, or discrete mathematics, is mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Sometimes, counting methods can be used to obtain results in number theory. In this lecture we will use a combinatorial argument to show that the product
+\begin{equation*}
+  n(n+1)\cdots(n+k-1)
+\end{equation*}
+of any $k$ consecutive natural numbers is always divisible by $k!$. We will also establish the binomial theorem, which has a myriad of applications throughout mathematics.
+
+\section{Counting Bijections}
+
+\begin{definition}
+  A function $f:A \to B$ is said to be a \emph{bijection} if for every $y\in B$, the \emph{preimage} of $b$
+\begin{equation*}
+  f^{-1}(y) := \{x\in A\mid f(x)=y\}
+\end{equation*}
+has exactly one element. We write $A\cong B$ for the set of bijections from $A$ to $B$.
+\end{definition}
+
+A function $f:A \to B$ is a bijection precisely when it is \emph{invertible} in the sense that there is a function $g:B\to A$ such that $f\circ g=\mathrm{id}_B$ and $g\circ f=\mathrm{id}_A$. Here, the composite $g\circ f$ of $g$ and $f$ is the function $x\mapsto g(f(x))$ defined by applying $g$ to the value $f(x)$ of $f$ at the input variable $x$.
+
+In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set}
+\begin{equation*}
+  [n] := \{0,\ldots,n-1\}.
+\end{equation*}
+is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
+
+\begin{proposition}
+  The number of bijections $[n]\cong [n]$ from the standard $n$-element set to itself is exactly $n!$.
+\end{proposition}
+
+\begin{proof}
+  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exacly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction.
+
+  Now suppose that the number of bijections $[n]\cong[n]$ is $n!$. We claim that for each $y\in[n+1]$ there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ such that $f(n)=y$.
+
+  To see this, we first define the \emph{transposition function} $s_{y,n}$ defined by
+  \begin{equation*}
+    s_{y,n}(x) =
+    \begin{cases}
+      n & \text{if }x=y \\
+      y & \text{if }x=n \\
+      x & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  In other words, the function $s_{y,n}$ swaps the elements $n$ and $y$, and leaves the other elements fixed. This function is a bijection, because we can verify that the preimage $s_{y,n}^{-1}(z)$ is a singleton set for every $z\in[n+1]$. The preimage $s_{y,n}^{-1}(n)$ is the singleton set $\{y\}$; the preimage $s_{y,n}^{-1}(y)$ is the singleton set $\{n\}$, and the preimage $s_{y,n}^{-1}(x)$ is the singleton set $\{x\}$ otherwise.
+
+  Now we observe that the function
+  \begin{equation*}
+    ([n+1]\cong[n+1])\to ([n+1]\cong[n+1])
+  \end{equation*}
+  given by $g\mapsto s\circ g$ is itself a bijection, because it is an invertible function. Indeed, it is its own inverse, because $s\circ s\circ g = g$ for any bijection $g$.
+
+  Thus, if $f:[n+1]\cong[n+1]$ is a bijection such that $f(n)=y$, then $s\circ f$ is a bijection satisfying $s(f(n))=n$. In other words, every bijection satisfying $f(n)=y$ corresponds uniquely to a bijection satsfying $f(n)=n$.
+
+  Now we observe that there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ satisfying $f(n)=n$. Indeed, such bijections are uniquely determined by their restriction to the set $[n]$, and by the induction hypothesis there are $n!$ such bijections. Since there are $n+1$ possible choices of a value $y$, we conclude that there are $n!(n+1)$ bijections altogether from $[n+1]$ to $[n+1]$.
+\end{proof}
+
+\section{Counting Subsets}
+
+\begin{definition}
+  The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
+  \begin{align*}
+    \binom{0}{0} & := 1 & \binom{0}{k+1} & := 0 \\
+    \binom{n+1}{0} & := 1 & \binom{n+1}{k+1} & := \binom{n}{k} + \binom{n}{k+1}.
+  \end{align*}
+\end{definition}
+
+The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$th row of Pascal's triangle. In the $n$th row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
+
+\begin{center}
+\begin{tikzpicture}
+    \foreach \n in {0,...,6} {
+        \foreach \r in {0,...,\n} {
+            \pgfmathparse{int(factorial(\n)/(factorial(\r)*factorial(\n-\r)))}
+            \let\value\pgfmathresult
+            \node at (\r-\n/2,-\n) {\value};
+        }
+    }
+\end{tikzpicture}
+\end{center}
+
+\begin{theorem}
+  Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
+\end{theorem}
+
+\begin{proof}
+  Since the binomial coefficients are defined recursively, this theorem is best proven by induction on both variables.
+
+  If \(S\) has no elements and \(k=0\), then there is exactly one subset of \(S\) having \(k\) elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{0}{0}\).
+
+  If \(S\) has no elements, then there are no \((k+1)\)-element subsets of \(S\), since any \((k+1)\)-element subset has at least one element, but \(S\) has no elements. This shows that the number of \((k+1)\)-element subsets of \(S\) is \(\binom{0}{k+1}\).
+
+  If \(S\) has \(n+1\) elements, then there is exactly one subset of \(S\) with no elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{n+1}{0}\).
+
+  If \(S\) has \(n+1\) elements, then \(S\) has at least one element \(x_0\). Now there are two classes of subsets having \((k+1)\) elements: the subsets containing \(x_0\) and the subsets not containing \(x_0\). A \((k+1)\)-element subset of \(S\) containing \(x_0\) is equivalently described as a \(k\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\), because its \((k+1)\)st element is the element \(x_0\). By the induction hypothesis, there are exactly \(\binom{n}{k}\) such subsets. Furthermore, a \((k+1)\)-element subset of \(S\) not containing \(x_0\) is equivalently described as a \((k+1)\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\). By the induction hypothesis, there are exactly \(\binom{n}{k+1}\) such subsets. Combining these two observations, we find that the number of \((k+1)\)-element subsets of \(S\) is
+  \begin{equation*}
+    \binom{n}{k+1} + \binom{n}{k} = \binom{n+1}{k+1}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{definition}
+  We define the set $P_S(k)$ of $k$-permutations of a set $S$ recursively by:
+  \begin{enumerate}
+  \item The set $P_S(0)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
+  \item The set $P_S(k+1)$ of $(k+1)$-permutations of $S$ is the set
+    \begin{equation*}
+      \{(s,t) \mid s\in S,\ t\in P_{S\setminus\{s\}}(r)\}
+    \end{equation*}
+    of pairs $(s,t)$ consisting of an element in $S$ and an $k$-permutation of the set $S\setminus\{s\}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  The number of $k$-permutations of an $n$-element set $S$ is the number $\rpermutation{n}{k}$ defined by
+  \begin{equation*}
+    \rpermutation{n}{k} := n(n-1)\cdots(n-k+1).
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  The proof is by induction on $k$. There is exactly one $0$-permutation of any $n$-element set. To see that the number of $(k+1)$-permutations of an $n$-element set is $n\cdots(n-k)$, note that such a $(k+1)$-permutation consists of a choice of an element of $S$, and a $k$-permutation on the remaining $n-1$-element set of elements. Thus, the number of $(k+1)$-permutations on an $n$-element set is $n$ times the number of $k$-permuations on an $(n-1)$-element set, i.e., it is
+  \begin{equation*}
+    n(n-1)\cdots((n-1)-k+1)=n(n-1)\cdots(n-k).\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{proposition}\label{proposition:characterize-k-permutations}
+  There is a bijection between the set of $k$-permutations of an $n$-element set $S$, and the set
+  \begin{equation*}
+    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+  \end{equation*}
+  of pairs $(A,f)$ consisting of a subset $A\subseteq S$ and a bijection $\{0,\ldots,k-1\}\cong A$.
+\end{proposition}
+
+\begin{proof}
+  There is exactly one $0$-permutation of any $n$-element set $S$, and likewise the set of empty subsets $A$ of $S$ equipped with a bijection $[0]\cong A$ also contains exactly one element: the empty subset equipped with the empty bijection.
+
+  For the inductive step, consider a $(k+1)$-permutation $(s,t)$ of $S$, consisting of an element $s$ and a $k$-permutation $t$ of the set $S\setminus\{s\}$. By the induction hypothesis, the $k$-permutation $t$ corresponds uniquely to a subset $A\subseteq S\setminus\{s\}$ equipped with a bijection $f:[n]\cong A$. Thus, the $(k+1)$-permutation $(s,t)$ corresponds to the subset $B:=A\cup\{s\}\subseteq S$, equipped with the bijection $g:[n+1]\cong B$ given by $g(x):=f(x)$ for $x<n$ and $g(n):= s$.
+\end{proof}
+
+\begin{proposition}
+  The product $n(n-1)\cdots(n-k+1)$ of any $k$ consecutive numbers is divisible by $k!$.
+\end{proposition}
+
+\begin{proof}
+  By \cref{proposition:characterize-k-permutations} there is a bijection between the set of $k$-permutations of the set $S:=[n]$, and the set
+  \begin{equation*}
+    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+  \end{equation*}
+  These two sets therefore have the same number of elements. Thus, it follows that
+  \begin{equation*}
+    n(n-1)\cdots(n-k+1) = \binom{n}{k}\cdot k!,
+  \end{equation*}
+  showing that the left-hand side is divisible by $k!$.
+\end{proof}
+
+\begin{corollary}
+  \emph{Formula for binomial coefficients.} For any two natural numbers $n$ and $k$, we have
+  \begin{equation*}
+    \binom{n}{k}=\frac{n!}{k!(n-k)!}
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  By the previous proposition we have $\binom{n}{k}\cdot k!= \rpermutation{n}{k}= n!/k!$.
+\end{proof}
+
+\section{The Binomial Theorem}
+
+If we expand the exponent $(x+y)^3$, we get
+\begin{align*}
+  (x+y)^3  & = (x+y)^2(x+y) \\
+           & = (x^2 + 2xy + y^2)(x+y) \\
+           & = x^3 + 2x^2y + xy^2 + x^2y + 2xy^2 + y^3 \\
+           & = x^3 + 3x^2y + 3xy^2 + y^3.
+\intertext{Going further, if we expand the exponent $(x+y)^4$, we get}
+  (x+y)^4 & = (x^3 + 3x^2y + 3xy^2 + y^3)(x + y) \\
+          & = x^4 + 3x^3y + 3x^2y^2 + xy^3 + x^3y + 3x^2y^2 + 3xy^3 + y^4 \\
+          & = x^4 + 4x^3y + 6x^2y^2 + 4xy^3 + y^4.
+\end{align*}
+
+Now we might recognize an emerging pattern in the coefficients of these polynomials: they are all binomial coefficients! The binomial theorem generalizes this result for all exponents $n$.
+
+The binomial theorem has many proofs, including combinatorial proofs and algebraic proofs. All these proofs have their own merits. We will present here an algebraic proof, using induction, since it is the most easily applicable to settings other than the integers.
+
+\begin{theorem}\label{theorem:binomial-theorem}
+  \emph{The binomial theorem.} In any number system, such as the natural numbers, the integers, the rational numbers, the reals, the complex numbers\footnote{More generally, the binomial theorem applies to any commutative semiring}, we have
+  \begin{equation*}
+    (x+y)^n = \sum_{k=0}^n \binom{n}{k}x^ky^{n-k}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  We prove the statement by induction on $n$. In the base case, we find that both sides of the equation
+  \begin{equation*}
+    (x+y)^0=\sum_{k=0}^0 \binom{n}{k}x^ky^{0-k}
+  \end{equation*}
+  evaluate to $1$, so the equation is true. In the inductive step, we have that
+  \begin{align*}
+    (x+y)^{n+1} & =(x+y)\sum_{k=0}^n \binom{n}{k}x^ky^{n-k} \\
+                & = \sum_{k=0}^n \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=0}^n\binom{n}{k}x^ky^{n-k+1} \\
+                & = x^{n+1} + \sum_{k=0}^{n-1} \binom{n}{k}x^{k+1}y^{n-k} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
+                & = x^{n+1} + \sum_{k=1}^{n} \binom{n}{k-1}x^{k}y^{n-k+1} + \sum_{k=1}^n\binom{n}{k}x^ky^{n-k+1} + y^{n+1} \\
+                & = x^{n+1} + \sum_{k=1}^n \left(\binom{n}{k-1}+\binom{n}{k}\right)x^ky^{n-k+1}+y^{n+1} \\
+    & = \sum_{k=0}^{n+1} \binom{n+1}{k}x^ky^{(n+1)-k}.\qedhere
+  \end{align*}
+\end{proof}
+
+The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2nd century BCE. Around the 11th century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13th century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
+
+\begin{exercises}
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^n \binom{n}{k} = 2^n
+  \end{equation*}
+  in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^n\binom{n}{k}(-1)^k = 0.
+  \end{equation*}
+  Conclude that
+  \begin{equation*}
+    \sum_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k} =\sum_{k=0}^{\lfloor (n-1)/2\rfloor}\binom{n}{2k+1}.
+  \end{equation*}
+  In this formula, the floor $\lfloor x\rfloor$ of a number $x$ is the largest integer below or equal to $x$.
+  \exercise \emph{The Chu--Vandermonde identity.} Use the binomial theorem at the polynomial $(x+1)^m(x+1)^n$ to show that
+  \begin{equation*}
+    \sum_{i=0}^k \binom{m}{i}\binom{n}{k-i} = \binom{m+n}{k}.
+  \end{equation*}
+  \exercise Show that
+  \begin{equation*}
+    \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
+  \end{equation*}
+  The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
+\end{exercises}

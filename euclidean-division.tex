@@ -1,0 +1,243 @@
+% -*- TeX-master: "lectures-on-number-theory" -*-
+
+\chapter[Euclidean Division and Representability]{Euclidean Division and the Representability Theorem}\label{chapter:euclidean-division-and-representability}
+
+\section{The Induction Principle Revisited}
+
+Recall that mathematical induction is a proof strategy that can be used to prove properties of all infinitely many natural numbers. To prove that a property $P(n)$ is true for all $n$, we have to make two steps:
+\begin{enumerate}
+\item The property $P(0)$ is true.
+\item For all $n$, if the property $P(n)$ holds then the property $P(n+1)$ holds.
+\end{enumerate}
+
+We illustrate induction with another example, the \emph{formula for the geometric series}.
+
+\begin{theorem}\label{theorem:formula-geometric-series}
+  For any real number $x$ not equal to $1$, the identity
+  \begin{equation*}
+    \sum_{k=0}^{n-1}x^k = \frac{x^n-1}{x-1}
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  The proof is by induction on $n$. In the case $n=0$ the sum
+  \begin{equation*}
+    \sum_{k=0}^{-1}x^k
+  \end{equation*}
+  is an empty sum, because it sums over all elements $0\leq k \leq -1$ of which there are none. In empty sums, nothing is being added, so they are always $0$. On the right hand side, we also see that
+  \begin{equation*}
+    \frac{x^0-1}{x-1}=\frac{1-1}{x-1}=0,
+  \end{equation*}
+  and hence the base case holds.
+
+  For the inductive step, assume that $\sum_{k=0}^{n-1}x^k=\frac{x^n-1}{x-1}$. Our goal is to show that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  Note that $\sum_{k=0}^{n}x^k=(\sum_{k=0}^{n-1}x^k)+x^n$. By applying the induction hypothesis we therefore find that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^n-1}{x-1}+x^n.
+  \end{equation*}
+  Note that $x^n=\frac{(x-1)x^n}{x-1}$. Therefore we can bring the two summands under one fraction as follows:
+  \begin{equation*}
+    \frac{x^n-1}{x-1}+x^n=\frac{x^n-1}{x-1}+\frac{(x-1)x^n}{x-1}=\frac{x^n-1+x^{n+1}-x^n}{x-1}=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  This completes the inductive step, and therefore the proof.
+\end{proof}
+
+The induction principle of the natural numbers implies other important reasoning principles. One of them is the \emph{well-ordering principle}. The well-ordering principle has many practical implications. For example, in the next section we will apply a variation of the well-ordering principle, which we will describe below, to construct division with remainder.
+
+\begin{theorem}\label{theorem:well-ordering-natural-numbers}
+  Any inhabited subset of the natural numbers has a least element.
+\end{theorem}
+
+\begin{proof}
+  We will prove, by induction on $n$, that every subset $A\subseteq \mathbb{N}$ with $n\in A$ has a least element.
+
+  In the base case we have to show that every subset $A\subseteq \mathbb{N}$ containing $0$ has a least element. Since $0$ is the least natural number, it follows that any subset containing $0$ must have a least element.
+
+  For the inductive step assume that every subset $A\subseteq \mathbb{N}$ containing $n$ has a least element. Our goal is to show that every subset $A\subseteq \mathbb{N}$ containing $n+1$ has a least element. There are two cases to consider: either $0\in A$ or $0\notin A$. In the first case, where $0\in A$ is assumed, then $A$ clearly has a least element. In the second case, define the subset $B\subseteq\mathbb{N}$ to be
+  \begin{equation*}
+    \{x\in\mathbb{N} \mid x+1\in A\}.
+  \end{equation*}
+  In other words, $B$ is the set of all natural numbers $x$ such that $x+1$ is in $A$. Since $n+1$ is in $A$ by assumption, it follows that $n\in B$. However, note that we are in position to apply the induction hypothesis now: The set $B$ must have a least element $m$.
+
+  We claim that $m+1$ must be the least element of $A$. First of all, we know that $m+1\in A$ because $m\in B$. Second of all, if $x\in A$ then we know that $x$ is nonzero. This means that $x=x'+1$ for some natural number $x'$. In other words, we have $x'+1\in A$, which means that $x'\in B$. Since $m$ is the least element of $B$ it follows that $m\leq x'$. This implies that $m+1\leq x'+1$, so $m+1\leq x$ follows. This shows that any element of $A$ must be greater than or equal to $m+1$. In other words, $m+1$ is the least element of $A$.
+\end{proof}
+
+We also have some variations of the well-ordering principle that apply to subsets of the integers. For the following theorem, we say that a subset $A\subseteq \mathbb{Z}$ is \emph{bounded from below} if there is an integer $b$ such that $b\leq x$ for every element $x\in A$. Similarly, we say that a subset $A\subseteq \mathbb{Z}$ is \emph{bounded from above} if there is an integer $b$ such that $x\leq b$ for every element $x\in A$.
+
+\begin{theorem}\label{theorem:well-ordering-integers}
+  Let $A$ be a subset of the integers. We make the following two claims:
+  \begin{enumerate}
+  \item If $A$ is inhabited and bounded from below, then $A$ has a least element.
+  \item If $A$ is inhabited and bounded from above, then $A$ has a largest element.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  For the first claim, assume that $A$ is inhabited and suppose that $b\leq x$ for every element $x\in A$. Then we define the subset
+  \begin{equation*}
+    B := \{x\in \mathbb{Z}\mid x+b \in A\}.
+  \end{equation*}
+  The subset $B$ is inhabited and it is bounded from below by $0$. This means that $B$ is in fact a subset of the natural numbers, and so it has a least element by the well-ordering principle, \cref{theorem:well-ordering-natural-numbers}. Observe that $x\in B$ if and only if $x+b\in A$, so if $x$ is the least element of $B$ then $x+b$ is the least element of $A$. This proves the first claim.
+
+  The second claim follows from the first, because if $A$ is inhabited and bounded from above, then the set
+  \begin{equation*}
+    B := \{x\in \mathbb{Z}\mid -x\in A\}
+  \end{equation*}
+  is inhabited and bounded from below. Since the set $B$ has a least element by the previous claim, it follows that the set $A$ has a largest element.
+\end{proof}
+
+\section{Euclidean Division}
+
+The Euclidean division operation with a divisor $d>0$ is the operation that returns for each integer $a$ the division with remainder of $a$ by $d$. More specifically, the Euclidean division operation of $a$ by an integer $d$ returns two integers, the \emph{quotient} $q$ and the \emph{remainder} $r$, such that $0\leq r <d$ and such that
+\begin{equation*}
+  a= q\cdot d + r
+\end{equation*}
+For example, if $a:=23$ and $d:=5$, then the Euclidean division operation returns $q:=4$ for the quotient, and $r:=3$ for the remainder. Note that we have $0\leq 3<5$, and the identity
+\begin{equation*}
+  23=4\cdot 5+3
+\end{equation*}
+holds. We will prove that for every $d>0$ there is always a unique such pair $(q,r)$ of integers satisfying the two constraints for Euclidean division. Before we do so, we first explain in more detail how to go about \emph{unique existence} proofs.
+
+Suppose $X$ is a set and $P(x)$ is a property of the elements of the set $X$. For a concrete example, which we will work out below, take $X$ to be the set $\mathbb{N}$ of natural numbers and $P(x)$ to be the property that $x=0$. Now suppose someone asks you to prove that there is a unique element $x$ that satisfies $P(x)$. Then your task splits up in two parts:
+\begin{enumerate}
+\item First, you have to prove existence. Here, your task is to find a concrete element $a\in X$ and prove that it satisfies the property $P(a)$.
+\item Second, you have to prove uniqueness. This means that you have to show for any two elements $x$ and $y$, if both $P(x)$ and $P(y)$ hold then we must have $x=y$. In other words, in the uniqueness part of the proof you are tasked with showing that there is \emph{at most one} element satisfying $P$.
+\end{enumerate}
+The existence part of the proof ensures that at least one solution exists, while the uniqueness part of the proof ensures that there is at most one solution. Both steps combined allow us to conclude that there exists exactly one element of $x$ such that $P(x)$ holds. In a logical formula, it is customary to write $\exists!_{(x\in X)}P(x)$ for the unique existence property.
+
+The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it captures the essence of unique existence proofs. To show that there is a unique natural number equal to $0$, we first have to give an example of a natural number that is equal to $0$. We simply take the number $0$ itself. For the uniqueness part of the proof, we have to show that any two numbers that are equal to $0$ are equal to each other. This is evident, because they are both equal to $0$. Thus we conclude that
+\begin{equation*}
+  \exists!_{(n\in\mathbb{N})}n=0.
+\end{equation*}
+
+\begin{theorem}\label{theorem:euclidean-division}
+  Consider an integer $a$ and an integer $d>0$. Then there exists a unique pair of integers $(q,r)$ such that $0\leq r<d$ satisfying the identity
+  \begin{equation*}
+    a= q\cdot d + r.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Consider the set
+  \begin{equation*}
+    A:=\{x\in\mathbb{Z} \mid xd\leq a\}
+  \end{equation*}
+  of integers $x$ whose product with $d$ is at most $a$. We will show that $A$ is bounded from above and that $A$ is inhabited. Together, this will imply by \cref{theorem:well-ordering-integers} that $A$ has a largest element, which will be our quotient $q$.
+
+  First, we show that the set $A$ has an upper bound. There are two cases to consider: either $a\geq 0$ or $a<0$. If $a\geq 0$, the integer $a$ is an upper bound because for any $x\in A$ we have $x \leq \max(0,xd)\leq a$. If $a<0$ then the integer $0$ is an upper bound because $xd\leq a<0$ implies that $x$ must be negative.
+
+  Next, we observe that the integer $-|a|$ is always in the set $A$, because $-|a|d \leq -|a|\leq a$. Therefore it follows that the set $A$ has a largest element, which we will call $q$.
+
+  By definition $q$ satisfies $qd\leq a$ and $q$ is the largest such element. By maximality of $q$ it follows that $a < (q+1)d=qd + d$. Now we take $r:= a-qd$. Since $qd\leq a$ it follows that $0\leq r$, and since $a< qd+d$ it follows that $r<d$. This completes the existence of $q$ and $r$.
+
+  It remains to prove uniqueness. Suppose that $(q,r)$ and $(q',r')$ are two pairs of integers satisfying $0\leq r<d$, $0\leq r'<d$, and the equations
+  \begin{equation*}
+    a=qd+r,\qquad\text{and}\qquad{}a=q'd+r'.
+  \end{equation*}
+  It follows that
+  \begin{equation*}
+    (q-q')d=r'-r.
+  \end{equation*}
+  However, the integer $r'-r$ satisfies the strict inequalities $-d<r'-r<d$ and it is divisible by $d$. This implies that $r'-r=0$, so it follows that $r=r'$. Now it also follows that $(q-q')d=0$. Since $d$ was assumed to be positive, this implies that $q-q'=0$, from which it follows that $q=q'$. This completes the proof of uniqueness.
+\end{proof}
+
+\section{The Representability Theorem}
+
+The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number
+\begin{equation*}
+  2\cdot 10^2+3\cdot 10^1+1\cdot 10^0.
+\end{equation*}
+Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $11100111$, while the hexadecimal representation of this number is $E7$. More generally, for any \emph{base} $k$ there is a unique representation of all integers using powers of $k$.
+
+\begin{theorem}\label{theorem:representability}
+  Consider a natural number $k>1$. Then there exists for every natural number $n$ a unique list $\ell$ of digits $d_0,\ldots,d_{l-1}$ of length $l$, such that the inequalities $0\leq d_i<k$ hold for each $i<l$, such that the \emph{leading digit} $d_{l-1}\neq 0$, and satisfying the equation
+  \begin{equation*}
+    n= \sum_{i=0}^{l-1}d_i k^i.
+  \end{equation*}
+\end{theorem}
+
+Before proving the theorem, let's first discuss the main idea behind the proof. Since we assumed that $k>0$, it follows from the Euclidean division theorem, \cref{theorem:euclidean-division}, that there is a unique pair $(q,r)$ of numbers such that $n=qk+r$ and $0\leq r<k$. This gives us the first digit in the representation theorem\footnote{It should be noted that this digit appears last in the actual representation. It is the "ones digit" of the representation.}: the number $d_0:=r$.
+
+The representability theorem would now follow if we already knew that $q$ has a unique representation. If $d_0=r$ and if $d_1,\ldots,d_{l-1}$ is the unique representation of $q$, then the list $d_0,\ldots,d_{l-1}$ is a unique representation of $n$. However, the usual induction principle doesn't allow us to make this step, because $n$ is not necessarily the successor of $q$. Therefore we need something stronger: the \emph{strong induction principle}.
+
+\begin{theorem}\label{theorem:strong-induction}
+  Consider a property $P(n)$ of the natural numbers, and assume that the following two conditions hold:
+  \begin{enumerate}
+  \item The property $P(0)$ is true.
+  \item If the property $P(k)$ is true for all $k\leq n$, then the property $P(n+1)$ is true.
+  \end{enumerate}
+  Then $P(n)$ is true for all $n$.
+\end{theorem}
+
+The strong induction principle can be formulated more succinctly using the \emph{universal quantifier}. The universal quantifiery $\forall$ is used to express that a property is true for all elements in a domain of discourse. In other words, when we say that a property $P(n)$ is true for all natural numbers $n$, we can write that as the logical formula
+\begin{equation*}
+  \forall_{(n\in\mathbb{N})}P(n).
+\end{equation*}
+  Using universal quantification, we can state the strong induction principle as follows. Suppose that the following two conditions hold:
+  \begin{enumerate}
+  \item The property $P(0)$ is true.
+  \item If the property $\forall_{k\leq n} P(k)$ is true, then the property $P(n+1)$ is true.
+  \end{enumerate}
+  Then $P(n)$ is true for all $n$. The universal quantifier is helpful in the proof of the strong induction principle.
+
+\begin{proof}
+  Let $P(n)$ be a property of an arbitrary natural number $n$, and define
+  \begin{equation*}
+    Q(n) := \forall_{(m\leq n)} P(m)
+  \end{equation*}
+  Note that in order to prove that $P(n)$ is true for all $n$, it suffices to prove that $Q(n)$ is true for all $n$. Indeed, if $Q(n)$ is true for all $n$, that just means that $P(m)$ is true for all $m\leq n$, for all $n$. In particular $P(n)$ is true for all $n$.
+
+  With that out of the way, assume that $P(0)$ is true, and that $Q(n)$ implies $P(n+1)$ as in the induction step of the strong induction principle. Our goal is to show that $P(n)$ is true for all $n$, and we have already shown that it suffices to show that $Q(n)$ is true for all $n$. We proceed by induction on $n$.
+
+  For the base case we need to prove that $Q(0)$ is true, meaning that $P(m)$ is true for all $m\leq 0$. Note that $m\leq 0$ implies $m=0$, so the base case follows from the assumption that $P(0)$ is true.
+
+  For the inductive step, assume that $Q(n)$ is true. Our goal is to show that $Q(n+1)$ is true. However, we have assumed that $Q(n)$ implies $P(n+1)$. Now notice that if $Q(n)$ is true, meaning that if $P(m)$ is true for all $m\leq n$, and if $P(n+1)$ is true, then $P(m)$ is true for all $m\leq n+1$. In other words, $Q(n+1)$ is true. This completes the inductive step and therefore the proof.
+\end{proof}
+
+Our earlier idea to prove the representability theorem can finally be made into a proof.
+
+\begin{proof}[Proof of \cref{theorem:representability}]
+  We prove the theorem by strong induction. For the base case, note that the empty list satisfies the requirements vacuously since there are no digits in the empty list and empty sums are set to be $0$. Thus the empty list is a representation of $0$. Now suppose that $\ell=(d_0,\ldots,d_{l-1})$ is a representation of $0$ and $\ell$ is a list of nonzero length $l$. By the requirement that the leading digit $d_{l-1}$ is nonzero it follows that the sum
+  \begin{equation*}
+    \sum_{i=0}^{l-1}d_ik^i
+  \end{equation*}
+  is nonzero. Such a list is therefore not a representation of $0$. The only representation of $0$ is therefore the empty list.
+
+  Now suppose that every number $m\leq n$ has a unique representation. To show that the number $n+1$ has a unique representation, first note that there is a unique pair $(q,r)$ of numbers $q$ and $0\leq r<k$ such that
+  \begin{equation*}
+    n+1=qk+r.
+  \end{equation*}
+  There are two cases to consider: either $q=0$ or $q\neq 0$. In the first case we find that $n+1=r<k$. We let $\ell$ be the list $(d_0)$ of length $1$ with $d_0:= r$. Its leading digit is nonzero because $n+1$ is nonzero, and clearly we have
+  \begin{equation*}
+    \sum_{i=0}^0 d_ik^i = d_0 = n+1.
+  \end{equation*}
+  Furthermore, this representation is unique because any representation of $n+1$ must be a list of digits of length $1$, which fixes its digit $d_0$ to $n+1$.
+
+  If $q\neq 0$, then we have the inequalies
+  \begin{equation*}
+    q+1 \leq 2q \leq qk \leq qk+r=n+1.
+  \end{equation*}
+  The second inequality follows from the assumption that $k>1$. Since $q+1\leq n+1$ it follows that $q\leq n$. This puts us in position to apply the induction hypothesis of the strong induction principle: The number $q$ has a unique representation $(e_0,\ldots,e_{l-1})$. Now we define the representation of $n+1$ to be $(d_0,\ldots,d_l)$, where $d_0:=r$ and $d_{i+1}:=e_i$ for $0\leq i<l$.
+
+  This representation of $n+1$ is unique, because for any representation of $n+1$, its $d_0$ must be equal to $r$, and the list $(d_1,\ldots,d_{l-1})$ must be a representation of $q$, which is unique, thus completing the proof.
+\end{proof}
+
+\begin{exercises}
+\exercise Show that a number written as $d_{l-1}\cdots d_0$ in its decimal representation is divisible by $11$ if and only if the alternating sum
+  \begin{equation*}
+    \sum_{i=0}^{l-1}(-1)^{i}d_i
+  \end{equation*}
+  is divisible by $11$. For example, the number $2541$ is divisible by $11$ because $-2+5-4+1=0$ is divisible by $11$.
+\exercise \label{exercise:zeckendorf}\emph{Zeckendorf's representation theorem}. Show that for any natural number $n$ there is a unique list $\ell=(d_0,\ldots,d_{l-1})$ of digits $0$ and $1$, such that its leading digit $d_{l-1}$ is nonzero, no two consecutive digits are both $1$, and satisfying the identity
+  \begin{equation*}
+    n=\sum_{i=0}^{l-1}d_iF_{i+2},
+  \end{equation*}
+  where $F_j$ is the $j$th Fibonacci number. Zeckendorf representations have some fun applications:
+  \begin{enumerate}
+  \item The Zeckendorf representation theorem can be used in the design of any document to get meaningful relative font sizes: If $d_{l-1}\cdots d_0$ is the Zeckendorf representation of a font size $n$, then adding an extra zero at the end gives the Zeckendorf representation $d_{l-1}\cdots d_00$ of a good next font size. If you are working with font size $12$, what is the next sensible font size?
+  \item Zeckendorf representations can also be used to convert miles to kilometers with a fair degree of accuracy. Again, given a number $n$ of miles, with Zeckendorf representation $d_{l-1}\cdots d_0$, add a $0$ at the end to get the Zeckendorf representation $d_{l-1}\cdots d_00$ of the number of kilometers. How fast is $65$ mph in kph according to this conversion?
+  \end{enumerate}
+\end{exercises}

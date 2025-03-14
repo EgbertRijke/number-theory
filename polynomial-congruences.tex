@@ -1,0 +1,251 @@
+% -*- TeX-master: "lectures-on-number-theory" -*-
+
+\chapter{Polynomial Congruences}\label{chapter:polynomial-congruences}
+
+\section{Polynomial Congruences of Prime Moduli}
+
+Even though a polynomial
+\begin{equation*}
+  f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
+\end{equation*}
+has at most $n$ roots in the integers, the same is not true in modular arithmetic. A fairly easy example, the quadratic congruence
+\begin{equation*}
+  x^2 \equiv 1\pmod{8}
+\end{equation*}
+has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we will prove in this section that the number of solutions of a polynomial congruence modulo a prime is, just as in the integer case, at most the degree of the polynomial.
+
+\begin{theorem}[Factor Theorem in Modular Arithmetic]\label{theorem:factor-theorem-modular-arithmetic}
+  An integer $r$ is a solution to the polynomial congruence
+  \begin{equation*}
+    f(x) \equiv 0\pmod{n},
+  \end{equation*}
+  if and only if
+  \begin{equation*}
+    f(x) \equiv (x-r)g(x) \pmod{n}
+  \end{equation*}
+  for some polynomial $g(x)$.
+\end{theorem}
+
+\begin{proof}
+  The proof is very similar to the proof of \cref{theorem:factor-theorem}. First, we note that the converse direction is trivial, so we focus on the forward direction. Suppose that
+  \begin{equation*}
+    f(r) \equiv 0 \pmod{n}
+  \end{equation*}
+  and consider the polynomial $f(x)-f(r)$. Then we have
+  \begin{equation*}
+    f(x)\equiv f(x)-f(r) \pmod{n},
+  \end{equation*}
+  and the factorization of $f(x)-f(r)$ as $(x-r)g(x)$ follows in the same way as for \cref{theorem:factor-theorem}.
+\end{proof}
+
+\begin{theorem}[Lagrange's Theorem]\label{theorem:lagranges-theorem}
+  Consider a polynomial
+  \begin{equation*}
+    f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0,
+  \end{equation*}
+  and a prime $p$ such that $p\nmid a_n$. Then the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv 0 \pmod{p}
+  \end{equation*}
+  has at most $n$ solutions.
+\end{theorem}
+
+\begin{proof}
+  We prove the claim by induction on the degree $n$ of the polynomial $f$. If $f$ has degree zero, then $f(x)=a_0$, and since the leading term of $f$ is assumed to be not divisible by $p$, it follows that $a_0\nequiv 0\pmod{p}$. Thus, the polynomial $f$ has no solutions modulo $p$.
+
+  Now suppose that any polynomial congruence modulo $p$ of degree $n$ has at most $n$ solutions, and consider a polynomial congruence $f(x)\equiv 0\pmod{p}$ of degree $n+1$. If this congruence has no roots, then the number of solutions is certainly below $n+1$.
+
+  On the other hand, if $f(r)\equiv 0\pmod{p}$ is a solution, then by the \crefnamed{theorem:factor-theorem-modular-arithmetic}{Factor Theorem for Modular Arithmetic} we can find a polynomial $g(x)$ of degree $n$ such that
+  \begin{equation*}
+    f(x)\equiv (x-r)g(x) \pmod{p}.
+  \end{equation*}
+  It follows that the polynomial congruences $f(x)\equiv 0\pmod{p}$ and
+  \begin{equation*}
+    (x-r)g(x)\equiv 0 \pmod{p}
+  \end{equation*}
+  have the same sets of solutions. Since $p$ is prime, we have by \cref{proposition:euclid-divisibility-primes} that $ab\equiv 0\pmod{p}$ if and only if $a\equiv 0\pmod{p}$ or $b\equiv 0\pmod{p}$. Any solution $x$ of the congruence $(x-r)g(x)\equiv 0\pmod{p}$ must therefore satisfy $x-r\equiv 0\pmod{p}$ or $g(x)\equiv 0\pmod{p}$. There are at most $d$ solutions of the polynomial congruence $g(x)\equiv 0\pmod{p}$, so we conclude that there are at most $d+1$ solutions to the polynomial congruence $f(x)\equiv 0\pmod{p}$.
+\end{proof}
+
+The previous theorem is due to Joseph-Louis Lagrange, published in 1770 in \emph{Réflexions sur la résolution algébrique des équations} \cite{lagrange1770}. Lagrange demonstrated that the roots of polynomials can be studied by their permutations. His ideas would eventually lead to the emergence of group theory (the study of symmetry), and Galois theory.
+
+While Lagrange's theorem establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} to find examples of polynomial congruences that have the maximum allowable number of solutions.
+
+\begin{theorem}\label{theorem:maximal-number-of-roots-pow-minus-id}
+  Consider a prime $p$ and a positive integer $n$ such that $n\mid p-1$. Then the polynomial congruence
+  \begin{equation*}
+    x^n\equiv 1\pmod{p}
+  \end{equation*}
+  has exactly $n$ incongruent solutions.
+\end{theorem}
+
+\begin{proof}
+  Note that the polynomial congruence $x^{p-1}-1\equiv 0\pmod{p}$ has exactly $p-1$ solutions. By the formula for the difference of powers, we have
+  \begin{equation*}
+    (x^{p-1}-1)\equiv (x^n-1)q(x) \pmod{p}
+  \end{equation*}
+  for some polynomial $q$ of degree $p-1-n$. Now we observe that the polynomial congruences
+  \begin{equation*}
+    x^n-1\equiv 0\pmod{p}\qquad\text{and}\qquad q(x)\equiv 0\pmod{p}
+  \end{equation*}
+  have at most $n$ and $p-1-n$ solutions, respectively. Since their product has $p-1$ solutions, it follows that the polynomial congruence $x^n-1\equiv 0\pmod{p}$ must have exactly $n$ solutions.
+\end{proof}
+
+\section{Polynomial Congruences of Composite Moduli}
+
+In the following theorem we generalize the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem} to polynomial congruences.
+
+\begin{theorem}
+  Consider an integer polynomial $f$ and consider two relatively prime integers $m$ and $n$. Then any solution of the system
+  \begin{align*}
+    f(x) & \equiv 0 \pmod{m} \\
+    f(x) & \equiv 0 \pmod{n} \\  
+  \intertext{of polynomial congruences corresponds uniquely to a solution of the polynomial congruence}
+    f(x) & \equiv 0 \pmod{mn}.
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  First note that if $f(x)\equiv 0\pmod{mn}$, then it follows that $f(x)\equiv 0\pmod{m}$ and $f(x)\equiv 0\pmod{n}$, simply because divisibility is transitive.
+  Consequently, if $y$ is the unique nonnegative integer strictly below $m$ such that $x\equiv y\pmod{m}$, then $f(y)\equiv \pmod{m}$ is also a solution, and similar for the modulus $n$. Thus if we write $N_{mn}(f)$ for the set of roots of $f$ modulo $mn$, and $N_m(f)$ and $N_n(f)$ for the sets of roots of $f$ modulo $m$ and $n$, respectively, then we define a map
+  \begin{equation*}
+    \pi : N_{mn}(f)\to N_m(f)\times N_n(f)
+  \end{equation*}
+  by $x\mapsto (x\pmod{m},x\pmod{n})$. We claim that the map $\pi$ is a bijection.
+
+  To see that the map $\pi$ is a bijection, consider $0\leq y<m$ and $0\leq z<n$ such that
+  \begin{align*}
+    f(y) & \equiv 0 \pmod{m} \\
+    f(z) & \equiv 0 \pmod{n}.
+  \end{align*}
+  By the assumption that $\gcd(m,n)=1$, we obtain from the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem} there a unique $0\leq x < mn$ such that
+  \begin{align*}
+    x \equiv y \pmod {m} \\
+    x \equiv z \pmod {n}.
+  \end{align*}
+  Consequently, we have that $f(x)\equiv 0\pmod{m}$ and $f(x)\equiv 0\pmod{n}$.
+  Applying the Chinese Remainder Theorem once more to the number $f(x)$, using that $0$ is the only integer $u$ modulo $mn$ such that $u\equiv 0\pmod{m}$ and $u\equiv 0\pmod{n}$, we find that $f(x)\equiv 0\pmod{mn}$.
+\end{proof}
+
+\begin{corollary}
+  Consider $n=p_1^{k_1}\cdots p_m^{k_m}$, where all the primes $p_i$ are distinct. A polynomial congruence
+  \begin{equation*}
+    f(x)\equiv 0 \pmod{n}
+  \end{equation*}
+  is solvable if and only if the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv 0 \pmod{p_i^{k_i}}
+  \end{equation*}
+  is solvable for each $i$.
+\end{corollary}
+
+\begin{proof}
+  By induction on the number of prime factors of $n$.
+\end{proof}
+
+\section{Reduced polynomials modulo a prime}
+
+\begin{definition}
+  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
+\end{definition}
+
+\begin{definition}
+  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv g(x)\pmod{p}
+  \end{equation*}
+  holds.
+\end{definition}
+
+\begin{definition}
+  A polynomial $f(x)$ is said to be \emph{reduced} modulo $p$ if it is of degree less than $p$.
+\end{definition}
+
+\begin{theorem}
+  Any two equivalent reduced polynomials modulo $p$ are congruent.
+\end{theorem}
+
+\begin{proof}
+  Consider two equivalent reduced polynomials $f(x)$ and $g(x)$. Then $f(x)-g(x)$ is a reduced polynomial equivalent to $0$. However, if $f(x)-g(x)$ were nonzero then its number of roots would be strictly less than $p$. Since the number of roots is $p$, it follows that $f(x)-g(x)$ is congruent to the zero polynomial.
+\end{proof}
+
+\begin{theorem}
+  For every polynomial $f(x)$ there is a unique reduced polynomial $g(x)$ equivalent to $f(x)$.
+\end{theorem}
+
+\section{The Elementary Symmetric Polynomials}
+
+Using the fact that equivalent reduced polynomials must be congruent, we obtain the following factorization of the polynomial $x^{p-1}-1$ in $\mathbb{Z}/p\mathbb{Z}$, which has roots at the numbers $1$, \ldots, $p-1$.
+
+\begin{theorem}\label{theorem:factorization-fermats-polynomial}
+  Consider a prime $p$. Then we have
+  \begin{equation*}
+    x^{p-1}-1 \equiv (x-1)\cdots (x-p+1)\pmod{p}
+  \end{equation*}
+  for every $x$. Hence their coefficients are congruent.
+\end{theorem}
+
+\begin{proof}
+  Both polynomials are equivalent and reduced, so they must be congruent.
+\end{proof}
+
+The previous theorem provides another way of proving \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
+
+\begin{proof}[Proof of \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}]
+  The integer $(p-1)!$ is the constant coefficient of the polynomial $(x-1)\cdots(x-p+1)$, which is congruent to the polynomial $x^{p-1}-1$ with constant coefficient $-1$.
+\end{proof}
+
+The coefficients of the polynomial
+\begin{equation*}
+  f(x)=(x-a_1)\cdots (x-a_n)
+\end{equation*}
+are of the form
+\begin{equation*}
+  e_k(a_1,\ldots,a_n):=\sum_{1\leq i_1<i_2<\cdots<i_k\leq n}a_{i_1}a_{i_2}\cdots a_{i_k}.
+\end{equation*}
+Notice that these coefficients are themselves polynomials in the variables $a_1,\ldots,a_n$. These polynomials are called the \emph{elementary symmetric polynomials}. For example, for $n=3$ we have
+\begin{equation*}
+  f(x)=x^3-(a_1+a_2+a_3)x^2+(a_1a_2+a_1a_3+a_2a_3)x-a_1a_2a_3.
+\end{equation*}
+
+Using the elementary symmetric polynomials, we find another way of stating \cref{theorem:factorization-fermats-polynomial}:
+
+\begin{theorem}
+  For each prime $p$ and each $1\leq k < p-1$ whe have
+  \begin{equation*}
+    e_k(1,\ldots,p-1) \equiv 0 \pmod{p}.
+  \end{equation*}
+\end{theorem}
+
+\begin{exercises}
+  \exercise Show that there are only two polynomials $f$ such that any two values $f(x)$ and $f(y)$ are relatively prime for distinct inputs $x$ and $y$.
+  \exercise Consider a prime number $p$. Construct for every integer $0\leq a < p$ a polynomial $f(x)$ of degree $<p$ with coefficients in $\mathbb{Z}/p\mathbb{Z}$ such that
+  \begin{equation*}
+    f(x)=
+    \begin{cases}
+      1 & \text{if }x=a\\
+      0 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  Use these polynomials similarly to the basis polynomials in \crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem} to show that every function $\mathbb{Z}/p\mathbb{Z}\to \mathbb{Z}/p\mathbb{Z}$ is polynomial.
+  \exercise Define the $k$th \emph{power sum}
+  \begin{equation*}
+    p_k(a_1,\ldots,a_n) := a_1^k + \cdots + a_n^k.
+  \end{equation*}
+  We will simply write $p_k$ for $p_k(a_1,\ldots,a_n)$ and $e_k$ for $e_k(a_1,\ldots,a_n)$.
+  \begin{subexenum}
+  \item \emph{The Newton-Girard identities.} Show that for all $k$ we have
+    \begin{equation*}
+      p_k = e_1p_{k-1}-e_2p_{k-2}+\cdots +(-1)^{k-1}e_{k-1}p_1 + (-1)^{k-1}ke_k.
+    \end{equation*}
+    Hint: This looks more complicated than it is.
+  \item Prove that the congruence
+    \begin{equation*}
+      1^k+\cdots + (p-1)^k \equiv 0 \pmod{p}
+    \end{equation*}
+    holds for every $0< k <p-1$, and every prime number $p$.
+  \end{subexenum}
+  % \exercise \emph{Wolstenholme's congruence.} Consider a prime $p$. Show that
+  % \begin{equation*}
+  %   e_{p-2}(1,\ldots,p-1)\equiv 0 \pmod{p^2}.
+  % \end{equation*}
+\end{exercises}

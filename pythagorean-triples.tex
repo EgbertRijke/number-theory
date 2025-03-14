@@ -1,0 +1,454 @@
+% -*- TeX-master: "lectures-on-number-theory" -*-
+
+\chapter{Pythagorean Triples}
+
+\section{The Pythagorean Theorem}
+
+Recall that a right triangle is a triangle in which one of the angles is a right angle, i.e., it is exactly $90^\circ$. The Pythagorean theorem relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the trigonometric proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as highschool students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
+
+\begin{theorem}\label{theorem:pythagorean-theorem}
+  Consider a right triangle with side lengths $a$ and $b$, and a hypotenuse of length $c$. Then
+  \begin{equation*}
+    a^2 + b^2 = c^2.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}[The Chinese proof]
+  Consider a square with side lengths $a+b$, and include four right triangles with side lengths $a$ and $b$ in the square, so that their right angles coincide with the four right angles of the square.
+\begin{center}
+\begin{tikzpicture}[scale=.7,thick,line join=round]
+    % Define points of the outer square
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (5,0);
+    \coordinate (C) at (5,5);
+    \coordinate (D) at (0,5);
+    
+    % Define points of the inner square
+    \coordinate (E) at (2,0);
+    \coordinate (F) at (5,2);
+    \coordinate (G) at (3,5);
+    \coordinate (H) at (0,3);
+    
+    % Draw the outer square
+    \draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
+    
+    % Draw the four right triangles
+    \draw (A) -- node[below] {$a$} (E) -- (H) -- node[left] {$b$} cycle;
+    \draw (E) -- node[below] {$b$} (B) -- node[right] {$a$} (F) -- cycle;
+    \draw (F) -- node[right] {$b$} (C) -- node[above] {$a$} (G) -- cycle;
+    \draw (G) -- node[above] {$b$} (D) -- node[left] {$a$} (H) -- cycle;
+    
+    % Draw the inner square
+    \draw[line join=bevel] (E) -- node[midway,above] {$c$} (F) -- node[midway,left] {$c$} (G) -- node[midway,below] {$c$} (H) -- node[midway,right] {$c$} cycle;
+\end{tikzpicture}
+\end{center}
+  The area of the square is $(a+b)^2$. On the other hand, the area of each triangle is $ab/2$. Combined with the area of the inner square, whose sides are the hypotenuses of the four triangles, we obtain that
+  \begin{equation*}
+    (a+b)^2 = c^2 + 4\frac{ab}{2} = c^2 + 2ab.
+  \end{equation*}
+  Since $(a+b)^2=a^2+2ab+b^2$, we find that $a^2+b^2=c^2$.
+\end{proof}
+
+\begin{proof}[Euclid's proof]
+  Consider a right triangle $ACB$ with hypotenuse $AB$, and draw a line from $C$ through $AB$ at a right angle. The intersection point is called $M$.
+  \begin{equation*}
+    \begin{tikzpicture}[scale=.1,line join=round,line cap=round]
+      \pgfmathsetmacro{\myangle}{atan(28/45)}
+      \pgfmathsetmacro{\CM}{28*45/53}
+      
+      \coordinate (A) at (0,0);
+      \coordinate (B) at (53,0);
+      \coordinate (C) at ($(A) + ({90-\myangle}:28)$);
+      \coordinate (M) at ($(C) + (270:\CM)$);
+      
+      \draw[thick] (A) -- (C) -- (B) -- cycle;
+      \draw[thick] (C) -- (M);
+      
+      \draw (M) ++(0:2) -- ++(90:2) -- ++(180:2);
+      
+      \node[below left]  at (A) {$A$};
+      \node[below right] at (B) {$B$};
+      \node[above]       at (C) {$C$};
+      \node[below right] at (M) {$M$};
+      
+      \draw pic[draw=black, angle radius=10] {angle=B--A--C};
+      \draw pic[draw=black, angle radius=10] {angle=M--C--B};
+      
+      \path (B) -- (C) node[midway, above right] {$a$};
+      \path (A) -- (C) node[midway, above left] {$b$};
+      
+      % Add a brace for the entire segment AB
+      \draw[decorate, decoration={brace, amplitude=3pt, mirror}]
+      ($(A)+(0,-5)$) -- ($(B)+(0,-5)$) node[midway, yshift=-3mm] {$c$};
+    \end{tikzpicture}
+  \end{equation*}
+  Let $x$ be the length of the line segment $AM$, and let $y$ be the length of the line segment $BM$, so that $x+y=c$. The line $CM$ divides the triangle $ACB$ into two triangles $CMA$ and $CMB$, both of which are similar to the original triangle $ACB$. Thus, the ratio $a:c$ is the same as the ratio $y:a$, and the ratio $b:c$ is the same as the ratio $x:b$. This gives us the equalities
+  \begin{equation*}
+    a^2 = cy\qquad\text{and}\qquad b^2 = cx.
+  \end{equation*}
+  Since $x+y=c$, we find that $a^2+b^2=c^2$.
+\end{proof}
+
+Our third proof and final proof in this section, which is due to Ne'Kiya Jackson and Calcea Johnson, is remarkable because it makes essential use of trigonometric functions sine and cosine and the addition law, which can be derived trigonometrically, rather than on calculations involving areas of shapes. Besides its use of trigonometry, it is remarkable because Ne'Kiya Jackson and Calcea Johnson were still in high school when they found their proof, and it stands out for its inventive creativity.
+
+\begin{wrapfigure}{r}{.4\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
+    % Draw the triangle
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (4,3);
+    \coordinate (C) at (4,0);
+    
+    \draw[thick] (A) -- (C) node[midway, below] {$\cos(\theta)$} -- (B) node[midway, right] {$\sin(\theta)$} -- cycle node[midway, above] {$1$};
+    
+    % Mark right angle
+    \draw (4,0) -- ++(-0.4,0) -- ++(0,0.4) -- ++(0.4,0);
+
+    \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=13,yshift=4}] {angle=C--A--B};
+
+    \node[above right] at (B) {$B$};
+    \node[below left] at (A) {$A$};
+    \node[below right] at (C) {$C$};
+  \end{tikzpicture}
+\end{wrapfigure}
+Recall that the sine and cosine functions are defined to be the lengths of the vertical and horizontal sides of a right triangle, as indicated in the diagram on the side.
+
+This means that if $ABC$ is a right triangle with side $BC$ of length $a$, side $AC$ of length $b$, hypotenuse $AB$ of length $c$, and angle $\theta:=\angle CAB$, then we have
+\begin{equation*}
+  \sin(\theta) = \frac{a}{c}\qquad\text{and}\qquad \cos(\theta)=\frac{b}{c}.
+\end{equation*}
+In the proof of the Pythagorean theorem, we will make use of the addition formulas for sine and cosine:
+\begin{align*}
+  \sin(\theta + \phi) & = \sin(\theta)\cos(\phi) + \cos(\theta)\sin(\phi) \\
+  \cos(\theta + \phi) & = \sin(\theta)\sin(\phi) - \cos(\theta)\cos(\phi).
+\end{align*}
+In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. These laws can be derived geometrically if $\theta+\phi$ is an accute angle, i.e., if it is strictly less than $90^\circ$, see \cref{exercise:addition-laws-sin-cos}.
+
+\begin{proof}[The Jackson--Johnson proof \cite{jacksonjohnson2024}]
+  Consider a right triangle $ABC$ with the right angle at $C$, and label the sides $a=BC$, $b=AC$, and $c=AB$ so $c$ is the hypotenuse.
+
+  In the special case where $ABC$ is isosceles, i.e., if $a=b$, the hypotenuse is the diagonal of an $a$-by-$a$ square, which gives us that $c^2=2a^2$. Hence, we may assume that $ABC$ is nonisoceles.
+
+  Without loss of generality, we will assume that $a<b$, i.e., that $BC$ is the shorter side. We reflect the triangle along the longer side $AC$, as indicated in the diagram below:
+  \begin{equation*}
+    \begin{tikzpicture}[scale=.2,line join=round,line cap=round]
+      \pgfmathsetmacro{\length}{((2 * (64 / 225)) / (1 - (64 / 225)))}
+
+      \coordinate (B) at (0,0);
+      \coordinate (C) at (8,0);
+      \coordinate (B') at (16,0);
+      \coordinate (A) at (8,15);
+
+      \node[below left] at (B) {$B$};
+      \node[above] at (A) {$A$};
+      \node[below] at (C) {$C$};
+      \node[below right] at (B') {$B'$};      
+
+      \draw[thick] (B) -- (C) -- (B') -- (A) -- cycle;
+      \draw[thick] (A) -- (C);
+
+      \path (B) -- (C) node[midway, below] {$a$};
+      \path (B) -- (A) node[midway, above left] {$c$};
+      \path (B') -- (C) node[midway, below] {$a$};
+      \path (A) -- (B') node[midway, above right] {$c$};
+      \path (A) -- (C) node[pos=0.66,left] {$b$};
+      
+      \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=-3,yshift=-13}] {angle=B--A--C};
+      \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=3,yshift=-13}] {angle=C--A--B'};
+
+    \end{tikzpicture}
+  \end{equation*}
+
+  Observe that the angle $\theta := \angle BAC$ is strictly less than $45^\circ$, so that the angle $2\theta = \angle BAB'$ is still an acute angle.
+
+  Using this combined triangle, we draw a line from $B$ perpendicular to the line $AB$, and we extend the line $AB'$ until they meet in an intersection point, which we call $D$. This construction yields a new right triangle $ABD$ with the right angle at $B$, as in \cref{figure:jackson-johnson-pythagorean-theorem}.
+  \begin{figure}[t]
+    \centering
+    \begin{tikzpicture}[scale=.2,line join=round,line cap=round]
+      \pgfmathsetmacro{\length}{((2 * (64 / 225)) / (1 - (64 / 225)))}
+
+      \coordinate (B) at (0,0);
+      \coordinate (C) at (8,0);
+      \coordinate (B') at (16,0);
+      \coordinate (A) at (8,15);
+      \coordinate (D) at ($ (B')!\length!180:(A)$);
+
+      \node[left] at (B) {$B$};
+      \node[right] at (B') {$B'$};
+      \node[above] at (A) {$A$};
+      \node[below right] at (D) {$D$};      
+
+
+      \draw[thick,gray,dashed] (B') -- (A) -- (B);
+      \draw[thick,gray,dashed] (A) -- (C);
+      \draw[thick] (B) -- (C) -- (B') -- (D) -- cycle;
+
+      \draw[thick] (B') -- (D);
+      \draw[thick] (D) -- (B);
+
+      \draw pic [draw=black, angle radius=3mm] {right angle=A--B--D};
+
+      \draw[thick,line join=bevel]
+      (B') -- ++(0,{-16 * (8/15)}) coordinate (E)
+      -- ++({16 * (8/15)^2},0) coordinate (F)
+      -- ++(0,{-16 * (8/15)^3}) coordinate (G)
+      -- ++({16 * (8/15)^4},0) coordinate (H)
+      -- ++(0,{-16 * (8/15)^5})
+      -- ++({16 * (8/15)^6},0)
+      -- ++(0,{-16 * (8/15)^7});
+
+      \node[below left] at (E) {$E$};
+      \node[above right] at (F) {$F$};
+      \node[below left] at (G) {$G$};
+      \node[above right] at (H) {$H$};
+
+      \draw pic[draw=black, angle radius=15] {angle=B--A--C};
+      \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=13,yshift=-3}] {angle=D--B--C};
+      \draw pic[draw=black, angle radius=12] {angle=E--B'--D};
+      \draw pic[draw=black, angle radius=10] {angle=D--E--F};
+    \end{tikzpicture}
+    \caption{The recursive subdivision of the triangle $BDB'$.}
+    \label{figure:jackson-johnson-pythagorean-theorem}
+  \end{figure}
+
+  We will now subdivide the triangle $BDB'$ by first dropping a line down from $B'$ at a right angle from the line $BB'$, creating a new right triangle $BEB'$. Since this triangle also has an angle $\theta$, it is similar to the original triangle $ABC$. Its sides have lengths $2a$ and $2a^2/b$.
+
+  We continue subdividing the triangle $BDB'$ into ever smaller right triangles, as indicated in the figure. The successive triangles in this sequence are all right triangles with an angle $\theta$, so they are all similar. Corresponding sides in these successive triangles have a ratio of $a/b$. The hypotenuses of these triangles therefore have length
+  \begin{equation*}
+    2c\left(\frac{a}{b}\right)^n
+  \end{equation*}
+  This allows us to calculate the length of the side $B'D$ via the formula for the geometric series, which we proved in \cref{theorem:formula-geometric-series}:
+  \begin{equation*}
+    |B'D| = \sum_{k=0}^\infty 2c\left(\frac{a}{b}\right)^{2k+2} = 2c\left(\frac{a}{b}\right)^2\sum_{k=0}^\infty \left(\frac{a}{b}\right)^{2k} = \frac{2c\left(\frac{a}{b}\right)^2}{1-\left(\frac{a}{b}\right)^2}=\frac{2ca^2}{b^2-a^2}.
+  \end{equation*}
+  Now we can find two expressions for the length of the line $AD$. First, it consists of the lines $AB'$ and $B'D$, so it is of length $c+|B'D|$, which we calculated above. On the other hand, by trigonometry we have that $c/|AD|=\cos(2\theta)$, which gives us that $|AD|=c/\cos(2\theta)$. Since both expressions give the length of the line $AD$, both involving a factor of $c$ which we can factor out, we obtain the following equation:
+  \begin{equation*}
+    1+\frac{2a^2}{b^2-a^2} = \frac{1}{\cos(2\theta)}.
+  \end{equation*}
+  Furthermore, the addition formula for cosines gives us that $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. Since $\sin(\theta)=\frac{b}{c}$ and $\cos(\theta)=\frac{a}{c}$, we find that
+  \begin{equation*}
+    1+\frac{2a^2}{b^2-a^2} = \frac{c^2}{b^2-a^2}.
+  \end{equation*}
+  Rearranging this equation gives us that $(b^2 - a^2)+2a^2 = c^2$, which yields
+  \begin{equation*}
+    a^2+b^2=c^2.\qedhere
+  \end{equation*}
+\end{proof}
+
+\section{Euclid's Parametrization of the Pythagorean Triples}
+
+Our goal in this section is to describe all the solutions of the quadratic Diophantine equation
+\begin{equation*}
+  x^2 + y^2 = z^2,
+\end{equation*}
+where $z$ is a nonzero integer. By the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}, any such triple $(x,y,z)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(x,y,z)$ is a Pythagorean triple, then so is $(kx,ky,kz)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
+
+\begin{wrapfigure}{r}{.4\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
+    % Draw the triangle
+    \draw[thick] (0,0) -- (4,0) node[midway, below] {$4$};
+    \draw[thick] (4,0) -- (4,3) node[midway, right] {$3$};
+    \draw[thick] (4,3) -- (0,0) node[midway, above] {$5$};
+    
+    % Mark right angle
+    \draw (4,0) -- ++(-0.4,0) -- ++(0,0.4) -- ++(0.4,0);
+  \end{tikzpicture}
+\end{wrapfigure}
+The trivial solutions are $(0,1,1)$ and $(1,0,1)$. The simplest nontrivial solution is the famous equation
+\begin{equation*}
+  3^2 + 4^2 = 5^2.
+\end{equation*}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.68\textwidth]{Plimpton_322.jpg}
+  \caption{The Babylonian tablet Plimpton 322, listing Pythagorean triples. }
+  \label{fig:plimpton322}
+\end{figure}
+The triangle with side lengths $3$ and $4$ and a hypotenuse of length $5$ is sometimes called the \emph{Egyptian triangle}, since it is believed that the ancient Egyptians used this triangle for practical applications. The oldest surviving table of Pythagorean triples was created by the Babylonians, in what is now known as the tablet \emph{Plimpton 322}. This clay tablet, which is estimated to date from 1800 BCE, contains a mathematical table written in cuneiform script, where each row describes a Pythagorean triple in sexagesimal notation, i.e., base 60.
+
+Some further Pythagorean triples include
+\begin{equation*}
+  (5,12,13),\qquad (21,20,29),\qquad\text{and}\qquad (15,8,17).
+\end{equation*}
+
+Fibonacci devised in his book \emph{Liber Quadratorum} (The Book of Squares) \cite{fibonacci1225} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, i.e., if $a^2=2n+1$, then there are positive integers $b$ and $c$ such that
+\begin{equation*}
+  b^2 = \sum_{i=0}^{n-1}(2i+1),\qquad\text{and}\qquad c^2=\sum_{i=0}^{n}(2i+1)
+\end{equation*}
+by \cref{exercise:sum-of-odd-numbers}. For this choice of $a$, $b$, and $c$, we have
+\begin{equation*}
+  a^2 + b^2 = c^2.
+\end{equation*}
+
+\begin{proposition}
+  There are infinitely many Pythagorean triples $(a,b,c)$ such that $c=b+1$.
+\end{proposition}
+
+Note that while Fibonacci used the sum of odd numbers to find a triple $(a,b,c)$ of integers such that $a^2+b^2=c^2$, these Fibonacci triples follow the pattern
+\begin{equation*}
+  (2b + 1) + b^2 = (b+1)^2.
+\end{equation*}
+Here we immediately see that if $2b+1$ is a square number $a^2$, and indeed any odd square is of this form, then we obtain a Pythagorean triple of the form $(a,b,b+1)$. Rewriting $a=2k+1$, we see that Fibonacci's Pythagorean triples are of the form
+\begin{equation*}
+  (2k+1,\,2k^2 + 2k,\,2k^2 + 2k+1).
+\end{equation*}
+
+The Pythagorean triples $(a,b,c)$ generated by Fibonacci's method always satisfy $c=b+1$. However, we have already seen that $(21,20,29)$ is a Pythagorean triple that is not of this form. Therefore we see that, even though Fibonacci's method can be used to see that there are infinitely many Pythagorean triples, it does not generate all of them.
+
+In the remainder of this section we will derive the classic formula that describes all the Pythagorean triples. The method leading to this formula was described by Euclid in Book X, Proposition 29 and Book 6, Proposition 21 of the Elements.
+
+\begin{definition}
+  A \emph{primitive Pythagorean triple} is a triple $(x,y,z)$ satisfying
+  \begin{equation*}
+    x^2 + y^2 = z^2
+  \end{equation*}
+  such that $\gcd(x,y)=1$.
+\end{definition}
+
+\begin{example}
+  All the Pythagorean triples generated by Fibonacci's method are primitive, since $\gcd(2b+1,b)=1$.
+\end{example}
+
+\begin{lemma}
+  For any Pythagorean triple $(x,y,z)$ there is a unique primitive Pythagorean triple $(x',y',z')$ consisting of positive integers for which there is an integer $k$ such that $(kx',ky',kz')=(x,y,z)$.
+\end{lemma}
+
+\begin{proof}
+  Given a Pythagorean triple $(x,y,z)$, let $k:=\gcd(x,y)$. Since $k\mid x$ and $k\mid y$, it follows from the equation $x^2+y^2=z^2$ that $k\mid z$. Thus, we define
+  \begin{equation*}
+    x' := x/k, \qquad y' := y/k, \qquad\text{and}\qquad z' := z/k.
+  \end{equation*}
+  Then $x'$ and $y'$ are relatively prime, and we have
+  \begin{equation*}
+    x'^2 + y'^2 = \frac{x^2+y^2}{k^2} = \frac{z^2}{k^2} = z'^2.
+  \end{equation*}
+  The triple $(x',y',z')$ is therefore a primitive Pythagorean triple such that
+  \begin{equation*}
+    (kx',ky',kz') = (x,y,z).
+  \end{equation*}
+  For uniqueness, suppose that $(x'',y'',z'')$ is an other such primitive Pythagorean triple, satisfying $(lx'',ly'',lz'')=(x,y,z)$. Since $\gcd(x'',y'')=1$, it follows that
+  \begin{equation*}
+    k=\gcd(x,y)=\gcd(lx'',ly'')=l
+  \end{equation*}
+  Furthermore, since at least one of $x$ or $y$ is nonzero, it follows both $k$ and $l$ are nonzero. Thus we get $x'=x''$ from the equation $kx'=kx''$, and we get $y'=y''$ from the equation $ky'=ky''$. We conclude that $(x',y',z')=(x'',y'',z'')$.
+\end{proof}
+
+By the previous lemma we can restrict our attention to primitive Pythagorean triples. Next, we do a parity analysis of the components of a primitive Pythagorean triple.
+
+\begin{lemma}
+  Consider a primitive Pythagorean triple $(x,y,z)$. Then exactly one of $x$ and $y$ is even, the other is odd, and $z$ is always odd.
+\end{lemma}
+
+\begin{proof}
+  Since $(x,y,z)$ is a primitive Pythagorean triple, it is clearly impossible for both $x$ and $y$ to be even. It is also impossible for both of them to be odd, since in that case we would have
+  \begin{equation*}
+    z^2 = x^2 + y^2 \equiv 2 \pmod{4}.
+  \end{equation*}
+  However, every square is either congruent to $0$ or to $1$ modulo $4$, so this is impossible.
+
+  Thus, one of $x$ and $y$ is even and the other is odd. This gives us that $z^2$ is odd, which is only possible if $z$ is odd.
+\end{proof}
+
+By the previous lemma we may assume, without loss of generality, that in a primitive Pythagorean triple $(x,y,z)$, the integer $x$ is odd and the integer $y$ is even.
+
+Next, we note that $x^2=z^2-y^2$, which factors by the formula for the difference of squares as
+\begin{equation*}
+  x^2=(z-y)(z+y).
+\end{equation*}
+In the following lemma we will show that for any primitive Pythagorean triple $(x,y,z)$, the factors $z-y$ and $z+y$ of $x^2$ are relatively prime. This immediately implies that they are both squares, which is the key to Euclid's parametrization of the Pythagorean triples.
+
+\begin{lemma}\label{lemma:pythagorean-triples}
+  Suppose that $(x,y,z)$ is a primitive Pythagorean triple in which $y$ is even. Then the integers $z-y$ and $z+y$ are relatively prime, and they are both squares.
+\end{lemma}
+
+\begin{proof}
+  Consider a common divisor $d$ of $z-y$ and $z+y$. Then we have
+  \begin{equation*}
+    d\mid (z+y)-(z-y) = 2y, \qquad\text{and}\qquad d\mid (z+y) + (z-y) = 2z.
+  \end{equation*}
+  The integer $d$ is therefore a common divisor of $2y$ and $2z$. Since $y$ and $z$ are relatively prime, it follows that $d\mid 2$.
+
+  Furthermore, we note that $d\mid (z-y)(z+y)= z^2-y^2 = x^2$. Since $x$ is odd, it follows that $d$ must be odd, and therefore we conclude that $d=1$. This shows that $z+y$ and $z-y$ are relatively prime.
+
+  Now we note again that $(z-y)(z+y)=x^2$. Since $z-y$ and $z+y$ are both factors of $x^2$ and they are relatively prime, it follows that they must both be squares.
+\end{proof}
+
+\begin{theorem}[The Pythagorean Triples Theorem]
+  For every primitive Pythagorean triple $(x,y,z)$ in which $y$ is even there is a unique pair $(s,t)$ of relatively prime odd integers with $1\leq t< s$, such that
+  \begin{equation*}
+    x=st,\qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad c=\frac{s^2+t^2}{2}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  First, we show that for any two odd integers $0\leq t<s$ that are relatively prime, the integers
+  \begin{equation*}
+    x=st, \qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad z=\frac{s^2+t^2}{2}.
+  \end{equation*}
+  form a primitive Pythagorean triple. It is easy to see that they form a Pythagorean triple. We simply calculate
+  \begin{equation*}
+    s^2t^2 + \frac{(s^2-t^2)^2}{4} = \frac{s^4 + 2s^2t^2 + t^4}{4} = \frac{(s^2+t^2)^2}{4}.
+  \end{equation*}
+  To see that $st$ and $(s^2-t^2)/2$ are relatively prime, consider a common prime divisor $p$ of $st$ and $(s^2-t^2)/2$. Since $p\mid st$, it follows that either $p\mid s$ or $p\mid t$. Since $p\mid s^2-t^2$ and $p$ divides one of the integers $s$ and $t$, it follows that $p$ also divides the other one. However, $s$ and $t$ have no common prime factors, so we have reached a contradiction. Thus we conclude that there are no common prime factors of $st$ and $(s^2-t^2)/2$, and hence they must be relatively prime. This proves the claim that $(x,y,z)$ is a primitive Pythagorean triple.
+  
+  Now consider a primitive Pythagorean triple $(x,y,z)$ in which $y$ is even. By \cref{lemma:pythagorean-triples} it follows that $z-y$ and $z+y$ are relatively prime, and are both squares. Thus there are nonnegative integers $s$ and $t$ with $t<s$ such that
+  \begin{equation*}
+    s^2 = z + y, \qquad\text{and}\qquad t^2=z-y.
+  \end{equation*}
+  Since $z$ is odd and $y$ is even, it follows that both $s$ and $t$ are odd. Furthermore, since $z+y$ and $z-y$ are relatively prime, it follows that $s$ and $t$ are relatively prime.
+
+  Then we see by a direct calculation that
+  \begin{equation*}
+    x=st, \qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad z=\frac{s^2+t^2}{2}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\section{The Tree of Primitive Pythagorean Triples}
+
+The set of all primitive Pythagorean triples has the structure of a rooted ternary tree. This structure was first discovered by Berggren in 1934 \cite{berggren1934}.
+
+\begin{equation*}
+  A =
+  \left(
+    \begin{matrix}
+      1 & -2 & 2 \\
+      2 & -1 & 2 \\
+      2 & -2 & 3
+    \end{matrix}
+  \right),\qquad
+  B =
+  \left(
+    \begin{matrix}
+      1 & 2 & 2 \\
+      2 & 1 & 2 \\
+      2 & 2 & 3
+    \end{matrix}
+  \right),\qquad\text{and}\qquad
+  C =
+  \left(
+    \begin{matrix}
+      -1 & 2 & 2 \\
+      -2 & 1 & 2 \\
+      -2 & 2 & 3
+    \end{matrix}
+  \right)
+\end{equation*}
+
+\section{Rational Points on the Unit Circle}
+
+\section{Transformations of Rational Points on the Unit Circle}
+
+\begin{exercises}
+  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}:
+    \begin{equation*}
+      \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
+        \pgfmathsetmacro{\myangle}{atan(28/45)}
+        \draw (0,0) rectangle (53,53);
+        \foreach \k/\x/\y in {0/0/0, 1/53/0, 2/53/53, 3/0/53}
+          \draw (\x,\y) -- ++({\myangle + 90*\k}:45);
+      \end{tikzpicture}
+    \end{equation*}
+  \exercise \label{exercise:addition-laws-sin-cos}
+\end{exercises}

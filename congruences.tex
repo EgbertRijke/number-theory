@@ -1,0 +1,396 @@
+% -*- TeX-master: "lectures-on-number-theory" -*-
+
+\chapter{Congruences}\label{chapter:congruences}
+
+\section{The Congruence Relations}
+
+Carl Friedrich Gauss introduced the congruence relations in his monumental work, \emph{Disquisitiones Arithmeticae} \cite{gauss1986}. The congruence relations allowed him to systematically simplify the study of the integers. Prior to Gauss's invention, number theory was pursued with a variety of ad hoc techniques that often made proofs less transparent than they could be. His key insight was that many properties of the integers depend not on their exact size, but rather on their remainder when divided by a fixed number.
+
+\begin{definition}
+  We say that $a$ is \emph{congruent to} $b$ \emph{modulo} $c$, written
+  \begin{equation*}
+    a \equiv b \pmod{c},
+  \end{equation*}
+  if $c\mid a-b$. The number $c$ is called the \emph{modulus} of the congruence.
+\end{definition}
+
+\begin{example}
+  We have
+  \begin{equation*}
+    17 \equiv 2 \pmod{3}
+  \end{equation*}
+  because $17-2=15$ and $15$ is divisible by $3$. Similarly, we have
+  \begin{equation*}
+    28 \equiv 3 \pmod{5}
+  \end{equation*}
+  because $28-3=25$ and $25$ is divisible by $5$.
+\end{example}
+
+\begin{example}
+  The 24-hour clock is widely used in Europe, Asia, and Africa, while in North and South America, the 12-hour clock is more common. For instance, what is written as $19{:}05$ in the 24-hour format corresponds to $7{:}05$pm in the 12-hour format. The numbers $19$ and $7$ are congruent modulo $12$ because 
+  \[
+  19 \equiv 7 \pmod{12}.
+  \]
+  This follows from the fact that $19 - 7 = 12$ is a multiple of $12$.
+\end{example}
+
+\begin{remark}
+  Congruence modulo $0$ is equality, because $0\mid b-a$ holds if and only if $b-a=0$. Congruence modulo $1$, on the other hand, is true for any two integers $a$ and $b$, because $1\mid b-a$ is always true.
+
+  Also, we note that $a\equiv b\pmod{c}$ holds if and only if $a\equiv b\pmod{{-}c}$ holds. For this reason, the modulus is usually taken to be a natural number $n$.
+\end{remark}
+
+In the following lemma we establish that $a$ and $b$ are congruent modulo $n$ if and only if they have the same remainder after division by $n$.
+
+\begin{lemma}
+  Consider integers $a$ and $b$, and a positive natural number $n$, and suppose that $a=qn+r$ and $b=pn+s$, where $0\leq r,s<n$. Then the congruence
+  \begin{equation*}
+    a\equiv b\pmod{n}
+  \end{equation*}
+  holds if and only if $r=s$.
+\end{lemma}
+
+\begin{proof}
+  By definition, the congruence $a\equiv b\pmod{n}$ holds if and only if $n\mid a-b$. Since $a=qn+r$ and $b=pn+s$, where $0\leq r,s<n$ we see that $n\mid a-b$ holds if and only if $n\mid (qn+r)-(pn+s)$. Rewriting the expressing $(qn+r)-(pn+s)$, we see that
+  \begin{equation*}
+    n\mid (qn+r)-(pn+s)\qquad\text{if and only if}\qquad n\mid (q-p)n+(r-s).
+  \end{equation*}
+  Now we note that the number $(q-p)n$ is divisible by $n$, so we find that $n\mid (q-p)n+(r-s)$ holds if and only if $n\mid r-s$. However, the number $r-s$ satisfies the strict inequalities
+  \begin{equation*}
+    -n<r-s<n,
+  \end{equation*}
+  and the only integer in this range that is divisible by $n$ is the integer $0$. Thus we see that $n\mid r-s$ holds if and only if $r=s$, completing the chain of logical equivalences.
+\end{proof}
+
+\begin{example}
+  Recall from \cref{theorem:representability} that any number $n$ can be written as
+  \begin{equation*}
+    n = \sum_{i=0}^{l-1} d_i b^{i}
+  \end{equation*}
+  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
+\end{example}
+
+An important property of the congruence relations, which makes them so useful in the study of the integers, is that they are compatible with the arithmetic operations of addition and multiplication.
+
+\begin{proposition}\label{proposition:addition-and-multiplication-congruence}
+Suppose that $a \equiv a' \pmod{n}$ and $b \equiv b' \pmod{n}$. Then the following congruences hold:
+\[
+\begin{aligned}
+a+b &\equiv a'+b' \pmod{n},\\[1mm]
+ab   &\equiv a'b' \pmod{n}.
+\end{aligned}
+\]
+Consequently, for any integers \(x\) and \(y\),
+\[
+ax+by \equiv a'x+b'y \pmod{n}.
+\]
+\end{proposition}
+
+\begin{proof}
+  By assumption we have that $n\mid a-a'$ and $n\mid b-b'$. Thus it follows that $n$ divides the sum
+  \begin{equation*}
+    n\mid (a-a')+(b-b') = (a+b)-(a'+b'),
+  \end{equation*}
+  which shows that $a+b\equiv a'+b'\pmod{n}$. Moreover, $n$ divides any linear combination of $a-a'$ and $b-b'$, so in particular we have
+  \begin{equation*}
+    n\mid (a-a')b + a'(b-b') = ab -a'b + a'b - a'b' = ab - a'b'.
+  \end{equation*}
+  This shows that $ab\equiv a'b'\pmod{n}$.
+\end{proof}
+
+One way of thinking about the following corollary, is that every polynomial is periodic modulo $n$, i.e., every polynomial repeats itself modulo $n$ after every $n$ steps.
+
+\begin{corollary}
+  If $x\equiv y\pmod {n}$, then we have
+  \begin{equation*}
+    \sum_{k=0}^{l-1} a_kx^k \equiv \sum_{k=0}^{l-1} a_ky^k \pmod{n}.
+  \end{equation*}
+\end{corollary}
+
+The power of modular arithmetic is effectively demonstrated with divisibility tests. Consider a number $n$ written in base $10$ as
+\begin{equation*}
+  n = \sum_{k=0}^{l-1} d_k10^k.
+\end{equation*}
+Then $n$ is divisible by $9$ if and only if the sum of its digits is divisible by $9$. Indeed, since $10\equiv 1\pmod{9}$, it follows that
+\begin{equation*}
+  \sum_{k=0}^{l-1} d_k10^k \equiv \sum_{k=0}^{l-1} d_k1^k \pmod{9},
+\end{equation*}
+and we recognize that the right-hand side is just the sum of the digits of $n$. For example, the number $34,524$ is divisible by $9$ because $3+4+5+2+4=18$ and the number $18$ is divisible by $9$ because $1+8=9$.
+
+\begin{remark}
+  One might wonder whether congruence relations are also preserved by operations like the greatest common divisor. However, this is not the case. For a counter example, consider the congruences $6\equiv 16\pmod{10}$ and $15\equiv 25\pmod{10}$. The greatest common divisor of $6$ and $15$ is $3$, while the greatest common divisor of $16$ and $25$ is $1$. Thus we see that, even though $6\equiv 16$ and $15\equiv 25$ modulo $10$, we have
+  \begin{equation*}
+    \gcd(6,15)\nequiv\gcd(16,25) \pmod{10}.
+  \end{equation*}
+\end{remark}
+
+\section{Equivalence Relations}
+
+The congruence relations are examples of equivalence relations, which we will now define.
+
+\begin{definition}
+  An equivalence relation on a set $A$ is a binary relation $\sim$ satisfying the following three conditions:
+  \begin{enumerate}
+  \item \emph{Reflexivity.} For any element $a\in A$, we have
+    \begin{equation*}
+      a\sim a.
+    \end{equation*}
+  \item \emph{Symmetry.} For any two elements $a,b\in A$, we have
+    \begin{equation*}
+      (a \sim b) \Rightarrow (b\sim a).
+    \end{equation*}
+  \item \emph{Transitivity.}
+    For any three elements $a,b,c\in A$, we have
+    \begin{equation*}
+      (a \sim b)\land (b\sim c) \Rightarrow (a\sim c).
+    \end{equation*}
+  \end{enumerate}
+\end{definition}
+
+Thus, where the ordering relation of a poset is reflexive, \emph{antisymmetric} and transitive, an equivalence relation is reflexive, \emph{symmetric} and transitive. The standard example of an equivalence relation is equality itself, which is indeed reflexive, symmetric and transitive.
+
+\begin{proposition}
+  For any natural number $n$, the congruence relation $\equiv$ modulo $n$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  To see that the congruence relation modulo $n$ is reflexive, note that $a-a=0$ and any number divides $0$. Thus the congruence $a\equiv a\pmod{n}$ always holds. To see that the congruence relation modulo $n$ is symmetric, note that if $n\mid a-b$ then $n\mid -(a-b)=b-a$. This shows that $a\equiv b\pmod{n}$ implies $b\equiv a\pmod{n}$. To see that the congruence relation modulo $n$ is transitive, assume that $n\mid a-b$ and that $n\mid b-c$. Then it follows that
+  \begin{equation*}
+    n\mid (a-b)+(b-c)=a-c,
+  \end{equation*}
+  showing that $a\equiv c\pmod{n}$.
+\end{proof}
+
+Equivalence relations come about in many forms, and one can get quite creative in defining them. We illustrate the generality of equivalence relations with some examples.
+
+\begin{example}
+  Consider a prime number $p$. Every nonzero integer $a$ can be written in the form $p^k u$ where $u$ is not divisible by $p$. The number $u$ is called the \emph{$p$-core} or the \emph{$p$-free part} of $a$. The relation $a\sim b$ defined by the condition that $a$ and $b$ have the same $p$-core is an equivalence relation.
+\end{example}
+
+The equivalence relation of the previous example is an instance of a general class of equivalence relations. Given a function $f:A\to B$, there is an equivalence relation $\sim_f$ on the set $A$, given by
+\begin{equation*}
+  x\sim_f y \qquad\text{if and only if}\qquad f(x)=f(y).
+\end{equation*}
+This relation is also called the \emph{kernel} of $f$. In the previous example, the function $f:\mathbb{Z}_{\neq 0} \to\mathbb{Z}_{\neq 0}$ is the function that sends $a$ to the unique integer $u$ not divisible by $p$ for which there is a \emph{valuation} $k$ such that $p^ku=a$.
+
+\begin{proposition}
+  For any function $f:A\to B$, the relation $\sim_f$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  To see that any relation of the form $\sim_f$ is an equivalence relation, we need to check reflexivity, symmetry, and transitivity. Note that we have reflexivity because $f(x)=f(x)$ for any $x\in A$. The relation $\sim_f$ is symmetric because $f(y)=f(x)$ holds whenever $f(x)=f(y)$ holds. Finally, the relation $\sim_f$ is transitive because $f(x)=f(z)$ holds whenever both $f(x)=f(y)$ and $f(y)=f(z)$ hold.
+\end{proof}
+
+\begin{example}
+  Recall from \cref{exercise:zeckendorf} that Zeckendorf's representation theorem established that any natural number $n$ can be written uniquely as a sum
+  \begin{equation*}
+    n= \sum_{k=0}^{l_n-1} d_{n,k}F_{k+2}
+  \end{equation*}
+  of nonconsecutive Fibonacci numbers with index at least $2$. Now we define an equivalence relation $\sim_F$ by declaring that two natural numbers $m$ and $n$ are equivalent, if one can be obtained from the other by shifting their Zeckendorf representation. More precisely, we define $m\sim_F n$ to hold if and only if there exist natural numbers $s$ and $t$ such that
+  \begin{equation*}
+    \sum_{k=0}^{l_m-1}d_{m,k}F_{k+s+2} = \sum_{k=0}^{l_n-1} d_{n,k}F_{k+t+2}.
+  \end{equation*}
+  For example, the number $17$ is written $(100101)_F$ in the Zeckendorf notation, and its shifts are the numbers $(1001010)_F=28$, $(10010100)_F=45$, and so on. Thus we have
+  \begin{equation*}
+    17 \sim_F 28 \sim_F 45 \sim_F\cdots.
+  \end{equation*}
+\end{example}
+
+The equivalence relation of the previous example is an instance of another general way of constructing equivalence relations. Given an operation $T:A \to A$, define the equivalence relation $\sim_T$ by declaring that
+\begin{equation*}
+  x\sim_T y \qquad\text{if and only if}\qquad \exists_{(s,t\in\mathbb{N})} T^s(x)=T^t(y).
+\end{equation*}
+In technical terminology, the set $A$ equipped with the operation $T$ form a \emph{dynamical system}, and when $x\sim_T y$ holds we say that $x$ and $y$ have the same \emph{eventual orbit}. The operation $T$ in the equivalence relation $\sim_F$ of the previous example is the shift operation on the Zeckendorf representation, which simply appends a digit $0$.
+
+\begin{proposition}
+  For any operation $T$ on a set $A$, the relation $\sim_T$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  To see that the relation $\sim_T$ is indeed an equivalence relation, we need to verify reflexivity, symmetry, and transitivity.
+
+  The relation $\sim_T$ is reflexive, because $T^0(x)=x=T^0(x)$, and the relation $\sim_T$ is symmetric because the condition that $\exists_{(s,t\in\mathbb{N})}(T^s(x)=T^t(y))$ is symmetric in $x$ and $y$. To see that $\sim_T$ is transitive, consider $s,t,u,v$ such that $T^s(x)=T^t(y)$ and $T^u(y)=T^v(z)$. Then we have
+  \begin{equation*}
+    T^{u+s}(x)=T^u(T^s(x))=T^u(T^t(y))=T^t(T^u(y))=T^t(T^v(z))=T^{t+v}(z),
+  \end{equation*}
+  showing that $x\sim_T z$.
+\end{proof}
+
+Perhaps one of the most famous dynamical systems on the set of positive integers is due to Collatz, whose function $T$ is defined by
+\begin{equation*}
+  T(n) :=
+  \begin{cases}
+    n/2 & \text{if $n$ is even} \\
+    3n+1 & \text{otherwise.}
+  \end{cases}
+\end{equation*}
+For example, starting at the number $3$, repeated application of the Collatz function produces the sequence:
+\begin{equation*}
+  3,\,10,\,5,\,16,\,8,\,4,\,2,\,1,\,4,\cdots.
+\end{equation*}
+Once the sequence reaches $1$, it enters the cycle
+\begin{equation*}
+  1\mapsto 4\mapsto 2\mapsto 1\mapsto \cdots
+\end{equation*}
+The famous and elusive \emph{Collatz conjecture} states that for every positive integer $n$, the sequence
+\begin{equation*}
+  n,\,T(n),\,T^2(n),\,\ldots
+\end{equation*}
+eventually reaches the value $1$. In our notation, the Collatz conjecture asserts that $n\sim_T 1$ for every positive natural number $n$.
+
+\section{Equivalence Classes and Residue Systems}
+
+\begin{definition}
+  Consider an equivalence relation $\sim$ on a set $A$. Then the \emph{equivalence class} of an element $a\in A$ is the set
+  \begin{equation*}
+    [a] := \{x\in A \mid a \sim x\}.
+  \end{equation*}
+\end{definition}
+
+\begin{example}
+  In the case where the equivalence relation under consideration is a congruence relation with modulus $n$, then the equivalence classes are called \emph{congruence classes}. For any positive integer $n$, there are exactly $n$ distinct congruence classes modulo $n$, corresponding to the $n$ possible residues $0\leq r<n$ after division by $n$ with remainder.
+
+  The congruence class modulo $2$ of any even integer consists precisely of all the even integers, and the congruence class of any odd integer consists precisely of all the odd integers.
+
+  To see this, suppose that $a$ is an even integer. Then $a \equiv x\pmod{2}$ holds if and only if $a$ and $x$ have the same remainder after division by $2$. Since the remainder of $a$ divided by $2$ is $0$, it follows that $a$ is congruent to $x$ precisely when $x$ is divisible by $2$, i.e., when $x$ is even. This shows that for an even integer $a$, the congruence class
+  \begin{equation*}
+    [a] := \{x\in A \mid a \equiv x\pmod {2}\}
+  \end{equation*}
+  is the set of even numbers.
+
+  Similarly, if $a$ is an odd integer, then $a\equiv x\pmod{2}$ holds if and only if $x$ is also odd, because $a\equiv x\pmod{2}$ holds if and only if $x$ divided by $2$ has remainder $1$, which means that $x$ is odd.
+\end{example}
+
+The equivalence classes of an equivalence relation $\sim$ on a set $A$ form a set
+\begin{equation*}
+  A/{\sim} := \{U\subseteq A \mid \exists_{(a\in A)}U=[a]\}
+\end{equation*}
+In other words, the set of equivalence classes of $\sim$ is the set of subsets $U\subseteq A$ such that $U=[a]$ for some $a\in A$. The set $A/{\sim}$ is called the \emph{quotient} of $A$ by the equivalence relation $\sim$. Furthermore, the function
+\begin{equation*}
+  a\mapsto [a]:A\to A/{\sim}
+\end{equation*}
+sending an element to its equivalence class is called the \emph{quotient map}. We often write $q$ for the quotient map.
+
+\begin{proposition}\label{proposition:quotient-map}
+  For any equivalence relation $\sim$ on a set $A$, the quotient map
+  \begin{equation*}
+    a\mapsto [a] : A \to A/{\sim}
+  \end{equation*}
+  satisfies the following two conditions:
+  \begin{enumerate}
+  \item The quotient map is \emph{surjective}. This means that for any equivalence class $U\subseteq A$ there is an element $a\in A$ such that $U=[a]$.
+  \item The quotient map is \emph{effective}. This means that for any two elements $a,b\in A$ we have
+    \begin{equation*}
+      [a]=[b]\qquad\text{if and only if}\qquad a\sim b.
+    \end{equation*}
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  The first claim is true by definition: the set of equivalence classes is defined as
+  \begin{equation*}
+    \{U\subseteq A\mid \exists_{(a\in A)}U=[a]\},
+  \end{equation*}
+  i.e., it is defined as the set of subsets of $A$ of the form $[a]$ for some $a\in A$.
+
+  For the second claim, let $a,b\in A$. If we have the equality $[a]=[b]$, then it follows that $b\in [a]$, so that $a\sim b$. For the converse, if $a\sim b$ holds, and $x\in A$, then we have $a\sim x$ if and only if $b\sim x$ by symmetry and transitivity of the relation $\sim$. This shows that $x\in [a]$ if and only if $x\in [b]$. Thus, the subsets $[a]$ and $[b]$ contain the same elements, so they must be the same.
+\end{proof}
+
+\begin{definition}
+  A \emph{complete residue system} modulo $n$ is a choice of exactly one element from each congruence class modulo $n$. In other words, a complete residue system is a set
+\begin{equation*}
+  \{r_1,\ldots,r_n\}
+\end{equation*}
+satisfying the condition that for every integer $a$ there is a exactly one index $1\leq i\leq n$ such that
+\begin{equation*}
+  a\equiv r_i \pmod{n}.
+\end{equation*}
+\end{definition}
+
+\begin{example}
+  For every nonnegative integer $n$, the set
+  \begin{equation*}
+    \{0,\ldots,n-1\}
+  \end{equation*}
+  forms a complete residue system modulo $n$. Similarly, any set
+  \begin{equation*}
+    \{a,\ldots,a+n-1\}
+  \end{equation*}
+  of $n$ consecutive integers is a complete residue system modulo $n$.
+\end{example}
+
+\begin{remark}
+  Since complete residue systems contain a unique element in every congruence class, there is for every complete residue system $\{r_0,\ldots,r_{n-1}\}$ a bijection
+  \begin{equation*}
+    \mathbb{N}/{({\equiv}\pmod{n})} \cong \{r_0,\ldots,r_{n-1}\}.
+  \end{equation*}
+\end{remark}
+
+\section{Reduced Residue Systems}
+
+Before we introduce reduced residue systems, let us prove a lemma.
+
+\begin{lemma}
+  Suppose that $a\equiv b\pmod{n}$. Then $\gcd(a,n)=\gcd(b,n)$. Consequently, we have $\gcd(a,n)=1$ if and only if $\gcd(b,n)=1$.
+\end{lemma}
+
+\begin{proof}
+  By the assumption that $a$ and $b$ are congruent modulo $n$, it follows that they have the same remainder after division by $n$. Let $r$ be this remainder. Since $\gcd(a,n)=\gcd(r,n)$ and $\gcd(b,n)=\gcd(r,n)$ we see that
+  \begin{equation*}
+    \gcd(a,n)=\gcd(b,n).
+  \end{equation*}
+  This equality implies that the left hand side equals $1$ if and only if the right hand side equals $1$.
+\end{proof}
+
+By the previous lemma, we can test whether an integer is relatively prime to $n$ by testing any element in its congruence class. This allows us to make the following definition.
+
+\begin{definition}
+  A \emph{reduced residue system} modulo $n$ is a set
+  \begin{equation*}
+    \{r_1,\ldots,r_k\}
+  \end{equation*}
+  of integers satisfying the condition that for every integer $a$ relatively prime to $n$, there is exactly one index $1\leq i\leq k$ such that
+  \begin{equation*}
+    a\equiv r_i\pmod{n}.
+  \end{equation*}
+\end{definition}
+
+\begin{corollary}
+  Any two reduced residue systems modulo $n$ have the same size, for which we write $\phi(n)$. The function $\phi$ is called \emph{Euler's totient function}.
+\end{corollary}
+
+\begin{proof}
+  Reduced residue systems are choices of representatives of the congruence classes in which all elements are relatively prime to $n$. Thus, the size of a reduced residue system is always equal to the number of such congruence classes.
+\end{proof}
+
+\begin{exercises}
+  \exercise Describe a complete residue system modulo $7$ consisting entirely of multiples of $3$.
+  \exercise List all the numbers $0\leq a<6$ such that $a\equiv x^2\pmod 6$ for some $x$, and all the numbers $0\leq a<8$ such that $a\equiv x^2\pmod 8$ for some $x$.
+  \exercise Compute $\phi(n)$ for $n=1,\ldots,12$.
+  \exercise
+  \begin{subexenum}
+  \item Find integers $k$, $a$, and $b$ such that
+    \begin{equation*}
+      ka\equiv kb\pmod{4},\qquad\text{but}\qquad a\nequiv b\pmod{4}.
+    \end{equation*}
+  \item Prove that if $\gcd(k,n)=d$, then we have
+    \begin{equation*}
+      ka\equiv kb\pmod{n}\qquad\text{if and only if}\qquad a\equiv b\pmod{\frac{n}{d}}.
+    \end{equation*}
+  \end{subexenum}
+  \exercise Show that the following are equivalent for any $n>0$ and any integer $a$:
+  \begin{enumerate}
+  \item $\gcd(a,n)=1$.
+  \item There exists an integer $b$ such that $ab\equiv 1\pmod{n}$.
+  \end{enumerate}
+  \exercise \label{exercise:self-inverse-modulo-prime}Consider a prime number $p$ and an integer $a$. Show that
+  \begin{equation*}
+    a^2\equiv 1\pmod{p}\qquad\text{if and only if}\qquad a\equiv \pm 1\pmod{p}.
+  \end{equation*}
+  \exercise Prove that for any $n>1$ and any $k$, we have
+  \begin{equation*}
+    (n-1)^2\mid n^k-1\qquad\text{if and only if}\qquad n-1\mid k.
+  \end{equation*}
+  \exercise A pair of \emph{twin primes} is a pair of primes $p$ and $q$ such that $q-p=2$. Show that if $p$ and $q$ are twin primes strictly greater than $3$, then $pq\equiv 8\pmod{9}$.
+  \exercise Given a prime $p>3$, show that $p^2\equiv 1\pmod{24}$.
+\end{exercises}

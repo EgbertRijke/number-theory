@@ -1,0 +1,199 @@
+% -*- TeX-master: "lectures-on-number-theory" -*-
+
+\chapter{The Fundamental Theorem of Arithmetic}\label{chapter:fundamental-theorem-of-arithmetic}
+
+\section{Prime Numbers}
+
+\begin{definition}
+  An integer $a$ is said to be \emph{prime} if it has exactly one positive proper divisor. Any integer $a\neq \pm 1$ that is not prime is said to be a \emph{composite number}.
+\end{definition}
+
+The numbers $0$ and $1$ are not prime. To see that $0$ isn't prime, simply note that any positive integer is a proper divisor of $0$. To see that $1$ isn't prime, note that $1$ doesn't have any proper divisors. Indeed, it has exactly one positive divisor, namely $1$ itself, but this divisor isn't proper. We also note that if $a>1$ is prime, then the number $1$ is always a positive proper divisor. Thus we see that $a>1$ is prime if and only if the number $1$ is its unique positive proper divisor.
+
+To see that the number $2$ is prime, note that its positive divisors are a subset of the set $\{1,2\}$ consisting of all the positive integers below $2$. Its proper divisors are therefore a subset of $\{1\}$. The integer $1$ is indeed a positive divisor, so we see that $2$ has exactly one positive proper divisor.
+
+To see that the number $3$ is prime, note that its positive divisors are a subset of the set $\{1,2,3\}$ consisting of all positive integers below $3$. The number $1$ is a proper divisor, the number $2$ doesn't divide $3$, and $3$ itself is a divisor but it isn't proper. Therefore we see that the number $3$ has exactly one positive proper divisor.
+
+The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \emph{sieve of Eratosthenes}, which we will now describe.
+
+The sieve of Eratosthenes is an iterative process that generates at stage $n$ a set $P_n$ of numbers known to be prime at stage $n$, and a set $Q_n$ of prime candidates. In other words, the sets $P_n$ form an increasing sequence
+\begin{equation*}
+  P_0\subseteq P_1\subseteq P_2 \subseteq \cdots
+\end{equation*}
+of sets of numbers known to be prime, where at each higher stage the set of known primes becomes larger, and the sets $Q_n$ form a decreasing sequence
+\begin{equation*}
+  Q_0\supseteq Q_1 \supseteq Q_2 \supseteq \cdots
+\end{equation*}
+of candidates, from which we pick our next prime. We will define the sets $P_n$ and $Q_n$ by a recursive process. Initially, the set $P_0$ is empty and $Q_0=\{n\in\mathbb{N}\mid n\geq 2\}$ is the set of all numbers $\geq 2$. Now we define $P_{n+1}$ to be $P_n\cup \{p(n)\}$, where $p(n):=\min(Q_n)$, and we define
+\begin{equation*}
+  Q_{n+1}:=Q_n\setminus \{kp(n)\mid k\geq 1\}.
+\end{equation*}
+In other words, the $n$th prime $p(n)$ is the minimal element of $Q(n)$, and the set $Q_{n+1}$ of candidates is the set $Q_n$ minus all the multiples of $p(n)$. In the first five stages, these sets look as follows:
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.2} % Adjust row spacing
+  \setlength{\tabcolsep}{10pt}      % Adjust column spacing
+  \begin{tabular}{r|l l}
+    \textbf{$n$} & \textbf{$P_n$} & \textbf{$Q_n$} \\ \hline
+    0 & $\emptyset$ & $\{2,3,4,5,6,7,8,\ldots\}$ \\
+    1 & $\{2\}$ & $\{3,5,7,9,11,13,15,\ldots\}$ \\
+    2 & $\{2,3\}$ & $\{5,7,11,13,17,19,23,\ldots\}$ \\
+    3 & $\{2,3,5\}$ & $\{7,11,13,17,19,23,29,\ldots\}$ \\
+    4 & $\{2,3,5,7\}$ & $\{11,13,17,19,23,29,31,\ldots\}$ \\
+    5 & $\{2,3,5,7,11\}$ & $\{13,17,19,23,29,31,37,\ldots\}$ \\
+  \end{tabular}
+\end{center}
+
+Notice that not only the minimal element of $Q_n$ is prime, but every element $q\in Q_n$ such that $q<(\max(P_n))^2$ is prime. This is because if $q<(\max(P_n))^2$ is composite, then its lowest factor must be a prime number $p<\max(P_n)$, i.e., it must be a prime number in $P_n$. However, all the multiples of the primes in $P_n$ have been removed from $Q_n$, so there are no such composite numbers.
+
+We can use this observation to obtain the list of all primes below $100$, at stage $5$ in the sieve of Eratosthenes. The list of primes below $100$ is
+\begin{equation*}
+2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97.
+\end{equation*}
+
+The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which $Q_n$ is empty, or there are infinitely many primes. We will now show that there are infinitely many primes. In the following lemma we use the concept of \emph{nontrivial divisors}, which are divisors $d$ of a natural number $n$ such that $d\neq 1$. The concept of nontrivial divisors should not be confused with the concept of proper divisors, which are divisors $d$ of a natural number $n$ such that $d\neq n$.
+
+\begin{lemma}
+  Any natural number $n>1$ has a least nontrivial divisor, and this divisor is prime.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by the well-ordering principle of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
+\end{proof}
+
+\begin{lemma}
+  If $a$ and $b$ are relatively prime integers, then any prime divisors of $a$ are distinct from any prime divisors of $b$.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $a$ and $b$ are relatively prime, and that $p$ and $q$ are prime divisors of $a$ and $b$, respectively. By the assumption that $a$ and $b$ are relatively prime, it follows that $p\nmid b$ and that $q\nmid a$. Therefore it follows that $p$ and $q$ cannot be the same.
+\end{proof}
+
+\begin{theorem}\label{theorem:infinitude-of-primes}
+  There are infinitely many prime numbers.
+\end{theorem}
+
+\begin{proof}[Euclid's proof of \cref{theorem:infinitude-of-primes}]
+  We will prove that there are infinitely many prime numbers by showing that for any finite set of prime numbers, there is a prime number not belonging to the finite set.
+  
+  Consider a finite set $\{p_0,\ldots,p_k\}$ of primes, and define
+  \begin{equation*}
+    n:= 1+\prod_{i=0}^k p_i
+  \end{equation*}
+  Then there exists, for each $0\leq i\leq k$, a natural number $q_i$ such that $n=q_ip_i+1$. Indeed, we can simply define
+  \begin{equation*}
+    q_i := \prod_{j=0,j\neq i}^k p_j.
+  \end{equation*}
+  Since $n$ can be written in this way, it follows that $n$ is relatively prime to each $p_i$. Consequently, the least prime divisor of $n$ is relatively prime to each $p_i$. In other words, the least prime divisor of $n$ is not in the set of primes $\{p_0,\ldots,p_k\}$.
+\end{proof}
+
+There are many proofs of the infinitude of primes. The following is due to Filip Saidak \cite{Saidak2006}, who published his proof in 2006, based on the idea that if $n=ab$ is the product of two numbers that are relatively prime and both at least $2$, then $n$ must have two prime factors.
+
+\begin{proof}[Saidak's proof of \cref{theorem:infinitude-of-primes}]
+  Let $N_0:= 1$, and define
+  \begin{equation*}
+    N_{n+1} := N_n(N_n + 1).
+  \end{equation*}
+  We claim that $N_n$ has at least $n$ prime factors. In the base case, we note that it is indeed true that $1$ has at least zero prime factors. For the inductive step, suppose that $N_n$ has at least $n$ prime factors. The number $N_n+1$ is relatively prime to $N_n$, so its prime factors are all distinct from the prime factors of $N_n$. Furthermore, we have $1<N_n+1$, so $N_n+1$ indeed has at least one prime factor. Thus it follows that $N_{n+1}$ has at least $n+1$ prime factors, and therefore there must be infinitely many primes.
+\end{proof}
+
+Finally, we present a proof of the infinitude of primes due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private corresponcences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
+
+Recall that the Fermat numbers $\Phi_n$ are defined by
+\begin{equation*}
+  \Phi_n := 2^{2^n}+1.
+\end{equation*}
+
+\begin{lemma}
+  Any two distinct Fermat numbers are relatively prime.
+\end{lemma}
+
+\begin{proof}
+  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Recall from \cref{exercise:product-formula-fermat-numbers} that
+  \begin{equation*}
+    \Phi_n-2 = \prod_{k<n}\Phi_k.
+  \end{equation*}
+  Thus we see that $\Phi_m \mid \Phi_n - 2$. It follows that any common divisor $d$ of $\Phi_m$ and $\Phi_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $\Phi_m$ and $\Phi_n$ is $1$. In other words, $\Phi_m$ and $\Phi_n$ are relatively prime.
+\end{proof}
+
+\begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]
+  Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $\Phi_n$, then we picked infinitely many distinct prime numbers.
+\end{proof}
+
+\section{The Fundamental Theorem of Arithmetic}
+
+The following proposition is due to Euclid, who included it as proposition 30 of book VII of the \emph{Elements}.
+
+\begin{lemma}\label{lemma:cases-prime-divisibility}
+  Suppose that $p$ is prime, and that $a$ is an integer. Then either $p\mid a$ or $\gcd(p,a)=1$.
+\end{lemma}
+
+\begin{proof}
+  The greatest common divisor of $p$ and $a$ is in particular a divisor of $p$, so it is either $1$ or $p$. If $\gcd(p,a)=p$, then we have $p\mid a$.
+\end{proof}
+
+\begin{proposition}\label{proposition:euclid-divisibility-primes}
+  Consider a positive integer $a$. The following are equivalent:
+  \begin{enumerate}
+  \item The integer $a$ is prime.
+  \item We have $a>1$, and for any two integers $b$ and $c$ such that $a\mid bc$, we have that $a\mid b$ or $a\mid c$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Suppose first that $a$ is prime. Since $0$ and $1$ aren't prime, it follows that $a>1$. Now consider two integers $b$ and $c$ such that $a\mid bc$. There are two cases to consider: either $a\mid b$, in which case we are done immediately, or $a\nmid b$. In the case where $a\nmid b$, it follows from \cref{lemma:cases-prime-divisibility} that $a$ and $b$ are relatively prime. This allows us to apply \cref{proposition:coprime-divides-product}, by which we conclude that $a\mid c$.
+
+  For the converse, suppose that for any two integers $b$ and $c$ such that $a\mid bc$, we have $a\mid b$ or $a\mid c$, and let $d$ be a proper divisor of $a$. Now consider any positive proper divisor $d$ of $a$, and write $a=dk$. Then it follows in particular that $a \mid dk$, so by assumption we have either $a\mid d$ or $a\mid k$. The first condition can be ruled out, because $d$ is assumed to be a proper divisor and therefore $a \nmid d$. Thus we find ourselves in the second case, where $a\mid k$ and $k\mid a$. The integer $k$ is also positive, since $a$ and $d$ are positive, so it follows that $a=k$. This implies that $d=1$, and hence we conclude that $a$ is prime.
+\end{proof}
+
+\begin{theorem}\label{theorem:fundamental-theorem-of-arithmetic}
+  For any natural number $n>0$, there is a unique list $\ell=(p_0,\ldots,p_{l-1})$ of length $l$, consisting of primes $p_0\leq p_1\leq \cdots \leq p_{l-1}$ such that
+  \begin{equation*}
+    n=\prod_{i=0}^{l-1}p_i.
+  \end{equation*}
+  This unique list of primes is called the \emph{prime decomposition of $n$}.
+\end{theorem}
+
+\begin{proof}
+  We apply strong induction on $n$, with base case $1$. In the base case, we let $\ell$ be the empty list. The empty list satisfies the increasing primes condition vacuously, and empty products are $1$ by definition, so the empty list is indeed a prime decomposition of $1$.
+
+  For the inductive step, recall that any natural number $n+1>1$ has a least prime divisor. If $p$ is the least prime divisor of $n+1$, then it follows that $(n+1)/p\leq n$. By the strong induction hypothesis we have a unique prime decomposition $(q_0,\ldots,q_{l-1})$ of $(n+1)/p$. Now define the list $\ell:=(p_0,p_1,\ldots,p_l)$ by $p_0:=p$ and $p_{i+1}:=q_i$. Then each $p_i$ is a prime divisor of $n+1$, and since $p_0$ is the least prime divisor of $n+1$ we have the inequalities
+  \begin{equation*}
+    p_0\leq p_1 \leq \cdots \leq p_l.
+  \end{equation*}
+  Furthermore, we have
+  \begin{equation*}
+    n+1 = p\cdot ((n+1)/p) = p_0 \cdot \prod_{i=1}^l p_i = \prod_{i=0}^l p_i.
+  \end{equation*}
+  This proves that the prime decomposition of $n+1$ exists.
+
+  To show that the prime decomposition of $n+1$ is unique, let $(r_0,\cdots,r_k)$ be a prime decomposition of $n+1$. The smallest prime divisor $p$ of $n+1$ then divides the product
+  \begin{equation*}
+    p \mid \prod_{i=0}^k r_i.
+  \end{equation*}
+  This implies that $p\mid r_i$ for some $0\leq i \leq k$, i.e., that $p=r_i$. However, $p$ is assumed to be the smallest prime factor of $n+1$, so it follows that $p=r_0$. Now it follows that $(r_1,\ldots,r_k)$ is a prime decomposition of $(n+1)/p$, which is unique, and therefore we conclude that $n+1$ has a unique prime factorization.
+\end{proof}
+
+\begin{exercises}
+  \exercise Show that
+  \begin{equation*}
+    p\mid \binom{p}{k}
+  \end{equation*}
+  for any $0<k<p$, and any prime number $p$.
+  \exercise Show that
+  \begin{equation*}
+    4^{\frac{p-1}{2}}\equiv 1\pmod{p}
+  \end{equation*}
+  for any odd prime number $p$.
+  \exercise Define the $n$th \emph{Mersenne number} $M_n$ to be
+  \begin{equation*}
+    M_n:=2^n-1.
+  \end{equation*}
+  Show that if $n$ is composite, then so is $M_n$. Conclude that if $M_n$ is prime, then so is $n$. Prime numbers of the form $M_p$ for some prime number $p$ are called \emph{Mersenne primes}.
+  \exercise A natural number $n$ is said to be \emph{perfect} if it is the sum of its proper divisors. Show that an even number is perfect if and only if it is of the form $2^{p-1}M_p$, where $M_p$ is a Mersenne prime.
+  \exercise Consider a fixed set $\{p_1,\ldots,p_n\}$ of $n$ distinct primes. Given a natural number $k$, how many numbers can be written as a product
+  \begin{equation*}
+    p_1^{m_1}\cdots p_n^{m_n}
+  \end{equation*}
+  such that $m_1+\cdots +m_n=k$?
+\end{exercises}
