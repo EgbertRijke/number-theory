@@ -1,0 +1,64 @@
+\chapter{Arithmetic Functions}
+
+\section{Multiplicative Functions}
+
+A function $f$ defined on the natural numbers or integers with output in any number system, such as the integers, real numbers, or complex numbers, is called an \emph{arithmetic function}. For example, Euler's totient function $\phi$, which returns for each $n$ the number of elements $0<k<n$ relatively prime to $n$, is an arithmetic function. Some other important arithmetic functions include the \emph{number of divisors function} $\tau$ and the \emph{sum of divisors function} $\sigma$:
+\begin{equation*}
+  \tau(n) := \sum_{d\mid n}1\qquad\text{and}\qquad \sigma(n) := \sum_{d\mid n}d.
+\end{equation*}
+
+\begin{definition}
+  An arithmetic function $f$ is said to be \emph{multiplicative} if for any two relatively prime natural numbers $m$ and $n$ we have
+  \begin{equation*}
+    f(mn)=f(m)f(n).
+  \end{equation*}
+\end{definition}
+
+\section{Dirichlet Convolution}
+
+\begin{definition}
+  Consider two arithmetic functions $f$ and $g$. We define their \emph{Dirichlet convolution} $f\ast g$ by
+  \begin{equation*}
+    (f\ast g)(n) := \sum_{d\mid n}f(d)g\left(\frac{n}{d}\right).
+  \end{equation*}
+\end{definition}
+
+\section{The M\"obius Inversion Formula}
+
+\begin{definition}
+  The \emph{M\"obius function} $\mu$ is defined by
+  \begin{equation*}
+    \mu(n) :=
+    \begin{cases}
+      (-1)^k & \text{if $n$ is the product of $k$ distinct primes,} \\
+      0 & \text{if $p^2\mid n$ for some prime $p$.}
+    \end{cases}
+  \end{equation*}
+\end{definition}
+
+For example, $\mu(3\cdot 7\cdot 17^3\cdot 31)=0$ because the input is divisible by $17^2$. On the other hand, $\mu(3\cdot 7\cdot 17\cdot 31)=1$ because the input is the product of four distinct primes.
+The following table lists the values of $\mu(n)$ for the first $15$ natural numbers
+
+\begin{center}
+  \begin{tabular}{c|ccccccccccccccc}
+    $n$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ & $13$ & $14$ \\ \midrule
+    $\mu(n)$ & $0$ & $1$ & $-1$ & $-1$ & $0$ & $-1$ & $1$ & $-1$ & $0$ & $0$ & $1$ & $-1$ & $0$ & $-1$ & $1$
+  \end{tabular}
+\end{center}
+
+\begin{theorem}
+  Consider two arithmetic functions $f$ and $g$. Then we have
+  \begin{equation*}
+    g(n)=\sum_{d\mid n}f(d)\qquad\Leftrightarrow\qquad f(n)=\sum_{d\mid n}\mu(d)g\left(\frac{n}{d}\right).
+  \end{equation*}
+\end{theorem}
+
+\begin{exercise}
+  \exercise Show that the number $\tau(n)$ of divisors of $n$ is odd if and only if $n$ is a square number.
+\end{exercise}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "lectures-on-number-theory"
+%%% End:
+

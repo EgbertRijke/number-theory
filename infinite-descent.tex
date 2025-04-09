@@ -1,0 +1,191 @@
+\chapter{Infinite Descent}
+
+\section{The Method of Infinite Descent}
+
+The method of infinite descent was invented by Fermat. He used this method effectively to solve various problems, including that there are no solutions to $x^4+y^4=z^4$ in the positive integers, and that the area of a right triangle is not a perfect square. The method of infinite descent is used to show that certain properties or identities are impossible, by showing that if they do hold then an infinitely descending sequence of natural numbers can be constructed. The following theorem shows that there is no such sequence.
+
+\begin{proposition}\label{proposition:infinite-descent}
+  There is no infinite descending sequence
+  \begin{equation*}
+    a_0 > a_1 > a_2 > \cdots
+  \end{equation*}
+  of natural numbers.
+\end{proposition}
+
+\begin{proof}
+  Suppose, by way of contradiction, that there is such a sequence
+  \begin{equation*}
+    a_0 > a_1 > a_2 > \cdots.
+  \end{equation*}
+  Then the set
+  \begin{equation*}
+    A:=\{a_0,a_1,a_2,\ldots\}
+  \end{equation*}
+  is a nonempty subset of the natural numbers, and by the \crefnamed{theorem:well-ordering-natural-numbers}{well-ordering principle} of the natural numbers it follows that this set has a least element. However, all the elements in $A$ are of the form $a_n$ for some natural number $\mathbb{N}$, and none of these elements are minimal, since we have assumed that $a_n>a_{n+1}$. This contradiction shows that our assumption that there exists an infinite descending sequence must be false, and thus there is no such sequence.
+\end{proof}
+
+The previous proposition leads to Fermat's method of infinite descent. Fermat observed that if an assumption $H$ leads to an infinite descending sequence, then the assumption $H$ must be false. We will illustrate Fermat's method with the following theorem:
+
+\begin{theorem}\label{theorem:irrational-sqrt}
+  If a natural number $n$ is not a perfect square, then its square root $\sqrt{n}$ is irrational.
+\end{theorem}
+
+\begin{proof}
+  We will prove the theorem by deriving a contradiction under the assumption that there is a rational number $\frac{a}{b}$ such that
+  \begin{equation*}
+    \frac{a^2}{b^2}=n.
+  \end{equation*}
+  This equation can be written in the form $a^2=nb^2$, where $n$ is not a perfect square. In other words, our goal is to show that the set
+  \begin{equation*}
+    A:=\{(a,b)\mid a^2=nb^2\}
+  \end{equation*}
+  is empty. We will do so by constructing a function $(a,b)\mapsto (a',b')$ on the set $A$, so that $a>a'$. If the set $A$ was nonempty, then we would obtain an infinite descending sequence of natural numbers by iterating this function, thus reaching a contradiction by \cref{proposition:infinite-descent}.
+
+  Consider $a$ and $b$ such that $a^2=nb^2$. Since $n$ is not a perfect square, it has a prime divisor $p$ such that
+  \begin{equation*}
+    n=p^{2k+1}m
+  \end{equation*}
+  for an odd number $2k+1$ and a number $m$ not divisible by $p$. It follows that
+  \begin{equation*}
+    p^{2k+1}\mid a^2.
+  \end{equation*}
+  By the pigeonhole principle it follows that $p^{k+1}\mid a$, which also implies that $a$ is divisible by $p$. However, this implies the slightly stronger divisibility relation
+  \begin{equation*}
+    p^{2(k+1)}\mid nb^2.
+  \end{equation*}
+  However, $n$ is not divisible by $p^{2(k+1)}$ so it follows that $b$ is divisible by $p$. Thus, we have shown that both $a$ and $b$ are divisible by $p$. We may therefore define
+  \begin{equation*}
+    a':=\frac{a}{p}\qquad\text{and}\qquad b':=\frac{b}{p}.
+  \end{equation*}
+  Since multiplication by $p^2$ is injective we find that $a'^2=nb'^2$, completing the proof.
+\end{proof}
+
+In the previous proof we introduced a set $A$ of which the elements were pairs $(a,b)$ of natural numbers satisfying $a^2=nb^2$, and we defined a function $f:A\to A$ in order to show that $A$ is empty. In the following theorem we state the method of infinite descent using a generalization of this setup.
+
+\begin{theorem}[Method of Infinite Descent]\label{theorem:method-of-descent}
+  Consider a set $A$ equipped with a function $f:A\to A$ and a function $h:A\to\mathbb{N}$. If $h(f(a))<h(a)$ for all $a$, then $A$ is empty.
+\end{theorem}
+
+\begin{proof}
+  Suppose, by way of contradiction, that the set $A$ is inhabited by an element $a\in A$. By iterating $f$, we define a sequence of elements $a_i$ by
+  \begin{align*}
+    a_0 & := a \\
+    a_{i+1} & := f(a_i).
+  \end{align*}
+  Then we have $h(a_0)>h(a_i)>h(a_2)>\cdots$, which is an infinite descending sequence of natural numbers. Thus, the assumption that $A$ is inhabited was false.
+\end{proof}
+
+\section{The Unsolvability of \texorpdfstring{$x^4+y^4=z^4$}{x⁴ + y⁴ = z⁴}}
+
+\begin{theorem}
+  There are no three positive integers $x$, $y$, and $z$ for which the equation
+  \begin{equation*}
+    x^4+y^4=z^2
+  \end{equation*}
+  holds.
+\end{theorem}
+
+\begin{proof}
+  Consider the set
+  \begin{equation*}
+    A:=\{(x,y,z)\in\mathbb{Z}_{>0} \mid x^4+y^4=z^2\}
+  \end{equation*}
+  with $h(x,y,z):=z$. We will construct a function $f:A\to A$ such that $h(f(x,y,z))<h(x,y,z)$ for every $(x,y,z)\in A$.
+  
+  First, we notice that if $(x,y,z)$ is a triple of positive integers satisfying the equation $x^4+y^4=z^2$, then $(x^2,y^2,z)$ is a Pythagorean triple. We may assume that $x$ and $y$ are relatively prime, since we can always divide out any common factors. Furthermore, we may assume that $x$ is even, so that
+  \begin{align*}
+    x^2 & = 2st \\
+    y^2 & = s^2-t^2 \\
+      z & = s^2+t^2,
+  \end{align*}
+  where $s$ and $t$ are relatively prime.
+
+  The key observation is now in the second equation: We obtain a new Pythagorean triple $y^2+t^2=s^2$, allowing us to apply the parametrization of Pythagorean triples once more. Since $y$ was assumed to be odd it follows that $t$ is even, so we find relatively prime integers $u$ and $v$ such that
+  \begin{align*}
+    t & = 2uv \\
+    y & = u^2-v^2 \\
+    s & = u^2+v^2.
+  \end{align*}
+  Now it follows that $x^2=4uv(u^2+v^2)$. We claim that the numbers $uv$ and $u^2+v^2$ are relatively prime. To see this, note that any prime divisor $p$ of $uv$ must be a prime divisor of $u$ or $v$. On the other hand, given that $p$ is a prime divisor of one of $u$ and $v$, if $p$ were also a prime divisor of $u^2+v^2$, then it would follow that $p$ is a prime divisor of both $u$ and $v$. This contradicts the assumption that $u$ and $v$ are relatively prime.
+
+  Since $uv$ and $u^2+v^2$ are relatively prime, the fact that $4uv(u^2+v^2)$ is a square implies that both $uv$ and $u^2+v^2$ are squares. Given that $u$ and $v$ are relatively prime, this implies that $u$ and $v$ are squares, i.e., that there are integers $a$ and $b$ such that $u=a^2$ and $v=b^2$. Thus, it follows that
+  \begin{equation*}
+    u^2+v^2=a^4+b^4
+  \end{equation*}
+  is a square, say $c^2$. We have therefore shown that any triple of positive integers $x$, $y$, and $z$ such that $x^4+y^4=z^2$ we can construct positive integers $a$, $b$, and $c$ such that
+  \begin{equation*}
+    a^4 + b^4 = c^2
+  \end{equation*}
+  This finishes the construction of the function $f:A\to A$. Furthermore, the strict inequality $c^2=s<s^2+t^2=z^2$ shows that $h(f(x,y,z))<h(x,y,z)$, so we conclude by the \crefnamed{theorem:method-of-descent}{method of infinite descent} that the set $A$ must be empty.
+\end{proof}
+
+\begin{corollary}
+  There is no solution to the equation
+  \begin{equation*}
+    x^{4n}+y^{4n}=z^{4n},
+  \end{equation*}
+  where $x$, $y$, and $z$ are positive integers.
+\end{corollary}
+
+\begin{proof}
+  Given such a solution, set $a=x^n$, $b=y^n$, and $c=z^{2n}$. Then we have
+  \begin{equation*}
+    a^4+b^4=c^2,
+  \end{equation*}
+  which is impossible.
+\end{proof}
+
+\section{Vieta Jumping}
+
+Consider a polynomial with roots $a_1$, $a_2$, and $a_3$, i.e., the polynomial
+\begin{equation*}
+  (x-a_1)(x-a_2)(x-a_3).
+\end{equation*}
+If we expand this polynomial, it takes the form
+\begin{equation*}
+  x^3-(a_1+a_2+a_3)x^2+(a_1a_2+a_2a_3+a_3a_1)x-a_1a_2a_3.
+\end{equation*}
+François Vi\`ete recognized in the 16th century that this yields a relation between the coefficients and the roots of a monic polynomial, i.e., a polynomial with leading coefficient $1$. In the case of a monid polynomial $x^3+c_2x^2+c_1x+c_0$ with roots $a_1$, $a_2$, and $a_3$, we get
+\begin{align*}
+  c_2 & = -(a_1+a_2+a_3) \\
+  c_1 & = a_1a_2+a_1a_3+a_2a_3 \\
+  c_0 & = -a_1a_2a_3.
+\end{align*}
+
+More generally, the coefficients of the polynomial
+\begin{equation*}
+  f(x)=(x-a_1)\cdots (x-a_n)
+\end{equation*}
+are of the form
+\begin{equation*}
+  e_k(a_1,\ldots,a_n):=\sum_{1\leq i_1<i_2<\cdots<i_k\leq n}a_{i_1}a_{i_2}\cdots a_{i_k}.
+\end{equation*}
+Notice that these coefficients are themselves polynomials in the variables $a_1,\ldots,a_n$. These polynomials are called the \emph{elementary symmetric polynomials}. For example, for $n=3$ we have
+\begin{equation*}
+  f(x)=x^3-(a_1+a_2+a_3)x^2+(a_1a_2+a_1a_3+a_2a_3)x-a_1a_2a_3.
+\end{equation*}
+
+Vieta jumping is a modern problem-solving technique that became popular in international contest problems.
+
+\begin{exercises}
+  \exercise Use the method of infinite descent to show that if $a$ and $b$ are relatively prime and the product $ab$ is a square, then both $a$ and $b$ are squares.
+  \exercise Let $x$ and $y$ be positive integers satisfying the equation
+  \begin{equation*}
+    x^2-xy+y^2=1.
+  \end{equation*}
+  Prove that $x=y=1$.
+  \exercise Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2+1$, then
+  \begin{equation*}
+    \frac{x^2+y^2+1}{xy}=3.
+  \end{equation*}
+  \exercise Let $x$, $y$, and $z$ be positive integers such that $xy+yz+zx$ divides $x^2+y^2+z^2$. Prove that
+  \begin{equation*}
+    \frac{x^2+y^2+z^2}{xy+yz+zx}
+  \end{equation*}
+  is a perfect square.
+\end{exercises}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "lectures-on-number-theory"
+%%% End:

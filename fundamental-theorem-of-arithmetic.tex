@@ -1,5 +1,3 @@
-% -*- TeX-master: "lectures-on-number-theory" -*-
-
 \chapter{The Fundamental Theorem of Arithmetic}\label{chapter:fundamental-theorem-of-arithmetic}
 
 \section{Prime Numbers}
@@ -53,13 +51,17 @@ We can use this observation to obtain the list of all primes below $100$, at sta
 
 The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which $Q_n$ is empty, or there are infinitely many primes. We will now show that there are infinitely many primes. In the following lemma we use the concept of \emph{nontrivial divisors}, which are divisors $d$ of a natural number $n$ such that $d\neq 1$. The concept of nontrivial divisors should not be confused with the concept of proper divisors, which are divisors $d$ of a natural number $n$ such that $d\neq n$.
 
-\begin{lemma}
+\begin{theorem}
   Any natural number $n>1$ has a least nontrivial divisor, and this divisor is prime.
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
   Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by the well-ordering principle of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
 \end{proof}
+
+\section{The Infinitude of Primes}
+
+The theorem asserting the infinitude of primes asserts that no finite set of primes is the set of all primes. Many proofs of the infinitude of primes require the following lemma:
 
 \begin{lemma}
   If $a$ and $b$ are relatively prime integers, then any prime divisors of $a$ are distinct from any prime divisors of $b$.
@@ -87,6 +89,8 @@ The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which 
   Since $n$ can be written in this way, it follows that $n$ is relatively prime to each $p_i$. Consequently, the least prime divisor of $n$ is relatively prime to each $p_i$. In other words, the least prime divisor of $n$ is not in the set of primes $\{p_0,\ldots,p_k\}$.
 \end{proof}
 
+\subsection*{Saidak's Proof}
+
 There are many proofs of the infinitude of primes. The following is due to Filip Saidak \cite{Saidak2006}, who published his proof in 2006, based on the idea that if $n=ab$ is the product of two numbers that are relatively prime and both at least $2$, then $n$ must have two prime factors.
 
 \begin{proof}[Saidak's proof of \cref{theorem:infinitude-of-primes}]
@@ -97,7 +101,9 @@ There are many proofs of the infinitude of primes. The following is due to Filip
   We claim that $N_n$ has at least $n$ prime factors. In the base case, we note that it is indeed true that $1$ has at least zero prime factors. For the inductive step, suppose that $N_n$ has at least $n$ prime factors. The number $N_n+1$ is relatively prime to $N_n$, so its prime factors are all distinct from the prime factors of $N_n$. Furthermore, we have $1<N_n+1$, so $N_n+1$ indeed has at least one prime factor. Thus it follows that $N_{n+1}$ has at least $n+1$ prime factors, and therefore there must be infinitely many primes.
 \end{proof}
 
-Finally, we present a proof of the infinitude of primes due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private corresponcences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
+\subsection*{Goldbach's Proof}
+
+Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private corresponcences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
 
 Recall that the Fermat numbers $\Phi_n$ are defined by
 \begin{equation*}
@@ -118,6 +124,40 @@ Recall that the Fermat numbers $\Phi_n$ are defined by
 
 \begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]
   Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $\Phi_n$, then we picked infinitely many distinct prime numbers.
+\end{proof}
+
+\subsection*{The Furstenberg proof, following Cass--Wildenberg}
+
+The following proof of the infinitude of primes is, in its essence, due to Hillel Furstenberg \cite{furstenberg1955}. In its original formulation, this proof makes clever use of a topology on $\mathbb{Z}$. Although topologies are not hard to define, motivating them is beyond the scope of this course. We will therefore present a revised version of Furstenberg's proof, following Daniel Cass and Gerald Wildenberg \cite{cass2003}.
+
+The Cass--Wildenberg approach to prove the infinitude of primes makes use of the concept of a periodic subset of $\mathbb{Z}$. A subset $A\subseteq\mathbb{Z}$ is said to be \emph{periodic with period $n$}, or simply \emph{periodic} if we merely assume such a natural number $n$ to exist, if we have
+\begin{equation*}
+  x\in A\qquad\Leftrightarrow\qquad x+n\in\mathbb{Z}.
+\end{equation*}
+Thus, if $A$ is a periodic subset of $\mathbb{Z}$ with period $n$, and $x\in A$, then
+\begin{equation*}
+  x+kn\in A
+\end{equation*}
+for all $k\in\mathbb{Z}$. In particular, all inhabited periodic subsets of $\mathbb{Z}$ are infinite. We note two basic facts about periodic subsets of $\mathbb{Z}$, which we leave to the reader to verify:
+\begin{enumerate}
+\item If $A_1,\ldots,A_m$ is a finite family of periodic subsets of $\mathbb{Z}$, each with their own periods, then the union
+  \begin{equation*}
+    A_1\cup\cdots\cup A_m
+  \end{equation*}
+  is again a periodic subset of $k$. The period of the union is the least common multiple of the periods of the subsets $A_i$.
+\item If $A$ is a periodic subset of $\mathbb{Z}$, then its complement $\complementsubset{A} :=\{x\in\mathbb{Z}\mid x\notin A\}$ is periodic with the same period.
+\end{enumerate}
+
+\begin{proof}[The Furstenberg proof of \cref{theorem:infinitude-of-primes}, following Cass--Wildenberg]
+  Consider the subsets
+  \begin{equation*}
+    S_p:=\{kp\mid k\in\mathbb{Z}\},
+  \end{equation*}
+  where $p$ is a prime number, and define
+  \begin{equation*}
+    S:=\bigcup_{p\,\mathrm{prime}}S_p.
+  \end{equation*}
+  Since every integer besides $\pm 1$ is divisible by a prime, it follows that $S$ consists of all the integers besides $\pm 1$. The complement of $S$ is therefore the set $\{-1,1\}$. Note that the subset $\{-1,1\}$ of $\mathbb{Z}$ cannot be periodic, since is inhabited and finite. This allows us to conclude that the subset $S$ of $\mathbb{Z}$ is not periodic. However, if there were only finitely many primes, then $S$ would be periodic because it would be a finite union of periodic subsets of $\mathbb{Z}$. Thus we conclude that there must be infinitely many primes.
 \end{proof}
 
 \section{The Fundamental Theorem of Arithmetic}
@@ -175,6 +215,7 @@ The following proposition is due to Euclid, who included it as proposition 30 of
 \end{proof}
 
 \begin{exercises}
+  \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
   \exercise Show that
   \begin{equation*}
     p\mid \binom{p}{k}
@@ -197,3 +238,8 @@ The following proposition is due to Euclid, who included it as proposition 30 of
   \end{equation*}
   such that $m_1+\cdots +m_n=k$?
 \end{exercises}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "lectures-on-number-theory"
+%%% End:

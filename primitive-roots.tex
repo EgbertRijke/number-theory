@@ -1,5 +1,3 @@
-% -*- TeX-master: "lectures-on-number-theory" -*-
-
 \chapter{Primitive Roots}\label{chapter:primitive-roots}
 
 \section{The Multiplicative Order of an Integer Modulo $n$}
@@ -160,6 +158,38 @@ The logical equivalence in the definition of the order of an element can be used
 
   Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
 \end{remark}
+
+\section{The Infinitude of Primes Congruent to 1 Modulo Powers of 2}
+
+One way to show that a prime $p$ is congruent to $1$ modulo $n$ is by finding an integer $a$ such that
+\begin{equation*}
+  \ord_p(a)=n.
+\end{equation*}
+By the \crefnamed{theorem:order-theorem}{Order Theorem} and \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem}, this implies that $n\mid p-1$. We will use this idea to show that there are infinitely many primes congruent to $1$ modulo any power of $2$. In particular, there are infinitely many primes congruent to $1$ modulo $4$, modulo $8$, modulo $16$, and so on.
+
+\begin{theorem}\label{theorem:infinitude-of-primes-1-mod-power-of-2}
+  For any positive natural number $n$, there are infinitely many primes congruent to $1$ modulo $2^n$.
+\end{theorem}
+
+\begin{proof}
+  Since $p\equiv 1\pmod{2^{n+1}}$ implies that $p\equiv 1\pmod{2^n}$, it suffices to show that for any finite list $p_1,\ldots,p_k$ of primes congruent to $1$ modulo $2^{n+1}$, there is a prime $q\equiv 1\pmod{2^{n+1}}$ which is not among the primes $p_i$.
+
+  Given such a list of primes $p_i$, let
+  \begin{equation*}
+    a:=2p_1\cdots p_k,
+  \end{equation*}
+  and let $q$ be a prime divisor of the integer $b:=a^{2^n}+1$. Note that $q$ is necessarily an odd prime, since $a$ is even and hence $b$ is odd. Since $p_i\nmid b$ for any $i$, it follows that $q$ is not among the primes $p_i$. Furthermore, we observe that
+  \begin{equation*}
+    a^{2^n}\equiv -1\pmod{q}.
+  \end{equation*}
+  This implies that $\ord_q(a)\mid 2^{n+1}$, while clearly $\ord_q(a)\nmid 2^n$. Thus, we must have $\ord_q(a)=2^{n+1}$, and this allows us to conclude that $q\equiv 1\pmod{2^{n+1}}$.
+\end{proof}
+
+The previous theorem is a special case of a deep theorem in analytic number theory: \emph{Dirichlet's Theorem}. Dirichlet's Theorem shows that for any integer $a$ relatively prime to $n$, there are infinitely many primes
+\begin{equation*}
+  p\equiv a\pmod{n}.
+\end{equation*}
+The techniques of proving Dirichlet's Theorem are beyond the scope of this course. However, having taken this course, you are well equipped to read LeVeque's excellent \emph{Topics in Number Theory} \cite{leveque1956vol1,leveque1956vol2}, a two-volume work that contains well-explained proofs of Dirichlet's Theorem as well as the Prime Number Theorem.
 
 \section{Counting by Orders Modulo a Prime}
 
@@ -452,6 +482,11 @@ We conclude with an observation of Sophie Germain.
   \end{equation*}
   then $m\mid n$.
   \exercise Show that $\ord_{a^k-1}(a)=k$.
+  \exercise Suppose that there is an integer $a$ of even order modulo $p$. Prove that there is a unique integer of order $2$ modulo $p$.
+  \exercise Prove that for any prime $p$ and any integer $a$ not divisible by $p$, there is a primitive root $g$ modulo $p$ such that
+  \begin{equation*}
+    g^{\frac{p-1}{\ord_p(a)}}\equiv a\pmod{p}.
+  \end{equation*}
   \exercise
   \begin{subexenum}
   \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
@@ -473,3 +508,8 @@ We conclude with an observation of Sophie Germain.
   \end{equation*}
   form a strong division sequence.
 \end{exercises}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "lectures-on-number-theory"
+%%% End:

@@ -1,12 +1,18 @@
-\documentclass{book}
+\documentclass[usletter]{book}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
+\usepackage{titling}
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{booktabs}
+\usepackage{caption}
+\usepackage[dvipsnames]{xcolor}
+
+\captionsetup[figure]{font=small}
+\captionsetup[table]{font=small}
 
 \usepackage{tocbibind}
 \usepackage{amsmath, amssymb, amsthm}
@@ -78,6 +84,8 @@
 }
 \usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
 
+\crefname{table}{Table}{Tables}
+
 \crefname{theorem}{Theorem}{Theorems}
 \Crefname{theorem}{Theorem}{Theorems}
 
@@ -133,14 +141,91 @@
 
 \setcounter{tocdepth}{2}
 
+\newcommand{\Sierpinski}{Sierpiński}
 \newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
 \renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\ind}{ind}
+\newcommand{\legendre}[2]{%
+  \mathchoice
+    {\left(\frac{#1}{#2}\right)}% display style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% text style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% script style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% scriptscript style
+}
+\newcommand{\lres}[2]{\ensuremath{\lfloor #1 \rceil_{#2}}}
+\newcommand{\abslres}[2]{\ensuremath{|\mkern-3mu \lfloor #1 \rceil\mkern-3mu |_{#2}}}
+\newcommand{\complementsubset}[1]{#1^{\mathrm{c}}}
 
 \begin{document}
 
-\maketitle
+\thispagestyle{empty}
+\begingroup
+\begin{titlepage}
+  \begin{center}
+    % Optional vertical spacing
+
+    % Title and other text
+    {\Huge\textbf{Johns Hopkins University}} \\[1cm]
+    {\LARGE\textsc{Math 304}} \\[1cm]
+    {\LARGE Egbert Rijke}\\[1cm]
+
+    % Insert the picture
+    \begin{tikzpicture}[scale=5]
+      % (Insert your TikZ code here)
+      \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
+      \draw[ultra thick] (0,0) circle (1);
+      \coordinate (P1) at ({117/125},{44/125});
+      \coordinate (P2) at ({45/53},{-28/53});
+      \coordinate (P3) at ({5/13},{12/13});
+      \coordinate (P4) at ({-3/5},{4/5});
+
+      \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
+      \draw[CornflowerBlue,ultra thick,->,shorten >=2ex] (P1) -- (P2);
+      \draw[BurntOrange,ultra thick,dashed] (1,-1) -- (P2);
+      \draw[BurntOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
+      \draw[Green,ultra thick,dashed] (1,1) -- (P3);
+      \draw[Green,ultra thick,->,shorten >=1.5ex] (P3) -- (P4);
+      \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
+      \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
+      \draw[fill=white,very thick] (P1) circle (.5pt);
+      \draw[fill=white,very thick] (P2) circle (.5pt);
+      \draw[fill=white,very thick] (P3) circle (.5pt); 
+      \draw[fill=white,very thick] (P4) circle (.5pt);
+      \draw[fill=black,very thick] (1,0) circle (.5pt);
+    \end{tikzpicture}
+    
+    % Adjust vertical spacing as needed
+    \vspace{1cm}
+    
+    {\Huge \textbf{Elementary Number Theory}} \\[1cm]
+    {\LARGE\textit{\today}}
+  \end{center}
+\end{titlepage}
+\endgroup
+
+% \thispagestyle{empty}
+
+% \begingroup
+% %\renewcommand{\rmdefault}{ebgaramond}
+
+% \begin{center}
+%     \vspace*{3cm}
+%     {\Huge\textbf{Johns Hopkins University}} \\[1cm]
+%     {\LARGE\textsc{Math 304}} \\[4cm]
+%     {\Huge \textbf{Elementary Number Theory}} \\[1cm]
+%     {\LARGE\textit{Spring 2025}}\\[2cm]
+%     {\LARGE Egbert Rijke}
+% \end{center}
+
+% \vfill
+% \begin{center}
+%     {\large \today}
+% \end{center}
+
+% \endgroup % Return to newtxtext for the main document
+
+% \newpage % Ensures the rest of the document uses newtxtext
 
 \frontmatter
 
@@ -160,11 +245,13 @@
 
 \input{linear-diophantine-equations}
 
-\input{polynomials}
-
 \input{fundamental-theorem-of-arithmetic}
 
+\input{polynomials}
+
 \input{pythagorean-triples}
+
+\input{infinite-descent}
 
 \input{congruences}
 
@@ -177,6 +264,14 @@
 \input{primitive-roots}
 
 \input{quadratic-residues}
+
+\input{quadratic-reciprocity}
+
+\input{arithmetic-functions}
+
+\input{dirichlet-series}
+
+\input{distribution-of-primes}
 
 \printbibliography[heading=bibintoc]
 

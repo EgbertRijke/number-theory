@@ -1,0 +1,25 @@
+\chapter{Dirichlet Series}
+
+\section{The Dirichlet Series of an Arithmetic Function}
+
+\begin{definition}
+  The \emph{Dirichlet series} of an arithmetic function $f$ is the function
+  \begin{equation*}
+    D_f(s):\sum_{n=1}^\infty\frac{f(n)}{n^s}
+  \end{equation*}
+  in a complex variable $s$.
+\end{definition}
+
+\section{The Euler Product Formula}
+
+\begin{theorem}
+  Consider a multiplicative arithmetic function $f$. Then its Dirichlet series $D_f$ satisfies the \emph{Euler product formula}:
+  \begin{equation*}
+    \sum_{n=1}^\infty\frac{f(n)}{n^s} = \prod_{p}\left(\sum_{k=1}^{\infty}\frac{f(p^k)}{p^{ks}}\right).
+  \end{equation*}
+\end{theorem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "lectures-on-number-theory"
+%%% End:

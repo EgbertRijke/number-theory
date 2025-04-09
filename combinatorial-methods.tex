@@ -1,6 +1,4 @@
-% -*- TeX-master: "lectures-on-number-theory" -*-
-
-\chapter[Combinatorial Methods]{Combinatorial Methods in Number Theory}\label{chapter:combinatorial-methods}
+\chapter{Counting}\label{chapter:combinatorial-methods}
 
 Combinatorics, or discrete mathematics, is mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Sometimes, counting methods can be used to obtain results in number theory. In this lecture we will use a combinatorial argument to show that the product
 \begin{equation*}
@@ -186,7 +184,7 @@ Now we might recognize an emerging pattern in the coefficients of these polynomi
 The binomial theorem has many proofs, including combinatorial proofs and algebraic proofs. All these proofs have their own merits. We will present here an algebraic proof, using induction, since it is the most easily applicable to settings other than the integers.
 
 \begin{theorem}\label{theorem:binomial-theorem}
-  \emph{The binomial theorem.} In any number system, such as the natural numbers, the integers, the rational numbers, the reals, the complex numbers\footnote{More generally, the binomial theorem applies to any commutative semiring}, we have
+  \emph{The binomial theorem.} In any number system, such as the natural numbers, the integers, the rational numbers, the reals, the complex numbers\footnote{More generally, the binomial theorem applies to any semiring, conditional on the assumption that $xy=yx$.}, we have
   \begin{equation*}
     (x+y)^n = \sum_{k=0}^n \binom{n}{k}x^ky^{n-k}.
   \end{equation*}
@@ -209,6 +207,41 @@ The binomial theorem has many proofs, including combinatorial proofs and algebra
 \end{proof}
 
 The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2nd century BCE. Around the 11th century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13th century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
+
+\section{The Inclusion-Exclusion Principle}
+
+Consider two subsets $A$ and $B$ of a set $X$. The \emph{union} of $A$ and $B$ is the set
+\begin{equation*}
+  A\cup B :=\{x\in X\mid x\in A\text{ or }x\in B\}.
+\end{equation*}
+Given that $X$ is a finite set, we may wish to determine the number of elements in $A\cup B$. Note, however, that in general the answer is not found by simply adding up the number of elements of $A$ and the number of elements in $B$. Indeed, some elements might be contained in both subsets, and they would therefore be counted double. Since every element in the intersection $A\cap B$ is counted twice, the correct formula for the number of elements in $A\cup B$ is:
+\begin{equation*}
+  |A\cup B| = |A| + |B| - |A\cap B|.
+\end{equation*}
+
+\begin{example}
+  Consider the set $X=\{1,\ldots,100\}$, and our goal is to find the number of integers in $X$ that are neither divisible by $2$ nor by $3$. This problem can be solved with the inclusion-exclusion principle.
+
+  Let $A$ and $B$ be the subsets of $X$ consisting of numbers divisible by $2$ and by $3$, respectively. The set $A\cap B$ then consists of all the numbers divisible by both $2$ and $3$; that is, the numbers divisible by $6$.
+
+  There are $50$ numbers in $X$ divisible by $2$, there are $33$ numbers in $X$ divisible by $3$, and there are $16$ numbers in $X$ divisible by $6$. Thus, the total count of numbers in $X$ not divisible by either $2$ or $3$ is
+  \begin{equation*}
+    100-50-33+16=33.
+  \end{equation*}
+\end{example}
+
+The inclusion-exclusion principle is a generalization of the formula for the number of elements of $A\cup B$ to any finite number of subsets of a set $X$. To see the pattern, let us consider the case with three subsets $A$, $B$, and $C$ of a set $X$. Now, if we wish to determine the number of elements in $A\cup B\cup C$, we can again start by adding the numbers $|A|$, $|B|$, and $|C|$. Every element that was in exactly one of the three subsets is correctly accounted for, but we have overcounted the elements in $A\cap B$, $A\cap C$, and $B\cap C$. If we subtract the numbers $|A\cap B|$, $|A\cap C|$, and $|B\cap C|$ from our total, then we have correctly accounted for every element that was in at most two subsets. However, now we have subtracted every element in $A\cap B\cap C$ three times from our count, so we must add them again to arrive at the correct number:
+\begin{equation*}
+  |A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B \cap C|.
+\end{equation*}
+Thus, we see an alternating pattern emerging: Single sets are added, intersections of two sets are subtracted, triple intersections are added again, and so on. The inclusion-exclusion principle is stated with this alternating pattern.
+
+\begin{theorem}
+  Consider a set $X$ and a finite family of subsets $A_i\subset X$ indexed by $1\leq i\leq n$. Then the number of elements in the union of the subsets $A_i$ is given by
+  \begin{equation*}
+    |A_1\cup\cdots\cup A_n|=\sum_{k=1}^n (-1)^{k+1}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}|A_{i_1}\cap\cdots\cap A_{i_k}|\right).
+  \end{equation*}
+\end{theorem}
 
 \begin{exercises}
   \exercise Prove that
@@ -234,4 +267,22 @@ The binomial theorem has a long history. The earliest known references to aspect
     \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
   \end{equation*}
   The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
+  % \exercise
+  % \begin{subexenum}
+  % \item Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. %This is https://oeis.org/A147956
+  % \item Determine for each $n$ the number of integers from $1$ to the $n$th Fibonacci number $F_n$ that are not divisible by any Fibonacci number other than $1$.
+  % \end{subexenum}
+  % \exercise The Pell numbers $P_n$ are defined by
+  % \begin{equation*}
+  %   P_0:=0,\qquad P_1:= 1,\qquad\text{and}\qquad P_{n+2}:=2P_{n+1}+P_n.
+  % \end{equation*}
+  % \begin{subexenum}
+  % \item Find the first $20$ positive integers that are not divisible by any Pell number other than $1$.
+  % \item Determine for each $n$ the number of integers from $1$ to the $n$th Pell number $P_n$ that are not divisible by any Pell number other than $1$.
+  % \end{subexenum}
 \end{exercises}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "lectures-on-number-theory"
+%%% End:
