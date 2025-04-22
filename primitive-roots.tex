@@ -231,7 +231,7 @@ and by \cref{proposition:order-power} it follows that
 
 However, we can go further: There are two integers that have order $6$ modulo $13$, and indeed $\phi(6)=2$ as well. Similar for the we find that there are $\phi(1)$, $\phi(2)$, $\phi(3)$, and $\phi(4)$ integers of order $1$, $2$, $3$, and $4$, respectively. The following proposition tells us that modulo a prime $p$, the number of integers of order $k$ modulo $p$ is either $0$ or $\phi(k)$. This suggests that for any prime number $p$ and any $k\mid p-1$, it should be true that the number of elements of order $k$ is exactly $\phi(k)$. To prove this, we will need the following important fact about Euler's totient function:
 
-\begin{theorem}
+\begin{theorem}\label{theorem:dirichlet-convolution-phi}
   For every positive integer $n$, we have
   \begin{equation*}
     \sum_{d\mid n}\phi(d) = n,
@@ -511,5 +511,5 @@ We conclude with an observation of Sophie Germain.
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

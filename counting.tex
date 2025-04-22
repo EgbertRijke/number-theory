@@ -29,7 +29,7 @@ is the number $n!$. In other words, the factorial function counts the number of 
 \end{proposition}
 
 \begin{proof}
-  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exacly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction.
+  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exactly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction.
 
   Now suppose that the number of bijections $[n]\cong[n]$ is $n!$. We claim that for each $y\in[n+1]$ there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ such that $f(n)=y$.
 
@@ -50,7 +50,7 @@ is the number $n!$. In other words, the factorial function counts the number of 
   \end{equation*}
   given by $g\mapsto s\circ g$ is itself a bijection, because it is an invertible function. Indeed, it is its own inverse, because $s\circ s\circ g = g$ for any bijection $g$.
 
-  Thus, if $f:[n+1]\cong[n+1]$ is a bijection such that $f(n)=y$, then $s\circ f$ is a bijection satisfying $s(f(n))=n$. In other words, every bijection satisfying $f(n)=y$ corresponds uniquely to a bijection satsfying $f(n)=n$.
+  Thus, if $f:[n+1]\cong[n+1]$ is a bijection such that $f(n)=y$, then $s\circ f$ is a bijection satisfying $s(f(n))=n$. In other words, every bijection satisfying $f(n)=y$ corresponds uniquely to a bijection satisfying $f(n)=n$.
 
   Now we observe that there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ satisfying $f(n)=n$. Indeed, such bijections are uniquely determined by their restriction to the set $[n]$, and by the induction hypothesis there are $n!$ such bijections. Since there are $n+1$ possible choices of a value $y$, we conclude that there are $n!(n+1)$ bijections altogether from $[n+1]$ to $[n+1]$.
 \end{proof}
@@ -118,7 +118,7 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
 \end{lemma}
 
 \begin{proof}
-  The proof is by induction on $k$. There is exactly one $0$-permutation of any $n$-element set. To see that the number of $(k+1)$-permutations of an $n$-element set is $n\cdots(n-k)$, note that such a $(k+1)$-permutation consists of a choice of an element of $S$, and a $k$-permutation on the remaining $n-1$-element set of elements. Thus, the number of $(k+1)$-permutations on an $n$-element set is $n$ times the number of $k$-permuations on an $(n-1)$-element set, i.e., it is
+  The proof is by induction on $k$. There is exactly one $0$-permutation of any $n$-element set. To see that the number of $(k+1)$-permutations of an $n$-element set is $n\cdots(n-k)$, note that such a $(k+1)$-permutation consists of a choice of an element of $S$, and a $k$-permutation on the remaining $n-1$-element set of elements. Thus, the number of $(k+1)$-permutations on an $n$-element set is $n$ times the number of $k$-permutations on an $(n-1)$-element set, i.e., it is
   \begin{equation*}
     n(n-1)\cdots((n-1)-k+1)=n(n-1)\cdots(n-k).\qedhere
   \end{equation*}
@@ -236,7 +236,7 @@ The inclusion-exclusion principle is a generalization of the formula for the num
 \end{equation*}
 Thus, we see an alternating pattern emerging: Single sets are added, intersections of two sets are subtracted, triple intersections are added again, and so on. The inclusion-exclusion principle is stated with this alternating pattern.
 
-\begin{theorem}
+\begin{theorem}\label{theorem:inclusion-exclusion-principle}
   Consider a set $X$ and a finite family of subsets $A_i\subset X$ indexed by $1\leq i\leq n$. Then the number of elements in the union of the subsets $A_i$ is given by
   \begin{equation*}
     |A_1\cup\cdots\cup A_n|=\sum_{k=1}^n (-1)^{k+1}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}|A_{i_1}\cap\cdots\cap A_{i_k}|\right).
@@ -267,6 +267,13 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
     \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
   \end{equation*}
   The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
+  \exercise \label{exercise:estimates-central-binomial-coefficients}Show that the strict inequalities
+  \begin{equation*}
+    \frac{4^n}{2n+1} < \binom{2n}{n} < 4^n
+  \end{equation*}
+  hold for all $n\geq 1$.
+  \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. This is https://oeis.org/A147956
+  \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
   % \exercise
   % \begin{subexenum}
   % \item Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. %This is https://oeis.org/A147956
@@ -284,5 +291,5 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

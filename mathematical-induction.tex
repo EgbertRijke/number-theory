@@ -2,7 +2,7 @@
 
 \section{Reasoning About Infinitely Many Natural Numbers}
 
-Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns of truths and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Thruths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs—conclusive arguments that establish why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out what the natural numbers really are.
+Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns of truths and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Truths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs—conclusive arguments that establish why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out what the natural numbers really are.
 
 When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \emph{successor function} $n\mapsto n+1$. The collection of all natural numbers forms a set or type
 
@@ -10,20 +10,16 @@ When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we
   \mathbb{N}:=\{0,1,2,\ldots\}.
 \end{equation}
 
-Mathematicians often prefer to work with sets, while computer scientists might prefer to work with types, both of which are collections of abstract objects often referred to as \emph{elements}. The distinction is merely that of the logical framework being used: Most mathematicians rely on the Zermelo--Fraenkel set theory, while computer scientist rely on programming languages that often have a type theory in its foundation. Theorem proving in computer programs called \emph{proof assistants} is rapidly becoming a more essential mathematical activity for students and researchers alike. However, many of the most popular proof assistants are based on type theory, in which collections of mathematical objects are called types. While types behave in many respects very Thus $0$, $1$, $2$, $\ldots$ are elemements of the set of natural numbers. The set $\mathbb{N}$ also comes equipped with a successor function
+Mathematicians often prefer to work with sets, while computer scientists might prefer to work with types, both of which are collections of abstract objects often referred to as \emph{elements}. The distinction is merely that of the logical framework being used: Most mathematicians rely on the Zermelo--Fraenkel set theory, while computer scientist rely on programming languages that often have a type theory in its foundation. Theorem proving in computer programs called \emph{proof assistants} is rapidly becoming a more essential mathematical activity for students and researchers alike. However, many of the most popular proof assistants are based on type theory, in which collections of mathematical objects are called types.
 
-\begin{equation*}
-  S : \mathbb{N} \to \mathbb{N},
-\end{equation*}
-
-which is defined by $S(n):=n+1$. Furthermore, the zero element and the successor function together are sufficient to describe all the natural numbers. The mathematician's way to express this sufficiency is by stating the principle of \emph{mathematical induction}: Given any property $P(n)$ expressing a condition of an arbitrary natural number $n$, in order to prove that $P(n)$ is true for all $n$ it suffices to prove that:
+The natural number zero and the successor function together are sufficient to describe all the natural numbers. The mathematician's way to express this sufficiency is by stating the principle of \emph{mathematical induction}: Given any property $P(n)$ expressing a condition of an arbitrary natural number $n$, in order to prove that $P(n)$ is true for all $n$ it suffices to prove that:
 \begin{enumerate}
 \item The property $P(0)$ is true.
 \item For all $n$, if the property $P(n)$ holds then the property $P(n+1)$ holds.
 \end{enumerate}
 Mathematical induction works, because every natural number is either $0$ or it is the successor of a previous natural number. Proving a property for all natural numbers therefore breaks down in two cases: The \emph{base case} in which we prove that $P(0)$ is true, and the \emph{inductive step} where we prove that $P(n+1)$ is true provided that $P(n)$ is true.
 
-Proofs by induction can be broken down into the following steps: First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is to prove that $P(n)$ is true for all $n$. Then prove the base case. While this step is often trivial, it is a necessary part of an induction proof. Finally, for the inductive step, write down the exact induction hypothesis, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds. After these steps the proof that $P(n)$ holds is complete.
+Proofs by induction can be broken down into the following steps: First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is to prove that $P(n)$ is true for all $n$. Then prove the base case. While this step is often trivial, it is a necessary and essential part of an induction proof. Finally, for the inductive step, write down the exact induction hypothesis, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds. After these steps the proof that $P(n)$ holds is complete.
 
 \begin{theorem}
   For any natural number $n$ we have
@@ -47,11 +43,46 @@ Proofs by induction can be broken down into the following steps: First identify 
   \begin{equation*}
     S_n + (n+1) = \frac{n(n+1)}{2} + (n+1).
   \end{equation*}
-  Recall that $(n+1)=\frac{2(n+1)}{2}$. Therefore we can make the following computation:
+  Observe that $(n+1)=\frac{2(n+1)}{2}$. Therefore we can make the following computation:
   \begin{equation*}
     \frac{n(n+1)}{2} + (n+1) = \frac{n(n+1)}{2}+\frac{2(n+1)}{2} = \frac{n(n+1)+2(n+1)}{2}=\frac{(n+2)(n+1)}{2}.
   \end{equation*}
   Since $(n+2)(n+1)=(n+1)(n+2)$ it follows that $S_{n+1}=\frac{(n+1)(n+2)}{2}$ as desired.
+\end{proof}
+
+We illustrate induction with another example, the \emph{formula for the geometric series}.
+
+\begin{theorem}\label{theorem:formula-geometric-series}
+  For any real number $x$ not equal to $1$, the identity
+  \begin{equation*}
+    \sum_{k=0}^{n-1}x^k = \frac{x^n-1}{x-1}
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  The proof is by induction on $n$. In the case $n=0$ the sum
+  \begin{equation*}
+    \sum_{k=0}^{-1}x^k
+  \end{equation*}
+  is an empty sum, because it sums over all elements $0\leq k \leq -1$ of which there are none. In empty sums, nothing is being added, so they are always $0$. On the right hand side, we also see that
+  \begin{equation*}
+    \frac{x^0-1}{x-1}=\frac{1-1}{x-1}=0,
+  \end{equation*}
+  and hence the base case holds.
+
+  For the inductive step, assume that $\sum_{k=0}^{n-1}x^k=\frac{x^n-1}{x-1}$. Our goal is to show that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  Note that $\sum_{k=0}^{n}x^k=(\sum_{k=0}^{n-1}x^k)+x^n$. By applying the induction hypothesis we therefore find that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^n-1}{x-1}+x^n.
+  \end{equation*}
+  Note that $x^n=\frac{(x-1)x^n}{x-1}$. Therefore we can bring the two summands under one fraction as follows:
+  \begin{equation*}
+    \frac{x^n-1}{x-1}+x^n=\frac{x^n-1}{x-1}+\frac{(x-1)x^n}{x-1}=\frac{x^n-1+x^{n+1}-x^n}{x-1}=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  This completes the inductive step, and therefore the proof.
 \end{proof}
 
 \begin{exercises}
@@ -135,5 +166,5 @@ Proofs by induction can be broken down into the following steps: First identify 
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

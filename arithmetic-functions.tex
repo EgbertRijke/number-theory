@@ -2,10 +2,13 @@
 
 \section{Multiplicative Functions}
 
-A function $f$ defined on the natural numbers or integers with output in any number system, such as the integers, real numbers, or complex numbers, is called an \emph{arithmetic function}. For example, Euler's totient function $\phi$, which returns for each $n$ the number of elements $0<k<n$ relatively prime to $n$, is an arithmetic function. Some other important arithmetic functions include the \emph{number of divisors function} $\tau$ and the \emph{sum of divisors function} $\sigma$:
+A function $f$ defined on the positive integers with output in any number system, such as the integers, real numbers, or complex numbers, is called an \emph{arithmetic function}. For example, Euler's totient function $\phi$, which returns for each $n$ the number of elements $0<k<n$ relatively prime to $n$, is an arithmetic function. Some other important arithmetic functions include the \emph{number of divisors function} $\tau$ and the \emph{sum of divisors function} $\sigma$:
 \begin{equation*}
   \tau(n) := \sum_{d\mid n}1\qquad\text{and}\qquad \sigma(n) := \sum_{d\mid n}d.
 \end{equation*}
+Note that the number of divisors and the sum of divisors are not defined for $n=0$. Arithmetic functions are typically only defined on the positive integers $\{1,2,3,\ldots\}$. Even for functions which are defined on $0$, such as Euler's totient function, when we consider them as arithmetic functions we will consider their domain of definition to be the positive integers.
+
+Other functions, which are worth naming are the \emph{constant function} $n\mapsto 1$, which we will simply denote by $1$, and the \emph{identity function} $n\mapsto n$, which we will denote by $\mathrm{id}$. In the pages that follow, we shall encounter two more arithmetic functions: the \emph{unit function} $\varepsilon$ and the \emph{M\"obius function} $\mu$.
 
 \begin{definition}
   An arithmetic function $f$ is said to be \emph{multiplicative} if for any two relatively prime natural numbers $m$ and $n$ we have
@@ -14,7 +17,91 @@ A function $f$ defined on the natural numbers or integers with output in any num
   \end{equation*}
 \end{definition}
 
+\begin{proposition}
+  If $f$ is a nonzero multiplicative function, then $f(1)=1$.
+\end{proposition}
+
+\begin{proof}
+  Since $f$ is assumed to be nonzero, there is a natural number $n$ such that $f(n)\neq 0$. Thus,
+  \begin{equation*}
+    f(n)=f(1n)=f(1)f(n)
+  \end{equation*}
+  by the assumption that $f$ is multiplicative. Since multiplication by a nonzero number is injective, it follows that $f(1)=1$.
+\end{proof}
+
+It follows that the constant function $1$ is the only constant multiplicative function.
+By the following proposition, we see that any multiplicative function is determined by its values on prime powers.
+
+\begin{proposition}
+  If $f$ is a multiplicative function and $n=p_1^{m_1}\cdots p_k^{m_k}$, where the primes $p_1,\ldots,p_k$ are distinct, then
+  \begin{equation*}
+    f(n)=f(p_1^{m_1})\cdots f(p_k^{m_k}).
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  Since the primes $p_1,\ldots,p_k$ are assumed to be distinct, it follows that the prime powers $p_1^{m_1},\ldots,p_k^{m_k}$ are pairwise relatively prime, hence the claim follows by induction on $k$.
+\end{proof}
+
+The following theorem provides a useful way of proving that a function is multiplicative.
+
+\begin{theorem}\label{theorem:multiplicative-functions}
+  Suppose $f$ is a multiplicative function, and define the function $F$ by
+  \begin{equation*}
+    F(n):=\sum_{d\mid n}f(d).
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Consider two relatively prime natural numbers $m$ and $n$. Then there is a bijection $(c,d)\mapsto cd$ from the set
+  \begin{equation*}
+    \{c\mid c\text{ divides }m\}\times\{d\mid d\text{ divides n}\}
+  \end{equation*}
+  to the set of divisors of $mn$. For the inverse function, define the function
+  \begin{equation*}
+    e\mapsto (\gcd(e,m),\gcd(e,n)),
+  \end{equation*}
+  which sends a divisor $e$ of $mn$ to a pair of divisors of $m$ and $n$. To see that this is indeed an inverse, note that if $c\mid m$ and $d\mid n$, then $\gcd(d,m)=1$ so that
+  \begin{equation*}
+    c=\gcd(cd,m).
+  \end{equation*}
+  Similarly, we have that $\gcd(c,n)=1$ so that $d=\gcd(cd,n)$. This shows that
+  \begin{equation*}
+    (c,d)=(\gcd(cd,m),\gcd(cd,n)).
+  \end{equation*}
+  We also have to show that $\gcd(e,m)\gcd(e,n)=e$ for any divisor $e$ of $mn$. Write $c=\gcd(e,m)$ and $d=\gcd(e,n)$. Since $c$ and $d$ are relatively prime and since both are divisors of $e$, it follows that $cd\mid e$. Now, suppose that $kcd=e$. Since $\gcd(kcd,m)=c$ it follows that $\gcd(k,m)=1$. Similarly, $\gcd(k,n)=1$. However, if $p$ is any prime divisor of $k$, which divides $mn$, it follows that $p\mid m$ or $p\mid n$. Since this is impossible, it follows that $k=1$. This completes the proof that the map $(c,d)\mapsto cd$ is a bijection.
+
+  Using this bijection, we find that
+  \begin{align*}
+    F(mn)=\sum_{e\mid mn}f(e) & =\sum_{c\mid m}\sum_{d\mid n}f(cd) \\
+    & =\sum_{c\mid m}\sum_{d\mid n}f(c)f(d) = \sum_{c\mid m}f(c)\sum_{d\mid n}f(d) = F(m)F(n).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  The functions $\tau$ and $\sigma$ are multiplicative.
+\end{theorem}
+
+\begin{proof}
+  The functions $\tau$ and $\sigma$ are defined by
+  \begin{equation*}
+    \tau(n):= \sum_{d\mid n}1,\qquad\text{and}\qquad\sigma(n):=\sum_{d\mid n}d.
+  \end{equation*}
+  Clearly the constant function $n\mapsto 1$ and the identity function $n\mapsto n$ are multiplicative, so it follows from \cref{theorem:multiplicative-functions} that $\tau$ and $\sigma$ are multiplicative.
+\end{proof}
+
+The previous theorem implies that if $n=p_1^{m_1}\cdots p_k^{m_k}$ is a product of distinct primes, then
+\begin{equation*}
+  \tau(n)=\prod_{i=1}^k(m_i+1),\qquad\text{and}\qquad\sigma(n)=\prod_{i=1}^k\frac{p_i^{m_1+1}-1}{p_i-1}.
+\end{equation*}
+Indeed, for any prime power $p^m$, the divisors of $p^m$ are the prime powers $p^i$ where $0\leq i\leq m$. There are $m+1$ powers of $p$ in this range, and their sum is computed by the formula for the geometric series
+\begin{equation*}
+  1+p+\cdots +p^m=\frac{p^{m+1}-1}{p-1}.
+\end{equation*}
+
 \section{Dirichlet Convolution}
+
+The set of arithmetic functions with values taken in a fixed, chosen number system such as the integers, the real numbers, or the complex numbers, possesses an interesting algebraic structure that can be used effectively to obtain many algebraic results and identities about numbers. The most important operation on arithmetic functions is \emph{Dirichlet convolution}, a way of combining two arithmetic functions $f$ and $g$ into a new arithmetic function $f\ast g$.
 
 \begin{definition}
   Consider two arithmetic functions $f$ and $g$. We define their \emph{Dirichlet convolution} $f\ast g$ by
@@ -22,6 +109,51 @@ A function $f$ defined on the natural numbers or integers with output in any num
     (f\ast g)(n) := \sum_{d\mid n}f(d)g\left(\frac{n}{d}\right).
   \end{equation*}
 \end{definition}
+
+\begin{theorem}
+  Dirichlet convolution is associative and commutative, meaning that
+  \begin{equation*}
+    (f\ast g)\ast h=f\ast(g\ast h),\qquad\text{and}\qquad f\ast g=g\ast f,
+  \end{equation*}
+  respectively.
+\end{theorem}
+
+\begin{proof}
+  Another way of writing the Dirichlet convolution of $f$ and $g$ is
+  \begin{equation*}
+    (f\ast g)(n) = \sum_{\substack{c,d\\ cd=n}}f(c)g(d).
+  \end{equation*}
+  Since this expression is symmetric in $f$ and $g$, we see immediately that the Dirichlet convolution is commutative.
+  Furthermore, to see that the Dirichlet convolution is associative we make the following calculation:
+  \begin{align*}
+    ((f\ast g)\ast h)(n) & = \vphantom{\sum_{\substack{a,b,d\\ abd=n}}}\sum_{\substack{c,d\\ cd=n}}(f\ast g)(c)h(d) \\
+                         & = \vphantom{\sum_{\substack{a,b,d\\ abd=n}}}\sum_{\substack{c,d\\ cd=n}}\sum_{\substack{a,b\\ ab=c}}f(a)g(b)h(d) \\
+                         & = \vphantom{\sum_{\substack{a,b,d\\ abd=n}}}\sum_{\substack{a,b,d\\ abd=n}}f(a)g(b)h(d) \\
+                         & = \vphantom{\sum_{\substack{a,b,d\\ abd=n}}}\sum_{\substack{a,e\\ ae=n}}\sum_{\substack{b,d\\bd=e}}f(a)g(b)h(d) \\
+                         & = \vphantom{\sum_{\substack{a,b,d\\ abd=n}}}\sum_{\substack{a,e\\ae=n}}f(a)(g\ast h)(e) \\
+                         & = \vphantom{\sum_{\substack{a,b,d\\ abd=n}}}(f\ast (g\ast h))(n).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  Let $\varepsilon$ be the function given by
+  \begin{equation*}
+    \varepsilon(n):=\left\lfloor\frac{1}{n}\right\rfloor=
+    \begin{cases}
+      1 & \text{if }n=1 \\
+      0 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  Then $\varepsilon\ast f=f$ and $f\ast\varepsilon=f$ for any arithmetic function $f$.
+\end{theorem}
+
+\begin{proof}
+  Consider an arithmetic function $f$. Then
+  \begin{equation*}
+    (\varepsilon\ast f)(n)=\sum_{d\mid n}\varepsilon(d)f\left(\frac{n}{d}\right)=f(n),
+  \end{equation*}
+  since the only term contributing to the sum is $d=1$. The fact that $f\ast\varepsilon=f$ follows by commutativity of the Dirichlet convolution.
+\end{proof}
 
 \section{The M\"obius Inversion Formula}
 
@@ -36,7 +168,7 @@ A function $f$ defined on the natural numbers or integers with output in any num
   \end{equation*}
 \end{definition}
 
-For example, $\mu(3\cdot 7\cdot 17^3\cdot 31)=0$ because the input is divisible by $17^2$. On the other hand, $\mu(3\cdot 7\cdot 17\cdot 31)=1$ because the input is the product of four distinct primes.
+For example, $\mu(3\cdot 7\cdot 17^3)=0$ because the input is divisible by $17^2$. On the other hand, $\mu(3\cdot 7\cdot 17)=(-1)^3=-1$ because the input is the product of three distinct primes.
 The following table lists the values of $\mu(n)$ for the first $15$ natural numbers
 
 \begin{center}
@@ -46,19 +178,201 @@ The following table lists the values of $\mu(n)$ for the first $15$ natural numb
   \end{tabular}
 \end{center}
 
-\begin{theorem}
+\begin{theorem}\label{theorem:inverse-mobius-function}
+  The M\"obius function is multiplicative, and it satisfies
+  \begin{equation*}
+    \sum_{d\mid n}\mu(d) = \varepsilon(n).
+  \end{equation*}
+  In other words, $\mu\ast 1=\varepsilon$.
+\end{theorem}
+
+\begin{proof}
+  It is immediate from the definition that the M\"obius function is multiplicative. Likewise, the arithmetic function
+  \begin{equation*}
+    F(n) := \sum_{d\mid n}\mu(d)
+  \end{equation*}
+  is multiplicative by \cref{theorem:multiplicative-functions}. Since multiplicative functions are completely determined by their values on prime powers, and $\varepsilon$ is the multiplicative function given by
+  \begin{equation*}
+    \varepsilon(n) =
+    \begin{cases}
+      1 & \text{if }n=1\\
+      0 & \text{otherwise,}
+    \end{cases}
+  \end{equation*}
+  it suffices to show that $F(p^k)=0$ for any $k\geq 1$. To see this, we simply evaluate
+  \begin{equation*}
+    \sum_{d\mid p^k}\mu(p^k)=\mu(p^0)+\mu(p^1)+0 = 1-1=0.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{remark}
+  The previous theorem could be viewed as a recurrence relation that is satisfied by the M\"obius function:
+  \begin{equation*}
+    \mu(n)=-\sum_{\substack{d\mid n\\d\neq n}}\mu(d)
+  \end{equation*}
+  Gian-Carlo Rota used this perspective to make the theory of arithmetic functions and the M\"obius function applicable to a wide class of partially ordered sets \cite{rota1964}.
+\end{remark}
+
+\begin{theorem}[The M\"obius Inversion Formula]
   Consider two arithmetic functions $f$ and $g$. Then we have
   \begin{equation*}
     g(n)=\sum_{d\mid n}f(d)\qquad\Leftrightarrow\qquad f(n)=\sum_{d\mid n}\mu(d)g\left(\frac{n}{d}\right).
   \end{equation*}
+  In other words, if $g=1\ast f$ then $f=\mu\ast g$.
 \end{theorem}
 
-\begin{exercise}
+\begin{proof}
+  If $g=1\ast f$, then
+  \begin{align*}
+    \mu\ast g & = \mu\ast(1\ast f) \\
+              & = (\mu\ast 1)\ast f \\
+              & = \varepsilon \ast f \\
+              & = f.
+  \end{align*}
+  Conversely, if $f=\mu\ast g$, then
+  \begin{align*}
+    1\ast f & = 1\ast(\mu\ast g) \\
+            & = (1 \ast \mu)\ast g \\
+            & = \varepsilon \ast g \\
+            & = g.\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{corollary}\label{corollary:mobius-inversion-totient}
+  Euler's totient function satisfies the identity
+  \begin{equation*}
+    \phi(n) = \sum_{d\mid n}\mu(d)\frac{n}{d}
+  \end{equation*}
+  In other words, $\phi=\mu\ast\mathrm{id}$.
+\end{corollary}
+
+\begin{proof}
+  By \cref{theorem:dirichlet-convolution-phi} we have $\mathrm{id}=1\ast \phi$, so we have $\phi=\mu\ast\mathrm{id}$ by the M\"obius inversion formula.
+\end{proof}
+
+We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offering a second perspective on the totient function.
+
+\begin{proof}[Direct proof of \cref{corollary:mobius-inversion-totient}]
+  Note that Euler's totient function $\phi$ can be written in the form
+  \begin{equation*}
+    \phi(n) = \sum_{k=1}^n\left\lfloor\frac{1}{\gcd(k,n)}\right\rfloor.
+  \end{equation*}
+  Then it follows from \cref{theorem:inverse-mobius-function} that
+  \begin{equation*}
+    \phi(n) = \sum_{k=1}^n\sum_{d\mid \gcd(k,n)}\mu(d)
+    = \sum_{k=1}^n\sum_{\substack{d\mid n \\ d\mid k}}\mu(d)
+    = \sum_{d\mid n}\sum_{\substack{k=1 \\ d\mid k}}^n \mu(d)
+    = \sum_{d\mid n} \mu(d)\frac{n}{d}.
+  \end{equation*}
+  The last step follows, since there are exactly $\frac{n}{d}$ multiples of $d$ among the numbers from $1$ to $n$.
+\end{proof}
+
+\section{Dirichlet Inverses}
+
+\begin{definition}
+  Consider an arithmetic function $f$ such that $f(1)$ is nonzero. Then we define the \emph{Dirichlet inverse} $f^{-1}$ of $f$ by
+  \begin{equation*}
+    f^{-1}(1) := \frac{1}{f(1)}\qquad\text{and}\qquad f^{-1}(n)=\frac{-1}{f(1)}\sum_{\substack{d\mid n \\ d\neq n}}f^{-1}(d)f\left(\frac{n}{d}\right)\qquad \text{(for $n>1$)}.
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  For every arithmetic function $f$ such that $f(1)$ is nonzero, the arithmetic function $f^{-1}$ is the inverse of $f$ with respect to Dirichlet involution, in the sense that
+  \begin{equation*}
+    f^{-1}\ast f=\varepsilon\qquad\text{and}\qquad f\ast f^{-1}=\varepsilon.
+  \end{equation*}
+  Furthermore, $f^{-1}$ is the unique such arithmetic function.
+\end{theorem}
+
+\begin{proof}
+  To show that $(f\ast f^{-1})(n)=\varepsilon(n)$ for every $n\geq 1$, there are two cases to consider. In the case where $n=1$, we have
+  \begin{equation*}
+    (f\ast f^{-1})(1) = f(1)f^{-1}(1) = f(1)\frac{1}{f(1)} = 1 = \varepsilon(1).
+  \end{equation*}
+  In the case where $n>1$,  we have
+  \begin{equation*}
+    (f\ast f^{-1})(n) = \sum_{d\mid n}f(d)f^{-1}\left(\frac{n}{d}\right)= f(1)f^{-1}(n)+ \sum_{\substack{d\mid n \\ d\neq n}}f(d)f^{-1}\left(\frac{n}{d}\right),
+  \end{equation*}
+  which is $0$ by the definition of $f^{-1}$. This completes the proof that $f\ast f^{-1}=\varepsilon$. The equality $f^{-1}\ast f=\varepsilon$ follows by commutativity of Dirichlet convolution.
+
+  Uniqueness of the inverse follows from a purely algebraic argument. Suppose that $g$ is another arithmetic function such that $f\ast g=\varepsilon$. Then we obtain
+  \begin{equation*}
+    f^{-1} = f^{-1} \ast \varepsilon = f^{-1}\ast (f\ast g) = (f^{-1}\ast f)\ast g = \varepsilon \ast g = g.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{example}
+  The Dirichlet inverse of the constant function $1$ is the M\"obius function $\mu$. Indeed, we saw in \cref{theorem:inverse-mobius-function} that $\mu\ast 1=\varepsilon$.
+\end{example}
+
+\begin{remark}
+  If $f^{-1}=g$ for some arithmetic functions $f$ and $g$, then it follows that $g^{-1}=f$. Indeed, the equations
+  \begin{equation*}
+    f\ast g=\varepsilon\qquad\text{and}\qquad g\ast f=\varepsilon
+  \end{equation*}
+  simultaneously imply that $g$ is the inverse of $f$ and $f$ is the inverse of $g$. Thus we have that $1^{-1}=\mu$ and $\mu^{-1}=1$.
+\end{remark}
+
+\begin{exercises}
   \exercise Show that the number $\tau(n)$ of divisors of $n$ is odd if and only if $n$ is a square number.
-\end{exercise}
+  \exercise Compute $\mu\ast\mu$.
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=1}^n\gcd(k,n)\mu(\gcd(k,n))=\mu(n).
+  \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item Show that if two out of three arithmetic functions $f$, $g$, and $f\ast g$ are multiplicative, then so is the third.
+  \item Show that if $f$ is an arithmetic function such that $f(1)$ is nonzero, then $f$ is multiplicative if and only if $f^{-1}$ is multiplicative.
+  \end{subexenum}
+  \exercise Let $f$ be a multiplicative function.
+  \begin{subexenum}
+  \item Show that
+    \begin{equation*}
+      f^{-1}(n)=\mu(n)f(n)
+    \end{equation*}
+    for every square-free natural number $n$.
+  \item Show that
+    \begin{equation*}
+      f^{-1}(p)=-f(p)\qquad\text{and}\qquad f^{-1}(p^2)=f(p^2)-f(p)^2
+    \end{equation*}
+    for every prime number $p$.
+  \item Show that
+    \begin{equation*}
+      f^{-1}(p^m) = \sum_{k=1}^m (-1)^k\left(\sum_{\substack{i_1+\cdots +i_k=m\\ i_1,\ldots,i_k\geq 1}}f(p^{i_1})\cdots f(p^{i_k})\right).
+    \end{equation*}
+  \end{subexenum}
+  \exercise Define \emph{Jordan's totient function} $J_k(n)$ by
+  \begin{equation*}
+    J_k(n) = \#\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}.
+  \end{equation*}
+  In other words, Jordan's totient function counts the number of $k$-tuples $(x_1,\ldots,x_k)$ of positive integers not exceeding $n$ such that if $d$ simultaneously divides all the integers $x_1,\ldots,x_k$ and $n$, then $d=1$. Note that $J_1(n)$ is just Euler's totient function $\phi$.
+  \begin{subexenum}
+  \item Find $J_2(n)$ for $1\leq n\leq 12$.
+  \item Show that for any divisor $d$ of $n$, the number of elements in the set
+    \begin{equation*}
+      \left\{(x_1,\ldots,x_k) \,\middle|\, 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=\frac{n}{d}\right\}
+    \end{equation*}
+    is exactly $J_k(d)$.
+  \item Show that
+    \begin{equation*}
+      \sum_{d\mid n}J_k(d) = n^k\qquad\text{and}\qquad \sum_{d\mid n}\mu(d)\left(\frac{n}{d}\right)^k = J_k(n).
+    \end{equation*}
+  \item Show that $J_k$ is a multiplicative function.
+  \item Show that
+    \begin{equation*}
+      J_k(p^m) = p^{km}-p^{k(m-1)}
+    \end{equation*}
+    for any prime $p$ and any exponent $m\geq 1$.
+  \item Show that
+    \begin{equation*}
+      J_k(n) = n^k\prod_{p\mid n}\left(1-\frac{1}{p^k}\right).
+    \end{equation*}
+  \end{subexenum}
+\end{exercises}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:
 

@@ -1,6 +1,6 @@
 \chapter{Introduction}\label{chapter:introduction}
 
-Number theory is the study of numbers, particularly the natural numbers (the numbers $0$, $1$, $2$, $\ldots$ increasing indefinitely in increments of $1$), the integers (the numbers $\ldots, -2, -1, 0, 1, 2, \ldots$), and occasionally the rational numbers (fractions of integers). Its central themes include questions about divisibility, prime numbers, modular arithmetic, arithmetic functions, and finding integer solutions to equations. Additionally, number theory explores combinatorial questions, such as determining how numbers can be decomposed into sums or products of specific forms, like squares or primes. More advanced branches of number theory are occasionally also concerned with the properties of other number systems, such as the real numbers, complex numbers, or $p$-adic numbers. However, in \emph{elementary number theory} these explorations are primarily motivated by how these number systems relate back to the integers.
+Number theory is the study of numbers, particularly the natural numbers (the numbers $0,1,2,\ldots$ increasing indefinitely in increments of $1$), the integers (the numbers $\ldots, -2, -1, 0, 1, 2, \ldots$), and occasionally the rational numbers (fractions of integers). Its central themes include questions about divisibility, prime numbers, modular arithmetic, arithmetic functions, and finding integer solutions to equations. Additionally, number theory explores combinatorial questions, such as determining how numbers can be decomposed into sums or products of specific forms, like squares or primes. More advanced branches of number theory are occasionally also concerned with the properties of other number systems, such as the real numbers, complex numbers, or $p$-adic numbers. However, in \emph{elementary number theory} these explorations are primarily motivated by how these number systems relate back to the integers.
 
 \section*{A Short History of Number Theory}
 
@@ -113,7 +113,7 @@ For example, the equation
 \begin{equation*}
   x^2 - 1 = 0
 \end{equation*}
-is a \emph{quadradic Diophantine equation} with two solutions: $x=\pm 1$. One of the most well-known quadratic Diophantine equations is the equation
+is a \emph{quadratic Diophantine equation} with two solutions: $x=\pm 1$. One of the most well-known quadratic Diophantine equations is the equation
 \begin{equation*}
   x^2 + y^2 = z^2,
 \end{equation*}
@@ -153,18 +153,18 @@ Wilson's Theorem states that a number $p$ is a prime number if and only if the c
 \end{equation*}
 holds. Here, the exclamation mark is used for the \emph{factorial function}: The number $n!$ is the product $1\cdots n$ of all the numbers from $1$ through $n$. Wilson's Theorem therefore gives another criterion for primality testing.
 
-Euler's totient function is an example of an arithmetic function. Other such functions include the function $\tau(n)$, which returns the number of divisors of a number $n$, the function $\sigma(n)$, which returnts the sum of the divisors of a number $n$, and the \emph{M\"obius function} $\mu$. These and other functions have important relations between them, that we will investigate next. The M\"obius inversion formula, for instance, states that if $f$ and $g$ are two arithmetic functions, then we have
+Euler's totient function is an example of an arithmetic function. Other such functions include the function $\tau(n)$, which returns the number of divisors of a number $n$, the function $\sigma(n)$, which returns the sum of the divisors of a number $n$, and the \emph{M\"obius function} $\mu$. These and other functions have important relations between them, that we will investigate next. The M\"obius inversion formula, for instance, states that if $f$ and $g$ are two arithmetic functions, then we have
 \begin{equation*}
   f(n)=\sum_{d\mid n} g(d)\qquad\text{if and only if}\qquad g(n)=\sum_{d\mid n}\mu(d)f\left(\frac{n}{d}\right).
 \end{equation*}
-This result allows us to "invert" summation relations involving divisors. For example, we will use the M\"obius inversion formula to show that
-\begin{equation*}
-  n=\sum_{d\mid n}\phi(d).
-\end{equation*}
-The M\"obius inversion is only one aspect of an algebraic structure that is present on the set of all arithmetic functions. Arithmetic functions can be multiplied by an operation known as \emph{Dirichlet convolution}, which gives the set of arithmetic functions the structure of a \emph{commutative ring}. Commutative rings are sets with operations of addition and multiplication satisfying the usual laws of arithmetic, and having such a structure on a set gives us a great opportunity to study them further. In our case, we get to study the primes more closely!
+This result allows us to "invert" summation relations involving divisors.
+
+The M\"obius inversion is only one aspect of an algebraic structure that is present on the set of all arithmetic functions. Arithmetic functions can be multiplied by an operation known as \emph{Dirichlet convolution}, which gives the set of arithmetic functions the structure of a \emph{commutative ring}. Commutative rings are sets with operations of addition and multiplication satisfying the usual laws of arithmetic, and having such a structure on a set gives us a great opportunity to study them further. In our case, we get to study the primes more closely.
+
+Experimentation is essential in number theory. By making lists of primes, lists of numbers that can be written as the sum of two squares, lists of square-free numbers, and so on, you will start to gather data on numbers and perhaps start seeing patterns that might otherwise feel elusive. At the end of this section, we have produced two number grids with the numbers from $1$ to $1728$. The great masters all have endlessly created such lists to organize and discover patterns in various kinds of numbers. Feel free to print it as many times as you like, and color them according to your own rules, or whenever something in the course piques your interest. Some exercises throughout the course will ask you to color this number grid in a certain way.
 
 \section*{Literature}
-In this course we will be following \cite{andrews1994} fairly closely. One distictive feature of this book is that it presents many of the most important theorems from two perspectives: a combinatorial one and an abstract one. This dual approach helps to clarify not only why these results are true but also appreciate why they are natural and inevitable within the broader framework of mathematics.
+In this course we will be following \cite{andrews1994} fairly closely. One distinctive feature of this book is that it presents many of the most important theorems from two perspectives: a combinatorial one and an abstract one. This dual approach helps to clarify not only why these results are true but also appreciate why they are natural and inevitable within the broader framework of mathematics.
 
 However, there are many excellent sources to learn number theory from. One of my personal favorites for its clarity and accessibility is LeVeque's \emph{Topics in Number Theory} \cite{leveque1956vol1,leveque1956vol2}. Both Andrews' and LeVeque's textbooks contain plenty of exercises, most of which are very fun.
 
@@ -172,7 +172,70 @@ Silverman's \emph{Friendly Introduction to Number Theory} \cite{silverman2012} i
 
 The undisputed classic textbook on number theory is Hardy and Wright's \emph{Introduction to the Theory of Numbers} \cite{hardy2008}. This book covers all the essential topics in number theory, including elementary number theory and analytical number theory. It is more comprehensive and also provides more historical notes. The textbook of Hardy and Wright does not provide exercises, but it contains the proofs of many important facts in number theory that are stated as exercises elsewhere.
 
+\afterpage{%
+  \pagestyle{empty}
+  \clearpage
+  \begin{figure*}[p]
+    \centering
+    \resizebox{\textwidth}{!}{%
+      \begin{tikzpicture}[x=0.5cm,y=0.5cm]
+        
+        % PARAMETERS
+        \def\Cols{24}                       % number of columns
+        \def\N{864}                        % max number
+        \pgfmathsetmacro{\Rows}{ceil(\N/\Cols)}  % computed number of rows
+        \def\CirDiam{0.4cm}                 % diameter of every circle
+        
+        % 1) draw every number in a white circle of fixed size
+        \foreach \i in {1,...,\N} {
+          \pgfmathtruncatemacro{\c}{mod(\i-1,\Cols)}
+          \pgfmathtruncatemacro{\r}{int((\i-1)/\Cols)}
+          \node[
+          circle,
+          draw,
+          fill=white,
+          minimum size=\CirDiam,
+          inner sep=0pt,
+          font=\tiny
+          ] at (\c+0.5,-\r-0.5) {\i};
+        }
+        
+      \end{tikzpicture}%
+    }
+  \end{figure*}
+  \begin{figure*}[p]
+    \centering
+    \resizebox{\textwidth}{!}{%
+      \begin{tikzpicture}[x=0.5cm,y=0.5cm]
+        
+        % PARAMETERS
+        \def\Cols{24}                       % number of columns
+        \def\N{864}                        % max number
+        \pgfmathsetmacro{\Rows}{ceil(\N/\Cols)}  % computed number of rows
+        \def\CirDiam{0.4cm}                 % diameter of every circle
+        
+        % 1) draw every number in a white circle of fixed size
+        \foreach \i in {1,...,\N} {
+          \pgfmathtruncatemacro{\c}{mod(\i-1,\Cols)}
+          \pgfmathtruncatemacro{\r}{int((\i-1)/\Cols)}
+          \pgfmathtruncatemacro{\v}{\N+\i}
+          \node[
+          circle,
+          draw,
+          fill=white,
+          minimum size=\CirDiam,
+          inner sep=0pt,
+          font=\tiny
+          ] at (\c+0.5,-\r-0.5) {\v};
+        }
+        
+      \end{tikzpicture}%
+    }
+  \end{figure*}
+  \clearpage
+}
+
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

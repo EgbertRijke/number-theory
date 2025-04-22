@@ -1,16 +1,168 @@
 \chapter{Dirichlet Series}
 
+\section{The Harmonic Series}
+
+\begin{theorem}
+  The harmonic series
+  \begin{equation*}
+    \sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\cdots
+  \end{equation*}
+  diverges.
+\end{theorem}
+
+We give two proofs of the fact that the harmonic series converges. In the first proof, we will estimate $\sum_{n=1}^N\frac{1}{n}$ from below by
+\begin{equation*}
+  \int_{1}^{N+1}\frac{1}{x}\,\mathrm{d}x<\sum_{n=1}^{N}\frac{1}{n}.
+\end{equation*}
+Recall that the integral in the lower bound is the logarithm. To see why, note that $\log(x)$ is defined to be the unique function such that
+\begin{equation*}
+  e^{\log(x)}=x,
+\end{equation*}
+for $x>0$. The chain rule asserts that $\frac{\mathrm{d}}{\mathrm{d}x}f(g(x))=\frac{\mathrm{d}f}{\mathrm{d}x}(g(x))\frac{\mathrm{d}g}{\mathrm{d}x}(x)$. The derivative of the function $x\mapsto e^{\log(x)}$ is is therefore determined as follows:
+\begin{equation*}
+  1=\frac{\mathrm{d}e^{\log(x)}}{\mathrm{d}x}(x)=e^{\log(x)}\frac{\mathrm{d}\log(x)}{\mathrm{d}x}=x\frac{\mathrm{d}\log(x)}{\mathrm{d}x}(x)
+\end{equation*}
+Thus we see that the derivative of the function $x\mapsto \log(x)$ is $\frac{1}{x}$, so it follows that
+\begin{equation*}
+  \log(N+1)=\int_1^{N+1}\frac{1}{x}\,\mathrm{d}x.
+\end{equation*}
+
+\begin{proof}[Proof by an integral test]
+  Since the inequality $\frac{1}{x}\leq \frac{1}{\lfloor x\rfloor}$ holds for all $x\geq 1$, we can estimate the sum of the unit fractions $\frac{1}{n}$ from below by computing the area under the graph of the function $x\mapsto \frac{1}{x}$
+  \begin{equation*}
+    \begin{tikzpicture}[scale=1.2]
+      
+      % For each integer n, plot the step function and shade the area between the horizontal bar and the curve.
+      \foreach \n in {1,2,3,4,5} {
+        
+        % Fill the region between y=1/n (the step) and y=1/x (the curve) for x in [n, n+1]
+        
+        % \fill[gray!30]
+        % (\n, {1/(\n)}) --  % left point on the step
+        % (\n+1, {1/(\n)}) --  % right point on the step
+        %   % Now follow the curve backwards from x=n+1 to x=n:
+        % plot[domain=\n+1:\n, smooth, variable=\x] ({\x},{1/(\x)}) -- cycle;
+        
+        
+        \fill[gray!30]
+        (\n,0) -- (\n,{1/(\n)}) --
+        plot[domain=\n:\n+1, samples=100, smooth, variable=\x] ({\x},{1/(\x)}) --
+        (\n+1,0) -- (\n,0) -- cycle;}
+      
+      \foreach \n in {1,2,3,4,5} {
+        % Draw the horizontal step (red thick line)
+        \draw[gray, thick] (\n, {1/(\n)}) -- (\n+1, {1/(\n)});
+        
+        % Optionally draw the vertical connection at the right end (so the step function is fully visible)
+        \draw[gray,thick,line cap=butt] (\n+1, {1/(\n)}) -- (\n+1, 0);
+      }
+      
+      \draw[gray,thick] (1,1) -- (1,0);
+      
+      % Plot the function y=1/x (blue curve)
+      \draw[domain={1/2.2}:6.2, samples=100, smooth, variable=\x, thick] plot ({\x},{1/(\x)}) node[right] {};
+      
+      % Optionally label the graphs
+      \node at (.5,1) {$y=\frac{1}{x}$};
+      \node at (3.5,0.7) {$y=\frac{1}{\lfloor x\rfloor}$};
+      
+      % Axes
+      \draw[->] (-0.2,0) -- (6.2,0) node[right] {$x$};
+      \draw[->] (0,-.2) -- (0,2.2) node[above] {$y$};
+      
+    \end{tikzpicture}
+  \end{equation*}
+  The shaded area is computed by integrating the function $x\mapsto \frac{1}{x}$, so we find that
+  \begin{equation*}
+    \log N<\int_1^{N+1}\frac{1}{x}\,\mathrm{d}x<\sum_{n=1}^N\frac{1}{n}.
+  \end{equation*}
+  Therefore we see that, as $N$ grows arbitrarily large, so does $\log\,N$ and therefore the sum $\sum_{n=1}^N\frac{1}{n}$.
+\end{proof}
+
+\begin{proof}[Proof via a grouping argument]
+  We will give the classic proof by a grouping argument. By grouping the set of natural numbers into the sets
+  \begin{equation*}
+    \{1\},\{2\},\{3,4\},\{5,6,7,8\},\ldots.
+  \end{equation*}
+  If we write these groupings more formally as
+  \begin{equation*}
+    \{1\},~\{2^0+1\},~\{2^1+1,2^1+2^1\},~\{2^2+1,\ldots,2^2+2^2\},~\{2^3+1,\ldots,2^3+2^3\},~\ldots,
+  \end{equation*}
+  we find that
+  \begin{equation*}
+    \sum_{n=1}^{\infty}\frac{1}{n}=1+\sum_{k=0}^\infty\sum_{m=1}^{2^{k}}\frac{1}{2^k+m}.
+  \end{equation*}
+  Now notice that
+  \begin{equation*}
+    \frac{1}{2^k+m}\geq \frac{1}{2^{k+1}}
+  \end{equation*}
+  for each $1\leq m\leq 2^k$. Using these inequalities and the fact that $m$ ranges over $2^k$ possible values, we obtain that
+  \begin{equation*}
+    \sum_{n=1}^{\infty}\frac{1}{n} \geq 1+\sum_{k=0}^\infty 2^k\frac{1}{2^{k+1}}=1+\sum_{k=0}^\infty\frac{1}{2}.
+  \end{equation*}
+  Since the sum $\sum_{k=0}^\infty\frac{1}{2}$ diverges, it follows that the harmonic series diverges.
+\end{proof}
+
+Euler observed that the harmonic series can be expressed as a product over all the prime numbers. This product formula for the harmonic series has vast generalizations, which will be important in the remainder of this course. To do this rigorously, we introduce the \emph{Riemann $\zeta$-function}:
+
+\begin{definition}
+  The Riemann $\zeta$-function is the function $\zeta$ in a complex variable $s$ given by
+  \begin{equation*}
+    \zeta(s) := \sum_{n=1}^\infty\frac{1}{n^s}.
+  \end{equation*}
+\end{definition}
+
+There is the important question concerning the range of values of $s$ where the Riemann $\zeta$-function converges. We say that a series $a_n$ in the complex numbers \emph{converges absolutely} if its series of absolute values
+\begin{equation*}
+  \sum_{n=1}^\infty |a_n|
+\end{equation*}
+converges.
+
+\begin{theorem}
+  The Riemann $\zeta$-function converges absolutely when the real part $Re(s)$ of $s$ is strictly greater than $1$.
+\end{theorem}
+
+\begin{proof}
+  
+\end{proof}
+
+\begin{theorem}
+  The Riemann $\zeta$-function satisfies \emph{Euler's product formula}: When $Re(s)>1$ we have
+  \begin{equation*}
+    \zeta(s)=\prod_{p}\frac{1}{1-p^{-s}}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  By the formula for the infinite geometric series, we have that
+  \begin{equation*}
+    \sum_{k=0}^\infty \frac{1}{p^{ks}}=\frac{1}{1-p^{-s}}.
+  \end{equation*}
+  Thus, we can write the product in Euler's product formula as
+  \begin{equation*}
+    \prod_p\frac{1}{1-p^{-1}}=\prod_p\left(\sum_{k=0}^\infty\frac{1}{p^k}\right).
+  \end{equation*}
+  If we evaluate this product into a large sum, we find every combination
+  \begin{equation*}
+    \frac{1}{(p_1^{m_1}\cdots p_k^{m_k})^s}
+  \end{equation*}
+  appearing exactly once. In other words, every unit fraction $\frac{1}{n^s}$ appears exactly once. Thus, the product can be rewritten as
+  \begin{equation*}
+    \prod_p\left(\sum_{k=0}^\infty\frac{1}{p^{ks}}\right)=\sum_{n=0}\frac{1}{n^s}.\qedhere
+  \end{equation*}
+\end{proof}
+
 \section{The Dirichlet Series of an Arithmetic Function}
+
+An important generalization of the $\zeta$-function is the Dirichlet series. In a Dirichlet series, we adorn the construct of the $\zeta$ function with coefficients described by arithmetic functions. 
 
 \begin{definition}
   The \emph{Dirichlet series} of an arithmetic function $f$ is the function
   \begin{equation*}
-    D_f(s):\sum_{n=1}^\infty\frac{f(n)}{n^s}
+    D_f(s):=\sum_{n=1}^\infty\frac{f(n)}{n^s}
   \end{equation*}
   in a complex variable $s$.
 \end{definition}
-
-\section{The Euler Product Formula}
 
 \begin{theorem}
   Consider a multiplicative arithmetic function $f$. Then its Dirichlet series $D_f$ satisfies the \emph{Euler product formula}:
@@ -19,7 +171,11 @@
   \end{equation*}
 \end{theorem}
 
+\begin{proof}
+  
+\end{proof}
+
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

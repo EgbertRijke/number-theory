@@ -10,6 +10,7 @@
 \usepackage{booktabs}
 \usepackage{caption}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{afterpage}
 
 \captionsetup[figure]{font=small}
 \captionsetup[table]{font=small}
@@ -19,13 +20,18 @@
 \usepackage{mathtools}
 \usepackage{totcount}
 \usepackage{enumitem}
-\usepackage{tikz}
 \usepackage{aliascnt}
+
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
+\usepackage{tikz}
 
-\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc}
+\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc,intersections}
+
+\tikzset{
+  every picture/.append style={line cap=round, line join=round}
+}
 
 \usepackage{newtxtext,newtxmath}
 
@@ -113,6 +119,28 @@
 \crefname{remark}{Remark}{Remarks}
 \Crefname{remark}{Remark}{Remarks}
 
+\pgfplotsset{
+  lectureplot/.style={
+    width=12cm, height=8cm,
+    axis lines=middle,                         % draw only the middle axes
+    axis line style={-stealth},                % put arrow heads on them
+    tick style={draw=none},                    % no ticks
+    xlabel={$x$}, ylabel={$y$},
+    xmin=0, xmax=1e6,
+    ymin=0, ymax=8.5e4,                        % a bit above π(10^6)=78498
+    clip=false,                                % allow legend to stick out
+    legend style={
+      draw=none,                               
+      fill=none,
+      font=\footnotesize,
+      at={(0.05,0.95)},                        
+      anchor=north west,
+      /tikz/every even column/.append style={column sep=1em}
+    },
+    legend cell align=left                     % left‑align text in legend
+  }
+}
+
   % We set up the exercise environment, which produces list environment in a new
 % unnumbered subsection that also gets mentioned in the table of contents.
 
@@ -146,6 +174,7 @@
 \renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\lcm}{lcm}
 \newcommand{\legendre}[2]{%
   \mathchoice
     {\left(\frac{#1}{#2}\right)}% display style
@@ -156,10 +185,13 @@
 \newcommand{\lres}[2]{\ensuremath{\lfloor #1 \rceil_{#2}}}
 \newcommand{\abslres}[2]{\ensuremath{|\mkern-3mu \lfloor #1 \rceil\mkern-3mu |_{#2}}}
 \newcommand{\complementsubset}[1]{#1^{\mathrm{c}}}
+\newcommand{\Oh}{O}
+\newcommand{\oh}{o}
 
 \begin{document}
 
-\thispagestyle{empty}
+\pagestyle{empty}
+
 \begingroup
 \begin{titlepage}
   \begin{center}
@@ -199,10 +231,18 @@
     \vspace{1cm}
     
     {\Huge \textbf{Elementary Number Theory}} \\[1cm]
-    {\LARGE\textit{\today}}
+    {\LARGE\textit{Spring 2025}}
   \end{center}
 \end{titlepage}
 \endgroup
+
+\cleardoublepage
+
+\vspace*{\fill}
+\noindent
+\textit{Cover image:} Vieta jumps between the rational points on the unit circle eventually reach one of the points $(1,0)$, $(0,1)$, $(-1,0)$, or $(0,-1)$.
+
+\cleardoublepage
 
 % \thispagestyle{empty}
 
@@ -229,6 +269,8 @@
 
 \frontmatter
 
+\pagestyle{plain}
+
 \tableofcontents
 
 \input{course-information}
@@ -239,7 +281,7 @@
 
 \input{mathematical-induction}
 
-\input{combinatorial-methods}
+\input{counting}
 
 \input{euclidean-division}
 

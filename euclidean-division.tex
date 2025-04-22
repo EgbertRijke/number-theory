@@ -1,47 +1,6 @@
 \chapter[Euclidean Division and Representability]{Euclidean Division and the Representability Theorem}\label{chapter:euclidean-division-and-representability}
 
-\section{The Induction Principle Revisited}
-
-Recall that mathematical induction is a proof strategy that can be used to prove properties of all infinitely many natural numbers. To prove that a property $P(n)$ is true for all $n$, we have to make two steps:
-\begin{enumerate}
-\item The property $P(0)$ is true.
-\item For all $n$, if the property $P(n)$ holds then the property $P(n+1)$ holds.
-\end{enumerate}
-
-We illustrate induction with another example, the \emph{formula for the geometric series}.
-
-\begin{theorem}\label{theorem:formula-geometric-series}
-  For any real number $x$ not equal to $1$, the identity
-  \begin{equation*}
-    \sum_{k=0}^{n-1}x^k = \frac{x^n-1}{x-1}
-  \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  The proof is by induction on $n$. In the case $n=0$ the sum
-  \begin{equation*}
-    \sum_{k=0}^{-1}x^k
-  \end{equation*}
-  is an empty sum, because it sums over all elements $0\leq k \leq -1$ of which there are none. In empty sums, nothing is being added, so they are always $0$. On the right hand side, we also see that
-  \begin{equation*}
-    \frac{x^0-1}{x-1}=\frac{1-1}{x-1}=0,
-  \end{equation*}
-  and hence the base case holds.
-
-  For the inductive step, assume that $\sum_{k=0}^{n-1}x^k=\frac{x^n-1}{x-1}$. Our goal is to show that
-  \begin{equation*}
-    \sum_{k=0}^{n}x^k=\frac{x^{n+1}-1}{x-1}.
-  \end{equation*}
-  Note that $\sum_{k=0}^{n}x^k=(\sum_{k=0}^{n-1}x^k)+x^n$. By applying the induction hypothesis we therefore find that
-  \begin{equation*}
-    \sum_{k=0}^{n}x^k=\frac{x^n-1}{x-1}+x^n.
-  \end{equation*}
-  Note that $x^n=\frac{(x-1)x^n}{x-1}$. Therefore we can bring the two summands under one fraction as follows:
-  \begin{equation*}
-    \frac{x^n-1}{x-1}+x^n=\frac{x^n-1}{x-1}+\frac{(x-1)x^n}{x-1}=\frac{x^n-1+x^{n+1}-x^n}{x-1}=\frac{x^{n+1}-1}{x-1}.
-  \end{equation*}
-  This completes the inductive step, and therefore the proof.
-\end{proof}
+\section{The Well-Ordering Principle of the Natural Numbers}
 
 The induction principle of the natural numbers implies other important reasoning principles. One of them is the \emph{well-ordering principle}. The well-ordering principle has many practical implications. For example, in the next section we will apply a variation of the well-ordering principle, which we will describe below, to construct division with remainder.
 
@@ -170,7 +129,7 @@ The representability theorem would now follow if we already knew that $q$ has a 
   Then $P(n)$ is true for all $n$.
 \end{theorem}
 
-The strong induction principle can be formulated more succinctly using the \emph{universal quantifier}. The universal quantifiery $\forall$ is used to express that a property is true for all elements in a domain of discourse. In other words, when we say that a property $P(n)$ is true for all natural numbers $n$, we can write that as the logical formula
+The strong induction principle can be formulated more succinctly using the \emph{universal quantifier}. The universal quantifier $\forall$ is used to express that a property is true for all elements in a domain of discourse. In other words, when we say that a property $P(n)$ is true for all natural numbers $n$, we can write that as the logical formula
 \begin{equation*}
   \forall_{(n\in\mathbb{N})}P(n).
 \end{equation*}
@@ -214,13 +173,43 @@ Our earlier idea to prove the representability theorem can finally be made into 
   \end{equation*}
   Furthermore, this representation is unique because any representation of $n+1$ must be a list of digits of length $1$, which fixes its digit $d_0$ to $n+1$.
 
-  If $q\neq 0$, then we have the inequalies
+  If $q\neq 0$, then we have the inequalities
   \begin{equation*}
     q+1 \leq 2q \leq qk \leq qk+r=n+1.
   \end{equation*}
   The second inequality follows from the assumption that $k>1$. Since $q+1\leq n+1$ it follows that $q\leq n$. This puts us in position to apply the induction hypothesis of the strong induction principle: The number $q$ has a unique representation $(e_0,\ldots,e_{l-1})$. Now we define the representation of $n+1$ to be $(d_0,\ldots,d_l)$, where $d_0:=r$ and $d_{i+1}:=e_i$ for $0\leq i<l$.
 
   This representation of $n+1$ is unique, because for any representation of $n+1$, its $d_0$ must be equal to $r$, and the list $(d_1,\ldots,d_{l-1})$ must be a representation of $q$, which is unique, thus completing the proof.
+\end{proof}
+
+\section[Combinatorial Applications]{Some Combinatorial Applications of Euclid's Division Theorem}
+
+\begin{theorem}\label{theorem:existence-difference-divisible}
+  Consider two positive integers $m<n$. In any set of $n$ integers, there is a pair of distinct integers such that their difference is divisible by $m$.
+\end{theorem}
+
+\begin{proof}
+  Consider a set $A$ of size $n$ of integers, and list, for every integer in $A$ its remainder after division by $m$. Since the remainder is a number between $0$ and $m-1$, it follows from the pigeonhole principle that there must be at least two distinct integers $x$ and $y$ with the same remainder. It follows that $x-y$ is divisible by $m$.
+\end{proof}
+
+\begin{theorem}
+  Consider two positive integers $m\leq n$. In any set of $n$ integers, there is a nonempty subset such that the sum of its elements is divisible by $m$.
+\end{theorem}
+
+\begin{proof}
+  Consider the $n$ integers $a_1,\ldots,a_n$, and consider the sums
+  \begin{equation*}
+    0,~a_1,~a_1+a_2,~\ldots,~a_1+\cdots+a_n.
+  \end{equation*}
+  By \cref{theorem:existence-difference-divisible} it follows that at there are at least two of these sums that differ by a multiple of $m$. Notice that the difference of two such sums is of the form $a_k+\cdots+a_l$, so the theorem is proven.
+\end{proof}
+
+\begin{theorem}
+  Consider positive integers $m$ and $n$ such that $m<2^n-1$, and consider a set of integers $S$ of size $n$. Then there are two distinct nonempty subsets of $S$ such that the difference of the sums of their elements is divisible by $m$.
+\end{theorem}
+
+\begin{proof}
+  There are $2^k$ subsets of $S$, of which $2^k-1$ are nonempty. By \cref{theorem:existence-difference-divisible} it follows that there are two distinct nonempty subsets of $S$ such that the difference of their sums is divisible by $m$.
 \end{proof}
 
 \begin{exercises}
@@ -242,5 +231,5 @@ Our earlier idea to prove the representability theorem can finally be made into 
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

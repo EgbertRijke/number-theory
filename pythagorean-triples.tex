@@ -2,7 +2,7 @@
 
 \section{The Pythagorean Theorem}
 
-Recall that a right triangle is a triangle in which one of the angles is a right angle, i.e., it is exactly $90^\circ$. The Pythagorean theorem relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the trigonometric proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as highschool students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
+Recall that a right triangle is a triangle in which one of the angles is a right angle, i.e., it is exactly $90^\circ$. The Pythagorean theorem relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the trigonometric proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as high school students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
 
 \begin{theorem}\label{theorem:pythagorean-theorem}
   Consider a right triangle with side lengths $a$ and $b$, and a hypotenuse of length $c$. Then
@@ -120,12 +120,12 @@ In the proof of the Pythagorean theorem, we will make use of the addition formul
   \sin(\theta + \phi) & = \sin(\theta)\cos(\phi) + \cos(\theta)\sin(\phi) \\
   \cos(\theta + \phi) & = \sin(\theta)\sin(\phi) - \cos(\theta)\cos(\phi).
 \end{align*}
-In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. These laws can be derived geometrically if $\theta+\phi$ is an accute angle, i.e., if it is strictly less than $90^\circ$, see \cref{exercise:addition-laws-sin-cos}.
+In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. These laws can be derived geometrically if $\theta+\phi$ is an acute angle, i.e., if it is strictly less than $90^\circ$, see \cref{exercise:addition-laws-sin-cos}.
 
 \begin{proof}[The Jackson--Johnson proof \cite{jacksonjohnson2024}]
   Consider a right triangle $ABC$ with the right angle at $C$, and label the sides $a=BC$, $b=AC$, and $c=AB$ so $c$ is the hypotenuse.
 
-  In the special case where $ABC$ is isosceles, i.e., if $a=b$, the hypotenuse is the diagonal of an $a$-by-$a$ square, which gives us that $c^2=2a^2$. Hence, we may assume that $ABC$ is nonisoceles.
+  In the special case where $ABC$ is isosceles, i.e., if $a=b$, the hypotenuse is the diagonal of an $a$-by-$a$ square, which gives us that $c^2=2a^2$. Hence, we may assume that $ABC$ is nonisosceles.
 
   Without loss of generality, we will assume that $a<b$, i.e., that $BC$ is the shorter side. We reflect the triangle along the longer side $AC$, as indicated in the diagram below:
   \begin{equation*}
@@ -483,18 +483,23 @@ The set of all primitive Pythagorean triples has the structure of a rooted terna
 
 \begin{exercises}
   \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}:
-    \begin{equation*}
-      \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
-        \pgfmathsetmacro{\myangle}{atan(28/45)}
-        \draw (0,0) rectangle (53,53);
-        \foreach \k/\x/\y in {0/0/0, 1/53/0, 2/53/53, 3/0/53}
-          \draw (\x,\y) -- ++({\myangle + 90*\k}:45);
-      \end{tikzpicture}
-    \end{equation*}
+  \begin{equation*}
+    \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
+      \pgfmathsetmacro{\myangle}{atan(28/45)}
+      \draw (0,0) rectangle (53,53);
+      \foreach \k/\x/\y in {0/0/0, 1/53/0, 2/53/53, 3/0/53}
+      \draw (\x,\y) -- ++({\myangle + 90*\k}:45);
+    \end{tikzpicture}
+  \end{equation*}
   \exercise \label{exercise:addition-laws-sin-cos}
+  \exercise \emph{The Brahmagupta--Fibonacci identity.} Show that
+  \begin{equation*}
+    (a^2+b^2)(c^2+d^2)=(ac\pm bd)^2 + (ad\mp bc)^2.
+  \end{equation*}
+  Conclude that if $m$ and $n$ are two integers that can be written as the sum of two squares, then their product $mn$ can also be written as the sum of two squares.
 \end{exercises}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

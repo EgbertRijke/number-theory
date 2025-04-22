@@ -1,10 +1,417 @@
-\chapter{The Distribution of Prime Numbers}
+\chapter{The Distribution of the Prime Numbers}
 
-\section{The Sieve of Erathostenes}
+In this chapter we will study the function $\pi(x)$, which is given by
+\begin{equation*}
+  \pi(x):=|\{p\leq x\mid p~\mathrm{prime}\}|
+\end{equation*}
 
-\section{Sums of Primes}
+\section{The Bachmann--Landau Notation for Asymptotic Growth}
+
+In order to analyze the distribution of primes, we will make use of some handy notation for the asymptotic growth of function, which is nowadays commonly called the \emph{Big-O notation}. The idea is due to Paul Bachmann, who used it in 1894 in his book \emph{Analytische Zahlentheorie}, and was later popularized by Edmund Landau, who also started using the \emph{Little-O notation}.
+
+\begin{definition}
+  We say that $f$ is \emph{of the order at most $g$} if there is a number $M$ such that
+  \begin{equation*}
+    \frac{|f(x)|}{g(x)}<M
+  \end{equation*}
+  for all sufficiently large $x$. If $f$ is of the order at most $g$, we write $f=\Oh(g)$ or $f(x)=\Oh(g(x))$.
+\end{definition}
+
+\begin{definition}
+  We say that $f$ is \emph{of strictly smaller order than $g$} if the condition
+  \begin{equation*}
+    \lim_{x\to\infty}\frac{f(x)}{g(x)} = 0
+  \end{equation*}
+  holds. If $f$ is of strictly smaller order than $g$, we write $f=\oh(g)$ or $f(x)=\oh(g(x))$.
+\end{definition}
+
+\begin{definition}
+  We say that $f$ is \emph{asymptotically equal to $g$} if
+  \begin{equation*}
+    \lim_{x\to\infty}\frac{f(x)}{g(x)} = 1.
+  \end{equation*}
+  If $f$ is asymptotically equal to $g$, we write $f\sim g$ or $f(x)\sim g(x)$.
+\end{definition}
+
+\section{An Elementary Estimate of the Prime Counting Function}
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    % scale: 0…10000 → 0…12cm  ⇒  x=12cm/10000=0.0012cm
+    % 0…1300  → 0…8cm   ⇒  y=8cm/1300 ≈0.00615cm
+    x=0.001cm,
+    y=0.004cm,
+    font=\footnotesize
+    ]
+    % Axes now go to 10^4 and ~1300
+    \draw[->] (0,0)      -- (10500,0)  node[right] {\normalsize $x$};
+    \draw[->] (0,0)      -- (0,1350)   node[above] {\normalsize $y$};
+
+    % ───────────────────────────────────────────────
+    % Tick marks on the x‑axis at 1000,2000,…,10000
+    % each tick is 50 data‑units downwards (≈0.3 cm)
+    \foreach \x in {1000,2000,3000,4000,5000,6000,7000,8000,9000,10000} {
+      \draw (\x,0) -- (\x,-50)
+            node[below,font=\footnotesize] {\x};
+    }
+
+    % Tick marks on the y‑axis at 250,500,…,1250
+    % each tick is 200 data‑units to the left (≈0.24 cm)
+    \foreach \y in {250,500,750,1000,1250} {
+      \draw (0,\y) -- (-200,\y)
+            node[left,font=\footnotesize] {\y};
+    }
+    % ───────────────────────────────────────────────
+    
+    % 2) x / ln x
+    \draw[gray, thick, domain=2:10000, samples=400]
+    plot (\x,{(\x)/ln(\x)});
+    
+    % 3) x / ln ln x
+    \draw[gray, thick, domain=1.1:2700, samples=400]
+    plot (\x,{(\x)/ln(ln(\x))});
+
+    % 1) π(x) from your new data file (up to x=10000)
+    \draw[thick] plot file {pi-data.dat};
+
+    \node at (2700,1000) {\(\displaystyle \frac{x}{\log\log x}\)};
+    \node at (5400,800) {\(\displaystyle \pi(x)\)};
+    \node at (7200,700) {\(\displaystyle \frac{x}{\log x}\)};
+    
+  \end{tikzpicture}
+  \caption{\label{figure:prime-counting-data}The prime counting function $\pi(x)$ compared to the functions $x/\log x$ and $x/\log\log x$, where $x$ ranges from 1 to 10,000. There are 1,229 primes below 10,000.}
+\end{figure}
+
+In this section we will prove an elementary estimate for the growth of the prime counting function:
+\begin{equation*}
+  \pi(x)=\Oh\left(\frac{x}{\log\log x}\right)
+\end{equation*}
+While this estimate is not the strongest known estimate for the prime counting function, which is given by the prime number theorem as the asymptotic relation
+\begin{equation*}
+  \pi(x)\sim\frac{x}{\log x},
+\end{equation*}
+it can be proven by fairly elementary means and it will be quite useful in our future investigations in the distribution of the primes. In \cref{figure:prime-counting-data} we have plotted the values of $\pi(x)$, $x/\log x$ and $x/\log\log x$ for comparison.
+
+First, we will use the sieve of Eratosthenes and the \crefnamed{theorem:inclusion-exclusion-principle}{inclusion-exclusion principle} to obtain an exact expression for $\pi(x)$, which will serve as the starting point of our estimates of $\pi(x)$. Recall that if $n\leq x$ is not divisible by any prime less than $\sqrt{x}$, then $n$ is prime. Thus, if we eliminate all the multiples of the primes less than $\sqrt{x}$ from the set of integers $\{2,\ldots,\lfloor x\rfloor\}$, then the set of primes $\leq x$ remains. The inclusion-exclusion principle allows us to compute the number of integers that are a multiple of a prime below $\sqrt{x}$ by the formula
+\begin{equation*}
+  \sum_{k=1}^{\lfloor\sqrt{x}\rfloor}(-1)^{k+1}\left(\sum_{2\leq p_1<\cdots <p_k\leq \sqrt{x}}\left\lfloor\frac{x}{p_1\cdots p_k}\right\rfloor\right)
+\end{equation*}
+However, this count also includes all the primes below $\sqrt{x}$, of which there are $\pi(\sqrt{x})$. Thus, the exact number of primes below $x$ is given by the formula:
+\begin{equation*}
+  \pi(x)= \pi\bigl(\sqrt{x}\bigr) + \lfloor x\rfloor - 1 + \sum_{k=1}^{\lfloor\sqrt{x}\rfloor}(-1)^{k}\left(\sum_{2\leq p_1<\cdots <p_k\leq \sqrt{x}}\left\lfloor\frac{x}{p_1\cdots p_k}\right\rfloor\right).
+\end{equation*}
+
+In order to facilitate estimation of the quantity $\pi(x)$, we will count the number of integers less than $x$ not divisible by any of the primes $p_1,\ldots,p_r$, postponing the choice of $r$. Let $A(x,r)$ be the number of integers in the set $\{2,\ldots,\lfloor x\rfloor\}$ that are not divisible by any of the primes $p_1,\ldots,p_r$. Then, as before, the number $A(x,r)$ can be computed exactly by the formula
+\begin{equation*}
+  A(x,r) = r + \lfloor x\rfloor -1  + \sum_{k=1}^{r}(-1)^{k}\left(\sum_{1\leq i_1<\cdots i_k\leq r}\left\lfloor\frac{x}{p_{i_1}\cdots p_{i_k}}\right\rfloor\right). 
+\end{equation*}
+We also introduce the number $B(x,r)$, which is expressed similarly except that we omit all uses of the floor function:
+\begin{equation*}
+  B(x,r) = r + x -1  + \sum_{k=1}^{r}(-1)^{k}\left(\sum_{1\leq i_1<\cdots i_k\leq r}\frac{x}{p_{i_1}\cdots p_{i_k}}\right). 
+\end{equation*}
+Since we have the inequalities $0\leq x-\lfloor x\rfloor < 1$ by the definition of the floor function, we can estimate the difference $|B(x,r)-A(x,r)|$ by
+\begin{equation*}
+  |B(x,r)-A(x,r)| < 1 + \sum_{k=1}^{r}\left(\sum_{1\leq i_1<\cdots i_k\leq r}1\right)= 2^r.
+\end{equation*}
+In the last equation, we used the fact that the sum of all the binomial coefficients under $r$ is $2^r$, and that the number of strictly increasing sequences $1\leq i_1<\cdots <i_k\leq r$ is exactly the binomial coefficient $\binom{r}{k}$, since any subset of $\{1,\ldots,r\}$ uniquely determines such a sequence. It follows that $A(x,r)< B(x,r)+2^r$. Furthermore, we have $\pi(x)\leq r+A(x,r)$, which shows that
+\begin{equation*}
+  \pi(x) < 2^{r+1} + \sum_{k=1}^{r}(-1)^{k}\left(\sum_{1\leq i_1<\cdots i_k\leq r}\frac{x}{p_{i_1}\cdots p_{i_k}}\right),
+\end{equation*}
+where the term $2^{r+1}$ comes from the term $r+2^r$, which is clearly strictly smaller.
+
+On the other hand, expanding the product gives the identity
+\begin{equation*}
+  \prod_{i=1}^r\left(1-\frac{1}{p_i}\right) = \sum_{k=0}^{r}(-1)^{k}\left(\sum_{1\leq i_1<\cdots i_k\leq r}\frac{1}{p_{i_1}\cdots p_{i_k}}\right).
+\end{equation*}
+Thus, we find that
+\begin{equation*}
+  \pi(x) \leq 2^{r+1} + x \prod_{i=1}^r\left(1-\frac{1}{p_i}\right)
+\end{equation*}
+In order to make further progress in estimating the prime counting function, we need a bound on the Euler product $\prod_{i=1}^r\bigl(1-\frac{1}{p_i}\bigr)$, which we will establish in the following theorem.
+  
+\begin{theorem}
+  For any natural number $n\geq 2$, we have
+  \begin{equation*}
+    \prod_{p\leq n}\left(1-\frac{1}{p}\right) < \frac{1}{\log n}.
+  \end{equation*}
+\end{theorem}
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+    
+    % For each integer n, plot the step function and shade the area between the horizontal bar and the curve.
+    \foreach \n in {1,2,3,4,5} {
+      
+      \fill[gray!30]
+      (\n,0) -- (\n,{1/(\n)}) --
+      plot[domain=\n:\n+1, samples=100, smooth, variable=\x] ({\x},{1/(\x)}) --
+      (\n+1,0) -- (\n,0) -- cycle;}
+    
+    \foreach \n in {1,2,3,4,5} {
+      % Draw the horizontal step (red thick line)
+      \draw[gray, thick] (\n, {1/(\n)}) -- (\n+1, {1/(\n)});
+      
+      % Optionally draw the vertical connection at the right end (so the step function is fully visible)
+      \draw[gray,thick,line cap=butt] (\n+1, {1/(\n)}) -- (\n+1, 0);
+    }
+    
+    \draw[gray,thick,line cap=butt] (1,1) -- (1,0);
+    
+    % Plot the function y=1/x (blue curve)
+    \draw[domain={1/2.2}:6.2, samples=100, smooth, variable=\x, thick] plot ({\x},{1/(\x)}) node[right] {};
+    
+    % Optionally label the graphs
+    \node at (1.2,1.8) {$y=\frac{1}{x}$};
+    \node at (4,0.7) {$y=\frac{1}{\lfloor x\rfloor}$};
+    
+    % Axes
+    \draw[->] (-0.2,0) -- (6.2,0) node[right] {$x$};
+    \draw[->] (0,-.2) -- (0,2.2) node[above] {$y$};
+    
+  \end{tikzpicture}
+  \caption{\label{figure:sum-of-unit-fractions-by-integration}The sum of unit fractions can be estimated from below by computing the area under the graph $x\mapsto \frac{1}{x}$.}
+\end{figure}
+
+\begin{proof}
+  The statement of the theorem is equivalent to:
+  \begin{equation*}
+    \log n<\prod_{p\leq n}\frac{1}{1-p^{-1}}.
+  \end{equation*}
+  Note that the factors on the right-hand side are the sums of the geometric series $1+p^{-1}+p^{-2}+\cdots$. Thus, we can evaluate this product as
+  \begin{equation*}
+    \prod_{p\leq n}\frac{1}{1-p^{-1}} = \sum_{k=0}^{\infty}\left(\sum_{2\leq p_1\leq \cdots \leq p_k\leq n} \frac{1}{p_1\cdots p_k}\right).
+  \end{equation*}
+  In the sum on the right-hand side, we see exactly one occurrence of every unit fraction $\frac{1}{m}$ where all the prime factors of $m$ are at most $n$. This sum is certainly strictly larger than the sum $1+\cdots +\frac{1}{n}$, so that
+  \begin{equation*}
+    \sum_{m=1}^{n} \frac{1}{m}<\prod_{p\leq n}\frac{1}{1-p^{-1}}.
+  \end{equation*}
+  In order to establish a lower bound for the sum of the unit fractions $\frac{1}{m}$ over $1\leq m\leq n$, we will use that the inequality $\frac{1}{x}\leq \frac{1}{\lfloor x\rfloor}$ holds for all $x\geq 1$. Thus we see that we can estimate the sum of the unit fractions $\frac{1}{n}$ from below by computing the area under the graph of the function $x\mapsto \frac{1}{x}$, as indicated in \cref{figure:sum-of-unit-fractions-by-integration} by integrating the function $x\mapsto \frac{1}{x}$. Doing so, we obtain:
+  \begin{equation*}
+    \log n<\int_1^{n+1}\frac{1}{x}\,\mathrm{d}x<\sum_{m=1}^n\frac{1}{m}.
+  \end{equation*}
+
+  Combining these two inequalities, we obtain the desired strict inequality
+  \begin{equation*}
+    \log n < \prod_{p\leq n}\frac{1}{1-p^{-1}}. \qedhere
+  \end{equation*}
+\end{proof}
+
+We are now ready to prove the estimate for the prime counting function stated at the beginning of this section.
+
+\begin{theorem}
+  \begin{equation*}
+    \pi(x)=\Oh\left(\frac{x}{\log\log x}\right).
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  By the previous theorem and the remarks preceding it, we have the inequality
+  \begin{equation*}
+    \pi(x)\leq 2^{r+1}+\frac{x}{\log p_r}.
+  \end{equation*}
+  Since $r<p_r$, we obtain that
+  \begin{equation*}
+    \pi(x)< 2^{r+1}+\frac{x}{\log r}.
+  \end{equation*}
+  A suitable value for $r$ is now $\lfloor\log x\rfloor$, for which we obtain
+  \begin{equation*}
+    \pi(x)\leq \frac{x}{\log\log x}+2\cdot 2^{\log x}=\frac{x}{\log\log x} + 2\cdot x^{\log 2}.
+  \end{equation*}
+  The function $x^{\log 2}$ is of strictly smaller order than $\frac{x}{\log\log x}$. Therefore we have
+  \begin{equation*}
+    \pi(x)=\Oh\left(\frac{x}{\log\log x}\right).\qedhere
+  \end{equation*}
+\end{proof}
+
+\section{Chebyshev's Theorem}
+
+\begin{theorem}
+  There are positive constants $c_1$ and $c_2$ such that for $x\geq 2$, we have
+  \begin{equation*}
+    c_1\frac{x}{\log x} < \pi(x) < c_2\frac{x}{\log x}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  From \cref{corollary:kummers-theorem} it follows that the central binomial coefficient $\binom{2n}{n}$ divides the least common multiple of the digits $1,\ldots,2n$, and therefore we have
+  \begin{equation*}
+    \binom{2n}{n}\leq \lcm(1,\ldots,2n).
+  \end{equation*}
+  We therefore obtain the inequalities
+  \begin{equation*}
+    n^{\pi(2n)-\pi(n)} \leq \prod_{n<p\leq 2n}p\leq \binom{2n}{n} \leq \lcm(1,\ldots,2n)\leq (2n)^{\pi(2n)}.
+  \end{equation*}
+  It follows that
+  \begin{equation*}
+    (\pi(2n)-\pi(n))\log n \leq \log\binom{2n}{n} \leq \pi(2n)\log(2n).
+  \end{equation*}
+  Since $2^n\leq \binom{2n}{n}<4^n$, we conclude from the above inequalities that
+  \begin{equation*}
+    \pi(2n)-\pi(n) \leq 2\log 2\frac{n}{\log n},
+  \end{equation*}
+  and
+  \begin{equation*}
+    \pi(2n)\geq \frac{n\log 2}{\log(2n)}.
+  \end{equation*}
+  This last inequality gives us for $x\geq 4$ that
+  \begin{equation*}
+    \pi(x)\geq \pi\left(2\left\lfloor\frac{x}{2}\right\rfloor\right) \geq \frac{\lfloor x/2\rfloor\log 2}{\log(2\lfloor x/2\rfloor)}\geq c_2\frac{x}{\log x}.
+  \end{equation*}
+  Thus, it remains to show that there is a positive constant $c_1$ such that
+  \begin{equation*}
+    c_1\frac{x}{\log x}\leq \pi(x).
+  \end{equation*}
+  To this end, note that for any positive $y$ we have
+  \begin{equation*}
+    \pi(y)-\pi(y/2)=\pi(y)-\pi(\lfloor y/2\rfloor) \leq 1+ \pi(2\lfloor y/2\rfloor)-\pi(\lfloor y/2\rfloor).
+  \end{equation*}
+  Thus, there is a positive constant $c'_1$ such that
+  \begin{equation*}
+    \pi(y)-\pi(y/2)<c'_1\frac{y}{\log y}
+  \end{equation*}
+  for any $y\geq 2$.
+\end{proof}
+
+\section{Sums of Reciprocals of Primes}
+
+\begin{theorem}
+  The sum
+  \begin{equation*}
+    \sum_{p}\frac{1}{p}
+  \end{equation*}
+  diverges.
+\end{theorem}
+
+  \begin{figure}[t]
+    \centering
+    \begin{tikzpicture}
+      % Draw axes
+      \draw[->] (-1.1,0) -- (4.1,0) node[right] {$x$};
+      \draw[->] (0,-2.1) -- (0,2.1) node[above] {$y$};
+
+      % Plot g(x)=2x
+      \draw[gray, thick, domain=-1:1, samples=200]
+      plot (\x, {2*\x});
+
+      % Plot f(x)=ln(1+x)
+      \draw[very thick, domain=-0.8676:4, samples=200]
+      plot (\x, {ln(1+\x)});
+            
+      % Mark the intersection points
+      \draw[black, thick, fill=white] (0,0) circle (2pt);
+      \draw[black, thick, fill=white] (-0.795, -1.59) circle (2pt);
+      
+      % Annotate the intersection points
+      \node[anchor=north west, font=\footnotesize] at (0,0) {$(0,0)$};
+      \node[anchor=south east, font=\footnotesize] at (-0.795, -1.59) {$(-0.795,\,-1.59)$};
+
+      % Annotate the graphs
+      \node at (4,1.2) {$y=\log(1+x)$};
+      \node at (1.5,1.8) {$y=2x$};
+    \end{tikzpicture}
+    \caption{\label{figure:plot-of-log-1+x}The function $x\mapsto \log(1+x)$ compared to the function $x\mapsto 2x$.}
+  \end{figure}
+
+\begin{proof}
+  First, we observe that $2x<\log(1+x)$ for each $-\frac{1}{2}\leq x< 0$, as indicated in \cref{figure:plot-of-log-1+x}. Since the inequalities $0<\frac{1}{p}\leq \frac{1}{2}$ hold for every prime $p$, it follows that
+  \begin{equation*}
+    -\frac{2}{p}<\log\left(1-\frac{1}{p}\right).
+  \end{equation*}
+  Rearranging this strict inequality, we obtain the strict inequality
+  \begin{equation*}
+    -\frac{1}{2}\log\left(1-\frac{1}{p}\right)<\frac{1}{p}.
+  \end{equation*}
+  Summing over the primes up to a given real number $x$ yields
+  \begin{equation*}
+    -\frac{1}{2}\sum_{p\leq x}\log\left(1-\frac{1}{p}\right)<\sum_{p\leq x}\frac{1}{p}.
+  \end{equation*}
+  Since sums of logarithms are logarithms of products, we obtain the strict inequality
+  \begin{equation*}
+    -\frac{1}{2}\log \prod_{p\leq x}\left(1-\frac{1}{p}\right)<\sum_{p\leq x}\frac{1}{p}.
+  \end{equation*}
+  Since
+  \begin{equation*}
+    \prod_{p\leq x}\left(1-\frac{1}{p}\right)<\frac{1}{\log x},
+  \end{equation*}
+  it follows that
+  \begin{equation*}
+    \log \prod_{p\leq x}\left(1-\frac{1}{p}\right)<-\log\log x.
+  \end{equation*}
+  This allows us to conclude that
+  \begin{equation*}
+    \frac{\log\log x}{2}<\sum_{p\leq x}\frac{1}{p}.\qedhere
+  \end{equation*}
+\end{proof}
+
+In order to establish the asymptotic behavior of the sum $\sum_{p\leq x}\frac{1}{p}$, we will use \emph{Legendre's formula} for $n!$.
+
+\begin{theorem}
+  \begin{equation*}
+    \sum_{p\leq x}\frac{\log p}{p} \sim \log x.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  In order to show that $\sum_{p\leq x}\frac{\log p}{p}\sim \log x$, it suffices to show that for any positive integer $n$, we have
+  \begin{equation*}
+    \sum_{p\leq n}\frac{\log p}{p}=\log n + \Oh\left(\frac{\log n}{\log\log n}\right).
+  \end{equation*}
+  Multiplying both sides of this estimate by $n$, we see that it suffices to show that
+  \begin{equation*}
+    \sum_{p\leq n}\frac{n}{p} \log p=n\log n + \Oh\left(\frac{n\log n}{\log\log n}\right).
+  \end{equation*}
+  We compare this expression with the expression for $\log n!$ obtained through Legendre's formula:
+  \begin{equation*}
+    \log n! = \sum_{p\leq n}\left\lfloor\frac{n}{p}\right\rfloor\log p + \sum_{p\leq n}\left(\sum_{k=2}\left\lfloor\frac{n}{p^k}\right\rfloor\right)\log p.
+  \end{equation*}
+  Since $\frac{n-p}{p}\leq \lfloor\frac{n}{p}\rfloor\leq \frac{n}{p}$, we see that the first sum satisfies the inequalities
+  \begin{equation*}
+    \sum_{p\leq n}\frac{n}{p}\log p - \pi(n)\log n \leq \sum_{p\leq n}\frac{n-p}{p}\log p \leq \sum_{p\leq n}\left\lfloor\frac{n}{p}\right\rfloor\log p \leq \sum_{p\leq n}\frac{n}{p}\log p.
+  \end{equation*}
+  This shows that
+  \begin{equation*}
+    \sum_{p\leq n}\left\lfloor\frac{n}{p}\right\rfloor\log p = \sum_{p\leq n}\frac{n\log p}{p} + \Oh(\pi(n)\log(n)).
+  \end{equation*}
+  Furthermore, since $\pi(x)=\Oh\bigl(\frac{x}{\log\log x}\bigr)$, we obtain that
+  \begin{equation*}
+    \sum_{p\leq n}\left\lfloor\frac{n}{p}\right\rfloor\log p = \sum_{p\leq n}\frac{n\log p}{p} + \Oh\left(\frac{n\log(n)}{\log\log n}\right).
+  \end{equation*}
+  Likewise, the second sum satisfies the inequality
+  \begin{equation*}
+    \sum_{p\leq n}\left(\sum_{k=2}\left\lfloor\frac{n}{p^k}\right\rfloor\right)\log p \leq \sum_{p\leq n}\left(\sum_{k=2}\frac{n}{p^k}\right)\log p=\sum_{p\leq n}\frac{n\log p}{p(p-1)}.
+  \end{equation*}
+  The sum $\sum_{p\leq n}\frac{\log p}{p(p-1)}$ converges so it is in $\Oh(1)$. Thus we see that
+  \begin{equation*}
+    \sum_{p\leq n}\left(\sum_{k=2}\left\lfloor\frac{n}{p^k}\right\rfloor\right)\log p = \Oh(n) = \Oh\left(\frac{n\log n}{\log\log n}\right).
+  \end{equation*}
+  Combining this with the estimate for the first sum, we obtain
+  \begin{equation*}
+    \log n! = \sum_{p\leq n}\frac{n\log p}{p} + \Oh\left(\frac{n\log(n)}{\log\log n}\right).
+  \end{equation*}
+  On the other hand, we can make the much more straightforward estimate of $\log n!$ as follows:
+  \begin{equation*}
+    \log n! = \sum_{m=1}^n \log m = \int_{1}^n\log t\,\mathrm{d}t+\Oh(\log n) = n\log n + \Oh(n).
+  \end{equation*}
+  The first and second estimates for $\log n!$ combined give
+  \begin{equation*}
+    \sum_{p\leq n}\frac{n\log p}{p} + \Oh\left(\frac{n\log(n)}{\log\log n}\right) = n\log n + \Oh(n),
+  \end{equation*}
+  which can be rearranged to
+  \begin{equation*}
+    \sum_{p\leq n}\frac{n\log p}{p} = n\log n + \Oh\left(\frac{n\log(n)}{\log\log n}\right).\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}
+  The sum of the reciprocals of the primes below a number $x$ satisfies the asymptotic relation
+  \begin{equation*}
+    \sum_{p\leq x}\frac{1}{p}\sim \log \log x.
+  \end{equation*}
+\end{theorem}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:

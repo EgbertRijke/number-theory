@@ -12,7 +12,71 @@ To see that the number $2$ is prime, note that its positive divisors are a subse
 
 To see that the number $3$ is prime, note that its positive divisors are a subset of the set $\{1,2,3\}$ consisting of all positive integers below $3$. The number $1$ is a proper divisor, the number $2$ doesn't divide $3$, and $3$ itself is a divisor but it isn't proper. Therefore we see that the number $3$ has exactly one positive proper divisor.
 
-The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \emph{sieve of Eratosthenes}, which we will now describe.
+The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \emph{sieve of Eratosthenes}, which we will now describe. \cref{figure:sieve-of-eratosthenes} displays the sieve of Eratosthenes up to 1350.
+
+\begin{figure}[!p]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[x=0.5cm,y=0.5cm]
+
+  % PARAMETERS
+  \def\Cols{30}                       % number of columns
+  \def\N{1350}                        % max number
+  \pgfmathsetmacro{\Rows}{ceil(\N/\Cols)}  % computed number of rows
+  \def\CirDiam{0.4cm}                 % diameter of every circle
+
+  % 1) draw every number in a white circle of fixed size
+  \foreach \i in {1,...,\N} {
+    \pgfmathtruncatemacro{\c}{mod(\i-1,\Cols)}
+    \pgfmathtruncatemacro{\r}{int((\i-1)/\Cols)}
+    \node[
+      circle,
+      draw,
+      fill=white,
+      minimum size=\CirDiam,
+      inner sep=0pt,
+      font=\tiny
+    ] at (\c+0.5,-\r-0.5) {\i};
+  }
+
+  % 2) mark '1' as composite (filled black)
+  \node[
+    circle,
+    draw,
+    fill=black,
+    text=white,
+    minimum size=\CirDiam,
+    inner sep=0pt,
+    font=\tiny
+  ] at (0.5,-0.5) {1};
+
+  % 3) sieve out composites: for each prime ≤ √1350 fill its multiples
+  \foreach \p in {2,3,5,7,11,13,17,19,23,29,31} {
+    \pgfmathtruncatemacro{\q}{int(1350/\p)}
+    \foreach \k in {2,...,\q} {
+      \pgfmathtruncatemacro{\m}{\p*\k}
+      \ifnum\m>\N
+        \breakforeach
+      \fi
+      \pgfmathtruncatemacro{\cc}{mod(\m-1,\Cols)}
+      \pgfmathtruncatemacro{\rr}{int((\m-1)/\Cols)}
+      % overwrite with black circle
+      \node[
+        circle,
+        draw,
+        fill=black,
+        text=white,
+        minimum size=\CirDiam,
+        inner sep=0pt,
+        font=\tiny
+      ] at (\cc+0.5,-\rr-0.5) {\m};
+    }
+  }
+
+\end{tikzpicture}%
+}
+\caption{\label{figure:sieve-of-eratosthenes}The sieve of Eratosthenes up to 1350: The number 1 and every composite number are marked in black, leaving just the primes in white circles.}
+\end{figure}
 
 The sieve of Eratosthenes is an iterative process that generates at stage $n$ a set $P_n$ of numbers known to be prime at stage $n$, and a set $Q_n$ of prime candidates. In other words, the sets $P_n$ form an increasing sequence
 \begin{equation*}
@@ -103,7 +167,7 @@ There are many proofs of the infinitude of primes. The following is due to Filip
 
 \subsection*{Goldbach's Proof}
 
-Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private corresponcences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
+Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private correspondences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
 
 Recall that the Fermat numbers $\Phi_n$ are defined by
 \begin{equation*}
@@ -214,11 +278,241 @@ The following proposition is due to Euclid, who included it as proposition 30 of
   This implies that $p\mid r_i$ for some $0\leq i \leq k$, i.e., that $p=r_i$. However, $p$ is assumed to be the smallest prime factor of $n+1$, so it follows that $p=r_0$. Now it follows that $(r_1,\ldots,r_k)$ is a prime decomposition of $(n+1)/p$, which is unique, and therefore we conclude that $n+1$ has a unique prime factorization.
 \end{proof}
 
+\section{Legendre's Formula and Kummer's Theorem}
+
+In some cases we can give precise expressions of the prime factorization of a number. We will describe here two such cases: The prime factorization of the factorial $n!$, which is due to Adrien-Marie Legendre, and the prime factorization of the binomial coefficients $\binom{n}{m}$, which is due to Ernst Kummer. These explicit formulas will be useful in the study of the distribution of the primes.
+
+\begin{definition}
+  The \emph{$p$-adic valuation} of a positive integer $n$ is the largest exponent $m$ such that $p^m\mid n$. That is, it is the unique natural number $m$ such that
+  \begin{equation*}
+    p^k\mid n\qquad\Leftrightarrow\qquad k\leq m
+  \end{equation*}
+  for every natural number $k$. We will write $\nu_p(n)$ for the $p$-adic valuation of $n$.
+\end{definition}
+
+For example, the $2$-adic valuation of $24$ is $\nu_2(24)=3$ because the exponent of $2$ in $24=2^3\cdot 3$ is $3$, and its $3$-adic valuation is $\nu_3(24)=1$ because the exponent of $3$ in $2^3\cdot 3$ is $1$. Another useful fact is that the $p$-adic valuation of the greatest common divisor of two numbers is the minimum of their respective $p$-adic valuations. More generally, if the greatest common divisor is taken of multiple natural numbers we obtain
+\begin{equation*}
+  \nu_p(\gcd(n_1,\ldots,n_k))=\min(\nu_p(n_1),\ldots,\nu_p(n_k)).
+\end{equation*}
+Likewise, the $p$-adic valuation of the least common multiple of $n_1,\ldots,n_k$ is
+\begin{equation*}
+  \nu_p(\lcm(n_1,\ldots,n_k))=\max(\nu_p(n_1),\ldots,\nu_p(n_k)).
+\end{equation*}
+For example the greatest common divisor and the least common multiple of $60=2^2\cdot 3\cdot 5$ and $525=3\cdot 5^2\cdot 7$ are
+\begin{equation*}
+  \gcd(60,525)=3\cdot 5=15\qquad\text{and}\qquad\lcm(60,525)=2^2\cdot 3\cdot 5^2\cdot 7=2100.
+\end{equation*}
+
+\begin{theorem}[Legendre's formula]\label{theorem:legendres-formula}
+  For any natural number $n$, we have
+  \begin{equation*}
+    n!=\prod_{p\leq n}p^{\left\lfloor\frac{n}{p}\right\rfloor + \left\lfloor\frac{n}{p^2}\right\rfloor + \cdots}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Another way of stating Legendre's formula for $n!$ is that the $p$-adic valuation of $n!$ is given by
+  \begin{equation*}
+    \nu_p(n!) = \sum_{k=1}^\infty\left\lfloor\frac{n}{p^k}\right\rfloor.
+  \end{equation*}
+  To see this, note that each integer $1\leq x \leq n$ divisible by $p$ contributes a factor $p$ to $n!$. Each integer $1\leq x\leq n$ divisible by $p^2$ contributes a second factor of $p$ to $n!$, and more generally, each integer $1\leq x \leq n$ divisible by $p^k$ contributes a $k$th factor of $p$.
+
+  Since there are $\bigl\lfloor\frac{n}{p^k}\bigr\rfloor$ integers from $1$ to $n$ divisible by $p^k$, it follows that the number of factors of $p$ in $n!$ is
+  \begin{equation*}
+    \sum_{k=1}^\infty\left\lfloor\frac{n}{p^k}\right\rfloor.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}[de Polignac's formula]\label{corollary:de-polignacs-formula}
+  Consider a natural number $n\geq 1$ written in its base $p$ representation
+  \begin{equation*}
+    \sum_{i=0}^{l} a_ip^i,
+  \end{equation*}
+  where we have $0\leq a_i<p$ for each $i$. Then $p$-adic valuation of $n!$ is
+  \begin{equation*}
+    \nu_p(n!) = \frac{n-\sum_{i=0}^{l} a_i}{p-1}.
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  Given the base-$p$ representation of $n$, the base-$p$ representation of $\lfloor\frac{n}{p^k}\rfloor$ is given by dropping the digits first $k$ digits in the base-$p$ representation of $n$:
+  \begin{equation*}
+    \left\lfloor\frac{n}{p^k}\right\rfloor = a_k + a_{k+1}p +\cdots + a_lp^{l-k}.
+  \end{equation*}
+  Using this observation, we obtain:
+  \begin{equation*}
+    \sum_{k=1}^{l}\left\lfloor\frac{n}{p^k}\right\rfloor
+    = \sum_{k=1}^{l}\sum_{j=k}^{l}a_jp^{j-k}
+    = \sum_{j=1}^la_j\sum_{k=1}^{j}p^{j-k}
+    = \sum_{j=1}^la_j\frac{p^j-1}{p-1}.
+  \end{equation*}
+  On the other hand, we have
+  \begin{equation*}
+    n-\sum_{j=0}^l a_j = \sum_{j=0}^l a_jp^j-a_j = \sum_{j=0}^l a_j(p^j-1).
+  \end{equation*}
+  This gives
+  \begin{equation*}
+    \frac{n-\sum_{j=0}^l a_j}{p-1} = \sum_{j=0}^l a_j\frac{p^j-1}{p-1}=
+    \sum_{k=1}^{l}\left\lfloor\frac{n}{p^k}\right\rfloor.\qedhere
+  \end{equation*}
+\end{proof}
+
+In the following theorem, which is due to Ernst Kummer, we will compute the $p$-adic valuation of the binomial coefficients. Before we do this, we need to recall addition of two natural numbers written in base $p$. Suppose that
+\begin{equation*}
+  m=\sum_{i=0}^{l_m}a_ip^i\qquad\text{and}\qquad n=\sum_{i=0}^{l_{n}}b_ip^i.
+\end{equation*}
+Then their sum $m+n$ has base-$p$ representation
+\begin{equation*}
+  m+n=\sum_{i=0}^{l_n}c_ip^i,
+\end{equation*}
+where $c_i$ is obtained by the following recursive procedure, simultaneously with a number $u(m,n)_i\in\{0,1\}$ recording whether a $1$ needs to be carried over to the next digit: Set $u(m,n)_0=0$ and define
+\begin{equation*}
+  (c_i,u(m,n)_{i+1}) :=
+  \begin{cases}
+    (a_i+b_i+u(m,n)_i,0) & \text{if }a_i+b_i+u(m,n)_i< p \\
+    (a_i+b_i+u(m,n)_i-p,1) & \text{if }a_i+b_i+u(m,n)_i\geq p.
+  \end{cases}
+\end{equation*}
+
+\begin{theorem}[Kummer's Theorem]\label{theorem:kummers-theorem}
+  Consider two natural numbers $m$ and $n$. The $p$-adic valuation of the binomial coefficient $\binom{m+n}{m}$ is the number of carries in the addition of $m$ and $n$ in base $p$: If $m$ and $n$ have base $p$-representations
+  \begin{equation*}
+    m = \sum_{i=0}^{l_m}a_ip^i\qquad\text{and}\qquad n = \sum_{i=0}^{l_n}b_ip^i,
+  \end{equation*}
+  then
+  \begin{equation*}
+    \nu_p\binom{m+n}{m} = \#\{0\leq i \leq l_n \mid u(m,n)_i=1\}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Write $s_p(x)$ for the sum of the digits of the $p$-adic representation of natural number $x$. By de Polignac's formula for the $p$-adic valuation of $(m+n)!$ we find that
+  \begin{equation*}
+    \nu_p\binom{m+n}{m} = \nu_p((m+n)!)-\nu_p(m!)-\nu_p(n!) =
+    \frac{s_p(m)+s_p(n)-s_p(m+n)}{p-1}.
+  \end{equation*}
+  The $p$-adic representation of $m+n$ is given by
+  \begin{equation*}
+    m+n = \sum_{i=0}^{l_{m+n}}c_ip^i,
+  \end{equation*}
+  where
+  \begin{equation*}
+    c_i =
+    \begin{cases}
+      a_i+b_i + u(m,n)_i & \text{if } a_i+b_i+u(m,n)_i<p \\
+      a_i+b_i + u(m,n)_i - p & \text{otherwise}.
+    \end{cases}
+  \end{equation*}
+  We therefore find that the numerator in de Polignac's expression for $\nu_p\binom{m+n}{m}$ contains a term $p-u(m,n)_{i+1}$ for every time $u(m,n)_{i+1}=1$. That is, the numerator is of the form $C(p-1)$ where $C$ is the number of carries. This proves the theorem.
+\end{proof}
+
+Kummer's theorem can be used to show that the binomial coefficient $\binom{n}{k}$ always divides the least common multiple of $1,2,\ldots,n$. In order to prove this result, note that the largest exponent $m$ such that $p^m\leq n$ is the number
+\begin{equation*}
+  m=\lfloor \log_p(n)\rfloor.
+\end{equation*}
+In other words, if $m$ is the largest integer not exceeding $\log_p(n)$, then the leading digit in the base-$p$ representation of $n$ belongs to $p^m$. 
+
+\begin{corollary}\label{corollary:kummers-theorem}
+  For any $0\leq k\leq n$ we have
+  \begin{equation*}
+    \binom{n}{k}\,\,\Big|\,\,\lcm(1,\ldots,n).
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  Suppose that the base-$p$ representation of $n$ is
+  \begin{equation*}
+    n=\sum_{i=0}^{l}a_ip^i.
+  \end{equation*}
+  Then there are clearly at most $l$ carries when we add $k$ to $n-k$. Since $p^l\leq n$, it follows that
+  \begin{equation*}
+    p^{\nu_p\binom{n}{k}}\mid\lcm(1,\ldots,n).
+  \end{equation*}
+  Since this is true for every prime $p\leq n$, and $\binom{n}{k}$ contains only prime divisors up to $n$, the claim follows.
+\end{proof}
+
+\section{Bertrand's Postulate}
+
+In 1845, Joseph Bertrand observed that for any $1\leq n \leq 3,000,000$ there is always a prime between $n$ and $2n$, and conjectured that this must be true for all $n$ \cite{bertrand1845}. Nowadays on a computer, it is really easy to generate lists of primes $p_i$ so that the prime $p_{i+1}$ is strictly below $2p_i$ for each $i$. Taking each time the largest possible prime satisfying this requirement, we obtain the list
+\begin{align*}
+  &2,\ 3,\ 5,\ 7,\ 13,\ 23,\ 43,\ 83,\ 163,\ 317,\ 631,\ 1259,\\
+  &2503,\ 5003,\ 9973,\ 19937,\ 39869,\ 79699,\ 159389,\\
+  &318751,\ 637499,\ 1274989,\ 2549951,\ 5099893,\ \ldots.
+\end{align*}
+
+The primes in this list are sometimes called the \emph{Bertrand primes}, and they are listed as A006992 in the On-Line Encyclopedia of Integer Sequences \cite{oeis:A006992}. Bertrand's conjecture was proven five years later by Pafnuty Chebyshev, who contributed many more results about the distribution of the primes using analytical methods \cite{chebyshev1850}. We will give a proof by Erd\"os \cite{erdos1932}, which can be obtained through the methods of the previous section.
+
+\begin{lemma}\label{lemma:upper-bound-product-of-primes}
+  For any positive integer $n$, we have
+  \begin{equation*}
+    \prod_{p\leq n}p< 4^n.
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  The proof is by induction on $n$. For $n=1$, there are no primes $p\leq 1$, so the product over all the primes $p\leq 1$ is just $1$, which is indeed strictly below $4$. Likewise, the theorem holds for $n=2$, because $2<4^2$.
+
+  For the inductive step, assume that $\prod_{p\leq n}p<4^n$. In order to show that
+  \begin{equation*}
+    \prod_{p\leq n+1}p < 4^{n+1},
+  \end{equation*}
+  there are two cases to consider: Either $n+1$ is even or $n+1$ is odd. The even case is immediate: We have
+  \begin{equation*}
+    \prod_{p\leq n+1}p = \prod_{p\leq n}p < 4^n < 4^{n+1}.
+  \end{equation*}
+  In the odd case, there is an $m$ such that $2m+1=n+1$. Since every prime $m+2\leq p \leq 2m+1$ divides the binomial coefficient $\binom{2m+1}{m}$, it follows that
+  \begin{equation*}
+    \prod_{p\leq 2m+1}p\leq \binom{2m+1}{m}\cdot \prod_{p\leq m+1}p < \binom{2m + 1}{m} 4^{m+1}.
+  \end{equation*}
+  To finish the proof, it suffices to show that $\binom{2m+1}{m}\leq 4^m$. This follows, since the binomial coefficients $\binom{2m+1}{m}$ and $\binom{2m+1}{m+1}$ occur separately in the expansion of $(1+1)^{2m+1}$. However, they are equal, so neither of them can exceed $\frac{1}{2} 2^{2m+1}=4^m$, which proves the lemma.
+\end{proof}
+
+\begin{theorem}
+  For any positive integer $n$, there is a prime $n<p\leq 2n$.
+\end{theorem}
+
+\begin{proof}
+  Consider an integer $n\geq 2$ for which there is no prime $n<p<2n$, and let $p$ be a prime divisor of the central binomial coefficient $\binom{2n}{n}$. Such a prime divisor must then be less than or equal to $\frac{2}{3}n$, since $q^3\nmid (2n)!$ for any prime $\frac{2}{3}n<q\leq n$, while $q^2\mid (n!)^2$.
+
+  Now, if $m$ is the largest exponent such that $p^m\mid \binom{2n}{n}$, then it follows from \cref{corollary:kummers-theorem} that
+  \begin{equation*}
+    p^m\leq 2n.
+  \end{equation*}
+  This allows us to estimate the number of primes for which $p^2\mid \binom{2n}{n}$. Indeed, if $m\geq 2$, then it follows that
+  \begin{equation*}
+    p \leq \sqrt[\raisebox{0.3ex}{${\scriptscriptstyle m}$}]{2n}\leq \sqrt{2n}.
+  \end{equation*}
+  This shows that there are at most $\sqrt{2n}$ primes in the prime factorization of $\binom{2n}{n}$, of which the exponent is larger than $1$. It follows that
+  \begin{equation*}
+    \frac{4^n}{2n+1}<\binom{2n}{n}\leq (2n)^{\sqrt{2n}}\prod_{p\leq 2n/3}p< (2n)^{\sqrt{2n}} 4^{\frac{2n}{3}},
+  \end{equation*}
+  where the first inequality was established in \cref{exercise:estimates-central-binomial-coefficients}, and the last inequality follows from \cref{lemma:upper-bound-product-of-primes}. Rearranging this strict inequality, we obtain
+  \begin{equation*}
+    4^{\frac{n}{3}}<(2n+1)(2n)^{\sqrt{2n}}<(2n)^{\sqrt{2n}+1}.
+  \end{equation*}
+  Taking logarithms base $2$ on both sides, we find that
+  \begin{equation*}
+    \frac{n}{2}<\frac{2n}{3} < (\sqrt{2n}+1)\log_2(2n)
+  \end{equation*}
+  We see that this strict inequality fails for $n\geq 2^9=512$, since
+  \begin{equation*}
+    2^8 = 512 \nless 330 = (2^5+1)\cdot 10.
+  \end{equation*}
+  We conclude that Bertrand's postulate must be true for all $n\geq 512$. Using the sieve of Eratosthenes up to 1350, as displayed in \cref{figure:sieve-of-eratosthenes}, we see that the Bertrand primes are indeed primes up to $631$, which is sufficient and thus the theorem is proven.
+\end{proof}
+
 \begin{exercises}
+  \exercise \label{exercise:shading} In the number grid provided at the end of the introduction, shade the numbered cells in two colors:
+  \begin{enumerate}
+  \item Leave all the prime numbers unshaded.
+  \item Shade the number $1$ and all square-free composite numbers in one color.
+  \item Shade all non-square-free numbers in the other color.
+  \end{enumerate}
+  Explain your method.
   \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
   \exercise Show that
   \begin{equation*}
-    p\mid \binom{p}{k}
+    p\,\,\Big|\,\, \binom{p}{k}
   \end{equation*}
   for any $0<k<p$, and any prime number $p$.
   \exercise Show that
@@ -237,9 +531,18 @@ The following proposition is due to Euclid, who included it as proposition 30 of
     p_1^{m_1}\cdots p_n^{m_n}
   \end{equation*}
   such that $m_1+\cdots +m_n=k$?
+  \exercise Suppose that $n\geq 3$ and $p$ is a prime such that $\frac{2}{3}n<p\leq n$. Prove that
+  \begin{equation*}
+    p\nmid \binom{2n}{n}.
+  \end{equation*}
+  \exercise Prove the following identity due to Bakir Farhi \cite{farhi2009}:
+  \begin{equation*}
+    \lcm\left(\binom{n}{0},\binom{n}{1},\ldots,\binom{n}{n}\right)=
+    \frac{\lcm(1,\ldots,n+1)}{n+1}.
+  \end{equation*}
 \end{exercises}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "lectures-on-number-theory"
+%%% TeX-master: "elementary-number-theory"
 %%% End:
