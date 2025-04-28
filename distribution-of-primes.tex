@@ -257,22 +257,46 @@ We are now ready to prove the estimate for the prime counting function stated at
   \end{equation*}
   This last inequality gives us for $x\geq 4$ that
   \begin{equation*}
-    \pi(x)\geq \pi\left(2\left\lfloor\frac{x}{2}\right\rfloor\right) \geq \frac{\lfloor x/2\rfloor\log 2}{\log(2\lfloor x/2\rfloor)}\geq c_2\frac{x}{\log x}.
+    \pi(x)\geq \pi\left(2\left\lfloor\frac{x}{2}\right\rfloor\right) \geq \frac{\lfloor x/2\rfloor\log 2}{\log(2\lfloor x/2\rfloor)}\geq c_1\frac{x}{\log x}.
   \end{equation*}
-  Thus, it remains to show that there is a positive constant $c_1$ such that
+  Thus, it remains to show that there is a positive constant $c_2$ such that
   \begin{equation*}
-    c_1\frac{x}{\log x}\leq \pi(x).
+    \pi(x)\leq c_2\frac{x}{\log x}.
   \end{equation*}
-  To this end, note that for any positive $y$ we have
+  We will use the inequality $\pi(2n)-\pi(n)\leq c'_2\frac{n}{\log n}$ to set up a ``telescoping argument''. Note that for any positive $y$ we have
   \begin{equation*}
     \pi(y)-\pi(y/2)=\pi(y)-\pi(\lfloor y/2\rfloor) \leq 1+ \pi(2\lfloor y/2\rfloor)-\pi(\lfloor y/2\rfloor).
   \end{equation*}
-  Thus, there is a positive constant $c'_1$ such that
+  Thus, there is a positive constant $c'_2$ such that
   \begin{equation*}
-    \pi(y)-\pi(y/2)<c'_1\frac{y}{\log y}
+    \pi(y)-\pi(y/2)<c''_2\frac{y}{\log y}
   \end{equation*}
   for any $y\geq 2$.
+
+  Using the fact that $\pi(z)\leq z$, we get that
+  \begin{equation*}
+    \begin{split}
+      \pi(y)\log y-\pi(y/2)\log\frac{y}{2}
+      & =\left(\pi(y)-\pi(y/2)\right)\log y+\pi(y/2)\log 2 \\
+      & < \log y\cdot c''_2\frac{y}{\log y} + y/2 \\
+      & <c'''_2y
+    \end{split}
+  \end{equation*}
+  Now we choose $y=x/2^m$ with $1\leq 2^m\leq x/2$. Then this becomes
+  \begin{equation*}
+    \pi\left(\frac{x}{2^m}\right)\log\frac{x}{2^m}-\pi\left(\frac{x}{2^{m+1}}\right)\log\frac{x}{2^{m+1}}<c'''_2\frac{x}{2^m}
+  \end{equation*}
+  Summing over all such $m$s, we find that
+  \begin{equation*}
+    \pi(x)\log x - \pi\left(\frac{x}{2^{\mu+1}}\right)\log\frac{x}{2^{\mu+1}}<c_2x,
+  \end{equation*}
+  where $2^\mu\leq x/2<2^{\mu+1}$. This means, however, that $x/2^{\mu+1}<2$, implying that $\pi(x/2^{\mu+1})=0$. Thus we conclude that
+  \begin{equation*}
+    \pi(x)\log x<c_2x.\qedhere
+  \end{equation*}
 \end{proof}
+
+\endinput
 
 \section{Sums of Reciprocals of Primes}
 

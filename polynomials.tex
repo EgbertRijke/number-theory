@@ -94,27 +94,34 @@ Lagrange's Interpolation Theorem establishes that for any set of data points, th
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}
-    \begin{axis}[
-      axis lines = middle,
-      xlabel = $x$, ylabel = $y$,
-      samples = 100,
-      domain = -0.5:4.5,
-      enlargelimits = true,
-      xmin = -1, xmax = 5, % More space on x-axis
-      ymin = -3, ymax = 3, % More space on y-axis
-      legend pos = north east,
-      legend cell align={left}
-      ]
-      % Plot the Lagrange interpolating polynomial
-      \addplot[black, thick] {(x-1)*(x-2)*(x-3)*(-1/6) + x*(x-2)*(x-3)*(-1) + x*(x-1)*(x-2)*(1/6)};
-      \addlegendentry{Interpolation}
-      
-      % Plot the given points
-      \addplot[only marks, mark=*, mark options={draw=black, fill=white, line width=1pt}, mark size=2pt] coordinates {(0,1) (1,-2) (2,0) (3,1)};
-      \addlegendentry{Data points}
-    \end{axis}
+    [x=1cm,y=.5cm]
+    \draw[->] (-1.2,0) -- (5.2,0) node[right] {$x$};
+    \draw[->] (0,-4.4) -- (0,4.4) node[above] {$y$};
+
+    \foreach \x in {-1, 1,2,3,4,5} {
+      \draw (\x,0) -- (\x,-.2)
+      node[below,font=\footnotesize] {$\x$};
+    };
+
+    \foreach \y in {-4,-2} {\draw (0,\y) -- (-.1,\y) node[left,font=\footnotesize] {$\y$};}
+
+    \foreach \y in {2,4} {\draw (0,\y) -- (.1,\y) node[right,font=\footnotesize] {$\y$};}
+          
+    
+    % Plot the interpolating polynomial
+    \draw[very thick, domain=-0.32:3.9, samples=500]
+      plot (\x, {(\x-1)*(\x-2)*(\x-3)*(-1/6)
+                 + \x*(\x-2)*(\x-3)*(-1)
+                 + \x*(\x-1)*(\x-2)*(1/6)});
+
+    % Plot the data points with hollow circles
+    \draw[black, thick, fill=white]
+      (0,1) circle (2pt)
+      (1,-2) circle (2pt)
+      (2,0) circle (2pt)
+      (3,1) circle (2pt);
   \end{tikzpicture}
-  \caption{A polynomial of degree $3$ obtained by Lagrange Interpolation.}
+  \caption{A polynomial of degree $3$ obtained by Lagrange interpolation.}
   \label{figure:lagrange-interpolation}
 \end{figure}
 
@@ -122,7 +129,7 @@ The idea underlying Lagrange's Interpolation Theorem is to break the problem int
 \begin{equation*}
   g_i(x)=(x-x_0)\cdots (x-x_{i-1})(x-x_{i+1})\cdots (x-x_j).
 \end{equation*}
-Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus there is some constant $c_i$ such that $c_ig_i(x_i)=y_i$. Adding them all up gives the Lagrange Interpolation.
+Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus there is some constant $c_i$ such that $c_ig_i(x_i)=y_i$. Adding them all up gives the Lagrange Interpolation Theorem.
 
 \begin{example}
   In \cref{figure:lagrange-interpolation}, we started with the set of points
@@ -187,7 +194,7 @@ are integers, then $f(x)$ is an integer for every integer $x$.
   if $f(x)$ is an integer for every integer $x$.
 \end{definition}
 
-A simple example of an integer valued polynomial, yet doesn't have integer coefficients is the polynomial
+A simple example of an integer valued polynomial that doesn't have integer coefficients is the polynomial
 \begin{equation*}
   \frac{x(x+1)}{2},
 \end{equation*}

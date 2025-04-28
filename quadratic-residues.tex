@@ -1,4 +1,4 @@
-\chapter{Quadratic Residues}
+\chapter{Quadratic Residues}\label{chapter:quadratic-residues}
 
 \section{Quadratic Congruences}
 
@@ -231,11 +231,17 @@ Euler had a deep understanding of numbers that are congruent to a square modulo 
   if and only if $a$ is a quadratic residue, and it is congruent to $-1$ otherwise.
 \end{proof}
 
-\begin{theorem}\label{theorem:first-supplement}
-  For any odd prime $p$, the integer $-1$ is a quadratic residue modulo $p$ if and only if $p\equiv 1\pmod{4}$.
-\end{theorem}
+Using Euler's Criterion, we can give a new proof of \cref{theorem:quadratic-character-neg-1}. In the language of quadratic residues, \cref{theorem:quadratic-character-neg-1} states that $-1$ is a quadratic residue modulo an odd prime $p$ if and only if $p\equiv 1\pmod{4}$. In other words,
+\begin{equation*}
+  \legendre{-1}{p}= 
+  \begin{cases}
+    1 & \text{if }p\equiv 1\pmod{4} \\
+    -1 & \text{if }p\equiv 3\pmod{4}.
+  \end{cases}
+\end{equation*}
+This description of the quadratic character of $-1$ is also called the \emph{first supplement} of the law of quadratic reciprocity.
 
-\begin{proof}
+\begin{proof}[Proof of \cref{theorem:quadratic-character-neg-1} using Euler's Criterion.]
   By \crefnamed{theorem:eulers-criterion}{Euler's Criterion}, it follows that $-1$ is a quadratic residue modulo $p$ if and only if
   \begin{equation*}
     (-1)^{\frac{p-1}{2}}\equiv 1\pmod{p}.
@@ -244,35 +250,6 @@ Euler had a deep understanding of numbers that are congruent to a square modulo 
   \begin{equation*}
     p\equiv 1\pmod{4}.\qedhere
   \end{equation*}
-\end{proof}
-
-Since primitive roots are always quadratic nonresidues, we obtain the following corollary. Artin conjectured that there are infinitely many primes $p$ for which $2$ is a primitive root. More generally, he conjectured that for any integer $a$ that is neither $-1$ nor a perfect square, there are infinitely many primes for which $a$ is a primitive root.
-
-\begin{corollary}
-  If $2$ is a primitive root modulo $p$, then $p\equiv\pm 3\pmod{8}$.
-\end{corollary}
-
-We can use \cref{theorem:first-supplement} to prove that there are infinitely many primes congruent to $1$ modulo $4$. The first fifteen primes congruent to $1$ modulo $4$ are:
-\begin{equation*}
-  5,~13,~17,~29,~37,~41,~53,~61,~73,~89,~97,~101,~109,~113,~\text{and}~137.
-\end{equation*}
-
-We have already seen in \cref{theorem:infinitude-of-primes-1-mod-power-of-2} that there are infinitely many primes congruent to $1$ modulo $2^n$, for any positive natural number $n$. Here we give an alternative proof that there are infinitely many primes congruent to $1$ modulo $4$, using our earlier observation that $-1$ is a quadratic residue modulo a prime $p$ if and only if $p\equiv 1\pmod{4}$. Similar techniques can also be used to show that there are infinitely many primes congruent to $1$ modulo $3$ or $5$.
-
-\begin{theorem}
-  There are infinitely many primes congruent to $1$ modulo $4$.
-\end{theorem}
-
-\begin{proof}
-  Consider a finite set of primes $p_1,\ldots,p_k$ that are all congruent to $1$ modulo $4$, and define
-  \begin{equation*}
-    n = (2p_1\cdots p_k)^2 + 1.
-  \end{equation*}
-  Notice that $n\equiv 1\pmod{4}$ is greater than $1$, and $p_i\nmid n$ for any $1\leq i\leq k$. It follows that for any prime divisor $q$ of $n$, we have
-  \begin{equation*}
-    (2p_1\cdots p_k)^2\equiv -1\pmod{q},
-  \end{equation*}
-  showing that $-1$ is a quadratic residue modulo $q$. Since $-1$ is a quadratic residue modulo $q$ if and only if $q\equiv 1\pmod{4}$, it follows that any prime divisor $q$ of $n$ is congruent to $1$ modulo $4$. Since none of the prime divisors of $n$ are among the primes $p_i$ we started out with, the primes $p_i$ could not have listed all the primes congruent to $1$ modulo $4$.
 \end{proof}
 
 \section{Euler's Prime-Generating Polynomial}

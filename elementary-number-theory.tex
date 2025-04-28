@@ -1,39 +1,18 @@
-\documentclass[usletter]{book}
+\documentclass{book}
 
-\usepackage[utf8]{inputenc}
+% Encoding & language
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
-\usepackage{titling}
-\usepackage{microtype}
+\usepackage{csquotes}
+
+% Graphics and layout
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{booktabs}
 \usepackage{caption}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{afterpage}
-
-\captionsetup[figure]{font=small}
-\captionsetup[table]{font=small}
-
 \usepackage{tocbibind}
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{mathtools}
-\usepackage{totcount}
-\usepackage{enumitem}
-\usepackage{aliascnt}
-
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
-
-\usepackage{tikz}
-
-\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc,intersections}
-
-\tikzset{
-  every picture/.append style={line cap=round, line join=round}
-}
-
-\usepackage{newtxtext,newtxmath}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
@@ -42,10 +21,21 @@
   {0.5em}                     % Spacing between label and title
   {\Huge}                     % Format of the title
 
-\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
-\addbibresource{references.bib}
+% Counters
+\usepackage{totcount}
+\usepackage{enumitem}
+\usepackage{aliascnt}
 
-% Theorem-like environments
+\captionsetup[figure]{font=small}
+\captionsetup[table]{font=small}
+
+% Math environments
+\usepackage{mathtools,amssymb,amsthm}
+
+% Fonts and micro-typography
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+
 \newtheorem{theorem}{Theorem}[section]
 
 \newaliascnt{lemma}{theorem}
@@ -58,7 +48,6 @@
 \newtheorem{corollary}[corollary]{Corollary}
 
 \theoremstyle{definition}
-
 \newaliascnt{definition}{theorem}
 \newtheorem{definition}[definition]{Definition}
 
@@ -66,11 +55,19 @@
 \newtheorem{example}[example]{Example}
 
 \theoremstyle{remark}
-
 \newaliascnt{remark}{theorem}
 \newtheorem{remark}[remark]{Remark}
 
 \newcommand{\crefnamed}[2]{\hyperref[#1]{#2}}
+
+% TikZ and plotting
+\usepackage{tikz}
+\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc,intersections}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\tikzset{
+  every picture/.append style={line cap=round, line join=round}
+}
 
 \title{Lectures on Elementary Number Theory}
 \author{Egbert Rijke}
@@ -80,14 +77,18 @@
 
 \usepackage{hyperref}
 \hypersetup{
-    colorlinks=true,
-    linkcolor=grayblue,
-    filecolor=grayblue,
-    urlcolor=grayblue,
-    citecolor=grayblue,
-    pdftitle={Lecture notes on Number Theory},
-    pdfpagemode=FullScreen,
+  colorlinks=true,
+  linkcolor=grayblue,
+  filecolor=grayblue,
+  urlcolor=grayblue,
+  citecolor=grayblue,
+  pdftitle={Lecture notes on Number Theory},
+  pdfpagemode=FullScreen,
 }
+
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
 \usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
 
 \crefname{table}{Table}{Tables}
@@ -140,6 +141,8 @@
     legend cell align=left                     % left‑align text in legend
   }
 }
+
+\DeclareTextFontCommand{\define}{\bfseries}
 
   % We set up the exercise environment, which produces list environment in a new
 % unnumbered subsection that also gets mentioned in the table of contents.
@@ -279,15 +282,17 @@
 
 \mainmatter
 
-\input{mathematical-induction}
+\input{nature-of-numbers}
 
 \input{counting}
+
+\input{integers}
 
 \input{euclidean-division}
 
 \input{linear-diophantine-equations}
 
-\input{fundamental-theorem-of-arithmetic}
+\input{prime-numbers}
 
 \input{polynomials}
 
@@ -298,6 +303,8 @@
 \input{congruences}
 
 \input{modular-arithmetic}
+
+\input{sums-of-squares}
 
 \input{systems-of-linear-congruences}
 
@@ -311,7 +318,7 @@
 
 \input{arithmetic-functions}
 
-\input{dirichlet-series}
+%\input{dirichlet-series}
 
 \input{distribution-of-primes}
 

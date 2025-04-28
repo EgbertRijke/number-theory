@@ -1,0 +1,578 @@
+\message{ !name(elementary-number-theory.tex)}\documentclass{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{titling}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{afterpage}
+
+\captionsetup[figure]{font=small}
+\captionsetup[table]{font=small}
+
+\usepackage{tocbibind}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{totcount}
+\usepackage{enumitem}
+\usepackage{aliascnt}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage{tikz}
+
+\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc,intersections}
+
+\tikzset{
+  every picture/.append style={line cap=round, line join=round}
+}
+
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries} % Format of the text
+  {Chapter \thechapter}       % Label (e.g., "Lecture 1")
+  {0.5em}                     % Spacing between label and title
+  {\Huge}                     % Format of the title
+
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
+% Theorem-like environments
+\newtheorem{theorem}{Theorem}[section]
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+
+\theoremstyle{definition}
+
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+
+\theoremstyle{remark}
+
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+
+\newcommand{\crefnamed}[2]{\hyperref[#1]{#2}}
+
+\title{Lectures on Elementary Number Theory}
+\author{Egbert Rijke}
+\date{\today}
+
+\definecolor{grayblue}{HTML}{0047AB}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=grayblue,
+    filecolor=grayblue,
+    urlcolor=grayblue,
+    citecolor=grayblue,
+    pdftitle={Lecture notes on Number Theory},
+    pdfpagemode=FullScreen,
+}
+\usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
+
+\crefname{table}{Table}{Tables}
+
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+
+\aliascntresetthe{lemma}
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+
+\aliascntresetthe{proposition}
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+
+\aliascntresetthe{corollary}
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+
+\aliascntresetthe{definition}
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+
+\aliascntresetthe{example}
+\crefname{example}{Example}{Examples}
+\Crefname{example}{Example}{Examples}
+
+\aliascntresetthe{remark}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\pgfplotsset{
+  lectureplot/.style={
+    width=12cm, height=8cm,
+    axis lines=middle,                         % draw only the middle axes
+    axis line style={-stealth},                % put arrow heads on them
+    tick style={draw=none},                    % no ticks
+    xlabel={$x$}, ylabel={$y$},
+    xmin=0, xmax=1e6,
+    ymin=0, ymax=8.5e4,                        % a bit above π(10^6)=78498
+    clip=false,                                % allow legend to stick out
+    legend style={
+      draw=none,                               
+      fill=none,
+      font=\footnotesize,
+      at={(0.05,0.95)},                        
+      anchor=north west,
+      /tikz/every even column/.append style={column sep=1em}
+    },
+    legend cell align=left                     % left‑align text in legend
+  }
+}
+
+  % We set up the exercise environment, which produces list environment in a new
+% unnumbered subsection that also gets mentioned in the table of contents.
+
+\newtotcounter{exercisecounter}
+\newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+
+\newlist{exenum}{enumerate}{1}
+\setlist[exenum]{noitemsep,label=\thechapter.\arabic*}
+  %,ref=\thechapter.\arabic*}
+
+\crefname{exenumi}{Exercise}{Exercises}
+  
+\newlist{subexenum}{enumerate}{1}
+\setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
+\crefname{subexenumi}{Exercise}{Exercises}
+
+\newenvironment{exercises}
+{%
+\subsection*{Exercises}%
+\addcontentsline{toc}{section}{Exercises}%
+\markboth{\leftmark}{\MakeUppercase{Exercises}}
+\begin{exenum}}
+{%
+%\addtocounter{exercisecounter}{\theexenumi}%
+\end{exenum}}
+
+\setcounter{tocdepth}{2}
+
+\newcommand{\Sierpinski}{Sierpiński}
+\newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
+\renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\legendre}[2]{%
+  \mathchoice
+    {\left(\frac{#1}{#2}\right)}% display style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% text style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% script style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% scriptscript style
+}
+\newcommand{\lres}[2]{\ensuremath{\lfloor #1 \rceil_{#2}}}
+\newcommand{\abslres}[2]{\ensuremath{|\mkern-3mu \lfloor #1 \rceil\mkern-3mu |_{#2}}}
+\newcommand{\complementsubset}[1]{#1^{\mathrm{c}}}
+\newcommand{\Oh}{O}
+\newcommand{\oh}{o}
+
+\begin{document}
+
+\message{ !name(modular-arithmetic.tex) !offset(-194) }
+\chapter{Modular Arithmetic}\label{chapter:modular-arithmetic}
+
+\section{The Integers Modulo \texorpdfstring{$n$}{n}}
+
+We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
+
+\begin{definition}
+  We define the set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ as the set of congruence classes modulo $n$.
+\end{definition}
+
+The set of integers modulo $n$ can be equipped with addition and multiplication in the following way:
+\begin{align*}
+  [a] + [b] & := [a+b] \\
+  [a][b] & := [ab]
+\end{align*}
+Notice that the result of these operations depends only on the equivalence classes, not on the particular integers $a$ and $b$ chosen to represent the equivalence classes $[a]$ and $[b]$. Recall from \cref{proposition:quotient-map} that we have $[a]=[a']$ if and only if $a\equiv a'\pmod{n}$, and similarly we have $[b]=[b']$ if and only if $b\equiv b'\pmod{n}$. Thus, for any $a\equiv a'\pmod{n}$ and $b\equiv b'\pmod{n}$, it follows from \cref{proposition:addition-and-multiplication-congruence} that $a+b\equiv a'+b'\pmod{n}$ and $ab\equiv a'b'\pmod{n}$. In other words, if $[a]=[a']$ and $[b]=[b']$, then we have
+\begin{align*}
+  [a]+[b] & = [a']+[b'] \\
+  [a][b] & = [a'][b'].
+\end{align*}
+This ensures that the definitions of addition and multiplication on the integers modulo $n$ is \emph{well-defined} on the congruence classes modulo $n$.
+
+\begin{remark}
+  The definitions of addition and multiplication on the integers modulo $n$ follow a general pattern of defining functions $f:A/{\sim}\to B$ out of quotient sets. Given a function $g:A\to B$, a function $f:A/{\sim}\to B$ is said to be \emph{defined by descent} from $g$ if $f$ is defined by
+  \begin{equation*}
+    f([a]) := g(a).
+  \end{equation*}
+  For this definition to make sense, the values of $f$ must depend only on the equivalence classes. In other words, if $a$ and $a'$ represent the same equivalence class, i.e., if $a\sim a'$, then we must have that $f([a])=f([a'])$, i.e., we must have that
+  \begin{equation*}
+    g(a)=g(a').
+  \end{equation*}
+  By verifying that $a\sim a'$ implies $f([a])=f([a'])$, we ensure that $f$ is \emph{well-defined}. The well-definedness condition ensures that $f$ returns the same output for all elements of the same equivalence class.
+\end{remark}
+
+\begin{example}
+  The well-definedness condition is important to verify, because not all functions are well-defined with respect to the congruence relations modulo $n$.
+
+  Take, for example, the absolute value function $a\mapsto |a|$ on the integers. Then the operation
+  \begin{equation*}
+    [a]\mapsto |a|
+  \end{equation*}
+  is not well-defined on the integers modulo $3$, because $2\equiv -1\pmod{3}$ while
+  \begin{equation*}
+    |2|\nequiv |-1|\pmod{3}.
+  \end{equation*}
+
+  Typical functions that \emph{are} well defined on congruence classes modulo $n$, include functions that are entirely built up from arithmetic operations, such as polynomials.
+\end{example}
+
+\begin{theorem}
+  The set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ form a commutative ring, i.e., it satisfies the following laws of arithmetic:
+  \begin{align*}
+    (x+y)+z & = x + (y+z) & (xy)z & = x(yz) \\
+    0+x & = x & 1x & = x \\
+    x+0 & = x & x1 & = x \\
+    x-x & = 0 & x(y+z) & = xy + xz \\
+    -x+x & = 0 & (x+y)z & = xz + yz \\
+    x+y & = y+x & xy & = yx.
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  To see that $(x+y)+z=x+(y+z)$, we first note that the variables $x$, $y$, and $z$ represent congruence classes of integers modulo $n$. Since for every congruence class there is an integer representing it, it suffices to prove that
+  \begin{equation*}
+    ([a]+[b])+[c]=[a]+([b]+[c]).
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [(a+b)+c]=[a+(b+c)].
+  \end{equation*}
+  However, the integers $(a+b)+c$ and $a+(b+c)$ are equal, so their equivalence classes are the same.
+
+  The proofs of the other properties follow a very similar pattern. We will give the proofs of commutativity of addition and distributivity of multiplication over addition from the left, but leave the other proofs to the reader.
+
+  To see that $x+y=y+x$, it suffices to show that
+  \begin{equation*}
+    [a]+[b] = [b]+[a].
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [a+b]=[b+a],
+  \end{equation*}
+  and indeed those equivalence classes are the same, because $a+b=b+a$ holds for any two integers $a$ and $b$.
+
+  To see that $x(y+z)=xy+xz$, it suffices to show that
+  \begin{equation*}
+    [a]([b]+[c]) = [a][b] + [a][c].
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [a(b+c)] = [ab+ac].
+  \end{equation*}
+  Again, this identification of equivalence classes holds, because we have the equality $a(b+c)=ab+ac$.
+\end{proof}
+
+\section{Solving Linear Congruences}
+
+The simplest linear congruence is the linear congruence
+\begin{equation*}
+  ax\equiv b\pmod{n}.
+\end{equation*}
+To solve this linear congruence, we are tasked with finding an integer for which the congruence $ax\equiv b\pmod{n}$ holds. However, we may immediately observe that if $x\equiv x' \mod{n}$, then the congruence $ax\equiv b\pmod{n}$ holds if and only if the congruence $ax'\equiv b\pmod{n}$ holds. Thus, we are really interested in solving such congruences in $\mathbb{Z}/n\mathbb{Z}$, i.e., in finding a congruence class $[x]$ modulo $n$ for which the congruence $ax\equiv b\pmod{n}$ holds.
+
+A complete solution to the linear congruence $ax\equiv b\pmod{n}$ is a description of the set of all congruence classes $[x]$ modulo $n$ that satisfy the linear congruence. We typically list these solutions by listing the numbers $0\leq x < n$ for which the congruence holds. For example, the linear congruence
+\begin{equation*}
+  4x\equiv 2\pmod{6}
+\end{equation*}
+has two incongruent solutions modulo $6$, the congruence classes of $2$ and $5$ modulo $6$.
+
+\begin{definition}
+  We say that $a$ \emph{divides} $b$ modulo $n$ if there exists an integer $x$ for which the congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}.
+  \end{equation*}
+\end{definition}
+
+By the definition of congruence relations, the congruence $ax\equiv b\pmod{n}$ holds if and only if $n\mid ax-b$, which is equivalent to the problem of finding an integer $y$ such that the equation
+\begin{equation*}
+  ax+ny=b
+\end{equation*}
+holds. By \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} we have an exact description of the set of solutions of this equation: Given a solution $ax_0+ny_0=b$, every solution is of the form
+\begin{equation*}
+  x = x_0 + k\frac{n}{d},\qquad\text{and}\qquad y=y_0-k\frac{a}{d},
+\end{equation*}
+where $d=\gcd(a,n)$. Furthermore, a solution can be found if and only if $d\mid b$, and in this case we can find $x_0$ and $y_0$ through Euclid's algorithm for finding the greatest common divisor.
+
+Now, observe that there are exactly $d$ incongruent solutions of the equation $ax+ny=b$ modulo $n$. Thus, we can reformulate \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} in modular arithmetic as follows.
+
+\begin{theorem}\label{theorem:linear-congruence-one-variable}
+  Consider two integers $a$ and $b$, and a natural number $n$ with $d=\gcd(a,n)$. The linear congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}
+  \end{equation*}
+  is solvable if and only if $d\mid b$, and in this case the number of incongruent solutions is exactly $d$. Furthermore, if we have one solution $ax_0\equiv b\pmod{n}$, then all the solutions are of the form
+  \begin{equation*}
+    x \equiv x_0 + k\frac{n}{d}
+  \end{equation*}
+  for $0\leq k < d$.
+\end{theorem}
+
+\begin{example}
+  Consider the linear congruence
+  \begin{equation*}
+    6x \equiv 15 \pmod{21}.
+  \end{equation*}
+  The greatest common divisor of $6$ and $21$ is $\gcd(6,21)=3$. Since $15$ is divisible by $3$, we expect to find exactly $3$ incongruent solutions modulo $21$.
+
+  To find one solution, we first express $3$ as a linear combination of $6$ and $21$. Normally, we would use Euclid's algorithm to do this, but the numbers here are small enough to immediately see that
+  \begin{equation*}
+    3 = 4\cdot 6 - 21.
+  \end{equation*}
+  From this expression we find that
+  \begin{equation*}
+    15 = 20\cdot 6 - 5\cdot 21.
+  \end{equation*}
+  This gives us the solution $6\cdot 20\equiv 15\pmod{21}$. The remaining solutions are now of the form
+  \begin{equation*}
+    x\equiv 20 + k\cdot 7
+  \end{equation*}
+  for $0\leq k < 3$. In other words, the full set of incongruent solutions of the equation $6x\equiv 15\pmod{21}$ is
+  \begin{equation*}
+    \{6,13,20\}.
+  \end{equation*}
+\end{example}
+
+\begin{corollary}
+  The linear congruence $ax\equiv 1\pmod{n}$ has at most one solution, and it is solvable if and only if $\gcd(a,n)=1$.
+\end{corollary}
+
+The previous corollary connects integers relatively prime to $n$ to the integers that are \emph{invertible} modulo $n$. Indeed, if $ax\equiv 1\pmod{n}$ has a solution, then its solution $x$ also guarantees that the equality
+\begin{equation*}
+  [a][x]=[1]
+\end{equation*}
+holds in $\mathbb{Z}/n\mathbb{Z}$. In other words, the integer $a$ represents an invertible congruence class modulo $n$.
+
+\begin{example}
+  The invertible congruence classes modulo $5$ are the congruence classes of $1$, $2$, $3$, and $4$. Indeed, one can verify that
+  \begin{align*}
+    1\cdot 1 & \equiv 1\pmod{5} & 2\cdot 3 & \equiv 1\pmod{5} \\
+    3\cdot 2 & \equiv 1\pmod{5} & 4\cdot 4 & \equiv 1\pmod {5}.
+  \end{align*}
+\end{example}
+
+\begin{corollary}
+  Consider an integer $a$ relatively prime to $n$. Then the operation $x\mapsto [a]x$ is a bijection on $\mathbb{Z}/n\mathbb{Z}$.
+\end{corollary}
+
+\section{Fermat's Little Theorem}
+
+\begin{theorem}[Fermat's Little Theorem]\label{theorem:fermats-little-theorem}
+  Consider a prime number $p$ and an integer $a$. Then the congruence
+  \begin{equation*}
+    a^{p}\equiv a\pmod{p}
+  \end{equation*}
+  holds.
+\end{theorem}
+
+\begin{proof}[Fermat's proof]
+  Note that the congruence $(-a)^p\equiv -a^p\pmod{p}$ holds for all primes $p$, so it suffices to prove the claim for the nonnegative integers. We proceed by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds.
+
+  For the inductive step, assume that $a^p\equiv a\pmod{p}$. The \crefnamed{theorem:binomial-theorem}{Binomial Theorem} then gives us that
+  \begin{equation*}
+    (a+1)^p=\sum_{k=0}^p \binom{p}{k}a^k
+  \end{equation*}
+  However, note that $p\mid\binom{p}{k}$ for any $0<k<p$. We therefore find that
+  \begin{equation*}
+    (a+1)^p\equiv a^p+1\pmod{p}.
+  \end{equation*}
+  Since $a^p\equiv a\pmod{p}$ holds by the induction hypothesis, the claim follows.
+\end{proof}
+
+\begin{corollary}
+  Consider a prime number $p$ and an integer $a$ not divisible by $p$. Then the congruence
+  \begin{equation*}
+    a^{p-1}\equiv 1\pmod{p}
+  \end{equation*}
+  holds.
+\end{corollary}
+
+\begin{proof}
+  Since $a$ is not divisible by $p$, it follows that $a$ is relatively prime to $p$, and therefore the claim follows from the cancellation law
+  \begin{equation*}
+    ax\equiv ay\pmod{p}\qquad\Rightarrow\qquad x\equiv y\pmod{p}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\section{Euler's Theorem}
+
+Euler figured out a way to generalize Fermat's Little Theorem to the composite moduli. He made use of his totient function $\phi$, which counts for each $n$ the number of $0\leq m<n$ relatively prime to $n$.
+
+\begin{theorem}[Euler's Theorem]\label{theorem:eulers-theorem}
+  Consider a natural number $n$ and an integer $a$ such that $\gcd(a,n)=1$. The congruence
+  \begin{equation*}
+    a^{\phi(n)}\equiv 1\pmod{n}
+  \end{equation*}
+  holds
+\end{theorem}
+
+We present two proofs of Euler's Theorem. The first is the standard proof, and the other is inspired by methods of group theory.
+
+\begin{proof}[First proof of Euler's Theorem]
+  Consider an integer $a$ relatively prime to $n$, and consider a reduced residue system $r_1,\ldots,r_{\phi(n)}$ modulo $n$. We claim that
+  \begin{equation*}
+    ar_1,\ldots,ar_{\phi(n)}
+  \end{equation*}
+  is again a reduced residue system modulo $n$. Indeed, since multiplying by $a$ induces a bijection on $\mathbb{Z}/n\mathbb{Z}$, we see that all integers $ar_1,\ldots,ar_{\phi(n)}$ are incongruent. Furthermore, the product of any two integers relatively prime to $n$ is again relatively prime to $n$, so all the integers $ar_i$ are relatively prime to $n$. Since any set of $\phi(n)$ incongruent integers relatively prime to $n$ form a reduced residue system, the claim follows.
+
+  Using that the integers $ar_1,\ldots,ar_{\phi(n)}$ form a reduced residue system, it follows that
+  \begin{equation*}
+    \prod_{i=1}^{\phi(n)}r_i\equiv \prod_{i=1}^{\phi(n)}ar_i = a^{\phi(n)}\prod_{i=1}^{\phi(n)}r_i\pmod{n}
+  \end{equation*}
+  Since $\prod_{i=1}^{\phi(n)}r_i$ is relatively prime to $n$, it follows that $a^{\phi(n)}\equiv 1\pmod{n}$.
+\end{proof}
+
+\begin{proof}[Second proof of Euler's Theorem]
+  Consider the least positive integer $k$ such that $a^k\equiv 1\pmod{n}$, and consider the relation $\sim$ on the set of integers $0\leq b<n$ relatively prime to $n$, where
+  \begin{equation*}
+    b\sim c \qquad\text{if and only if}\qquad \exists_{0\leq i< k} ba^i\equiv c\pmod{n}.
+  \end{equation*}
+  This relation is reflexive, because $ba^0 \equiv b\pmod{n}$. It is symmetric, because if $ba^i\equiv c\pmod{n}$ for some nonzero $i$, then $ca^{k-i}\equiv ba^ia^{k-i}\equiv b\pmod{n}$. Furthermore, it is transitive, because if $ba^i\equiv c$ and $ca^j\equiv d$, then $ba^{i+j}\equiv d$. If $k\leq i+j$, then we find that also $ba^{i+j-k}\equiv d$. Thus, the relation $\sim$ is an equivalence relation.
+
+  We claim that each equivalence class has size $k$. Indeed, for each $b$, the set
+  \begin{equation*}
+    \{b,ba,ba^2,\ldots,ba^{k-1}\}
+  \end{equation*}
+  consists of $k$ distinct elements, because multiplying with $b$ is a bijection. Thus we have partitioned the set of all numbers $0\leq b<n$ relatively prime to $n$ into equivalence classes of size $k$. On the other hand, the total number of elements $0\leq b<n$ relatively prime to $n$ is the number $\phi(n)$. This shows that $k\mid \phi(n)$, so it follows that $a^{\phi(n)}\equiv 1\pmod{n}$.
+\end{proof}
+
+\begin{remark}
+  The second proof of Euler's theorem can be simplified using the language of group theory. A \emph{group} is a set $G$ equipped with a binary operation $x,y\mapsto xy$, a unary operation $x\mapsto x^{-1}$, and a unit element $1$, satisfying the axioms
+  \begin{align*}
+    (xy)z & = x(yz) \\
+    x1 & = x \\
+    1x & = x \\
+    xx^{-1} & = 1 \\
+    x^{-1}x & = 1.
+  \end{align*}
+  One can show that the set of integers modulo $n$ relatively prime to $n$ forms a group, where the binary operation is multiplication, the unit element is the integer $1$, and the inverse $x^{-1}$ of an integer $x$ modulo $n$ is the unique solution to the equation $xy\equiv 1\pmod{n}$. The number of elements in this group is $\phi(n)$. For any integer $a$ modulo $n$ relatively prime to $n$ such that $a^k\equiv 1\pmod{n}$, the set $\{1,a,a^2,\ldots,a^{k-1}\}$ is a subgroup, which means that it is closed under the group operations. The argument where we introduced an equivalence relation $\sim$ to partition the set of all integers modulo $n$ relatively prime to $n$ into equivalence classes of size $k$ is an instance of a much more general result, Lagrange's Theorem, which asserts that the size of any subgroup of a finite group divides the size of the entire group.
+\end{remark}
+
+Since $\phi(p)=p-1$, it follows that \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} is also a direct corollary of \crefnamed{theorem:eulers-theorem}{Euler's Theorem}.
+
+Some questions about Euler's totient function remain unresolved. While we have seen that $\phi(p)=p-1$ for any prime number $p$, Lehmer asked whether there is any composite number $n$ such that
+\begin{equation*}
+  \phi(n)\mid n-1.
+\end{equation*}
+This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
+
+\section{Wilson's Theorem}
+
+\begin{theorem}[Wilson's Theorem]\label{theorem:wilsons-theorem}
+  A natural number $n$ is prime if and only if
+  \begin{equation*}
+    (n-1)!\equiv -1 \pmod{n}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  First, we observe that the claim holds for $n=2$, since $1\equiv -1\pmod{2}$.
+  
+  Suppose that $n$ is prime strictly greater than $2$. Then every integer $0<a<n$ has a multiplicative inverse modulo $n$, i.e., for every integer $a$ there is an integer $a^{-1}$ such that
+  \begin{equation*}
+    aa^{-1}\equiv 1.
+  \end{equation*}
+  Now we group the integers $1\leq a < n$ into pairs with their own inverses.
+  By \cref{exercise:self-inverse-modulo-prime} and the assumption that $n\neq 2$, there are exactly two integers that would pair up with themselves because they are their own inverses: The integers $1$ and $-1$ are the only two integers $a$ modulo $n$ for which the congruence $a^2\equiv 1\pmod{n}$ holds. The other integers come in proper pairs $(a,a^{-1})$.
+
+  Each pair $(a,a^{-1})$ contributes $1$ to the product
+  \begin{equation*}
+    (n-1)!:=\prod_{a=1}^{n-1}a.
+  \end{equation*}
+  Therefore, there is exactly one factor that contributes a something to this product: the factor $-1$. Thus we see that $(n-1)!\equiv -1\pmod{n}$.
+
+  Conversely, suppose that $(n-1)!\equiv -1\pmod{n}$. Then it follows that
+  \begin{equation*}
+    -(n-1)!\equiv 1\pmod{n}.
+  \end{equation*}
+  For any proper divisor $a$ of $n$, we therefore find that $a$ divides $1$ modulo $n$, i.e., that there is a solution to the linear congruence
+  \begin{equation*}
+    ax\equiv 1\pmod{n}.
+  \end{equation*}
+  This implies that $\gcd(a,n)=1$. It follows that the only proper divisor of $n$ is $1$, i.e., that $n$ is prime.
+\end{proof}
+
+\begin{exercises}
+  \exercise Find the multiplicative inverses of $1$, $2$, $3$, $4$, $5$, and $6$ modulo $7$.
+  \exercise Find the multiplicative inverses of $1$, $3$, $7$, $9$, $11$, $13$, $17$, and $19$ modulo $20$.
+  \exercise For how many congruence classes $b \pmod{n}$ is the linear congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}
+  \end{equation*}
+  solvable?
+  \exercise Consider two integers $a$ and $b$, and a prime number $p$. Show that
+  \begin{equation*}
+    (a+b)^p\equiv a^p+b^p\pmod{p}.
+  \end{equation*}
+  \exercise Show that
+  \begin{equation*}
+    2^{p-2}+3^{p-2}+6^{p-2} \equiv 1 \pmod{p}
+  \end{equation*}
+  for any prime number $p\neq 3$.
+  \exercise
+  \begin{subexenum}
+  \item Prove that
+    \begin{equation*}
+      5^{5^5}\equiv 5^5\pmod{31}.
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      7^{7^7}\equiv 7^7\pmod{43}.
+    \end{equation*}
+  \item Find a prime $p>3$ such that
+    \begin{equation*}
+      3^{3^3}\equiv 3^3\pmod{p}.
+    \end{equation*}
+  \end{subexenum}
+  \exercise Prove that if
+  \begin{equation*}
+    a^n\equiv a \pmod{n}
+  \end{equation*}
+  for every integer $a$, then $n=2$ or $n$ is odd.
+  \exercise Find all the solutions to the equation
+  \begin{equation*}
+    p^q-q^p=p+q,
+  \end{equation*}
+  where $p$ and $q$ are prime numbers.
+  \exercise For any integer $a$ and any prime number $p$, show that
+  \begin{equation*}
+    a^{p^k} \equiv a^{p^{k-1}} \pmod{p^k}.
+  \end{equation*}
+  \exercise Consider two distinct primes $p$ and $q$, and an integer $a\geq 0$. Prove that
+  \begin{equation*}
+    a^{pq}+a\equiv a^p + a^q \pmod{pq}
+  \end{equation*}
+\end{exercises}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:
+
+\message{ !name(elementary-number-theory.tex) !offset(-257) }
+
+\end{document}

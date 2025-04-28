@@ -1,6 +1,6 @@
-\chapter{The Fundamental Theorem of Arithmetic}\label{chapter:fundamental-theorem-of-arithmetic}
+\chapter{Prime Numbers}\label{chapter:fundamental-theorem-of-arithmetic}
 
-\section{Prime Numbers}
+\section{The Fundamental Theorem of Arithmetic}
 
 \begin{definition}
   An integer $a$ is said to be \emph{prime} if it has exactly one positive proper divisor. Any integer $a\neq \pm 1$ that is not prime is said to be a \emph{composite number}.
@@ -123,109 +123,6 @@ The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which 
   Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by the well-ordering principle of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
 \end{proof}
 
-\section{The Infinitude of Primes}
-
-The theorem asserting the infinitude of primes asserts that no finite set of primes is the set of all primes. Many proofs of the infinitude of primes require the following lemma:
-
-\begin{lemma}
-  If $a$ and $b$ are relatively prime integers, then any prime divisors of $a$ are distinct from any prime divisors of $b$.
-\end{lemma}
-
-\begin{proof}
-  Suppose that $a$ and $b$ are relatively prime, and that $p$ and $q$ are prime divisors of $a$ and $b$, respectively. By the assumption that $a$ and $b$ are relatively prime, it follows that $p\nmid b$ and that $q\nmid a$. Therefore it follows that $p$ and $q$ cannot be the same.
-\end{proof}
-
-\begin{theorem}\label{theorem:infinitude-of-primes}
-  There are infinitely many prime numbers.
-\end{theorem}
-
-\begin{proof}[Euclid's proof of \cref{theorem:infinitude-of-primes}]
-  We will prove that there are infinitely many prime numbers by showing that for any finite set of prime numbers, there is a prime number not belonging to the finite set.
-  
-  Consider a finite set $\{p_0,\ldots,p_k\}$ of primes, and define
-  \begin{equation*}
-    n:= 1+\prod_{i=0}^k p_i
-  \end{equation*}
-  Then there exists, for each $0\leq i\leq k$, a natural number $q_i$ such that $n=q_ip_i+1$. Indeed, we can simply define
-  \begin{equation*}
-    q_i := \prod_{j=0,j\neq i}^k p_j.
-  \end{equation*}
-  Since $n$ can be written in this way, it follows that $n$ is relatively prime to each $p_i$. Consequently, the least prime divisor of $n$ is relatively prime to each $p_i$. In other words, the least prime divisor of $n$ is not in the set of primes $\{p_0,\ldots,p_k\}$.
-\end{proof}
-
-\subsection*{Saidak's Proof}
-
-There are many proofs of the infinitude of primes. The following is due to Filip Saidak \cite{Saidak2006}, who published his proof in 2006, based on the idea that if $n=ab$ is the product of two numbers that are relatively prime and both at least $2$, then $n$ must have two prime factors.
-
-\begin{proof}[Saidak's proof of \cref{theorem:infinitude-of-primes}]
-  Let $N_0:= 1$, and define
-  \begin{equation*}
-    N_{n+1} := N_n(N_n + 1).
-  \end{equation*}
-  We claim that $N_n$ has at least $n$ prime factors. In the base case, we note that it is indeed true that $1$ has at least zero prime factors. For the inductive step, suppose that $N_n$ has at least $n$ prime factors. The number $N_n+1$ is relatively prime to $N_n$, so its prime factors are all distinct from the prime factors of $N_n$. Furthermore, we have $1<N_n+1$, so $N_n+1$ indeed has at least one prime factor. Thus it follows that $N_{n+1}$ has at least $n+1$ prime factors, and therefore there must be infinitely many primes.
-\end{proof}
-
-\subsection*{Goldbach's Proof}
-
-Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private correspondences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
-
-Recall that the Fermat numbers $\Phi_n$ are defined by
-\begin{equation*}
-  \Phi_n := 2^{2^n}+1.
-\end{equation*}
-
-\begin{lemma}
-  Any two distinct Fermat numbers are relatively prime.
-\end{lemma}
-
-\begin{proof}
-  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Recall from \cref{exercise:product-formula-fermat-numbers} that
-  \begin{equation*}
-    \Phi_n-2 = \prod_{k<n}\Phi_k.
-  \end{equation*}
-  Thus we see that $\Phi_m \mid \Phi_n - 2$. It follows that any common divisor $d$ of $\Phi_m$ and $\Phi_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $\Phi_m$ and $\Phi_n$ is $1$. In other words, $\Phi_m$ and $\Phi_n$ are relatively prime.
-\end{proof}
-
-\begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]
-  Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $\Phi_n$, then we picked infinitely many distinct prime numbers.
-\end{proof}
-
-\subsection*{The Furstenberg proof, following Cass--Wildenberg}
-
-The following proof of the infinitude of primes is, in its essence, due to Hillel Furstenberg \cite{furstenberg1955}. In its original formulation, this proof makes clever use of a topology on $\mathbb{Z}$. Although topologies are not hard to define, motivating them is beyond the scope of this course. We will therefore present a revised version of Furstenberg's proof, following Daniel Cass and Gerald Wildenberg \cite{cass2003}.
-
-The Cass--Wildenberg approach to prove the infinitude of primes makes use of the concept of a periodic subset of $\mathbb{Z}$. A subset $A\subseteq\mathbb{Z}$ is said to be \emph{periodic with period $n$}, or simply \emph{periodic} if we merely assume such a natural number $n$ to exist, if we have
-\begin{equation*}
-  x\in A\qquad\Leftrightarrow\qquad x+n\in\mathbb{Z}.
-\end{equation*}
-Thus, if $A$ is a periodic subset of $\mathbb{Z}$ with period $n$, and $x\in A$, then
-\begin{equation*}
-  x+kn\in A
-\end{equation*}
-for all $k\in\mathbb{Z}$. In particular, all inhabited periodic subsets of $\mathbb{Z}$ are infinite. We note two basic facts about periodic subsets of $\mathbb{Z}$, which we leave to the reader to verify:
-\begin{enumerate}
-\item If $A_1,\ldots,A_m$ is a finite family of periodic subsets of $\mathbb{Z}$, each with their own periods, then the union
-  \begin{equation*}
-    A_1\cup\cdots\cup A_m
-  \end{equation*}
-  is again a periodic subset of $k$. The period of the union is the least common multiple of the periods of the subsets $A_i$.
-\item If $A$ is a periodic subset of $\mathbb{Z}$, then its complement $\complementsubset{A} :=\{x\in\mathbb{Z}\mid x\notin A\}$ is periodic with the same period.
-\end{enumerate}
-
-\begin{proof}[The Furstenberg proof of \cref{theorem:infinitude-of-primes}, following Cass--Wildenberg]
-  Consider the subsets
-  \begin{equation*}
-    S_p:=\{kp\mid k\in\mathbb{Z}\},
-  \end{equation*}
-  where $p$ is a prime number, and define
-  \begin{equation*}
-    S:=\bigcup_{p\,\mathrm{prime}}S_p.
-  \end{equation*}
-  Since every integer besides $\pm 1$ is divisible by a prime, it follows that $S$ consists of all the integers besides $\pm 1$. The complement of $S$ is therefore the set $\{-1,1\}$. Note that the subset $\{-1,1\}$ of $\mathbb{Z}$ cannot be periodic, since is inhabited and finite. This allows us to conclude that the subset $S$ of $\mathbb{Z}$ is not periodic. However, if there were only finitely many primes, then $S$ would be periodic because it would be a finite union of periodic subsets of $\mathbb{Z}$. Thus we conclude that there must be infinitely many primes.
-\end{proof}
-
-\section{The Fundamental Theorem of Arithmetic}
-
 The following proposition is due to Euclid, who included it as proposition 30 of book VII of the \emph{Elements}.
 
 \begin{lemma}\label{lemma:cases-prime-divisibility}
@@ -278,6 +175,161 @@ The following proposition is due to Euclid, who included it as proposition 30 of
   This implies that $p\mid r_i$ for some $0\leq i \leq k$, i.e., that $p=r_i$. However, $p$ is assumed to be the smallest prime factor of $n+1$, so it follows that $p=r_0$. Now it follows that $(r_1,\ldots,r_k)$ is a prime decomposition of $(n+1)/p$, which is unique, and therefore we conclude that $n+1$ has a unique prime factorization.
 \end{proof}
 
+\section{The Infinitude of Primes}
+
+The theorem asserting the infinitude of primes asserts that no finite set of primes is the set of all primes. Many proofs of the infinitude of primes require the following lemma:
+
+\begin{lemma}
+  If $a$ and $b$ are relatively prime integers, then any prime divisors of $a$ are distinct from any prime divisors of $b$.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $a$ and $b$ are relatively prime, and that $p$ and $q$ are prime divisors of $a$ and $b$, respectively. By the assumption that $a$ and $b$ are relatively prime, it follows that $p\nmid b$ and that $q\nmid a$. Therefore it follows that $p$ and $q$ cannot be the same.
+\end{proof}
+
+\begin{theorem}\label{theorem:infinitude-of-primes}
+  There are infinitely many prime numbers.
+\end{theorem}
+
+\begin{proof}[Euclid's proof of \cref{theorem:infinitude-of-primes}]
+  We will prove that there are infinitely many prime numbers by showing that for any finite set of prime numbers, there is a prime number not belonging to the finite set.
+  
+  Consider a finite set $\{p_0,\ldots,p_k\}$ of primes, and define
+  \begin{equation*}
+    n:= 1+\prod_{i=0}^k p_i
+  \end{equation*}
+  Then there exists, for each $0\leq i\leq k$, a natural number $q_i$ such that $n=q_ip_i+1$. Indeed, we can simply define
+  \begin{equation*}
+    q_i := \prod_{j=0,j\neq i}^k p_j.
+  \end{equation*}
+  Since $n$ can be written in this way, it follows that $n$ is relatively prime to each $p_i$. Consequently, the least prime divisor of $n$ is relatively prime to each $p_i$. In other words, the least prime divisor of $n$ is not in the set of primes $\{p_0,\ldots,p_k\}$.
+\end{proof}
+
+\subsection{Saidak's Proof}
+
+There are many proofs of the infinitude of primes. The following is due to Filip Saidak \cite{Saidak2006}, who published his proof in 2006, based on the idea that if $n=ab$ is the product of two numbers that are relatively prime and both at least $2$, then $n$ must have two prime factors.
+
+\begin{proof}[Saidak's proof of \cref{theorem:infinitude-of-primes}]
+  Let $N_0:= 1$, and define
+  \begin{equation*}
+    N_{n+1} := N_n(N_n + 1).
+  \end{equation*}
+  We claim that $N_n$ has at least $n$ prime factors. In the base case, we note that it is indeed true that $1$ has at least zero prime factors. For the inductive step, suppose that $N_n$ has at least $n$ prime factors. The number $N_n+1$ is relatively prime to $N_n$, so its prime factors are all distinct from the prime factors of $N_n$. Furthermore, we have $1<N_n+1$, so $N_n+1$ indeed has at least one prime factor. Thus it follows that $N_{n+1}$ has at least $n+1$ prime factors, and therefore there must be infinitely many primes.
+\end{proof}
+
+\subsection{Goldbach's Proof}
+
+Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private correspondences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
+
+Recall that the Fermat numbers $\Phi_n$ are defined by
+\begin{equation*}
+  \Phi_n := 2^{2^n}+1.
+\end{equation*}
+
+\begin{lemma}
+  Any two distinct Fermat numbers are relatively prime.
+\end{lemma}
+
+\begin{proof}
+  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Recall from \cref{exercise:product-formula-fermat-numbers} that
+  \begin{equation*}
+    \Phi_n-2 = \prod_{k<n}\Phi_k.
+  \end{equation*}
+  Thus we see that $\Phi_m \mid \Phi_n - 2$. It follows that any common divisor $d$ of $\Phi_m$ and $\Phi_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $\Phi_m$ and $\Phi_n$ is $1$. In other words, $\Phi_m$ and $\Phi_n$ are relatively prime.
+\end{proof}
+
+\begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]
+  Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $\Phi_n$, then we picked infinitely many distinct prime numbers.
+\end{proof}
+
+\subsection{Furstenberg's Proof, Following Cass--Wildenberg}
+
+The following proof of the infinitude of primes is, in its essence, due to Hillel Furstenberg \cite{furstenberg1955}. In its original formulation, this proof makes clever use of a topology on $\mathbb{Z}$. Although topologies are not hard to define, motivating them is beyond the scope of this course. We will therefore present a revised version of Furstenberg's proof, following Daniel Cass and Gerald Wildenberg \cite{cass2003}.
+
+The Cass--Wildenberg approach to prove the infinitude of primes makes use of the concept of a periodic subset of $\mathbb{Z}$. A subset $A\subseteq\mathbb{Z}$ is said to be \emph{periodic with period $n$}, or simply \emph{periodic} if we merely assume such a natural number $n$ to exist, if we have
+\begin{equation*}
+  x\in A\qquad\Leftrightarrow\qquad x+n\in\mathbb{Z}.
+\end{equation*}
+Thus, if $A$ is a periodic subset of $\mathbb{Z}$ with period $n$, and $x\in A$, then
+\begin{equation*}
+  x+kn\in A
+\end{equation*}
+for all $k\in\mathbb{Z}$. In particular, all inhabited periodic subsets of $\mathbb{Z}$ are infinite. We note two basic facts about periodic subsets of $\mathbb{Z}$, which we leave to the reader to verify:
+\begin{enumerate}
+\item If $A_1,\ldots,A_m$ is a finite family of periodic subsets of $\mathbb{Z}$, each with their own periods, then the union
+  \begin{equation*}
+    A_1\cup\cdots\cup A_m
+  \end{equation*}
+  is again a periodic subset of $k$. The period of the union is the least common multiple of the periods of the subsets $A_i$.
+\item If $A$ is a periodic subset of $\mathbb{Z}$, then its complement $\complementsubset{A} :=\{x\in\mathbb{Z}\mid x\notin A\}$ is periodic with the same period.
+\end{enumerate}
+
+\begin{proof}[The Furstenberg proof of \cref{theorem:infinitude-of-primes}, following Cass--Wildenberg]
+  Consider the subsets
+  \begin{equation*}
+    S_p:=\{kp\mid k\in\mathbb{Z}\},
+  \end{equation*}
+  where $p$ is a prime number, and define
+  \begin{equation*}
+    S:=\bigcup_{p\,\mathrm{prime}}S_p.
+  \end{equation*}
+  Since every integer besides $\pm 1$ is divisible by a prime, it follows that $S$ consists of all the integers besides $\pm 1$. The complement of $S$ is therefore the set $\{-1,1\}$. Note that the subset $\{-1,1\}$ of $\mathbb{Z}$ cannot be periodic, since is inhabited and finite. This allows us to conclude that the subset $S$ of $\mathbb{Z}$ is not periodic. However, if there were only finitely many primes, then $S$ would be periodic because it would be a finite union of periodic subsets of $\mathbb{Z}$. Thus we conclude that there must be infinitely many primes.
+\end{proof}
+
+\subsection{Erd\H{o}s's Proof}
+
+\begin{definition}
+  A natural number $n$ is said to be \emph{square-free} if the only square dividing $n$ is $1$. In other words, $n$ is square-free if
+  \begin{equation*}
+    k^2\mid n\qquad\Rightarrow\qquad k=1
+  \end{equation*}
+  for every natural number $k$.
+\end{definition}
+
+By the \crefnamed{theorem:fundamental-theorem-of-arithmetic}{Fundamental Theorem of Arithmetic} it follows that square-free numbers are those numbers of which the prime decomposition
+\begin{equation*}
+  n=p_1\cdots p_n
+\end{equation*}
+is a product of distinct primes. In particular, if $n$ is square free then the exponents in the prime factorization of $n$ do not exceed $1$. For instance, the numbers $3\cdot 5\cdot 17$ and $2\cdot 11\cdot 37$ are square-free, while the numbers $3^3\cdot 5\cdot 31$ and $2^5\cdot 5^{11}\cdot 61$ aren't.
+
+\begin{theorem}\label{theorem:square-free-decomposition}
+  Every natural number $n$ can be written uniquely in the form
+  \begin{equation*}
+    n=k^2m
+  \end{equation*}
+  where $m$ is a square-free number. This is called the \emph{square-free decomposition} of $n$, and the number $m$ is called the \emph{square-free part} of $n$.
+\end{theorem}
+
+\begin{proof}
+  Consider the set of natural numbers
+  \begin{equation*}
+    S := \{d\in\mathbb{N}\mid\text{There exists a $k\in\mathbb{N}$ such that $k^2d=n$}\}.
+  \end{equation*}
+  Clearly, this set contains the element $n$ itself, since $n/n=1$ is a perfect square. By the \crefnamed{theorem:well-ordering-natural-numbers}{Well-Ordering Principle}, it follows that $S$ has a least element, which we call $m$. By definition, $n/m$ is a perfect square, so there is a natural number $k$ such that
+  \begin{equation*}
+    n=k^2m.
+  \end{equation*}
+  Next, we need to show that $m$ is square-free. Suppose $d^2\mid m$ is a positive divisor of $m$. Then the quotient $q=m/d^2$ is a divisor of $n$ such that $n/q$ is the perfect square $(kd)^2$. Since $q\leq m$ it follows by minimality that $q=m$ and hence that $d^2=1$. This implies that $d=1$.
+
+  To finish the proof, we need to show that the square-free decomposition of $n$ is unique. To this end, suppose that $n=l^2d$, where $d$ is square-free. We claim that any prime divisor of $k$ is a prime divisor of $l$ and conversely that any prime divisor of $l$ is a prime divisor of $k$. To see this, note that for any prime $p\mid k$ we have $p^2\mid k^2$ and consequently $p^2\mid l^2d$. Since $d$ is square-free, this implies that $p\mid l^2$ and hence that $p\mid l$. The same argument applies the other way around, so it follows that $k=l$ and consequently $m=d$.
+\end{proof}
+
+Now that we have established that every natural number has a unique square-free decomposition, we are able to give Erd\H{o}s's proof of the infinitude of primes. This proof was originally published in \cite{erdos1938}.
+
+\begin{proof}[Erd\H{o}s's proof of \cref{theorem:infinitude-of-primes}]
+  Consider a finite list of primes $p_1,\ldots,p_n$. We claim that for any $x$, there are at most
+  \begin{equation*}
+    \sqrt{x}2^n
+  \end{equation*}
+  numbers below $x$ with all prime factors from the list $p_1,\ldots,p_n$. To see this, recall from \cref{theorem:square-free-decomposition} that any number can be written in the form $k^2m$ where $m$ is square free. Then we have $k\leq\sqrt{x}$, leaving at most $\sqrt{x}$ choices for the number $k$. Furthermore, there are only $2^n$ square-free numbers $m$ whose prime factors are from the list $p_1,\ldots,p_n$, leaving at most $2^n$ choices for the value of $m$.
+  
+  If all the numbers below $x$ are products of powers of primes from the list $p_1,\ldots,p_n$, we find that $x\leq\sqrt{x}2^n$, or equivalently that
+  \begin{equation*}
+    \sqrt{x}\leq 2^n
+  \end{equation*}
+  However, this inequality clearly fails when $x$ exceeds $2^{2n}$, so there must be primes other than $p_1,\ldots,p_n$.
+\end{proof}
+
 \section{Legendre's Formula and Kummer's Theorem}
 
 In some cases we can give precise expressions of the prime factorization of a number. We will describe here two such cases: The prime factorization of the factorial $n!$, which is due to Adrien-Marie Legendre, and the prime factorization of the binomial coefficients $\binom{n}{m}$, which is due to Ernst Kummer. These explicit formulas will be useful in the study of the distribution of the primes.
@@ -323,7 +375,31 @@ For example the greatest common divisor and the least common multiple of $60=2^2
   \end{equation*}
 \end{proof}
 
-\begin{corollary}[de Polignac's formula]\label{corollary:de-polignacs-formula}
+Incidentally, Legendre's formula can be used to give yet another proof of the infinitude of primes, due to Junho Peter Whang \cite{whang2010}.
+
+\begin{proof}[Whang's proof of \cref{theorem:infinitude-of-primes}]
+  The $p$-adic valuation of $n!$ is bounded from above by
+  \begin{equation*}
+    \nu_p(n!)= \sum_{k=1}^{\infty}\left\lfloor\frac{n}{p^k}\right\rfloor \leq \sum_{k=1}^{\infty}\frac{n}{p^k}=\frac{n}{p-1}.
+  \end{equation*}
+  Now suppose that $n$ is a natural number so that all the primes below $n$ are from the list $p_1,\ldots,p_m$, and define
+  \begin{equation*}
+    M := \prod_{i=1}^mp_i^{\frac{1}{p_i-1}}.
+  \end{equation*}
+  Then it follows from Legendre's formula that
+  \begin{equation*}
+    n!\leq M^n.
+  \end{equation*}
+  To give a quick lower bound for $n!$, note that for $1\leq k\leq n$ we have $n\leq k(n+1-k)$. This gives the inequalities
+  \begin{equation*}
+    n^{\frac{n}{2}}\leq n! \leq M^n.
+  \end{equation*}
+  However, this inequality fails when $n$ exceeds $M^2$, so it follows that for $n>M^2$ there must be a prime not in the list $p_1,\ldots,p_m$.
+\end{proof}
+
+In the following theorem we give a useful alternative expression for the $p$-adic valuation of $n!$.
+
+\begin{theorem}[de Polignac's formula]\label{theorem:de-polignacs-formula}
   Consider a natural number $n\geq 1$ written in its base $p$ representation
   \begin{equation*}
     \sum_{i=0}^{l} a_ip^i,
@@ -332,7 +408,7 @@ For example the greatest common divisor and the least common multiple of $60=2^2
   \begin{equation*}
     \nu_p(n!) = \frac{n-\sum_{i=0}^{l} a_i}{p-1}.
   \end{equation*}
-\end{corollary}
+\end{theorem}
 
 \begin{proof}
   Given the base-$p$ representation of $n$, the base-$p$ representation of $\lfloor\frac{n}{p^k}\rfloor$ is given by dropping the digits first $k$ digits in the base-$p$ representation of $n$:
@@ -357,7 +433,37 @@ For example the greatest common divisor and the least common multiple of $60=2^2
   \end{equation*}
 \end{proof}
 
-In the following theorem, which is due to Ernst Kummer, we will compute the $p$-adic valuation of the binomial coefficients. Before we do this, we need to recall addition of two natural numbers written in base $p$. Suppose that
+\begin{example}
+  We can use Legendre's formula and de Polignac's formula to compute the prime factorizations of binomial coefficients. For example, it follows immediately from Legendre's formula that all the prime factors of the central binomial coefficient
+  \begin{equation*}
+    \binom{64}{32}
+  \end{equation*}
+  are bounded from above by $64$. Moreover, every prime $32<p\leq 64$ occurs with $p$-adic valuation $1$. Furthermore, the central binomial coefficient $\binom{64}{32}$ is not divisible by any prime $\frac{2}{3}32<p\leq 32$, showing that the $23$-, $29$-, and $31$-adic valuations of $\binom{64}{32}$ are $0$. To compute the $p$-adic valuations for the lower primes, we use de Polignac's formula, for which it is necessary to write $32$ and $64$ in base $p$. Using letters $A$, $B$, $C$, and so forth for digits representing values of $10$ and higher, we gather all the calculations for de Polignac's formula in the following table:
+  \begin{center}
+    \begin{tabular}{c|ccc}
+      $p$ & $32$ base $p$ & $64$ base $p$ & $\frac{2s_p(32)-s_p(64)}{p-1}$ \\ \midrule
+      $2$ & $(100000)_2$ & $(1000000)_2$ & $1$ \\
+      $3$ & $(1012)_3$ & $(2101)_3$ & $2$ \\
+      $5$ & $(112)_5$ & $(224)_5$ & $0$ \\
+      $7$ & $(44)_7$ & $(121)_7$ & $2$ \\
+      $11$ & $(2A)_{11}$ & $(59)_{11}$ & $1$ \\
+      $13$ & $(26)_{13}$ & $(4C)_{13}$ & $0$ \\
+      $17$ & $(1F)_{17}$ & $(3D)_{17}$ & $1$ \\
+      $19$ & $(1D)_{19}$ & $(37)_{19}$ & $1$ \\
+    \end{tabular}
+  \end{center}
+  Thus, we see that
+  \begin{equation*}
+    \binom{64}{32}=2\cdot 3^2\cdot 7^2\cdot 11\cdot 17\cdot 19\cdot 37\cdot 41\cdot 43\cdot 47\cdot 53\cdot 59\cdot 61.
+  \end{equation*}
+  Even though the binomial coefficient $\binom{64}{32}$ is a fairly large number with $19$ decimal digits, we didn't need to evaluate it in order to obtain its prime factorization. In fact, without fully evaluating it, we can now determine the last decimal digit of $\binom{64}{32}$ by the following procedure: Start with $d_0:=1$ and let $d_{i+1}$ be the remainder of the product $d_ip_i^{m_i}$ after division by $10$, where $p_i^{m_i}$ is the $i$th prime power in the prime factorization of $\binom{64}{32}$. This gives:
+  \begin{equation*}
+    d_1 = 2,~d_2=8,~d_3=2,~d_4=2,~\ldots,~d_{13}=4.
+  \end{equation*}
+  The last decimal digit of $\binom{64}{32}$ is therefore a $4$.
+\end{example}
+
+In the following theorem, which is due to Ernst Kummer \cite{kummer1852}, we will compute the $p$-adic valuation of the binomial coefficients in full generality. Before we do this, we need to recall addition of two natural numbers written in base $p$. Suppose that
 \begin{equation*}
   m=\sum_{i=0}^{l_m}a_ip^i\qquad\text{and}\qquad n=\sum_{i=0}^{l_{n}}b_ip^i.
 \end{equation*}
@@ -440,7 +546,7 @@ In 1845, Joseph Bertrand observed that for any $1\leq n \leq 3,000,000$ there is
   &318751,\ 637499,\ 1274989,\ 2549951,\ 5099893,\ \ldots.
 \end{align*}
 
-The primes in this list are sometimes called the \emph{Bertrand primes}, and they are listed as A006992 in the On-Line Encyclopedia of Integer Sequences \cite{oeis:A006992}. Bertrand's conjecture was proven five years later by Pafnuty Chebyshev, who contributed many more results about the distribution of the primes using analytical methods \cite{chebyshev1850}. We will give a proof by Erd\"os \cite{erdos1932}, which can be obtained through the methods of the previous section.
+The primes in this list are sometimes called the \emph{Bertrand primes}, and they are listed as A006992 in the On-Line Encyclopedia of Integer Sequences \cite{oeis:A006992}. Bertrand's conjecture was proven five years later by Pafnuty Chebyshev, who contributed many more results about the distribution of the primes using analytical methods \cite{chebyshev1850}. We will give a proof by Paul Erd\H{o}s \cite{erdos1932}, which can be obtained through the methods of the previous section.
 
 \begin{lemma}\label{lemma:upper-bound-product-of-primes}
   For any positive integer $n$, we have
@@ -509,6 +615,7 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   \item Shade all non-square-free numbers in the other color.
   \end{enumerate}
   Explain your method.
+  \exercise Compute the square-free decompositions of $72$, $200$, $315$, $462$, and $2205$.
   \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
   \exercise Show that
   \begin{equation*}
@@ -540,6 +647,13 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
     \lcm\left(\binom{n}{0},\binom{n}{1},\ldots,\binom{n}{n}\right)=
     \frac{\lcm(1,\ldots,n+1)}{n+1}.
   \end{equation*}
+  \exercise Determine the number of trailing zeros in the decimal representations of $100!$ and $2^{10}!$.
+  \exercise
+  \begin{subexenum}
+  \item Show that $\binom{n}{m}$ is odd if and only if there are no carries occur when adding $m$ and $n-m$ in their binary representations.
+  \item Show that $\binom{n}{m}$ is odd for every $0\leq m\leq n$ if and only if $n$ is of the form $2^k-1$.
+  \end{subexenum}
+  
 \end{exercises}
 
 %%% Local Variables:

@@ -67,17 +67,43 @@ is the number $n!$. In other words, the factorial function counts the number of 
 
 The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$th row of Pascal's triangle. In the $n$th row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
 
-\begin{center}
-\begin{tikzpicture}
-    \foreach \n in {0,...,6} {
-        \foreach \r in {0,...,\n} {
-            \pgfmathparse{int(factorial(\n)/(factorial(\r)*factorial(\n-\r)))}
-            \let\value\pgfmathresult
-            \node at (\r-\n/2,-\n) {\value};
-        }
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[every node/.style={
+      draw,
+      thick,
+      circle,
+      minimum size=7mm,
+      inner sep=1pt,
+      align=center
+    }]
+    % nodes
+    \foreach \n in {0,...,6}{
+      \foreach \r in {0,...,\n}{
+        \pgfmathtruncatemacro{\val}{int(factorial(\n)/(factorial(\r)*factorial(\n-\r)))}
+        \node (n\n\r) at (\r-\n/2,-\n) {\val};
+      }
     }
-\end{tikzpicture}
-\end{center}
+    % normal connections
+    \foreach \n in {0,...,5}{
+      \pgfmathtruncatemacro{\nn}{\n+1}
+      \foreach \r in {0,...,\n}{
+        \pgfmathtruncatemacro{\rp}{\r+1}
+        \draw[thick] (n\n\r) -- (n\nn\r) (n\n\r) -- (n\nn\rp);
+      }
+    }
+    % bottom‐row extensions (solid then dotted)
+    \foreach \r in {0,...,6}{
+      % down‐left
+      \draw[thick,solid, shorten >=6mm]  (n6\r) -- ++(-0.5cm,-1cm);
+      \draw[thick,densely dotted,shorten >=4.5mm]   (n6\r) -- ++(-0.5cm,-1cm);
+      % down‐right
+      \draw[thick,solid, shorten >=6mm]  (n6\r) -- ++( 0.5cm,-1cm);
+      \draw[thick,densely dotted,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
+    }
+  \end{tikzpicture}
+  \caption{\label{figure:pascals-triangle}Pascal's triangle.}
+\end{figure}
 
 \begin{theorem}
   Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
@@ -272,6 +298,10 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
     \frac{4^n}{2n+1} < \binom{2n}{n} < 4^n
   \end{equation*}
   hold for all $n\geq 1$.
+  \exercise Show that
+  \begin{equation*}
+    \sum_{k=0}^n\prod_{i=0}^m (k+i) = (m+1)!\binom{n+m+1}{m+2}.
+  \end{equation*}
   \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. This is https://oeis.org/A147956
   \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
   % \exercise

@@ -1,6 +1,6 @@
-\chapter{Quadratic Reciprocity}
+\chapter{Quadratic Reciprocity}\label{chapter:quadratic-reciprocity}
 
-\section{The Quadratic Residuosity of 2}
+\section{The Quadratic Character of 2}
 
 In this section we consider the question for which odd primes $p$ we have that $2$ is a quadratic residue. By \cref{exercise:uniform-legendre-exponent}, this is equivalent to the question for which primes $p$ we have
 \begin{equation*}
@@ -82,7 +82,25 @@ The previous theorem is also known as the \emph{Second Supplement} of the law of
   \end{cases}
 \end{equation*}
 
-It is quite a useful theorem by itself: We will use it to show that there are infinitely many primes of the form $8k+r$ for any odd number $0<r<8$. We have already seen in \cref{theorem:infinitude-of-primes-1-mod-power-of-2} that there are infinitely many primes congruent to $1$ modulo $2^n$. In particular, there are infinitely many primes of the form $8k+1$. It remains prove the analogous claims for the residue classes $3$, $5$, and $7$ modulo $8$. We will be following \Sierpinski{} \cite{sierpinski1988}.
+Since primitive roots are always quadratic nonresidues, we obtain the following corollary. Artin conjectured that there are infinitely many primes $p$ for which $2$ is a primitive root. More generally, he conjectured that for any integer $a$ that is neither $-1$ nor a perfect square, there are infinitely many primes for which $a$ is a primitive root.
+
+\begin{corollary}
+  If $2$ is a primitive root modulo $p$, then $p\equiv\pm 3\pmod{8}$.
+\end{corollary}
+
+\begin{table}[t]
+  \centering
+  \begin{tabular}{r|ccccccccccccccc}
+          & 1st  & 2nd  & 3rd  & 4th  & 5th  & 6th   & 7th   & 8th   & 9th   & 10th  \\ \midrule
+    $r=1$ & 17 & 41 & 73 & 89 & 97 & 113 & 137 & 193 & 233 & 241 \\
+    $r=3$ & 3  & 11 & 19 & 43 & 59 & 67  & 83  & 107 & 131 & 139 \\
+    $r=5$ & 5  & 13 & 29 & 37 & 53 & 61  & 101 & 109 & 149 & 157 \\
+    $r=7$ & 7  & 23 & 31 & 47 & 71 & 79  & 103 & 127 & 151 & 167 \\
+  \end{tabular}
+  \caption{\label{table:primes-congruent-to-r-mod-8}The first ten primes congruent to $r$ modulo $8$, for $r=1,3,5,7$.}
+\end{table}
+
+The second supplement can be used to show that there are infinitely many primes of the form $8k+r$ for any odd number $0<r<8$. We have already seen in \cref{theorem:infinitude-of-primes-1-mod-power-of-2} that there are infinitely many primes congruent to $1$ modulo $2^n$. In particular, there are infinitely many primes of the form $8k+1$. It remains prove the analogous claims for the residue classes $3$, $5$, and $7$ modulo $8$. We will be following \Sierpinski{} \cite{sierpinski1988}. The first ten primes congruent to $r$ moduo $8$ for each odd residue class $r$ are given in \cref{table:primes-congruent-to-r-mod-8}.
 
 \begin{theorem}
   There are infinitely many primes congruent to $3$ modulo $8$.
@@ -391,7 +409,7 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   \begin{equation*}
     \mu(q,p)+\mu(p,q)\equiv \frac{p-1}{2}\frac{q-1}{2}\pmod{2}.
   \end{equation*}
-  This suggests that there should be a way of splitting a set of $\frac{p-1}{2}\frac{q-1}{2}$ points into two subsets $S$ and $T$, so that their respective number of elements have the same parities as the quantities $\mu(q,p)$ and $\mu(p,q)$. There is indeed such a way. \cref{figure:eisenstein-quadratic-reciprocity} we shows Eisenstein's setup in case of the primes $p=17$ and $q=13$. 
+  This suggests that there should be a way of splitting a set of $\frac{p-1}{2}\frac{q-1}{2}$ points into two subsets $S$ and $T$, so that their respective number of elements have the same parities as the quantities $\mu(q,p)$ and $\mu(p,q)$. There is indeed such a way. \cref{figure:eisenstein-quadratic-reciprocity} shows Eisenstein's setup in case of the primes $p=17$ and $q=13$. 
   
   \begin{figure}[t]
     \centering

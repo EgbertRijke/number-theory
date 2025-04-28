@@ -1,6 +1,6 @@
 \chapter{Modular Arithmetic}\label{chapter:modular-arithmetic}
 
-\section{The Integers Modulo $n$}
+\section{The Integers Modulo \texorpdfstring{$n$}{n}}
 
 We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
 
@@ -311,7 +311,7 @@ This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
   \end{equation*}
   Therefore, there is exactly one factor that contributes a something to this product: the factor $-1$. Thus we see that $(n-1)!\equiv -1\pmod{n}$.
 
-  Conversely, suppose that $(n-1)!\equiv -1\pmod{n}$. Then it follows that
+  Conversely, suppose that the congruence $(n-1)!\equiv -1\pmod{n}$ holds. Then it follows that
   \begin{equation*}
     -(n-1)!\equiv 1\pmod{n}.
   \end{equation*}
@@ -320,6 +320,53 @@ This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
     ax\equiv 1\pmod{n}.
   \end{equation*}
   This implies that $\gcd(a,n)=1$. It follows that the only proper divisor of $n$ is $1$, i.e., that $n$ is prime.
+\end{proof}
+
+\section{The Quadratic Character of \texorpdfstring{$-1$}{-1}}
+
+\crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} can be used to prove that $-1$ is congruent to a square modulo $p$ if and only if $p\equiv 1\pmod{4}$. In turn, this observation can be used to show that there are infinitely many primes congruent to $1$ modulo $4$. Furthermore, the fact that $-1$ is congruent to a square modulo $p$ when $p\equiv 1\pmod{4}$ is used in the next chapter to prove Fermat's \emph{Two-Square Theorem}, which asserts that every such prime is the sum of two squares. Questions similar to the quadratic character of $-1$ modulo a prime will be investigated more fully in \cref{chapter:quadratic-residues,chapter:quadratic-reciprocity}.
+
+\begin{theorem}\label{theorem:quadratic-character-neg-1}
+  Consider an odd prime $p$. Then there exists an integer $a$ such that
+  \begin{equation*}
+    a^2\equiv-1\pmod{p}
+  \end{equation*}
+  if and only if $p\equiv 1\pmod{4}$.
+\end{theorem}
+
+\begin{proof}
+  First, we show that if there is an integer $a$ such that $a^2\equiv-1\pmod{p}$, then we must have $p\equiv 1\pmod{4}$. By \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} it follows that
+  \begin{equation*}
+    (-1)^{\frac{p-1}{2}}\equiv (a^2)^{\frac{p-1}{2}} \equiv a^{p-1}\equiv 1\pmod{p}
+  \end{equation*}
+  This shows that $\frac{p-1}{2}$ must be even, which is equivalent to the congruence $p\equiv 1\pmod{4}$.
+  
+  For the converse, assume that $p\equiv 1\pmod{4}$. By \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} we know that $(p-1)!\equiv -1\pmod{p}$. Now, observe that the integers $1,\ldots,p-1$ can be arranged in pairs, where each $i$ is paired with $p-i$, which is always distinct from $i$ because $p-1$ is even. Since $i(p-i)\equiv -i^2\pmod{p}$, we obtain the congruences
+  \begin{equation*}
+    -1\equiv(p-1)!\equiv (-1)^{\frac{p-1}{2}}\left(\left(\frac{p-1}{2}\right)!\right)^2\equiv\left(\left(\frac{p-1}{2}\right)!\right)^2\pmod{p}.
+  \end{equation*}
+  The last congruence holds, because $(p-1)/2$ is even by the assumption that $p\equiv 1\pmod{4}$. Thus, we have presented $-1$ as a square modulo $p$.
+\end{proof}
+
+The previous theorem describing the quadratic character of $-1$ modulo an odd prime $p$ can be used to show that there are infinitely many primes congruent to $1$ modulo $4$. The first fifteen primes congruent to $1$ modulo $4$ are:
+\begin{equation*}
+  5,~13,~17,~29,~37,~41,~53,~61,~73,~89,~97,~101,~109,~113,~\text{and}~137.
+\end{equation*}
+
+\begin{theorem}
+  There are infinitely many primes congruent to $1$ modulo $4$.
+\end{theorem}
+
+\begin{proof}
+  Consider a finite set of primes $p_1,\ldots,p_k$ that are all congruent to $1$ modulo $4$, and define
+  \begin{equation*}
+    n = (2p_1\cdots p_k)^2 + 1.
+  \end{equation*}
+  Notice that $n\equiv 1\pmod{4}$ is greater than $1$, and $p_i\nmid n$ for any $1\leq i\leq k$. It follows that for any prime divisor $q$ of $n$, we have
+  \begin{equation*}
+    (2p_1\cdots p_k)^2\equiv -1\pmod{q},
+  \end{equation*}
+  showing that $-1$ is a quadratic residue modulo $q$. Since $-1$ is a quadratic residue modulo $q$ if and only if $q\equiv 1\pmod{4}$, it follows that any prime divisor $q$ of $n$ is congruent to $1$ modulo $4$. Since none of the prime divisors of $n$ are among the primes $p_i$ we started out with, the primes $p_i$ could not have listed all the primes congruent to $1$ modulo $4$.
 \end{proof}
 
 \begin{exercises}

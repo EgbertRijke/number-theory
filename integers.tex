@@ -1,0 +1,44 @@
+\chapter{The Integers}
+
+\section{A Structural Definition of the Integers}
+
+\begin{definition}
+  The set of integers is specified to be a set $\mathbb{Z}$ equipped with an element $0\in \mathbb{Z}$ and a bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
+  \begin{enumerate}
+  \item $f(0)=x_0$, and
+  \item $f(S(a))=h(f(a))$ for every $a\in\mathbb{Z}$.
+  \end{enumerate}
+\end{definition}
+
+\section{Constructing the Integers from the Natural Numbers}
+
+\begin{definition}
+  The set $\mathbb{Z}$ is defined by
+  \begin{equation*}
+    \mathbb{Z}:=\{(a,b)\in\mathbb{N}\mid ab=0\}.
+  \end{equation*}
+\end{definition}
+
+\section{Cyclically Ordered Sets}
+
+\begin{definition}
+  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \emph{in the same orbit} of $f$ if there exists an integer $k$ such that $f^k(x)=y$. An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
+\end{definition}
+
+\begin{definition}
+  A \emph{cyclically ordered set} is a pair $(X,f)$ consisting of a set $X$ and a bijection $f:X\cong X$ that has exactly one orbit.
+\end{definition}
+
+\begin{remark}
+  Since orbits are assumed to be inhabited---that is, nonempty---subsets of a set $X$, it follows that cyclically ordered sets are always inhabited. Indeed, if $U$ is the unique orbit of a cyclically ordered set, and $U$ is inhabited by an element $x\in U$, then we have $x\in X$. Thus, empty sets are not considered to be cyclically ordered.
+\end{remark}
+
+\begin{theorem}
+  Suppose that $X$ is a set equipped with an element $x_0\in X$ and a bijection $h:X\cong X$. Then the image of the unique map $f:\mathbb{Z}\to X$ determined by $x_0$ and $h$ is cyclically ordered.
+\end{theorem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:
+
