@@ -190,6 +190,7 @@
 \newcommand{\complementsubset}[1]{#1^{\mathrm{c}}}
 \newcommand{\Oh}{O}
 \newcommand{\oh}{o}
+\newcommand{\blank}{\mathord{\hspace{1pt}\text{--}\hspace{1pt}}}
 
 \begin{document}
 
@@ -217,8 +218,8 @@
 
       \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
       \draw[CornflowerBlue,ultra thick,->,shorten >=2ex] (P1) -- (P2);
-      \draw[BurntOrange,ultra thick,dashed] (1,-1) -- (P2);
-      \draw[BurntOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
+      \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
+      \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
       \draw[Green,ultra thick,dashed] (1,1) -- (P3);
       \draw[Green,ultra thick,->,shorten >=1.5ex] (P3) -- (P4);
       \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
@@ -276,7 +277,7 @@
 
 \tableofcontents
 
-\input{course-information}
+%\input{course-information}
 
 \input{introduction}
 
@@ -294,6 +295,8 @@
 
 \input{prime-numbers}
 
+\input{rational-numbers}
+
 \input{polynomials}
 
 \input{pythagorean-triples}
@@ -305,6 +308,8 @@
 \input{modular-arithmetic}
 
 \input{sums-of-squares}
+
+\input{gaussian-integers}
 
 \input{systems-of-linear-congruences}
 

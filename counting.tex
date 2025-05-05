@@ -6,6 +6,171 @@ Combinatorics, or discrete mathematics, is mathematics of finite structures. A c
 \end{equation*}
 of any $k$ consecutive natural numbers is always divisible by $k!$. We will also establish the binomial theorem, which has a myriad of applications throughout mathematics.
 
+\section{A First Counting Problem}
+
+\begin{figure}[b]
+  \centering
+  \begin{tikzpicture}[scale=0.6]
+    % --- first tiling (a) at y=0 ---
+    \begin{scope}[shift={(0,0)}]
+      % tiles: 2,1,2,1,1,2,1,1,2,1,2,1,1,1
+      \foreach \x/\len in {
+        0/2, 2/1, 3/2, 5/1, 6/1, 7/2, 9/1,
+        10/1, 11/2, 13/1, 14/2, 16/1, 17/1, 18/1
+      }{
+        \ifnum\len=1
+          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+        \else
+          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+        \fi
+        \draw[thick] (\x,0) rectangle ++(\len,1);
+      }
+    \end{scope}
+    
+    % --- second tiling (b) at y=-1.5 ---
+    \begin{scope}[shift={(0,-1.5)}]
+      % tiles: 1,2,2,1,1,1,2,2,1,2,1,2,1
+      \foreach \x/\len in {
+        0/1, 1/2, 3/2, 5/1, 6/1, 7/1, 8/2,
+        10/2, 12/1, 13/2, 15/1, 16/2, 18/1
+      }{
+        \ifnum\len=1
+          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+        \else
+          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+        \fi
+        \draw[thick] (\x,0) rectangle ++(\len,1);
+      }
+    \end{scope}
+    
+    % --- third tiling (c) at y=-3 ---
+    \begin{scope}[shift={(0,-3)}]
+      % tiles: 2,2,1,1,2,1,2,1,1,1,2,1,2
+      \foreach \x/\len in {
+        0/2, 2/2, 4/1, 5/1, 6/2, 8/1, 9/2,
+        11/1, 12/1, 13/1, 14/2, 16/1, 17/2
+      }{
+        \ifnum\len=1
+          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+        \else
+          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+        \fi
+        \draw[thick] (\x,0) rectangle ++(\len,1);
+      }
+    \end{scope}
+  \end{tikzpicture}
+  \caption{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
+\end{figure}
+
+Consider the set of patterns one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). In \cref{figure:fibonacci-tilings} we have displayed some examples. How many such patterns are there?
+
+In order to count them, let $T(n)$ be the number of such tilings. One way of finding the number $T(n)$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \cref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[scale=0.6]
+    % Colours
+    \definecolor{mono}{RGB}{255,165,0}   % monomino
+    \definecolor{domi}{RGB}{100,149,237} % domino
+    
+    % Helper: draw one tiling given a shift and a list of x/length pairs
+    \newcommand{\drawtiling}[3]{%
+      \begin{scope}[shift={(#1,#2)}]
+        \draw[step=1cm,gray!40] (0,0) grid (5,1);
+        \foreach \x/\len in {#3} {
+          \ifnum\len=1
+            \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+            \draw[thick] (\x,0) rectangle ++(1,1);
+          \else
+            \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+            \draw[thick] (\x,0) rectangle ++(2,1);
+          \fi
+        }
+      \end{scope}%
+    }
+    
+    % Now place the 8 tilings in two columns
+    % Each list is x/length so that the tiles exactly fill 0..5
+    \drawtiling{0}{   0}{0/1,1/1,2/1,3/1,4/1}   % 1 1 1 1 1
+    \drawtiling{7}{   0}{0/1,1/1,2/1,3/2}       % 1 1 1 2
+    \drawtiling{0}{ -1.5}{0/1,1/1,2/2,4/1}      % 1 1 2 1
+    \drawtiling{7}{ -1.5}{0/1,1/2,3/1,4/1}      % 1 2 1 1
+    \drawtiling{7}{ -3  }{0/2,2/1,3/1,4/1}      % 2 1 1 1
+    \drawtiling{0}{ -3  }{0/1,1/2,3/2}          % 1 2 2
+    \drawtiling{0}{ -4.5}{0/2,2/1,3/2}          % 2 1 2
+    \drawtiling{7}{ -4.5}{0/2,2/2,4/1}          % 2 2 1
+    
+  \end{tikzpicture}  
+  \caption{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
+\end{figure}
+
+However, listing all such tilings gets elaborate quite quickly, and furthermore doing so by hand is quite error-prone. The problem is therefore to find a clever way of counting all possible patterns for all $n$.
+
+Notice that the last tile is either a monomino or a domino, so there are two cases to consider. The number of tilings ending in a monomino is exactly the number $T(n-1)$, and the number of tilings ending in a domino is exactly the number $T(n-2)$. Thus, the total number of tilings of a 1-by-$n$ grid is the sum of these two numbers:
+\begin{equation*}
+  T(n) = T(n-1)+T(n-2).
+\end{equation*}
+This is exactly the same recursive rule as for the Fibonacci numbers!
+
+To complete the computation of $T(n)$, we have to determine how the sequence $T(n)$ starts off. That is, we need to determine $T(1)$ and $T(2)$. There is exactly one way to tile a 1-by-1 grid using monominoes and dominoes, namely by using one monomino, and there are two ways of tiling a 1-by-2 grid using monominoes and dominoes, namely by using either two monominoes or one domino. We therefore find that $T(1)=1$ and $T(2)=2$, and we can therefore conclude that
+\begin{equation*}
+  T(n) = F_{n+1}.
+\end{equation*}
+This tiling interpretation of the Fibonacci numbers was found in \cite{brigham1996}.
+The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses this interpretation to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
+
+\section{The Standard Finite Sets}
+
+\begin{definition}
+  The \emph{standard finite set} $[n]$ with $n$ elements is defined by
+  \begin{equation*}
+    [n]:=\{0,\ldots,n-1\}=\{x\in\mathbb{N}\mid x<n\}.
+  \end{equation*}
+\end{definition}
+
+We now turn to the question of formally defining the process of counting. What does it mean when we say that a set $X$ has $n$ elements? It means that we can, at least in principle, label each element of $X$ with a number $0\leq i<n$ in such a way that every number $0\leq i<n$ is used at least once, and that no two elements of $X$ got assigned the same number.
+
+\begin{definition}
+  A function $f:X\to Y$ is said to be a \emph{bijection} if for every $y\in Y$, the set
+  \begin{equation*}
+    \{x\in X\mid f(x)=y\}
+  \end{equation*}
+  consisting of all elements $x\in X$ with value $f(x)=y$ has exactly one element. Some authors call bijections \emph{one-to-one correspondences}.
+\end{definition}
+
+\begin{definition}
+  A function $f:X\to Y$ is said to be \emph{invertible} if there is a function $g:Y\to X$ such that
+  \begin{equation*}
+    f(g(y))=y \qquad\text{and}\qquad g(f(x))=x
+  \end{equation*}
+  for every $x\in X$ and $y\in Y$.
+\end{definition}
+
+\begin{theorem}
+  A function $f:X\to Y$ is a bijection if and only if it is invertible.
+\end{theorem}
+
+\begin{proof}
+  Suppose first that $f$ is a bijection. To construct its inverse $g$, we must assign to each element $y\in Y$ an element $x\in X$. By the assumption that $f$ is a bijection, we are given that the set
+  \begin{equation*}
+    \{x\in X\mid f(x)=y\}
+  \end{equation*}
+  has exactly one element. Thus, we let $g(y)$ be the unique element of this set. By definition, we have $f(g(y))=y$. To see that $g(f(x))=x$, note that $x$ is the unique element in the set
+  \begin{equation*}
+    \{x'\in X\mid f(x')=f(x)\}.
+  \end{equation*}
+  Thus, if we can show that $g(f(x))$ is also in this set, then it follows that $g(f(x))=x$. In other words, our plan is to show that $f(g(f(x)))=f(x)$. However, this follows at once from the definition of $g$, using the element $y:=f(x)$. This shows that $f$ is invertible.
+
+  For the converse, assume that $f$ is invertible with inverse $g$, and consider the set
+  \begin{equation*}
+    \{x\in X\mid f(x)=y\}.
+  \end{equation*}
+  Observe that $g(y)$ is in this set, since $f(g(y))=y$ by the assumption that $g$ is an inverse of $f$. Thus, the set has at least one element. It remains to show that it has at most one element. To see this, consider two elements $x$ and $x'$ such that $f(x)=y$ and $f(x')=y$. Then we obtain that
+  \begin{equation*}
+    x=g(f(x))=g(y)=g(f(x'))=x'.
+  \end{equation*}
+  This shows that any two elements in the set $\{x\in X\mid f(x)=y\}$ must be equal, so it has at most one element.
+\end{proof}
+
 \section{Counting Bijections}
 
 \begin{definition}

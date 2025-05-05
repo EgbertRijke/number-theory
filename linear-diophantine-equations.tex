@@ -329,11 +329,11 @@ The following proposition is a must-know fact about the integers.
 
 \section{Euclid's Algorithm}
 
-The previous theorem shows that any two integers $a$ and $b$ have a greatest common divisor $\gcd(a,b)$, and that there are integers $k$ and $l$ such that
+\cref{theorem:definition-gcd} shows that any two integers $a$ and $b$ have a greatest common divisor $\gcd(a,b)$, and that there are integers $k$ and $l$ such that
 \begin{equation*}
   ka+lb=\gcd(a,b),
 \end{equation*}
-but it doesn't reveal much about how the integers $k$ and $l$ can be found. Euclid's algorithm is an efficient way to compute the greatest common divisor and to find integers $k$ and $l$ establishing the greatest common divisor as a linear combination.
+but it doesn't reveal much about how the integers $k$ and $l$ can be found, or even how to find the greatest common divisor in the first place. This problem is solved by \emph{Euclid's Algorithm}, which provides an efficient way to compute the greatest common divisor of two integers and to find integers $k$ and $l$ establishing the greatest common divisor as a linear combination. The algorithm relies on the following proposition.
 
 \begin{proposition}\label{proposition:gcd-euclidean-division}
   Suppose $a$ and $b$ are two integers and $b=qa+r$. Then we have
@@ -356,28 +356,79 @@ As an immediate corollary, we obtain:
   If $b$ is of the form $ka+1$, then $a$ and $b$ are always relatively prime.
 \end{corollary}
 
-\cref{proposition:gcd-euclidean-division} implies a useful way of calculating the greatest common divisor of two numbers. Suppose we want to calculate the greatest common divisor of $578$ and $732$. Then we write $732$ in the form $q\cdot 578+r$; that is, we write
+Euclid's algorithm works by repeatedly using \cref{proposition:gcd-euclidean-division}. For any pair $(a,b)$ of integers, if $b\neq 0$ then there is a unique pair $(q,r)$ such that $0\leq r<|b_0|$ and such that the equality
 \begin{equation*}
-  732 = 1 \cdot 578 + 154.
+  a=qb+r
 \end{equation*}
-By the proposition, it follows that $\gcd(732,578)=\gcd(578,154)$. We now proceed in the same manner, by writing
-\begin{equation*}
-  578 = 3\cdot 154 + 116, 
-\end{equation*}
-and we observe that $\gcd(732,578)=\gcd(154,116)$. We proceed with this process until we find that $\gcd(732,578)=\gcd(d,0)$ for some number $d$. Once we reach this stage, we conclude that $\gcd(732,578)=d$. Putting words to action:
+holds. This determines a new pair $(a',b'):=(b,r)$ and $\gcd(a,b)=\gcd(b,r)$. Note that $\gcd(b,r)$ is somewhat easier to compute, since the numbers involved are smaller. Repeating this procedure, we obtain a list of equalities
 \begin{align*}
-  154 & = 1\cdot 116 + 38 & \gcd(732,578) & = \gcd(116,38) \\
-  116 & = 3 \cdot 38 + 2 & \gcd(732,578) & = \gcd(38,2) \\
-  12 & = 6 \cdot 2 + 0 & \gcd(732,578) & = \gcd(2,0).
+  a_1 & =q_1b_1+r_1 \\
+  a_2 & =q_2b_2+r_2 \\
+      & ~\,\vdots \\
+  a_N & = q_Nb_N+r_N,
 \end{align*}
-Thus, we conclude that $\gcd(732,578)=2$. The process outlined above is called \emph{Euclid's Algorithm}.
-
-By closer inspection of Euclid's algorithm, we can even find an integer solution to the equation
+in which $a_1=a$, $b_1=b$, $a_{i+1}=b_i$, $b_{i+1}=r_i$, and $0\leq r_i<|b_i|$. This procedure results in a decreasing sequence $r_1>r_2>\cdots>r_N$ of nonnegative integers, so it terminates when $r_N=0$. Indeed, the Euclidean division theorem cannot be applied to the pair $(b_N,r_N)$ any further when $r_N=0$. Since \cref{proposition:gcd-euclidean-division} implies that
 \begin{equation*}
-  \gcd(a,b) = ax + by.
+  \gcd(a,b)=\gcd(b_1,r_1)=\gcd(b_2,r_2)=\cdots=\gcd(b_N,r_N),
+\end{equation*}
+we see that $b_N$ is the greatest common divisor of $a$ and $b$.
+
+\begin{example}
+  We will illustrate Euclid's algorithm by an example. Suppose we want to calculate the greatest common divisor of $578$ and $732$. Then we write $732$ in the form $q\cdot 578+r$; that is, we write
+  \begin{equation*}
+    732 = 1 \cdot 578 + 154.
+  \end{equation*}
+  By the \cref{proposition:gcd-euclidean-division}, it follows that $\gcd(732,578)=\gcd(578,154)$. We now proceed in the same manner, by writing
+  \begin{equation*}
+    578 = 3\cdot 154 + 116, 
+  \end{equation*}
+  and we observe that $\gcd(732,578)=\gcd(154,116)$. We proceed with this process until we find that $\gcd(732,578)=\gcd(d,0)$ for some number $d$. Once we reach this stage, we conclude that $\gcd(732,578)=d$. Putting words to action:
+  \begin{align*}
+    154 & = 1\cdot 116 + 38 & \gcd(732,578) & = \gcd(116,38) \\
+    116 & = 3 \cdot 38 + 2 & \gcd(732,578) & = \gcd(38,2) \\
+    38 & = 19 \cdot 2 + 0 & \gcd(732,578) & = \gcd(2,0).
+  \end{align*}
+  Thus, we conclude that $\gcd(732,578)=2$.  
+\end{example}
+
+A few further remarks about the sequence of equations
+\begin{equation*}
+  a_i=q_ib_i+r_i
+\end{equation*}
+produced by Euclid's algorithm are in order. Since each $r_i$ can be written as a linear combination of $a_i$ and $b_i$, it follows by induction that each $r_i$ can be written as a linear combination of $a$ and $b$. In other words, for each $1\leq i\leq N$, there are integers $k_i$ and $l_i$ such that
+\begin{equation*}
+  r_i=k_ia+l_ib.
+\end{equation*}
+These linear coefficients can be determined recursively, by what is called the \emph{extended Euclidean algorithm}. Notice that $k_1=1$ and $l_1=q_1$. We also set $k_0:=0$ and $l_0:=1$. Then $k_{i+1}$ and $l_{i+1}$ are recursively determined by the rule:
+\begin{align*}
+  k_{i+1} & = k_{i-1}-q_{i+1}k_i \\
+  l_{i+1} & = l_{i-1}-q_{i+1}l_i.
+\end{align*}
+To see this, simply note that
+\begin{equation*}
+  r_{i+1}=a_{i+1}-q_{i+1}b_{i+1}=r_{i-1}-q_{i+1}r_i.
 \end{equation*}
 
-The best way to see how this works is by example, so let us use the previous example. Euclid's algorithm has given us that $\gcd(732,578)=2$. In the second to last equation, we find that $2$ is a linear combination of $38$ and $116$; that is,
+\begin{example}
+  In the previous example, Euclid's algorithm has given us that
+  \[\gcd(732,578)=2.\]
+  We will now express $2$ as a linear combination of $732$ and $578$. We start with the first equation, $732=1\cdot 578+154$ to write
+  \begin{align*}
+    154 & = 732 - 1\cdot 578.
+  \end{align*}
+  Next, we use the equation $578=3\cdot 154+116$ to write
+  \begin{equation*}
+    116 = 578-3\cdot 154 = 578 - 3\cdot (732 - 1\cdot 578) = 4\cdot 578 - 3\cdot 732.
+  \end{equation*}
+  Continuing this way, we find that
+  \begin{equation*}
+    38=154-1\cdot 116 = (732 - 1\cdot 578) - 1\cdot (4\cdot 578 - 3\cdot 732) = 4\cdot 732 - 5\cdot 578
+  \end{equation*}
+  and
+  \begin{equation*}
+    2 = 116-3\cdot 38 = (4\cdot 578 - 3\cdot 732) - 3\cdot (4\cdot 732 - 5\cdot 578) = 19\cdot 578 - 15\cdot 732.
+  \end{equation*}
+  In the second to last equation, we find that $2$ is a linear combination of $38$ and $116$; that is,
 \begin{align*}
   2 & = 116 - 3\cdot 38
 \end{align*}
@@ -389,31 +440,14 @@ However, by the equation before that we see that $38$ itself is a linear combina
 \intertext{In the final step, we use that $154$ is a linear combination of $732$ and $578$ to find}
   2 & = 4\cdot 578 - 15\cdot (732 - 578) & \Rightarrow & & 2 & = - 15\cdot 732 + 19\cdot 578.
 \end{align*}
-
-\begin{example}
-  In class, we computed the greatest common divisor of $721$ and $450$. These numbers were suggested by Marwa and Dylan.
-  \begin{align*}
-    721 & = 1\cdot 450 + 271 & 1 & = 181\cdot (721 - 450) - 109\cdot 450 \\
-    & & & = 181\cdot 721 - 290\cdot 450\\
-    450 & = 1\cdot 271 + 179 & 1 & = 72 \cdot 271 - 109 \cdot (450 - 271) \\
-    & & & = 181\cdot 271 - 109\cdot 450 \\
-    271 & = 1\cdot 179 + 92 & 1 & = 72\cdot(271 - 179) - 37\cdot 179 \\
-    & & & = 72\cdot 271 - 109\cdot 179 \\
-    179 & = 1\cdot 92 + 87 & 1 & = 35\cdot 92 - 37\cdot (179 - 92) \\
-    & & & = 72\cdot 92 - 37\cdot 179 \\
-    92 & = 1 \cdot 87 + 5 & 1 & = 35\cdot (92- 87) - 2 \cdot 87 \\
-    & & & = 35\cdot 92 - 37\cdot 87 \\
-    87 & = 17\cdot 5 + 2 & 1 & = 5 - 2\cdot (87 - 17\cdot 5) \\
-    & & & = 35\cdot 5 - 2\cdot 87 \\
-    5 & = 2\cdot 2 + 1 & 1 & = 5 - 2\cdot 2 \\
-    & \\
-    2 & = 2 \cdot 1 + 0
-  \end{align*}
-  Thus we find that $\gcd(721,450)=1$, in other words, that $721$ and $450$ are relatively prime, and that
-  \begin{equation*}
-    181\cdot 721 - 290\cdot 450 = 1.
-  \end{equation*}
 \end{example}
+
+\begin{theorem}\label{theorem:correspondence-theorem-quotients-euclidean-algorithm}
+  Every nonempty list $(q_0,\ldots,q_N)$ of positive integers uniquely determines a pair $(a,b)$ of relatively prime positive integers such that $a>b$. In other words, there is a bijection
+  \begin{equation*}
+    \{(q_0,\ldots,q_N)\mid q_i\geq 1\text{ for all }0\leq i \leq N\} \cong \{(a,b)\mid \gcd(a,b)=1\text{ and }a>b>0\}.
+  \end{equation*}
+\end{theorem}
 
 \section{Linear Diophantine Equations in Multiple Variables}
 
@@ -528,7 +562,6 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \exercise \label{exercise:div-third-power-minus-first-power}Show that $a^3-a$ is divisible by $6$ for every integer $a$.
   \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
   \exercise Show that any two consecutive Fibonacci numbers are relatively prime.
-  \exercise \emph{Goldbach's theorem}. Show that any two distinct Fermat numbers are relatively prime.
   \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
   \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
   \exercise

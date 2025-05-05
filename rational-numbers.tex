@@ -1,0 +1,79 @@
+\chapter{The Rational Numbers}
+
+\section{Integer Fractions}
+
+\begin{definition}
+  An \emph{integer fraction} is an expression of the form
+  \begin{equation*}
+    \frac{a}{b}
+  \end{equation*}
+  in which $a$ is an integer and $b$ is a nonzero integer. In such an integer fraction, the integer $a$ is called the \emph{numerator} and the nonzero integer $b$ is called the \emph{denominator}. Furthermore:
+  \begin{enumerate}
+  \item An integer fraction $\frac{a}{b}$ is said to be \emph{reduced} if $a$ and $b$ are relatively prime.
+  \item An integer $a$ can be presented as an integer fraction by $\frac{a}{1}$.
+  \item An integer fraction of the form $\frac{1}{b}$ is called a \emph{unit fraction}.
+  \end{enumerate}
+  
+\end{definition}
+
+\begin{definition}
+  Two integer fractions $\frac{a}{b}$ and $\frac{c}{d}$ are considered the same if
+  \begin{equation*}
+    ad-bc=0.
+  \end{equation*}
+  Until we formally introduce the set of rational numbers, we will write $\frac{a}{b}\sim\frac{c}{d}$ when $\frac{a}{b}$ and $\frac{c}{d}$ are the same integer fraction.
+\end{definition}
+
+\begin{theorem}
+  For any integer fraction $\frac{a}{b}$ there is a unique reduced integer fraction $\frac{c}{d}$ such that $\frac{a}{b}\sim\frac{c}{d}$. Consequently, two integer fractions are the same if and only if they have the same reduced integer fraction.
+\end{theorem}
+
+\begin{definition}
+  Integer fractions can be added, subtracted, and multiplied according to the following rules:
+  \begin{equation*}
+     \frac{a}{b}+\frac{c}{d} = \frac{ad+bc}{bd}, \qquad \frac{a}{b}-\frac{c}{d} = \frac{ad-bc}{bd}, \qquad\text{and}\qquad \frac{a}{b}\frac{c}{d} = \frac{ac}{bd}.
+  \end{equation*}
+  Furthermore, if the numerator of $\frac{a}{b}$ is nonzero, then we can invert $\frac{a}{b}$ by:
+  \begin{equation*}
+    \left(\frac{a}{b}\right)^{-1} = \frac{b}{a}.
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  Addition, subtraction, multiplication and inversion of integer fractions satisfies the axioms of a field:
+  \begin{align*}
+    (x+y)+z & = x + y+ z & (xy)z & = x(yz) \\
+    x+y & = y+x & xy &= yx \\
+    0+x & = x & 1x & = x \\
+    x-x & = 0 & xx^{-1} & = 1 \\
+    & & x(y+z) & = xy+xz.
+  \end{align*}
+  Furthermore, adding, subtracting, multiplying or inverting integer fractions preserves the sameness relation on integer fraction, in the sense that if we substitute each integer fraction in a sum, difference, product, or inversion by one that is the same to the original, the result will be the same.
+\end{theorem}
+
+\section{Farey Fractions}
+
+\section{A Structural Definition of The Rational Numbers}
+
+\begin{definition}
+  Consider a set $Q$ equipped with a binary relation $q,r\mapsto A(q,r)$. A \emph{Farey structure} on the pair $(Q,A)$ consist of:
+  \begin{enumerate}
+  \item A map $i:\mathbb{Z}\to Q$
+  \end{enumerate}
+\end{definition}
+
+\section{The Stern--Brocot Tree}
+
+\section{Finite Simple Continued Fractions}
+
+\begin{theorem}
+  Suppose that $n$ can be written as the sum of the squares of two relatively prime integers $a>b>0$, and let the continued fraction of $\frac{a}{b}$ be given by $[q_0,q_1,\ldots,q_N]$. Furthermore, define $x$ to be the numerator of the continued fraction $[q_n,\ldots,q_0,q_0,\ldots,q_N]$. Then
+  \begin{equation*}
+    x^2\equiv 1\pmod{n}.
+  \end{equation*}
+\end{theorem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:

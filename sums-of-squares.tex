@@ -1,25 +1,66 @@
-\chapter{Sums of Squares}
+\chapter{Fermat's Two-Square Theorem}
 
-\section{Fermat's Two-Square Theorem}
+\section{Reduction to the Primes}
 
 \begin{theorem}[Fermat's Two-Square Theorem]
   A natural number $n$ is presentable as the sum of two squares if and only if its square-free part is a product of primes congruent to $1$ modulo $4$.
 \end{theorem}
 
-\section{Lagrange's Four-Square Theorem}
+\section{Euler's Proof by Infinite Descent}
 
-\begin{theorem}[Lagrange's Four-Square Theorem]
-  Every natural number can be written as the sum of four squares.
+\section{Zagier's Proof Using Fixed Points of Involutions}
+
+\section{The Method of Brillhart--Hermite--Serret}
+
+Charles Hermite and Joseph-Alfred Serret observed independently in the same year \cite{hermite1848,serret1848}, that there is a remarkable connection between Fermat's problem of expressing a prime $p$ congruent to $1$ modulo $4$ and Euclid's algorithm for finding the greatest common divisor. Their method was later improved by John Brillhart in \cite{brillhart1972}, which we will follow here.
+
+The method of Brillhart--Hermite--Serret starts by making the following observation. Consider first a pair $(a,b)$ of relatively prime integers with $a>b>0$, and use Euclid's algorithm to find a corresponding sequence $(q_0,\ldots,q_N)$ of positive integers, as described in \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, and form the sequence
+\begin{equation*}
+  (q_N,\ldots,q_0,q_0,\ldots,q_N).
+\end{equation*}
+This sequence of quotients determines, again via \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, a pair $(c,d)$ of relatively prime integers with $c>d>0$.
+
+\begin{theorem}
+  Let $(a,b)$ and $(c,d)$ be defined as in the preceeding paragraph. Then we have the identities
+  \begin{align*}
+    c = a^2+b^2 \\
+    d = ab+rs.
+  \end{align*}
+  Furthermore, we have $d^2\equiv -1\pmod c$.
 \end{theorem}
 
-\section{Legendre's Three-Square Theorem}
+\begin{proof}
+  
+\end{proof}
 
-Characterizing precisely those numbers that can be written as a sum of three squares is harder than the cases for two or four squares, since the numbers expressible as sums of three squares are not closed under multiplication. For example, $3=1^2+1^2+1^2$ and $5=2^2+1^2+0^2$, while $15$ cannot be written as a sum of three squares.
+Consider the prime $p:= 521$, which is clearly congruent to $1$ modulo $4$. By fast-exponentiation one checks that $2^{260}\equiv -1\pmod{521}$, so that
+\begin{equation*}
+  (235)^2\equiv (2^{130})^2 \equiv -1\pmod{521}.
+\end{equation*}
+Since the number $521$ is prime, the greatest common divisor of $521$ and $235$ is $1$. Nevertheless, we will run Euclid's algorithm:
+\begin{align*}
+  521 & = 2\cdot 235 + 51 \\
+  235 & = 4\cdot 51 + 31 \\
+  51 & = 1\cdot 31 + 20 \\
+  31 & = 1\cdot 20 + 11 \\
+  20 & = 1\cdot 11 + 9 \\
+  11 & = 1\cdot 9 + 2 \\
+  9 & = 4\cdot 2 + 1 \\
+  2 & = 2\cdot 1 + 0.
+\end{align*}
+There are some special things to observe here. Let us write $a_i=q_ib_i+r_i$ for the $i$th equation, where $0\leq i\leq 7$. For starters, the sequence of $q_i$s is palindromic, which means that it reads the same forwards and backwards. More significantly, the number $b_i^2+b_{8-i}^2$ is always a multiple of $521$:
+\begin{align*}
+  235^2 + 1^2 & = 106 \cdot 521 \\
+  51^2 + 2^2 & = 5 \cdot 521 \\
+  31^2 + 9^2 & = 2 \cdot 521 \\
+  20^2 + 11^1 & = 1 \cdot 521.
+\end{align*}
+Exclam! We have expressed $521$ as a sum of squares!
 
-\begin{theorem}[Legendre's Three-Square Theorem]
-  A natural number $n$ is presentable as the sum of three squares if and only if it is not of the form $4^k m$ where $m\equiv 7\pmod{8}$.
+
+\begin{theorem}
+  Consider a prime $p\equiv 1\pmod{4}$ and an element $x$ such that $p\mid x^2+1$. Furthermore, consider the sequence of remainders $r_i$, where $r_0:=p$
 \end{theorem}
-
 
 %%% Local Variables:
 %%% mode: latex

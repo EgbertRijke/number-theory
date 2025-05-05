@@ -1,8 +1,175 @@
 \chapter{The Integers}
 
-\section{A Structural Definition of the Integers}
+\section{Cyclically Ordered Sets}
+
+Natural numbers count elements of finite sets. The empty set has zero elements, the set of solutions to the equation $3x-3=0$ has exactly one element, the booleans have exactly two elements, true and false, and so on. Natural numbers have been around for at least as long as humans count. But what do negative numbers count? Surely, there are no sets with $-5$ elements! One explanation of negative numbers is that they represent deficits. In other words, integers can be thought of as \emph{differences} between natural numbers. This point of view is completely valid, and we will come back to it. There is, however, another way of thinking about integers, using cycles. Cyclic sets, as we will call them, are an often recurring structure in mathematics. Some of the prettiest proofs of \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} and \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} use them. In \cref{figure:cyclically-ordered-set} we displayed an example of a cyclically ordered set.
 
 \begin{definition}
+  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \emph{in the same orbit} of $f$ if there exists an integer $k$ such that $f^k(x)=y$. An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
+\end{definition}
+
+\begin{figure}[t]
+  \centering
+\begin{tikzpicture}[thick, every node/.style={circle, draw, minimum size=6mm, inner sep=1pt}]
+  % Define number of nodes and radius
+  \def\n{11}
+  \def\radius{2.5cm}
+  % Place nodes evenly around the circle
+  \foreach \i in {1,...,\n} {
+    \pgfmathsetmacro{\value}{int(\i-1)}
+    \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+  }
+  % Draw directed edges following the circle clockwise, shortened at node edges
+  \foreach \i in {1,...,\n} {
+    % Compute start angle
+    \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+    \draw[->, shorten >=3.5mm, shorten <=3.5mm] 
+      (\angle:\radius) arc[start angle=\angle, delta angle=-360/\n, radius=\radius];
+  }
+\end{tikzpicture}  
+  \caption{\label{figure:cyclically-ordered-set}A cyclically ordered set with 11 elements.}
+\end{figure}
+
+\begin{definition}
+  A \emph{cyclically ordered set} is a pair $(X,s)$ consisting of a set $X$ and a bijection $s:X\cong X$ that has exactly one orbit.
+\end{definition}
+
+\begin{remark}
+  Since orbits are assumed to be inhabited---that is, nonempty---subsets of a set $X$, it follows that cyclically ordered sets are always inhabited. Indeed, if $U$ is the unique orbit of a cyclically ordered set, and $U$ is inhabited by an element $x\in U$, then we have $x\in X$. Thus, empty sets are not considered to be cyclically ordered.
+\end{remark}
+
+\begin{example}
+  Every inhabited standard finite set can be given the structure of a cyclically ordered set. The cyclic structure on the standard finite set $[n+1]$ is given by
+  \begin{equation*}
+    0\mapsto 1 \mapsto 2 \mapsto \cdots \mapsto n \mapsto 0.
+  \end{equation*}
+  This cyclic structure can be defined precisely without much trouble. However, to avoid cluttering these pages, we will postpone the definition until the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem}.
+\end{example}
+
+\section{Maps Preserving Cyclic Structure}
+
+Mathematicians like to organize structures into categories. In such categories, they keep track of the kind of structured sets, and the structure preserving maps between them. In this text, we won't be bothered too much with categories, except that we will silently uphold its organizational principles. One of them says that, whenever you introduce a new kind of object, such as cyclically ordered sets in our case, then it is good practice to also specify what maps between them preserve its structure. Thus, we will now introduce cyclic order preserving maps.
+
+\begin{definition}
+  Consider two cyclically ordered sets $(X,s)$ and $(Y,t)$. A map $f:X\to Y$ is said to be a \emph{cyclic order preserving map} if
+  \begin{equation*}
+    f(s(x))=t(f(x))
+  \end{equation*}
+  for every $x\in X$. We will write $\mathrm{hom}((X,s),(Y,t))$ for the set of all cyclic order preserving maps from $(X,s)$ to $(Y,t)$.
+\end{definition}
+
+The idea of a cyclic order preserving map is that we can overlay the elements of a cyclically ordered set $X$ onto the elements of a cyclically ordered set $Y$ so that the cyclic structure of the overlay matches the cyclic structure of $Y$. This means that in a cyclic order preserving map, we can't skip any elements.
+
+\begin{center}
+\begin{tikzpicture}[scale=.1,every node/.style={circle,draw,fill=white,inner sep=1pt,minimum size=6mm,thick}]
+  %––– local “preamble” –––
+  \newdimen\radiusInner 
+  \newdimen\radiusMiddle
+  \newdimen\radiusOuter
+
+  \def\unit{1cm}       
+  \def\ratioInner{2}   
+  \def\ratioMiddle{4}  
+  \def\ratioOuter{5}   
+
+  \radiusInner  = \ratioInner\unit
+  \radiusMiddle = \ratioMiddle\unit
+  \radiusOuter  = \ratioOuter\unit
+
+  % compute our “gap” angles:
+  \pgfmathsetmacro{\startAngle}{360/7*3}
+  \pgfmathsetmacro{\endAngle}{360/7*4}
+
+  % draw the inner full circle:
+  \draw[thick] (0,0) circle (\radiusInner);
+
+  % draw the two outer arcs (CCW from startAngle to endAngle):
+  \draw[thick] (\startAngle:\radiusMiddle)
+    arc[start angle=\startAngle,end angle=\endAngle,radius=\radiusMiddle];
+
+  \draw[thick] (\startAngle:\radiusOuter)
+    arc[start angle=\startAngle,end angle=\endAngle,radius=\radiusOuter];
+
+  % place the seven nodes on all three radii:
+  \foreach \i in {0,...,6} {
+    \pgfmathsetmacro{\ang}{360/7*\i}
+    \node at (\ang:\radiusInner)  {};
+    \node at (\ang:\radiusMiddle) {};
+    \node at (\ang:\radiusOuter)  {};
+  }
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+  \begin{tikzpicture}
+    [ declare function={f(\x)=0.2*sin(\x)+\x/900;}, line cap=butt, line join=miter,
+    rubout/.style=
+    { /utils/exec=\tikzset{rubout/.cd,#1},
+      decoration=
+      {show path construction,
+        curveto code={
+          \draw [white,line width=\pgfkeysvalueof{/tikz/rubout/line width}+2*\pgfkeysvalueof{/tikz/rubout/halo}] 
+          (\tikzinputsegmentfirst) .. controls
+          (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb)  ..(\tikzinputsegmentlast); 
+          \draw [line width=\pgfkeysvalueof{/tikz/rubout/line width},shorten <=-0.1pt,shorten >=-0.1pt] (\tikzinputsegmentfirst) .. controls
+          (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb) ..(\tikzinputsegmentlast);  
+        }}},
+    rubout/.cd,line width/.initial=2pt,halo/.initial=0.5pt]
+    
+    \draw[rubout={line width=1.5pt,halo=0.5pt},decorate]
+    
+    plot[variable=\x,domain=-50:1690,samples=200,smooth] ({cos(\x)},{f(\x)}) to[out=0,in=195] cycle;
+    \draw[line width=1.5pt] (0,-2) arc(-90:270:1cm and 0.2cm);
+    \draw[thick,->]  (0,-0.4) -- (0,-1.4);
+  \end{tikzpicture}
+\end{center}
+
+\begin{theorem}
+  Consider two cyclically ordered sets $(X,s)$ and $(Y,t)$. If the set
+  \begin{equation*}
+    \mathrm{hom}((X,s),(Y,t))
+  \end{equation*}
+  of cyclic order preserving maps from $(X,s)$ to $(Y,t)$ is inhabited, then it is a cyclically ordered set.
+\end{theorem}
+
+\section{A Structural Definition of the Integers}
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[thick]
+    % parameters: number of visible nodes and horizontal separation
+    \def\n{6}       
+    \def\xsep{1.5cm}
+    
+    % draw the nodes
+    \foreach \i in {0,...,\n} {
+      \pgfmathtruncatemacro{\value}{\i-3}
+      \node[circle, draw, minimum size=6mm, inner sep=1pt,font=\small] (N\i) at (\i*\xsep,0) {$\value$};
+    }
+    
+    \pgfmathtruncatemacro{\nMinusOne}{\n-1}
+    
+    % draw directed edges between successive nodes
+    \foreach \i in {0,...,\nMinusOne} {
+      \pgfmathtruncatemacro{\next}{\i+1}
+      \draw[->, thick, shorten >=1mm, shorten <=1mm]
+      (N\i) -- (N\next);
+    }
+    
+    % extra “incoming” arrow into N0
+    \draw[->, thick, dashed, shorten >=1mm, shorten <=4mm]
+    ($(N0)+(-\xsep,0)$) -- (N0);
+    
+    % extra “outgoing” arrow from N\n
+    \draw[->, thick, dashed, shorten >=4mm, shorten <=1mm]
+    (N\n) -- ++(\xsep,0);
+  \end{tikzpicture}
+  \caption{\label{figure:integers}The infinite cyclic set of the integers.}
+\end{figure}
+
+Although the examples we have discussed so far are finite, the definition of cyclically ordered sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \cref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
+
+\begin{definition}\label{definition:integers}
   The set of integers is specified to be a set $\mathbb{Z}$ equipped with an element $0\in \mathbb{Z}$ and a bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
   \begin{enumerate}
   \item $f(0)=x_0$, and
@@ -10,32 +177,268 @@
   \end{enumerate}
 \end{definition}
 
-\section{Constructing the Integers from the Natural Numbers}
-
-\begin{definition}
-  The set $\mathbb{Z}$ is defined by
-  \begin{equation*}
-    \mathbb{Z}:=\{(a,b)\in\mathbb{N}\mid ab=0\}.
-  \end{equation*}
-\end{definition}
-
-\section{Cyclically Ordered Sets}
-
-\begin{definition}
-  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \emph{in the same orbit} of $f$ if there exists an integer $k$ such that $f^k(x)=y$. An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
-\end{definition}
-
-\begin{definition}
-  A \emph{cyclically ordered set} is a pair $(X,f)$ consisting of a set $X$ and a bijection $f:X\cong X$ that has exactly one orbit.
-\end{definition}
-
-\begin{remark}
-  Since orbits are assumed to be inhabited---that is, nonempty---subsets of a set $X$, it follows that cyclically ordered sets are always inhabited. Indeed, if $U$ is the unique orbit of a cyclically ordered set, and $U$ is inhabited by an element $x\in U$, then we have $x\in X$. Thus, empty sets are not considered to be cyclically ordered.
-\end{remark}
+\begin{theorem}
+  The pair $(\mathbb{Z},S)$ consisting of the set $\mathbb{Z}$ of integers and the successor function $S$ is a cyclically ordered set.
+\end{theorem}
 
 \begin{theorem}
   Suppose that $X$ is a set equipped with an element $x_0\in X$ and a bijection $h:X\cong X$. Then the image of the unique map $f:\mathbb{Z}\to X$ determined by $x_0$ and $h$ is cyclically ordered.
 \end{theorem}
+
+Just as for the natural numbers, the definition of the integers allows us to iterate bijections any integer number of times. In order to make this definition, we need the following theorem:
+
+\begin{theorem}
+  For any bijection $f: A\cong B$ and any set $X$, there are bijections
+  \begin{align*}
+    \blank\circ f & : (B\cong X)\cong (A\cong X) \\
+    f\circ\blank & : (X\cong A)\cong (X\cong B).
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Suppose $f:A\cong B$ is a bijection with inverse $f^{-1}$. Then for any bijection $g:B\cong X$ we have
+  \begin{equation*}
+    g\circ f\circ f^{-1}=g\qquad\text{and}\qquad g\circ f^{-1}\circ f=g.
+  \end{equation*}
+  This shows that the function $\blank\circ f^{-1}$ is inverse to the function $\blank\circ f$. Similarly $f^{-1}\circ\blank$ is inverse to the function $f\circ\blank$.
+\end{proof}
+
+\begin{definition}
+  Consider a set $X$ equipped with a bijection $f:X\cong X$. Then we define for each integer $k$ the $k$th iteration of $f$ by
+  \begin{align*}
+    f^{0} & := \mathrm{id} \\
+    f^{S(k)} & := f\circ f^k.
+  \end{align*}
+  This definition is possible, since composing with $f$ on the left is a bijection $(X\cong X)\cong(X\cong X)$.
+\end{definition}
+
+So far, we have described in precise detail how to make constructions using the integers, but we haven't touched upon how to prove properties of all integers yet. The integers satisfy the following reasoning principle.
+
+\begin{theorem}[Integer Induction Principle]\label{theorem:integer-induction}
+  Consider a property $P(a)$ parametrized by an integer $a$. In order to prove that $P(a)$ is true for all $a$, it suffices to prove:
+  \begin{enumerate}
+  \item The property $P(0)$ is true.
+  \item The logical equivalence $P(a)\Leftrightarrow P(a+1)$ holds for all $a\in\mathbb{Z}$. 
+  \end{enumerate}
+\end{theorem}
+
+Note the similarity with the induction principle of the natural numbers: We have to prove a base case and an inductive step. However, in the inductive step we have to prove two directions:
+\begin{equation*}
+  P(a) \Rightarrow P(a+1)\qquad\text{and}\qquad P(a+1)\Rightarrow P(a).
+\end{equation*}
+In other words, there are two steps in the inductive step: the \emph{forward step} and the \emph{backward step}. In the forward step, you will assume $P(a)$ as the inductive hypothesis as usual, and the task is to prove that $P(a+1)$ holds. In the backward step, you will assume $P(a+1)$ is true, and the task is to prove that $P(a)$ holds.
+In \cref{section:integer-arithmetic} we will use the integer induction principle to prove the laws for integer arithmetic.
+
+\begin{proof}
+  Consider a property $P(a)$ of the integers, such that $P(0)$ is true and for which the logical equivalence
+  \begin{equation*}
+    P(a)\Leftrightarrow P(a+1)
+  \end{equation*}
+  holds. In order to show that $P(a)$ is true for every integer $a$, we will use the recursion principle for $\mathbb{Z}$. Thus, we have to construct a set $A$ equipped with an element $a_0\in A$ and a bijection $s:A\cong A$. We define the set $A$ by
+  \begin{equation*}
+    A := \{a\in\mathbb{Z}\mid P(a)\},
+  \end{equation*}
+  so that $A$ consists of exactly those integers $a$ for which $P(a)$ holds. Clearly, we have $0\in A$, so we choose $a_0:=0$. In order to define a function $s:A\to A$, observe that for $a\in A$, the property $P(a)$ holds by assumption, which implies $P(a+1)$ so that $a+1\in A$. Thus, we simply define $s(a):=a+1$.
+
+  To see that $s$ is a bijection, we define an inverse $t$. For any $a\in A$, consider the unique integer $b$ such that $S(b)=a$. Such an element is indeed uniquely determined since $S:\mathbb{Z}\to\mathbb{Z}$ is a bijection. Since $P(a)$ holds, it follows that $P(b)$ holds, so we find that $b\in A$. Thus, we define $t(a):=b$. It follows immediately from the definition of $t$ that the identities $s(t(a))=a$ and $t(s(a))=a$ hold. Thus we see that $t$ is an inverse of $s$, which concludes the proof that $s$ is a bijection on $A$.
+
+  By the specification of $\mathbb{Z}$, it follows that there is a unique function $f:\mathbb{Z}\to A$ so that
+  \begin{equation*}
+    f(0)=0\qquad\text{and}\qquad f(S(a))=s(a)=S(a).
+  \end{equation*}
+  It follows from these identities that $f(a)=a$ for all $a\in \mathbb{Z}$. However, since we have $f(a)\in A$ by definition, we obtain that $a\in A$ for every integer $a$, and thus we conclude that the property $P(a)$ holds for all $a\in\mathbb{Z}$.
+\end{proof}
+
+\section{Constructing the Integers from the Natural Numbers}
+
+We have given a structural definition of the set of integers as the universal cyclically ordered set. We think of this as the \emph{specification} of the integers. In this section we will construct a set that meets this specification.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[scale=1,line join=round,line cap=round]
+    
+    % Define primes and half-values
+    \def\p{23}
+    \def\q{13}
+
+    % Draw coordinate axes
+    \draw[->] (-0.3,0) -- (10.5,0) node[right] {$a$};
+    \draw[->] (0,-0.3) -- (0,4.5) node[above] {$b$};
+    
+    \foreach \x in {0,1,2,3,4,5,6,7,8,9,10} {
+      \foreach \y in {0,1,2,3,4} {
+        \fill[CornflowerBlue] (\x,\y) circle (2pt);
+      }
+    }
+
+    \foreach \x in {1,2,3,4,5,6,7,8,9,10} {
+      \foreach \y in {1,2,3,4} {
+        \draw[CornflowerBlue,fill=white,thick] (\x,\y) circle (2pt);
+      }
+    }    
+    
+  \end{tikzpicture}
+  \caption{\label{figure:implementation-integers}The set $Z$ consists of the lattice points on the axes with natural number coordinates. Along the $a$-axis we find the nonnegative integers in their usual spots, while along the $b$-axis we find the nonpositive integers.}
+\end{figure}
+  
+\begin{definition}
+  The set $Z$ is defined by
+  \begin{equation*}
+    Z:=\{(a,b)\in\mathbb{N}\times\mathbb{N}\mid ab=0\}.
+  \end{equation*}
+  The zero-element of $Z$ is defined to be the element $(0,0)$. We define the successor function $s:Z\to Z$ recursively on $b$ by
+  \begin{align*}
+    s(a,0) & := (a+1,0) \\
+    s(a,b+1) & := (a,b).
+  \end{align*}
+\end{definition}
+
+\begin{theorem}
+  The successor function $s:Z\to Z$ is a bijection.
+\end{theorem}
+
+\begin{proof}
+  We prove that it is a bijection by constructing its inverse $t:Z\to Z$. The function $t$ is defined recursively on $a$ by
+  \begin{align*}
+    t(0,b) & := (0,b+1) \\
+    t(a+1,b) & := (a,b).
+  \end{align*}
+  The proof that $s\circ t=\mathrm{id}$ is by induction on $a$. We have $s(t(0,b))=s(0,b+1)=(0,b)$ proving the base case, and we have
+  \begin{equation*}
+    s(t(a+1,b))=s(a,b)=(a+1,b)
+  \end{equation*}
+  since $b=0$ in this case.
+
+  Similarly, the proof that $t\circ s=\mathrm{id}$ is by induction on $b$. We have $t(s(a,0))=t(a+1,0)=(a,0)$ proving the base case, and we have
+  \begin{equation*}
+    t(s(a,b+1))=t(a,b)=(a,b+1)
+  \end{equation*}
+  since $a=0$ in this case. This completes the proof that $t$ is an inverse of $s$, and hence $s$ is a bijection.
+\end{proof}
+
+\begin{theorem}
+  The set $Z$ equipped with the zero element $(0,0)$ and the successor function $s$ satisfies the specification of the integers in \cref{definition:integers}.
+\end{theorem}
+
+\begin{proof}
+  Consider a set $X$ equipped with a point $x_0\in X$ and a bijection $h:X\cong X$. Then we define a function $f:Z\to X$ by recursion on $a$ and $b$:
+  \begin{align*}
+    f(0,0) & := x_0 \\
+    f(a+1,0) & := h(f(a,0)) \\
+    f(0,b+1) & := h^{-1}(f(0,b)).
+  \end{align*}
+  This function satisfies $f(0,0)=x_0$ by definition. We claim that
+  \begin{equation*}
+    f(s(a,b))=h(f(a,b))
+  \end{equation*}
+  for every $(a,b)\in Z$. The proof is by induction on $b$. For the base case, observe that the equalities $f(s(a,0))=f(a+1,0)=h(f(a,0))$ hold by definition. For the inductive step, note that the equality $f(0,b+1)=h^{-1}(f(0,b))$ implies that $h(f(0,b+1))=f(0,b)$. Using this, we obtain
+  \begin{equation*}
+    f(s(0,b+1))=f(0,b)=h(f(0,b+1)).
+  \end{equation*}
+  Thus far, we have proven that there exists a function $f:Z\to X$ satisfying
+  \begin{equation*}
+    f(0,0)=x_0\qquad\text{and}\qquad f(s(a,b))=h(f(a,b)).
+  \end{equation*}
+  It remains to show that this function $f$ is unique.
+\end{proof}
+
+Knowing that there is a set that meets the specification in \cref{definition:integers}, we shall now abandon the set $Z$ again, and we will consider $\mathbb{Z}$ to be an arbitrary set as described in \cref{definition:integers}.
+
+\section{Integer Arithmetic}\label{section:integer-arithmetic}
+
+We can now define addition of two integers, just as we did for the natural numbers, by using the iterated successor bijection. Furthermore, since iterated bijections are again bijections, we obtain something that we didn't get for the natural numbers: For every integer $y$ there is a unique integer $x$ such that $x+a=y$. In other words, we can define differences of integers.
+
+\begin{definition}
+  We will define \emph{addition} of two integers and the \emph{additive inverse} of an integer:
+  \begin{enumerate}
+  \item For any two integers $a$ and $b$, we define
+  \begin{equation*}
+    a+b :=S^b(a),
+  \end{equation*}
+  where $S^b$ is the $b$th iteration of the successor function $S:\mathbb{Z}\cong\mathbb{Z}$. Henceforth, we will write $a+1$ for $S(a)$.
+\item For any integer $a$, we define $-a$ to be the unique element in the set
+  \begin{equation*}
+    \{x\in\mathbb{Z}\mid x+a=0\}.
+  \end{equation*}
+  Such an element is indeed uniquely determined, since $S^a$ is a bijection.
+  \end{enumerate}
+\end{definition}
+
+Before we start proving the laws of addition and the additive inverse of the integers, we will show how addition interacts with iteration.
+
+\begin{theorem}
+  For any bijection $f:X\cong X$ with inverse $f^{-1}$, and for any $x\in X$, we have
+  \begin{align*}
+    f^{a+b}(x) & =f^b(f^a(x)) \\
+    f^{-a}(x) & = (f^{-1})^a(x).
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  For the first identity, we will use \crefnamed{theorem:integer-induction}{integer induction} on $b$. It is clear that
+  \begin{equation*}
+    f^{a+0}(x)=f^a(x)=f^0(f^a(x)),
+  \end{equation*}
+  so the base case holds. To see that
+  \begin{equation*}
+    f^{a+b}(x)=f^b(f^a(x)) \qquad\Leftrightarrow\qquad f^{a+(b+1)}(x)=f^{b+1}(f^a(x))
+  \end{equation*}
+  note that $f^{a+(b+1)}(x)=f(f^{a+b}(x))$ and $f^{b+1}(f^a(x))=f(f^b(f^a(x)))$. Furthermore, since $f$ is a bijection, it follows that $f(y)=f(z)$ if and only if $y=z$. In our case we get:
+  \begin{align*}
+    f^{a+b}(x)=f^b(f^a(x)) & \Leftrightarrow f(f^{a+b}(x))=f(f^b(f^a(x))) \\
+                           & \Leftrightarrow f^{a+(b+1)}(x)=f^{b+1}(f^a(x)).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  The set $\mathbb{Z}$ satisfies the axioms of an abelian group:
+  \begin{align*}
+    (a+b)+c & = a+(b+c) \\
+    a+b & = b+a \\
+    a+0 & = a \\
+    a-a & = 0.
+  \end{align*}
+\end{theorem}
+
+\begin{corollary}
+  Addition of integers is associative: For any three integers $a$, $b$, and $c$ we have
+  \begin{equation*}
+    (a+b)+c = a+(b+c).
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  This is a direct application of the previous theorem, where $f$ is the successor function.
+\end{proof}
+
+Next, we define multiplication of integers.
+
+\begin{definition}
+  We define the operation $a,b\mapsto ab$ on the integers by
+  \begin{align*}
+    a0 & := 0 \\
+    a(b+1) & := ab+a
+  \end{align*}
+  This well-defined, since for any integer $a$, the function $x\mapsto x+a$ is a bijection.
+\end{definition}
+
+\begin{theorem}
+  Multiplication of integers is associative: For any three integers $a$, $b$, and $c$ we have:
+  \begin{equation*}
+    (ab)c=a(bc).
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  The proof is by integer induction on $c$. In the base case, we have
+  \begin{equation*}
+    (ab)0=0=a0=a(b0).
+  \end{equation*}
+  For the inductive step we have to prove the logical equivalence
+  \begin{equation*}
+    (ab)c=a(bc) \qquad\Leftrightarrow\qquad (ab)(c+1)=a(b(c+1)).
+  \end{equation*}
+\end{proof}
 
 %%% Local Variables:
 %%% mode: latex
