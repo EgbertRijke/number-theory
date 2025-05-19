@@ -1,0 +1,167 @@
+\chapter{The Real Numbers}
+
+\section{Dedekind's Definition of the Real Numbers}
+
+It is not uncommon for numbers to come up in the study of number theoretic phenomena, which represent precisely defined quantities and yet are not presentable as integer fractions. For example, the length of diagonal of a square with sides of length $1$ is a quantity $\sqrt{2}$ whose square is the integer $2$. The number $e$ can be defined as
+\begin{equation*}
+  \sum_{n=0}^\infty \frac{1}{n!}
+\end{equation*}
+The number $\pi$ is the area of a circle with radius $1$. Those three examples suggest that there is a need for extending the system of the rational numbers to a new number systems that includes the quantities just described.
+
+Dedekind's idea towards defining the real numbers was that if all the real numbers are to be on a line in which the rational are dense, then a real number is uniquely determined by the rational numbers strictly below it. In order to define the real numbers based on this idea, Dedekind had to characterize precisely the subsets $L$ of the rational numbers that appear as the set of all rational numbers strictly below a real number. His characterization of such sets lead to the definition of lower cuts.
+
+\begin{definition}
+  A \emph{lower cut} is a subset $L$ of the rational numbers such that
+  \begin{enumerate}
+  \item The subset $L$, as well as its complement $\mathbb{Q}\setminus L$ are inhabited.
+  \item If $x\in L$, then $y\in L$ for every rational number $y<x$. In other words, $L$ is \emph{downwards closed}.
+  \item If $x\in L$, then there exists a rational number $x<y$ such that $y\in L$. This property is called \emph{roundedness}.
+  \end{enumerate}
+\end{definition}
+
+Upper cuts can be defined analogously, and Dedekind's idea applies equally to upper cuts: If the real numbers are to be the set of points on a line in which the rational numbers are dense, then any real number is uniquely determined by the rational numbers strictly above it, and this set of rational numbers forms an upper cut.
+
+\begin{definition}
+  An \emph{upper cut} is a subset $U$ of the rational numbers such that
+  \begin{enumerate}
+  \item The subset $U$, as well as its complement $\mathbb{Q}\setminus U$ are inhabited.
+  \item If $x\in U$, then $y\in U$ for every rational number $x<y$. In other words, $L$ is \emph{upwards closed}.
+  \item If $x\in U$, then there exists a rational number $y<x$ such that $y\in U$. This property is called \emph{roundedness}.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  The set of \emph{Dedekind real numbers} $\mathbb{R}$ is the set of pairs $(L,U)$ consisting of a lower cut $L$ and an upper cut $U$, such that $L$ and $U$ are disjoint and for any pair of rational numbers $x<y$, either $x\in L$ or $y\in U$. This latter property is called \emph{locatedness}.
+\end{definition}
+
+\begin{proposition}
+  Consider a disjoint pair $(L,U)$ consisting of a lower cut $L$ and an upper cut $U$. Then the following are equivalent:
+  \begin{enumerate}
+  \item The pair $(L,U)$ satisfies the locatedness condition.
+  \item The upper cut $U$ consists precisely of those rational numbers $x$ for which there exists a rational number $y<x$ such that $y\notin L$.
+  \item The lower cut $L$ consists precisely of those rational numbers $x$ for which there exists a rational number $x<y$ such that $y\notin U$.
+  \end{enumerate}
+  Consequently, a real number $x=(L,U)$ is uniquely determined by its lower cut $L$, and it is also uniquely determined by its upper cut $U$.
+\end{proposition}
+
+Every rational number $q$ determines a real number by the sets
+\begin{align*}
+  L_q & := \{x\in\mathbb{Q}\mid x<q\} \\
+  U_q & := \{x\in\mathbb{Q}\mid q<x\}.
+\end{align*}
+To see that $L_q$ is a lower cut, note first that $L_q$ is inhabited by the element $q-1$, and that $q$ itself is not an element of $L_q$. Furthermore, if $y<x$ and $x\in L_q$, then we have $y\in L_q$ by transitivity of the relation $<$. Finally, $L_q$ is rounded because for any $x\in L_q$ we have $(x+q)/2\in L_q$. This completes the proof that $L_q$ is a lower cut, and the fact that $U_q$ is an upper cut can be shown similarly. The sets $L_q$ and $U_q$ are clearly disjoint, and the locatedness condition holds by linearity of strict inequality.
+
+A real number $x=(L,U)$ is said to be rational if there exists a rational number $q$ that is neither in $L$ nor in $U$. Note that there exists at most one such rational number, since if $q<q'$ were two distinct rational numbers, then at least one of them is in $L$ or $U$ by the locatedness property. Thus we see that the real numbers that satisfy the property of being rational in the previous sense are exactly the real numbers of the form $(L_q,U_q)$.
+
+It is easy to define the inequality relation on the real numbers. If $x=(L_x,U_x)$ and $y=(L_y,U_y)$ are real numbers, then we define $x \leq y$ to mean that $L_x\subseteq L_y$. This is equivalent to the condition that $U_y\subseteq U_x$. To see that these conditions are indeed equivalent, suppose that $L_x\subseteq L_y$, and let $u\in U_y$. By the roundedness condition, there exists a rational number $v\in U_y$ such that $v<u$. By locatedness, it follows that either $v\in L_x$ or $u\in U_x$. However, since $v\in U_y$, it follows that $v\notin L_y$ and hence $v\notin L_x$. Therefore we must have $u\in U_x$. This completes the proof that every element of $U_y$ is an element of $U_x$. The converse proterty, that $U_y\subseteq U_x$ implies $L_x\subseteq L_y$ is proven similarly.
+
+Likewise, we define the strict inequality relation $x<y$ to mean that the intersection $L_y\cap U_x$ is inhabited. Thus, the task of proving that the strict inequality $x<y$ holds amounts to proving the existence of a rational number $q$ that is simultaneously in $L_y$ and in $U_x$.
+
+We also define two real numbers $x$ and $y$ to be \emph{apart} if the set
+\begin{equation*}
+  (L_y\cap U_x)\cup (L_x\cap U_y)
+\end{equation*}
+is inhabited. In other words, two real numbers are apart if and only if one of the relations $x<y$ or $y<x$ holds. We will write $x\apart y$ for the proposition that $x$ and $y$ are apart. A proof of apartness is a positive affirmation that $x$ and $y$ are unequal.
+
+In a constructive setting, which most proof assistants are, the real numbers can be tricky to deal with. For instance, there is no decision procedure to determine for an arbitrary real number $x$, whether it is positive, negative or zero. This means that, unless we assume some extralogical principles such as the law of excluded middle, we have to find workarounds. The following lemma can be handy.
+
+\begin{proposition}
+  Consider a real number $x$, and two rational numbers $p<q$. Then we have
+  \begin{equation*}
+    (p<x)\lor(x<q).
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  By locatedness, it follows that $p\in L_x$ or $q\in U_x$. It is possible that both conditions hold. Nevertheless, in the first case we have $p<x$, while in the second case we have $x<q$.
+\end{proof}
+
+\section{Cauchy's Definition of the Real Numbers}
+
+\begin{definition}
+  The set $\mathbb{R}_C$ of \emph{Cauchy real numbers} is defined mutually with a family of binary relations $|x-y|_{\varepsilon}$ for every rational number $\varepsilon>0$, so that
+  \begin{enumerate}
+  \item Every rational number is a Cauchy real number.
+  \item 
+  \end{enumerate}
+\end{definition}
+
+\section{Arithmetic of the Real Numbers}
+
+\begin{definition}
+  If $S,T\subseteq \mathbb{Q}$ are subsets of the rational numbers, we define the sets
+  \begin{align*}
+    S+T & := \{s+t\mid s\in S,~t\in T\},\\
+    ST & := \{st \mid s\in S,~t\in T\}.
+  \end{align*}
+\end{definition}
+
+\begin{proposition}
+  If $L$ and $L'$ are lower cuts, then $L+L'$ is also a lower cut, and likewise for upper cuts. Furthermore, if $x=(L,U)$ and $y=(L',U')$ satisfy the disjointness and locatedness conditions, then so does $(L+L',U+U')$.
+\end{proposition}
+
+\begin{proof}
+  It is clear that $L+L'$ is inhabited, and that if $q\notin L$ and $q'\notin L'$, then every element in $L$ is strictly below $q$ and likewise every element in $L'$ is strictly below $L'$, so that every element in $L+L'$ is strictly below $q+q'$.
+
+  To prove that $L+L'$ is downwards closed, let $p<q+q'$ where $q\in L$ and $q'\in L'$. Then we have $p-q<q'$, so that $p-q\in L'$. Then we see that $p=q+(p-q)\in L+L'$.
+
+  To prove that $L+L'$ is rounded, let $q\in L$ and $q'\in L'$. Since $L$ and $L'$ are assumed to be rounded, it follows that there are $q<p\in L$ and $q'<p'\in L'$. This gives us that $q+q'<p+p'\in L+L'$. This completes the proof that $L+L'$ is a lower cut. The proof that $U+U'$ is an upper cut for any two upper cuts $U$ and $U'$ is similar.
+
+  The disjointness condition of $L+L'$ and $U+U'$ follows the same argument as our earlier proof that the complement of $L+L'$ is inhabited. In order to show that $(L+L',U+U')$ satisfies the locatedness condition, consider rational numbers $x<y$. For any $q\in L$, consider the rational numbers $x-q<y-q$. Since $(L',U')$ satisfy the locatedness condition, it follows that either $x-q\in L'$ or $y-q\in U'$. If $x-q\in L'$ then it follows that $x=q+(x-q)\in L+L'$. On the other hand, if $q':=y-q\in U'$, we consider the rational numbers $x-q'<q$.
+\end{proof}
+
+\section{Elementary Functions on the Real Numbers}
+
+\begin{definition}
+  Consider a real number $x=(L,U)$. We define the real number $|x|$ by
+  \begin{align*}
+    L_{|x|} & := \{q\in \mathbb{Q} \mid q \in L\text{ or }-q\in U\} \\
+    U_{|x|} & := \{q\in \mathbb{Q} \mid q \in U\text{ or }-q\in L\}.
+  \end{align*}
+\end{definition}
+
+\begin{definition}
+  Consider a real number $x\geq 0$ given by $x=(L,U)$. We define the \emph{square root} $\sqrt{x}$ to be given by
+  \begin{align*}
+    L_{\sqrt{x}} & := \{q\in\mathbb{Q} \mid q|q|\in L\} \\
+    U_{\sqrt{x}} & := \{q\in\mathbb{Q} \mid q|q|\in U\}.
+  \end{align*}
+\end{definition}
+
+\section{Dirichlet's Approximation Theorem}
+
+\begin{theorem}\label{theorem:dirichlets-approximation-theorem}
+  For any real number $x$ and any natural number $N$, there is an integer fraction $\frac{a}{b}$ with $1\leq b\leq N$ such that
+  \begin{equation*}
+    \left|x-\frac{a}{b}\right|\leq \frac{1}{b(N+1)}.
+  \end{equation*}
+  In particular, there are infinitely many integer fractions $\frac{a}{b}$ such that
+  \begin{equation*}
+    \left|x-\frac{a}{b}\right|<\frac{1}{b^2}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Consider for each $1\leq b \leq N+1$ the number $bx-\lfloor bx\rfloor$, representing the fractional part of $bx$, and consider the intervals
+  \begin{equation*}
+    [0,1/N),~[1/N,2/N),~\ldots,[(N-1)/N,1).
+  \end{equation*}
+  There are $N$ such intervals, and there are $N+1$ numbers of the form $bx-\lfloor bX\rfloor$, given that $1\leq b\leq N+1$. Thus, it follows from the pigeonhole principle that at least two such numbers must be in the same interval. In other words, there are distinct numbers $b$ and $b'$ such that
+  \begin{equation*}
+    |bx-b'x| = a + q
+  \end{equation*}
+  where $0\leq q<1/N$. Since $b-b'\leq N$, it follows that there is a number $c$ such that
+  \begin{equation*}
+    cx = a+q
+  \end{equation*}
+  where $1\leq c\leq N$ and $0\leq q<1/N$.
+\end{proof}
+
+\section{Hurwitz's Theorem}
+
+\section{Infinite Continued Fractions}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:

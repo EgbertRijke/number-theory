@@ -1,0 +1,43 @@
+\chapter{Cyclotomic Polynomials}
+
+\section{Cyclotomic Polynomials}
+
+Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. The order of any integer $a$ not divisible by $p$ is a divisor of $p-1$, so that $p-1\mid n$.
+
+If there was a way to ensure that $\ord_p(a)=p-1$ for all prime factors $p$ of $a^n-1$, we could use the polynomial $a^n-1$ to generate infinitely many primes congruent to $1$ modulo $n$. However, that is too much to ask for, since there are $\phi(d)$ integers whose order is $d$, for every divisor $d$ of $p-1$. 
+
+\begin{definition}
+  The $n$th \emph{cyclotomic polynomial} $\Phi_n$ is defined by
+  \begin{equation*}
+    \Phi_n(x) := \prod_{\substack{1\leq k \leq n\\\gcd(k,n)=1}}(x-e^{2\pi ik/n}
+  \end{equation*}
+\end{definition}
+
+\section{The Infinitude of Primes Congruent to \texorpdfstring{$1$}{1} Modulo \texorpdfstring{$n$}{n}}
+
+\section{Zsigmundy's Theorem}
+
+\begin{exercises}
+  \exercise
+  \begin{subexenum}
+  \item Prove that
+    \begin{equation*}
+      \Phi_n(1)=
+      \begin{cases}
+        0 & \text{if }n=1 \\
+        p & \text{if $n=p^k$ for some prime $p$ and $k\geq 1$} \\
+        1 & \text{if two distinct primes divide $n$.}
+      \end{cases}
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      \Phi_n(1) = \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,n-1)}.
+    \end{equation*}
+  \end{subexenum}
+\end{exercises}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:
+

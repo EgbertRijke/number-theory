@@ -573,18 +573,34 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
     \item $d\mid F_n$.
     \item $d\mid F_{n+m}$.
     \end{enumerate}
-  \item Show that the Fibonacci sequence preserves and reflects divisibility: we have $m\mid n$ if and only if $F_m\mid F_n$.
+  \item Show that the Fibonacci sequence preserves and reflects divisibility: We have $m\mid n$ if and only if $F_m\mid F_n$.
   \end{subexenum}
   \exercise Consider three integers $a$, $b$, and $c$. Show that the following are equivalent:
   \begin{enumerate}
   \item The integers $a$ and $b$ are both relatively prime to $c$.
   \item The integer $ab$ is relatively prime to $c$.
   \end{enumerate}
-  \exercise Prove that if $a$ and $b$ are relatively prime integers, and $n$ is an arbitrary natural number, then in the arithmetical progression
+  \exercise Prove that if $a$ and $b$ are relatively prime integers, and $n$ is an arbitrary positive integer, then in the arithmetical progression
   \begin{equation*}
     a+kb,\qquad k=0,1,2,\ldots
   \end{equation*}
   there are infinitely many numbers relatively prime to $n$.
+  \exercise
+  \begin{subexenum}
+  \item Consider two positive integers $a$ and $n$ such that $\gcd(a,n)=1$. Prove that there is a natural number $m$ such that
+    \begin{equation*}
+      n\,\Bigm|\, \sum_{k=0}^m a^k.
+    \end{equation*}
+    Hint: Apply the pigeonhole principle.
+  \item Find the least natural number of the form $m+1$ such that
+    \begin{equation*}
+      7\,\Bigm|\, \sum_{k=0}^m 10^k = \underbrace{11\cdots1}_{m+1}.
+    \end{equation*}
+  \end{subexenum}
+  \exercise Consider a positive integer $a$, and write $S_m:=\sum_{k=0}^m a^k$. Prove that
+  \begin{equation*}
+    \gcd(S_m,S_n)=S_{\gcd(m+1,n+1)-1}.
+  \end{equation*}
 \end{exercises}
 
 %%% Local Variables:

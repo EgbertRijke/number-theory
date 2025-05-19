@@ -70,7 +70,7 @@ The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it capt
   \exists!_{(n\in\mathbb{N})}n=0.
 \end{equation*}
 
-\begin{theorem}\label{theorem:euclidean-division}
+\begin{theorem}[The Euclidean Division Theorem]\label{theorem:euclidean-division}
   Consider an integer $a$ and an integer $d>0$. Then there exists a unique pair of integers $(q,r)$ such that $0\leq r<d$ satisfying the identity
   \begin{equation*}
     a= q\cdot d + r.
@@ -184,6 +184,14 @@ Our earlier idea to prove the representability theorem can finally be made into 
 
 \section[Combinatorial Applications]{Some Combinatorial Applications of Euclid's Division Theorem}
 
+The Euclidean Division Theorem can be used to obtain some elementary combinatorial application. We will make use of the pigeonhole principle, which is commonly attributed to Gustav Lejeune Dirichlet, who used this principle brilliantly in his \crefnamed{theorem:dirichlets-approximation-theorem}{approximation theorem}. The idea of the pigeonhole principle is that  if we place $n$ objects in $m$ boxes, and $m$ is strictly smaller than $n$, then there is a box containing more than one object. The pigeonhole principle underlies a remarkable array of existence results across number theory and combinatorics. Among classical number-theoretic applications, one finds the aforementioned approximation theorem of Dirichlet, the Erd\H{o}s--Ginzburg--Ziv zero-sum theorem, and the Chevalley--Warning theorem on solutions of systems of polynomial congruences. The pigeonhole principle is stated formally as follows:
+
+\begin{theorem}[The Pigeonhole Principle]
+  Consider two natural numbers $m<n$, and a function $f:X\to Y$ from a set $X$ with $n$ elements into a set $Y$ with $m$ elements. Then there exists an element $y$ such that $f(x)=y$ for more than one element $x$.
+\end{theorem}
+
+In the present chapter, we will be content with some very elementary applications of the pigeonhole principle in combination with the Euclidean Division Theorem.
+
 \begin{theorem}\label{theorem:existence-difference-divisible}
   Consider two positive integers $m<n$. In any set of $n$ integers, there is a pair of distinct integers such that their difference is divisible by $m$.
 \end{theorem}
@@ -227,6 +235,7 @@ Our earlier idea to prove the representability theorem can finally be made into 
   \item The Zeckendorf representation theorem can be used in the design of any document to get meaningful relative font sizes: If $d_{l-1}\cdots d_0$ is the Zeckendorf representation of a font size $n$, then adding an extra zero at the end gives the Zeckendorf representation $d_{l-1}\cdots d_00$ of a good next font size. If you are working with font size $12$, what is the next sensible font size?
   \item Zeckendorf representations can also be used to convert miles to kilometers with a fair degree of accuracy. Again, given a number $n$ of miles, with Zeckendorf representation $d_{l-1}\cdots d_0$, add a $0$ at the end to get the Zeckendorf representation $d_{l-1}\cdots d_00$ of the number of kilometers. How fast is $65$ mph in kph according to this conversion?
   \end{enumerate}
+  \exercise Prove that among any choice of $n+1$ numbers from the set $\{1,\ldots, 2n\}$, there will be two distinct numbers that sum to $2n+1$.
 \end{exercises}
 
 %%% Local Variables:

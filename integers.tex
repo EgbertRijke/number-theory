@@ -5,7 +5,9 @@
 Natural numbers count elements of finite sets. The empty set has zero elements, the set of solutions to the equation $3x-3=0$ has exactly one element, the booleans have exactly two elements, true and false, and so on. Natural numbers have been around for at least as long as humans count. But what do negative numbers count? Surely, there are no sets with $-5$ elements! One explanation of negative numbers is that they represent deficits. In other words, integers can be thought of as \emph{differences} between natural numbers. This point of view is completely valid, and we will come back to it. There is, however, another way of thinking about integers, using cycles. Cyclic sets, as we will call them, are an often recurring structure in mathematics. Some of the prettiest proofs of \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} and \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} use them. In \cref{figure:cyclically-ordered-set} we displayed an example of a cyclically ordered set.
 
 \begin{definition}
-  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \emph{in the same orbit} of $f$ if there exists an integer $k$ such that $f^k(x)=y$. An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
+  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \emph{in the same orbit} of $f$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$; that is, if one can be reached from the other by iteratively applying $f$.
+
+  An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
 \end{definition}
 
 \begin{figure}[t]
@@ -282,11 +284,11 @@ We have given a structural definition of the set of integers as the universal cy
 \end{figure}
   
 \begin{definition}
-  The set $Z$ is defined by
+  We define the set $\mathbb{Z}_C$ of \emph{cartesian integers} by
   \begin{equation*}
-    Z:=\{(a,b)\in\mathbb{N}\times\mathbb{N}\mid ab=0\}.
+    \mathbb{Z}_C:=\{(a,b)\in\mathbb{N}\times\mathbb{N}\mid ab=0\}.
   \end{equation*}
-  The zero-element of $Z$ is defined to be the element $(0,0)$. We define the successor function $s:Z\to Z$ recursively on $b$ by
+  The zero-element of $\mathbb{Z}_C$ is defined to be the element $(0,0)$. We define the successor function $s:\mathbb{Z}_C\to \mathbb{Z}_C$ recursively on $b$ by
   \begin{align*}
     s(a,0) & := (a+1,0) \\
     s(a,b+1) & := (a,b).
@@ -294,11 +296,11 @@ We have given a structural definition of the set of integers as the universal cy
 \end{definition}
 
 \begin{theorem}
-  The successor function $s:Z\to Z$ is a bijection.
+  The successor function $s:\mathbb{Z}_C\to \mathbb{Z}_C$ is a bijection.
 \end{theorem}
 
 \begin{proof}
-  We prove that it is a bijection by constructing its inverse $t:Z\to Z$. The function $t$ is defined recursively on $a$ by
+  We prove that it is a bijection by constructing its inverse $t:\mathbb{Z}_C\to \mathbb{Z}_C$. The function $t$ is defined recursively on $a$ by
   \begin{align*}
     t(0,b) & := (0,b+1) \\
     t(a+1,b) & := (a,b).
@@ -317,11 +319,11 @@ We have given a structural definition of the set of integers as the universal cy
 \end{proof}
 
 \begin{theorem}
-  The set $Z$ equipped with the zero element $(0,0)$ and the successor function $s$ satisfies the specification of the integers in \cref{definition:integers}.
+  The set $\mathbb{Z}_C$ equipped with the zero element $(0,0)$ and the successor function $s$ satisfies the specification of the integers in \cref{definition:integers}.
 \end{theorem}
 
 \begin{proof}
-  Consider a set $X$ equipped with a point $x_0\in X$ and a bijection $h:X\cong X$. Then we define a function $f:Z\to X$ by recursion on $a$ and $b$:
+  Consider a set $X$ equipped with a point $x_0\in X$ and a bijection $h:X\cong X$. Then we define a function $f:\mathbb{Z}_C\to X$ by recursion on $a$ and $b$:
   \begin{align*}
     f(0,0) & := x_0 \\
     f(a+1,0) & := h(f(a,0)) \\
@@ -331,18 +333,18 @@ We have given a structural definition of the set of integers as the universal cy
   \begin{equation*}
     f(s(a,b))=h(f(a,b))
   \end{equation*}
-  for every $(a,b)\in Z$. The proof is by induction on $b$. For the base case, observe that the equalities $f(s(a,0))=f(a+1,0)=h(f(a,0))$ hold by definition. For the inductive step, note that the equality $f(0,b+1)=h^{-1}(f(0,b))$ implies that $h(f(0,b+1))=f(0,b)$. Using this, we obtain
+  for every $(a,b)\in \mathbb{Z}_C$. The proof is by induction on $b$. For the base case, observe that the equalities $f(s(a,0))=f(a+1,0)=h(f(a,0))$ hold by definition. For the inductive step, note that the equality $f(0,b+1)=h^{-1}(f(0,b))$ implies that $h(f(0,b+1))=f(0,b)$. Using this, we obtain
   \begin{equation*}
     f(s(0,b+1))=f(0,b)=h(f(0,b+1)).
   \end{equation*}
-  Thus far, we have proven that there exists a function $f:Z\to X$ satisfying
+  Thus far, we have proven that there exists a function $f:\mathbb{Z}_C\to X$ satisfying
   \begin{equation*}
     f(0,0)=x_0\qquad\text{and}\qquad f(s(a,b))=h(f(a,b)).
   \end{equation*}
   It remains to show that this function $f$ is unique.
 \end{proof}
 
-Knowing that there is a set that meets the specification in \cref{definition:integers}, we shall now abandon the set $Z$ again, and we will consider $\mathbb{Z}$ to be an arbitrary set as described in \cref{definition:integers}.
+Knowing that there is a set that meets the specification in \cref{definition:integers}, we shall now abandon the set $\mathbb{Z}_C$ again, and we will consider $\mathbb{Z}$ to be an arbitrary set as specified in \cref{definition:integers}.
 
 \section{Integer Arithmetic}\label{section:integer-arithmetic}
 
@@ -388,27 +390,57 @@ Before we start proving the laws of addition and the additive inverse of the int
     f^{a+b}(x)=f^b(f^a(x)) & \Leftrightarrow f(f^{a+b}(x))=f(f^b(f^a(x))) \\
                            & \Leftrightarrow f^{a+(b+1)}(x)=f^{b+1}(f^a(x)).\qedhere
   \end{align*}
+  This completes the proof of the first identity. The second identity is proven by integer induction on $a$. Since $-0=0$, it follows that
+  \begin{equation*}
+    f^{-0}(x) = f^0(x)=x=(f^{-1})^0(x).
+  \end{equation*}
+  For the inductive step, we calculate in similar fashion:
+  \begin{align*}
+    f^{-a}(x)=(f^{-1})^a(x) & \Leftrightarrow f^{-(a+1)+1}(x) = f(f^{-1}((f^{-1})^a(x))) \\
+    & \Leftrightarrow f(f^{-(a+1)}(x)) = f((f^{-1})^{a+1}(x)) \\
+    & \Leftrightarrow f^{-(a+1)}=(f^{-1})^{a+1}(x). \qedhere
+  \end{align*}
 \end{proof}
 
 \begin{theorem}
-  The set $\mathbb{Z}$ satisfies the axioms of an abelian group:
+  Addition of integers satisfies the following laws:
   \begin{align*}
-    (a+b)+c & = a+(b+c) \\
-    a+b & = b+a \\
-    a+0 & = a \\
-    a-a & = 0.
+    (a+b)+c & = a+(b+c), & a+(b+1) & = (a+b)+1, \\
+    a+0 & = a, & (a+1)+b & = (a+b)+1, \\
+    0+a & = a, & a+b & = b+a. \\
+    a-a & = 0,
   \end{align*}
 \end{theorem}
 
-\begin{corollary}
-  Addition of integers is associative: For any three integers $a$, $b$, and $c$ we have
-  \begin{equation*}
-    (a+b)+c = a+(b+c).
-  \end{equation*}
-\end{corollary}
-
 \begin{proof}
-  This is a direct application of the previous theorem, where $f$ is the successor function.
+  By the previous theorem, we calculate:
+  \begin{equation*}
+    (a+b)+c= S^c(S^b(a))=S^{b+c}(a)=a+(b+c).
+  \end{equation*}
+  Next, note that the unit law $a+0=a$ holds because
+  \begin{equation*}
+    a+0=S^0(a)=a
+  \end{equation*}
+  Similarly, we note that $0+a=a$ by induction on $a$. The base case is covered in the previous step. For the inductive step, we have to show that
+  \begin{equation*}
+    0+a=a\qquad\Leftrightarrow\qquad 0+(a+1)=a+1.
+  \end{equation*}
+  This can be seen by chaining the injectivity of the successor function and associativity:
+  \begin{align*}
+    0+a=a & (0+a)+1=a+1 \\
+          & \Leftrightarrow 0+(a+1)=a+1.
+  \end{align*}
+  The fact that $a-a=0$ follows from the observation that
+  \begin{equation*}
+    a-a=(0+a)-a=S^{-a}(S^a(0))=0.
+  \end{equation*}
+  The right successor law $a+(b+1)=(a+b)+1$ is an instance of the associativity law, which we have already shown. On the other hand, the left successor law $(a+1)+b=(a+b)+1$ is proven by induction on $b$.
+  
+  The two unit laws $a+0=a$ and $0+a=a$ combined settle the base case for the inductive proof that $a+b=b+a$. For the inductive step, we have to show that
+  \begin{equation*}
+    a+b=b+a \qquad\Leftrightarrow\qquad a+(b+1)=(b+1)+a.
+  \end{equation*}
+  This follows from the injectivity of the successor function and the left and right successor laws that we have previously shown.
 \end{proof}
 
 Next, we define multiplication of integers.

@@ -1,0 +1,110 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{totcount}
+\usepackage{enumitem}
+
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries} % Format of the text
+  {Lecture \thechapter}       % Label (e.g., "Lecture 1")
+  {0.5em}                     % Spacing between label and title
+  {\Huge}                     % Format of the title
+
+% Theorem-like environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Final Exam for Elementary Number Theory}
+\author{Egbert Rijke}
+\date{May 8th, 2025}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=purple,
+    filecolor=magenta,
+    urlcolor=blue,
+    citecolor=purple,
+    pdftitle={Lecture notes on Number Theory},
+    pdfpagemode=FullScreen,
+}
+\usepackage[capitalize,english]{cleveref}
+
+  % We set up the exercise environment, which produces list environment in a new
+% unnumbered subsection that also gets mentioned in the table of contents.
+
+\newtotcounter{exercisecounter}
+\newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+
+\newlist{exenum}{enumerate}{1}
+\setlist[exenum]{noitemsep,label=\arabic*}
+  %,ref=\thechapter.\arabic*}
+
+\crefname{exenumi}{Exercise}{Exercises}
+  
+\newlist{subexenum}{enumerate}{1}
+\setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
+\crefname{subexenumi}{Exercise}{Exercises}
+  
+\newenvironment{exercises}
+{%
+\subsection*{Exercises}%
+\addcontentsline{toc}{section}{Exercises}%
+\sectionmark{Exercises}%
+\begin{exenum}}
+{%
+%\addtocounter{exercisecounter}{\theexenumi}%
+\end{exenum}}
+
+\newcommand{\legendre}[2]{%
+  \mathchoice
+    {\left(\frac{#1}{#2}\right)}% display style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% text style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% script style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% scriptscript style
+}
+
+\begin{document}
+\maketitle
+
+\begin{exercises}
+  \exercise Prove that
+  \begin{equation*}
+    \prod_{k=2}^n\left(1-\frac{1}{k}\right)=\frac{1}{n}.
+  \end{equation*}
+  \exercise Compute $\gcd(4321,9876)$.
+  \exercise Describe all the integer solutions to the equation $105x+121y=1$.
+  \exercise Use Legendre's Formula or Kummer's Theorem to show that
+  \begin{equation*}
+    \binom{35}{7}\,\Bigm|\,\binom{35}{14}.
+  \end{equation*}
+  \exercise Find all incongruent solutions of the linear congruence $21x\equiv 14\pmod{91}$.
+  \exercise Solve $x^{38}\equiv 3\pmod{13}$.
+  \exercise Find two different positive integers $n$ for which $\phi(n)=16$.
+  \exercise How many even positive integers $1< n\leq 100$ are there, which are not divisible by $3$, $5$, and $7$?
+  \exercise Determine whether the congruence $x^2+14x-35\equiv 0\pmod{57}$ has a solution.
+  \exercise Compute the Legendre symbols
+  \begin{equation*}
+    \legendre{199}{919}\qquad\legendre{919}{991}\qquad\text{and}\qquad \legendre{991}{199}.
+  \end{equation*}
+\end{exercises}
+
+\end{document}

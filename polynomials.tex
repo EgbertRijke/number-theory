@@ -87,6 +87,53 @@ The factor theorem has some useful corollaries. The first is that a polynomial o
   by the \crefnamed{theorem:factor-theorem}{Factor Theorem}, where $g(x)$ is a polynomial of degree $n$. Then the product $(x-r)g(x)=0$ if and only if $x-r=0$ or $g(x)=0$. Thus we see that $x$ is a root of $f(x)$ if and only if $x=r$ or $x$ is a root of $g(x)$, so there are at most $n+1$ roots of the polynomial $f(x)$.
 \end{proof}
 
+\section{Derivatives of Polynomials}
+
+The derivative of a function $f$ at a point $x$, if it exists, measures the rate of change of $f$ in close vicinity of $x$. It is formally defined as the limit
+\begin{equation*}
+  f'(x):=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}
+\end{equation*}
+Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There are two important theorems in number theory that require knowledge of the derivatives of polynomials: Hensel's Lemma and the Lifting the Exponent Lemma.
+
+The following theorem is not only useful when $h$ approaches $0$; in the case where $h$ is a prime $p$ it tells us that $f(x+p)-f(x)$ is always a multiple of $p$.
+
+\begin{theorem}
+  Consider the polynomial
+  \begin{equation*}
+    f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0.
+  \end{equation*}
+  Then the polynomial $f(x+h)-f(x)$ is divisible by $h$, with quotient
+  \begin{equation*}
+    \frac{f(x+h)-f(x)}{h} = \sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^i(x+h)^{k-1-i}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  By the formula for the difference of $k$th powers, which was stated in \cref{exercise:difference-of-powers}, we can write
+  \begin{equation*}
+    (x+h)^k-x^k= h\sum_{i=0}^{k-1}x^i(x+h)^{k-1-i}
+  \end{equation*}
+  In particular, since each of these differences of $k$th powers is divisible by $h$, we see that the polynomial $f(x+h)-f(x)$ is divisible by $h$. It follows that
+  \begin{equation*}
+    f(x+h)-f(x) = \sum_{k=0}^na_k((x+h)^k-x^k) = h\sum_{k=1}^na_k\sum_{i=0}^{k-1}x^i(x+h)^{k-1-i}. \qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}
+  Consider the polynomial $f(x)=a_nx^n+\cdots+a_0$. Then $f$ is differentiable at every $x$, and the derivative can be computed by the formula
+  \begin{equation*}
+    f'(x) = \sum_{k=1}^n ka_kx^{k-1}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Since polynomials are continuous functions, we can compute the limit as $h\to 0$ simply by evaluating the quotient of $f(x+h)-f(x)$ divided by $h$ at $0$:
+  \begin{equation*}
+    f'(x)=\sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^i(x+0)^{k-1-i}=\sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^{k-1}=\sum_{k=1}^n ka_kx^{k-1}
+  \end{equation*}
+  In the last equality we used that the summands in the inner summation do not depend on the summation index $i$.
+\end{proof}
+
 \section{Lagrange's Interpolation Theorem}
 
 Lagrange's Interpolation Theorem establishes that for any set of data points, there is always a way of defining a polynomial that exactly matches the data. Moreover, it gives the unique way of defining such a polynomial in the lowest degree. Lagrange's Interpolation Theorem has the important consequence that any polynomial of degree $n$ is uniquely determined by any $n+1$ of its values. We will also use Lagrange's Interpolation Theorem in the next section to derive a divisibility property of polynomials due to Hensel.
@@ -101,7 +148,7 @@ Lagrange's Interpolation Theorem establishes that for any set of data points, th
     \foreach \x in {-1, 1,2,3,4,5} {
       \draw (\x,0) -- (\x,-.2)
       node[below,font=\footnotesize] {$\x$};
-    };
+    }
 
     \foreach \y in {-4,-2} {\draw (0,\y) -- (-.1,\y) node[left,font=\footnotesize] {$\y$};}
 
@@ -325,9 +372,7 @@ In the previous chapter, we have done a few exercises which asked us to show tha
     \end{equation*}
   \end{enumerate}
   We will generalize these examples in \cref{theorem:fixed-divisors-fermat-polynomials}.
-\end{example}
-  
-
+\end{example}  
 
 \begin{exercises}
   \exercise Show that $x^{13}-x$ has fixed divisor

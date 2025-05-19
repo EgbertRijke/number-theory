@@ -100,6 +100,51 @@ In the following theorem we will prove that this system of congruences is unique
 
 \section{Multiplicativity of Euler's Totient Function}
 
+\begin{theorem}\label{theorem:product-formula-totient}
+  Consider a positive integer $n$ with prime factorization $n=p_1^{m_1}\cdots p_k^{m_k}$. Then
+  \begin{equation*}
+    \phi(n)=\prod_{i=1}^k(p_i^{m_i}-p_i^{m_i-1})=n\prod_{i=1}^k\left(1-\frac{1}{p_i}\right).
+  \end{equation*}
+\end{theorem}
+
+\begin{corollary}
+  The value $\phi(n)$ of Euler's totient function is even for $n>2$.
+\end{corollary}
+
+\begin{proof}
+  Every odd prime factor $p$ contributes an even factor $p-1$ to $\phi(n)$.
+\end{proof}
+
+\begin{example}
+  \begin{table}[t]
+    \centering
+    \begin{tabular}{lll}
+      $2^k$ & Fermat primes & $\{n\mid \phi(n)=2^k\}$ \\
+      \midrule
+      $1$   &             & $\{1,2\}$ \\
+      $2$   & $3$         & $\{3,4,6\}$ \\
+      $4$   & $3,5$       & $\{5,8,10,12\}$ \\
+      $8$   & $3,5$       & $\{15,16,20,24,30\}$ \\
+      $16$  & $3,5,17$    & $\{17,32,34,40,48,60\}$ \\
+      $32$  & $3,5,17$    & $\{51,64,68,80,96,102,120\}$ \\
+      $64$  & $3,5,17$    & $\{85,128,136,160,170,192,204,240\}$ \\
+      $128$ & $3,5,17$    & $\{255,256,272,320,340,384,408,480,510\}$
+    \end{tabular}
+    \caption{\label{table:totient-power-of-two}Lists of numbers $n$ for which $\phi(n)=2^k$}
+  \end{table}
+  We will use \cref{theorem:product-formula-totient} to determine all $n$ for which $\phi(n)=2^k$ for some $k$.
+
+  If $p$ is an odd prime so that $p^a-p^{a-1}=p^{a-1}(p-1)$ is a power of $2$, then it follows that $a-1=0$. In other words, in order for $p^a-p^{a-1}$ to be a power of $2$, we must have $a=1$. This shows that if $\phi(n)$ is a power of $2$, then $n$ must be of the form
+  \begin{equation*}
+    n=2^a\prod_{p\in S}p,
+  \end{equation*}
+  where $S$ is a subset of the \emph{Fermat primes}; that is, every prime in $S$ is the form $2^b+1$. The only known such primes are
+  \begin{equation*}
+    3,~5,~17,~257,~\text{and}~65537.
+  \end{equation*}
+  We conclude that the only numbers $n$ for which $\phi(n)=4$ are $5$, $8$, $10$, and $12$, and the only numbers $n$ for which $\phi(n)=8$ are $15$, $16$, $20$, $24$, and $30$. \cref{table:totient-power-of-two} lists the numbers $n$ for which $\phi(n)=2^k$ up to $2^k=128$.
+\end{example}
+
 % \begin{proposition}
 %   Any ring homomorphism preserves invertible elements.
 % \end{proposition}
@@ -132,6 +177,10 @@ In the following theorem we will prove that this system of congruences is unique
     \sum_{a<n\\\gcd(a,n)=1}a = \frac{n\phi(n)}{2}
   \end{equation*}
   \exercise How many fractions $\frac{a}{b}$ are there where $\gcd(a,b)=1$, and $0\leq a\leq b\leq n$. Such fractions are called \emph{Farey fractions} of order $n$.
+  \exercise Prove that there is no positive integer $n<2^{65}$ such that $\phi(n)=2^{64}$.
+  \exercise For $k\geq 4$, show that the $k$th Fibonacci number $F_k$ is in the image of Euler's totient function if and only if $k\equiv 0\pmod{6}$.
+
+  Hint: If $k=6m$, consider $n=2F_{3m}F_{3m+3}$.
 \end{exercises}
 
 %%% Local Variables:

@@ -28,6 +28,26 @@
   For any integer fraction $\frac{a}{b}$ there is a unique reduced integer fraction $\frac{c}{d}$ such that $\frac{a}{b}\sim\frac{c}{d}$. Consequently, two integer fractions are the same if and only if they have the same reduced integer fraction.
 \end{theorem}
 
+\begin{proof}
+  The reduced integer fraction $\frac{a'}{b'}$ associated to an integer fraction $\frac{a}{b}$ is defined by the integers
+  \begin{equation*}
+    a':=\frac{a}{\gcd(a,b)}\qquad\text{and}\qquad b':=\frac{b}{\gcd(a,b)}.
+  \end{equation*}
+  This definition makes sense within the integers, since $a$ and $b$ are both divisible by the greatest common divisor $\gcd(a,b)$. To see that the fractions $\frac{a}{b}$ and $\frac{a'}{b'}$ are the same, we compute
+  \begin{equation*}
+    ab'-ba'=a\frac{b}{\gcd(a,b)}-b\frac{a}{\gcd{a,b}}=0.
+  \end{equation*}
+  This shows that for every integer fraction is the same to at least one reduced integer fraction. For the uniqueness claim, we will show that any two reduced integer fractions that are the same, have the same numerator and denominator. Let $\frac{a}{b}$ and $\frac{c}{d}$ be two reduced integer fractions such that
+  \begin{equation*}
+    ad-bc=0,
+  \end{equation*}
+  so that the equation $ad=bc$ holds. Suppose that $p$ is a prime factor of $a$, so that the $p$-adic valuation $\nu_p(a)$ of $a$ is at least $1$. Since $a$ and $b$ are relatively prime, it follows that
+  \begin{equation*}
+    \nu_p(a)\leq \nu_p(bc)=\nu_p(c). 
+  \end{equation*}
+  Similarly, since $c$ and $d$ are relatively prime it follows that $\nu_p(c)\leq \nu_p(a)$, so that $\nu_p(a)=\nu_p(c)$. This shows that $a$ and $c$ have the same $p$-adic valuation for every prime $p$, and thus we have $a=c$. The proof that $b=d$ is analogous.
+\end{proof}
+
 \begin{definition}
   Integer fractions can be added, subtracted, and multiplied according to the following rules:
   \begin{equation*}
@@ -53,16 +73,165 @@
 
 \section{Farey Fractions}
 
+\begin{definition}
+  The \emph{mediant} of two reduced integer fractions $\frac{a}{b}$ and $\frac{c}{d}$ is the integer fraction
+  \begin{equation*}
+    \frac{a}{b}\mediant\frac{c}{d} := \frac{a+c}{b+d}.
+  \end{equation*}
+\end{definition}
+
+We stress that this definition of the mediant makes essential use of the assumption that the input integer fractions are in reduced form. If not, 
+We can think of the mediant of two reduced integer fractions as the \emph{weighted average}, where the weights are assigned according to the ratio of their denominators:
+\begin{equation*}
+  \frac{a}{b}\mediant\frac{c}{d} = \frac{b}{b+d}\frac{a}{b}+\frac{d}{b+d}\frac{c}{d}.
+\end{equation*}
+
+\begin{proposition}
+  The mediant satisfies the following laws:
+  \begin{align*}
+    x\mediant y & = y\mediant x, \\
+    x\mediant x & = x, \\
+    \lambda x\mediant \lambda y & = x\mediant y.
+  \end{align*}
+  Furthermore, we have
+  \begin{equation*}
+    x\leq x\mediant y\leq y\qquad\text{and}\qquad x< x\mediant y<y
+  \end{equation*}
+  if $x\leq y$ or $x<y$, respectively. However, the mediant is nonunital and nonassociative, meaning that there does not exist an element $e$ such that $x\mediant e=x$ and there are integer fractions $x$, $y$, and $z$ such that $(x\mediant y)\mediant z=x\mediant(y\mediant z)$.
+\end{proposition}
+
+\begin{proof}
+  To prove the interchange law, consider the integer fractions $\frac{a}{b}$, $\frac{c}{d}$, $\frac{e}{f}$, and $\frac{g}{h}$. Then we calculate
+  \begin{align*}
+    \left(\frac{a}{b}\mediant\frac{c}{d}\right)\mediant\left(\frac{e}{f}\mediant\frac{g}{h}\right) & = \frac{a+c}{b+d}\mediant\frac{e+g}{f+h}
+  \end{align*}
+\end{proof}
+
 \section{A Structural Definition of The Rational Numbers}
 
 \begin{definition}
-  Consider a set $Q$ equipped with a binary relation $q,r\mapsto A(q,r)$. A \emph{Farey structure} on the pair $(Q,A)$ consist of:
+  Consider a set $Q$ equipped with a binary relation $q,r\mapsto (q\sim r)$. A \emph{Farey structure} on the pair $(Q,{\sim})$ consist of:
   \begin{enumerate}
-  \item A map $i:\mathbb{Z}\to Q$
+  \item a map $i:\mathbb{Z}\to Q$,
+  \item a partial binary operation
+    \begin{equation*}
+      m:\{(x,y)\in Q\mid x\sim y\} \to Q
+    \end{equation*}
+    called the \emph{mediant},
+  \end{enumerate}
+  such that
+  \begin{enumerate}
+  \item for any integer $a$, the relation $i(a)\sim i(a+1)$ holds,
+  \item for any two elements $x,y\in Q$ such that $x\sim y$ holds, the relations
+    \begin{equation*}
+      x\sim m(x,y)\qquad\text{and}\qquad m(x,y)\sim y
+    \end{equation*}
+    hold.
   \end{enumerate}
 \end{definition}
 
-\section{The Stern--Brocot Tree}
+\begin{definition}
+  The set $Q$ equipped with the adjacency relation $\sim$ and a Farey structure $(i,m)$ is a set of rational numbers if for every set $Q'$ with an adjacency relation $\sim$ and Farey structure $(i',m')$, there is a unique map $f:Q\to Q'$ such that $x\sim y$ implies $f(x)\sim f(y)$, such that
+  \begin{align*}
+    f(i(a)) & = i'(a) \\
+    f(m(x,y)) & = m'(f(x),f(y)).
+  \end{align*}
+  The set $\mathbb{Q}$ is specified to be a set of rational numbers in this sense.
+\end{definition}
+
+\begin{example}
+  We can use the specification of $\mathbb{Q}$ as a universal Farey structure to define a map
+  \begin{equation*}
+    f:\mathbb{Q}\to X
+  \end{equation*}
+  into any set $X$ equipped with a map $i:\mathbb{Z}\to X$ and a binary operation $m:X\times X\to X$. Indeed, in order to do so we define the relation $x\sim y$ on $X$ to always hold. This can be used to define the numerator and the denominator of any rational number:
+  \begin{align*}
+    \numerator(i(a)) & := a, & \denominator(i(a)) & := 1, \\
+    \numerator(m(x,y)) & := \numerator(x)+\numerator(y), & \denominator(m(x,y)) & := \denominator(x)+\denominator(y).
+  \end{align*}
+  Thus, any rational number $q$ determines an integer fraction $\frac{a}{b}$.
+
+  Conversely, we can ask whether any reduced integer fraction $\frac{a}{b}$ uniquely determines a rational number. To see this, 
+\end{example}
+
+\section{Arithmetic of rational numbers}
+
+Addition is easy enough to define on integer fractions: Given two integer fractions $\frac{a}{b}$ and $\frac{c}{d}$, we define their sum by
+\begin{equation*}
+  \frac{a}{b}+\frac{c}{d}:=\frac{ad+bc}{bc}.
+\end{equation*}
+However, we have previously given a structural definition of the set of rational numbers, where the rational numbers are inductively generated by a mediant operation. The question of defining addition directly on the rational numbers by structural induction breaks down in a base case, where we define how to add an integer to a rational number, and an inductive step, where we define how to add a mediant rational number to a rational number. The sum of a mediant and a rational number is defined by
+\begin{equation*}
+  \frac{a_0+a_1}{b_0+b_1} + \frac{c}{d} = \frac{(a_0+b_0c)+(a_1+b_1c)}{b_0d+b_1d},
+\end{equation*}
+which expresses the result again as a mediant. This suggests the following definition by structural induction:
+
+\begin{definition}
+  We define the \emph{structural addition} operation $q,r\mapsto q+r$ on the rational numbers by
+  \begin{align*}
+    i(a)+i(b) & := i(a+b), \\
+    m(x,y)+i(b) & := m(x+i(b),y+i(b)), \\
+    i(a)+ m(u,v) & := m(i(a)+u,i(a)+v), \\
+    m(x,y)+m(u,v) & := m(x+m(u,v),y+m(u,v)).
+  \end{align*}
+\end{definition}
+
+\begin{theorem}
+  Structural addition of rational numbers satisfies the axioms of an abelian group:
+  \begin{align*}
+    (x+y)+z & = x +(y+z) & x+y & =y+z \\
+    x+0 & = x & x-x & = 0.
+  \end{align*}
+\end{theorem}
+
+Next, recall that multiplication on integer fractions is defined by
+\begin{equation*}
+  \frac{a}{b}\frac{c}{d} = \frac{ac}{bd}.
+\end{equation*}
+The case of multiplying with a mediant is computed as follows:
+\begin{equation*}
+  \frac{a_0+a_1}{b_0+b_1}\frac{c}{d} = \frac{a_0c+a_1c}{b_0d+b_1d}.
+\end{equation*}
+This suggests the following definition of multiplication by structural induction:
+
+\begin{definition}
+  We define the \emph{structural multiplication} operation $q,r\mapsto qr$ on the rational numbers by
+  \begin{align*}
+    i(a)i(b) & := i(ab), \\
+    m(x,y)i(b) & := m(xi(b),yi(b)), \\
+    i(a)m(u,v) & := m(i(a)u,i(a)v), \\
+    m(x,y)m(u,v) & := m(xm(u,v),ym(u,v)).
+  \end{align*}
+\end{definition}
+
+\begin{definition}
+  We define the \emph{unit fractions} $u(a)$ for any positive integer $a$ by
+  \begin{align*}
+    u(1) & := i(1) \\
+    u(a+1) & := m(i(0),u(a)),
+  \end{align*}
+  and likewise we define the \emph{unit fractions} $\frac{1}{a}$ for any negative integer $a$ by
+  \begin{align*}
+    u(-1) & := i(-1) \\
+    u(a-1) & := m(u(a),i(0)).
+  \end{align*}
+  We also define the structural inversion operation $q\mapsto q^{-1}$ on the rational numbers by
+  \begin{align*}
+    i(a)^{-1} & := u(a) \\
+    m(x,y)^{-1} & := ?.
+  \end{align*}
+\end{definition}
+
+\begin{theorem}
+  The rational numbers satisfy the axioms of a field:
+  \begin{align*}
+    x+0 & = x & x1 & = x \\
+    x-x & = 0 & xx^{-1} & = 1 \\
+    (x+y)+z & = x+(y+z) & (xy)z & = x(yz) \\
+    x + y & = y+x & xy & = yx \\
+    & & x(y+z) & = xy+xz.
+  \end{align*}
+\end{theorem}
 
 \section{Finite Simple Continued Fractions}
 

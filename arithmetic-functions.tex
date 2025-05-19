@@ -369,6 +369,16 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
       J_k(n) = n^k\prod_{p\mid n}\left(1-\frac{1}{p^k}\right).
     \end{equation*}
   \end{subexenum}
+  \exercise Let $\Omega$ be the arithmetic function given by
+  \begin{equation*}
+    \Omega(m)=m_1+\cdots+m_n
+  \end{equation*}
+  for any $m=p_1^{m_1}\cdots p_n^{m_n}$, where the prime factors $p_1,\ldots,p_n$ are assumed to be distinct. Thus, $\Omega$ returns the number of prime factors, counted with multiplicity. Show that
+  \[
+    \Omega(m)\leq
+    \frac{\log m}{\log \left(\frac{1}{n}\sum_{i=1}^n p_i\right)}.
+  \]
+  Hint: Use Jensen's inequality.
 \end{exercises}
 
 %%% Local Variables:

@@ -330,6 +330,112 @@ Now that we have established that every natural number has a unique square-free 
   However, this inequality clearly fails when $x$ exceeds $2^{2n}$, so there must be primes other than $p_1,\ldots,p_n$.
 \end{proof}
 
+\subsection{A Proof via the Stars-and-Bars Method}
+
+The stars-and-bars problem asks in how many ways it is possible to place $n-1$ bars between $k$ stars. In \cref{figure:stars-and-bars} we displayed some example configurations for the stars-and-bars problem.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[xscale=.5,every node/.style={font=\large, inner sep=1pt}]
+    % Config 1
+    \foreach \j in {1,...,5} { \node at (2*\j,0) {$\bigstar$}; }
+    \foreach \slot in {1,4,6} { \node at (2*\slot-1,0) {$|$}; }
+    % box around config 1
+    \draw[thick] (0.5,0.5) rectangle (11.5,-0.5);
+    
+    % Config 2
+    \foreach \j in {1,...,5} { \node at (2*\j,-1.5) {$\bigstar$}; }
+    \foreach \slot in {2,5,6} { \node at (2*\slot-1,-1.5) {$|$}; }
+    % box around config 2
+    \draw[thick] (0.5,-1) rectangle (11.5,-2);
+    
+    % Config 3 (double bar)
+    \foreach \j in {1,...,5} { \node at (2*\j,-3) {$\bigstar$}; }
+    \node at ({2*3-1 - 0.3},-3) {$|$};
+    \node at ({2*3-1 + 0.3},-3) {$|$};
+    \node at (2*5-1,-3) {$|$};
+    % box around config 3
+    \draw[thick] (0.5,-2.5) rectangle (11.5,-3.5);
+    
+    % Config 4
+    \foreach \j in {1,...,5} { \node at (2*\j,-4.5) {$\bigstar$}; }
+    \foreach \slot in {1,3,5} { \node at (2*\slot-1,-4.5) {$|$}; }
+    % box around config 4
+    \draw[thick] (0.5,-4) rectangle (11.5,-5);
+  \end{tikzpicture}  
+  \caption{\label{figure:stars-and-bars}Four example configurations with five stars and three bars.}
+\end{figure}
+
+The stars-and-bars problem admits several equivalent formulations. For example, the stars-and-bars problem is equivalently posed by asking in how many ways one can place $k$ indistinguishable balls in $n$ distinguishable boxes. It is also equivalent to the problem of writing $k$ as an ordered sum of $n$ natural numbers. The four example configurations of \cref{figure:stars-and-bars} correspond to writing $5=0+3+2+0$, $5=1+3+1+0$, $5=2+0+2+1$, and $5=0+2+2+1$. Making use of the \crefnamed{theorem:fundamental-theorem-of-arithmetic}{Fundamental Theorem of Arithmetic}, we find yet another equivalent way of formulating the stars-and-bars problem: Given a set $p_1,\ldots,p_{n}$ primes, how many natural numbers are there of the form
+\begin{equation*}
+  p_1^{m_1}\cdots p_{n}^{m_{n}},
+\end{equation*}
+so that $m_1+\cdots+m_{n}=k$? We establish the answer in the following theorem.
+
+\begin{theorem}
+  Given a set $p_1,\ldots,p_n$ of $n$ distinct primes, there are exactly $\binom{k+n-1}{n-1}$ natural numbers that can be written in the form
+  \begin{equation*}
+    p_1^{m_1}\cdots p_n^{m_n}
+  \end{equation*}
+  so that $m_1+\cdots+m_n=k$.
+\end{theorem}
+
+\begin{proof}
+  Since the primes $p_1,\ldots,p_n$ are distinct, the Fundamental Theorem of Arithmetic implies that distinct choices for $(m_1,\ldots,m_n)$ yield distinct natural numbers. Thus, we merely need to determine in how many ways we can decompose $k$ as an ordered sum of $n$ natural numbers.
+
+  In order to do so, we claim that there is a bijection between the set of $n$-tuples $(m_1,\ldots,m_n)$ satisfying $m_1+\cdots+m_n=k$, and the set of $(n-1)$-element subsets of the set $\{1,\ldots,k+n-1\}$. This bijection takes an $n$-tuple $(m_1,\ldots,m_n)$ to the subset
+  \begin{equation*}
+    \{(m_1+1)+\cdots+(m_i+1)\mid 1\leq i < n\}.
+  \end{equation*}
+  For example, the four $4$-tuples corresponding to the configurations in \cref{figure:stars-and-bars} are mapped to $3$-element subsets of $\{1,\ldots,8\}$ as follows:
+  \begin{align*}
+    (0,3,2,0) & \mapsto \{1,5,8\} \\
+    (1,3,1,0) & \mapsto \{2,6,8\} \\
+    (2,0,2,1) & \mapsto \{3,4,7\} \\
+    (0,2,2,1) & \mapsto \{1,4,7\}.    
+  \end{align*}
+  
+  Conversely, given an $(n-1)$-element subset $S=\{s_1\leq\ldots\leq s_{n-1}\}$ of $\{1,\ldots,k+n-1\}$, we define $s_0:=0$ and $s_n:=k+n$ in order to define $m_i:=(s_i-1)-s_{i-1}$ for all $1\leq i\leq n$. Then we can compute the sum of the numbers $m_i$ as a telescopic sum:
+  \begin{equation*}
+    \sum_{i=1}^n m_i = \sum_{i=1}^n (s_i-1-s_{i-1}) = (k+n)-n = k.
+  \end{equation*}
+  It is fairly immediate from these definitions that we have defined mutually inverse maps, so that we have a bijection between $n$-tuples that sum to $k$ and $(n-1)$-element subsets of a $(k+n-1)$-element set. Since the number of such subsets is
+  \begin{equation*}
+    \binom{k+n-1}{n-1},
+  \end{equation*}
+  this completes the proof.
+\end{proof}
+
+\begin{theorem}\label{theorem:stars-and-bars-primes}
+  Given a set $p_1,\ldots,p_n$ of distinct primes, the set of numbers of the form
+  \begin{equation*}
+    p_1^{m_1}\cdots p_n^{m_n}
+  \end{equation*}
+  such that $m_1+\ldots+m_n\leq k$ has exactly $\binom{k+n}{n}$ elements.
+\end{theorem}
+
+\begin{proof}
+  By the hockey-stick identity (\cref{exercise:hockey-stick-identity}), we have
+  \begin{equation*}
+    \sum_{i=0}^k\binom{i+n-1}{n-1}=\binom{k+n}{n}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{proof}[Proof of \cref{theorem:infinitude-of-primes}]
+  Consider a set $p_1,\ldots,p_n$ of distinct primes, and let $N$ be such that all the numbers $1\leq m\leq N$ can be written as a product of the primes $p_1,\ldots,p_n$.
+
+  For any $m=p_1^{m_1}\cdots p_n^{m_n}\leq N$, we have
+  \begin{align*}
+    m_1+\cdots+m_n\leq \frac{m_1\log p_1+\cdots +m_n\log p_n}{\log 2}=\frac{\log m}{\log 2}\leq \frac{\log N}{\log 2}.
+  \end{align*}
+  By \cref{theorem:stars-and-bars-primes} it follows that
+  \begin{equation*}
+    N\leq \binom{\left\lfloor\frac{\log N}{\log 2}\right\rfloor+n}{n}
+    \leq \frac{\left(\frac{\log N}{\log 2}+n\right)^n}{n!}
+  \end{equation*}
+  Assuming that our initial list of primes includes all the primes below $12$ so that $n\geq 5$, this inequality fails for $N\geq 2^{2^n}$. This shows that any finite set $p_1,\ldots,p_n$ of primes cannot be the set of all primes, so there must be infinitely many primes.
+\end{proof}
+
 \section{Legendre's Formula and Kummer's Theorem}
 
 In some cases we can give precise expressions of the prime factorization of a number. We will describe here two such cases: The prime factorization of the factorial $n!$, which is due to Adrien-Marie Legendre, and the prime factorization of the binomial coefficients $\binom{n}{m}$, which is due to Ernst Kummer. These explicit formulas will be useful in the study of the distribution of the primes.
@@ -617,43 +723,64 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   Explain your method.
   \exercise Compute the square-free decompositions of $72$, $200$, $315$, $462$, and $2205$.
   \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
+  \exercise Find the first ten primes $p$ such that $2p-1$ is also prime. It is unknown whether there are infinitely many such primes.
   \exercise Show that
   \begin{equation*}
     p\,\,\Big|\,\, \binom{p}{k}
   \end{equation*}
   for any $0<k<p$, and any prime number $p$.
+  \exercise Determine the number of trailing zeros in the decimal representations of $100!$ and $2^{10}!$.
   \exercise Show that
   \begin{equation*}
-    4^{\frac{p-1}{2}}\equiv 1\pmod{p}
+    \binom{42}{6}\,\Bigm|\,\binom{42}{12}\qquad\text{and}\qquad \binom{42}{6}\,\Bigm|\,\binom{42}{18}.
   \end{equation*}
-  for any odd prime number $p$.
-  \exercise Define the $n$th \emph{Mersenne number} $M_n$ to be
+  \exercise Show that
   \begin{equation*}
-    M_n:=2^n-1.
+    \binom{20}{4}\,\Bigm|\,\binom{20}{8},\quad \binom{35}{7}\,\Bigm|\,\binom{35}{14},\quad \binom{50}{10}\,\Bigm|\,\binom{50}{20},\quad\text{and}\quad \binom{120}{24}\,\Bigm|\,\binom{120}{48}.
   \end{equation*}
-  Show that if $n$ is composite, then so is $M_n$. Conclude that if $M_n$ is prime, then so is $n$. Prime numbers of the form $M_p$ for some prime number $p$ are called \emph{Mersenne primes}.
-  \exercise A natural number $n$ is said to be \emph{perfect} if it is the sum of its proper divisors. Show that an even number is perfect if and only if it is of the form $2^{p-1}M_p$, where $M_p$ is a Mersenne prime.
-  \exercise Consider a fixed set $\{p_1,\ldots,p_n\}$ of $n$ distinct primes. Given a natural number $k$, how many numbers can be written as a product
-  \begin{equation*}
-    p_1^{m_1}\cdots p_n^{m_n}
-  \end{equation*}
-  such that $m_1+\cdots +m_n=k$?
-  \exercise Suppose that $n\geq 3$ and $p$ is a prime such that $\frac{2}{3}n<p\leq n$. Prove that
-  \begin{equation*}
-    p\nmid \binom{2n}{n}.
-  \end{equation*}
-  \exercise Prove the following identity due to Bakir Farhi \cite{farhi2009}:
-  \begin{equation*}
-    \lcm\left(\binom{n}{0},\binom{n}{1},\ldots,\binom{n}{n}\right)=
-    \frac{\lcm(1,\ldots,n+1)}{n+1}.
-  \end{equation*}
-  \exercise Determine the number of trailing zeros in the decimal representations of $100!$ and $2^{10}!$.
   \exercise
   \begin{subexenum}
-  \item Show that $\binom{n}{m}$ is odd if and only if there are no carries occur when adding $m$ and $n-m$ in their binary representations.
+  \item Show that
+    \begin{equation*}
+      \binom{30}{2}\,\Bigm|\,\binom{30}{2k}
+    \end{equation*}
+    for every $1\leq k\leq 14$.
+  \item Show that if $p$ is a prime such that $q=2p-1$ is also a prime, then
+    \begin{equation*}
+      \binom{2p}{2}\,\Bigm|\,\binom{2p}{2k}
+    \end{equation*}
+    for every $1\leq k\leq p-1$.
+  \end{subexenum}
+  \exercise Consider two natural numbers $m$ and $n$ such that
+  \begin{equation*}
+    m=\sum_{i=0}^k a_i2^i \qquad\text{and}\qquad n-m=\sum_{i=0}^kb_i2^i,
+  \end{equation*}
+  where $0\leq a_i,b_i<2$ for every $i$.
+  \begin{subexenum}
+  \item Show that the binomial coefficient $\binom{n}{m}$ is odd if and only if $a_ib_i=0$ for every $0\leq i \leq k$.
   \item Show that $\binom{n}{m}$ is odd for every $0\leq m\leq n$ if and only if $n$ is of the form $2^k-1$.
   \end{subexenum}
-  
+  \exercise
+  \begin{subexenum}
+  \item Prove that
+    \begin{equation*}
+      \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,n-1)} =
+      \begin{cases}
+        p & \text{if $n=p^k$ for some prime $p$ and $k\geq 1$,} \\
+        1 & \text{otherwise.}
+      \end{cases}
+    \end{equation*}
+  \item Prove the following identity of Bakir Farhi \cite{farhi2009}:
+    \begin{equation*}
+      \lcm\left(\binom{n}{0},\binom{n}{1},\ldots,\binom{n}{n}\right)=
+      \frac{\lcm(1,\ldots,n+1)}{n+1}.
+    \end{equation*}
+  \item Prove the following identity:
+    \begin{equation*}
+      \lcm_{0\leq k\leq n}\left(\gcd\left(\binom{n}{k},\binom{n}{k+1}\right)\right)=
+      \frac{\lcm(1,\ldots,n+1)}{n(n+1)}
+    \end{equation*}
+  \end{subexenum}
 \end{exercises}
 
 %%% Local Variables:

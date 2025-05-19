@@ -35,6 +35,7 @@
 % Fonts and micro-typography
 \usepackage{newtxtext,newtxmath}
 \usepackage{microtype}
+\usepackage{relsize}
 
 \newtheorem{theorem}{Theorem}[section]
 
@@ -69,6 +70,7 @@
   every picture/.append style={line cap=round, line join=round}
 }
 
+% \title{Foundational Studies in Arithmetic}
 \title{Lectures on Elementary Number Theory}
 \author{Egbert Rijke}
 \date{\today}
@@ -177,7 +179,7 @@
 \renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\ind}{ind}
-\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator*{\lcm}{lcm}
 \newcommand{\legendre}[2]{%
   \mathchoice
     {\left(\frac{#1}{#2}\right)}% display style
@@ -191,6 +193,10 @@
 \newcommand{\Oh}{O}
 \newcommand{\oh}{o}
 \newcommand{\blank}{\mathord{\hspace{1pt}\text{--}\hspace{1pt}}}
+\newcommand{\apart}{\mathbin{\#}}
+\DeclareMathOperator{\numerator}{num}
+\DeclareMathOperator{\denominator}{denom}
+\newcommand{\mediant}{\mathbin{\triangledown}}
 
 \begin{document}
 
@@ -199,16 +205,11 @@
 \begingroup
 \begin{titlepage}
   \begin{center}
-    % Optional vertical spacing
-
-    % Title and other text
     {\Huge\textbf{Johns Hopkins University}} \\[1cm]
     {\LARGE\textsc{Math 304}} \\[1cm]
     {\LARGE Egbert Rijke}\\[1cm]
 
-    % Insert the picture
     \begin{tikzpicture}[scale=5]
-      % (Insert your TikZ code here)
       \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
       \draw[ultra thick] (0,0) circle (1);
       \coordinate (P1) at ({117/125},{44/125});
@@ -231,9 +232,9 @@
       \draw[fill=black,very thick] (1,0) circle (.5pt);
     \end{tikzpicture}
     
-    % Adjust vertical spacing as needed
     \vspace{1cm}
-    
+
+    % {\Huge \textbf{Foundational Studies in Arithmetic}} \\[1cm]
     {\Huge \textbf{Elementary Number Theory}} \\[1cm]
     {\LARGE\textit{Spring 2025}}
   \end{center}
@@ -277,6 +278,8 @@
 
 \tableofcontents
 
+\listoffigures
+
 %\input{course-information}
 
 \input{introduction}
@@ -297,11 +300,17 @@
 
 \input{rational-numbers}
 
+\input{real-numbers}
+
 \input{polynomials}
 
 \input{pythagorean-triples}
 
+\input{conics}
+
 \input{infinite-descent}
+
+\input{pells-equation}
 
 \input{congruences}
 
@@ -315,6 +324,8 @@
 
 \input{polynomial-congruences}
 
+\input{modular-powers}
+
 \input{primitive-roots}
 
 \input{quadratic-residues}
@@ -323,10 +334,12 @@
 
 \input{arithmetic-functions}
 
-%\input{dirichlet-series}
+\input{cyclotomic-polynomials}
+
+\input{dirichlet-series}
 
 \input{distribution-of-primes}
 
-\printbibliography[heading=bibintoc]
+\printbibliography[heading=bibintoc,title=References]
 
 \end{document}

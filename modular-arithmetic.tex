@@ -322,6 +322,22 @@ This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
   This implies that $\gcd(a,n)=1$. It follows that the only proper divisor of $n$ is $1$, i.e., that $n$ is prime.
 \end{proof}
 
+\section{Lucas's Theorem}
+
+\crefnamed{theorem:kummers-theorem}{Kummer's Theorem} gave a complete characterization of the prime factorization of binomial coefficients. In principle, this is sufficient to know the congruence class of $\binom{n}{m}$ modulo a prime $p$. In the following theorem, which is due to \'Edouard Lucas, we establish a pattern.
+
+\begin{theorem}
+  Consider a prime number $p$, and natural numbers $m$ and $n$ written in base $p$ as
+  \begin{equation*}
+    m=\sum_{i=0}^ka_ip^i\qquad\text{and}\qquad n=\sum_{i=0}^kb_ip^i.
+  \end{equation*}
+  Then the congruence
+  \begin{equation*}
+    \binom{n}{m}\equiv\prod_{i=0}^k\binom{b_i}{a_i}\pmod{p}
+  \end{equation*}
+  holds.
+\end{theorem}
+
 \section{The Quadratic Character of \texorpdfstring{$-1$}{-1}}
 
 \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} can be used to prove that $-1$ is congruent to a square modulo $p$ if and only if $p\equiv 1\pmod{4}$. In turn, this observation can be used to show that there are infinitely many primes congruent to $1$ modulo $4$. Furthermore, the fact that $-1$ is congruent to a square modulo $p$ when $p\equiv 1\pmod{4}$ is used in the next chapter to prove Fermat's \emph{Two-Square Theorem}, which asserts that every such prime is the sum of two squares. Questions similar to the quadratic character of $-1$ modulo a prime will be investigated more fully in \cref{chapter:quadratic-residues,chapter:quadratic-reciprocity}.

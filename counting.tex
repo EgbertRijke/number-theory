@@ -220,7 +220,90 @@ is the number $n!$. In other words, the factorial function counts the number of 
   Now we observe that there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ satisfying $f(n)=n$. Indeed, such bijections are uniquely determined by their restriction to the set $[n]$, and by the induction hypothesis there are $n!$ such bijections. Since there are $n+1$ possible choices of a value $y$, we conclude that there are $n!(n+1)$ bijections altogether from $[n+1]$ to $[n+1]$.
 \end{proof}
 
+To wrap up this section, we give a lower bound for the factorial $n!$. Recall that the exponential function is defined by the infinite series
+\begin{equation*}
+  e^x := \sum_{n=0}^\infty \frac{x^n}{n!}.
+\end{equation*}
+Here, the quantity $e:=\sum_{n=0}^\infty \frac{1}{n!}$ is Euler's number, of which the first few terms are
+\begin{equation*}
+  \frac{1}{0!}+\frac{1}{1!}+\frac{1}{2!}+\frac{1}{3!}+\frac{1}{4!}+\frac{1}{5!} + \cdots = 1+1+\frac{1}{2}+\frac{1}{6}+\frac{1}{24}+\frac{1}{120}+\cdots.
+\end{equation*}
+The terms from $1/0!$ to $1/5!$ add up to $2+\frac{86}{120}\approx 2.71\cdots$, which correctly estimates the value of $e$ up to two decimal digits.
+
+\begin{theorem}\label{theorem:elementary-estimate-factorial}
+  For any positive natural number $n$, we have the strict inequality
+  \begin{equation*}
+    \left(\frac{n}{e}\right)^n<n!.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  For positive $x$, every term $\frac{x^n}{n!}$ contributes a positive amount to the exponential function. This gives the strict inequality
+  \begin{equation*}
+    \frac{x^n}{n!}<e^x.
+  \end{equation*}
+  We may simply take $x=n$ to obtain
+  \begin{equation*}
+    \frac{n^n}{n!}<e^n,
+  \end{equation*}
+  and the theorem is obtained by rearranging.
+\end{proof}
+
+\begin{remark}
+  The strict lower bound for $n!$ given in \cref{theorem:elementary-estimate-factorial} is not the best known estimate of the factorial function. Nevertheless, its proof is elementary, and it can be used in basic number-theoretic estimates. The best approximation to the factorial function is given by Stirling's approximation formula:
+  \begin{equation*}
+    n!\sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n.
+  \end{equation*}
+  This means that the ratio of the quantities $n!$ and $\sqrt{2\pi n}(n/e)^n$ tends to $1$ as $n$ becomes arbitrarily large. While Stirling's approximation formula is certainly applicable in number theory, we shall have no need for it in the present introduction to the subject and therefore we will omit the proof.
+\end{remark}
+
 \section{Counting Subsets}
+
+A subset $A$ of a set $X$ is a set consisting entirely of elements of $X$. Subsets may be empty or they may contain all elements of $X$. When $A$ is a subset of $X$, we write
+\begin{equation*}
+  A\subseteq X.
+\end{equation*}
+Subsets of $X$ can be formed using predicates over the elements of $X$. Predicates are propositions or conditions about indeterminate elements. For example, the predicate that $n$ is an even natural number is a predicate with the indeterminate natural number $n$. This predicate determines the subset of all even natural numbers
+\begin{equation*}
+  0,2,4,6,\ldots.
+\end{equation*}
+Often, we write $P(x)$ for a predicate on the indeterminate element $x$. The subset determined by this predicate is the set of all the elements $x$ that satisfy the condition $P(x)$. Such sets are conveniently defined by \emph{set-builder notation}:
+\begin{equation*}
+  \{x\in X\mid P(x)\}.
+\end{equation*}
+For example, the set of even natural numbers can be written in set-builder notation as follows:
+\begin{equation*}
+  \{n\in\mathbb{N}\mid \text{$n$ is even}\}.
+\end{equation*}
+Here, the condition that $n$ is even could also be expressed through the logical formula
+\begin{equation*}
+  \exists_{(k\in\mathbb{N})}2k=n
+\end{equation*}
+asserting that there exists a natural number $k$ such that the number $2k$ is equal to the number $n$. Nevertheless, we often find ourself preferring expressions in natural language that convey the intended meaning more easily.
+
+To avoid any complications of constructive logic, we shall assume that all predicates are decidable, meaning that for every predicate $P(x)$ on the indeterminate element $x$ and for any element $a$, we can decide whether or not the property $P(a)$ holds. The typical predicates of concern in elementary number theory, until the real and complex numbers are considered, are indeed decidable.
+
+Subsets of a finite set $X$ are determined by a function $X\to \{0,1\}$. Indeed, given a subset $A$ of $X$, we define its \emph{characteristic function} $\chi_A$ by
+\begin{equation*}
+  \chi_A(x):=
+  \begin{cases}
+    1 & \text{if $x\in A$} \\
+    0 & \text{otherwise}.
+  \end{cases}
+\end{equation*}
+Conversely, any function $f:X\to \{0,1\}$ determines the subset
+\begin{equation*}
+  \{x\in X\mid f(x)=1\}.
+\end{equation*}
+Thus, we can go back and forth between (1) subsets of a set, (2) predicates on a set, and (3) functions from a set into $\{0,1\}$. All of these are equivalent descriptions of the concept of subset.
+
+Since subsets of $X$ are equivalently described as functions from $X$ into the set $\{0,1\}$, it follows immediately that if $X$ is an $n$-element set, then the number of subsets of $X$ is $2^n$. To put it another way: In order to determine a subset of $X$, there are two possibilities for every element of $X$. It is either in the subset, or it isn't. Thus, there are $2^n$ combined possibilities determining distinct subsets.
+
+Knowing that the total number of subsets of an $n$-element set is $2^n$, we now turn to the question: How many $k$-element subsets are there of an $n$-element set? For example, the six $2$-element subsets of the set $\{1,2,3,4\}$ are
+\begin{equation*}
+  \{1,2\},~\{1,3\},~\{1,4\},~\{2,3\},~\{2,4\},~\text{and}~\{3,4\}.
+\end{equation*}
+The binomial coefficients are introduced precisely to answer this question for generela $n$ and $k$.
 
 \begin{definition}
   The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
@@ -449,6 +532,10 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
     \sum_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k} =\sum_{k=0}^{\lfloor (n-1)/2\rfloor}\binom{n}{2k+1}.
   \end{equation*}
   In this formula, the floor $\lfloor x\rfloor$ of a number $x$ is the largest integer below or equal to $x$.
+  \exercise \label{exercise:hockey-stick-identity}\emph{The hockey-stick identity.} Show that
+  \begin{equation*}
+    \sum_{i=k}^m\binom{i}{k}=\binom{m+1}{k+1}.
+  \end{equation*}
   \exercise \emph{The Chu--Vandermonde identity.} Use the binomial theorem at the polynomial $(x+1)^m(x+1)^n$ to show that
   \begin{equation*}
     \sum_{i=0}^k \binom{m}{i}\binom{n}{k-i} = \binom{m+n}{k}.
