@@ -75,6 +75,45 @@ In the previous proof we introduced a set $A$ of which the elements were pairs $
   Then we have $h(a_0)>h(a_i)>h(a_2)>\cdots$, which is an infinite descending sequence of natural numbers. Thus, the assumption that $A$ is inhabited was false.
 \end{proof}
 
+\section{The Area of a Pythagorean Triangle is not a Square}
+
+A classic application of Fermat's infinite descent gives us that the area of a Pythagorean triangle is never a square number. Recall that the area of a triangle is half the base times the height, so that every Pythagorean triple $(a,b,c)$ determines a Pythagorean triangle with area
+\begin{equation*}
+  \frac{1}{2}ab.
+\end{equation*}
+
+\begin{theorem}\label{theorem:is-not-square-area-pythagorean-triangle}
+  The area of a Pythagorean triangle is not a square number.
+\end{theorem}
+
+\begin{proof}
+  It suffices to prove the statement for primitive Pythagorean triangles; that is, a triangle whose sides $(a,b,c)$ form a primitive Pythagorean triple. By \crefnamed{theorem:euclids-parametrization}{Euclid's parametrization of the Pythagorean triples}, we can find two relatively prime integers $s<t$ of opposite parity, such that
+  \begin{equation*}
+    a=t^2-s^2,\qquad b=2st,\qquad\text{and}\qquad c=t^2+s^2.
+  \end{equation*}
+  The area of the triangle is given in terms of this parametrization by the nonzero quantity
+  \begin{equation*}
+    st(t^2-s^2)=st(t-s)(t+s).
+  \end{equation*}
+  Now observe that all of these factors are relatively prime to one another; indeed, given that $s$ and $t$ are relatively prime, this follows at once from \cref{proposition:gcd-euclidean-division}. Thus we conclude that if the area of the Pythagorean triangle is a square, then each of these factors must also be a square. This allows us to write
+  \begin{equation*}
+    s=u^2,\quad t=v^2,\quad t-s=x^2,\quad\text{and}\quad t+s=y^2.
+  \end{equation*}
+  Since $s$ and $t$ are of opposite parity, it follows that $x$ and $y$ are both odd. Now notice that the triple of integers
+  \begin{equation*}
+    \left(\frac{y-x}{2},\frac{y+x}{2},v\right)
+  \end{equation*}
+  is a Pythagorean triple, since
+  \begin{equation*}
+    \left(\frac{y-x}{2}\right)^2+\left(\frac{y+x}{2}\right)^2=\frac{y^2+x^2}{2}=v^2.
+  \end{equation*}
+  Furthermore, the area of the corresponding Pythagorean triangle is given by
+  \begin{equation*}
+    \frac{1}{2}\left(\frac{y-x}{2}\right)\left(\frac{y+x}{2}\right)=\frac{y^2-x^2}{8}=\frac{u^2}{4}.
+  \end{equation*}
+  The quantity $u^2/4$ must therefore be an integer strictly less than $s$, which in turn is strictly less than the area $\frac{1}{2}ab$. Thus, we have constructed a Pythagorean triangle whose area is a strictly smaller nonzero square number, which leads to a contradiction by infinite descent.
+\end{proof}
+
 \section{The Unsolvability of \texorpdfstring{$x^4+y^4=z^4$}{x⁴ + y⁴ = z⁴}}
 
 \begin{theorem}
@@ -92,29 +131,28 @@ In the previous proof we introduced a set $A$ of which the elements were pairs $
   \end{equation*}
   with $h(x,y,z):=z$. We will construct a function $f:A\to A$ such that $h(f(x,y,z))<h(x,y,z)$ for every $(x,y,z)\in A$.
   
-  First, we notice that if $(x,y,z)$ is a triple of positive integers satisfying the equation $x^4+y^4=z^2$, then $(x^2,y^2,z)$ is a Pythagorean triple. We may assume that $x$ and $y$ are relatively prime, since we can always divide out any common factors. Furthermore, we may assume that $x$ is even, so that
+  First, we notice that if $(x,y,z)$ is a triple of positive integers satisfying the equation $x^4+y^4=z^2$, then $(x^2,y^2,z)$ is a Pythagorean triple. Since we can always divide out any common factors, we may assume that $x$ and $y$ are relatively prime. Furthermore, we may assume that $y$ is even, so that by Euclid's parametrization there are relatively prime positive integers $s<t$ of opposite parity such that
   \begin{align*}
-    x^2 & = 2st \\
-    y^2 & = s^2-t^2 \\
-      z & = s^2+t^2,
+    x^2 & = t^2-s^2, \\
+    y^2 & = 2st, \\
+      z & = t^2+s^2.
   \end{align*}
-  where $s$ and $t$ are relatively prime.
 
-  The key observation is now in the second equation: We obtain a new Pythagorean triple $y^2+t^2=s^2$, allowing us to apply the parametrization of Pythagorean triples once more. Since $y$ was assumed to be odd it follows that $t$ is even, so we find relatively prime integers $u$ and $v$ such that
+  The key observation is now in the first equation: We obtain a new Pythagorean triple $x^2+s^2=t^2$, allowing us to apply Euclid's parametrization of Pythagorean triples once more. Since $x$ is odd it follows that $s$ is even, so we find relatively prime positive integers $u<v$ such that
   \begin{align*}
-    t & = 2uv \\
-    y & = u^2-v^2 \\
-    s & = u^2+v^2.
+    x & = v^2-u^2 \\
+    s & = 2uv \\
+    t & = v^2+u^2.
   \end{align*}
-  Now it follows that $x^2=4uv(u^2+v^2)$. We claim that the numbers $uv$ and $u^2+v^2$ are relatively prime. To see this, note that any prime divisor $p$ of $uv$ must be a prime divisor of $u$ or $v$. On the other hand, given that $p$ is a prime divisor of one of $u$ and $v$, if $p$ were also a prime divisor of $u^2+v^2$, then it would follow that $p$ is a prime divisor of both $u$ and $v$. This contradicts the assumption that $u$ and $v$ are relatively prime.
+  Now it follows that $y^2 = 4uv (v^2+u^2)$. We claim that the numbers $uv$ and $v^2+u^2$ are relatively prime. To see this, note that any prime divisor $p$ of $uv$ must be a prime divisor of $u$ or $v$. On the other hand, given that $p$ is a prime divisor of one of $u$ and $v$, if $p$ were also a prime divisor of $v^2+u^2$, then it would follow that $p$ is a prime divisor of both $u$ and $v$. This contradicts the assumption that $u$ and $v$ are relatively prime.
 
-  Since $uv$ and $u^2+v^2$ are relatively prime, the fact that $4uv(u^2+v^2)$ is a square implies that both $uv$ and $u^2+v^2$ are squares. Given that $u$ and $v$ are relatively prime, this implies that $u$ and $v$ are squares, i.e., that there are integers $a$ and $b$ such that $u=a^2$ and $v=b^2$. Thus, it follows that
+  Since $uv$ and $v^2+u^2$ are relatively prime, the fact that $4uv(v^2+u^2)$ is a square implies that both $uv$ and $v^2+u^2$ are squares. Given that $u$ and $v$ are relatively prime, this implies that $u$ and $v$ are squares, i.e., that there are integers $a$ and $b$ such that $u=a^2$ and $v=b^2$. Thus, it follows that
   \begin{equation*}
-    u^2+v^2=a^4+b^4
+    v^2+u^2=a^4+b^4
   \end{equation*}
   is a square, say $c^2$. We have therefore shown that any triple of positive integers $x$, $y$, and $z$ such that $x^4+y^4=z^2$ we can construct positive integers $a$, $b$, and $c$ such that
   \begin{equation*}
-    a^4 + b^4 = c^2
+    a^4 + b^4 = c^2.
   \end{equation*}
   This finishes the construction of the function $f:A\to A$. Furthermore, the strict inequality $c^2=s<s^2+t^2=z^2$ shows that $h(f(x,y,z))<h(x,y,z)$, so we conclude by the \crefnamed{theorem:method-of-descent}{method of infinite descent} that the set $A$ must be empty.
 \end{proof}
@@ -122,17 +160,110 @@ In the previous proof we introduced a set $A$ of which the elements were pairs $
 \begin{corollary}
   There is no solution to the equation
   \begin{equation*}
-    x^{4n}+y^{4n}=z^{4n},
+    x^{4}+y^{4}=z^{4},
   \end{equation*}
   where $x$, $y$, and $z$ are positive integers.
 \end{corollary}
 
 \begin{proof}
-  Given such a solution, set $a=x^n$, $b=y^n$, and $c=z^{2n}$. Then we have
+  Given such a solution, set $a=x$, $b=y$, and $c=z^{2}$. Then we have
   \begin{equation*}
     a^4+b^4=c^2,
   \end{equation*}
   which is impossible.
+\end{proof}
+
+\section{The Nonexistence of Four Squares in an Arithmetic Progression}
+
+We have shown in \cref{theorem:correspondence-arithmetic-triples-squares} that there is a bijective correspondence between arithmetic triples of squares and Pythagorean triples. It is natural to wonder whether there are any longer arithmetic progressions of squares. Fermat posed this problem in his correspondence with Bernard Frénicle de Bessy in 1640, and noted that it was impossible to find four such squares. The first publicly known proof is due to Euler. Here we will follow a proof of Alf van der Poorten \cite{vanderpoorten2007}, who observed that any four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression determine, besides the Pythagorean triples corresponding to $(a^2,b^2,c^2)$ and $(b^2,c^2,d^2)$, a third Pythagorean triple. To see this, assume the step size is a number of the form $2n$, where it follows from \cref{exercise:div-increment-a-p-squares} that $n$ is divisible by $12$, and let $x$ be the average of $b^2$ and $c^2$ so that $b^2=x-n$ and $c^2=x+n$. Then the number $y:=abcd$ satisfies
+\begin{equation*}
+  y^2=a^2b^2c^2d^2=(x-3n)(x-n)(x+n)(x+3n)=(x^2-n^2)(x^2-9n^2).
+\end{equation*}
+By completing the square, we see that
+\begin{equation*}
+  y^2=x^4-10n^2x^2+9n^4=(x^2-5n^2)^2-16n^4.
+\end{equation*}
+Thus we obtain a Pythagorean triple
+\begin{equation*}
+  y^2+(4n^2)^2=(x^2-5n^2)^2.
+\end{equation*}
+Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. This Pythagorean triple is our entry into a descent argument.
+
+\begin{lemma}
+  For every four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression we can uniquely determine a pair of relatively prime positive integers $u$ and $v$ such that $4u^2+v^2$ and $u^2+v^2$ are both squares, and the step size in the arithmetic progression of squares is $2uv$.
+\end{lemma}
+
+\begin{proof}
+  Consider four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression, where $a$, $b$, $c$, and $d$ are assumed to be relatively prime numbers of the form $6k\pm 1$, and the step size is a number of the form $2n$ so that $n$ is divisible by $12$. As previously shown, we obtain a primitive Pythagorean triple
+  \begin{equation*}
+    y^2+(4n^2)^2=(x^2-5n^2)^2,
+  \end{equation*}
+  where $y=abcd$ and $x$ is the average of $b^2$ and $c^2$.
+  
+
+  By averaging $b^2$ and $c^2$, we obtain a number $x$ such that
+  \begin{equation*}
+    a^2=x-3n,\qquad b^2=x-n,\qquad c^2=x+n,\qquad\text{and}\qquad d^2=x+3n.
+  \end{equation*}
+  Thus, the product of these four squares is of the form
+  \begin{equation*}
+    y^2=a^2b^2c^2d^2= (x^2-n^2)(x^2-9n^2).
+  \end{equation*}
+  By completing the square, we see that
+  \begin{equation*}
+    y^2=x^4-10n^2x^2+9n^4=(x^2-5n^2)^2-16n^4.
+  \end{equation*}
+  Thus we obtain a Pythagorean triple
+  \begin{equation*}
+    y^2+(4n^2)^2=(x^2-5n^2)^2.
+  \end{equation*}
+  Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. Thus there are relatively prime positive integers $2s$ and $t$ such that
+  \begin{equation*}
+    y=|t^2-4s^2|,\qquad 4n^2=4st,\qquad\text{and}\qquad x^2-5n^2=t^2+4s^2.
+  \end{equation*}
+  Since $n^2=st$ and $s$ and $t$ are relatively prime, it follows that $s=u^2$, $t=v^2$, and $uv=n$. We obtain that
+  \begin{equation*}
+    y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(v^2+4u^2)(v^2+u^2).
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}[Fermat--Euler]
+  Every arithmetic progression of length four of the integer squares is constant.
+\end{theorem}
+
+\begin{proof}
+  Consider four squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression. Then there exist relatively prime positive integers $s<t$ of opposite parity and relatively prime positive integers $u,v$ of opposite parity such that
+  \begin{align*}
+    t^2+s^2 = b & = |2uv - v^2 + u^2|, \\
+    2st + t^2 - s^2 = c & = v^2+u^2.
+  \end{align*}
+  There are two cases to consider. If we assume that $2uv - v^2 + u^2$ is nonnegative, then adding and subtracting both sides from each other and dividing by $2$ give the identities
+  \begin{align*}
+    s(t-s) & = v(v-u), \\
+    t(t+s) & = u(v+u).    
+  \end{align*}
+  Those equations added together yield $b=s^2+t^2=u^2+v^2=c$, so that the arithmetic progression $(a^2,b^2,c^2,d^2)$ is shown to be constant.
+  
+  If, on the other hand, we assume that $2uv - v^2 +u^2$ is negative, then we obtain that
+  \begin{equation*}
+    2(t^2+s^2)^2 - (2st+t^2-s^2)^2
+  \end{equation*}
+  similarly the identities
+  \begin{align*}
+    s(t-s) & = u(v+u), \\
+    t(t+s) & = v(v-u).
+  \end{align*}
+  We claim that there are no solutions with $0<s<t$ and $0<u<v$ of this system of equations. The second equation is a quadratic equation in $t$, with discriminant $s^2+4v(v-u)$. Thus, if there is to be a solution to the given system of equations, each equation seen as a quadratic equation in one variable $s$, $t$, $u$, or $v$ must have a square discriminant:
+  \begin{align*}
+    t^2+4u(v+u) & = k^2, \\
+    u^2+4t(t+s) & = l^2, \\
+    s^2+4v(v-u) & = m^2, \\
+    v^2+4s(t-s) & = n^2, \\
+  \end{align*}
+  Notice that the first two equations are the same up to swapping the roles of $t$ and $u$ and the roles of $s$ and $v$. Likewise, the last two equations are the same up to a similar swap of variables.
+  \begin{equation*}
+    k^2-l^2 = t^2-u^2 + 4(u(v+u) - t(t+s)) = (t-u)(t+u)+ 4(t-u)(t+u+s) = t^2+ts-u^2-us
+  \end{equation*}
 \end{proof}
 
 \section{Vieta Jumping}
@@ -167,8 +298,46 @@ Notice that these coefficients are themselves polynomials in the variables $a_1,
 
 Vieta jumping is a modern problem-solving technique that became popular in international contest problems.
 
+\begin{example}
+  In \cref{exercise:div-product-sum-of-squares} you were asked to show that for any two positive integers $x$ and $y$ such that $xy\mid x^2+y^2$, we must have $x=y$. The expected solution was to observe that the discriminant of the quadratic equation $x^2-kxy+y^2=0$ seen as an equation in one variable $x$ and a parameter $y$ is $(ky)^2-4y^2$, which is a square if and only if $k=2$. Although this problem can readily be solved directly, we will use it here to illustrate Vieta jumping.
+
+  We first observe that the quadratic equation
+  \begin{equation*}
+    x^2-kxy + y^2=0
+  \end{equation*}
+  arising from the divisibility condition $xy\mid x^2+y^2$ is \emph{homogeneous} in the sense that each of the three terms have the same degree in $x$ and $y$ combined. Thus, if $x$ an $y$ satisfy this polynomial equation, then so must
+  \begin{equation*}
+    x' :=\frac{x}{\gcd(x,y)}\qquad\text{and}\qquad y':=\frac{y}{\gcd(x,y)}.
+  \end{equation*}
+  We can therefore solve the problem by showing that the only pair of coprime positive integers $x$ and $y$ satisfying the polynomial equation must satisfy $x=y=1$.
+
+  To see this, we may assume without loss of generality that $0<y<x$. Given that $x$ is a solution of the quadratic equation $t^2-kty+y^2$ in the variable $t$, it follows that the other solution is $x':=ky-x$. Notice that $\gcd(ky-x,y)=1$, so that $x':=ky-x$ and $y$ are again relatively prime. Furthermore, since $xx'=y^2$ it follows that
+  \begin{equation*}
+    0<x'=\frac{y^2}{x}<y.
+  \end{equation*}
+  We have thus found a new solution with $x'<y$. Now we can swap the roles for $x'$ and $y$ and repeat the process, obtaining every smaller solutions in the positive integers. Since this is clearly impossible, it must have been impossible for there to be a pair of relatively prime positive integers $x$ and $y$ such that $xy\mid x^2+y^2$.
+\end{example}
+
 \begin{exercises}
   \exercise Use the method of infinite descent to show that if $a$ and $b$ are relatively prime and the product $ab$ is a square, then both $a$ and $b$ are squares.
+  \exercise Show that there are no positive integer squares of the form
+  \begin{equation*}
+    x^2+xy+y^2.
+  \end{equation*}
+  \exercise Show that there are no positive integer squares of the form
+  \begin{equation*}
+    2x^2+2xy+2y^2.
+  \end{equation*}
+  \exercise Show that there are no integer solutions to the equation
+  \begin{equation*}
+    x^2+y^2=3t^2
+  \end{equation*}
+  such that $t>0$.
+  \exercise Show that there are no integer solutions to the equation
+  \begin{equation*}
+    x^2+y^2+z^2=7t^2
+  \end{equation*}
+  such that $t>0$.
   \exercise Let $x$ and $y$ be positive integers satisfying the equation
   \begin{equation*}
     x^2-xy+y^2=1.
@@ -183,6 +352,12 @@ Vieta jumping is a modern problem-solving technique that became popular in inter
     \frac{x^2+y^2+z^2}{xy+yz+zx}
   \end{equation*}
   is a perfect square.
+  \exercise Prove that the area of a Pythagorean triangle cannot be twice a square.
+  \exercise Prove that the Diophantine equation
+  \begin{equation*}
+    x^4-y^4=z^2
+  \end{equation*}
+  has no solutions in the positive integers.
 \end{exercises}
 
 %%% Local Variables:

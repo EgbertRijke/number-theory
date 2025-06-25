@@ -361,6 +361,99 @@ By the previous lemma, we can test whether an integer is relatively prime to $n$
   Reduced residue systems are choices of representatives of the congruence classes in which all elements are relatively prime to $n$. Thus, the size of a reduced residue system is always equal to the number of such congruence classes.
 \end{proof}
 
+\section{The Integers Modulo \texorpdfstring{$n$}{n}}
+
+We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
+
+\begin{definition}
+  We define the set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ as the set of congruence classes modulo $n$.
+\end{definition}
+
+The set of integers modulo $n$ can be equipped with addition and multiplication in the following way:
+\begin{align*}
+  [a] + [b] & := [a+b] \\
+  [a][b] & := [ab]
+\end{align*}
+Notice that the result of these operations depends only on the equivalence classes, not on the particular integers $a$ and $b$ chosen to represent the equivalence classes $[a]$ and $[b]$. Recall from \cref{proposition:quotient-map} that we have $[a]=[a']$ if and only if $a\equiv a'\pmod{n}$, and similarly we have $[b]=[b']$ if and only if $b\equiv b'\pmod{n}$. Thus, for any $a\equiv a'\pmod{n}$ and $b\equiv b'\pmod{n}$, it follows from \cref{proposition:addition-and-multiplication-congruence} that $a+b\equiv a'+b'\pmod{n}$ and $ab\equiv a'b'\pmod{n}$. In other words, if $[a]=[a']$ and $[b]=[b']$, then we have
+\begin{align*}
+  [a]+[b] & = [a']+[b'] \\
+  [a][b] & = [a'][b'].
+\end{align*}
+This ensures that the definitions of addition and multiplication on the integers modulo $n$ is \emph{well-defined} on the congruence classes modulo $n$.
+
+\begin{remark}
+  The definitions of addition and multiplication on the integers modulo $n$ follow a general pattern of defining functions $f:A/{\sim}\to B$ out of quotient sets. Given a function $g:A\to B$, a function $f:A/{\sim}\to B$ is said to be \emph{defined by descent} from $g$ if $f$ is defined by
+  \begin{equation*}
+    f([a]) := g(a).
+  \end{equation*}
+  For this definition to make sense, the values of $f$ must depend only on the equivalence classes. In other words, if $a$ and $a'$ represent the same equivalence class, i.e., if $a\sim a'$, then we must have that $f([a])=f([a'])$, i.e., we must have that
+  \begin{equation*}
+    g(a)=g(a').
+  \end{equation*}
+  By verifying that $a\sim a'$ implies $f([a])=f([a'])$, we ensure that $f$ is \emph{well-defined}. The well-definedness condition ensures that $f$ returns the same output for all elements of the same equivalence class.
+\end{remark}
+
+\begin{example}
+  The well-definedness condition is important to verify, because not all functions are well-defined with respect to the congruence relations modulo $n$.
+
+  Take, for example, the absolute value function $a\mapsto |a|$ on the integers. Then the operation
+  \begin{equation*}
+    [a]\mapsto |a|
+  \end{equation*}
+  is not well-defined on the integers modulo $3$, because $2\equiv -1\pmod{3}$ while
+  \begin{equation*}
+    |2|\nequiv |-1|\pmod{3}.
+  \end{equation*}
+
+  Typical functions that \emph{are} well defined on congruence classes modulo $n$, include functions that are entirely built up from arithmetic operations, such as polynomials.
+\end{example}
+
+\begin{theorem}
+  The set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ form a commutative ring, i.e., it satisfies the following laws of arithmetic:
+  \begin{align*}
+    (x+y)+z & = x + (y+z) & (xy)z & = x(yz) \\
+    0+x & = x & 1x & = x \\
+    x+0 & = x & x1 & = x \\
+    x-x & = 0 & x(y+z) & = xy + xz \\
+    -x+x & = 0 & (x+y)z & = xz + yz \\
+    x+y & = y+x & xy & = yx.
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  To see that $(x+y)+z=x+(y+z)$, we first note that the variables $x$, $y$, and $z$ represent congruence classes of integers modulo $n$. Since for every congruence class there is an integer representing it, it suffices to prove that
+  \begin{equation*}
+    ([a]+[b])+[c]=[a]+([b]+[c]).
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [(a+b)+c]=[a+(b+c)].
+  \end{equation*}
+  However, the integers $(a+b)+c$ and $a+(b+c)$ are equal, so their equivalence classes are the same.
+
+  The proofs of the other properties follow a very similar pattern. We will give the proofs of commutativity of addition and distributivity of multiplication over addition from the left, but leave the other proofs to the reader.
+
+  To see that $x+y=y+x$, it suffices to show that
+  \begin{equation*}
+    [a]+[b] = [b]+[a].
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [a+b]=[b+a],
+  \end{equation*}
+  and indeed those equivalence classes are the same, because $a+b=b+a$ holds for any two integers $a$ and $b$.
+
+  To see that $x(y+z)=xy+xz$, it suffices to show that
+  \begin{equation*}
+    [a]([b]+[c]) = [a][b] + [a][c].
+  \end{equation*}
+  By unfolding the definitions, this equation reduces to
+  \begin{equation*}
+    [a(b+c)] = [ab+ac].
+  \end{equation*}
+  Again, this identification of equivalence classes holds, because we have the equality $a(b+c)=ab+ac$.
+\end{proof}
+
 \begin{exercises}
   \exercise Describe a complete residue system modulo $7$ consisting entirely of multiples of $3$.
   \exercise List all the numbers $0\leq a<6$ such that $a\equiv x^2\pmod 6$ for some $x$, and all the numbers $0\leq a<8$ such that $a\equiv x^2\pmod 8$ for some $x$.
@@ -389,8 +482,6 @@ By the previous lemma, we can test whether an integer is relatively prime to $n$
   \begin{equation*}
     (n-1)^2\mid n^k-1\qquad\text{if and only if}\qquad n-1\mid k.
   \end{equation*}
-  \exercise A pair of \emph{twin primes} is a pair of primes $p$ and $q$ such that $q-p=2$. Show that if $p$ and $q$ are twin primes strictly greater than $3$, then $pq\equiv 8\pmod{9}$.
-  \exercise Given a prime $p>3$, show that $p^2\equiv 1\pmod{24}$.
 \end{exercises}
 
 %%% Local Variables:

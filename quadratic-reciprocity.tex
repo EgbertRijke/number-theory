@@ -97,7 +97,7 @@ Since primitive roots are always quadratic nonresidues, we obtain the following 
     $r=5$ & 5  & 13 & 29 & 37 & 53 & 61  & 101 & 109 & 149 & 157 \\
     $r=7$ & 7  & 23 & 31 & 47 & 71 & 79  & 103 & 127 & 151 & 167 \\
   \end{tabular}
-  \caption{\label{table:primes-congruent-to-r-mod-8}The first ten primes congruent to $r$ modulo $8$, for $r=1,3,5,7$.}
+  \caption[The first ten primes in each residue class modulo $8$]{\label{table:primes-congruent-to-r-mod-8}The first ten primes congruent to $r$ modulo $8$, for $r=1,3,5,7$.}
 \end{table}
 
 The second supplement can be used to show that there are infinitely many primes of the form $8k+r$ for any odd number $0<r<8$. We have already seen in \cref{theorem:infinitude-of-primes-1-mod-power-of-2} that there are infinitely many primes congruent to $1$ modulo $2^n$. In particular, there are infinitely many primes of the form $8k+1$. It remains prove the analogous claims for the residue classes $3$, $5$, and $7$ modulo $8$. We will be following \Sierpinski{} \cite{sierpinski1988}. The first ten primes congruent to $r$ moduo $8$ for each odd residue class $r$ are given in \cref{table:primes-congruent-to-r-mod-8}.
@@ -216,7 +216,7 @@ which gives us a fairly quick way of determining the Legendre symbol $\legendre{
       $31$ & $-$ & $+$ & $+$ & $-$ & $-$ & $-$ & $+$ & $-$ & $-$ &  \\
       \bottomrule
     \end{tabular}
-    \caption{\label{table:legendre-symbols-distinct-odd-primes}The sign of the Legendre symbol $\legendre{q}{p}$, ranging over pairs of distinct odd primes $p$ and $q$.}
+    \caption[The sign of the Legendre symbol]{\label{table:legendre-symbols-distinct-odd-primes}The sign of the Legendre symbol $\legendre{q}{p}$, ranging over pairs of distinct odd primes $p$ and $q$.}
   \end{center}
 \end{table}
 
@@ -304,6 +304,31 @@ Legendre and Gauss spotted these patterns towards the end of the 18th century. T
 %   \legendre{a}{p}= (-1)^{\frac{p-1}{\ord_p(a)}}.
 % \end{equation*}
 % Such an exponent can therefore always be found.
+
+\begin{theorem}
+  Consider two distinct odd primes $p$ and $q$. Then the following are equivalent:
+  \begin{enumerate}
+  \item The prime $q$ is a quadratic residue modulo $p$.
+  \item The prime $p$ is of the form $4qk\pm a^2$ where $0<a<q$ is an odd integer.
+  \end{enumerate}
+\end{theorem}
+
+The previous theorem can be used at once to characterize the primes $p$ for which $3$ is a quadratic residue modulo $p$. Taking $q=3$ in the previous theorem, we find that $3$ is a quadratic residue modulo $p$ if and only if $p$ is of the form $12k\pm 1$, since the only odd quadratic residue modulo $3$ is $1$. For any odd prime $p\neq 3$, we have thus shown that
+\begin{equation*}
+  \legendre{3}{p}=
+  \begin{cases}
+    1 & \text{if }p\equiv \pm 1\pmod{12}, \\
+    -1 & \text{if }p\equiv \pm 5\pmod{12}.
+  \end{cases}
+\end{equation*}
+Likewise, we can characterize the primes $p$ for which $5$ is a quadratic residue modulo $p$. Taking $q=5$ in the previous theorem, we find that $5$ is a quadratic residue modulo $p$ if and only if $p$ is of the form $20k\pm 1$ or $20k\pm 9$, since the two odd squares modulo $5$ are $1^2$ and $3^2$. For any odd prime $p\neq 5$, we have thus shown that
+\begin{equation*}
+  \legendre{5}{p}=
+  \begin{cases}
+    1 & \text{if }p\equiv \pm 1\pmod{10}, \\
+    -1 & \text{if }p\equiv \pm 3\pmod{10}.
+  \end{cases}
+\end{equation*}
 
 \section{Gauss's Lemma}
 
@@ -442,7 +467,7 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
       
       \node[right,yshift=-1ex] at (\xmax,\ymax) {$y=\frac{13}{17}x$};    
     \end{tikzpicture}
-    \caption{\label{figure:eisenstein-quadratic-reciprocity}In Eisenstein's proof of quadratic reciprocity, we count the $\frac{p-1}{2}$ by $\frac{q-1}{2}$ lattice points in the marked rectangle as the sum of the number lattice points below the diagonal and the number of lattice points above the diagonal.}
+    \caption[Eisenstein's proof of quadratic reciprocity]{\label{figure:eisenstein-quadratic-reciprocity}In Eisenstein's proof of quadratic reciprocity, we count the $\frac{p-1}{2}$ by $\frac{q-1}{2}$ lattice points in the marked rectangle as the sum of the number lattice points below the diagonal and the number of lattice points above the diagonal.}
   \end{figure}  
   
   Consider the set of $\frac{p-1}{2}$ by $\frac{q-1}{2}$ lattice points in the positive quadrant of the plane; that is, the points with positive integer coordinates within the rectangle spanned by the four points
@@ -540,14 +565,6 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   \item $2x^2+3x+4\equiv 0\pmod{11}$.
   \item $4x^2 + 7x+14 \equiv 0\pmod{31}$.
   \end{subexenum}
-  \exercise Show that for any prime $p>3$, the Legendre symbol of $3$ is determined according to the following cases:
-  \begin{equation*}
-    \legendre{3}{p}=
-    \begin{cases}
-      1 & \text{if }p\equiv \pm 1\pmod{12}\\
-      -1 & \text{if }p\equiv \pm 5\pmod{12}.
-    \end{cases}
-  \end{equation*}
   % \exercise Determine whether the following quadratic congruences have solutions:
   % \begin{subexenum}
   % \item $x^2+x+1\equiv 0\pmod{15}$.
@@ -557,6 +574,22 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   % \item $x^2 - 2x -8 \equiv 0 \pmod{35}$.
   % \item $x^2 + x -6\equiv 0\pmod{77}$.
   % \end{subexenum}
+  \exercise Consider a prime $p>3$. Show that
+  \begin{equation*}
+    \legendre{6}{p}=
+    \begin{cases}
+      1 & \text{if }p\equiv \pm 1,\pm 5\pmod{24}, \\
+      -1 & \text{if }p\equiv \pm 7,\pm 11\pmod{24}.
+    \end{cases}
+  \end{equation*}
+  \exercise Consider an odd prime $p\neq 5$. Show that
+  \begin{equation*}
+    \legendre{10}{p}=
+    \begin{cases}
+      1 & \text{if }p\equiv \pm 1,\pm3, \pm 9,\pm 13 \pmod{40}, \\
+      -1 & \text{if }p\equiv \pm 7, \pm 11, \pm 17, \pm 19 \pmod{40}.
+    \end{cases}
+  \end{equation*}
   \exercise
   \begin{subexenum}
   \item For any integer $a>2$, let $p$ be a prime factor of $a^4-a^2+1$. Show that
@@ -570,7 +603,6 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
     to show that there are infinitely many primes congruent to $1$ modulo $12$.
   \item For each $r$ in the set $\{5,7,11\}$, show that there are infinitely many primes congruent to $r$ modulo $12$.    
   \end{subexenum}
-
 \end{exercises}
 
 %%% Local Variables:

@@ -6,7 +6,33 @@
   A natural number $n$ is presentable as the sum of two squares if and only if its square-free part is a product of primes congruent to $1$ modulo $4$.
 \end{theorem}
 
+We will give three proofs of Fermat's Two-Square Theorem in the sections following this one. In the current section we will prove some statements facilitating these three proofs.
+
+\begin{theorem}
+  Consider two nonnegative integers $a$ and $b$. If any two of the nonnegative integers $a$, $b$, and $ab$ can be written as the sum of two squares, then so can the third.
+\end{theorem}
+
+\begin{proof}
+  If $a=x^2+y^2$ and $b=u^2+v^2$, then the Brahmagupta--Fibonacci identity (\cref{exercise:brahmagupta-fibonacci-identity}) gives us that
+  \begin{equation*}
+    (x^2+y^2)(u^2+v^2) = (xu\pm yv)^2 + (xv\mp yu)^2.
+  \end{equation*}
+  This establishes $ab$ as a sum of two squares.
+
+  It remains to show that if $b$ and $ab$ are sums of two squares, then so is $a$. 
+\end{proof}
+
 \section{Euler's Proof by Infinite Descent}
+
+\begin{proof}
+  Consider an odd prime $p$. We will prove two claims:
+  \begin{enumerate}
+  \item There exist relatively prime integers $x$ and $y$ such that $p\mid x^2+y^2$.
+  \item If $p\mid x^2+y^2$, where $\gcd(x,y)=1$, then we can find relatively prime integers $u$ and $v$ such that $p=u^2+v^2$.
+  \end{enumerate}
+
+  For the second claim,
+\end{proof}
 
 \section{Zagier's Proof Using Fixed Points of Involutions}
 
@@ -61,6 +87,10 @@ Exclam! We have expressed $521$ as a sum of squares!
 \begin{theorem}
   Consider a prime $p\equiv 1\pmod{4}$ and an element $x$ such that $p\mid x^2+1$. Furthermore, consider the sequence of remainders $r_i$, where $r_0:=p$
 \end{theorem}
+
+\begin{exercises}
+  \exercise Show that a natural number $n$ can be written as the sum of two triangular numbers if and only if $8n+2$ can be written as the sum of two squares. Hint: Use one of the identities stated in \cref{exercise:identities-triangular-numbers}.
+\end{exercises}
 
 %%% Local Variables:
 %%% mode: latex

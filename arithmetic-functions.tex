@@ -379,6 +379,14 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
     \frac{\log m}{\log \left(\frac{1}{n}\sum_{i=1}^n p_i\right)}.
   \]
   Hint: Use Jensen's inequality.
+  \exercise \cite[art. 81]{gauss1986}~Consider a prime $p$. Prove that the sum of all primitive roots satisfies the following property:
+  \begin{equation*}
+    \sum_{g~\text{primitive root}\pmod{p}}g \equiv \mu(p-1)\pmod{p}.
+  \end{equation*}
+  \exercise Consider a prime $p$. Show that
+  \begin{equation*}
+    \sum_{\substack{0<n<p-1\\\gcd(n,p-1)=1}}a^n\equiv\mu(\ord_p(a))\frac{\phi(p-1)}{\phi(\ord_p(a))}\pmod{p}.
+  \end{equation*}
 \end{exercises}
 
 %%% Local Variables:

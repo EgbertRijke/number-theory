@@ -200,12 +200,12 @@ In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\si
       \node[below left] at (G) {$G$};
       \node[above right] at (H) {$H$};
 
-      \draw pic[draw=black, angle radius=15] {angle=B--A--C};
-      \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=13,yshift=-3}] {angle=D--B--C};
-      \draw pic[draw=black, angle radius=12] {angle=E--B'--D};
+      \draw pic[draw=black, angle radius=18] {angle=B--A--C};
+      \draw pic[draw=black, angle radius=18,"$\theta$" {xshift=13,yshift=-3}] {angle=D--B--C};
+      \draw pic[draw=black, angle radius=13] {angle=E--B'--D};
       \draw pic[draw=black, angle radius=10] {angle=D--E--F};
     \end{tikzpicture}
-    \caption{The recursive subdivision of the triangle $BDB'$.}
+    \caption[A diagram in the Jackson--Johnson proof]{The recursive subdivision of the triangle $BDB'$.}
     \label{figure:jackson-johnson-pythagorean-theorem}
   \end{figure}
 
@@ -261,7 +261,7 @@ The trivial solutions are $(0,1,1)$ and $(1,0,1)$. The simplest nontrivial solut
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.68\textwidth]{Plimpton_322.jpg}
-  \caption{The Babylonian tablet Plimpton 322, listing Pythagorean triples. }
+  \caption[The Babylonian tablet Plimpton 322]{The Babylonian tablet Plimpton 322, listing Pythagorean triples. }
   \label{fig:plimpton322}
 \end{figure}
 The triangle with side lengths $3$ and $4$ and a hypotenuse of length $5$ is sometimes called the \emph{Egyptian triangle}, since it is believed that the ancient Egyptians used this triangle for practical applications. The oldest surviving table of Pythagorean triples was created by the Babylonians, in what is now known as the tablet \emph{Plimpton 322}. This clay tablet, which is estimated to date from 1800 BCE, contains a mathematical table written in cuneiform script, where each row describes a Pythagorean triple in sexagesimal notation, i.e., base 60.
@@ -271,7 +271,7 @@ Some further Pythagorean triples include
   (5,12,13),\qquad (21,20,29),\qquad\text{and}\qquad (15,8,17).
 \end{equation*}
 
-Fibonacci devised in his book \emph{Liber Quadratorum} (The Book of Squares) \cite{fibonacci1225} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, i.e., if $a^2=2n+1$, then there are positive integers $b$ and $c$ such that
+Fibonacci devised in his book \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, i.e., if $a^2=2n+1$, then there are positive integers $b$ and $c$ such that
 \begin{equation*}
   b^2 = \sum_{i=0}^{n-1}(2i+1),\qquad\text{and}\qquad c^2=\sum_{i=0}^{n}(2i+1)
 \end{equation*}
@@ -333,77 +333,78 @@ In the remainder of this section we will derive the classic formula that describ
   Furthermore, since at least one of $x$ or $y$ is nonzero, it follows both $k$ and $l$ are nonzero. Thus we get $x'=x''$ from the equation $kx'=kx''$, and we get $y'=y''$ from the equation $ky'=ky''$. We conclude that $(x',y',z')=(x'',y'',z'')$.
 \end{proof}
 
-By the previous lemma we can restrict our attention to primitive Pythagorean triples. Next, we do a parity analysis of the components of a primitive Pythagorean triple.
+By the previous lemma we can restrict our attention to primitive Pythagorean triples. Next, we do a parity analysis of the components of a primitive Pythagorean triple to show that exactly one of the components of $(x,y,z)$ in a Pythagorean triple is divisible by $4$. In \cref{exercise:divisibility-legs-pythagorean-triples} we make the similar claims that exactly one of the components of a Pythagorean triple is divisible by $3$, and exactly one divisible by $5$.
 
 \begin{lemma}
-  Consider a primitive Pythagorean triple $(x,y,z)$. Then exactly one of $x$ and $y$ is even, the other is odd, and $z$ is always odd.
+  Consider a primitive Pythagorean triple $(x,y,z)$. Then $z$ is odd, exactly one of $x$ and $y$ is divisible by $4$, and the other is odd.
 \end{lemma}
 
 \begin{proof}
-  Since $(x,y,z)$ is a primitive Pythagorean triple, it is clearly impossible for both $x$ and $y$ to be even. It is also impossible for both of them to be odd, since in that case we would have
-  \begin{equation*}
-    z^2 = x^2 + y^2 \equiv 2 \pmod{4}.
-  \end{equation*}
-  However, every square is either congruent to $0$ or to $1$ modulo $4$, so this is impossible.
+  Since $(x,y,z)$ is a primitive Pythagorean triple, it is clearly impossible for both $x$ and $y$ to be even. It is also impossible for both of them to be odd, since in that case $z^2$ would be of the form $4k+2$, which is impossible since every square is of the form $4k$ or $4k+1$. Thus, one of $x$ and $y$ is even and the other is odd. This gives us that $z^2$ is odd, which is only possible if $z$ is odd.
 
-  Thus, one of $x$ and $y$ is even and the other is odd. This gives us that $z^2$ is odd, which is only possible if $z$ is odd.
+  It remains to show that the even component among $x$ and $y$ is in fact divisible by $4$. To this end, recall that every square is of the form $8k$, $8k+1$, or $8k+4$. Since $x^2+y^2=z^2$ is of the form $8k+1$, it is impossible for one of the squares $x^2$ or $y^2$ to be of the form $8k+4$. It follows that the even square is of the form $8k$. If $x^2$ is divisible by $8$, then clearly $x$ is divisible by $4$, and likewise if $y^2$ is divisible by $8$ then $y$ is divisible by $4$.
 \end{proof}
 
-By the previous lemma we may assume, without loss of generality, that in a primitive Pythagorean triple $(x,y,z)$, the integer $x$ is odd and the integer $y$ is even.
+By the previous lemma we may assume, without loss of generality, that in a primitive Pythagorean triple $(x,y,z)$, the integer $x$ is odd and the integer $y$ is even. Under this assumption, we can show that $z-x$ and $z+x$ double a square, which leads us directly to Euclid's parametrization of the Pythagorean triples.
 
-Next, we note that $x^2=z^2-y^2$, which factors by the formula for the difference of squares as
-\begin{equation*}
-  x^2=(z-y)(z+y).
-\end{equation*}
-In the following lemma we will show that for any primitive Pythagorean triple $(x,y,z)$, the factors $z-y$ and $z+y$ of $x^2$ are relatively prime. This immediately implies that they are both squares, which is the key to Euclid's parametrization of the Pythagorean triples.
-
-\begin{lemma}\label{lemma:pythagorean-triples}
-  Suppose that $(x,y,z)$ is a primitive Pythagorean triple in which $y$ is even. Then the integers $z-y$ and $z+y$ are relatively prime, and they are both squares.
+\begin{lemma}\label{lemma:euclids-parametrization}
+  Consider a primitive Pythagorean triple $(x,y,z)$ in which $y$ is even, so that $x$ is odd. Then there are two relatively prime positive integers $s<t$ of opposite parity, such that
+  \begin{equation*}
+    z-x=2s^2 \qquad\text{and}\qquad z+x=2t^2.
+  \end{equation*}
 \end{lemma}
 
 \begin{proof}
-  Consider a common divisor $d$ of $z-y$ and $z+y$. Then we have
+  By the assumption that $y$ is even, we can write $y=2u$. Then we have
   \begin{equation*}
-    d\mid (z+y)-(z-y) = 2y, \qquad\text{and}\qquad d\mid (z+y) + (z-y) = 2z.
+    (z-x)(z+x) = z^2-x^2 = y^2 = 4u^2.
   \end{equation*}
-  The integer $d$ is therefore a common divisor of $2y$ and $2z$. Since $y$ and $z$ are relatively prime, it follows that $d\mid 2$.
-
-  Furthermore, we note that $d\mid (z-y)(z+y)= z^2-y^2 = x^2$. Since $x$ is odd, it follows that $d$ must be odd, and therefore we conclude that $d=1$. This shows that $z+y$ and $z-y$ are relatively prime.
-
-  Now we note again that $(z-y)(z+y)=x^2$. Since $z-y$ and $z+y$ are both factors of $x^2$ and they are relatively prime, it follows that they must both be squares.
+  Any common divisor $d$ of $z-x$ and $z+x$ must divide their sum $2z$ and their difference $2x$. However, since $x$ and $z$ are relatively prime, it follows that $d\mid 2$. On the other hand, since both $x$ and $z$ are odd it follows that $z\pm x$ is even, which implies that $d=2$. Thus we see that
+  \begin{equation*}
+    \left(\frac{z-x}{2}\right)\left(\frac{z+x}{2}\right)=u^2
+  \end{equation*}
+  is a decomposition of a square into relatively prime factors. This implies that each factor is itself a square. More precisely, there are two relatively prime positive integers $s<t$ such that
+  \begin{equation*}
+    \frac{z-x}{2}=s^2\qquad\text{and}\qquad\frac{z+x}{2}=t^2.
+  \end{equation*}
+  Furthermore, observe that since $z$ and $x$ are both odd, it follows that one of $z-x$ and $z+x$ is divisible by $4$ and the other is of the form $4k+2$. This implies that one of $s$ and $t$ is even and the other is odd.
 \end{proof}
 
-\begin{theorem}[The Pythagorean Triples Theorem]
-  For every primitive Pythagorean triple $(x,y,z)$ in which $y$ is even there is a unique pair $(s,t)$ of relatively prime odd integers with $1\leq t< s$, such that
+\begin{theorem}[Euclid’s Parametrization of the Pythagorean Triples]\label{theorem:euclids-parametrization}
+  For every primitive Pythagorean triple $(x,y,z)$ with $y$ even, we can uniquely determine two relatively prime positive integers $s<t$ of opposite parity such that
   \begin{equation*}
-    x=st,\qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad c=\frac{s^2+t^2}{2}.
+    x=t^2-s^2,\qquad y=2st,\qquad\text{and}\qquad z=t^2+s^2.
   \end{equation*}
 \end{theorem}
 
 \begin{proof}
-  First, we show that for any two odd integers $0\leq t<s$ that are relatively prime, the integers
+  To prove that two relatively prime integers $0<s<t$ exist as specified, we will use $s$ and $t$ as determined in \cref{lemma:euclids-parametrization}, where
   \begin{equation*}
-    x=st, \qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad z=\frac{s^2+t^2}{2}.
+    \frac{z-x}{2}=s^2,\qquad\text{and}\qquad\frac{z+x}{2}=t^2.
   \end{equation*}
-  form a primitive Pythagorean triple. It is easy to see that they form a Pythagorean triple. We simply calculate
+  A simple calculation shows that $t^2-s^2=x$, and $t^2+s^2=z$. To see that $y=2st$, it suffices to show that $y^2=4s^2t^2$. This follows from the following short calculation:
   \begin{equation*}
-    s^2t^2 + \frac{(s^2-t^2)^2}{4} = \frac{s^4 + 2s^2t^2 + t^4}{4} = \frac{(s^2+t^2)^2}{4}.
+    4s^2t^2=(z-x)(z+x)=z^2-x^2=y^2.
   \end{equation*}
-  To see that $st$ and $(s^2-t^2)/2$ are relatively prime, consider a common prime divisor $p$ of $st$ and $(s^2-t^2)/2$. Since $p\mid st$, it follows that either $p\mid s$ or $p\mid t$. Since $p\mid s^2-t^2$ and $p$ divides one of the integers $s$ and $t$, it follows that $p$ also divides the other one. However, $s$ and $t$ have no common prime factors, so we have reached a contradiction. Thus we conclude that there are no common prime factors of $st$ and $(s^2-t^2)/2$, and hence they must be relatively prime. This proves the claim that $(x,y,z)$ is a primitive Pythagorean triple.
-  
-  Now consider a primitive Pythagorean triple $(x,y,z)$ in which $y$ is even. By \cref{lemma:pythagorean-triples} it follows that $z-y$ and $z+y$ are relatively prime, and are both squares. Thus there are nonnegative integers $s$ and $t$ with $t<s$ such that
-  \begin{equation*}
-    s^2 = z + y, \qquad\text{and}\qquad t^2=z-y.
-  \end{equation*}
-  Since $z$ is odd and $y$ is even, it follows that both $s$ and $t$ are odd. Furthermore, since $z+y$ and $z-y$ are relatively prime, it follows that $s$ and $t$ are relatively prime.
 
-  Then we see by a direct calculation that
-  \begin{equation*}
-    x=st, \qquad y=\frac{s^2-t^2}{2},\qquad\text{and}\qquad z=\frac{s^2+t^2}{2}.\qedhere
+  In order to show that $s$ and $t$ are uniquely determined as specified, consider additionally two relatively prime positive integers $u<v$ of opposite parity such that
+    \begin{equation*}
+    x=v^2-u^2,\qquad y=2uv,\qquad\text{and}\qquad z=v^2+u^2.
   \end{equation*}
+  then $z-x=2u^2$ and $z+x=2v^2$, while at the same time we have $z-x=2s^2$ and $z+x=2t^2$. This implies $s^2=u^2$ and $t^2=v^2$. Since all the numbers involved are positive, we obtain that $s=u$ and $t=v$.
 \end{proof}
 
 \section{Rational Points on the Unit Circle}
+
+The unit circle consists of all points $(u,v)$ that are a unit distance from the origin. In other words, a point $(u,v)$ in the plane with real number coordinates lies on the unit circle if it satisfies the condition
+\begin{equation*}
+  u^2+v^2=1.
+\end{equation*}
+Every Pythagorean triple $(x,y,z)$ corresponds to a point
+\begin{equation*}
+  \left(\frac{x}{z},\frac{y}{z}\right)
+\end{equation*}
+on the unit circle. Since both coordinates of the point $(\frac{x}{z},\frac{y}{z})$ are rational numbers, we say that this point is a \emph{rational point} on the unit circle.
 
 \begin{figure}[t]
   \begin{center}
@@ -441,13 +442,13 @@ In the following lemma we will show that for any primitive Pythagorean triple $(
       % Draw the node
       \draw[fill=white,thick] (P1) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1ex] {\(\left(\frac{117}{125}, \frac{44}{125}\right)\)};
       \draw[fill=white,thick] (P2) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1ex,yshift=-1pt] {\(\left(\frac{45}{53},-\frac{28}{53}\right)\)};
-      \draw[fill=white,thick] (P3) circle (.5pt) node[rounded corners=2pt,above,fill=white, inner sep=1pt,yshift=1.5ex] {\(\left(\frac{5}{13},\frac{12}{13}\right)\)}; 
+      \draw[fill=white,thick] (P3) circle (.5pt) node[rounded corners=2pt,above,fill=white, inner sep=1pt,yshift=1.4ex] {\(\left(\frac{5}{13},\frac{12}{13}\right)\)}; 
       \draw[fill=white,thick] (P4) circle (.5pt) node[rounded corners=2pt,below,fill=white, inner sep=1pt,yshift=-1.5ex,xshift=-1ex] {\(\left(-\frac{3}{5},\frac{4}{5}\right)\)};
       \draw[fill=black,thick] (1,0) circle (.5pt);
       
     \end{tikzpicture}
   \end{center}
-  \caption{For any rational point $(x,y)$ on the unit circle apart from $(0,\pm1)$ and $(\pm1,0)$, draw a straight line through it from the outer corner of its quadrant to find a new rational point $(x',y')$ on the unit circle. The common denominator of $(x',y')$ is strictly smaller than that of $(x,y)$, so that this process eventually terminates at $(0,\pm1)$ or $(\pm1,0)$.}
+  \caption[Vieta jumps between rational points on the unit circle]{For any rational point $(x,y)$ on the unit circle apart from $(0,\pm1)$ and $(\pm1,0)$, draw a straight line through it from the outer corner of its quadrant to find a new rational point $(x',y')$ on the unit circle. The common denominator of $(x',y')$ is strictly smaller than that of $(x,y)$, so that this process eventually terminates at $(0,\pm1)$ or $(\pm1,0)$.}
 \end{figure}
 
 \section{The Tree of Primitive Pythagorean Triples}
@@ -481,6 +482,283 @@ The set of all primitive Pythagorean triples has the structure of a rooted terna
   \right)
 \end{equation*}
 
+\section{Squares in Arithmetic Progressions}
+
+\begin{wrapfigure}[16]{r}{0.4\textwidth}
+  \centering
+  \begin{tikzpicture}
+    \node[inner sep=0pt, rounded corners=0.2em, clip] {%
+      \includegraphics[width=0.38\textwidth]{Fibonacci.jpg}%
+    };
+  \end{tikzpicture}
+  \caption[Leonardo Pisano]{\sloppy{Leonardo Pisano.}}
+  \label{fig:frederick}
+\end{wrapfigure}
+The Euclidean parametrization of the Pythagorean triples has some further applications, but in order to get there we must make a short excursion to the city of Pisa in the 13th century, where Frederick~II reigned as the Holy Roman Emperor, and King of Sicily, Jerusalem, and Apulia. When Leonardo Pisano, more commonly known as Fibonacci, was summoned to the court of Frederick~II, he met with Master John of Palermo who challenged him with mathematical problems.
+
+One of the challenges of Master John is stated as follows: Find a rational number $q$ such that the numbers
+\begin{equation*}
+  q^2-5 \qquad\text{and}\qquad q^2+5
+\end{equation*}
+are both squares of rational numbers. Fibonacci's investigations into this problem would eventually lead him to write his \emph{Liber Quadratorum} \cite{fibonacci1987}. The Liber Quadratorum covers topics such as Pythagorean triples, a method of generating infinitely many of them, and arithmetic progressions of squares. There were no known remaining copies of the Liber Quadratorum until a 15th century copy was rediscovered in the Biblioteca Ambrosiana in Milan, which was republished in print in 1857 by the Italian historian and mathematician Baldassarre Boncompagni Ludovisi. Today, the work available in an English translation by Laurence E.~Sigler as \emph{The Book of Squares} \cite{fibonacci1987}.
+
+Master John's challenge is equivalently formulated as the question of finding four integers $a$, $b$, $c$, and $t$ such that
+\begin{equation*}
+  b^2-a^2=5t^2\qquad\text{and}\qquad c^2-b^2=5t^2.
+\end{equation*}
+Thus, we are looking for three squares $a^2$, $b^2$, and $c^2$ increasing in increments of $5t^2$. Thus we see that we can conveniently state the problem in terms of arithmetic triples of squares.
+
+\begin{definition}
+  An \emph{arithmetic triple of squares} is a triple $(a^2,b^2,c^2)$ consisting of integer squares such that
+  \begin{equation*}
+    b^2-a^2=c^2-b^2.
+  \end{equation*}
+  This common increment is denoted by $\Delta_{a,b,c}$, or simply $\Delta$. An arithmetic triple of squares $(a^2,b^2,c^2)$ is said to be \emph{primitive} if $\gcd(a,b,c)=1$.
+\end{definition}
+
+It follows immediately from the definition that if $(a^2,b^2,c^2)$ is a primitive arithmetic triple of squares, then $a$, $b$, and $c$ are also pairwise relatively prime.
+
+We are thus looking for an arithmetic triple of squares, with increment of the form $\Delta:=5t^2$. In \cref{exercise:div-increment-a-p-squares} you were asked to show that the increment $\Delta$ of an arithmetic triple of squares is always divisible by $24$, which Fibonacci also reported on in Liber Quadratorum. We conclude from this observation that if $\Delta$ is of the form $5t^2$ then $\Delta$ must be a multiple of $2\cdot3\cdot 5 \cdot 24=720$.
+
+\begin{figure}[t]
+  \centering
+  \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}
+      \pgfmathdeclarefunction{dn}{1}{%
+        \pgfmathparse{mod(#1,2)==1 ? #1 : int(#1/2)}%
+      }
+
+      \pgfmathtruncatemacro{\rmax}{9}
+      \pgfmathtruncatemacro{\cwidth}{2*\rmax-1}
+      % Loop over rows
+      \foreach \row in {1,...,\rmax} {%
+        
+        % Vertical position
+        \pgfmathsetmacro\y{(\row-1)*sqrt(3)/2}%
+        
+        % Columns shrink by one each row up
+        \pgfmathtruncatemacro\maxc{\cwidth-(\row-1)}%
+        
+        \foreach \col in {1,...,\maxc} {%
+          \pgfmathtruncatemacro\S{0}%
+          \pgfmathtruncatemacro\J{0}%
+          \pgfmathtruncatemacro\limit{\row}%
+          \pgfmathloop
+          \ifnum\J<\limit
+            \pgfmathtruncatemacro\term{dn(\col+\J)}%
+            \pgfmathtruncatemacro\S{\S+\term}%
+            \pgfmathtruncatemacro\J{\J+1}%
+            \repeatpgfmathloop
+            \node[draw,thick,circle,minimum size=6mm,inner sep=0pt,align=center,font=\small]
+              (nC\col R\row) at ({(\col-1)+(\row-1)/2},\y) {\S};%
+            }%
+          
+        \foreach \col in {1,...,\maxc} {
+          \pgfmathtruncatemacro{\ncol}{\col+1}
+          \pgfmathtruncatemacro{\prow}{\row-1}
+          
+          \ifnum\row>1\relax
+            \draw[thick] (nC\col R\row) -- (nC\col R\prow);%
+            \draw[thick] (nC\col R\row) -- (nC\ncol R\prow);%
+          \fi
+        }%
+      }%
+      
+      \foreach \base in {0,...,\cwidth} {%
+        \pgfmathsetmacro\y{(-1)*sqrt(3)/2}
+        \pgfmathtruncatemacro\pmone{\ifodd\base -1\else 1\fi}
+        \pgfmathtruncatemacro\half{int((\base+1)/2)}
+        \pgfmathtruncatemacro\rootval{6*\half + \pmone}
+        
+        \node[draw,thick,rectangle,minimum size=5.5mm,inner sep=0pt,align=center,font=\small] (b\base) at ({\base-1/2},\y) {\rootval};
+        \pgfmathtruncatemacro{\leftcol}{\base}
+        \pgfmathtruncatemacro{\rightcol}{\base+1}
+        \ifnum\base<\cwidth
+          \draw[thick] (b\base) -- (nC\rightcol R1);
+        \fi
+        \ifnum\base>0
+          \draw[thick] (b\base) -- (nC\leftcol R1);
+        \fi
+      }
+
+      % \begin{scope}[on background layer]
+      %   \foreach \rowone in {1,...,\rmax}
+      %   {
+      %     \pgfmathtruncatemacro\maxc{\cwidth-(\rowone-1)}
+      %     \foreach \colone in {1,...,\maxc}
+      %     {
+      %       \foreach \rowtwo in {1,...,\colone}
+      %       {
+      %         \pgfmathtruncatemacro\Sone{0}%
+      %         \pgfmathtruncatemacro\Jone{0}%
+      %         \pgfmathtruncatemacro\limitone{\rowone}%
+      %         \pgfmathloop
+      %         \ifnum\Jone<\limitone
+      %           \pgfmathtruncatemacro\termone{dn(\colone+\Jone)}%
+      %           \pgfmathtruncatemacro\Sone{\Sone+\termone}%
+      %           \pgfmathtruncatemacro\Jone{\Jone+1}%
+      %           \repeatpgfmathloop
+                
+      %         \pgfmathtruncatemacro\coltwo{\colone-\rowtwo}
+      %         \pgfmathtruncatemacro\maxctwo{\cwidth-(\rowtwo-1)}
+      %         \pgfmathtruncatemacro\Stwo{0}%
+      %         \pgfmathtruncatemacro\Jtwo{0}%
+      %         \pgfmathtruncatemacro\limittwo{\rowtwo}%
+      %         \pgfmathloop
+      %         \ifnum\Jtwo<\limittwo
+      %           \pgfmathtruncatemacro\termtwo{dn(\coltwo+\Jtwo)}%
+      %           \pgfmathtruncatemacro\Stwo{\Stwo+\termtwo}%
+      %           \pgfmathtruncatemacro\Jtwo{\Jtwo+1}%
+      %           \repeatpgfmathloop
+                
+      %         \ifnum\Sone=\Stwo\relax
+      %           % fill both nodes
+      %           \fill[YellowOrange] (nC\colone R\rowone) circle (3mm);
+      %           \fill[CornflowerBlue] (nC\coltwo R\rowtwo) circle (3mm);
+      %         \fi
+      %       }
+      %     }
+      %   }
+      % \end{scope}
+      
+      \begin{scope}[on background layer]
+        \fill[CornflowerBlue] (nC1R1) circle (3mm);
+        \fill[YellowOrange] (nC2R1) circle (3mm);
+        \fill[CornflowerBlue] (nC3R2) circle (3mm);
+        \fill[YellowOrange] (nC5R1) circle (3mm);
+        \fill[CornflowerBlue] (nC3R3) circle (3mm);
+        \fill[YellowOrange] (nC6R2) circle (3mm);
+        \fill[CornflowerBlue] (nC6R3) circle (3mm);
+        \fill[YellowOrange] (nC9R2) circle (3mm);
+        \fill[CornflowerBlue] (nC1R9) circle (3mm);
+        \fill[YellowOrange] (nC10R4) circle (3mm);
+        \fill[CornflowerBlue] (nC8R5) circle (3mm);
+        \fill[YellowOrange] (nC13R3) circle (3mm);
+        \fill[CornflowerBlue] (nC11R3) circle (3mm);
+        \fill[YellowOrange] (nC14R3) circle (3mm);
+      \end{scope}
+    \end{tikzpicture}
+  }
+  \caption[Differences of squares congruent to $1$ modulo $24$]{\label{figure:quotients-of-differences-of-squares}The numbers in squares at the base of the grid are the numbers of the form $6m\pm 1$, which correspond exactly to all the numbers $n$ such that $n^2-1$ is divisible by $24$. If $x$ and $y$ are two numbers in squares at the base of the grid, then the number $k$ at the apex of the triangle spanned by $x$ and $y$ satisfies $y^2-x^2=k\cdot 24$. For each primitive arithmetic triple $(x^2,y^2,z^2)$ of squares, the apex of the triangle spanned by $x$ and $y$ is marked in blue, and the apex of the triangle spanned by $y$ and $z$ is marked in orange.
+  }
+\end{figure}
+
+The fact that the common increment in an arithmetic triple of squares is always a multiple of $24$ implies that primitive arithmetic triples of squares consist entirely of integers of the form $(6m\pm 1)^2$. Any such square exceeds a multiple of $24$ by one. This significantly reduces the search space for arithmetic triples of squares. If $a_n$ is the $n$th positive integer of the form $(6k\pm 1)^2$, then
+\begin{equation*}
+  d_n:=\frac{a_{n+1}-a_n}{24}=
+  \begin{cases}
+    n & \text{if $n$ is odd,}\\
+    n/2 & \text{if $n$ is even.}
+  \end{cases}
+\end{equation*}
+In order to determine the number of units of $24$ in the difference between two arbitrary numbers of the form $(6m\pm 1)^2$, we simply sum the numbers $d_n$: We define
+\begin{equation*}
+  s_{n,m}:=\sum_{i=0}^md_{n+i}=\frac{a_{n+m+1}-a_n}{24}.
+\end{equation*}
+Alternatively, the numbers $s_{n,m}$ are determined by the recursive rule $s_{n,m}=s_{n+1,m-1}+s_{n,m-1}-s_{n+1,m-2}$.
+The numbers $s_{n,m}$ are displayed in \cref{figure:quotients-of-differences-of-squares}, from which we determine that:
+    \begin{align*}
+      5^2-1^2 & = 7^2-5^2 & & = 1\cdot 24, \\
+      13^2 - 7^2 & = 17^2 - 13^2 & & = 5\cdot 24, \\
+      17^2 - 7^2 & = 23^2 - 17^2 & & = 10\cdot 24, \\
+      25^2 - 17^2 & = 31^2 - 25^2 & & = 14\cdot 24, \\ 
+      29^2 - 1^2 & = 41^2 - 29^2 & & = 35\cdot 24, \\
+      37^2 - 23^2 & = 47^2 - 37^2 & & = 35\cdot 24, \\
+      41^2 - 31^2 & = 49^2 - 41^2 & & = 30\cdot 24.
+    \end{align*}
+The solution to Master John's problem to Fibonacci, which Fibonacci reported in Proposition 17 of \emph{Liber Quadratorum}, thus corresponds to the last listed arithmetic triple of squares, which gives
+\begin{equation*}
+  \left(\frac{41}{12}\right)^2-\left(\frac{31}{12}\right)^2=\left(\frac{49}{12}\right)^2-\left(\frac{41}{12}\right)^2=5.
+\end{equation*}
+
+% \begin{proposition}
+%   If $a$, $b$, and $c$ are integers such that
+%   \begin{equation*}
+%     \Delta:=b^2-a^2=c^2-b^2,
+%   \end{equation*}
+%   then $24\mid \Delta$.
+% \end{proposition}
+
+% \begin{proof}
+%   We will prove separately that $\Delta$ is of the form $8k$ and of the form $3k$. Recall that even squares are of the form $4k$, while odd squares are of the form $8k+1$, implying that differences of squares cannot be of the form $4k+2$. Since both $\Delta$ and $2\Delta$ occur as the difference of squares, where $2\Delta=c^2-a^2$, it follows that $\Delta$ must be of the form $4k$.
+
+%   It follows that $a^2$, $b^2$, and $c^2$ are either all even or all odd. By dividing out any common factors of $a^2$, $b^2$, and $c^2$ we may assume that they are all odd, which implies that $\Delta$ is a multiple of $8$.
+
+%   To see that $\Delta$ is a multiple of $3$, recall that all odd squares are of the form $36k+9$ or $12k+1$, so that differences of odd squares are of the form $12k$, $12k+8$, or $12k+10$. Since $\Delta=b^2-a^2$ can only be of the form $12k+8$ if $b\equiv \pm{1}\pmod{6}$ and $a\equiv 3\pmod 6$, there cannot be a square $c^2$ such that $c^2-b^2$ is also of the form $12k+8$. Likewise we rule out $12k+10$ from the possible options for $\Delta$. Thus, we conclude that $\Delta$ is a multiple of $12$, and in particular it is a multiple of $3$.
+% \end{proof}
+
+Arithmetic triples of squares are closely related to Pythagorean triples. Given an arithmetic triple of squares $(a^2,b^2,c^2)$, we can write $b^2$ as a sum of two squares written in terms of $a$ and $c$. The crucial identity that leads to the construction of a Pythagorean triple using the integers $a$, $b$, and $c$ is
+\begin{equation*}
+  c^2+a^2=2b^2.
+\end{equation*}
+Using this identity, we see that
+\begin{equation*}
+  \frac{(c-a)^2}{4}+\frac{(c+a)^2}{4}= \frac{c^2-2ac+a^2}{4}+\frac{c^2+2ac+a^2}{4} = \frac{c^2+ a^2}{2} = b^2.
+\end{equation*}
+Thus, if $(a^2,b^2,c^2)$ is an arithmetic progression of squares, then the integers
+\begin{equation*}
+  x := \frac{c-a}{2},\qquad y:= \frac{c+a}{2},\qquad\text{and}\qquad z:= b
+\end{equation*}
+determine a Pythagorean triple $(x,y,z)$. Conversely, if $(x,y,z)$ is a Pythagorean triple, then we define
+\begin{equation*}
+  a := |y-x|, \qquad b := z,\qquad\text{and}\qquad c:= y+x,
+\end{equation*}
+so that $(a^2,b^2,c^2)$ is easily seen to be an arithmetic triple of squares. Here, we defined $a$ to be the \emph{distance} between $y$ and $x$ in order to ensure that $a$ is positive. The common increment in this arithmetic triple is given by
+\begin{equation*}
+  z^2-(y-x)^2=2xy,
+\end{equation*}
+which is four times the area of the Pythagorean triangle described by the Pythagorean triple $(x,y,z)$.
+The operations thus described create the following correspondence between some of the most familiar arithmetic triples of squares and Pythagorean triples:
+\begin{align*}
+  (1^2,5^2,7^2)   & \bimapsto (3,4,5), \\
+  (7^2,13^2,17^2) & \bimapsto (5,12,13), \\
+  (1^2,29^2,41^2) & \bimapsto (21,20,29), \\
+  (7^2,17^2,23^2) & \bimapsto (15,8,17).
+\end{align*}
+The fact that these operations mapping arithmetic triples of squares to Pythagorean triples and back are mutually inverse to each other is easily verified by a few quick computations, which we leave to the reader. Thus, we have established:
+
+\begin{theorem}\label{theorem:correspondence-arithmetic-triples-squares}
+  Arithmetic triples $(a^2,b^2,c^2)$ of squares are in bijective correspondence with Pythagorean triples $(x,y,z)$, so that primitive arithmetic triples of squares correspond to primitive Pythagorean triples.
+\end{theorem}
+
+\begin{proof}
+  We only prove that $(a^2,b^2,c^2)$ is a primitive arithmetic triple of squares if and only if the Pythagorean triple
+  \begin{equation*}
+    \left(\tfrac{c-a}{2},\tfrac{c+a}{2},b\right)
+  \end{equation*}
+  is primitive.
+
+  For the forward direction, assume that $\gcd(a,b,c)=1$. To see that $(c-a)/2$ and $(c+a)/2$ are relatively prime, it suffices to show that any common divisor $d$ of $c-a$ and $c+a$ is a divisor of $2$. Indeed, if $d$ is a common divisor of $c-a$ and $c+a$, then it is also a common divisor of $2a=(c+a)-(c-a)$ and $2c=(c+a)+(c-a)$. Since $a$ and $c$ are relatively prime, it follows that $d$ is a divisor of $2$.
+
+  Likewise, to show that $(c-a)/2$ and $b$ are relatively prime, we note that since $b$ is odd it suffices to show that $c-a$ and $b$ are relatively prime, which is only the case if $(c-a)^2$ and $b^2$ are relatively prime. This follows from
+  \begin{equation*}
+    (c-a)^2=c^2+a^2-2ac=2b^2-2ac,
+  \end{equation*}
+  since any common divisor of $(c-a)^2$ and $b^2$ is also a common divisor of $b^2$ and $2ac$, which are relatively prime by assumption. The proof that $(c+a)/2$ and $b$ are relatively prime is similar. 
+
+  For the reverse direction, assume that
+  \begin{equation*}
+    \left(\tfrac{c-a}{2},\tfrac{c+a}{2},b\right)
+  \end{equation*}
+  is a primitive Pythagorean triple, so that $b$ is odd, and thus $b$, $(c-a)/2$, and $(c+a)/2$ are all pairwise relatively prime. Then any common divisor $d$ of $a$ and $c$ is also a common divisor of $(c-a)/2$ and $(c+a)/2$, so that $a$ and $c$ are seen to be relatively prime.
+
+  We will prove that $(x,y,z)$ is a primitive Pythagorean triple if and only if
+  \begin{equation*}
+    ((y-x)^2,z^2,(y+x)^2)
+  \end{equation*}
+  is a primitive arithmetic triple of squares. By Euclid's parametrization of Pythagorean triples, it suffices to show that for any two
+\end{proof}
+
+The previous theorem raises an interesting point. Since the primitive Pythagorean triples are precisely described by Euclid's parametrization, there must similarly be a parametrization of the arithmetic triples of squares.
+
+\begin{corollary}
+  For any primitive arithmetic triple of squares $(a^2,b^2,c^2)$, we can uniquely determine two relatively prime positive integers $s<t$ of opposite parity such that
+  \begin{equation*}
+    a=2st-t^2+s^2,\qquad b=t^2+s^2,\qquad\text{and}\qquad c=2st+t^2-s^2
+  \end{equation*}
+  with common difference $d= 2st(t-s)^2$.
+\end{corollary}
+
 \begin{exercises}
   \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}:
   \begin{equation*}
@@ -492,11 +770,89 @@ The set of all primitive Pythagorean triples has the structure of a rooted terna
     \end{tikzpicture}
   \end{equation*}
   \exercise \label{exercise:addition-laws-sin-cos}
-  \exercise \emph{The Brahmagupta--Fibonacci identity.} Show that
+  \exercise \label{exercise:brahmagupta-fibonacci-identity}\emph{The Brahmagupta--Fibonacci identity.} Show that
   \begin{equation*}
     (a^2+b^2)(c^2+d^2)=(ac\pm bd)^2 + (ad\mp bc)^2.
   \end{equation*}
   Conclude that if $m$ and $n$ are two integers that can be written as the sum of two squares, then their product $mn$ can also be written as the sum of two squares.
+  \exercise \label{exercise:divisibility-legs-pythagorean-triples}Consider a primitive Pythagorean triple $(x,y,z)$.
+  \begin{subexenum}
+  \item Prove that exactly one of $x$, $y$, and $z$ is divisible by $3$.
+  \item Prove that exactly one of $x$, $y$, and $z$ is divisible by $5$.
+  \item Find all Pythagorean triples $(x,y,z)$ in which $x=30$ or $y=30$. Can any of them be primitive?
+    % (30,16,34),
+    % (30,40,50),
+    % (30,72,78),
+    % (30,224,226)
+  \item Find all relatively prime positive integers $x$ and $z$ such that
+    \begin{equation*}
+      x^2+60^2=z^2,
+    \end{equation*}
+    showing that the components divisible by $3$, $4$, or $5$ might all coincide.
+    % (11,60,61),
+    % (91,60,109),
+    % (221,60,229),
+    % (899,60,901).
+  \end{subexenum}
+  \exercise Show that for every positive integer $y$ divisible by $4$, there is a primitive Pythagorean triple of the form $(x,y,z)$.
+  \exercise Show that every odd positive integer $x\geq 3$ can be written in the form $s^2-t^2$, so that there is a primitive Pythagorean triple of the form $(x,y,z)$.
+  \exercise Define
+  \begin{align*}
+    x_n & := F_n F_{n+1}+(-1)^n, \\
+    y_n & := 2F_nF_{n+1}, \\
+    z_n & := F_{n}^2+F_{n+1}^2,
+  \end{align*}
+  where $F_k$ is the $k$th Fibonacci number. Show that $(x_n,y_n,z_n)$ is a Pythagorean triple for each $n$.
+  \exercise Let
+  \begin{align*}
+    a_n & := F_{n}F_{n+1}- (-1)^n, \\
+    b_n & := F_{n}^2 + F_{n+1}^2, \\
+    c_n & := 3F_{n}F_{n+1}+(-1)^{n}.
+  \end{align*}
+  be defined as in \cref{exercise:arithmetic-progression-fibonacci}, so that $(a_n^2,b_n^2,c_n^2)$ is an arithmetic triple of squares. Show that
+  \begin{equation*}
+    \gcd(a_n,b_n,c_n)=
+    \begin{cases}
+      2 & \text{if $n\equiv 1\pmod{3}$,}\\
+      1 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+    \exercise Consider three squares $a^2$, $b^2$, and $c^2$ in an arithmetic progression in increasing order.
+  \begin{subexenum}
+  \item Show that at least one of
+    \begin{equation*}
+      c-b,~c-a,~\text{and}~b-a
+    \end{equation*}
+    is divisible by $3$.
+  \item Show that at least one of
+    \begin{equation*}
+      c-b,~c-a,~\text{and}~b-a
+    \end{equation*}
+    is divisible by $4$.
+  \item Show that at least one of
+    \begin{equation*}
+      b~\text{and}~c-a
+    \end{equation*}
+    is divisible by $5$.
+  \item Find all arithmetic progressions $(a^2,b^2,c^2)$ such that $c-a=60$, where only $a$ is allowed to be negative. Are there any such triples with $\gcd(a,b,c)=1$?
+    % (-14,34,46),
+    % (10,50,70),
+    % (42,78,102),
+    % (194,226,254)
+  \item Find all \emph{primitive} arithmetic progressions $(a^2,b^2,c^2)$ such that $c-a=120$, where only $a$ is allowed to be negative. Hint: There are four such triples.
+    % (−49,61,71)
+    % (31,109,151)
+    % (161,229,281)
+    % (839,901,959)
+  \end{subexenum}
+  \exercise Find all solutions to the equation $x^2-2y^2=1$.
+  \exercise \emph{Master Theodore's problem for Leonardo Pisano \cite[Proposition 24]{fibonacci1987}.} Find three positive integers $x$, $y$, and $z$ such that the numbers
+  \begin{equation*}
+    x+y+z+x^2,\qquad x+y+z+x^2+y^2,\qquad\text{and}\qquad x+y+z+x^2+y^2+z^2
+  \end{equation*}
+  are all squares.
+  \exercise Find three distinct triangular numbers in an arithmetic progression.
+  \exercise Find three distinct tetrahedral numbers, that is, numbers of the form $\binom{n+2}{3}$, in an arithmetic progression.
 \end{exercises}
 
 %%% Local Variables:

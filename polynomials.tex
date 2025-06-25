@@ -168,7 +168,7 @@ Lagrange's Interpolation Theorem establishes that for any set of data points, th
       (2,0) circle (2pt)
       (3,1) circle (2pt);
   \end{tikzpicture}
-  \caption{A polynomial of degree $3$ obtained by Lagrange interpolation.}
+  \caption[Example polynomial obtained by Lagrange interpolation]{A polynomial of degree $3$ obtained by Lagrange interpolation.}
   \label{figure:lagrange-interpolation}
 \end{figure}
 
@@ -372,7 +372,103 @@ In the previous chapter, we have done a few exercises which asked us to show tha
     \end{equation*}
   \end{enumerate}
   We will generalize these examples in \cref{theorem:fixed-divisors-fermat-polynomials}.
-\end{example}  
+\end{example}
+
+\section{Euclid's Algorithm for Polynomials}
+
+\section{Irreducible Polynomials}
+
+\begin{definition}
+  A polynomial $f(x)=a_nx^n+\cdots +a_0$ with integer coefficients is said to be \emph{primitive} if
+  \begin{equation*}
+    \gcd(a_0,\ldots,a_n)=1.
+  \end{equation*}
+\end{definition}
+
+\begin{proposition}
+  Consider a polynomial $f$ in one variable, with rational coefficients, and let $c$ be the unique positive rational number such that
+  \begin{equation*}
+    \frac{1}{c}f(x)
+  \end{equation*}
+  is a primitive polynomial with integer coefficients. The positive rational number $c$ is called the \emph{content} of the polynomial, and is denoted by $\content(f)$.
+\end{proposition}
+
+\begin{remark}
+  The content of a polynomial $f(x)=a_nx^n+\cdots+a_n$ with integer coefficients is given by
+  \begin{equation*}
+    \content(f)=\gcd(a_0,\ldots,a_n).
+  \end{equation*}
+  The content 
+\end{remark}
+
+\begin{lemma}[Gauss's Lemma for Polynomials]
+  Consider two polynomials $f$ and $g$ in one variable $x$, with rational coefficients. Then
+  \begin{equation*}
+    \content(fg)=\content(f)\content(g).
+  \end{equation*}
+\end{lemma}
+
+\begin{corollary}
+  Consider two polynomials $f$ and $g$ with integer coefficients. Then the following are equivalent:
+  \begin{enumerate}
+  \item Both $f$ and $g$ are primitive.
+  \item The product polynomial $fg$ is primitive.
+  \end{enumerate}
+\end{corollary}
+
+\begin{theorem}[Eisenstein's Criterion]
+  Consider a polynomial $f(x)=a_nx^n+\cdots+a_0$ with integer coefficients. Suppose that there is a prime number $p$ such that:
+  \begin{enumerate}
+  \item The prime $p$ is a prime divisor of $a_i$ for every $0\leq i<n$,
+  \item The coefficient $a_n$ is not divisible by $p$,
+  \item The coefficient $a_0$ is not divisible by $p^2$.
+  \end{enumerate}
+  Then the polynomial $f$ is irreducible.
+\end{theorem}
+
+\begin{example}
+  \begin{enumerate}
+  \item For every prime $p$, the polynomial
+    \begin{equation*}
+      f(x):=1+x+x^2+\cdots x^{p-1}
+    \end{equation*}
+    is irreducible. Indeed, if we substitute $x=y+1$ in
+    \begin{equation*}
+      f(x)=\frac{x^p-1}{x-1},
+    \end{equation*}
+    we obtain
+    \begin{equation*}
+      f(y+1)=\frac{(y+1)^p-1}{y}=\sum_{i=0}^{p-1}\binom{p}{i+1}y^{i}.
+    \end{equation*}
+    This polynomial has coefficients $a_i=\binom{p}{i+1}$. Thus we see that
+    \begin{enumerate}
+    \item The binomial coefficient $\binom{p}{i+1}$ is divisible by $p$ for every $0\leq i<p-1$.
+    \item The binomial coefficient $\binom{p}{p}=1$ is not divisible by $p$.
+    \item The binomial coefficient $\binom{p}{1}=p$ is not divisible by $p^2$.
+    \end{enumerate}
+    Thus it follows from Eisenstein's criterion that $f(y+1)$ is irreducible, which implies that $f(x)$ is irreducible.
+  \item Consider a prime $p$ and a positive integer $n$ such that $p-1\nmid n$. Show that the polynomial
+    \begin{equation*}
+      (x+1)^n+\cdots+(x+p-1)^n
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      x^6+3x^5+6x^4+9x^3+6x^2+3x^1+1
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      (x+2)^n-x^n-2^n
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      (x+1)(x+2)\cdots(x+p)+1
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \end{enumerate}
+\end{example}
 
 \begin{exercises}
   \exercise Show that $x^{13}-x$ has fixed divisor

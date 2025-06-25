@@ -1,4 +1,4 @@
-\chapter{Modular Powers}
+\chapter{Residues of Powers}
 
 \section{The Multiplicative Order of an Integer Modulo $n$}
 
@@ -46,7 +46,7 @@ In the following theorem, which is also known as the \emph{Order Theorem}, we wi
 \begin{theorem}[Order Theorem]\label{theorem:order-theorem}
   The multiplicative order of an integer $a$ modulo $n$ satisfies the logical equivalence
   \begin{equation*}
-    \ord_n(a)\mid k \Leftrightarrow n \mid a^k-1
+    \ord_n(a)\mid k \Leftrightarrow n \mid a^k-1.
   \end{equation*}
 \end{theorem}
 
@@ -134,7 +134,7 @@ The logical equivalence in the definition of the order of an element can be used
 \begin{proposition}\label{proposition:order-power}
   For any integer $a$ of order $k=\ord_n(a)$, we have
   \begin{equation*}
-    \ord_n(a^m)=\frac{k}{\gcd(m,k)}
+    \ord_n(a^m)=\frac{k}{\gcd(m,k)}.
   \end{equation*}
   In particular, we have $\ord_n(a^m)=k$ if and only if $m$ and $k$ are relatively prime.
 \end{proposition}
@@ -190,6 +190,94 @@ The previous theorem is a special case of a deep theorem in analytic number theo
   p\equiv a\pmod{n}.
 \end{equation*}
 The techniques of proving Dirichlet's Theorem are beyond the scope of this course. However, having taken this course, you are well equipped to read LeVeque's excellent \emph{Topics in Number Theory} \cite{leveque1956vol1,leveque1956vol2}, a two-volume work that contains well-explained proofs of Dirichlet's Theorem as well as the Prime Number Theorem.
+
+\section{Cyclotomic Polynomials}
+
+Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. The order of any integer $a$ not divisible by $p$ is a divisor of $p-1$, so that $p-1\mid n$.
+
+If there was a way to ensure that $\ord_p(a)=p-1$ for all prime factors $p$ of $a^n-1$, we could use the polynomial $a^n-1$ to generate infinitely many primes congruent to $1$ modulo $n$. However, that is too much to ask for, since there are $\phi(d)$ integers whose order is $d$, for every divisor $d$ of $p-1$. 
+
+\begin{definition}
+  The $n$th \emph{cyclotomic polynomial} $\Phi_n$ is defined by
+  \begin{equation*}
+    \Phi_n(x) := \prod_{\substack{1\leq k \leq n\\\gcd(k,n)=1}}(x-e^{2\pi ik/n}).
+  \end{equation*}
+\end{definition}
+
+\section{The Infinitude of Primes Congruent to \texorpdfstring{$1$}{1} Modulo \texorpdfstring{$n$}{n}}
+
+\section{Zsigmundy's Theorem}
+
+\begin{exercises}
+  \exercise Show that if $ab\equiv 1\pmod{n}$, then
+  \begin{equation*}
+    \ord_n(a)=\ord_n(b).
+  \end{equation*}
+  \exercise Consider an integer $a$. Show that if
+  \begin{equation*}
+    a^m-1 \mid a^n-1,
+  \end{equation*}
+  then $m\mid n$.
+  \exercise Show that $\ord_{a^k-1}(a)=k$.
+  \exercise Suppose that there is an integer $a$ of even order modulo $p$. Prove that there is a unique integer of order $2$ modulo $p$.
+  \exercise For any $d\mid \phi(n)$, prove that
+  \begin{equation*}
+    \prod_{\substack{0<x<n \\\ord_n(x)=d}}x\equiv 1\pmod n.
+  \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item Show that the following are equivalent:
+    \begin{enumerate}
+    \item There is a solution to the congruence
+      \begin{equation*}
+        x^n\equiv a\pmod{p}
+      \end{equation*}
+      of the form $x=a^k$.
+    \item The exponent $n$ is relatively prime to $\ord_p(a)$.
+    \end{enumerate}
+  \item Find a solution to the congruence
+    \begin{equation*}
+      x^3\equiv 5\pmod{13}
+    \end{equation*}
+    of the form $x=5^k$.
+  \end{subexenum}
+  \exercise
+  \begin{subexenum}
+  \item Prove that
+    \begin{equation*}
+      \Phi_n(1)=
+      \begin{cases}
+        0 & \text{if $n=1$,} \\
+        p & \text{if $n=p^k$ for some prime $p$ and $k\geq 1$,} \\
+        1 & \text{if two distinct primes divide $n$.}
+      \end{cases}
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      \Phi_n(1) = \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,n-1)}.
+    \end{equation*}
+  \end{subexenum}
+  \exercise
+  \begin{subexenum}
+  \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
+  \item Show that for any $m$, the Fibonacci sequence is periodic modulo $m$. Its period is called the \emph{Pisano period}.
+  \item Show that for any natural number $m$, there is a least positive number $n$ such that
+    \begin{equation*}
+      m\mid F_n.
+    \end{equation*}
+    We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \emph{cofibonacci sequence}.
+  \item Show that $G(m)$ satisfies the following logical equivalence
+    \begin{equation*}
+      G_m\mid n \Leftrightarrow m \mid F_n.
+    \end{equation*}
+    Conclude that the Fibonacci sequence is a strong division sequence.
+  \end{subexenum}
+  \exercise Use methods similar to the previous exercise to show that the sequence of Pell numbers $P_n$, which are defined by
+  \begin{equation*}
+    P_0:=0,\qquad P_1:=1,\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
+  \end{equation*}
+  forms a strong division sequence.
+\end{exercises}
 
 %%% Local Variables:
 %%% mode: latex

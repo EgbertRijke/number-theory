@@ -12,7 +12,7 @@ Natural numbers count elements of finite sets. The empty set has zero elements, 
 
 \begin{figure}[t]
   \centering
-\begin{tikzpicture}[thick, every node/.style={circle, draw, minimum size=6mm, inner sep=1pt}]
+\begin{tikzpicture}[thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
   % Define number of nodes and radius
   \def\n{11}
   \def\radius{2.5cm}
@@ -25,11 +25,11 @@ Natural numbers count elements of finite sets. The empty set has zero elements, 
   \foreach \i in {1,...,\n} {
     % Compute start angle
     \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
-    \draw[->, shorten >=3.5mm, shorten <=3.5mm] 
+    \draw[->, shorten >=4mm, shorten <=4mm] 
       (\angle:\radius) arc[start angle=\angle, delta angle=-360/\n, radius=\radius];
   }
 \end{tikzpicture}  
-  \caption{\label{figure:cyclically-ordered-set}A cyclically ordered set with 11 elements.}
+  \caption[A cyclically ordered set with 11 elements]{\label{figure:cyclically-ordered-set}A cyclically ordered set with 11 elements.}
 \end{figure}
 
 \begin{definition}
@@ -141,12 +141,12 @@ The idea of a cyclic order preserving map is that we can overlay the elements of
   \begin{tikzpicture}[thick]
     % parameters: number of visible nodes and horizontal separation
     \def\n{6}       
-    \def\xsep{1.5cm}
+    \def\xsep{.7in}
     
     % draw the nodes
     \foreach \i in {0,...,\n} {
       \pgfmathtruncatemacro{\value}{\i-3}
-      \node[circle, draw, minimum size=6mm, inner sep=1pt,font=\small] (N\i) at (\i*\xsep,0) {$\value$};
+      \node[circle, draw, minimum size=7mm, inner sep=1pt,font=\small] (N\i) at (\i*\xsep,0) {$\value$};
     }
     
     \pgfmathtruncatemacro{\nMinusOne}{\n-1}
@@ -166,7 +166,7 @@ The idea of a cyclic order preserving map is that we can overlay the elements of
     \draw[->, thick, dashed, shorten >=4mm, shorten <=1mm]
     (N\n) -- ++(\xsep,0);
   \end{tikzpicture}
-  \caption{\label{figure:integers}The infinite cyclic set of the integers.}
+  \caption[The infinite cyclic set of integers]{\label{figure:integers}The infinite cyclic set of integers.}
 \end{figure}
 
 Although the examples we have discussed so far are finite, the definition of cyclically ordered sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \cref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
@@ -280,7 +280,7 @@ We have given a structural definition of the set of integers as the universal cy
     }    
     
   \end{tikzpicture}
-  \caption{\label{figure:implementation-integers}The set $Z$ consists of the lattice points on the axes with natural number coordinates. Along the $a$-axis we find the nonnegative integers in their usual spots, while along the $b$-axis we find the nonpositive integers.}
+  \caption[The set of integers along the axis of the positive quadrant]{\label{figure:implementation-integers}The set $Z$ consists of the lattice points on the axes with natural number coordinates. Along the $a$-axis we find the nonnegative integers in their usual spots, while along the $b$-axis we find the nonpositive integers.}
 \end{figure}
   
 \begin{definition}

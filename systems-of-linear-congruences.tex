@@ -1,5 +1,97 @@
 \chapter{Systems of Linear Congruences}\label{chapter:systems-of-linear-congruences}
 
+\section{Solving Linear Congruences}\label{section:solving-linear-congruences}
+
+The simplest linear congruence is the linear congruence
+\begin{equation*}
+  ax\equiv b\pmod{n}.
+\end{equation*}
+To solve this linear congruence, we are tasked with finding an integer for which the congruence $ax\equiv b\pmod{n}$ holds. However, we may immediately observe that if $x\equiv x' \mod{n}$, then the congruence $ax\equiv b\pmod{n}$ holds if and only if the congruence $ax'\equiv b\pmod{n}$ holds. Thus, we are really interested in solving such congruences in $\mathbb{Z}/n\mathbb{Z}$, i.e., in finding a congruence class $[x]$ modulo $n$ for which the congruence $ax\equiv b\pmod{n}$ holds.
+
+A complete solution to the linear congruence $ax\equiv b\pmod{n}$ is a description of the set of all congruence classes $[x]$ modulo $n$ that satisfy the linear congruence. We typically list these solutions by listing the numbers $0\leq x < n$ for which the congruence holds. For example, the linear congruence
+\begin{equation*}
+  4x\equiv 2\pmod{6}
+\end{equation*}
+has two incongruent solutions modulo $6$, the congruence classes of $2$ and $5$ modulo $6$.
+
+\begin{definition}
+  We say that $a$ \emph{divides} $b$ modulo $n$ if there exists an integer $x$ for which the congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}.
+  \end{equation*}
+\end{definition}
+
+By the definition of congruence relations, the congruence $ax\equiv b\pmod{n}$ holds if and only if $n\mid ax-b$, which is equivalent to the problem of finding an integer $y$ such that the equation
+\begin{equation*}
+  ax+ny=b
+\end{equation*}
+holds. By \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} we have an exact description of the set of solutions of this equation: Given a solution $ax_0+ny_0=b$, every solution is of the form
+\begin{equation*}
+  x = x_0 + k\frac{n}{d},\qquad\text{and}\qquad y=y_0-k\frac{a}{d},
+\end{equation*}
+where $d=\gcd(a,n)$. Furthermore, a solution can be found if and only if $d\mid b$, and in this case we can find $x_0$ and $y_0$ through Euclid's algorithm for finding the greatest common divisor.
+
+Now, observe that there are exactly $d$ incongruent solutions of the equation $ax+ny=b$ modulo $n$. Thus, we can reformulate \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} in modular arithmetic as follows.
+
+\begin{theorem}\label{theorem:linear-congruence-one-variable}
+  Consider two integers $a$ and $b$, and a natural number $n$ with $d=\gcd(a,n)$. The linear congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}
+  \end{equation*}
+  is solvable if and only if $d\mid b$, and in this case the number of incongruent solutions is exactly $d$. Furthermore, if we have one solution $ax_0\equiv b\pmod{n}$, then all the solutions are of the form
+  \begin{equation*}
+    x \equiv x_0 + k\frac{n}{d}
+  \end{equation*}
+  for $0\leq k < d$.
+\end{theorem}
+
+\begin{example}
+  Consider the linear congruence
+  \begin{equation*}
+    6x \equiv 15 \pmod{21}.
+  \end{equation*}
+  The greatest common divisor of $6$ and $21$ is $\gcd(6,21)=3$. Since $15$ is divisible by $3$, we expect to find exactly $3$ incongruent solutions modulo $21$.
+
+  To find one solution, we first express $3$ as a linear combination of $6$ and $21$. Normally, we would use Euclid's algorithm to do this, but the numbers here are small enough to immediately see that
+  \begin{equation*}
+    3 = 4\cdot 6 - 21.
+  \end{equation*}
+  From this expression we find that
+  \begin{equation*}
+    15 = 20\cdot 6 - 5\cdot 21.
+  \end{equation*}
+  This gives us the solution $6\cdot 20\equiv 15\pmod{21}$. The remaining solutions are now of the form
+  \begin{equation*}
+    x\equiv 20 + k\cdot 7
+  \end{equation*}
+  for $0\leq k < 3$. In other words, the full set of incongruent solutions of the equation $6x\equiv 15\pmod{21}$ is
+  \begin{equation*}
+    \{6,13,20\}.
+  \end{equation*}
+\end{example}
+
+\begin{corollary}
+  The linear congruence $ax\equiv 1\pmod{n}$ has at most one solution, and it is solvable if and only if $\gcd(a,n)=1$.
+\end{corollary}
+
+The previous corollary connects integers relatively prime to $n$ to the integers that are \emph{invertible} modulo $n$. Indeed, if $ax\equiv 1\pmod{n}$ has a solution, then its solution $x$ also guarantees that the equality
+\begin{equation*}
+  [a][x]=[1]
+\end{equation*}
+holds in $\mathbb{Z}/n\mathbb{Z}$. In other words, the integer $a$ represents an invertible congruence class modulo $n$.
+
+\begin{example}
+  The invertible congruence classes modulo $5$ are the congruence classes of $1$, $2$, $3$, and $4$. Indeed, one can verify that
+  \begin{align*}
+    1\cdot 1 & \equiv 1\pmod{5} & 2\cdot 3 & \equiv 1\pmod{5} \\
+    3\cdot 2 & \equiv 1\pmod{5} & 4\cdot 4 & \equiv 1\pmod {5}.
+  \end{align*}
+\end{example}
+
+\begin{corollary}
+  Consider an integer $a$ relatively prime to $n$. Then the operation $x\mapsto [a]x$ is a bijection on $\mathbb{Z}/n\mathbb{Z}$.
+\end{corollary}
+
 \section{Solving Multiple Linear Congruences Simultaneously}
 
 Consider the linear congruences
@@ -64,6 +156,63 @@ In the following theorem we will prove that this system of congruences is unique
   \end{equation*}
   This linear congruence has a unique solution modulo $n$, since $\gcd(m,n)=1$. Therefore, there is exactly one integer $0\leq y_0 < n$ such that $x=my_0 + a$. Consequently, there is exactly one $0\leq x < mn$ that solves both linear congruences simultaneously.
 \end{proof}
+
+\section{A Method Suggested by Gauss}
+
+Gauss mentions in his \emph{Disquisitiones Arithmeticae} \cite[Article 36]{gauss1986} that he sometimes prefers the following method of solving systems
+\begin{equation*}
+  x\equiv a_1\pmod{m_1},~\ldots,~ x\equiv a_n\pmod{m_n}
+\end{equation*}
+of linear congruences, where $m_1,\ldots,m_n$ are pairwise relatively prime. First, we are to find numbers $e_i$ such that
+\begin{equation}\label{equation:gauss-method-crt}
+  e_i\equiv
+  \begin{cases}
+    1 \pmod{m_i}, & \\
+    0 \pmod{m_j} & \text{if }j\neq i.
+  \end{cases}
+\end{equation}
+Having found such numbers, the solution to the original system of linear congruences is given by
+\begin{equation*}
+  \sum_{j=1}^n a_je_j.
+\end{equation*}
+Indeed, by the given specification of $e_i$ it follows that
+\begin{equation*}
+  \sum_{j=1}^n a_je_j\equiv a_i\pmod{m_i}
+\end{equation*}
+for every $1\leq i\leq n$. Notice that the strategy here is quite similar to that which was used to prove \crefnamed{theorem:lagrange-interpolation}{Lagrange's interpolation theorem}.
+
+In order to find $e_i$ as specified, we need to find a multiple of $M_i := \prod_{j\neq i}m_j$ which leaves a remainder of $1$ after division by $m_i$. That is, the number $e_i$ is determined to be the number $M_i u_i$, where $u_i$ is the unique solution to the linear congruence
+\begin{equation*}
+  M_iu_i\equiv 1\pmod{m_i}.
+\end{equation*}
+In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
+
+\begin{example}
+  To illustrate Gauss's preferred method, consider the system of linear congruences
+  \begin{equation*}
+    7x\equiv 2\pmod{15},~11x\equiv 1\pmod{14},~5x\equiv 3\pmod{11}.
+  \end{equation*}
+  Before we can apply Gauss's method, we should bring each congruence to the form $x\equiv a_i\pmod{m_i}$. By inverting $7$ modulo $15$, $11$ modulo $14$, and $5$ modulo $11$, we see that the given system of linear congruences is equivalent to the system
+  \begin{equation*}
+    x\equiv 7\pmod{15},\qquad x\equiv 9\pmod{14},\qquad\text{and}\qquad x\equiv 5\pmod{11}.
+  \end{equation*}
+  In order to find $e_i$ as specified in \cref{equation:gauss-method-crt}, we need to separately solve the linear congruences
+  \begin{equation*}
+    154u_1\equiv 1\pmod{15},\qquad 165u_2\equiv 1\pmod{14},\qquad\text{and}\qquad 210x\equiv 1\pmod{11}.
+  \end{equation*}
+  These simplify as follows:
+  \begin{equation*}
+    4u_1\equiv 1\pmod{15},\qquad 11 u_2\equiv 1\pmod{14},\qquad\text{and}\qquad u_3 \equiv 1\pmod{11}.
+  \end{equation*}
+  Using the methods described in \cref{section:solving-linear-congruences}, we find the following solutions:
+  \begin{equation*}
+    u_1 \equiv 4\pmod{15},\qquad u_2\equiv 9\pmod{14},\qquad\text{and}\qquad u_3\equiv 1\pmod{11}.
+  \end{equation*}
+  This gives us $e_1:= 4\cdot 154$, $e_2:= 9\cdot 165$, and $e_3:= 1\cdot 210$, from which we obtain the final solution that
+  \begin{equation*}
+    x\equiv 7\cdot 4\cdot 154 + 9\cdot 9\cdot 165 + 5\cdot 1\cdot 210 \equiv 247 \pmod{2310}
+  \end{equation*}
+\end{example}
 
 % \begin{theorem}
 %   A system of two linear congruences
@@ -167,6 +316,20 @@ In the following theorem we will prove that this system of congruences is unique
   \end{equation*}
   Compute the congruence class of $y$ modulo $13$ for $x\equiv 2,5,8\pmod{13}$.
   \exercise Three musicians perform a piece with interwoven, cyclic rhythms. One plays on the first of every four beats, the second plays on the third of every five beats, and the third plays on the second of every third beat. The performance concludes when all three musicians play simultaneously for the first time. How many beats does the composition last?
+  \exercise
+  \begin{subexenum}
+  \item Show that any prime $p$ of the form $x^2+5y^2$ must satisfy
+    \begin{equation*}
+      p\equiv 1\text{ or }9\pmod{20}
+    \end{equation*}
+    and find the first ten primes of this form.
+  \item Show that any prime $p$ of the form $x^2+6y^2$ must satisfy
+    \begin{equation*}
+      p\equiv 1\text{ or }7\pmod{24}
+    \end{equation*}
+    and find the first ten primes of this form.
+  \end{subexenum}
+  The book \cite{cox1989} contains a beautiful exposition of the theory of primes of the form $x^2+ny^2$, and serves as a wonderful introduction to class field theory.
   \exercise Show that $m\mid n$ implies $\phi(m)\mid\phi(n)$.
   \exercise Prove that if $\gcd(a,b)=d$, then
   \begin{equation*}

@@ -88,6 +88,32 @@ While Lagrange's theorem establishes an upper bound for the number of incongruen
   have at most $n$ and $p-1-n$ solutions, respectively. Since their product has $p-1$ solutions, it follows that the polynomial congruence $x^n-1\equiv 0\pmod{p}$ must have exactly $n$ solutions.
 \end{proof}
 
+Lagrange's Theorem can also be used to give yet another proof of the fact that if $p=4k+1$, then $p\mid y^2+1$ for some integer $y$.
+
+\begin{proof}
+  Consider a prime $p$ of the form $4k+1$. Then \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} implies that
+  \begin{equation*}
+    (x^{2k}+1)(x^{2k}-1)=x^{4k}-1\equiv 0\pmod{p}.
+  \end{equation*}
+  Since $p$ is prime, this implies that $x^{2k}+1\equiv 0\pmod{p}$ or $x^{2k}-1\equiv 0\pmod{p}$ for every integer $x$. However, the polynomial congruence
+  \begin{equation*}
+    x^{2k}-1\equiv 0\pmod{p}
+  \end{equation*}
+  has at most $2k$ solutions modulo $p$, which is strictly fewer than $p$. Thus, there must exist an integer $x$ such that
+  \begin{equation*}
+    x^{2k}+1\equiv 0\pmod{p}.
+  \end{equation*}
+  Setting $y:=x^k$ for such $x$, we find that $p\mid y^2+1^2$.
+\end{proof}
+
+\begin{theorem}
+  Consider a cyclotomic polynomial $\Phi_n(x)$ and a prime $p$. Then we have
+  \begin{equation*}
+    \Phi_n(x)\equiv 0\pmod{p}\text{ is solvable}\qquad\Leftrightarrow\qquad n\mid p-1.
+  \end{equation*}
+  Furthermore, if $\Phi_n(x)\equiv 0\pmod{p}$ is solvable, then $\Phi_n(x)$ has exactly $\phi(n)$ roots modulo $p$.
+\end{theorem}
+
 \section{Polynomial Congruences of Composite Moduli}
 
 In the following theorem we generalize the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem} to polynomial congruences.

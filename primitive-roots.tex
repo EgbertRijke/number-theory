@@ -268,6 +268,118 @@ We conclude with an observation of Sophie Germain.
 %   \ord_8(4) & = 0 & \ord_8(5) & = 2 & \ord_8(6) & = 0 & \ord_8(7) & = 2.
 % \end{align*}
 
+\section{A Criterion for Congruences of Degree \texorpdfstring{$n$}{n}}
+
+While we are primarily interested in the quadratic congruence
+\begin{equation*}
+  x^2\equiv a\pmod{p}
+\end{equation*}
+in this introductory course on elementary number theory, the techniques that we have developed so far perfectly allow us to cover the $n$th degree congruence
+\begin{equation*}
+  x^n\equiv a\pmod{p}.
+\end{equation*}
+The following theorem is a significant generalization of \crefnamed{theorem:eulers-criterion}{Euler's Criterion}.
+
+\begin{theorem}
+  Consider an integer $a$ and a prime $p$ so that $p\nmid a$. The following are equivalent:
+  \begin{enumerate}
+  \item The congruence
+    \begin{equation*}
+      x^n\equiv a\pmod{p}
+    \end{equation*}
+    has a solution.
+  \item The congruence
+    \begin{equation*}
+      a^{\frac{p-1}{\gcd(n,p-1)}}\equiv 1\pmod{p}
+    \end{equation*}
+    holds.
+  \item The congruence
+    \begin{equation*}
+      \frac{p-1}{\ord_p(a)}\equiv 0\pmod{\gcd(n,p-1)}
+    \end{equation*}
+    holds.
+  \end{enumerate}
+  If the first condition holds, then the congruence $x^n\equiv a$ has exactly $d:=\gcd(n,p-1)$ solutions.
+\end{theorem}
+
+\begin{proof}[Proof by primitive roots]
+  Consider a primitive root $g$ modulo $p$ such that
+  \begin{equation*}
+    g^{\frac{p-1}{\ord_p(a)}}\equiv a\pmod{p}.
+  \end{equation*}
+  Then the congruence
+  \begin{equation*}
+    x^n\equiv a\pmod{p}
+  \end{equation*}
+  is solvable if there exists an integer $t$ such that
+  \begin{equation*}
+    g^{tn}\equiv g^m\pmod{p}.
+  \end{equation*}
+  In other words, the first congruence is solvable if and only if the congruence
+  \begin{equation*}
+    tn \equiv m\pmod{p-1}
+  \end{equation*}
+  is solvable. It follows from \cref{theorem:linear-congruence-one-variable} that this congruence is solvable if and only if $d:=\gcd(n,p-1)\mid m$.
+
+  Now consider the condition that
+  \begin{equation*}
+    a^{\frac{p-1}{\gcd(n,p-1)}}\equiv 1\pmod{p}.
+  \end{equation*}
+  This holds if and only if $\frac{m(p-1)}{\gcd(n,p-1)}$ is an integer multiple of $p-1$, which is equivalent to the condition that $\gcd(n,p-1)\mid m$.
+\end{proof}
+
+\begin{proof}[Proof by Lagrange's Theorem]
+  For both directions of the proof, we will write $d:=\gcd(n,p-1)$, so that there are integers $k$ and $l$ such that $kd=p-1$ and $ld=n$. It follows that $k$ and $l$ are relatively prime, so that there are integers $u$ and $v$ such that
+  \begin{equation*}
+    ku+lv=1.
+  \end{equation*}
+  
+  To prove the forward implication, assume that $x$ is an integer such that $x^n\equiv a\pmod{p}$. Then we have by \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem}
+  \begin{equation*}
+    a^k\equiv x^{kn}=x^{kld}=(x^{p-1})^l\equiv 1^l = 1\pmod{p}.
+  \end{equation*}
+  Since $k=(p-1)/\gcd(n,p-1)$, we have proven the forward implication.
+
+  For the converse, assume that $a^k\equiv 1\pmod{p}$. Now we can use the formula for the difference of $k$th powers to write
+  \begin{equation*}
+    x^{p-1}-1=x^{kd}-1\equiv x^{kd}-a^k= (x^{d}-a)\sum_{i=0}^{k-1} x^{di}a^{k-1-i}.
+  \end{equation*}
+  Since the polynomial $x^{p-1}-1$ has exactly $p-1$ roots modulo $p$, it follows that the number of roots of each factor on the right-hand side is equal to its degree. In other words, the polynomial
+  \begin{equation*}
+    x^{d}-a
+  \end{equation*}
+  has $d$ roots. Given a root $x^d\equiv a\pmod{p}$, we define $y:=x^v$ where $ku+lv=1$. Then we have
+  \begin{equation*}
+    y^n=x^{vld}\equiv a^{lv} \equiv a^{1-ku} \equiv a(a^k)^{-u}\equiv a1^{-u}\equiv a\pmod{p}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  Consider an integer $a$ such that $\ord_p(a)\mid n$. Then the congruence
+  \begin{equation*}
+    x^n\equiv a\pmod{p}
+  \end{equation*}
+  is solvable if and only if
+  \begin{equation*}
+    p\equiv 1\pmod{\ord_p(a)\cdot \gcd(n,p-1)}.
+  \end{equation*}
+\end{corollary}
+
+\begin{corollary}
+  Consider a prime $p$ and a natural number $n$ relatively prime to $p-1$. Then every $n$th degree congruence
+  \begin{equation*}
+    x^n\equiv a\pmod{p}
+  \end{equation*}
+  has a unique solution. In other words, the map $x\mapsto x^n$ is a bijection on $\mathbb{Z}/p\mathbb{Z}$.
+\end{corollary}
+
+\begin{corollary}
+  If $p$ is a prime of the form $n^2+1$, then
+  \begin{equation*}
+    x^n\equiv a\pmod{p}\text{ is solvable}\qquad\Leftrightarrow\qquad a^n\equiv 1\pmod{p}.
+  \end{equation*}
+\end{corollary}
+
 \begin{exercises}
   \exercise
   \begin{subexenum}
@@ -281,45 +393,51 @@ We conclude with an observation of Sophie Germain.
     \end{equation*}
     using indices.
   \end{subexenum}
-  \exercise Show that if $ab\equiv 1\pmod{n}$, then
+  \exercise In article 55 of \emph{Disquisitiones Arithmeticae} \cite{gauss1986}, Gauss gives a second, more explicit construction of primitive roots. In this exercise we will follow this method.
+
+  Consider a prime $p$ and suppose that the prime factorization of $p-1$ is
   \begin{equation*}
-    \ord_n(a)=\ord_n(b).
+    p-1=q_1^{\alpha_1}\cdots q_n^{\alpha_n}.
   \end{equation*}
-  \exercise Consider an integer $a$. Show that if
-  \begin{equation*}
-    a^m-1 \mid a^n-1,
-  \end{equation*}
-  then $m\mid n$.
-  \exercise Show that $\ord_{a^k-1}(a)=k$.
-  \exercise Suppose that there is an integer $a$ of even order modulo $p$. Prove that there is a unique integer of order $2$ modulo $p$.
-  \exercise For any $d\mid \phi(n)$, prove that
-  \begin{equation*}
-    \prod_{\substack{0<x<n \\\ord_n(x)=d}}x\equiv 1\pmod n.
-  \end{equation*}
+  \begin{subexenum}
+  \item By \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem} it follows that for each prime $q_i$, the congruence
+    \begin{equation*}
+      x^{\frac{p-1}{q_i}}\equiv 1\pmod{p}
+    \end{equation*}
+    has strictly fewer than $p-1$ solutions, so there must exist a residue $x$ which is not a solution. Using such $x$, construct an element $a_i$ such that
+    \begin{equation*}
+      \ord_p(a_i)=q_i^{\alpha_i}.
+    \end{equation*}
+  \item Show that
+    \begin{equation*}
+      \ord_p(a_1\cdots a_n)=p-1
+    \end{equation*}
+    and conclude that the product $a_1\cdots a_n$ is a primitive root.
+    \item Use this method to find a primitive root modulo $67$.
+  \end{subexenum}
   \exercise Prove that for any prime $p$ and any integer $a$ not divisible by $p$, there is a primitive root $g$ modulo $p$ such that
   \begin{equation*}
     g^{\frac{p-1}{\ord_p(a)}}\equiv a\pmod{p}.
   \end{equation*}
+  \exercise Consider a prime $p>2$ and an odd number $m$. Show that the congruence $x^{2^nm}\equiv -1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{2^{n+1}}$.
   \exercise
   \begin{subexenum}
-  \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
-  \item Show that for any $m$, the Fibonacci sequence is periodic modulo $m$. Its period is called the \emph{Pisano period}.
-  \item Show that for any natural number $m$, there is a least positive number $n$ such that
+  \item Show that the number of solutions to the congruence
     \begin{equation*}
-      m\mid F_n.
+      x^n\equiv a\pmod{p}
     \end{equation*}
-    We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \emph{cofibonacci sequence}.
-  \item Show that $G(m)$ satisfies the following logical equivalence
+    is either $\gcd(n,p-1)$ or $0$.
+  \item Find, as Gauss did in article 60 of \emph{Disquisitiones Arithmeticae} \cite{gauss1986}, all the solutions to the congruence
     \begin{equation*}
-      G_m\mid n \Leftrightarrow m \mid F_n.
+      x^{15}\equiv 11\pmod{19}.
     \end{equation*}
-    Conclude that the Fibonacci sequence is a strong division sequence.
   \end{subexenum}
-  \exercise Use methods similar to the previous exercise to show that the Pell numbers $P_n$, which are defined by
+  \exercise Consider a prime $p\neq 3$. Prove that the product of all primitive roots modulo $p$ is congruent to $1$ modulo $p$.
+  \exercise \cite[art.~85]{gauss1986} Consider an odd prime $p$, and let $n$ and $m$ be positive integers with $\gcd(n,\phi(p^m))=d$. Show that the congruence
   \begin{equation*}
-    P_0:=0,\qquad P_1:=1\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
+    x^n\equiv 1\pmod{p^m}
   \end{equation*}
-  form a strong division sequence.
+  has $d$ distinct roots.
 \end{exercises}
 
 %%% Local Variables:

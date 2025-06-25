@@ -4,7 +4,7 @@
 
 Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns of truths and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Truths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs—conclusive arguments that establish why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out what the natural numbers really are.
 
-Although natural numbers arise from counting, the notion of number is not inheritely linked to any particular collection of entities being counted. We view numbers as abstract entities that exist within the collective imagination of conscious beings to convey and communicate ideas such as counting, comparing, and measuring quantities.
+Although natural numbers arise from counting, the notion of number is not inheritely linked to any particular collection of entities being counted. We view the set of numbers as an abstract entity that exist as a precisely specified concept within the collective imagination of conscious beings to convey and communicate ideas such as counting, comparing, and measuring quantities.
 
 When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $n\mapsto n+1$. The collection of all natural numbers forms a set or type
 
@@ -24,70 +24,6 @@ The natural number zero and the successor function together are sufficient to de
 Mathematical induction works, because every natural number is either $0$ or it is the successor of a previous natural number. Proving a property for all natural numbers therefore breaks down in two cases: The \define{base case} in which we prove that $P(0)$ is true, and the \define{inductive step} where we prove that $P(n+1)$ is true provided that $P(n)$ is true.
 
 Proofs by induction can be broken down into the following steps: First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is to prove that $P(n)$ is true for all $n$. Then prove the base case. While this step is often trivial, it is a necessary and essential part of an induction proof. Finally, for the inductive step, write down the exact induction hypothesis, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds. After these steps the proof that $P(n)$ holds is complete.
-
-\begin{theorem}
-  For any natural number $n$ we have
-  \begin{equation*}
-    0 + \cdots + n = \frac{n(n+1)}{2}.
-  \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  Let $S_n:=0+\cdots+n$, and let $P(n)$ be the property that $S_n=\frac{n(n+1)}{2}$. We will prove that $P(n)$ is true for all $n$ by induction. In the base case, we have to show that $P(0)$ holds, that is, that the identity
-  \begin{equation*}
-    0=\frac{0\cdot 1}{2}
-  \end{equation*}
-  is true. This is indeed true, because the numerator in the fraction on the right-hand side is $0$.
-
-  For the induction step, let $n$ be a natural number and assume as our inductive hypothesis that $P(n)$ is true. Our goal is now to prove $P(n+1)$, that is, that the identity
-  \begin{equation*}
-    S_{n+1}=\frac{(n+1)(n+2)}{2}
-  \end{equation*}
-  Note that $S_{n+1}=S_n+(n+1)$. By the inductive hypothesis we have that $S_n=\frac{n(n+1)}{2}$, which we may now use to rewrite
-  \begin{equation*}
-    S_n + (n+1) = \frac{n(n+1)}{2} + (n+1).
-  \end{equation*}
-  Observe that $(n+1)=\frac{2(n+1)}{2}$. Therefore we can make the following computation:
-  \begin{equation*}
-    \frac{n(n+1)}{2} + (n+1) = \frac{n(n+1)}{2}+\frac{2(n+1)}{2} = \frac{n(n+1)+2(n+1)}{2}=\frac{(n+2)(n+1)}{2}.
-  \end{equation*}
-  Since $(n+2)(n+1)=(n+1)(n+2)$ it follows that $S_{n+1}=\frac{(n+1)(n+2)}{2}$ as desired.
-\end{proof}
-
-We illustrate induction with another example, the \define{formula for the geometric series}.
-
-\begin{theorem}\label{theorem:formula-geometric-series}
-  For any real number $x$ not equal to $1$, the identity
-  \begin{equation*}
-    \sum_{k=0}^{n-1}x^k = \frac{x^n-1}{x-1}
-  \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  The proof is by induction on $n$. In the case $n=0$ the sum
-  \begin{equation*}
-    \sum_{k=0}^{-1}x^k
-  \end{equation*}
-  is an empty sum, because it sums over all elements $0\leq k \leq -1$ of which there are none. In empty sums, nothing is being added, so they are always $0$. On the right hand side, we also see that
-  \begin{equation*}
-    \frac{x^0-1}{x-1}=\frac{1-1}{x-1}=0,
-  \end{equation*}
-  and hence the base case holds.
-
-  For the inductive step, assume that $\sum_{k=0}^{n-1}x^k=\frac{x^n-1}{x-1}$. Our goal is to show that
-  \begin{equation*}
-    \sum_{k=0}^{n}x^k=\frac{x^{n+1}-1}{x-1}.
-  \end{equation*}
-  Note that $\sum_{k=0}^{n}x^k=(\sum_{k=0}^{n-1}x^k)+x^n$. By applying the induction hypothesis we therefore find that
-  \begin{equation*}
-    \sum_{k=0}^{n}x^k=\frac{x^n-1}{x-1}+x^n.
-  \end{equation*}
-  Note that $x^n=\frac{(x-1)x^n}{x-1}$. Therefore we can bring the two summands under one fraction as follows:
-  \begin{equation*}
-    \frac{x^n-1}{x-1}+x^n=\frac{x^n-1}{x-1}+\frac{(x-1)x^n}{x-1}=\frac{x^n-1+x^{n+1}-x^n}{x-1}=\frac{x^{n+1}-1}{x-1}.
-  \end{equation*}
-  This completes the inductive step, and therefore the proof.
-\end{proof}
 
 Since we have previously defined the set of natural numbers to be a set equipped with an element $0$ and a function $S$, satisfying an induction principle, it is of some importance to demonstrate that this definition is sufficiently strong to define familiar operations on the natural numbers, such as addition and multiplication, and to verify their laws.
 
@@ -255,8 +191,6 @@ The last identification is called the \define{interchange law} for addition. The
           & = m+(l+n) & & = (k+m)+(l+n).
 \end{align*}
 
-\section{The Numbers of Fibonacci and Lucas}
-
 \section{Arithmetic of Natural Numbers}
 
 \begin{definition}
@@ -321,6 +255,71 @@ The last identification is called the \define{interchange law} for addition. The
   \end{equation*}
 \end{definition}
 
+\begin{theorem}
+  For any natural number $n$ we have
+  \begin{equation*}
+    0 + \cdots + n = \frac{n(n+1)}{2}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Let $S_n:=0+\cdots+n$, and let $P(n)$ be the property that $S_n=\frac{n(n+1)}{2}$. We will prove that $P(n)$ is true for all $n$ by induction. In the base case, we have to show that $P(0)$ holds, that is, that the identity
+  \begin{equation*}
+    0=\frac{0\cdot 1}{2}
+  \end{equation*}
+  is true. This is indeed true, because the numerator in the fraction on the right-hand side is $0$.
+
+  For the induction step, let $n$ be a natural number and assume as our inductive hypothesis that $P(n)$ is true. Our goal is now to prove $P(n+1)$, that is, that the identity
+  \begin{equation*}
+    S_{n+1}=\frac{(n+1)(n+2)}{2}.
+  \end{equation*}
+  Note that $S_{n+1}=S_n+(n+1)$. By the inductive hypothesis we have that $S_n=\frac{n(n+1)}{2}$, which we may now use to rewrite
+  \begin{equation*}
+    S_n + (n+1) = \frac{n(n+1)}{2} + (n+1).
+  \end{equation*}
+  Observe that $(n+1)=\frac{2(n+1)}{2}$. Therefore we can make the following computation:
+  \begin{equation*}
+    \frac{n(n+1)}{2} + (n+1) = \frac{n(n+1)}{2}+\frac{2(n+1)}{2} = \frac{n(n+1)+2(n+1)}{2}=\frac{(n+2)(n+1)}{2}.
+  \end{equation*}
+  Since $(n+2)(n+1)=(n+1)(n+2)$ it follows that $S_{n+1}=\frac{(n+1)(n+2)}{2}$ as desired.
+\end{proof}
+
+We illustrate induction with another example, the \define{formula for the geometric series}.
+
+\begin{theorem}\label{theorem:formula-geometric-series}
+  For any real number $x$ not equal to $1$, the identity
+  \begin{equation*}
+    \sum_{k=0}^{n-1}x^k = \frac{x^n-1}{x-1}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  The proof is by induction on $n$. In the case $n=0$ the sum
+  \begin{equation*}
+    \sum_{k=0}^{-1}x^k
+  \end{equation*}
+  is an empty sum, because it sums over all elements $0\leq k \leq -1$ of which there are none. In empty sums, nothing is being added, so they are always $0$. On the right hand side, we also see that
+  \begin{equation*}
+    \frac{x^0-1}{x-1}=\frac{1-1}{x-1}=0,
+  \end{equation*}
+  and hence the base case holds.
+
+  For the inductive step, assume that $\sum_{k=0}^{n-1}x^k=\frac{x^n-1}{x-1}$. Our goal is to show that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  Note that $\sum_{k=0}^{n}x^k=(\sum_{k=0}^{n-1}x^k)+x^n$. By applying the induction hypothesis we therefore find that
+  \begin{equation*}
+    \sum_{k=0}^{n}x^k=\frac{x^n-1}{x-1}+x^n.
+  \end{equation*}
+  Note that $x^n=\frac{(x-1)x^n}{x-1}$. Therefore we can bring the two summands under one fraction as follows:
+  \begin{equation*}
+    \frac{x^n-1}{x-1}+x^n=\frac{x^n-1}{x-1}+\frac{(x-1)x^n}{x-1}=\frac{x^n-1+x^{n+1}-x^n}{x-1}=\frac{x^{n+1}-1}{x-1}.
+  \end{equation*}
+  This completes the inductive step, and therefore the proof.
+\end{proof}
+
+\section{The Numbers of Fibonacci and Lucas}
 
 \begin{exercises}
   \exercise The \define{factorial function} $n\mapsto n!$ is defined recursively by
@@ -329,15 +328,54 @@ The last identification is called the \define{interchange law} for addition. The
     (n+1)! & := n!(n+1).
   \end{align*}
   Prove that $2^n<n!$ for all $n\geq 4$.
+  \exercise \label{exercise:identities-triangular-numbers}Write $T_n$ for the $n$th triangular number.
+  \begin{subexenum}
+  \item For $0\leq m<n$, show that
+    \begin{equation*}
+      T_n-T_m=\frac{(n-m)(n+m+1)}{2}.
+    \end{equation*}
+  \item For any two natural numbers $m$ and $n$, show that
+    \begin{equation*}
+      T_{m+n}=T_{m}+T_n+mn.
+    \end{equation*}
+  \item Show that
+    \begin{equation*}
+      T_{2n}=4T_n-n.
+    \end{equation*}
+  \item Show that
+    \begin{equation*}
+      T_{2n}=2T_n+n^2.
+    \end{equation*}
+  \item Show that
+    \begin{equation*}
+      T_{kn}=k^2T_n-nT_{k-1}.
+    \end{equation*}
+  \item Show that
+    \begin{equation*}
+      8T_n+1=(2n+1)^2.
+    \end{equation*}
+  \end{subexenum}
   \exercise \label{exercise:sum-of-odd-numbers}Prove that that the sum of the first $n$ odd numbers is a perfect square. That is, prove that
   \begin{equation*}
     \sum_{k=0}^{n-1} 2k+1 = n^2.
   \end{equation*}
-  Note: It is usual in mathematics that an empty sum $\sum_{k=0}^{-1}a_k$ is taken to be $0$, because no numbers are added.
-  \exercise Prove that
-  \begin{equation*}
-    \sum_{k=0}^n k(k+1) = \frac{n(n+1)(n+2)}{3}.
-  \end{equation*}
+  Note: This summation formula is the starting point from which Fibonacci derived much of his work in his book  \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987}.
+  \exercise Write $T_n$ for the $n$th triangular number.
+  \begin{subexenum}
+  \item The numbers
+    \begin{equation*}
+      S_n:=\sum_{k=0}^nT_k
+    \end{equation*}
+    are called the \emph{tetrahedral numbers}. Give a geometric interpretation of these numbers justifying their name.
+  \item Prove that
+    \begin{equation*}
+      S_n = \frac{n(n+1)(n+2)}{6}.
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      S_{m+n}=S_m+S_n+\frac{mn(m+n+2)}{2}.
+    \end{equation*}
+  \end{subexenum}
   \exercise Prove the \define{formula for the square pyramidal numbers}
   \begin{equation*}
     \sum_{k=0}^n k^2 = \frac{n(n+1)(2n+1)}{6}.
@@ -357,7 +395,7 @@ The last identification is called the \define{interchange law} for addition. The
   \end{equation*}
   \exercise Prove that
   \begin{equation*}
-    \sum_{k=0}^n k(k+1)(k+2) = \frac{n(n+1)(n+2)(n+3)}{4}
+    \sum_{k=0}^n k(k+1)(k+2) = \frac{n(n+1)(n+2)(n+3)}{4}.
   \end{equation*}
   \exercise \label{exercise:difference-of-powers}Prove the \define{formula for the difference of $n$th powers}
   \begin{equation*}
@@ -369,7 +407,7 @@ The last identification is called the \define{interchange law} for addition. The
   \end{equation*}
   \exercise Prove that
   \begin{equation*}
-    \sum_{k=1}^n\frac{1}{k(k+1)}=\frac{n}{n+1}
+    \sum_{k=1}^n\frac{1}{k(k+1)}=\frac{n}{n+1}.
   \end{equation*}
   \exercise Prove that
   \begin{equation*}
@@ -377,9 +415,8 @@ The last identification is called the \define{interchange law} for addition. The
   \end{equation*}
   \exercise Prove that
   \begin{equation*}
-    \prod_{k=1}^n\left(1-\frac{1}{k^2}\right)=\frac{n+1}{2n}
+    \prod_{k=1}^n\left(1-\frac{1}{k^2}\right)=\frac{n+1}{2n}.
   \end{equation*}
-
   \exercise \label{exercise:product-formula-fermat-numbers}Define the $n$th \define{Fermat number} to be
   \begin{equation*}
     \Phi_n := 2^{2^n}+1.
@@ -408,14 +445,24 @@ The last identification is called the \define{interchange law} for addition. The
     \sum_{k=0}^{n}F_{2k}=F_{2n+1}-1.
   \end{equation*}
   \exercise Prove \define{Cassini's identity}
-  \begin{equation*}
-    F_{n+1}^2-F_nF_{n+2}=(-1)^n.
-  \end{equation*}
+    \begin{equation*}
+      F_{n+1}^2-F_nF_{n+2}=(-1)^n.
+    \end{equation*}
   \exercise Consider two nonzero natural numbers $a$ and $b$ satisfying $a(a+b) < b^2$. Prove that the strict inequality
   \begin{equation*}
     F_n<\left(\frac{b}{a}\right)^n
   \end{equation*}
   holds for all $n$. Use Cassini's identity to give some examples of natural numbers $a$ and $b$ that satisfy this inequality.
+  \exercise \label{exercise:arithmetic-progression-fibonacci}Define
+    \begin{align*}
+      a_n & := F_{n}F_{n+1}- (-1)^n, \\
+      b_n & := F_{n}^2 + F_{n+1}^2, \\
+      c_n & := 3F_{n}F_{n+1}+(-1)^{n}.
+    \end{align*}
+    Show that $(a_n^2,b_n^2,c_n^2)$ is an arithmetic progression of squares; that is, show that
+    \begin{equation*}
+      b_n^2-a_n^2=c_n^2-b_n^2.
+    \end{equation*}
 \end{exercises}
 
 %%% Local Variables:

@@ -12,7 +12,7 @@ To see that the number $2$ is prime, note that its positive divisors are a subse
 
 To see that the number $3$ is prime, note that its positive divisors are a subset of the set $\{1,2,3\}$ consisting of all positive integers below $3$. The number $1$ is a proper divisor, the number $2$ doesn't divide $3$, and $3$ itself is a divisor but it isn't proper. Therefore we see that the number $3$ has exactly one positive proper divisor.
 
-The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \emph{sieve of Eratosthenes}, which we will now describe. \cref{figure:sieve-of-eratosthenes} displays the sieve of Eratosthenes up to 1350.
+The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \emph{sieve of Eratosthenes}, which we will now describe. \cref{figure:sieve-of-eratosthenes} displays the sieve of Eratosthenes up to 1120.
 
 \begin{figure}[!p]
 \centering
@@ -21,7 +21,7 @@ The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct pro
 
   % PARAMETERS
   \def\Cols{30}                       % number of columns
-  \def\N{1350}                        % max number
+  \def\N{1050}                        % max number
   \pgfmathsetmacro{\Rows}{ceil(\N/\Cols)}  % computed number of rows
   \def\CirDiam{0.4cm}                 % diameter of every circle
 
@@ -35,7 +35,7 @@ The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct pro
       fill=white,
       minimum size=\CirDiam,
       inner sep=0pt,
-      font=\tiny
+      font=\fontsize{4.8pt}{6pt}\selectfont
     ] at (\c+0.5,-\r-0.5) {\i};
   }
 
@@ -47,12 +47,12 @@ The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct pro
     text=white,
     minimum size=\CirDiam,
     inner sep=0pt,
-    font=\tiny
+    font=\fontsize{4.8pt}{6pt}\selectfont
   ] at (0.5,-0.5) {1};
 
-  % 3) sieve out composites: for each prime ≤ √1350 fill its multiples
+  % 3) sieve out composites: for each prime ≤ √1050 fill its multiples
   \foreach \p in {2,3,5,7,11,13,17,19,23,29,31} {
-    \pgfmathtruncatemacro{\q}{int(1350/\p)}
+    \pgfmathtruncatemacro{\q}{int(1050/\p)}
     \foreach \k in {2,...,\q} {
       \pgfmathtruncatemacro{\m}{\p*\k}
       \ifnum\m>\N
@@ -68,14 +68,14 @@ The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct pro
         text=white,
         minimum size=\CirDiam,
         inner sep=0pt,
-        font=\tiny
+        font=\fontsize{4.8pt}{6pt}\selectfont
       ] at (\cc+0.5,-\rr-0.5) {\m};
     }
   }
 
 \end{tikzpicture}%
 }
-\caption{\label{figure:sieve-of-eratosthenes}The sieve of Eratosthenes up to 1350: The number 1 and every composite number are marked in black, leaving just the primes in white circles.}
+\caption[The sieve of Eratosthenes]{\label{figure:sieve-of-eratosthenes}The sieve of Eratosthenes up to 1050: The number 1 and every composite number are marked in black, leaving just the primes in white circles.}
 \end{figure}
 
 The sieve of Eratosthenes is an iterative process that generates at stage $n$ a set $P_n$ of numbers known to be prime at stage $n$, and a set $Q_n$ of prime candidates. In other words, the sets $P_n$ form an increasing sequence
@@ -147,6 +147,8 @@ The following proposition is due to Euclid, who included it as proposition 30 of
   For the converse, suppose that for any two integers $b$ and $c$ such that $a\mid bc$, we have $a\mid b$ or $a\mid c$, and let $d$ be a proper divisor of $a$. Now consider any positive proper divisor $d$ of $a$, and write $a=dk$. Then it follows in particular that $a \mid dk$, so by assumption we have either $a\mid d$ or $a\mid k$. The first condition can be ruled out, because $d$ is assumed to be a proper divisor and therefore $a \nmid d$. Thus we find ourselves in the second case, where $a\mid k$ and $k\mid a$. The integer $k$ is also positive, since $a$ and $d$ are positive, so it follows that $a=k$. This implies that $d=1$, and hence we conclude that $a$ is prime.
 \end{proof}
 
+The fundamental theorem of arithmetic asserts that every positive integer can be written uniquely, up to reordering, as a product of primes. Gauss is often credited for being the first to state this fact as a theorem. He did so in Article 16 of his \emph{Disquisitiones Arithmeticae} \cite{gauss1986}, where he mentioned that prior authors often assumed it or gave inadequate reasons for its truth.
+
 \begin{theorem}\label{theorem:fundamental-theorem-of-arithmetic}
   For any natural number $n>0$, there is a unique list $\ell=(p_0,\ldots,p_{l-1})$ of length $l$, consisting of primes $p_0\leq p_1\leq \cdots \leq p_{l-1}$ such that
   \begin{equation*}
@@ -196,7 +198,7 @@ The theorem asserting the infinitude of primes asserts that no finite set of pri
   
   Consider a finite set $\{p_0,\ldots,p_k\}$ of primes, and define
   \begin{equation*}
-    n:= 1+\prod_{i=0}^k p_i
+    n:= 1+\prod_{i=0}^k p_i.
   \end{equation*}
   Then there exists, for each $0\leq i\leq k$, a natural number $q_i$ such that $n=q_ip_i+1$. Indeed, we can simply define
   \begin{equation*}
@@ -295,7 +297,7 @@ is a product of distinct primes. In particular, if $n$ is square free then the e
 \begin{theorem}\label{theorem:square-free-decomposition}
   Every natural number $n$ can be written uniquely in the form
   \begin{equation*}
-    n=k^2m
+    n=k^2m,
   \end{equation*}
   where $m$ is a square-free number. This is called the \emph{square-free decomposition} of $n$, and the number $m$ is called the \emph{square-free part} of $n$.
 \end{theorem}
@@ -325,7 +327,7 @@ Now that we have established that every natural number has a unique square-free 
   
   If all the numbers below $x$ are products of powers of primes from the list $p_1,\ldots,p_n$, we find that $x\leq\sqrt{x}2^n$, or equivalently that
   \begin{equation*}
-    \sqrt{x}\leq 2^n
+    \sqrt{x}\leq 2^n.
   \end{equation*}
   However, this inequality clearly fails when $x$ exceeds $2^{2n}$, so there must be primes other than $p_1,\ldots,p_n$.
 \end{proof}
@@ -363,7 +365,7 @@ The stars-and-bars problem asks in how many ways it is possible to place $n-1$ b
     % box around config 4
     \draw[thick] (0.5,-4) rectangle (11.5,-5);
   \end{tikzpicture}  
-  \caption{\label{figure:stars-and-bars}Four example configurations with five stars and three bars.}
+  \caption[Example configurations of stars and bars]{\label{figure:stars-and-bars}Four example configurations with five stars and three bars.}
 \end{figure}
 
 The stars-and-bars problem admits several equivalent formulations. For example, the stars-and-bars problem is equivalently posed by asking in how many ways one can place $k$ indistinguishable balls in $n$ distinguishable boxes. It is also equivalent to the problem of writing $k$ as an ordered sum of $n$ natural numbers. The four example configurations of \cref{figure:stars-and-bars} correspond to writing $5=0+3+2+0$, $5=1+3+1+0$, $5=2+0+2+1$, and $5=0+2+2+1$. Making use of the \crefnamed{theorem:fundamental-theorem-of-arithmetic}{Fundamental Theorem of Arithmetic}, we find yet another equivalent way of formulating the stars-and-bars problem: Given a set $p_1,\ldots,p_{n}$ primes, how many natural numbers are there of the form
@@ -375,7 +377,7 @@ so that $m_1+\cdots+m_{n}=k$? We establish the answer in the following theorem.
 \begin{theorem}
   Given a set $p_1,\ldots,p_n$ of $n$ distinct primes, there are exactly $\binom{k+n-1}{n-1}$ natural numbers that can be written in the form
   \begin{equation*}
-    p_1^{m_1}\cdots p_n^{m_n}
+    p_1^{m_1}\cdots p_n^{m_n},
   \end{equation*}
   so that $m_1+\cdots+m_n=k$.
 \end{theorem}
@@ -389,9 +391,9 @@ so that $m_1+\cdots+m_{n}=k$? We establish the answer in the following theorem.
   \end{equation*}
   For example, the four $4$-tuples corresponding to the configurations in \cref{figure:stars-and-bars} are mapped to $3$-element subsets of $\{1,\ldots,8\}$ as follows:
   \begin{align*}
-    (0,3,2,0) & \mapsto \{1,5,8\} \\
-    (1,3,1,0) & \mapsto \{2,6,8\} \\
-    (2,0,2,1) & \mapsto \{3,4,7\} \\
+    (0,3,2,0) & \mapsto \{1,5,8\}, \\
+    (1,3,1,0) & \mapsto \{2,6,8\}, \\
+    (2,0,2,1) & \mapsto \{3,4,7\}, \\
     (0,2,2,1) & \mapsto \{1,4,7\}.    
   \end{align*}
   
@@ -431,7 +433,7 @@ so that $m_1+\cdots+m_{n}=k$? We establish the answer in the following theorem.
   By \cref{theorem:stars-and-bars-primes} it follows that
   \begin{equation*}
     N\leq \binom{\left\lfloor\frac{\log N}{\log 2}\right\rfloor+n}{n}
-    \leq \frac{\left(\frac{\log N}{\log 2}+n\right)^n}{n!}
+    \leq \frac{\left(\frac{\log N}{\log 2}+n\right)^n}{n!}.
   \end{equation*}
   Assuming that our initial list of primes includes all the primes below $12$ so that $n\geq 5$, this inequality fails for $N\geq 2^{2^n}$. This shows that any finite set $p_1,\ldots,p_n$ of primes cannot be the set of all primes, so there must be infinitely many primes.
 \end{proof}
@@ -581,7 +583,7 @@ where $c_i$ is obtained by the following recursive procedure, simultaneously wit
 \begin{equation*}
   (c_i,u(m,n)_{i+1}) :=
   \begin{cases}
-    (a_i+b_i+u(m,n)_i,0) & \text{if }a_i+b_i+u(m,n)_i< p \\
+    (a_i+b_i+u(m,n)_i,0) & \text{if }a_i+b_i+u(m,n)_i< p, \\
     (a_i+b_i+u(m,n)_i-p,1) & \text{if }a_i+b_i+u(m,n)_i\geq p.
   \end{cases}
 \end{equation*}
@@ -611,7 +613,7 @@ where $c_i$ is obtained by the following recursive procedure, simultaneously wit
   \begin{equation*}
     c_i =
     \begin{cases}
-      a_i+b_i + u(m,n)_i & \text{if } a_i+b_i+u(m,n)_i<p \\
+      a_i+b_i + u(m,n)_i & \text{if } a_i+b_i+u(m,n)_i<p, \\
       a_i+b_i + u(m,n)_i - p & \text{otherwise}.
     \end{cases}
   \end{equation*}
@@ -704,13 +706,13 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   \end{equation*}
   Taking logarithms base $2$ on both sides, we find that
   \begin{equation*}
-    \frac{n}{2}<\frac{2n}{3} < (\sqrt{2n}+1)\log_2(2n)
+    \frac{n}{2}<\frac{2n}{3} < (\sqrt{2n}+1)\log_2(2n).
   \end{equation*}
   We see that this strict inequality fails for $n\geq 2^9=512$, since
   \begin{equation*}
     2^8 = 512 \nless 330 = (2^5+1)\cdot 10.
   \end{equation*}
-  We conclude that Bertrand's postulate must be true for all $n\geq 512$. Using the sieve of Eratosthenes up to 1350, as displayed in \cref{figure:sieve-of-eratosthenes}, we see that the Bertrand primes are indeed primes up to $631$, which is sufficient and thus the theorem is proven.
+  We conclude that Bertrand's postulate must be true for all $n\geq 512$. Using the sieve of Eratosthenes up to 1050, as displayed in \cref{figure:sieve-of-eratosthenes}, we see that the Bertrand primes are indeed primes up to $631$, which is sufficient and thus the theorem is proven.
 \end{proof}
 
 \begin{exercises}
@@ -724,6 +726,23 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   \exercise Compute the square-free decompositions of $72$, $200$, $315$, $462$, and $2205$.
   \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
   \exercise Find the first ten primes $p$ such that $2p-1$ is also prime. It is unknown whether there are infinitely many such primes.
+  \exercise Given a prime $p>3$, show that $p^2\equiv 1\pmod{24}$.
+  \exercise A pair of \emph{twin primes} is a pair of primes $p$ and $q$ such that $q-p=2$. Consider a pair of twin primes $p$ and $q$ strictly greater than $3$.
+  \begin{subexenum}
+  \item Show that $p+q\equiv 0\pmod{12}$.
+  \item Show that $pq\equiv 8\pmod{9}$.
+  \end{subexenum}
+  \exercise \label{exercise:sophie-germain-primes}A \emph{Sophie Germain prime} is a prime $p$ such that $2p+1$ is also prime. Show that if $p$ is a Sophie Germain prime, then $p(2p+1)\equiv 1\pmod{18}$.
+  \exercise Consider four integers $a$, $b$, $c$, and $d$ with $\Delta:=ad-bc$. Prove that the following are equivalent:
+  \begin{enumerate}
+  \item The integers $ax+b$ and $cx+d$ are relatively prime for every $x$.
+  \item For every prime $p\mid \Delta$, we have
+    \begin{equation*}
+      p\mid\gcd(a,c)\qquad\text{and}\qquad p\nmid\lcm(b,d).
+    \end{equation*}
+  \end{enumerate}
+  \exercise Show that any odd prime of the form $x^2+y^2$ must be of the form $4k+1$.
+  \exercise Show that any prime $p>3$ of the form $x^2+3y^2$ must be of the form $6k+1$.
   \exercise Show that
   \begin{equation*}
     p\,\,\Big|\,\, \binom{p}{k}
@@ -778,7 +797,7 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   \item Prove the following identity:
     \begin{equation*}
       \lcm_{0\leq k\leq n}\left(\gcd\left(\binom{n}{k},\binom{n}{k+1}\right)\right)=
-      \frac{\lcm(1,\ldots,n+1)}{n(n+1)}
+      \frac{\lcm(1,\ldots,n+1)}{n(n+1)}.
     \end{equation*}
   \end{subexenum}
 \end{exercises}

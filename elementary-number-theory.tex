@@ -1,9 +1,22 @@
-\documentclass{book}
+\documentclass[12pt]{book}
 
 % Encoding & language
-\usepackage[T1]{fontenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textgreek}
+\usepackage{alphabeta}
 \usepackage[english]{babel}
 \usepackage{csquotes}
+
+\usepackage{geometry}
+\geometry{
+  letterpaper,                 % default for the document
+  margin=0.12\paperwidth,  % margins = 10% of paper width
+  vmargin=0.10\paperheight, % vertical margins = 8% of paper height
+  includehead,
+}
+
+\usepackage{fancyhdr}
 
 % Graphics and layout
 \usepackage{graphicx}
@@ -48,6 +61,9 @@
 \newaliascnt{corollary}{theorem}
 \newtheorem{corollary}[corollary]{Corollary}
 
+\newaliascnt{conjecture}{theorem}
+\newtheorem{conjecture}[conjecture]{Conjecture}
+
 \theoremstyle{definition}
 \newaliascnt{definition}{theorem}
 \newtheorem{definition}[definition]{Definition}
@@ -63,7 +79,7 @@
 
 % TikZ and plotting
 \usepackage{tikz}
-\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc,intersections}
+\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc,intersections,backgrounds}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \tikzset{
@@ -109,6 +125,10 @@
 \aliascntresetthe{corollary}
 \crefname{corollary}{Corollary}{Corollaries}
 \Crefname{corollary}{Corollary}{Corollaries}
+
+\aliascntresetthe{conjecture}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\Crefname{conjecture}{Conjecture}{Conjectures}
 
 \aliascntresetthe{definition}
 \crefname{definition}{Definition}{Definitions}
@@ -197,6 +217,24 @@
 \DeclareMathOperator{\numerator}{num}
 \DeclareMathOperator{\denominator}{denom}
 \newcommand{\mediant}{\mathbin{\triangledown}}
+\newcommand{\bimapsto}{\mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}}
+\newcommand{\content}{\mathrm{cont}}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+% Header:
+\fancyhead[LE]{\thepage}
+\fancyhead[RE]{\itshape \leftmark}
+\fancyhead[LO]{\itshape \rightmark}
+\fancyhead[RO]{\thepage}
+\fancyfoot{}
+
+\fancypagestyle{noheader}{
+  \fancyhf{}                     % clear header & footer
+  \renewcommand{\headrulewidth}{0pt}
+  \setlength{\headheight}{0pt}
+  \setlength{\headsep}{0pt}
+}
 
 \begin{document}
 
@@ -236,7 +274,7 @@
 
     % {\Huge \textbf{Foundational Studies in Arithmetic}} \\[1cm]
     {\Huge \textbf{Elementary Number Theory}} \\[1cm]
-    {\LARGE\textit{Spring 2025}}
+    {\LARGE\textit{Fall 2025}}
   \end{center}
 \end{titlepage}
 \endgroup
@@ -274,7 +312,7 @@
 
 \frontmatter
 
-\pagestyle{plain}
+\pagestyle{fancy}
 
 \tableofcontents
 
@@ -296,23 +334,19 @@
 
 \input{linear-diophantine-equations}
 
-\input{prime-numbers}
-
 \input{rational-numbers}
 
-\input{real-numbers}
+\input{congruences}
+
+\input{systems-of-linear-congruences}
+
+\input{prime-numbers}
 
 \input{polynomials}
 
 \input{pythagorean-triples}
 
-\input{conics}
-
 \input{infinite-descent}
-
-\input{pells-equation}
-
-\input{congruences}
 
 \input{modular-arithmetic}
 
@@ -320,11 +354,9 @@
 
 \input{gaussian-integers}
 
-\input{systems-of-linear-congruences}
-
 \input{polynomial-congruences}
 
-\input{modular-powers}
+\input{residues-of-powers}
 
 \input{primitive-roots}
 
@@ -332,13 +364,23 @@
 
 \input{quadratic-reciprocity}
 
-\input{arithmetic-functions}
+\input{conics}
 
-\input{cyclotomic-polynomials}
+\input{pells-equation}
+
+\input{polygonal-numbers}
+
+\input{fermats-last-theorem}
+
+\input{real-numbers}
 
 \input{dirichlet-series}
 
+\input{arithmetic-functions}
+
 \input{distribution-of-primes}
+
+\input{prime-partition-function}
 
 \printbibliography[heading=bibintoc,title=References]
 

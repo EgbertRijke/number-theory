@@ -558,9 +558,27 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \exercise Show that if $d\mid a + b$, then $\gcd(d,a)\mid \gcd(a,b)$ and $\gcd(d,b)\mid\gcd(a,b)$. Conclude that if $a$ and $b$ are relatively prime, then $d$ is relatively prime to both $a$ and $b$.
   \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
   \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
-  \exercise Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
   \exercise \label{exercise:div-third-power-minus-first-power}Show that $a^3-a$ is divisible by $6$ for every integer $a$.
   \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
+  \exercise Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
+  \exercise \label{exercise:div-increment-a-p-squares}(Fibonacci \cite{fibonacci1987})
+  \begin{subexenum}
+  \item Let $0\leq a\leq b\leq c$ be integers such that their squares form an arithmetic progression; that is, the numbers $a^2$, $b^2$, and $c^2$ listed in increasing order have a common increment:
+  \begin{equation*}
+    \Delta:=b^2-a^2=c^2-b^2.
+  \end{equation*}
+  Show that $\Delta$ is a multiple of $24$.
+  \item Let $a_n$ be the $n$th positive integer of the form $(6k\pm 1)^2$. Then
+  \begin{equation*}
+    \frac{a_{n+1}-a_n}{24}=
+    \begin{cases}
+      n & \text{if $n$ is odd,}\\
+      n/2 & \text{if $n$ is even.}
+    \end{cases}
+  \end{equation*}
+  \item Find five examples of triples $(a,b,c)$ as described in part (a), and explain how you found them.
+  \end{subexenum}
+  \exercise \label{exercise:div-product-sum-of-squares}Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2$, then $x=y$.
   \exercise Show that any two consecutive Fibonacci numbers are relatively prime.
   \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
   \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.

@@ -33,7 +33,7 @@ In order to analyze the distribution of primes, we will make use of some handy n
   If $f$ is asymptotically equal to $g$, we write $f\sim g$ or $f(x)\sim g(x)$.
 \end{definition}
 
-\section{An Elementary Estimate of the Prime Counting Function}
+\section{An Elementary Estimate of the Prime-Counting Function}
 
 \begin{figure}[t]
   \centering
@@ -75,19 +75,19 @@ In order to analyze the distribution of primes, we will make use of some handy n
     % 1) π(x) from your new data file (up to x=10000)
     \draw[thick] plot file {pi-data.dat};
 
-    \node at (2700,1000) {\(\displaystyle \frac{x}{\log\log x}\)};
-    \node at (5400,800) {\(\displaystyle \pi(x)\)};
-    \node at (7200,700) {\(\displaystyle \frac{x}{\log x}\)};
+    \node at (2900,1000) {\(\displaystyle \frac{x}{\log\log x}\)};
+    \node at (5200,800) {\(\displaystyle \pi(x)\)};
+    \node at (7500,700) {\(\displaystyle \frac{x}{\log x}\)};
     
   \end{tikzpicture}
-  \caption{\label{figure:prime-counting-data}The prime counting function $\pi(x)$ compared to the functions $x/\log x$ and $x/\log\log x$, where $x$ ranges from 1 to 10,000. There are 1,229 primes below 10,000.}
+  \caption[The prime-counting function]{\label{figure:prime-counting-data}The prime-counting function $\pi(x)$ compared to the functions $x/\log x$ and $x/\log\log x$, where $x$ ranges from 1 to 10,000. There are 1,229 primes below 10,000.}
 \end{figure}
 
-In this section we will prove an elementary estimate for the growth of the prime counting function:
+In this section we will prove an elementary estimate for the growth of the prime-counting function:
 \begin{equation*}
   \pi(x)=\Oh\left(\frac{x}{\log\log x}\right)
 \end{equation*}
-While this estimate is not the strongest known estimate for the prime counting function, which is given by the prime number theorem as the asymptotic relation
+While this estimate is not the strongest known estimate for the prime-counting function, which is given by the prime number theorem as the asymptotic relation
 \begin{equation*}
   \pi(x)\sim\frac{x}{\log x},
 \end{equation*}
@@ -128,7 +128,7 @@ Thus, we find that
 \begin{equation*}
   \pi(x) \leq 2^{r+1} + x \prod_{i=1}^r\left(1-\frac{1}{p_i}\right)
 \end{equation*}
-In order to make further progress in estimating the prime counting function, we need a bound on the Euler product $\prod_{i=1}^r\bigl(1-\frac{1}{p_i}\bigr)$, which we will establish in the following theorem.
+In order to make further progress in estimating the prime-counting function, we need a bound on the Euler product $\prod_{i=1}^r\bigl(1-\frac{1}{p_i}\bigr)$, which we will establish in the following theorem.
   
 \begin{theorem}
   For any natural number $n\geq 2$, we have
@@ -163,15 +163,15 @@ In order to make further progress in estimating the prime counting function, we 
     \draw[domain={1/2.2}:6.2, samples=100, smooth, variable=\x, thick] plot ({\x},{1/(\x)}) node[right] {};
     
     % Optionally label the graphs
-    \node at (1.2,1.8) {$y=\frac{1}{x}$};
-    \node at (4,0.7) {$y=\frac{1}{\lfloor x\rfloor}$};
+    \node at (1.4,1.8) {$y=\frac{1}{x}$};
+    \node at (4,0.9) {$y=\frac{1}{\lfloor x\rfloor}$};
     
     % Axes
     \draw[->] (-0.2,0) -- (6.2,0) node[right] {$x$};
     \draw[->] (0,-.2) -- (0,2.2) node[above] {$y$};
     
   \end{tikzpicture}
-  \caption{\label{figure:sum-of-unit-fractions-by-integration}The sum of unit fractions can be estimated from below by computing the area under the graph $x\mapsto \frac{1}{x}$.}
+  \caption[Estimating the sum of unit fractions]{\label{figure:sum-of-unit-fractions-by-integration}The sum of unit fractions can be estimated from below by computing the area under the graph $x\mapsto \frac{1}{x}$.}
 \end{figure}
 
 \begin{proof}
@@ -198,7 +198,7 @@ In order to make further progress in estimating the prime counting function, we 
   \end{equation*}
 \end{proof}
 
-We are now ready to prove the estimate for the prime counting function stated at the beginning of this section.
+We are now ready to prove the estimate for the prime-counting function stated at the beginning of this section.
 
 \begin{theorem}
   \begin{equation*}
@@ -335,7 +335,7 @@ We are now ready to prove the estimate for the prime counting function stated at
       \node at (4,1.2) {$y=\log(1+x)$};
       \node at (1.5,1.8) {$y=2x$};
     \end{tikzpicture}
-    \caption{\label{figure:plot-of-log-1+x}The function $x\mapsto \log(1+x)$ compared to the function $x\mapsto 2x$.}
+    \caption[A plot of $\log(1+x)$]{\label{figure:plot-of-log-1+x}The function $x\mapsto \log(1+x)$ compared to the function $x\mapsto 2x$.}
   \end{figure}
 
 \begin{proof}

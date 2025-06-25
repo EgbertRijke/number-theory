@@ -1,190 +1,5 @@
 \chapter{Modular Arithmetic}\label{chapter:modular-arithmetic}
 
-\section{The Integers Modulo \texorpdfstring{$n$}{n}}
-
-We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
-
-\begin{definition}
-  We define the set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ as the set of congruence classes modulo $n$.
-\end{definition}
-
-The set of integers modulo $n$ can be equipped with addition and multiplication in the following way:
-\begin{align*}
-  [a] + [b] & := [a+b] \\
-  [a][b] & := [ab]
-\end{align*}
-Notice that the result of these operations depends only on the equivalence classes, not on the particular integers $a$ and $b$ chosen to represent the equivalence classes $[a]$ and $[b]$. Recall from \cref{proposition:quotient-map} that we have $[a]=[a']$ if and only if $a\equiv a'\pmod{n}$, and similarly we have $[b]=[b']$ if and only if $b\equiv b'\pmod{n}$. Thus, for any $a\equiv a'\pmod{n}$ and $b\equiv b'\pmod{n}$, it follows from \cref{proposition:addition-and-multiplication-congruence} that $a+b\equiv a'+b'\pmod{n}$ and $ab\equiv a'b'\pmod{n}$. In other words, if $[a]=[a']$ and $[b]=[b']$, then we have
-\begin{align*}
-  [a]+[b] & = [a']+[b'] \\
-  [a][b] & = [a'][b'].
-\end{align*}
-This ensures that the definitions of addition and multiplication on the integers modulo $n$ is \emph{well-defined} on the congruence classes modulo $n$.
-
-\begin{remark}
-  The definitions of addition and multiplication on the integers modulo $n$ follow a general pattern of defining functions $f:A/{\sim}\to B$ out of quotient sets. Given a function $g:A\to B$, a function $f:A/{\sim}\to B$ is said to be \emph{defined by descent} from $g$ if $f$ is defined by
-  \begin{equation*}
-    f([a]) := g(a).
-  \end{equation*}
-  For this definition to make sense, the values of $f$ must depend only on the equivalence classes. In other words, if $a$ and $a'$ represent the same equivalence class, i.e., if $a\sim a'$, then we must have that $f([a])=f([a'])$, i.e., we must have that
-  \begin{equation*}
-    g(a)=g(a').
-  \end{equation*}
-  By verifying that $a\sim a'$ implies $f([a])=f([a'])$, we ensure that $f$ is \emph{well-defined}. The well-definedness condition ensures that $f$ returns the same output for all elements of the same equivalence class.
-\end{remark}
-
-\begin{example}
-  The well-definedness condition is important to verify, because not all functions are well-defined with respect to the congruence relations modulo $n$.
-
-  Take, for example, the absolute value function $a\mapsto |a|$ on the integers. Then the operation
-  \begin{equation*}
-    [a]\mapsto |a|
-  \end{equation*}
-  is not well-defined on the integers modulo $3$, because $2\equiv -1\pmod{3}$ while
-  \begin{equation*}
-    |2|\nequiv |-1|\pmod{3}.
-  \end{equation*}
-
-  Typical functions that \emph{are} well defined on congruence classes modulo $n$, include functions that are entirely built up from arithmetic operations, such as polynomials.
-\end{example}
-
-\begin{theorem}
-  The set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ form a commutative ring, i.e., it satisfies the following laws of arithmetic:
-  \begin{align*}
-    (x+y)+z & = x + (y+z) & (xy)z & = x(yz) \\
-    0+x & = x & 1x & = x \\
-    x+0 & = x & x1 & = x \\
-    x-x & = 0 & x(y+z) & = xy + xz \\
-    -x+x & = 0 & (x+y)z & = xz + yz \\
-    x+y & = y+x & xy & = yx.
-  \end{align*}
-\end{theorem}
-
-\begin{proof}
-  To see that $(x+y)+z=x+(y+z)$, we first note that the variables $x$, $y$, and $z$ represent congruence classes of integers modulo $n$. Since for every congruence class there is an integer representing it, it suffices to prove that
-  \begin{equation*}
-    ([a]+[b])+[c]=[a]+([b]+[c]).
-  \end{equation*}
-  By unfolding the definitions, this equation reduces to
-  \begin{equation*}
-    [(a+b)+c]=[a+(b+c)].
-  \end{equation*}
-  However, the integers $(a+b)+c$ and $a+(b+c)$ are equal, so their equivalence classes are the same.
-
-  The proofs of the other properties follow a very similar pattern. We will give the proofs of commutativity of addition and distributivity of multiplication over addition from the left, but leave the other proofs to the reader.
-
-  To see that $x+y=y+x$, it suffices to show that
-  \begin{equation*}
-    [a]+[b] = [b]+[a].
-  \end{equation*}
-  By unfolding the definitions, this equation reduces to
-  \begin{equation*}
-    [a+b]=[b+a],
-  \end{equation*}
-  and indeed those equivalence classes are the same, because $a+b=b+a$ holds for any two integers $a$ and $b$.
-
-  To see that $x(y+z)=xy+xz$, it suffices to show that
-  \begin{equation*}
-    [a]([b]+[c]) = [a][b] + [a][c].
-  \end{equation*}
-  By unfolding the definitions, this equation reduces to
-  \begin{equation*}
-    [a(b+c)] = [ab+ac].
-  \end{equation*}
-  Again, this identification of equivalence classes holds, because we have the equality $a(b+c)=ab+ac$.
-\end{proof}
-
-\section{Solving Linear Congruences}
-
-The simplest linear congruence is the linear congruence
-\begin{equation*}
-  ax\equiv b\pmod{n}.
-\end{equation*}
-To solve this linear congruence, we are tasked with finding an integer for which the congruence $ax\equiv b\pmod{n}$ holds. However, we may immediately observe that if $x\equiv x' \mod{n}$, then the congruence $ax\equiv b\pmod{n}$ holds if and only if the congruence $ax'\equiv b\pmod{n}$ holds. Thus, we are really interested in solving such congruences in $\mathbb{Z}/n\mathbb{Z}$, i.e., in finding a congruence class $[x]$ modulo $n$ for which the congruence $ax\equiv b\pmod{n}$ holds.
-
-A complete solution to the linear congruence $ax\equiv b\pmod{n}$ is a description of the set of all congruence classes $[x]$ modulo $n$ that satisfy the linear congruence. We typically list these solutions by listing the numbers $0\leq x < n$ for which the congruence holds. For example, the linear congruence
-\begin{equation*}
-  4x\equiv 2\pmod{6}
-\end{equation*}
-has two incongruent solutions modulo $6$, the congruence classes of $2$ and $5$ modulo $6$.
-
-\begin{definition}
-  We say that $a$ \emph{divides} $b$ modulo $n$ if there exists an integer $x$ for which the congruence
-  \begin{equation*}
-    ax\equiv b\pmod{n}.
-  \end{equation*}
-\end{definition}
-
-By the definition of congruence relations, the congruence $ax\equiv b\pmod{n}$ holds if and only if $n\mid ax-b$, which is equivalent to the problem of finding an integer $y$ such that the equation
-\begin{equation*}
-  ax+ny=b
-\end{equation*}
-holds. By \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} we have an exact description of the set of solutions of this equation: Given a solution $ax_0+ny_0=b$, every solution is of the form
-\begin{equation*}
-  x = x_0 + k\frac{n}{d},\qquad\text{and}\qquad y=y_0-k\frac{a}{d},
-\end{equation*}
-where $d=\gcd(a,n)$. Furthermore, a solution can be found if and only if $d\mid b$, and in this case we can find $x_0$ and $y_0$ through Euclid's algorithm for finding the greatest common divisor.
-
-Now, observe that there are exactly $d$ incongruent solutions of the equation $ax+ny=b$ modulo $n$. Thus, we can reformulate \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} in modular arithmetic as follows.
-
-\begin{theorem}\label{theorem:linear-congruence-one-variable}
-  Consider two integers $a$ and $b$, and a natural number $n$ with $d=\gcd(a,n)$. The linear congruence
-  \begin{equation*}
-    ax\equiv b\pmod{n}
-  \end{equation*}
-  is solvable if and only if $d\mid b$, and in this case the number of incongruent solutions is exactly $d$. Furthermore, if we have one solution $ax_0\equiv b\pmod{n}$, then all the solutions are of the form
-  \begin{equation*}
-    x \equiv x_0 + k\frac{n}{d}
-  \end{equation*}
-  for $0\leq k < d$.
-\end{theorem}
-
-\begin{example}
-  Consider the linear congruence
-  \begin{equation*}
-    6x \equiv 15 \pmod{21}.
-  \end{equation*}
-  The greatest common divisor of $6$ and $21$ is $\gcd(6,21)=3$. Since $15$ is divisible by $3$, we expect to find exactly $3$ incongruent solutions modulo $21$.
-
-  To find one solution, we first express $3$ as a linear combination of $6$ and $21$. Normally, we would use Euclid's algorithm to do this, but the numbers here are small enough to immediately see that
-  \begin{equation*}
-    3 = 4\cdot 6 - 21.
-  \end{equation*}
-  From this expression we find that
-  \begin{equation*}
-    15 = 20\cdot 6 - 5\cdot 21.
-  \end{equation*}
-  This gives us the solution $6\cdot 20\equiv 15\pmod{21}$. The remaining solutions are now of the form
-  \begin{equation*}
-    x\equiv 20 + k\cdot 7
-  \end{equation*}
-  for $0\leq k < 3$. In other words, the full set of incongruent solutions of the equation $6x\equiv 15\pmod{21}$ is
-  \begin{equation*}
-    \{6,13,20\}.
-  \end{equation*}
-\end{example}
-
-\begin{corollary}
-  The linear congruence $ax\equiv 1\pmod{n}$ has at most one solution, and it is solvable if and only if $\gcd(a,n)=1$.
-\end{corollary}
-
-The previous corollary connects integers relatively prime to $n$ to the integers that are \emph{invertible} modulo $n$. Indeed, if $ax\equiv 1\pmod{n}$ has a solution, then its solution $x$ also guarantees that the equality
-\begin{equation*}
-  [a][x]=[1]
-\end{equation*}
-holds in $\mathbb{Z}/n\mathbb{Z}$. In other words, the integer $a$ represents an invertible congruence class modulo $n$.
-
-\begin{example}
-  The invertible congruence classes modulo $5$ are the congruence classes of $1$, $2$, $3$, and $4$. Indeed, one can verify that
-  \begin{align*}
-    1\cdot 1 & \equiv 1\pmod{5} & 2\cdot 3 & \equiv 1\pmod{5} \\
-    3\cdot 2 & \equiv 1\pmod{5} & 4\cdot 4 & \equiv 1\pmod {5}.
-  \end{align*}
-\end{example}
-
-\begin{corollary}
-  Consider an integer $a$ relatively prime to $n$. Then the operation $x\mapsto [a]x$ is a bijection on $\mathbb{Z}/n\mathbb{Z}$.
-\end{corollary}
-
 \section{Fermat's Little Theorem}
 
 \begin{theorem}[Fermat's Little Theorem]\label{theorem:fermats-little-theorem}
@@ -288,6 +103,8 @@ This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
 
 \section{Wilson's Theorem}
 
+The following theorem was first published by Edward Waring, who attributed it as follows to John Wilson \cite[p.~380]{waring1782} along with high praise: \textit{This most elegant property of prime numbers was discovered by the most illustrious and most skilled mathematician, John Wilson, Esquire.} However, neither Wilson nor Waring were able to rigorously prove this property of the prime numbers. The first to give a proof was Joseph--Louis Lagrange \cite{lagrange1771}. Euler, and later Gauss, gave separate proofs of this fact.
+
 \begin{theorem}[Wilson's Theorem]\label{theorem:wilsons-theorem}
   A natural number $n$ is prime if and only if
   \begin{equation*}
@@ -322,6 +139,19 @@ This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
   This implies that $\gcd(a,n)=1$. It follows that the only proper divisor of $n$ is $1$, i.e., that $n$ is prime.
 \end{proof}
 
+Gauss, in his \emph{Disquisitiones Airthmeticae} \cite[art.~78]{gauss1986} generalizes Wilson's Theorem as follows:
+
+\begin{theorem}
+  For any positive number $n$ we have
+  \begin{equation*}
+    \prod_{\substack{0<x<n\\\gcd(x,n)=1}}x=
+    \begin{cases}
+      -1 & \text{if $n=4$, $n=p^m$, or $n=2p^m$ for some odd prime $p$,} \\
+      1 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+\end{theorem}
+
 \section{Lucas's Theorem}
 
 \crefnamed{theorem:kummers-theorem}{Kummer's Theorem} gave a complete characterization of the prime factorization of binomial coefficients. In principle, this is sufficient to know the congruence class of $\binom{n}{m}$ modulo a prime $p$. In the following theorem, which is due to \'Edouard Lucas, we establish a pattern.
@@ -340,7 +170,21 @@ This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
 
 \section{The Quadratic Character of \texorpdfstring{$-1$}{-1}}
 
-\crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} can be used to prove that $-1$ is congruent to a square modulo $p$ if and only if $p\equiv 1\pmod{4}$. In turn, this observation can be used to show that there are infinitely many primes congruent to $1$ modulo $4$. Furthermore, the fact that $-1$ is congruent to a square modulo $p$ when $p\equiv 1\pmod{4}$ is used in the next chapter to prove Fermat's \emph{Two-Square Theorem}, which asserts that every such prime is the sum of two squares. Questions similar to the quadratic character of $-1$ modulo a prime will be investigated more fully in \cref{chapter:quadratic-residues,chapter:quadratic-reciprocity}.
+\begin{wrapfigure}[19]{r}{0.4\textwidth}
+  \centering
+  \begin{tikzpicture}
+    \node[inner sep=0pt, rounded corners=0.2em, clip] {%
+      \includegraphics[width=0.32\textwidth]{gauss1803.jpg}%
+    };
+  \end{tikzpicture}
+  \caption[Carl Friedrich Gauss]{\sloppy{Carl Friedrich Gauss. Pastel painting by Johann Christian August Schwartz, 1803.}}
+  \label{fig:gauss}
+\end{wrapfigure}
+\crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} can be used to prove a historically important result in the development of modular arithmetic: that $-1$ is congruent to a square modulo an odd prime $p$ if and only if $p\equiv 1\pmod{4}$.
+In his \emph{Disquisitiones Arithmeticae} \cite{gauss1986}, Gauss writes of this result that when he encountered it in 1795---he was 19 at the time---he considered it to be a result of rare beauty and suspected deep connections with even
+more profound results, that he concentrated all his efforts into understanding its underlying principles. He became so attracted by the questions of this nature, that he could not let them be. Ultimately, Gauss's investigations into higher arithmetic, as he preferred to call it, led him to prove the celebrated \crefnamed{theorem:quadratic-reciprocity}{Law of Quadratic Reciprocity}.
+
+While the law of quadratic reciprocity is certainly the central theorem of our subject, the quadratic character of $-1$ modulo a prime is a key result on its own. In this section we will show that it can be used to show that there are infinitely many primes congruent to $1$ modulo $4$. Furthermore, we will use the fact that $-1$ is congruent to a square modulo $p$ when $p\equiv 1\pmod{4}$ in the next chapter to prove Fermat's \emph{Two-Square Theorem}, which asserts that every such prime is the sum of two squares. Questions similar to the quadratic character of $-1$ modulo a prime will be investigated more fully in \cref{chapter:quadratic-residues,chapter:quadratic-reciprocity}.
 
 \begin{theorem}\label{theorem:quadratic-character-neg-1}
   Consider an odd prime $p$. Then there exists an integer $a$ such that

@@ -59,7 +59,7 @@ of any $k$ consecutive natural numbers is always divisible by $k!$. We will also
       }
     \end{scope}
   \end{tikzpicture}
-  \caption{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
+  \caption[Some Fibonacci tilings of a 1-by-19 grid]{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
 \end{figure}
 
 Consider the set of patterns one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). In \cref{figure:fibonacci-tilings} we have displayed some examples. How many such patterns are there?
@@ -100,7 +100,7 @@ In order to count them, let $T(n)$ be the number of such tilings. One way of fin
     \drawtiling{7}{ -4.5}{0/2,2/2,4/1}          % 2 2 1
     
   \end{tikzpicture}  
-  \caption{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
+  \caption[Fibonacci tilings of a 1-by-5 grid]{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
 \end{figure}
 
 However, listing all such tilings gets elaborate quite quickly, and furthermore doing so by hand is quite error-prone. The problem is therefore to find a clever way of counting all possible patterns for all $n$.
@@ -202,8 +202,8 @@ is the number $n!$. In other words, the factorial function counts the number of 
   \begin{equation*}
     s_{y,n}(x) =
     \begin{cases}
-      n & \text{if }x=y \\
-      y & \text{if }x=n \\
+      n & \text{if }x=y, \\
+      y & \text{if }x=n, \\
       x & \text{otherwise.}
     \end{cases}
   \end{equation*}
@@ -287,7 +287,7 @@ Subsets of a finite set $X$ are determined by a function $X\to \{0,1\}$. Indeed,
 \begin{equation*}
   \chi_A(x):=
   \begin{cases}
-    1 & \text{if $x\in A$} \\
+    1 & \text{if $x\in A$}, \\
     0 & \text{otherwise}.
   \end{cases}
 \end{equation*}
@@ -350,7 +350,7 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
       \draw[thick,densely dotted,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
     }
   \end{tikzpicture}
-  \caption{\label{figure:pascals-triangle}Pascal's triangle.}
+  \caption[Pascal's triangle]{\label{figure:pascals-triangle}Pascal's triangle.}
 \end{figure}
 
 \begin{theorem}
@@ -401,7 +401,7 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
 \begin{proposition}\label{proposition:characterize-k-permutations}
   There is a bijection between the set of $k$-permutations of an $n$-element set $S$, and the set
   \begin{equation*}
-    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}
   \end{equation*}
   of pairs $(A,f)$ consisting of a subset $A\subseteq S$ and a bijection $\{0,\ldots,k-1\}\cong A$.
 \end{proposition}
@@ -431,7 +431,7 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
 \begin{corollary}
   \emph{Formula for binomial coefficients.} For any two natural numbers $n$ and $k$, we have
   \begin{equation*}
-    \binom{n}{k}=\frac{n!}{k!(n-k)!}
+    \binom{n}{k}=\frac{n!}{k!(n-k)!}.
   \end{equation*}
 \end{corollary}
 
