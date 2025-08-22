@@ -1,0 +1,132 @@
+\chapter{Bernoulli Numbers}
+
+\section{Faulhaber's Formula}
+
+\begin{theorem}
+  \begin{equation*}
+    \sum_{k=1}^n k^m = \frac{1}{m+1}\sum_{r=0}^n\binom{m+1}{r} B_r n^{m+1-r}.
+  \end{equation*}
+\end{theorem}
+
+The following theorem is a consequence of Faulhaber's formula, but can also be derived independently.
+
+\begin{theorem}
+  Assume that $m$ is even. Then
+  \begin{equation*}
+    \sum_{j=1}^{p-1} j^m\equiv -\frac{B_{m+1}}{m+1} p\pmod{p^2}.
+  \end{equation*}
+  Equivalently,
+  \begin{equation*}
+    \frac{1}{p}\sum_{j=1}^{p-1} j^m\equiv -\frac{B_{m+1}}{m+1}\pmod{p}.
+  \end{equation*}
+\end{theorem}
+
+\section{Fundamental Identities Involving Bernoulli Numbers}
+
+\begin{equation*}
+  \frac{t}{e^t-1}=\sum_{n=0}^{\infty}\frac{B_n}{n!} t^n.
+\end{equation*}
+
+\begin{equation*}
+  \sum_{k=0}^n\binom{n}{k}B_k = B_n+nB_{n-1}
+\end{equation*}
+
+\begin{equation*}
+  \sum_{k=0}^n\binom{n}{k}2^kB_k = (2-2^n)B_n  
+\end{equation*}
+
+\begin{equation*}
+  \sum_{k=1}^n\binom{n}{k} B_k B_{n-k}=-n(B_n - B_{n-1})
+\end{equation*}
+https://math.stackexchange.com/questions/3243169/euler-sum-with-bernoulli-numbers
+
+\begin{equation*}
+  \sum_{k=j}^n\frac{1}{k}\binom{n}{k-1}\binom{k}{j} B_{k-j}=\delta_{nj}
+\end{equation*}
+where $\delta_a$ is the Kronecker $\delta$-function.
+
+\section{Values of the \texorpdfstring{$\zeta$}{ζ}-function}
+
+\begin{equation*}[Euler]
+  \zeta(2n)=\sum_{k=1}^{\infty}\frac{1}{k^{2n}}=(-1)^{n+1}\frac{(2\pi)^{2n}}{2(2n)!}B_{2n}.
+\end{equation*}
+
+\section{Kummer's Congruence for Bernoulli Numbers}
+
+If $n\equiv m\pmod{p-1}$ and $m$ and $n$ are positive even integers, then
+\begin{equation*}
+  \frac{B_n}{n}\equiv \frac{B_m}{m}\pmod{p}.
+\end{equation*}
+This has applications to $p$-adic L-functions. More generally, if $n\equiv m\pmod{\phi(p^k)}$ and $m$ and $n$ are positive even integers, then
+\begin{equation*}
+  (1-p^{n-1})\frac{B_n}{n}\equiv (1-p^{m-1})\frac{B_m}{m}\pmod{p^k}.
+\end{equation*}
+
+This leads to some observations about the structure of cyclotomic fields and class groups, and eventually to Iwasawa theory.
+
+\section{Congruences Related to Bernoulli Numbers}
+
+\begin{definition}
+  A prime $p$ is said to be \emph{regular} if it does not divide the numerator of any of the Bernoulli numbers $B_{2k}$ for $2k\leq p-3$.
+\end{definition}
+
+\begin{theorem}[The von~Staudt--Clausen Theorem]
+  Let  $B_k$ denote the $k$th Bernoulli number. Then
+  
+  \begin{equation*}
+    B_{2n}+\sum_{p-1\mid 2n}\frac{1}{p}
+  \end{equation*}
+  is an integer.
+\end{theorem}
+
+\begin{theorem}[Glaisher's Congruence]
+  For $p>3$,
+  \begin{equation*}
+    \binom{2p-1}{p-1}\equiv 1-\frac{2}{3}p^2 \mathrm{num}(B_{p-3})\pmod{p^3}
+  \end{equation*}
+\end{theorem}
+
+https://scispace.com/pdf/notes-on-glaisher-s-congruences-25n3c5gnc3.pdf \\
+https://arxiv.org/pdf/1301.4888
+
+\section{Fermat Quotients}
+
+Let $q_p(a):= \frac{a^{p-1}-1}{p}$ be the \emph{Fermat quotient}.
+
+\begin{theorem}[Vandiver's Criterion]
+  If $p\mid q_p(a)$, then $p$ divides the numerator of the $(p-1)$st Bernoulli number $B_{p-1}$.
+\end{theorem}
+
+Some further interesting results about Fermat quotients:
+\begin{equation*}
+  q_p(ab)\equiv q_p(a)+q_p(b)\pmod{p}.
+\end{equation*}
+Leads to Wieferich primes and cyclotomic class groups. A \emph{Wieferich prime} base $a$ is a prime $p$ such that
+\begin{equation*}
+  a^{p-1}\equiv 1\pmod{p^2}.
+\end{equation*}
+The only known Wieferich primes base $2$ are 1093 and 3511.
+
+\begin{theorem}[Lerch's Theorem]
+  If $p$ is an odd prime, then
+  \begin{equation*}
+    q_p(a^k)\equiv kq_p(a)\pmod{p}.
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Skula's Congruence]
+  \begin{equation*}
+    q_p(2)^2\equiv \sum_{k=1}^{p-1}\frac{1}{k^2}\pmod{p}.
+  \end{equation*}
+\end{theorem}
+
+There are some generalizations to Euler quotients too:
+\begin{equation*}
+  q_n(a):=\frac{a^{\phi(n)}-1}{n}
+\end{equation*}
+for $a$ relatively prime to $n$.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:

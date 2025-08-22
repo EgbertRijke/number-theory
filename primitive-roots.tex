@@ -92,24 +92,49 @@ We saw in the previous section that there are four integers modulo $13$ that hav
 \begin{equation*}
   \phi(p-1)
 \end{equation*}
-elements of order $p-1$. In other words, for every prime number $p$, there is an integer $a$ such that the integers
+elements of order $p-1$. In other words, for every prime number $p$, there is an integer $g$ such that the integers
 \begin{equation*}
-  1,a,a^2,\ldots,a^{p-2}
+  1,g,g^2,\ldots,g^{p-2}
 \end{equation*}
-form a reduced residue system modulo $p$. That is, there is an integer $a$ such that every integer $x$ relatively prime to $p$ is congruent to exactly one power $a^m$, where $0\leq m<p-1$. Such integers are called \emph{primitive roots}. In the previous section we saw that $2$ is a primitive root of the prime $13$. 
+form a reduced residue system modulo $p$. That is, there is an integer $g$ such that every integer $a$ relatively prime to $p$ is congruent to exactly one power $g^k$, where $0\leq k<p-1$. Such integers are called \emph{primitive roots}. In the previous section we saw that $2$ is a primitive root of the prime $13$. 
 
 \begin{definition}
-  A \emph{primitive root} modulo a natural number $n$ is an integer $a$ such that
+  A \emph{primitive root} modulo a natural number $n$ is an integer $g$ such that
   \begin{equation*}
-    \ord_n(a)=\phi(n).
+    \ord_n(g)=\phi(n).
   \end{equation*}
 \end{definition}
 
-Combining the previous remarks, we obtain:
-
 \begin{theorem}
-  The number of primitive roots of a prime number $p$ is $\phi(p-1)$.
+  Consider a natural number $n$. The following are equivalent:
+  \begin{enumerate}
+  \item The number $n$ admits a primitive root modulo $n$.
+  \item Any polynomial congruence of the form
+    \begin{equation*}
+      x^d\equiv 1\pmod{n}
+    \end{equation*}
+    has at most $d$ solutions.
+  \end{enumerate}
+  Furthermore, if the first condition holds then there are $\phi(\phi(n))$ primitive roots, and if the last condition holds and the polynomial congruence $x^d\equiv 1\pmod{n}$ has a solution, then it has exactly $\gcd(d,\phi(n))$ solutions.
 \end{theorem}
+
+\begin{proof}
+  First, consider a primitive root $g$ modulo $n$. Every polynomial congruence of degree $1$ has at most one solution. 
+\end{proof}
+
+\begin{corollary}
+  The number of primitive roots of a prime number $p$ is $\phi(p-1)$. In particular, every prime $p$ admits a primitive root.
+\end{corollary}
+
+\begin{remark}
+  The number $9$ has the primitive root $2$. Indeed $\phi(9)=6$, and $2^3\equiv-1\pmod{9}$ so that $\ord_9(2)=6$. Thus, by the previous theorem it follows that the congruence $x^d\equiv 1\pmod{9}$ has at most $d$ solutions.
+
+  Nevertheless, there are polynomials $f(x)$ of degree $2$ that are not of this form that have more than two solutions among the integers relatively prime to $9$. For example, the polynomial congruence
+  \begin{equation*}
+    x^2+x+7\equiv 0\pmod{9},
+  \end{equation*}
+  has the three solutions $x\equiv 1$, $4$, and $7\pmod{9}$.
+\end{remark}
 
 In fact, it is possible to precisely classify all the natural numbers that have primitive roots. They are the numbers
 \begin{equation*}
@@ -117,7 +142,76 @@ In fact, it is possible to precisely classify all the natural numbers that have 
 \end{equation*}
 where $p$ is an odd prime. For example, $3$ is a primitive root of $4$, and $5$ is a primitive root of $6$. The number $8$, on the other hand, does not have primitive roots because $\phi(8)=4$ while the nonunital odd integers $3$, $5$, and $7$ all have order $2$.
 
-% To see that the odd prime powers have primitive roots, we need the following lemma:
+It is useful to have access to primitive roots, if they exist, because if $g$ is a primitive root modulo $n$, then the integers
+\begin{equation*}
+  1,g,g^2,\ldots,g^{\phi(n)-1}
+\end{equation*}
+form a reduced residue system modulo $n$. This gives a convenient way of representing all the elements of a reduced residue system.
+
+\begin{definition}
+  Suppose $g$ is a primitive root modulo $n$, and let $a$ be an integer relatively prime to $n$. Then we define the \emph{discrete logarithm} or \emph{index}
+  \begin{equation*}
+    \ind_g(a)
+  \end{equation*}
+  of $a$ base $g$ to be the unique integer modulo $\phi(n)$ such that $g^{k}=a$.
+\end{definition}
+
+\begin{theorem}
+  Consider a natural number $n$ with a primitive root $g$.
+  \begin{enumerate}
+  \item For any two integers $a$ and $b$ relatively prime to $n$, we have
+    \begin{equation*}
+      a\equiv b\pmod{n}\qquad\Leftrightarrow\qquad\ind_g(a)\equiv\ind_g(b)\pmod{\phi(n)}.
+    \end{equation*}
+  \item Furthermore, we have
+    \begin{align*}
+      \ind_g(ab) & \equiv \ind_g(a)+\ind_g(b)\pmod{\phi(n)} \\
+      \ind_g(a^m) & \equiv m\ind_g(a)\pmod{\phi(n)}.
+    \end{align*}
+  \end{enumerate}
+\end{theorem}
+
+\begin{example}
+  Solving linear congruences becomes quite a straightforward task when a primitive root is known. For example, the congruence
+  \begin{equation*}
+    14x\equiv 6\pmod{26}
+  \end{equation*}
+  is solvable if and only if $7x\equiv 3\pmod{13}$ is. By the previous theorem, this linear congruence is equivalent to the linear congruence
+  \begin{equation*}
+    \ind_2(7)+\ind_2(x)\equiv\ind_2(3)\pmod{12}.
+  \end{equation*}
+  Since $\ind_2(7)=11$ and $\ind_2(3)=4$, we find that $\ind_2(x)\equiv 5\pmod{12}$. Thus, we conclude that
+  \begin{equation*}
+    x\equiv 6\pmod{13}
+  \end{equation*}
+  is a solution of the original linear congruence.
+\end{example}
+
+\begin{theorem}
+  Consider a natural number $n$ that admits primitive roots, and let $a$ be relatively prime to $n$. Then the set
+  \begin{equation*}
+    I_a := \{0\leq k<\phi(n)\mid \text{there is a primitive root $g$ such that $g^k\equiv a\pmod{n}$}\}
+  \end{equation*}
+  has exactly $\phi(\ord_n(a))$ elements, the least of which is $\frac{\phi(n)}{\ord_n(a)}$.
+\end{theorem}
+
+\begin{theorem}
+  Suppose $n$ is a natural number that admits a primitive root and write $n=2^{\alpha}p^k$. Consider a polynomial $f(x)=a_dx^d+\cdots+a_0$ with integer coefficients so that the leading coefficient $a_d$ is relatively prime to $n$. Furthermore, assume that for every prime divisor $q\mid n$, the polynomials $f(x)$ and $f'(x)$ are relatively prime as polynomials. Then the number of roots of $f(x)$ modulo $n$ is at most $d$.
+\end{theorem}
+
+%\section{Primitive Roots of Composite Moduli}
+
+% In this section, we will generalize ?? to numbers of the form
+% \begin{equation*}
+%   2,~4,~p^k,~\text{and}~2p^k.
+% \end{equation*}
+% The number $8$, for example, does not have elements of order $\phi(8)=4$, because the orders of all the elements modulo $8$ are:
+% \begin{align*}
+%   \ord_8(0) & = 0 & \ord_8(1) & = 1 & \ord_8(2) & = 0 & \ord_8(3) & = 2 \\
+%   \ord_8(4) & = 0 & \ord_8(5) & = 2 & \ord_8(6) & = 0 & \ord_8(7) & = 2.
+                                                                      % \end{align*}
+
+% To see that the powers of odd primes have primitive roots, we need the following lemma:
 
 % \begin{lemma}
 %   Consider an odd prime $p$, and two integers $a$ and $b$. Then we have
@@ -161,112 +255,48 @@ where $p$ is an odd prime. For example, $3$ is a primitive root of $4$, and $5$ 
 %   \end{equation*}
 % \end{proof}
 
-It is useful to have access to primitive roots, if they exist, because if $a$ is a primitive root modulo $n$, then the integers
-\begin{equation*}
-  1,a,a^2,\ldots,a^{\phi(n)-1}
-\end{equation*}
-form a reduced residue system modulo $n$. This gives a convenient way of representing ell the elements of a reduced residue system.
 
-\begin{definition}
-  Suppose $a$ is a primitive root modulo $n$, and let $x$ be an integer relatively prime to $n$. Then we define the \emph{index}
-  \begin{equation*}
-    \ind_a(n)
-  \end{equation*}
-  of $x$ base $a$ to be the unique natural number such that $a^{\ind_a(n)}=x$.
-\end{definition}
+\section{A Complete Characterization of Moduli with Primitive Roots}
+
+We have established the existence of primitive roots modulo any prime. In this section, we extend our attention to arbitrary moduli and give a complete characterization of those moduli for which a primitive root exists.
 
 \begin{theorem}
-  Consider a natural number $n$ with a primitive root $a$.
-  \begin{enumerate}
-  \item For any two integers $x$ and $y$ relatively prime to $n$, we have
-    \begin{equation*}
-      x\equiv y\pmod{n}\qquad\Leftrightarrow\qquad\ind_a(x)\equiv\ind_a(y)\pmod{\phi(n)}.
-    \end{equation*}
-  \item Furthermore, we have
-    \begin{align*}
-      \ind_a(xy) & \equiv \ind_a(x)+\ind_a(y)\pmod{\phi(n)} \\
-      \ind_a(x^m) & \equiv m\ind_a(x)\pmod{\phi(n)}.
-    \end{align*}
-  \end{enumerate}
+  There is a primitive root modulo $n$ if and only if
+  \begin{equation*}
+    n=2,~4,~p^k,~\text{or }~2p^k,
+  \end{equation*}
+  where $p$ is an odd prime.
 \end{theorem}
 
-\begin{example}
-  Solving linear congruences becomes quite a straightforward task when a primitive root is known. For example, the congruence
+\begin{theorem}
+  For any positive integer $n$ we have
   \begin{equation*}
-    14x\equiv 6\pmod{26}
-  \end{equation*}
-  is solvable if and only if $7x\equiv 3\pmod{13}$ is. By the previous theorem, this linear congruence is equivalent to the linear congruence
-  \begin{equation*}
-    \ind_2(7)+\ind_2(x)\equiv\ind_2(3)\pmod{12}.
-  \end{equation*}
-  Since $\ind_2(7)=11$ and $\ind_2(3)=4$, we find that $\ind_2(x)\equiv 5\pmod{12}$. Thus, we conclude that
-  \begin{equation*}
-    x\equiv 6\pmod{13}
-  \end{equation*}
-  is a solution of the original linear congruence.
-\end{example}
-
-We now return to an old problem, the investigation of which started in \cref{exercise:div-third-power-minus-first-power,exercise:div-fifth-power-minus-first-power}, which asked to compute common divisors of all the integers of the form $x^3-x$ and common divisors of all the integers of the form $x^5-x$. In \cref{section:fixed-divisors} we showed that the fixed divisor of $f(x)=x^n-x$ can be determined by computing the greatest common divisor of the values
-\begin{equation*}
-  f(2),\ldots,f(\lfloor{\textstyle\frac{n+1}{2}}\rfloor).
-\end{equation*}
-Recall from \cref{definition:fixed-divisor} that the fixed divisor of a polynomial $f(x)$ is the greatest common divisor of all the values of $f(x)$. Using primitive roots we can now compute the fixed divisors of all the polynomials of the form $x^n-x$.
-
-\begin{theorem}\label{theorem:fixed-divisors-fermat-polynomials}
-  Consider the polynomial $x^n-x$, for some natural number $n> 1$. Its fixed divisor is
-  \begin{equation*}
-    \prod_{\substack{p\ \textup{prime} \\ p-1 \mid n-1}} p.
+    \prod_{\substack{0<x<n\\ \gcd(x,n)=1}} x \equiv
+    \begin{cases}
+      -1\pmod{n} & \text{if there is a primitive root modulo $n$,}\\
+      1\pmod{n} & \text{otherwise.}
+    \end{cases}
   \end{equation*}
 \end{theorem}
+
+Gauss, in his \emph{Disquisitiones Airthmeticae} \cite[art.~78]{gauss1986} generalizes Wilson's Theorem as follows:
 
 \begin{proof}
-  First, we claim that a prime number $p$ appears as a factor of the fixed divisor of $x^n-x$ if and only if
+  We will write $P:=\prod_{(\substack{0<x<n,~\gcd(x,n)=1})} x$. Note that any two distinct elements $x$ and $y$ such that $xy\equiv 1\pmod{n}$ cancel each other out in this product, so we have
   \begin{equation*}
-    p-1\mid n-1.
+    P=\prod_{\substack{0<x<n\\ x^2=1}}x.
   \end{equation*}
-  To see this, suppose that $p$ divides every integer of the form $x^n-x$. Since $x^n-x=x(x^{n-1}-1)$ and $p$ is prime, it follows that $p\mid x$ or $p\mid x^{n-1}-1$ for every $x$ not divisible by $p$. From this, it follows that
-  \begin{equation*}
-    \ord_p(x)\mid n-1
-  \end{equation*}
-  for every $x$ not divisible by $p$. In particular, if $x$ is a primitive root modulo $p$, we find that
-  \begin{equation*}
-    p-1\mid n-1.
-  \end{equation*}
-  Thus we see that if $p$ divides $x^n-x$ for every integer $x$, then we must have $p-1\mid n-1$.
-
-  Conversely, if $p-1\mid n-1$, then it follows by \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} that
-  \begin{equation*}
-    x^{n-1}\equiv 1\pmod{p}
-  \end{equation*}
-  for every $x$ not divisible by $p$. This implies that $x(x^{n-1}-1)$ is divisible by $p$ for every $x$, completing the proof of the first claim.
-
-  To finish the proof, it remains to show that the fixed divisor of $x^n-x$ is square-free, i.e., that for each prime number $p$ there is an integer $x$ such that $p^2\nmid x^n-x$. We choose $x=p$, because the integer $p^n-p=p(p^{n-1}-1)$ is indeed not divisible by $p^2$.
+  In particular, $P$ itself satisfies $P^2=1$. 
 \end{proof}
 
-We conclude with an observation of Sophie Germain.
+\section{Primary Decomposition of the Symmetries of \texorpdfstring{$\mathbb{Z}/p\mathbb{Z}$}{ℤ/pℤ}}
 
-\begin{corollary}
-  Consider a  natural number $n$, and write $q=\prod_{p-1\mid n-1}p$ for the product of all primes $p$ such that $p-1\mid n-1$. Then
+\begin{proposition}
+  Consider a prime $p$ and a prime divisor $q\mid p-1$ so that the $q$-adic valuation of $p-1$ is $m_q$. Then the number of elements of order $q^{m_q}$ modulo $p$ is given by
   \begin{equation*}
-    a^n\equiv a \pmod{q}
+    q^{m_q-1}(q-1).
   \end{equation*}
-  for every integer $a$. Consequently, if $x$, $y$, and $z$ are integers such that $x^n+y^n=z^n$, then we have
-  \begin{equation*}
-    x+y\equiv z\pmod{q}.
-  \end{equation*}
-\end{corollary}
-
-%\section{Primitive Roots of Composite Moduli}
-
-% In this section, we will generalize ?? to numbers of the form
-% \begin{equation*}
-%   2,~4,~p^k,~\text{and}~2p^k.
-% \end{equation*}
-% The number $8$, for example, does not have elements of order $\phi(8)=4$, because the orders of all the elements modulo $8$ are:
-% \begin{align*}
-%   \ord_8(0) & = 0 & \ord_8(1) & = 1 & \ord_8(2) & = 0 & \ord_8(3) & = 2 \\
-%   \ord_8(4) & = 0 & \ord_8(5) & = 2 & \ord_8(6) & = 0 & \ord_8(7) & = 2.
-% \end{align*}
+\end{proposition}
 
 \section{A Criterion for Congruences of Degree \texorpdfstring{$n$}{n}}
 
@@ -290,12 +320,12 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
     has a solution.
   \item The congruence
     \begin{equation*}
-      a^{\frac{p-1}{\gcd(n,p-1)}}\equiv 1\pmod{p}
+      \frac{p-1}{\ord_p(a)}\equiv 0\pmod{\gcd(n,p-1)}
     \end{equation*}
     holds.
   \item The congruence
     \begin{equation*}
-      \frac{p-1}{\ord_p(a)}\equiv 0\pmod{\gcd(n,p-1)}
+      a^{\frac{p-1}{\gcd(n,p-1)}}\equiv 1\pmod{p}
     \end{equation*}
     holds.
   \end{enumerate}
@@ -303,9 +333,9 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
 \end{theorem}
 
 \begin{proof}[Proof by primitive roots]
-  Consider a primitive root $g$ modulo $p$ such that
+  Let $m:=(p-1)/\ord_p(a)$, and consider a primitive root $g$ modulo $p$ such that
   \begin{equation*}
-    g^{\frac{p-1}{\ord_p(a)}}\equiv a\pmod{p}.
+    g^{m}\equiv a\pmod{p}.
   \end{equation*}
   Then the congruence
   \begin{equation*}
@@ -319,9 +349,9 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
   \begin{equation*}
     tn \equiv m\pmod{p-1}
   \end{equation*}
-  is solvable. It follows from \cref{theorem:linear-congruence-one-variable} that this congruence is solvable if and only if $d:=\gcd(n,p-1)\mid m$.
+  is solvable. It follows from \cref{theorem:linear-congruence-one-variable} that this congruence is solvable if and only if $d:=\gcd(n,p-1)\mid m$, and in this case there are exactly $d$ solutions. Thus we have shown that {\it 1.}~is equivalent to {\it 2.}
 
-  Now consider the condition that
+  To show that {\it 3.}~is equivalent to {\it 2.}, consider the condition that
   \begin{equation*}
     a^{\frac{p-1}{\gcd(n,p-1)}}\equiv 1\pmod{p}.
   \end{equation*}
@@ -373,13 +403,6 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
   has a unique solution. In other words, the map $x\mapsto x^n$ is a bijection on $\mathbb{Z}/p\mathbb{Z}$.
 \end{corollary}
 
-\begin{corollary}
-  If $p$ is a prime of the form $n^2+1$, then
-  \begin{equation*}
-    x^n\equiv a\pmod{p}\text{ is solvable}\qquad\Leftrightarrow\qquad a^n\equiv 1\pmod{p}.
-  \end{equation*}
-\end{corollary}
-
 \begin{exercises}
   \exercise
   \begin{subexenum}
@@ -420,6 +443,10 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
     g^{\frac{p-1}{\ord_p(a)}}\equiv a\pmod{p}.
   \end{equation*}
   \exercise Consider a prime $p>2$ and an odd number $m$. Show that the congruence $x^{2^nm}\equiv -1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{2^{n+1}}$.
+  \exercise Consider a prime $p$ of the form $n^2+1$. Show that
+  \begin{equation*}
+    x^n\equiv a\pmod{p}\text{ is solvable}\qquad\Leftrightarrow\qquad a^n\equiv 1\pmod{p}.
+  \end{equation*}
   \exercise
   \begin{subexenum}
   \item Show that the number of solutions to the congruence
@@ -438,6 +465,24 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
     x^n\equiv 1\pmod{p^m}
   \end{equation*}
   has $d$ distinct roots.
+  \exercise
+  \begin{subexenum}
+  \item Consider a prime number $p$. Show that the following are equivalent:
+    \begin{enumerate}
+    \item There is a solution to the congruence
+      \begin{equation*}
+        x^n\equiv a\pmod{p}
+      \end{equation*}
+      of the form $x=a^k$.
+    \item The exponent $n$ is relatively prime to $\ord_p(a)$.
+    \end{enumerate}
+  \item Find a solution to the congruence
+    \begin{equation*}
+      x^3\equiv 5\pmod{13}
+    \end{equation*}
+    of the form $x=5^k$.
+  \end{subexenum}
+  \exercise Consider an integer $n>2$. Show that $n$ admits a primitive root if and only if there is a unique integer of order $2$ modulo $n$.
 \end{exercises}
 
 %%% Local Variables:

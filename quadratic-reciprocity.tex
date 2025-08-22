@@ -539,6 +539,32 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   Subtracting $\sum_k k$ from both sides, we find that $\sum_k q_k\equiv 0\pmod{2}$.
 \end{proof}
 
+\section{P\'epin's Primality Test for the Fermat Numbers}
+
+Théophile Pépin observed that the quadratic character of $-1$ can be used to reach a sharper conclusion on the congruence class of a prime dividing a Fermat number.
+
+\begin{theorem}[P\'epin's refinement of \cref{theorem:prime-divisors-fermat-numbers}]
+  If $p$ is a prime divisor of the $n$th Fermat number $F_n=2^{2^n}+1$, then
+  \begin{equation*}
+    p\equiv 1\pmod{2^{n+2}}.
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[P\'epin's Primality Test]
+  For $n\geq 1$, the $n$th Fermat number $F_n$ is prime if and only if
+  \begin{equation*}
+    3^{\frac{F_n-1}{2}}\equiv -1\pmod{F_n}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  First, assume that $F_n$ is prime. By Fermat's Little Theorem it follows that
+  \begin{equation*}
+    3^{F_n-1}\equiv 1\pmod{F_n}.
+  \end{equation*}
+  Thus, it follows that $\ord_{F_n}(3)=F_n-1$ since it must be a power of $2$ dividing $2^{2^n}$ and not dividing $2^{2^n-1}$. Since $3$ is an element of order $F_n-1$ modulo $F_n$, it follows that $F_n$ is prime.
+\end{proof}
+
 \begin{exercises}
   \exercise Compute the values of the following Legendre symbols:
   \begin{equation*}

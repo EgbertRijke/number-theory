@@ -1,5 +1,104 @@
 \chapter{Cyclotomic Polynomials}
 
+\section{The Primitive Factors of \texorpdfstring{$x^n-1$}{xⁿ − 1}}
+
+Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. The order of any integer $a$ not divisible by $p$ is a divisor of $p-1$, so that $p-1\mid n$.
+
+If there was a way to ensure that $\ord_p(a)=p-1$ for all prime factors $p$ of $a^n-1$, we could use the polynomial $a^n-1$ to generate infinitely many primes congruent to $1$ modulo $n$. However, that is too much to ask for, since there are $\phi(d)$ integers whose order is $d$, for every divisor $d$ of $p-1$. 
+
+\begin{definition}
+  The $n$th \emph{cyclotomic polynomial} $\Phi_n$ is defined by
+  \begin{equation*}
+    \Phi_n(x) := \prod_{\substack{1\leq k \leq n\\[2pt]\gcd(k,n)=1}}(x-e^{2\pi ik/n}).
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  For any natural number $n$ we have the identity
+  \begin{equation*}
+    \Phi_n(x)=\prod_{\substack{d\mid n\\[2pt]d\neq n}}\Phi_d(x).
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}
+  The cyclotomic polynomials $\Phi_n(x)$ have integer coefficients
+\end{theorem}
+
+In the following theorem we will establish that the coefficients of the cyclotomic polynomials are palindromic, meaning that they read the same forward and back. 
+
+\begin{theorem}
+  The cyclotomic polynomials $\Phi_n(x)$ are \emph{reciprocal} in the sense that
+  \begin{equation*}
+    \Phi_n\left(\tfrac{1}{x}\right)x^{\phi(n)} = \Phi_n(x).
+  \end{equation*}
+\end{theorem}
+
+\section{The M\"obius Inversion Formula for the Cyclotomic Polynomials}
+
+\begin{theorem}\label{theorem:mobius-inversion-cyclotomic-polynomials}
+  For any $n$, we have the identity
+  \begin{equation*}
+    \Phi_n(x)=\prod_{d\mid n}(x^d-1)^{\mu(n/d)}
+  \end{equation*}
+\end{theorem}
+
+\begin{example}
+  \cref{theorem:mobius-inversion-cyclotomic-polynomials} can be used effectively to compute the coefficients of a cyclotomic polynomial. For example, in order to compute $\Phi_{12}(x)$, we note that the values $\mu(12/d)$ of the M\"obius function are as follows:
+  \begin{equation*}
+    \mu(12/1)=0,~\mu(12/2)=1,~\mu(12/3)=0,~\mu(12/4)=-1,~\mu(12/6)=-1,~\mu(12/12)=1.
+  \end{equation*}
+  This shows that
+  \begin{equation*}
+    \Phi_{12}(x)=(x^2-1)(x^4-1)^{-1}(x^6-1)^{-1}(x^{12}-1)=x^4-x^2+1.
+  \end{equation*}
+\end{example}
+
+\section{The Infinitude of Primes Congruent to \texorpdfstring{$1$}{1} Modulo \texorpdfstring{$n$}{n}}
+
+\section{Vantieghem's Theorem}
+
+Recall that the $n$th Mersenne number $M_n$ is defined by
+\begin{equation*}
+  M_n:=2^n-1.
+\end{equation*}
+The following theorem is due to Emmanuel Vantieghem \cite{vantieghem1991}.
+
+\begin{theorem}[Vantieghem's Theorem]
+  A natural number $n\geq 3$ is prime if and only if
+  \begin{equation*}
+    \prod_{k=1}^{n-1}M_k \equiv n\pmod{M_n}
+  \end{equation*}
+\end{theorem}
+
+\section{Zsigmondy's Theorem}
+
+\begin{exercises}
+  \exercise Let $M_n=2^n-1$ be the $n$th Mersenne number. Show that if $d\mid n$, then
+  \begin{equation*}
+    \Phi_d(2)\mid M_n.
+  \end{equation*}
+  \exercise Compute the prime factorization of the Mersenne number $M_{60}=2^{60}-1$.
+  \exercise
+  \begin{subexenum}
+  \item Show that
+    \begin{equation*}
+      \Phi_n(1)=
+      \begin{cases}
+        0 & \text{if $n=1$,} \\
+        p & \text{if $n=p^k$ for some prime $p$ and $k\geq 1$,} \\
+        1 & \text{if two distinct primes divide $n$.}
+      \end{cases}
+    \end{equation*}
+  \item Show that
+    \begin{equation*}
+      \Phi_n(1) = \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,n-1)}.
+    \end{equation*}
+  \item Show that the fixed divisor of the polynomial $f(x)=x\Phi_n(x)$ is $p$ if $n=p^k$ with $k\geq 1$ and $1$ otherwise.
+  \end{subexenum}
+  \exercise For $k\geq 4$, show that the $k$th Fibonacci number $F_k$ is in the image of Euler's totient function if and only if $k\equiv 0\pmod{6}$.
+
+  Hint: If $k=6m$, consider $n=2F_{3m}F_{3m+3}$.
+\end{exercises}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"

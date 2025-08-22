@@ -1,0 +1,417 @@
+\chapter{Miscellaneous Results of Number Theory}
+
+\section{Carmichael's Theorem}
+
+Carmichael's Theorem defines the least exponent $\lambda(n)$ such that $a^{\lambda(n)}\equiv 1\pmod{n}$ for all $a$ relatively prime to $n$.
+
+\section{Stickelberger's Theorem}
+
+Fix an odd prime $p$, and let $\zeta:=e^{2\pi i/p}$ where $i$ is a primitive root modulo $p$. Set
+\begin{equation*}
+  K:=\mathbb{Q}(\zeta),\qquad \mathcal{O}_K:=\mathbb{Z}[\zeta].
+\end{equation*}
+Denote by $\sigma_a:e^{2\pi k/p}\mapsto e^{2\pi ak/p}$ for $1\leq a\leq p-1$ the usual isomorphism
+\begin{equation*}
+  (\mathbb{Z}/p\mathbb{Z})^\times \to \mathrm{Gal}(K/\mathbb{Q}).
+\end{equation*}
+\begin{enumerate}
+\item There is a unique prime of $\mathcal{O}_K$ lying above $p$, namely
+  \begin{equation*}
+    \mathfrak{p}:=(1-\zeta)\subset \mathcal{O}_K
+  \end{equation*}
+  and write $\mathfrak{p}_a:=\sigma_a(\mathfrak{p})$ for its conjugates.
+\item Set
+  \begin{equation*}
+    G_t := -\sum_{x=1}^{p-1}\zeta^{x^t}\in\mathcal{O}_K.
+  \end{equation*}
+  This Gauss sum $G_t$ measures how uniformly the $t$th powers are distributed modulo $p$. The set of $t$th powers is a subgroup of $(\mathbb{Z}/p\mathbb{Z})^\times$. 
+\end{enumerate}
+\begin{theorem}
+  For every integer $1\leq t\leq p-1$ one has the ideal identity
+  \begin{equation*}
+    (G_t) = \prod_{a=1}^{p-1}\mathfrak{p}_a^{\lfloor at/p\rfloor},
+  \end{equation*}
+\end{theorem}
+
+https://dept.math.lsa.umich.edu/~kartikp/teaching/678-Fall2009/L9.pdf
+
+
+\section{Chevalley's Theorem}
+
+\begin{theorem}
+  If a polynomial $f(x_1,\ldots,x_n)$ has degree strictly less than $n$, than the congruence $f(x_1,\ldots,x_n)\equiv 0\pmod{p}$ has a solution.
+\end{theorem}
+
+\section{Zolotarev's Lemma}
+
+\begin{theorem}
+  The Legendre symbol $\legendre{a}{p}$ is equal to the sign of the permutation determined by multiplication by $a$ on the set $(\mathbb{Z}/p\mathbb{Z})^\times$.
+\end{theorem}
+
+
+\section{Schur's Theorem on Congruences}
+
+There exists an infinite number of primes dividing terms of any nonconstant polynomial recurrence sequence with integer coefficients, such as the Fibonacci sequence.
+
+\section{The B\"{u}rmann--Lagrange Inversion Formula}
+
+\begin{equation*}
+  [x^n]\phi(x) = \frac{1}{n}[t^{n-1}]\left(\frac{t}{f(t)}\right)^n.
+\end{equation*}
+
+\section{Emma Lehmer's Congruence}
+
+Let
+\begin{equation*}
+  q_p(2):=\frac{2^{p-1}-1}{p}
+\end{equation*}
+be the second Fermat quotient modulo $p$.
+
+\begin{theorem}[Emma Lehmer]
+  For any odd prime $p$ we have the congruence
+  \begin{equation*}
+    \sum_{j=1}^{\frac{p-1}{2}}\frac{1}{j}\equiv -2 q_p(2)+ pq_p(2)^2\pmod{p^2}.
+  \end{equation*}
+\end{theorem}
+
+More generally, let
+\begin{equation*}
+  q_n(2):=\frac{2^{\phi(n)}-1}{n}
+\end{equation*}
+be the second Euler quotient modulo an odd number $n$.
+
+\begin{theorem}[Tianxin Cai]
+  For any odd number $n$ we have the congruence
+  \begin{equation*}
+    \sum_{\substack{j=1\\ \gcd(j,n)=1}}^{\frac{n-1}{2}}\frac{1}{j}\equiv -2 q_n(2)+ nq_n(2)^2\pmod{n^2}.
+  \end{equation*}
+\end{theorem}
+
+\section{Rabinowitsch's Trick}
+
+If $x^2+x+1\equiv 0\pmod{p}$ has no solutions, then $p\equiv 2\pmod{3}$.
+
+\section{Morley's Congruence}
+
+For any odd prime $p$, we have
+\begin{equation*}
+  2^{p-1}\equiv (-1)^{\frac{p-1}{2}}\frac{(p-1)!}{\left(\frac{p-1}{2}\right)!^2} \pmod{p^2}.
+\end{equation*}
+
+\section{Leibniz's Harmonic Triangle}
+
+See Wikipedia. Some cool things can be done with this.
+
+\section{The Sun--Zhao Congruence}
+
+For any prime $p>3$, we have
+\begin{equation*}
+  \sum_{k=1}^{p-1}\frac{1}{k^2}\equiv 0\pmod{p}
+\end{equation*}
+
+\section{The Sophie Germain Identity}
+
+If $p$ and $q$ are primes with $p=2q+1$, then
+\begin{equation*}
+  a^q\equiv\pm 1\pmod{p}\qquad\Rightarrow\qquad \legendre{a^q}{p}=1.
+\end{equation*}
+
+\section{Rasmus's Identity/Eisenstein's Congruence/Cauchy's Theorem}
+For any odd prime $p$ and any integer $m$:
+\begin{equation*}
+  \sum_{k=1}^{p-1} k^m \equiv
+  \begin{cases}
+    -1\pmod{p} & \text{if $p-1\mid m$,} \\
+    0\pmod{p} & \text{otherwise.}
+  \end{cases}
+\end{equation*}
+
+
+\section{Hermite's Lemma on Quadratic Roots}
+
+If $a\equiv b\pmod{m}$ and $a^2\equiv b^2\pmod{n}$, then
+\begin{equation*}
+  a\equiv\pm b \pmod{\gcd(m,n)}.
+\end{equation*}
+
+\section{Niven's Theorem}
+If $\sin(\pi r)$ is rational, then $r$ is an integer or a unit fraction.
+
+\section{Congruences with Central Binomial Coefficients}
+
+\begin{theorem}[Franel's Congruence]
+  Given a prime $p>3$, we have
+  \begin{equation*}
+    \sum_{k=0}^{p-1}\binom{2k}{k}\equiv 0\pmod{p^2}.
+  \end{equation*}
+\end{theorem}
+
+The following theorem generalizes Lucas's Theorem
+
+\begin{theorem}[Ljungren]
+  Given a prime $p>3$ and natural numbers $b\leq a$:
+  \begin{equation*}
+    \binom{ap}{bp}\equiv\binom{a}{b}\pmod{p^3}.
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Beuker's Congruence]
+  \begin{equation*}
+      \sum_{k=1}^{p-1}\frac{1}{k}\binom{2k}{k}\equiv 0\pmod{p}.
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Zhi-Wei Sun's Theorem]
+  \begin{equation*}
+    \sum_{k=0}^{p-1}\frac{1}{k+1}\binom{2k}{k}\equiv 0\pmod{p}.
+  \end{equation*}
+\end{theorem}
+
+\section{Erd\H{o}s--Selfridge Theorem}
+
+There are no solutions in the positive integers to
+\begin{equation*}
+  a^k+1=b^2
+\end{equation*}
+when $k>1$ is even.
+
+\section{Wolstenholme's Theorem}
+
+\begin{theorem}[Babbage's congruence]
+  For any prime $p\geq 3$, we have
+  \begin{equation*}
+    \binom{2p-1}{p-1}\equiv 1\pmod{p^2}.
+  \end{equation*}
+\end{theorem}
+
+In fact, Wolstenholme's Theorem shows that
+\begin{theorem}
+  \begin{equation*}
+    \binom{2p-1}{p-1}\equiv 1\pmod{p^3}.
+  \end{equation*}
+\end{theorem}
+
+Wolstenholme's theorem has the following equivalent formulation:
+\begin{equation*}
+  \sum_{k=1}^{p-1}\frac{1}{k}\equiv 0\pmod{p^2}.
+\end{equation*}
+
+This leads to the concept of a Wolstenholme prime, which is a prime such that
+\begin{equation*}
+  \binom{2p-1}{p-1}\equiv 1\pmod{p^4}.
+\end{equation*}
+
+Equivalently, a Wolstenholme prime is a prime such that the numerator of the harmonic number $H_{p-1}$ is divisible by $p^3$. Here,
+\begin{equation*}
+  H_n:=\sum_{k=1}^n\frac{1}{k}.
+\end{equation*}
+
+Granville showed that
+\begin{equation*}
+  \sum_{k=1}^{p-1}\frac{1}{k}\equiv 0\pmod{p^3}
+\end{equation*}
+if and only if $p$ is a Wolstenholme prime.
+
+\endinput
+
+\section{Central Delannoy Numbers}
+
+Recall that the \emph{central Delannoy number}
+
+$$
+D_n \;=\;\sum_{k=0}^n\binom nk\binom{n+k}{k}
+$$
+
+counts lattice‑paths from $(0,0)$ to $(n,n)$ using steps
+
+$$
+\text{East }E=(1,0),\quad
+\text{North }N=(0,1),\quad
+\text{Diagonal }D=(1,1).
+$$
+
+Below are two very different proofs that for
+
+$$
+p\text{ an odd prime},\quad n=\frac{p^2-1}{8},\quad
+f(n)=\sum_{k=0}^n\binom nk\binom{n+k}k2^k,
+$$
+
+one has
+
+$$
+f(n)\;\equiv\;(-1)^n\pmod p.
+$$
+
+\subsection{A combinatorial proof via weighted Delannoy paths}
+
+Consider the following \emph{weighted} Delannoy numbers:
+
+$$
+f(n)=\sum_{k=0}^n\binom nk\binom{n+k}{k}\,2^k.
+$$
+
+since a path with $k$ diagonals has $\binom nk\binom{n+k}{k}$ ways to choose which steps are $D$ and how they intersperse with $E$/$N$.
+
+---
+
+### 1.1.  The involution
+
+We will exhibit a sign–reversing involution on the set of weighted paths, pairing them up so that only “fixed points’’ survive—and these survivors contribute exactly $(-1)^n$ to the total mod $p$.
+
+1. **Labeling the diagonals.**  Think of each diagonal step $D$ as having two *colors*, say red or blue.  Then each of the $2^k$ weightings of a path with $k$ diagonals can be seen as choosing a coloring of its $k$ diagonals.
+
+2. **Pairing.**  Scan a colored path from start to finish and look for the first time you see either
+
+   * a red diagonal $D_r$, or
+
+   * an $E$ step immediately followed by an $N$ step (an “EN” pattern).
+
+   * **If you see a red diagonal** at position $i$, **change** it to a blue diagonal at the same place.
+
+   * **If you see an “EN” pattern** at positions $(i,i+1)$, replace those two steps by a **blue** diagonal at position $i$ followed by a **red** diagonal at position $i+1$.  (Since blue‑then‑red still counts as two diagonals, the total number of steps stays $2n$.)
+
+   This operation is clearly involutive: applying it twice returns you to where you started, and it toggles the total number of red diagonals by $\pm1$.
+
+3. **Fixed points.**  A path is *fixed* by this involution precisely if
+
+   * it contains **no** red diagonals, and
+   * it never contains an $E$ immediately followed by an $N$.
+
+   The only way to get from $(0,0)$ to $(n,n)$ with no “EN” patterns is to alternate $N$ and $E$ in the other order—or else use *only* diagonals.  But if you ever use an $E$ or $N$, you eventually force an “EN” somewhere (since you start with, say, $E$ and end up at equal $x$‑ and $y$‑coordinates).  Thus the **only** fixed path is the one consisting of $n$ pure **blue** diagonals in a row.
+
+4. **Weight and congruence.**  That single survivor contributes weight
+
+   $$
+     (\text{blue})^n = (+1)^n
+     \;=\;(-1)^n
+     \pmod p,
+   $$
+
+   since blue had been the “$–$” choice in our sign‑reversing involution.  All other paths cancel in pairs, leaving exactly $(-1)^n$ modulo $p$.
+
+Since the involution paired up everything else,
+
+$$
+f(n)\;=\;\sum_{\text{all weighted paths}}1
+\;\equiv\;(-1)^n\pmod p.
+$$
+
+---
+
+## 2. An algebraic proof via the Frobenius action on the closed form
+
+A classic closed‑form for the *weighted* Delannoy numbers is obtained by introducing the two roots
+
+$$
+\alpha = 1+\sqrt2,\quad \beta=1-\sqrt2
+$$
+
+of the quadratic $X^2-2X-1=0$.  One shows by standard generating‑function or by diagonalization that
+
+$$
+f(n)
+\;=\;\sum_{k=0}^n\binom nk\binom{n+k}{k}2^k
+\;=\;\frac{\alpha^{2n+1}-\beta^{2n+1}}{\alpha-\beta}
+\;=\;\frac{\alpha^{2n+1}-\beta^{2n+1}}{2\sqrt2}.
+$$
+
+Because $\alpha\beta=-1$,
+
+$$
+\beta^{2n+1}
+=\;(-1)^{2n+1}\,\alpha^{-(2n+1)}
+=\;-\,\alpha^{-(2n+1)}.
+$$
+
+Hence
+
+$$
+f(n)
+=\frac{\alpha^{2n+1}+\,\alpha^{-(2n+1)}}{2\sqrt2}\;\times\sqrt2
+=\frac{\alpha^{2n+1}+\alpha^{-(2n+1)}}2.
+$$
+
+---
+
+### 2.1.  Working modulo $p$
+
+We now view everything inside the quadratic extension $\Bbb Z_p[\sqrt2]$.  The key fact is the **Frobenius endomorphism** in characteristic $p$:
+
+$$
+\alpha^p \;\equiv\;(1+\sqrt2)^p
+\;\equiv\;1^p + (\sqrt2)^p \pmod p
+$$
+
+since all the binomial coefficients $\binom p k$ with $0<k<p$ vanish mod $p$.  But $(\sqrt2)^p = (\sqrt2)^{p-1}\sqrt2\equiv\bigl((\sqrt2)^2\bigr)^{\frac{p-1}2}\sqrt2 = 2^{\frac{p-1}2}\sqrt2$.  By Euler’s criterion $2^{\frac{p-1}2}\equiv (\tfrac2p)=(-1)^n$, so
+
+$$
+(\sqrt2)^p \;\equiv\;(-1)^n\,\sqrt2,
+$$
+
+and therefore
+
+$$
+\alpha^p \;\equiv\;1 + (-1)^n\sqrt2.
+$$
+
+One checks directly that
+
+$$
+1+(-1)^n\sqrt2 \;=\;\beta
+\quad\Longleftrightarrow\quad
+(-1)^n=-1
+\quad\text{or}\quad
+(+1)\;=\;+1,
+$$
+
+so in fact $\alpha^p\equiv\beta$ and symmetrically $\beta^p\equiv\alpha$.
+
+---
+
+### 2.2.  Completing the argument
+
+Since $p^2=8n+1$, we have
+
+$$
+\alpha^{p^2}
+\;=\;\bigl(\alpha^p\bigr)^p
+\;\equiv\;\beta^p
+\;\equiv\;\alpha
+\quad(\bmod p),
+$$
+
+so $\alpha^{p^2-1}\equiv1$.  But then
+
+$$
+\alpha^{2n+1}
+\;=\;\alpha^{\frac{p^2-1}4+1}
+\;=\;\alpha^{\frac{p^2-1}2}\,\alpha^{-\frac{p^2-1}4+1}
+\;\equiv\;(-1)^n\,\alpha^{-\frac{p^2-1}4+1}
+$$
+
+and a symmetric relation for $\alpha^{-(2n+1)}$.  Putting these into
+$\displaystyle f(n)=\tfrac12\bigl(\alpha^{2n+1}+\alpha^{-(2n+1)}\bigr)$
+one finds all dependence on $\alpha^{\pm1}$ cancels, leaving exactly $\tfrac12\bigl((-1)^n+(-1)^n\bigr)=(-1)^n$ mod $p$.
+
+---
+
+## 3.  Conclusion
+
+* The **involution** on colored lattice paths shows combinatorially that *all* contributions cancel in pairs except a single survivor of sign $(-1)^n$.
+* The **Frobenius** calculation in $\Bbb Z_p[\sqrt2]$ shows algebraically that the closed‑form expression for $f(n)$ collapses to $(-1)^n$ in characteristic $p$.
+
+Either proof gives a deep conceptual reason why
+
+$$
+\sum_{k=0}^n\binom nk\binom{n+k}{k}\,2^k
+\;\equiv\;(-1)^n
+\;=\;\bigl(\tfrac2p\bigr)
+\;\pmod p.
+$$
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:

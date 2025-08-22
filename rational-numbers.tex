@@ -71,6 +71,22 @@
   Furthermore, adding, subtracting, multiplying or inverting integer fractions preserves the sameness relation on integer fraction, in the sense that if we substitute each integer fraction in a sum, difference, product, or inversion by one that is the same to the original, the result will be the same.
 \end{theorem}
 
+\begin{theorem}\label{theorem:irrational-sqrt}
+  If a natural number $n$ is not a perfect square, then its square root $\sqrt{n}$ is irrational.
+\end{theorem}
+
+\begin{proof}
+  We will prove the theorem by deriving a contradiction under the assumption that there is an integer fraction $\frac{a}{b}$ such that
+  \begin{equation*}
+    \frac{a^2}{b^2}=n.
+  \end{equation*}
+  This equation is equivalent to the equation $a^2=nb^2$. Furthermore, we may assume without loss of generality that $a$ and $b$ are relatively prime, because we can always divide both sides of the equation $a^2=n b^2$ by $\gcd(a,b)^2$. By this very equation, it follows that $b^2\mid a^2$. Thus we have
+  \begin{equation*}
+    b^2=\gcd(a^2,b^2)=\gcd(a,b)^2=1,
+  \end{equation*}
+  and we see that $b=1$. However, this implies that $n=a^2$ is a perfect square, contradicting our assumtion that $n$ is not a perfect square.
+\end{proof}
+
 \section{Farey Fractions}
 
 \begin{definition}
@@ -246,6 +262,19 @@ This suggests the following definition of multiplication by structural induction
   \exercise For every integer $a$, show that there are infinitely many pairs of rational numbers $x$ and $y$ satisfying the equation
   \begin{equation*}
     x^2-y^2=a.
+  \end{equation*}
+  \exercise Find all the integers of the form $x+\frac{1}{x}$, where $x$ is a rational number.
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=1}^n\frac{1}{k(k+1)}=\frac{n}{n+1}.
+  \end{equation*}
+  \exercise Prove that
+  \begin{equation*}
+    \prod_{k=2}^n\left(1-\frac{1}{k}\right)=\frac{1}{n}.
+  \end{equation*}
+  \exercise Prove that
+  \begin{equation*}
+    \prod_{k=1}^n\left(1-\frac{1}{k^2}\right)=\frac{n+1}{2n}.
   \end{equation*}
 \end{exercises}
 

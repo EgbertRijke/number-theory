@@ -227,6 +227,16 @@ Using the elementary symmetric polynomials, we find another way of stating \cref
   \end{equation*}
 \end{theorem}
 
+\section{Hensel's Lemma and Lifting the Exponent}
+
+\begin{theorem}[Hensel's Lemma]\label{theorem:hensels-lemma}
+  Consider a prime number $p$ and a polynomial $f(x)$ with integer coefficients. Furthermore, consider an integer $a$ such that $f(a)\equiv 0\pmod{p}$ and $f'(a)\nequiv 0\pmod{p}$, where $f'(x)$ is the derivative of $f$. Then there exists for every $k\geq 1$ a unique integer $a_k$ modulo $p^k$ with $a_1\equiv a\pmod{p}$ such that the congruences
+  \begin{equation*}
+    a_{k+1}\equiv a_k\pmod{p^k},\qquad\text{and}\qquad f(a_k)\equiv 0\pmod{p^k}
+  \end{equation*}
+  hold for all $k$.
+\end{theorem}
+
 \begin{exercises}
   \exercise Show that there are only two polynomials $f$ such that any two values $f(x)$ and $f(y)$ are relatively prime for distinct inputs $x$ and $y$.
   \exercise Consider a prime number $p$. Construct for every integer $0\leq a < p$ a polynomial $f(x)$ of degree $<p$ with coefficients in $\mathbb{Z}/p\mathbb{Z}$ such that

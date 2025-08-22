@@ -1,0 +1,297 @@
+\chapter{Conjectures in Elementary Number Theory}
+
+Number theory is known for its wealth of open problems that have inspired mathematicians and enthusiasts to learn more about the subject. Some of the most famous problems, such as Goldbach's conjecture and the Twin Prime conjecture have remained elusive for centuries. We state here some open problems and conjectures in elementary number theory.
+
+There are many more open problems, specifically concerning analytic number theory and advanced branches of algebraic number theory, which require tools beyond the scope of this text in order to be formulated.
+
+\section{Conjectures About the Infinitude of Certain Classes of Primes}
+
+One of the oldest and most famous open problems about the infinitude of certain classes of primes is the Twin Prime Conjecture. A pair of \emph{twin primes} is a pair of primes $p$ and $q$ such that $q-p=2$.
+
+\begin{conjecture}[Twin Prime Conjecture]
+  There are infinitely many twin primes.
+\end{conjecture}
+
+Although the study of twin primes dates back to antiquity, the first publication in which the twin prime conjecture was explicity stated was by Alphonse de Polignac \cite{polignac1846}. He also speculated about a generalization of the Twin Prime Conjecture.
+
+\begin{conjecture}[de Polignac's Conjecture]
+  For every even number $n$, there are infinitely many pairs of primes $p$ and $q$ such that $q-p=n$.
+\end{conjecture}
+
+\begin{conjecture}[Artin's Conjecture]
+  If $a$ is a nonsquare integer distinct from $-1$, then there are infinitely many primes $p$ for which $a$ is a primitive root modulo $p$.
+\end{conjecture}
+
+\begin{conjecture}[Landau's Conjecture]
+  There are infinitely many primes of the form $n^2+1$.
+\end{conjecture}
+
+Landau's conjecture is generalized by Bunyakovsky.
+
+\begin{conjecture}[Bunyakovsky's Conjecture]
+  If $f(x)$ is an irreducible polynomial with integer coefficients, positive leading coefficients and no fixed divisor, then $f(x)$ is prime for infinitely many input values $x$.
+\end{conjecture}
+
+\begin{conjecture}[Dickson's Conjecture]
+  Consider a finite set of linear functions $f_i(x)=a_ix+b_i$ indexed by $1\leq i\leq n$, which is \emph{admissible} in the sense that their product
+  \begin{equation*}
+    \prod_{i=1}^n f_i(x)
+  \end{equation*}
+  has no fixed divisors. Then there are infinitely positive integers $x$ such that each $f_i(x)$ is prime for all $1\leq i\leq n$.
+\end{conjecture}
+
+Yet more general than Dickson's conjecture is Schinzel's Hypothesis H:
+
+\begin{conjecture}[Schinzel's Hypothesis H]
+  Consider a finite set of nonconstant irreducible polynomials $f_i(x)$ with integer coefficients, such that their product
+  \begin{equation*}
+    \prod_{i=1}^nf_i(x)
+  \end{equation*}
+  has no fixed divisors. Then there are infinitely many integers $x$ such that each $f_i(x)$ is prime.
+\end{conjecture}
+
+\begin{conjecture}[Infinitude of Mersenne primes]
+  There are infinitely many primes of the form $M_p=2^p-1$.
+\end{conjecture}
+
+Directly related to the infinitude of Mersenne primes is the infinitude of the even perfect numbers, since there is a one-to-one correspondence between Mersenne primes $M_p$ and even perfect numbers given by $M_p\mapsto 2^{p-1}M_p$.
+
+\begin{conjecture}[Finiteness of Fermat primes]
+  There are only finitely many primes of the form $F_n=2^{2^n}+1$.
+\end{conjecture}
+
+\begin{conjecture}
+  There are infinitely many Wilson primes; that is, there are infinitely many primes $p$ such that
+  \begin{equation*}
+    (p-1)!\equiv -1\pmod{p^2}.
+  \end{equation*}
+\end{conjecture}
+
+\begin{conjecture}
+  There are infinitely many Wolstenholme primes; that is, there are infinitely many primes $p$ such that
+  \begin{equation*}
+    \binom{2p-1}{p-1} \equiv 1 \pmod{p^4}.
+  \end{equation*}
+\end{conjecture}
+
+\begin{conjecture}
+  There are infinitely many Fibonacci primes.
+\end{conjecture}
+
+\begin{conjecture}
+  There are only finitely many Wieferich primes.
+\end{conjecture}
+
+\begin{conjecture}
+  There are infinitely many non-Wieferich primes.
+\end{conjecture}
+
+\begin{conjecture}
+  There are only finitely many Wal--Sun--Sun primes; that is, there are only finitely many prime $p$ such that $p^2$ divides the $(p- (p/5))$th Fibonacci number. Here, the number $(p/5)$ is the Legendre symbol of $p$ modulo $5$.
+\end{conjecture}
+
+\begin{conjecture}[Infinitude of Sophie Germain primes]
+  There are infinitely many primes $p$ such that $2p+1$ is also prime.
+\end{conjecture}
+
+A prime number $p$ is said to be \emph{balanced} if the gap to its preceeding prime is equal to the distance to its succeeding prime.
+
+\begin{conjecture}[Infinitude of balanced primes]
+  There are infinitely many balanced primes.
+\end{conjecture}
+
+\section{Conjectures about gaps between the primes}
+
+\begin{conjecture}[Legendre's Conjecture]\label{conjecture:legendre}
+  There is at least one prime between $n^2$ and $(n+1)^2$.
+\end{conjecture}
+
+\begin{conjecture}[Andrica's Conjecture]
+  If $p$ and $q$ are two consecutive primes, then $\sqrt{q}-\sqrt{p}<1$.
+\end{conjecture}
+
+\begin{conjecture}[Cramer's Conjecture]
+  The asymptotic growth of the gap from a prime $p$ to the next prime is $\Oh(\log(p)^2)$.
+\end{conjecture}
+
+\section{Further Conjectures About Primes}
+
+\begin{conjecture}[The Agoh--Giuga Conjecture]
+  An integer $n>1$ is prime if and only if the congruence
+  \begin{equation*}
+    \sum_{k=1}^{n-1} k^{n-1} \equiv -1\pmod{n}
+  \end{equation*}
+  holds.
+\end{conjecture}
+
+\begin{conjecture}[Grimm's Conjecture]
+  If the numbers $n+1,\ldots,n+k$ are all composite, then there is a set of $k$ distinct primes $p_i$ such that $p_i\mid n+i$ for each $1\leq i\leq k$.
+\end{conjecture}
+
+\begin{conjecture}[The Bateman--Selfridge--Wagstaff Conjecture (The New Mersenne Prime Conjecture)]
+  Let $p$ be an odd natural number. If two of the following three conditions hold, then so does the third:
+  \begin{enumerate}
+  \item There is an integer $k$ such that $p=2^k\pm 1$ or $p=4^k\pm 3$.
+  \item The Mersenne number $M_p=2^p-1$ is prime.
+  \item The number $(2^p+1)/3$ is prime.
+  \end{enumerate}
+\end{conjecture}
+
+The Euclid--Mullin sequence $p_n$ is defined by setting $p_0:=2$ and $p_{n+1}$ the least prime factor of
+\begin{equation*}
+  1+\prod_{k=0}^np_k.
+\end{equation*}
+
+\begin{conjecture}[Mullin--Shank's Conjecture]
+  Every prime occurs in the Euclid--Mullin sequence.
+\end{conjecture}
+
+\section{Conjectures About Square-Free Numbers}
+
+\begin{conjecture}[Square-freeness of Fermat numbers]
+  Every Fermat number $F_n=2^{2^n}+1$ is square-free \cite{braywarren1967}.
+\end{conjecture}
+
+\section{Conjectures About Euler's Totient Function}
+
+\begin{conjecture}[Carmichael's Conjecture]
+  If $k=\phi(n)$ for at least one $n$, then $k=\phi(n)$ for at least two distinct input values of $n$.
+\end{conjecture}
+
+\begin{conjecture}[Lehmer's Conjecture]
+  If $\phi(n)\mid n-1$, then $n$ is prime.
+\end{conjecture}
+
+\section{Conjectures About Diophantine Equations}
+
+\begin{conjecture}[The Erd\H{o}s--Moser Conjecture]
+  The only solution to the equation
+  \begin{equation*}
+    1^k+2^k+\cdots + m^k=(m+1)^k
+  \end{equation*}
+  is $1+2=3$.
+\end{conjecture}
+
+\begin{conjecture}[Brocard's Problem]
+  Show that the only integer solution to the equation
+  \begin{equation*}
+    n!+1=m^2
+  \end{equation*}
+  are $n=4,5,7$.
+\end{conjecture}
+
+\begin{conjecture}[Existence of Perfect Euler Bricks]
+  An \textbf{Euler brick} is a rectangular cuboid whose edges and face diagonals all have integer lengths. Does there exists a \textbf{perfect} Euler brick; that is, an Euler brick whose space diagonal is also an integer?
+\end{conjecture}
+
+\begin{conjecture}[The Fermat--Catalan Conjecture]
+  There are only finitely many solutions in the positive integers to the equation
+  \begin{equation*}
+    x^a+y^b=z^c
+  \end{equation*}
+  satisfying $\frac{1}{a}+\frac{1}{b}+\frac{1}{c}<1$.
+\end{conjecture}
+
+\begin{conjecture}[Beal's Conjecture]
+  If $a,b,c,x,y,z> 2$ are integers satisfying the equation
+  \begin{equation*}
+    x^a+y^b=z^c,
+  \end{equation*}
+  then $\gcd(x,y,z)>1$.
+\end{conjecture}
+
+\begin{conjecture}[Goormaghtigh Conjecture]
+  The only solution in integers $x>y>1$ with $m,n>2$ satisfying
+  \begin{equation*}
+    \frac{x^m-1}{x-1}=\frac{y^n-1}{y-1}
+  \end{equation*}
+  are
+  \begin{equation*}
+    %3,2,5,7
+    \frac{5^3-1}{5-1}=\frac{2^5-1}{2-1} \qquad\text{and}\qquad
+    %2,90,13,3
+    \frac{90^3-1}{90-1}=\frac{2^{13}-1}{2-1}.
+  \end{equation*}
+  That is, the only two integers that are repunits of length $>3$ in two different bases are
+  \begin{equation*}
+    31=(111)_5=(11111)_2\qquad\text{and}\qquad 8191=(111)_{90}=(1111111111111)_{2}.
+  \end{equation*}
+\end{conjecture}
+
+\section{Conjectures About Arithmetic Progressions}
+
+\begin{conjecture}[Rudin's Conjecture]
+  The maximum number of squares that can occur in an arithmetic progression of length $n$ is asymptotically given by $\Oh(\sqrt{N})$. Furthermore, it is conjectured that the maximum is always attained in the arithmetic progression $24k+1$ for $0\leq k\leq n-1$ \cite{rudin1960}.
+\end{conjecture}
+
+\section{Conjectures About Representations of Numbers}
+
+\begin{conjecture}[Goldbach's Conjecture]
+  Every even number greater than $2$ can be written as the sum of two primes.
+\end{conjecture}
+
+\begin{conjecture}[Lemoine's Conjecture]
+  Every odd integer greater than $5$ can be written in the form $p+2q$, where $p$ and $q$ are primes.
+\end{conjecture}
+
+\begin{conjecture}[The Erd\H{o}s--Straus Conjecture]
+  Every rational number of the form $4/n$ can be written as the sum of three unit fractions: There are integers $a$, $b$, and $c$ such that
+  \begin{equation*}
+    \frac{4}{n}=\frac{1}{a}+\frac{1}{b}+\frac{1}{c}.
+  \end{equation*}
+\end{conjecture}
+
+\begin{conjecture}[Pollock's Conjecture]
+  Every natural number is the sum of five tetrahedral numbers.
+\end{conjecture}
+
+\begin{conjecture}[The Sums of Three Cubes Conjecture]
+  Every natural number $n\nequiv \pm 4\pmod{9}$ can be written as a sum of three cubes.
+\end{conjecture}
+
+\section{Miscellaneous Conjectures}
+
+\begin{conjecture}[Collatz's Conjecture]
+  Let $f$ be the map that sends $n$ to $n/2$ if $n$ is even and sends $n$ to $3n+1$ if $n$ is odd. Starting from any number, one can reach the number $1$ by iteratively applying $f$.
+\end{conjecture}
+
+\begin{conjecture}[Gilbreath’s Conjecture]
+  Let $g_0(n)$ be the sequence of primes starting with $g_0(0):=2$, and define
+  \begin{equation*}
+    g_{n+1}(k):=|g_n(k+1)-g_n(k)|
+  \end{equation*}
+  so that the sequence $g_{n+1}$ consists of the absolute differences between consecutive entries in the sequence $g_n$. Then $g_n(0)=1$ for every $n>0$.
+\end{conjecture}
+
+\begin{conjecture}[The nonexistence of odd perfect numbers]
+  There are no odd perfect numbers.
+\end{conjecture}
+
+\begin{conjecture}[The congruent number problem]
+  Find a complete characterization of all rational numbers that appear as the area of a right triangle with rational sides.
+\end{conjecture}
+
+\begin{conjecture}[Infinitude of Amicable Numbers]
+  There are infinitely many pairs of amicable numbers; that is, there are infinitely many pairs of distinct numbers such that the sum of the proper divisors of either one of them equals the other.
+\end{conjecture}
+
+\begin{conjecture}[The Lonely Runner Conjecture]
+  Suppose there are $n$ runners who run with distinct constant speeds on a circular track of length $1$. Each runner will, at some time, be at distance $> 1/n$ from all the others.
+\end{conjecture}
+
+A \emph{Sierpi\'{n}ski number} is an odd number $k$ such that every number of the form $k\cdot 2^n+1$ is composite.
+
+\begin{conjecture}[Sierpi\'nski's problem]
+  The smallest Sierpi\'nski number is $78,557$.
+\end{conjecture}
+
+A \emph{Riesel number} is an odd number $k$ such that every number of the form $k\cdot 2^n-1$ is composite.
+
+\begin{conjecture}[Riesel's problem]
+  The smallest Riesel number is $509,203$.
+\end{conjecture}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:

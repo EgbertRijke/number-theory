@@ -124,6 +124,25 @@ If we have access to a primitive root $g$ of a prime $p$, then it is easy to cha
   There are exactly $(p-1)/2$ nontrivial quadratic residues modulo $p$ in the set $\{1,\ldots,p-1\}$, and exactly $(p-1)/2$ quadratic nonresidues.
 \end{corollary}
 
+We now turn our attention to the quadratic congruence $x^2\equiv 1\pmod{n}$. When $n$ is not a prime number, this congruence can have more solutions than its degree. For example, the quadratic congruence $x^2\equiv 1\pmod{8}$ has four distinct solutions. Similarly, the quadratic congruence $x^2\equiv 1\pmod{15}$ we have the four solutions
+\begin{equation*}
+  1^2\equiv 1\pmod{15},\quad 4^2\equiv 1\pmod{15},\quad 11^2\equiv 1\pmod{15},\quad\text{and}\quad 14^2\equiv 1\pmod{15}.
+\end{equation*}
+In the following theorem we give a precise count of the number of solutions to this quadratic congruence.
+
+\begin{theorem}
+  Consider a positive integer $n$, and let $\omega(n)$ be the number of its prime divisors. Then the number of integers $0<x<n$ such that $x^2\equiv 1\pmod{n}$ is $2^{\omega(n)+\varepsilon(n)}$, where
+  \begin{equation*}
+    \varepsilon(n):=
+    \begin{cases}
+      0 & \text{if $n$ is odd,}\\
+      -1 & \text{if $n$ is even but not divisible by $4$,}\\
+      0 & \text{if $n$ is divisible by $4$ but not by $8$,}\\
+      1 & \text{if $n$ is divisible by $8$.}
+    \end{cases}
+  \end{equation*}
+\end{theorem}
+
 \section{Legendre Symbols}
 
 The fact that the integers $1$, $2$, \ldots, $p-1$ can be split into the sets of quadratic residues and quadratic nonresidues, which are both of size $(p-1)/2$, suggests there is an interesting dichotomy between them. We can explore this further using primitive roots. If $g$ is a primitive root modulo $p$, then the quadratic residues are precisely those integers modulo $p$ that can be written as an even power of $g$, and the quadratic nonresidues are precisely those integers modulo $p$ that can be written as an odd power of $g$. Now recall that
@@ -385,6 +404,13 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
     to show that there is a prime $q\equiv 1\pmod{5}$ that is not already among the primes $p_1,\ldots,p_k$. Conclude that there are infinitely many primes congruent to $1$ modulo $5$.
   \end{subexenum}
   \exercise Show that the polynomial $n^2-79n+1601$ returns primes for all $0\leq n\leq 79$.
+  \exercise Consider an odd prime $p$. Show that there are exactly
+  \begin{equation*}
+    \frac{(p-1)p^{m}}{2}
+  \end{equation*}
+  quadratic residues modulo $p^{m+1}$ that are not divisible by $p$.
+  \exercise Consider an odd prime $p$ and two positive integers $m$ and $n$. Show that any number $a$ not divisible by $p$ is a quadratic residue modulo $p^m$ if and only if it is a quadratic residue modulo $p^n$.
+  \exercise Consider an integer $a$ and a prime $p$. Show that $-a$ is a quadratic residue modulo $p$ if and only if $p$ divides a number of the form $x^2+ay^2$.
 \end{exercises}
 
 %%% Local Variables:

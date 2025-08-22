@@ -1,10 +1,20 @@
 \chapter{The Nature of Numbers}\label{chapter:induction}
 
-\section{The Foundational Debates of the 19th and 20th Centuries}
+\section{On the Concept of Number Throughout History}
 
 Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns of truths and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Truths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs—conclusive arguments that establish why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out what the natural numbers really are.
 
-Although natural numbers arise from counting, the notion of number is not inheritely linked to any particular collection of entities being counted. We view the set of numbers as an abstract entity that exist as a precisely specified concept within the collective imagination of conscious beings to convey and communicate ideas such as counting, comparing, and measuring quantities.
+Although natural numbers arise from counting, the notion of number is not inherently linked to any particular collection of entities being counted. Scholars in the Pythagorean tradition were among the first to articulate this insight. Nicomachus emphasized the concepts of \emph{monad}, \emph{dyad}, and \emph{triad} for the totality of all things that come in one, two, or three units \cite{nicomachus1926}. Nicomachus ascribed divine properties to the monad, or unity: ``{\it It generates itself without beginning, without end, and appears to be the cause of enduring, as God in the realm of physical actualities is in such manner perceived of as a preserving and guarding agent of nature}''. Nicomachus drew strong parallels between the monad and the concept of sameness, and likewise between the dyad and the concept of otherness. He also emphasized that numbers were composed of monads. In other words, the monad is the source of all numbers. Although mathematicians do not ascribe divine properties to numbers anymore, we see here the emergence of some important ideas. The first is that all numbers are generated from the monad, that is, unity. The second idea is to connect unity with sameness. The idea that all things equal to a given object form a unit, or a singleton, anticipates a fundamental principle of equality. However, we shall forego the interesting digressions that we could make about equality and focus our attention on the concept of number.
+
+With Euclid, we see a shift away from the divine conception of the monad. For Euclid, a \emph{unit} is the conceptual principle by which an individual object is identified as one, and a \emph{number} is a multitude composed of such units in a discrete fashion \cite{euclid2015}. In other words, the concept of unit captures the notion of oneness, but this is distinct of the number $1$ itself. Both Nicomachus's and Euclid's views on the concept of number were highly influential throughout late antiquity and the Middle Ages, particularly through Boethius's Latin rendition of Nicomachus's \emph{Introduction to Arithmetic} and Adelard of Bath's translation of Euclid's \emph{Elements}.
+
+While Pierre de Fermat is regarded the founder of modern number theory, he did not write extensively on the philosophy of mathematics. Nevertheless, certain themes in his correspondence and work show a clear orientation. For him, mathematics is about truths intrinsic to numbers. Numbers were the object of exact reasoning. He emphasized that \emph{induction}, by which mathematicians up to the early 19th century understood experimental verification, was insufficient to establish universal truths of numbers. Among Fermat’s lasting contributions was his method of infinite descent, a method of proof by contradiction in which one shows that any supposed solution would lead to an ever-decreasing sequence of natural numbers, which is impossible.
+
+With Euler, we witness a significant conceptual expansion. In his \emph{Elements of Algebra}, Euler extended the notion of number beyond the natural and rational to encompass negative numbers, irrationals, complex numbers, and even infinite series. He was among the first to conjecture that constants like $e$ and $\pi$ are transcendental; that is, not the roots of any algebraic equation with rational coefficients. For Euler, numbers were entities governed by formal laws, irrespective of whether they corresponded to geometric magnitudes. Euler's broadening of the concept of numbers, and his use of analytic methods would eventually spark debates about the foundations of mathematics and the logical principles underlying mathematical truth.
+
+In the 19th century, the nature of mathematics itself began to change. The emergence of non-Euclidean geometry was a challenge to the status of Euclid's Elements as the de facto foundation of mathematics. Weierstrass's discovery of continuous, nowhere differentiable functions underscored the need for a more solid foundation of calculus, and with Galois's use of symmetries in order to show that quintic equations had no solutions expressible in terms of radicals abstract algebra started to become more prominent.
+
+We view the set of numbers as an abstract entity that exist as a precisely specified concept within the collective imagination of conscious beings to convey and communicate ideas such as counting, comparing, and measuring quantities.
 
 When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $n\mapsto n+1$. The collection of all natural numbers forms a set or type
 
@@ -319,15 +329,136 @@ We illustrate induction with another example, the \define{formula for the geomet
   This completes the inductive step, and therefore the proof.
 \end{proof}
 
-\section{The Numbers of Fibonacci and Lucas}
+\section{A First Counting Problem}
+
+\begin{figure}[b]
+  \centering
+  \begin{tikzpicture}[scale=0.6]
+    % --- first tiling (a) at y=0 ---
+    \begin{scope}[shift={(0,0)}]
+      % tiles: 2,1,2,1,1,2,1,1,2,1,2,1,1,1
+      \foreach \x/\len in {
+        0/2, 2/1, 3/2, 5/1, 6/1, 7/2, 9/1,
+        10/1, 11/2, 13/1, 14/2, 16/1, 17/1, 18/1
+      }{
+        \ifnum\len=1
+          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+        \else
+          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+        \fi
+        \draw[thick] (\x,0) rectangle ++(\len,1);
+      }
+    \end{scope}
+    
+    % --- second tiling (b) at y=-1.5 ---
+    \begin{scope}[shift={(0,-1.5)}]
+      % tiles: 1,2,2,1,1,1,2,2,1,2,1,2,1
+      \foreach \x/\len in {
+        0/1, 1/2, 3/2, 5/1, 6/1, 7/1, 8/2,
+        10/2, 12/1, 13/2, 15/1, 16/2, 18/1
+      }{
+        \ifnum\len=1
+          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+        \else
+          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+        \fi
+        \draw[thick] (\x,0) rectangle ++(\len,1);
+      }
+    \end{scope}
+    
+    % --- third tiling (c) at y=-3 ---
+    \begin{scope}[shift={(0,-3)}]
+      % tiles: 2,2,1,1,2,1,2,1,1,1,2,1,2
+      \foreach \x/\len in {
+        0/2, 2/2, 4/1, 5/1, 6/2, 8/1, 9/2,
+        11/1, 12/1, 13/1, 14/2, 16/1, 17/2
+      }{
+        \ifnum\len=1
+          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+        \else
+          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+        \fi
+        \draw[thick] (\x,0) rectangle ++(\len,1);
+      }
+    \end{scope}
+  \end{tikzpicture}
+  \caption[Some Fibonacci tilings of a 1-by-19 grid]{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
+\end{figure}
+
+Consider the set of patterns one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). In \cref{figure:fibonacci-tilings} we have displayed some examples. How many such patterns are there?
+
+In order to count them, let $T(n)$ be the number of such tilings. One way of finding the number $T(n)$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \cref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[scale=0.6]
+    % Colours
+    \definecolor{mono}{RGB}{255,165,0}   % monomino
+    \definecolor{domi}{RGB}{100,149,237} % domino
+    
+    % Helper: draw one tiling given a shift and a list of x/length pairs
+    \newcommand{\drawtiling}[3]{%
+      \begin{scope}[shift={(#1,#2)}]
+        \draw[step=1cm,gray!40] (0,0) grid (5,1);
+        \foreach \x/\len in {#3} {
+          \ifnum\len=1
+            \fill[YellowOrange] (\x,0) rectangle ++(1,1);
+            \draw[thick] (\x,0) rectangle ++(1,1);
+          \else
+            \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
+            \draw[thick] (\x,0) rectangle ++(2,1);
+          \fi
+        }
+      \end{scope}%
+    }
+    
+    % Now place the 8 tilings in two columns
+    % Each list is x/length so that the tiles exactly fill 0..5
+    \drawtiling{0}{   0}{0/1,1/1,2/1,3/1,4/1}   % 1 1 1 1 1
+    \drawtiling{7}{   0}{0/1,1/1,2/1,3/2}       % 1 1 1 2
+    \drawtiling{0}{ -1.5}{0/1,1/1,2/2,4/1}      % 1 1 2 1
+    \drawtiling{7}{ -1.5}{0/1,1/2,3/1,4/1}      % 1 2 1 1
+    \drawtiling{7}{ -3  }{0/2,2/1,3/1,4/1}      % 2 1 1 1
+    \drawtiling{0}{ -3  }{0/1,1/2,3/2}          % 1 2 2
+    \drawtiling{0}{ -4.5}{0/2,2/1,3/2}          % 2 1 2
+    \drawtiling{7}{ -4.5}{0/2,2/2,4/1}          % 2 2 1
+    
+  \end{tikzpicture}  
+  \caption[Fibonacci tilings of a 1-by-5 grid]{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
+\end{figure}
+
+However, listing all such tilings gets elaborate quite quickly, and furthermore doing so by hand is quite error-prone. The problem is therefore to find a clever way of counting all possible patterns for all $n$.
+
+Notice that the last tile is either a monomino or a domino, so there are two cases to consider. The number of tilings ending in a monomino is exactly the number $T(n-1)$, and the number of tilings ending in a domino is exactly the number $T(n-2)$. Thus, the total number of tilings of a 1-by-$n$ grid is the sum of these two numbers:
+\begin{equation*}
+  T(n) = T(n-1)+T(n-2).
+\end{equation*}
+This is exactly the same recursive rule as for the Fibonacci numbers!
+
+To complete the computation of $T(n)$, we have to determine how the sequence $T(n)$ starts off. That is, we need to determine $T(1)$ and $T(2)$. There is exactly one way to tile a 1-by-1 grid using monominoes and dominoes, namely by using one monomino, and there are two ways of tiling a 1-by-2 grid using monominoes and dominoes, namely by using either two monominoes or one domino. We therefore find that $T(1)=1$ and $T(2)=2$, and we can therefore conclude that
+\begin{equation*}
+  T(n) = F_{n+1}.
+\end{equation*}
+This tiling interpretation of the Fibonacci numbers appears in \cite{brigham1996}, though equivalent counting problems have a much older origin. In the 12th century, the Indian scholars Gopāla and Hemachandra studied the number of rhythmic patterns formed by combining short and long syllables in Sanskrit prosody. Hemachandra, around the year 1150, gave a precise formulation of the recurrence relation now associated with the Fibonacci sequence, and listed the initial values: $1$, $2$, $3$, $5$, $8$, $13$, $21$. His results appear in his treatise on metrics, the \emph{Chandonuśāsana} \cite{hemachandra1961}, composed several decades before Fibonacci’s \emph{Liber Abaci} (1202). These numbers are therefore sometimes referred to as the \emph{Hemachandra numbers}.
+
+The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
 
 \begin{exercises}
-  \exercise The \define{factorial function} $n\mapsto n!$ is defined recursively by
-  \begin{align*}
-    0! & := 1 \\
-    (n+1)! & := n!(n+1).
-  \end{align*}
-  Prove that $2^n<n!$ for all $n\geq 4$.
+  \exercise \label{exercise:difference-of-powers}Prove the \define{formula for the difference of $n$th powers}
+  \begin{equation*}
+    x^n-y^n=(x-y)\sum_{k=0}^{n-1}x^ky^{n-1-k}.
+  \end{equation*}
+  Note that this formula generalizes the \define{formula for the difference of squares}
+  \begin{equation*}
+    x^2-y^2 = (x-y)(x+y)
+  \end{equation*}
+  as well as the formula for the geometric series
+  \begin{equation*}
+    x^n-1=(x-1)\sum_{k=0}^{n-1}x^k.
+  \end{equation*}
+  % \exercise \emph{Sophie Germain's identity.} Show that
+  % \begin{equation*}
+  %   a^4+4b^4=(a^2-2ab+2b^2)(a^2+2ab+2b^2).
+  % \end{equation*}
   \exercise \label{exercise:identities-triangular-numbers}Write $T_n$ for the $n$th triangular number.
   \begin{subexenum}
   \item For $0\leq m<n$, show that
@@ -342,14 +473,14 @@ We illustrate induction with another example, the \define{formula for the geomet
     \begin{equation*}
       T_{2n}=4T_n-n.
     \end{equation*}
-  \item Show that
-    \begin{equation*}
-      T_{2n}=2T_n+n^2.
-    \end{equation*}
-  \item Show that
-    \begin{equation*}
-      T_{kn}=k^2T_n-nT_{k-1}.
-    \end{equation*}
+  % \item Show that
+  %   \begin{equation*}
+  %     T_{2n}=2T_n+n^2.
+  %   \end{equation*}
+  % \item Show that
+  %   \begin{equation*}
+  %     T_{kn}=k^2T_n-nT_{k-1}.
+  %   \end{equation*}
   \item Show that
     \begin{equation*}
       8T_n+1=(2n+1)^2.
@@ -387,7 +518,7 @@ We illustrate induction with another example, the \define{formula for the geomet
   \end{equation*}
   \exercise Prove \define{Nicomachus's Theorem}
   \begin{equation*}
-    \sum_{k=0}^n k^3 = \frac{n^2(n+1)^2}{4}.
+    \sum_{k=0}^n k^3 = \left(\sum_{k=0}^{n}k\right)^2.
   \end{equation*}
   \exercise Prove that
   \begin{equation*}
@@ -397,35 +528,6 @@ We illustrate induction with another example, the \define{formula for the geomet
   \begin{equation*}
     \sum_{k=0}^n k(k+1)(k+2) = \frac{n(n+1)(n+2)(n+3)}{4}.
   \end{equation*}
-  \exercise \label{exercise:difference-of-powers}Prove the \define{formula for the difference of $n$th powers}
-  \begin{equation*}
-    x^n-y^n=(x-y)\sum_{k=0}^{n-1}x^ky^{n-1-k}.
-  \end{equation*}
-  Note that this formula generalizes the \define{formula for the difference of squares}
-  \begin{equation*}
-    x^2-y^2 = (x-y)(x+y).
-  \end{equation*}
-  \exercise Prove that
-  \begin{equation*}
-    \sum_{k=1}^n\frac{1}{k(k+1)}=\frac{n}{n+1}.
-  \end{equation*}
-  \exercise Prove that
-  \begin{equation*}
-    \prod_{k=2}^n\left(1-\frac{1}{k}\right)=\frac{1}{n}.
-  \end{equation*}
-  \exercise Prove that
-  \begin{equation*}
-    \prod_{k=1}^n\left(1-\frac{1}{k^2}\right)=\frac{n+1}{2n}.
-  \end{equation*}
-  \exercise \label{exercise:product-formula-fermat-numbers}Define the $n$th \define{Fermat number} to be
-  \begin{equation*}
-    \Phi_n := 2^{2^n}+1.
-  \end{equation*}
-  Prove that
-  \begin{equation*}
-    \Phi_n - 2 = \prod_{k=0}^{n-1}\Phi_k.
-  \end{equation*}
-  Hint: Use the formula for the difference of squares.
   \exercise Consider the Fibonacci numbers $F(n)$ given by
   \begin{align*}
     F_0 & := 0 \\
@@ -454,15 +556,16 @@ We illustrate induction with another example, the \define{formula for the geomet
   \end{equation*}
   holds for all $n$. Use Cassini's identity to give some examples of natural numbers $a$ and $b$ that satisfy this inequality.
   \exercise \label{exercise:arithmetic-progression-fibonacci}Define
-    \begin{align*}
-      a_n & := F_{n}F_{n+1}- (-1)^n, \\
-      b_n & := F_{n}^2 + F_{n+1}^2, \\
-      c_n & := 3F_{n}F_{n+1}+(-1)^{n}.
-    \end{align*}
-    Show that $(a_n^2,b_n^2,c_n^2)$ is an arithmetic progression of squares; that is, show that
-    \begin{equation*}
-      b_n^2-a_n^2=c_n^2-b_n^2.
-    \end{equation*}
+  \begin{align*}
+    a_n & := F_{n}F_{n+1}- (-1)^n, \\
+    b_n & := F_{n}^2 + F_{n+1}^2, \\
+    c_n & := 3F_{n}F_{n+1}+(-1)^{n}.
+  \end{align*}
+  Show that $(a_n^2,b_n^2,c_n^2)$ is an arithmetic progression of squares; that is, show that
+  \begin{equation*}
+    b_n^2-a_n^2=c_n^2-b_n^2.
+  \end{equation*}
+  \exercise Show that there is exactly one 3-term arithmetic progression of distinct positive Fibonacci numbers. Are there any 4-term arithmetic progressions of distinct positive Fibonacci numbers?
 \end{exercises}
 
 %%% Local Variables:

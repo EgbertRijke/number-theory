@@ -6,118 +6,6 @@ Combinatorics, or discrete mathematics, is mathematics of finite structures. A c
 \end{equation*}
 of any $k$ consecutive natural numbers is always divisible by $k!$. We will also establish the binomial theorem, which has a myriad of applications throughout mathematics.
 
-\section{A First Counting Problem}
-
-\begin{figure}[b]
-  \centering
-  \begin{tikzpicture}[scale=0.6]
-    % --- first tiling (a) at y=0 ---
-    \begin{scope}[shift={(0,0)}]
-      % tiles: 2,1,2,1,1,2,1,1,2,1,2,1,1,1
-      \foreach \x/\len in {
-        0/2, 2/1, 3/2, 5/1, 6/1, 7/2, 9/1,
-        10/1, 11/2, 13/1, 14/2, 16/1, 17/1, 18/1
-      }{
-        \ifnum\len=1
-          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
-        \else
-          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
-        \fi
-        \draw[thick] (\x,0) rectangle ++(\len,1);
-      }
-    \end{scope}
-    
-    % --- second tiling (b) at y=-1.5 ---
-    \begin{scope}[shift={(0,-1.5)}]
-      % tiles: 1,2,2,1,1,1,2,2,1,2,1,2,1
-      \foreach \x/\len in {
-        0/1, 1/2, 3/2, 5/1, 6/1, 7/1, 8/2,
-        10/2, 12/1, 13/2, 15/1, 16/2, 18/1
-      }{
-        \ifnum\len=1
-          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
-        \else
-          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
-        \fi
-        \draw[thick] (\x,0) rectangle ++(\len,1);
-      }
-    \end{scope}
-    
-    % --- third tiling (c) at y=-3 ---
-    \begin{scope}[shift={(0,-3)}]
-      % tiles: 2,2,1,1,2,1,2,1,1,1,2,1,2
-      \foreach \x/\len in {
-        0/2, 2/2, 4/1, 5/1, 6/2, 8/1, 9/2,
-        11/1, 12/1, 13/1, 14/2, 16/1, 17/2
-      }{
-        \ifnum\len=1
-          \fill[YellowOrange] (\x,0) rectangle ++(1,1);
-        \else
-          \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
-        \fi
-        \draw[thick] (\x,0) rectangle ++(\len,1);
-      }
-    \end{scope}
-  \end{tikzpicture}
-  \caption[Some Fibonacci tilings of a 1-by-19 grid]{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
-\end{figure}
-
-Consider the set of patterns one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). In \cref{figure:fibonacci-tilings} we have displayed some examples. How many such patterns are there?
-
-In order to count them, let $T(n)$ be the number of such tilings. One way of finding the number $T(n)$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \cref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
-\begin{figure}[t]
-  \centering
-  \begin{tikzpicture}[scale=0.6]
-    % Colours
-    \definecolor{mono}{RGB}{255,165,0}   % monomino
-    \definecolor{domi}{RGB}{100,149,237} % domino
-    
-    % Helper: draw one tiling given a shift and a list of x/length pairs
-    \newcommand{\drawtiling}[3]{%
-      \begin{scope}[shift={(#1,#2)}]
-        \draw[step=1cm,gray!40] (0,0) grid (5,1);
-        \foreach \x/\len in {#3} {
-          \ifnum\len=1
-            \fill[YellowOrange] (\x,0) rectangle ++(1,1);
-            \draw[thick] (\x,0) rectangle ++(1,1);
-          \else
-            \fill[CornflowerBlue] (\x,0) rectangle ++(2,1);
-            \draw[thick] (\x,0) rectangle ++(2,1);
-          \fi
-        }
-      \end{scope}%
-    }
-    
-    % Now place the 8 tilings in two columns
-    % Each list is x/length so that the tiles exactly fill 0..5
-    \drawtiling{0}{   0}{0/1,1/1,2/1,3/1,4/1}   % 1 1 1 1 1
-    \drawtiling{7}{   0}{0/1,1/1,2/1,3/2}       % 1 1 1 2
-    \drawtiling{0}{ -1.5}{0/1,1/1,2/2,4/1}      % 1 1 2 1
-    \drawtiling{7}{ -1.5}{0/1,1/2,3/1,4/1}      % 1 2 1 1
-    \drawtiling{7}{ -3  }{0/2,2/1,3/1,4/1}      % 2 1 1 1
-    \drawtiling{0}{ -3  }{0/1,1/2,3/2}          % 1 2 2
-    \drawtiling{0}{ -4.5}{0/2,2/1,3/2}          % 2 1 2
-    \drawtiling{7}{ -4.5}{0/2,2/2,4/1}          % 2 2 1
-    
-  \end{tikzpicture}  
-  \caption[Fibonacci tilings of a 1-by-5 grid]{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
-\end{figure}
-
-However, listing all such tilings gets elaborate quite quickly, and furthermore doing so by hand is quite error-prone. The problem is therefore to find a clever way of counting all possible patterns for all $n$.
-
-Notice that the last tile is either a monomino or a domino, so there are two cases to consider. The number of tilings ending in a monomino is exactly the number $T(n-1)$, and the number of tilings ending in a domino is exactly the number $T(n-2)$. Thus, the total number of tilings of a 1-by-$n$ grid is the sum of these two numbers:
-\begin{equation*}
-  T(n) = T(n-1)+T(n-2).
-\end{equation*}
-This is exactly the same recursive rule as for the Fibonacci numbers!
-
-To complete the computation of $T(n)$, we have to determine how the sequence $T(n)$ starts off. That is, we need to determine $T(1)$ and $T(2)$. There is exactly one way to tile a 1-by-1 grid using monominoes and dominoes, namely by using one monomino, and there are two ways of tiling a 1-by-2 grid using monominoes and dominoes, namely by using either two monominoes or one domino. We therefore find that $T(1)=1$ and $T(2)=2$, and we can therefore conclude that
-\begin{equation*}
-  T(n) = F_{n+1}.
-\end{equation*}
-This tiling interpretation of the Fibonacci numbers was found in \cite{brigham1996}.
-The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses this interpretation to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
-
 \section{The Standard Finite Sets}
 
 \begin{definition}
@@ -183,12 +71,17 @@ has exactly one element. We write $A\cong B$ for the set of bijections from $A$ 
 
 A function $f:A \to B$ is a bijection precisely when it is \emph{invertible} in the sense that there is a function $g:B\to A$ such that $f\circ g=\mathrm{id}_B$ and $g\circ f=\mathrm{id}_A$. Here, the composite $g\circ f$ of $g$ and $f$ is the function $x\mapsto g(f(x))$ defined by applying $g$ to the value $f(x)$ of $f$ at the input variable $x$.
 
-In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set}
-\begin{equation*}
-  [n] := \{0,\ldots,n-1\}.
-\end{equation*}
-is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
-
+The \define{factorial function} $n\mapsto n!$ is defined recursively by
+  \begin{align*}
+    0! & := 1 \\
+    (n+1)! & := n!(n+1).
+  \end{align*}
+  In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set}
+  \begin{equation*}
+    [n] := \{0,\ldots,n-1\}.
+  \end{equation*}
+  is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
+  
 \begin{proposition}
   The number of bijections $[n]\cong [n]$ from the standard $n$-element set to itself is exactly $n!$.
 \end{proposition}
@@ -343,11 +236,11 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
     % bottom‐row extensions (solid then dotted)
     \foreach \r in {0,...,6}{
       % down‐left
-      \draw[thick,solid, shorten >=6mm]  (n6\r) -- ++(-0.5cm,-1cm);
-      \draw[thick,densely dotted,shorten >=4.5mm]   (n6\r) -- ++(-0.5cm,-1cm);
+      %\draw[thick,solid, shorten >=6mm]  (n6\r) -- ++(-0.5cm,-1cm);
+      \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++(-0.5cm,-1cm);
       % down‐right
-      \draw[thick,solid, shorten >=6mm]  (n6\r) -- ++( 0.5cm,-1cm);
-      \draw[thick,densely dotted,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
+      % \draw[thick,solid, shorten >=6mm]  (n6\r) -- ++( 0.5cm,-1cm);
+      \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
     }
   \end{tikzpicture}
   \caption[Pascal's triangle]{\label{figure:pascals-triangle}Pascal's triangle.}
@@ -518,11 +411,17 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
 \end{theorem}
 
 \begin{exercises}
+  \exercise Prove that $2^n<n!$ for all $n\geq 4$.
   \exercise Prove that
   \begin{equation*}
     \sum_{k=0}^n \binom{n}{k} = 2^n
   \end{equation*}
   in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
+  \exercise
+  \begin{enumerate}
+  \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
+  \item Show that in the $n$th row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
+  \end{enumerate}
   \exercise Prove that
   \begin{equation*}
     \sum_{k=0}^n\binom{n}{k}(-1)^k = 0.
@@ -556,6 +455,7 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   \end{equation*}
   \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. This is https://oeis.org/A147956
   \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
+  \exercise Find a parametrization of all pairs $(m,n)$ of natural numbers such that $n^2-m^2$ is a number of the form $2^k$, and prove that your parametrization is a bijection.
   % \exercise
   % \begin{subexenum}
   % \item Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. %This is https://oeis.org/A147956

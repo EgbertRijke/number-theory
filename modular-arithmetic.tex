@@ -1,4 +1,4 @@
-\chapter{Modular Arithmetic}\label{chapter:modular-arithmetic}
+\chapter{The Central Theorems of Modular Arithmetic}\label{chapter:modular-arithmetic}
 
 \section{Fermat's Little Theorem}
 
@@ -10,7 +10,7 @@
   holds.
 \end{theorem}
 
-\begin{proof}[Fermat's proof]
+\begin{proof}[Fermat's additive proof]
   Note that the congruence $(-a)^p\equiv -a^p\pmod{p}$ holds for all primes $p$, so it suffices to prove the claim for the nonnegative integers. We proceed by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds.
 
   For the inductive step, assume that $a^p\equiv a\pmod{p}$. The \crefnamed{theorem:binomial-theorem}{Binomial Theorem} then gives us that
@@ -38,6 +38,34 @@
     ax\equiv ay\pmod{p}\qquad\Rightarrow\qquad x\equiv y\pmod{p}.\qedhere
   \end{equation*}
 \end{proof}
+
+\begin{theorem}\label{theorem:prime-divisors-fermat-numbers}
+  If $p$ is a prime divisor of a Fermat number $F_n:=2^{2^n}+1$, then
+  \begin{equation*}
+    p\equiv 1\pmod{2^{n+1}}
+  \end{equation*}
+\end{theorem}
+
+\begin{corollary}
+  The fourth Fermat number $2^{2^4}+1=65537$ is prime.
+\end{corollary}
+
+\begin{proof}
+  Any prime divisor of $F_4=2^{2^4}+1$ must satisfy the congruence $p\equiv 1\pmod{33}$. If $F_4$ is composite, then it must have a prime divisor below $\sqrt{F_4}$, and thus below $2^8=256$. The sieve of Eratosthenes displayed in \cref{figure:sieve-of-eratosthenes} reveals that the only two primes $p\equiv 1\pmod{33}$ below $256$ are $97$ and $193$. A quick computation gives that
+  \begin{equation*}
+    F_4\equiv 62\pmod{97}\qquad\text{and}\qquad F_4\equiv 110\pmod{193},
+  \end{equation*}
+  so that neither $97$ nor $193$ is a prime divisor of $F_4$, and therefore we conclude that $F_4$ is prime.
+\end{proof}
+
+\begin{corollary}
+  The fifth Fermat number $2^{2^5}+1=4,294,967,297$ is composite with prime factor
+  \begin{equation*}
+    641\mid 2^{2^5}+1.
+  \end{equation*}
+\end{corollary}
+
+It is widely believed, and strongly supported by evidence, that every Fermat number is square-free.
 
 \section{Euler's Theorem}
 
@@ -139,19 +167,6 @@ The following theorem was first published by Edward Waring, who attributed it as
   This implies that $\gcd(a,n)=1$. It follows that the only proper divisor of $n$ is $1$, i.e., that $n$ is prime.
 \end{proof}
 
-Gauss, in his \emph{Disquisitiones Airthmeticae} \cite[art.~78]{gauss1986} generalizes Wilson's Theorem as follows:
-
-\begin{theorem}
-  For any positive number $n$ we have
-  \begin{equation*}
-    \prod_{\substack{0<x<n\\\gcd(x,n)=1}}x=
-    \begin{cases}
-      -1 & \text{if $n=4$, $n=p^m$, or $n=2p^m$ for some odd prime $p$,} \\
-      1 & \text{otherwise.}
-    \end{cases}
-  \end{equation*}
-\end{theorem}
-
 \section{Lucas's Theorem}
 
 \crefnamed{theorem:kummers-theorem}{Kummer's Theorem} gave a complete characterization of the prime factorization of binomial coefficients. In principle, this is sufficient to know the congruence class of $\binom{n}{m}$ modulo a prime $p$. In the following theorem, which is due to \'Edouard Lucas, we establish a pattern.
@@ -229,14 +244,63 @@ The previous theorem describing the quadratic character of $-1$ modulo an odd pr
   showing that $-1$ is a quadratic residue modulo $q$. Since $-1$ is a quadratic residue modulo $q$ if and only if $q\equiv 1\pmod{4}$, it follows that any prime divisor $q$ of $n$ is congruent to $1$ modulo $4$. Since none of the prime divisors of $n$ are among the primes $p_i$ we started out with, the primes $p_i$ could not have listed all the primes congruent to $1$ modulo $4$.
 \end{proof}
 
-\begin{exercises}
-  \exercise Find the multiplicative inverses of $1$, $2$, $3$, $4$, $5$, and $6$ modulo $7$.
-  \exercise Find the multiplicative inverses of $1$, $3$, $7$, $9$, $11$, $13$, $17$, and $19$ modulo $20$.
-  \exercise For how many congruence classes $b \pmod{n}$ is the linear congruence
+\section{The Infinitude of Primes Congruent to 1 Modulo Powers of 2}
+
+One way to show that a prime $p$ is congruent to $1$ modulo $n$ is by finding an integer $a$ such that
+\begin{equation*}
+  \ord_p(a)=n.
+\end{equation*}
+By the \crefnamed{theorem:order-theorem}{Order Theorem} and \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem}, this implies that $n\mid p-1$. We will use this idea to show that there are infinitely many primes congruent to $1$ modulo any power of $2$. In particular, there are infinitely many primes congruent to $1$ modulo $4$, modulo $8$, modulo $16$, and so on.
+
+\begin{theorem}\label{theorem:infinitude-of-primes-1-mod-power-of-2}
+  For any positive natural number $n$, there are infinitely many primes congruent to $1$ modulo $2^n$.
+\end{theorem}
+
+\begin{proof}
+  Since $p\equiv 1\pmod{2^{n+1}}$ implies that $p\equiv 1\pmod{2^n}$, it suffices to show that for any finite list $p_1,\ldots,p_k$ of primes congruent to $1$ modulo $2^{n+1}$, there is a prime $q\equiv 1\pmod{2^{n+1}}$ which is not among the primes $p_i$.
+
+  Given such a list of primes $p_i$, let
   \begin{equation*}
-    ax\equiv b\pmod{n}
+    a:=2p_1\cdots p_k,
   \end{equation*}
-  solvable?
+  and let $q$ be a prime divisor of the integer $b:=a^{2^n}+1$. Note that $q$ is necessarily an odd prime, since $a$ is even and hence $b$ is odd. Since $p_i\nmid b$ for any $i$, it follows that $q$ is not among the primes $p_i$. Furthermore, we observe that
+  \begin{equation*}
+    a^{2^n}\equiv -1\pmod{q}.
+  \end{equation*}
+  This implies that $\ord_q(a)\mid 2^{n+1}$, while clearly $\ord_q(a)\nmid 2^n$. Thus, we must have $\ord_q(a)=2^{n+1}$, and this allows us to conclude that $q\equiv 1\pmod{2^{n+1}}$.
+\end{proof}
+
+The previous theorem is a special case of a deep theorem in analytic number theory: \emph{Dirichlet's Theorem}. Dirichlet's Theorem shows that for any integer $a$ relatively prime to $n$, there are infinitely many primes
+\begin{equation*}
+  p\equiv a\pmod{n}.
+\end{equation*}
+The techniques of proving Dirichlet's Theorem are beyond the scope of this course. However, having taken this course, you are well equipped to read LeVeque's excellent \emph{Topics in Number Theory} \cite{leveque1956vol1,leveque1956vol2}, a two-volume work that contains well-explained proofs of Dirichlet's Theorem as well as the Prime Number Theorem.
+
+\begin{exercises}
+  \exercise For every prime $p\equiv 1\pmod{4}$ below $100$, find the least positive integer $a$ such that $a^2\equiv -1\pmod{p}$.
+  \exercise Consider an odd prime $p=2n+1$. Show that
+  \begin{equation*}
+    \binom{2n}{n}\equiv (-1)^{\frac{p-1}{2}}\pmod{p}.
+  \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item Consider a prime $p$ and an integer $p\nmid a$. Show that
+    \begin{equation*}
+      a^p\equiv a\pmod{p^2}\qquad\Leftrightarrow \qquad a^{p^2}\equiv a\pmod{p^2}.
+    \end{equation*}
+  \item A prime satisfying $a^p\equiv a\pmod{p^2}$ is called a \emph{Wieferich prime base $a$}. Wieferich encountered this condition by showing that if $x^p+y^p=z^p$ with $p\nmid xyz$, then $p$ must be a Wieferich prime base $2$ \cite{wieferich1909}. The only known Wieferich primes base $2$ are $p=1093$ and $p=3511$, and there are no smaller Wieferich primes base $2$.
+    
+    In bases larger than $2$ there are smaller Wieferich primes, although they are still rare. The only known Wieferich primes base $3$ are $p=11$ and $p=1006003$. Show that $5$ is a Wieferich prime base $32$.
+  \end{subexenum}
+  \exercise For any positive integer $n$ we define the \emph{Euler quotient}
+  \begin{equation*}
+    q_n(x):=\frac{x^{\phi(n)}-1}{n},
+  \end{equation*}
+  where $x$ is assumed to be relatively prime to $n$. In the special case where $n$ is a prime, $q_n(x)$ is called the \emph{Fermat quotient}. Show that
+  \begin{equation*}
+    q_n(ab)\equiv q_n(a)+q_n(b)\pmod{n}
+  \end{equation*}
+  for any two integers $a$ and $b$ relatively prime to $n$.
   \exercise Consider two integers $a$ and $b$, and a prime number $p$. Show that
   \begin{equation*}
     (a+b)^p\equiv a^p+b^p\pmod{p}.
@@ -261,6 +325,27 @@ The previous theorem describing the quadratic character of $-1$ modulo an odd pr
       3^{3^3}\equiv 3^3\pmod{p}.
     \end{equation*}
   \end{subexenum}
+  \exercise Show that
+  \begin{equation*}
+    3^{3^{3^3}}\equiv 3^{3^3}\pmod{97}.
+  \end{equation*}
+  \exercise Consider two primes $p$ and $q$. Show that
+  \begin{equation*}
+    pq\mid (13^p-5^p)(13^q-5^q)\qquad\Leftrightarrow\qquad pq\mid 12.
+  \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item Show that any number of the form
+    \begin{equation*}
+      m^5n-n^5m
+    \end{equation*}
+    is divisible by $30$.
+  \item Show that for any two odd primes $p$ and $q$, the number
+    \begin{equation*}
+      p^5q-q^5p
+    \end{equation*}
+    is divisible by $240$.
+  \end{subexenum}
   \exercise Prove that if
   \begin{equation*}
     a^n\equiv a \pmod{n}
@@ -279,6 +364,20 @@ The previous theorem describing the quadratic character of $-1$ modulo an odd pr
   \begin{equation*}
     a^{pq}+a\equiv a^p + a^q \pmod{pq}
   \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item Show that the number $6481=3^8-3^4+1$ is prime. Hint: In order to avoid trying out all the primes below $80$, show first that every prime factor $p$ of $6481$ satisfies $p\equiv 1\pmod{24}$.
+  \item Compute the prime factorization of the number
+    \begin{equation*}
+      3^{24}-1.
+    \end{equation*}
+  \end{subexenum}
+  \exercise Show that the congruence
+  \begin{equation*}
+    \sum_{k=1}^{n} k^n\equiv 0\pmod{n}
+  \end{equation*}
+  holds if and only if $n$ is odd.
+  \exercise. Find the least integer $k>1$ such that every integer of the form $x^k-x$ is divisible by $47$ and $89$.
 \end{exercises}
 
 %%% Local Variables:

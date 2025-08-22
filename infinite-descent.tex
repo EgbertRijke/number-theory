@@ -24,43 +24,9 @@ The method of infinite descent was invented by Fermat. He used this method effec
   is a nonempty subset of the natural numbers, and by the \crefnamed{theorem:well-ordering-natural-numbers}{well-ordering principle} of the natural numbers it follows that this set has a least element. However, all the elements in $A$ are of the form $a_n$ for some natural number $\mathbb{N}$, and none of these elements are minimal, since we have assumed that $a_n>a_{n+1}$. This contradiction shows that our assumption that there exists an infinite descending sequence must be false, and thus there is no such sequence.
 \end{proof}
 
-The previous proposition leads to Fermat's method of infinite descent. Fermat observed that if an assumption $H$ leads to an infinite descending sequence, then the assumption $H$ must be false. We will illustrate Fermat's method with the following theorem:
+The previous proposition leads to Fermat's method of infinite descent. Fermat observed that if an assumption $H$ leads to an infinite descending sequence, then the assumption $H$ must be false. %We will illustrate Fermat's method with the following theorem:
 
-\begin{theorem}\label{theorem:irrational-sqrt}
-  If a natural number $n$ is not a perfect square, then its square root $\sqrt{n}$ is irrational.
-\end{theorem}
-
-\begin{proof}
-  We will prove the theorem by deriving a contradiction under the assumption that there is a rational number $\frac{a}{b}$ such that
-  \begin{equation*}
-    \frac{a^2}{b^2}=n.
-  \end{equation*}
-  This equation can be written in the form $a^2=nb^2$, where $n$ is not a perfect square. In other words, our goal is to show that the set
-  \begin{equation*}
-    A:=\{(a,b)\mid a^2=nb^2\}
-  \end{equation*}
-  is empty. We will do so by constructing a function $(a,b)\mapsto (a',b')$ on the set $A$, so that $a>a'$. If the set $A$ was nonempty, then we would obtain an infinite descending sequence of natural numbers by iterating this function, thus reaching a contradiction by \cref{proposition:infinite-descent}.
-
-  Consider $a$ and $b$ such that $a^2=nb^2$. Since $n$ is not a perfect square, it has a prime divisor $p$ such that
-  \begin{equation*}
-    n=p^{2k+1}m
-  \end{equation*}
-  for an odd number $2k+1$ and a number $m$ not divisible by $p$. It follows that
-  \begin{equation*}
-    p^{2k+1}\mid a^2.
-  \end{equation*}
-  By the pigeonhole principle it follows that $p^{k+1}\mid a$, which also implies that $a$ is divisible by $p$. However, this implies the slightly stronger divisibility relation
-  \begin{equation*}
-    p^{2(k+1)}\mid nb^2.
-  \end{equation*}
-  However, $n$ is not divisible by $p^{2(k+1)}$ so it follows that $b$ is divisible by $p$. Thus, we have shown that both $a$ and $b$ are divisible by $p$. We may therefore define
-  \begin{equation*}
-    a':=\frac{a}{p}\qquad\text{and}\qquad b':=\frac{b}{p}.
-  \end{equation*}
-  Since multiplication by $p^2$ is injective we find that $a'^2=nb'^2$, completing the proof.
-\end{proof}
-
-In the previous proof we introduced a set $A$ of which the elements were pairs $(a,b)$ of natural numbers satisfying $a^2=nb^2$, and we defined a function $f:A\to A$ in order to show that $A$ is empty. In the following theorem we state the method of infinite descent using a generalization of this setup.
+%In the previous proof we introduced a set $A$ of which the elements were pairs $(a,b)$ of natural numbers satisfying $a^2=nb^2$, and we defined a function $f:A\to A$ in order to show that $A$ is empty. In the following theorem we state the method of infinite descent using a generalization of this setup.
 
 \begin{theorem}[Method of Infinite Descent]\label{theorem:method-of-descent}
   Consider a set $A$ equipped with a function $f:A\to A$ and a function $h:A\to\mathbb{N}$. If $h(f(a))<h(a)$ for all $a$, then $A$ is empty.
@@ -144,7 +110,11 @@ A classic application of Fermat's infinite descent gives us that the area of a P
     s & = 2uv \\
     t & = v^2+u^2.
   \end{align*}
-  Now it follows that $y^2 = 4uv (v^2+u^2)$. We claim that the numbers $uv$ and $v^2+u^2$ are relatively prime. To see this, note that any prime divisor $p$ of $uv$ must be a prime divisor of $u$ or $v$. On the other hand, given that $p$ is a prime divisor of one of $u$ and $v$, if $p$ were also a prime divisor of $v^2+u^2$, then it would follow that $p$ is a prime divisor of both $u$ and $v$. This contradicts the assumption that $u$ and $v$ are relatively prime.
+  Now it follows that $y^2 = 4uv (v^2+u^2)$. We claim that the numbers $uv$ and $v^2+u^2$ are relatively prime. To see this, note that both $u$ and $v$ are relatively prime to $v^2+u^2$ since
+  \begin{equation*}
+    \gcd(u,v^2+u^2)=\gcd(u,v^2)=1\qquad\text{and}\qquad\gcd(v,v^2+u^2)=\gcd(v,u^2)=1,
+  \end{equation*}
+  and hence their product $uv$ is also relatively prime to $v^2+u^2$.
 
   Since $uv$ and $v^2+u^2$ are relatively prime, the fact that $4uv(v^2+u^2)$ is a square implies that both $uv$ and $v^2+u^2$ are squares. Given that $u$ and $v$ are relatively prime, this implies that $u$ and $v$ are squares, i.e., that there are integers $a$ and $b$ such that $u=a^2$ and $v=b^2$. Thus, it follows that
   \begin{equation*}
@@ -266,6 +236,68 @@ Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ 
   \end{equation*}
 \end{proof}
 
+\section{The Congruent Number Problem}
+
+Recall from \cref{sec:squares-in-aps} the challenge that Master John posed in the early 13th century to Leonardo Fibonacci: To find a rational number $q$ such that both
+\begin{equation*}
+  q^2-5,\qquad\text{and}\qquad q^2+5
+\end{equation*}
+are both rational. Or equivalently, to find a Pythagorean triangle whose area is five times a square. Master John must somehow have known that the number $5$ in his challenge was special: It is the smallest positive integer for which his challenge has a solution.
+
+\begin{definition}
+  A positive integer $a$ is said to be a \emph{congruent number} if it occurs as the area of a right triangle with rational sides and rational hypotenuse.
+\end{definition}
+
+The following lemma rephrases the condition of being a congruent number in terms of Pythagorean triangles.
+
+\begin{lemma}\label{lemma:congruent-numbers}
+  A number $n$ is congruent if and only if there is a primitive Pythagorean triangle whose area is $n$ times a square.
+\end{lemma}
+
+\begin{proof}
+  Consider three rational numbers $a$, $b$, and $c$ such that
+  \begin{equation*}
+    a^2+b^2=c^2,\qquad\text{and}\qquad \frac{ab}{2}=n,
+  \end{equation*}
+  so that $n$ is presented as the area of a right triangle with rational sides and hypotenuse. By multiplying $a$, $b$, and $c$ with $m$, which we define to be the least common multiple of the denominators of $a$ and $b$, we obtain integers $A:= ma$, $B:= mb$, and $C:= mc$ such that
+  \begin{equation*}
+    A^2+B^2=C^2,\qquad\text{and}\qquad \frac{AB}{2}=nm^2
+  \end{equation*}
+  so that $(A,B,C)$ constitutes a Pythagorean triple whose area is $n$ times a square. By dividing out any common divisors, we obtain a primitive such Pythagorean triangle. Since this process is clearly reversible, this proves the claim.
+\end{proof}
+
+\begin{theorem}
+  No square positive integer is a congruent number.
+\end{theorem}
+
+\begin{proof}
+  This claim follows from \cref{lemma:congruent-numbers} and Fermat's \cref{theorem:is-not-square-area-pythagorean-triangle}, which states that the area of a Pythagorean triangle cannot be a square.
+\end{proof}
+
+We will show in the following theorem that the number $2$ is not congruent. The noncongruence of the number $3$ is stated as an exercise. Having the integers $1$, $2$, $3$, and $4$ ruled out as congruent numbers, we see indeed that $5$ is the least congruent number.
+
+\begin{theorem}
+  If a positive integer is twice a square, then it isn't congruent.
+\end{theorem}
+
+\begin{proof}
+  This theorem can be stated equivalently as: The area of a primitive Pythagorean triangle cannot be twice a square. To derive a contradiction, we assume that a Pythagorean triple $(A,B,C)$ exists with
+  \begin{equation*}
+    \frac{AB}{2}=2m^2.
+  \end{equation*}
+  By Euclid's parametrization of the primitive Pythagorean triples, a Pythagorean triple as described above is uniquely determined by a pair of relatively prime positive integers $s<t$ of opposite parity, with
+  \begin{equation*}
+    A=t^2-s^2,\qquad B=2st,\qquad\text{and}\qquad C:=t^2+s^2.
+  \end{equation*}
+  Using this parametrization, we find the following equation for the area:
+  \begin{equation*}
+    st(t^2-s^2)=2m^2.
+  \end{equation*}
+  However, the integers $s$, $t$, and $t^2-s^2$ are all relatively prime, which implies that exactly one of them---either $s$ or $t$---is twice a square and the other two are squares.
+\end{proof}
+
+Determining which numbers are congruent turns out to be an incredibly difficult problem, which is still unsolved. This problem is called the \emph{congruent number problem}, and via Tunnell's theorem it has connections to the famous Birch and Swinnerton--Dyer conjecture.
+
 \section{Vieta Jumping}
 
 Consider a polynomial with roots $a_1$, $a_2$, and $a_3$, i.e., the polynomial
@@ -358,6 +390,7 @@ Vieta jumping is a modern problem-solving technique that became popular in inter
     x^4-y^4=z^2
   \end{equation*}
   has no solutions in the positive integers.
+  \exercise Show that the only triangular number which is also a fourth power is $1$.
 \end{exercises}
 
 %%% Local Variables:

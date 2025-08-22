@@ -61,8 +61,7 @@
 \newaliascnt{corollary}{theorem}
 \newtheorem{corollary}[corollary]{Corollary}
 
-\newaliascnt{conjecture}{theorem}
-\newtheorem{conjecture}[conjecture]{Conjecture}
+\newtheorem{conjecture}{Conjecture}
 
 \theoremstyle{definition}
 \newaliascnt{definition}{theorem}
@@ -125,10 +124,6 @@
 \aliascntresetthe{corollary}
 \crefname{corollary}{Corollary}{Corollaries}
 \Crefname{corollary}{Corollary}{Corollaries}
-
-\aliascntresetthe{conjecture}
-\crefname{conjecture}{Conjecture}{Conjectures}
-\Crefname{conjecture}{Conjecture}{Conjectures}
 
 \aliascntresetthe{definition}
 \crefname{definition}{Definition}{Definitions}
@@ -336,17 +331,17 @@
 
 \input{rational-numbers}
 
+\input{pythagorean-triples}
+
+\input{infinite-descent}
+
 \input{congruences}
 
 \input{systems-of-linear-congruences}
 
 \input{prime-numbers}
 
-\input{polynomials}
-
-\input{pythagorean-triples}
-
-\input{infinite-descent}
+\input{arithmetic-functions}
 
 \input{modular-arithmetic}
 
@@ -354,9 +349,11 @@
 
 \input{gaussian-integers}
 
+\input{polynomials}
+
 \input{polynomial-congruences}
 
-\input{residues-of-powers}
+\input{primality-testing}
 
 \input{primitive-roots}
 
@@ -376,11 +373,17 @@
 
 \input{dirichlet-series}
 
-\input{arithmetic-functions}
-
 \input{distribution-of-primes}
 
+\input{cyclotomic-polynomials}
+
 \input{prime-partition-function}
+
+\input{bernoulli-numbers}
+
+\input{miscellaneous}
+
+\input{open-problems}
 
 \printbibliography[heading=bibintoc,title=References]
 

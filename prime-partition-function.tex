@@ -1,0 +1,41 @@
+\chapter{Partitioning Numbers into Prime Parts}
+
+\section{The Prime-Partition Function}
+
+\begin{definition}
+  The \emph{prime-partition function} $P$ is defined for any natural number $n$ by setting $P(n)$ to be the number of ways in which $n$ can be written as an unordered sum of primes.
+\end{definition}
+
+\begin{example}
+  The number $0$ can be written in exactly one way as a sum of primes, namely the empty sum. Thus we have $P(0)=1$. The number $1$, on the other hand, cannot be written as a sum of primes, giving us that $P(1)=0$. The numbers $2$, $3$, and $4$ each can be written in exactly one way as a sum of primes. Since $5$ is itself prime and $5=2+3$ it follows that $P5)=2$. We have
+  \begin{equation*}
+    6=2+2+2\qquad\text{and}\qquad 6=3+3,
+  \end{equation*}
+  giving us that $P(6)=2$. The number $7$ is again prime, and furthermore can be partitioned into primes smaller than $7$ in the following way:
+  \begin{equation*}
+    7=2+2+3\qquad\text{and}\qquad 7=2+5.
+  \end{equation*}
+  This gives us that $P(7)=3$. The number $8$ can also be written in three ways as a sum of primes:
+  \begin{equation*}
+    8=2+2+2+2,\qquad 8=2+3+3,\qquad\text{and}\qquad 8=3+5.
+  \end{equation*}
+  The following table lists the value $P(n)$ up to $n=15$:
+  \begin{equation*}
+    \begin{tabular}{c|cccccccccccccccc}
+      $n$    & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ & $13$ & $14$ & $15$ \\ \midrule
+      $P(n)$ & $1$ & $0$ & $1$ & $1$ & $1$ & $2$ & $2$ & $3$ & $3$ & $4$ & $5$  & $6$  & $7$  & $9$  & $10$ & $12$\makebox[0pt][l]{.}
+    \end{tabular}
+  \end{equation*}
+  The sequence of numbers $P(n)$ is listed as A000607 in the On-Line Encyclopedia for Integer Sequences.
+\end{example}
+
+\section{The Ternary Goldbach Conjecture}
+
+\begin{theorem}[Ternary Goldbach Conjecture]
+  Every odd number $n> 5$ can be written as a sum of three primes.
+\end{theorem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:

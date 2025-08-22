@@ -109,11 +109,11 @@ Another approach that often works well, which was suggested in class by Lucy, is
 
 Ideals are a concept from \emph{ring theory}, which studies \emph{rings}, which are sets equipped with addition, subtraction, and multiplication, satisfying the most familiar laws of arithmetic:
 \begin{align*}
-  (x+y)+z & = x+(y+z) & (xy)z & = x(yz) \\
-  0+x & = x & 1x & = x \\
-  x+0 & = x & x1 & = x \\
-  x-x & = 0 & x(y+z) & = xy + xz \\
-  -x+x & = 0 & (x+y)z & = xz + yz \\
+  (x+y)+z & = x+(y+z), & (xy)z & = x(yz), \\
+  0+x & = x, & 1x & = x, \\
+  x+0 & = x, & x1 & = x, \\
+  x-x & = 0, & x(y+z) & = xy + xz, \\
+  -x+x & = 0, & (x+y)z & = xz + yz, \\
   x+y & = y+x.
 \end{align*}
 Rings such as the integers satisfy additionally the law $xy=yx$ of commutativity; such rings are called \emph{commutative rings}. Notice that the set $\mathbb{N}$ of natural numbers isn't a ring, because it lacks subtraction. Sets with the structure of a ring appeared in David Hilbert's \emph{Zahlbericht}, but their formal definition was first given by Emmy Noether in \emph{Idealtheorie in Ringbereichen}, who was also the first to study them systematically.
@@ -261,7 +261,7 @@ We wouldn't have this discussion if it didn't apply for us. Indeed, we will show
 \begin{definition}
   Consider two integers $a$ and $b$. An integer $d$ is said to be a \emph{greatest common divisor} of $a$ and $b$ if it satisfies the following logical equivalence
   \begin{equation*}
-    (x\mid a)\land(x\mid b) \Leftrightarrow (x\mid d).
+    (x\mid a)\land(x\mid b) \Leftrightarrow (x\mid d)
   \end{equation*}
   for every integer $x$.
 \end{definition}
@@ -362,8 +362,8 @@ Euclid's algorithm works by repeatedly using \cref{proposition:gcd-euclidean-div
 \end{equation*}
 holds. This determines a new pair $(a',b'):=(b,r)$ and $\gcd(a,b)=\gcd(b,r)$. Note that $\gcd(b,r)$ is somewhat easier to compute, since the numbers involved are smaller. Repeating this procedure, we obtain a list of equalities
 \begin{align*}
-  a_1 & =q_1b_1+r_1 \\
-  a_2 & =q_2b_2+r_2 \\
+  a_1 & =q_1b_1+r_1, \\
+  a_2 & =q_2b_2+r_2, \\
       & ~\,\vdots \\
   a_N & = q_Nb_N+r_N,
 \end{align*}
@@ -384,8 +384,8 @@ we see that $b_N$ is the greatest common divisor of $a$ and $b$.
   \end{equation*}
   and we observe that $\gcd(732,578)=\gcd(154,116)$. We proceed with this process until we find that $\gcd(732,578)=\gcd(d,0)$ for some number $d$. Once we reach this stage, we conclude that $\gcd(732,578)=d$. Putting words to action:
   \begin{align*}
-    154 & = 1\cdot 116 + 38 & \gcd(732,578) & = \gcd(116,38) \\
-    116 & = 3 \cdot 38 + 2 & \gcd(732,578) & = \gcd(38,2) \\
+    154 & = 1\cdot 116 + 38 & \gcd(732,578) & = \gcd(116,38), \\
+    116 & = 3 \cdot 38 + 2 & \gcd(732,578) & = \gcd(38,2), \\
     38 & = 19 \cdot 2 + 0 & \gcd(732,578) & = \gcd(2,0).
   \end{align*}
   Thus, we conclude that $\gcd(732,578)=2$.  
@@ -401,7 +401,7 @@ produced by Euclid's algorithm are in order. Since each $r_i$ can be written as 
 \end{equation*}
 These linear coefficients can be determined recursively, by what is called the \emph{extended Euclidean algorithm}. Notice that $k_1=1$ and $l_1=q_1$. We also set $k_0:=0$ and $l_0:=1$. Then $k_{i+1}$ and $l_{i+1}$ are recursively determined by the rule:
 \begin{align*}
-  k_{i+1} & = k_{i-1}-q_{i+1}k_i \\
+  k_{i+1} & = k_{i-1}-q_{i+1}k_i, \\
   l_{i+1} & = l_{i-1}-q_{i+1}l_i.
 \end{align*}
 To see this, simply note that
@@ -430,7 +430,7 @@ To see this, simply note that
   \end{equation*}
   In the second to last equation, we find that $2$ is a linear combination of $38$ and $116$; that is,
 \begin{align*}
-  2 & = 116 - 3\cdot 38
+  2 & = 116 - 3\cdot 38.
 \end{align*}
 However, by the equation before that we see that $38$ itself is a linear combination of $154$ and $116$. This can be used to express $2$ as a linear combination of $154$ and $116$; that is,
 \begin{align*}
@@ -517,7 +517,7 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
 \begin{proof}
   Suppose that $ax+by=c$ is another solution. Then it follows that
   \begin{equation*}
-    a(x-x_0)+b(y-y_0)=0
+    a(x-x_0)+b(y-y_0)=0.
   \end{equation*}
   In other words, we have $a(x-x_0)=-b(y-y_0)$. Thus we see that $b(y-y_0)$ is divisible by $a$. Since $a$ and $b$ are relatively prime, this implies that $a\mid y-y_0$. Similarly, $a(x-x_0)$ is divisible by $b$, and therefore it follows that $b\mid x-x_0$. Furthermore, if $ka=y-y_0$ and $lb=x-x_0$. Then the equation
   \begin{equation*}
@@ -549,6 +549,8 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \exercise Show that if $a\mid b$, then $d\mid b/a$ if and only if $ad\mid b$.
   \exercise Suppose that $a\mid b$ and $b\mid c$. Show that if $d\mid b/a$ then $d\mid c/a$.
   \exercise Show that $a\mid b$ implies $ac\mid bc$. Furthermore, show that if $c$ is nonzero, then $ac\mid bc$ implies $a\mid b$. Conclude that $a^n\mid b^n$ if and only if $a\mid b$ for any natural number $n$.
+  \exercise Show that if $a$ and $ab$ are $n$th powers, then so is $b$.
+  \exercise Show that if $ab$ and $ac$ are squares, then so is $bc$.
   \exercise Suppose that $d$ is a common divisor of two nonzero integers $a$ and $b$.
   \begin{subexenum}
   \item Show that the greatest common divisor of $a/d$ and $b/d$ is $\gcd(a,b)/d$.
@@ -558,30 +560,49 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \exercise Show that if $d\mid a + b$, then $\gcd(d,a)\mid \gcd(a,b)$ and $\gcd(d,b)\mid\gcd(a,b)$. Conclude that if $a$ and $b$ are relatively prime, then $d$ is relatively prime to both $a$ and $b$.
   \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
   \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
-  \exercise \label{exercise:div-third-power-minus-first-power}Show that $a^3-a$ is divisible by $6$ for every integer $a$.
-  \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
-  \exercise Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
-  \exercise \label{exercise:div-increment-a-p-squares}(Fibonacci \cite{fibonacci1987})
+  \exercise
   \begin{subexenum}
+  \item Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
+  \item Show that $(a^2-1)/8$ is a triangular number for any odd integer $a$.
+  \end{subexenum}
+  \exercise \label{exercise:div-third-power-minus-first-power}
+  \begin{subexenum}
+  \item Show that $a^3-a$ is divisible by $6$ for every integer $a$.
+  \item Show that
+    \begin{equation*}
+      \sum_{k=1}^{a-1}\binom{k+1}{2}=\frac{a^3-a}{6}
+    \end{equation*}
+    for every $a\geq 0$.
+  \item Use the previous identity to give a geometric interpretation of the numbers $(a^3-a)/6$.
+  \end{subexenum}
+  \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
+  \exercise \label{exercise:div-product-sum-of-squares}Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2$, then $x=y$.
+  \exercise Show that any three consecutive Fibonacci numbers are pairwise relatively prime.
+  \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
+  \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
+  \exercise Show that
+  \begin{equation*}
+    \gcd(a^m-b^m,a^n-b^n)=a^{\gcd(m,n)}-b^{\gcd(m,n)}.
+  \end{equation*}
+  \exercise \label{exercise:div-increment-a-p-squares}
+  \begin{subexenum}
+  \item Show that if $a$ and $b$ are both relatively prime to $24$, then $a^2-b^2$ is divisible by $24$.
+  \item A \emph{generalized pentagonal number} is a number of the form
+    \begin{equation*}
+      \frac{3k^2\pm k}{2}.
+    \end{equation*}
+    Show that if $a$ is the $n$th integer relatively prime to $24$, then the number
+    \begin{equation*}
+      \frac{a^2-1}{24}.
+    \end{equation*}
+    is the $n$th generalized pentagonal number.
   \item Let $0\leq a\leq b\leq c$ be integers such that their squares form an arithmetic progression; that is, the numbers $a^2$, $b^2$, and $c^2$ listed in increasing order have a common increment:
   \begin{equation*}
     \Delta:=b^2-a^2=c^2-b^2.
   \end{equation*}
-  Show that $\Delta$ is a multiple of $24$.
-  \item Let $a_n$ be the $n$th positive integer of the form $(6k\pm 1)^2$. Then
-  \begin{equation*}
-    \frac{a_{n+1}-a_n}{24}=
-    \begin{cases}
-      n & \text{if $n$ is odd,}\\
-      n/2 & \text{if $n$ is even.}
-    \end{cases}
-  \end{equation*}
+  Show that $\Delta$ is a multiple of $24$ \cite{fibonacci1987}.
   \item Find five examples of triples $(a,b,c)$ as described in part (a), and explain how you found them.
   \end{subexenum}
-  \exercise \label{exercise:div-product-sum-of-squares}Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2$, then $x=y$.
-  \exercise Show that any two consecutive Fibonacci numbers are relatively prime.
-  \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
-  \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
   \exercise
   \begin{subexenum}
   \item Prove the \emph{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
@@ -593,6 +614,7 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
     \end{enumerate}
   \item Show that the Fibonacci sequence preserves and reflects divisibility: We have $m\mid n$ if and only if $F_m\mid F_n$.
   \end{subexenum}
+  \exercise Find all $n$ for which the five consecutive Fibonacci numbers $F_n,...,F_{n+4}$ are pairwise relatively prime.
   \exercise Consider three integers $a$, $b$, and $c$. Show that the following are equivalent:
   \begin{enumerate}
   \item The integers $a$ and $b$ are both relatively prime to $c$.
@@ -603,6 +625,10 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
     a+kb,\qquad k=0,1,2,\ldots
   \end{equation*}
   there are infinitely many numbers relatively prime to $n$.
+  \exercise Show that
+  \begin{equation*}
+    \binom{a+k}{k}\Bigm| \lcm(a,a+1,\ldots,a+k).
+  \end{equation*}
   \exercise
   \begin{subexenum}
   \item Consider two positive integers $a$ and $n$ such that $\gcd(a,n)=1$. Prove that there is a natural number $m$ such that
@@ -610,14 +636,34 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
       n\,\Bigm|\, \sum_{k=0}^m a^k.
     \end{equation*}
     Hint: Apply the pigeonhole principle.
-  \item Find the least natural number of the form $m+1$ such that
+  \item Find the least positive integer $m$ such that
     \begin{equation*}
-      7\,\Bigm|\, \sum_{k=0}^m 10^k = \underbrace{11\cdots1}_{m+1}.
+      7\,\Bigm|\, \sum_{k=0}^{m-1} 10^k = \underbrace{11\cdots1}_{m}.
     \end{equation*}
   \end{subexenum}
   \exercise Consider a positive integer $a$, and write $S_m:=\sum_{k=0}^m a^k$. Prove that
   \begin{equation*}
     \gcd(S_m,S_n)=S_{\gcd(m+1,n+1)-1}.
+  \end{equation*}
+  \exercise (Erd\H{o}s) Show that any set of $n+1$ integers chosen from an interval $a,\ldots,a+2n-1$ must contain a pair of relatively prime integers.
+  \exercise An interval $a,\ldots,a+n-1$ of consecutive positive integers is said to be \emph{stapled} if it does not contain any integer that is relatively prime to all the others \cite{evans1969}. The sequence A090318 of the OEIS lists for each $n$ the first positive integer $a$ such that the interval $a,\ldots,a+n-1$ is stapled, or $0$ if no such number exists. This sequence starts to show nonzero values from $n=17$ onwards, with the value $2184$ at $n=17$.
+  \begin{subexenum}
+  \item Check that the interval $2184,\ldots, 2200$ is stapled.
+  \item Show that in every interval of ten consecutive digits there is an integer that is relatively prime to all the others. In other words, no interval of ten consecutive digits is stapled.
+  \end{subexenum}
+  \exercise Show that for $n>1$ there are no solutions in the positive integers to the equation
+  \begin{equation*}
+    a(a+1)(a+2)=b^n.
+  \end{equation*}
+  More generally, Paul Erd\H{o}s and John Lewis Selfridge showed that no product of at least two consecutive integers can be an $n$th power for $n>1$ \cite{erdosselfridge1975}.
+  \exercise Let $M_n:=2^n-1$ be the $n$th \emph{Mersenne number}.
+  \begin{subexenum}
+  \item Show that if $n$ is even, then $3\mid M_n$.
+  \item Show that if $3\mid n$, then $7\mid M_n$.
+  \end{subexenum}
+  \exercise Find all solutions to the equation
+  \begin{equation*}
+    3^m-2^n=1.
   \end{equation*}
 \end{exercises}
 

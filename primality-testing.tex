@@ -1,0 +1,288 @@
+\chapter{Primality Testing}
+
+\section{The Carmichael Numbers}
+
+\crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} asserts that if $p$ is a prime number, then the congruence
+\begin{equation*}
+  x^p\equiv x\pmod{p}
+\end{equation*}
+holds for every integer $x$. Thus it is natural to wonder whether Fermat's Little Theorem can be used to test whether a number is prime. If we can find an integer $x$ such that
+\begin{equation*}
+  x^n\nequiv x\pmod{n}
+\end{equation*}
+then it is certain that $n$ must be composite. This is a very useful test, since it provides a way to establish that the number $n$ is composite without factoring it, and for many composite numbers it is indeed possible to find an integer $x$ such that $x^n\nequiv x\pmod{n}$.
+
+However, if no such integer $x$ exists, this simple test does not provide a guarantee for the primality of $n$. Robert Carmichael discovered that there are composite numbers that satisfy Fermat's congruence for every integer \cite{carmichael1912}.
+
+\begin{definition}
+  A \emph{Carmichael number} is a composite integer $n>1$ such that the congruence
+  \begin{equation*}
+    x^{n}\equiv x\pmod{n}
+  \end{equation*}
+  holds for every integer $x$.
+\end{definition}
+
+Alternatively, we can define a Carmichael number to be a composite number $n$ such that
+\begin{equation*}
+  n\mid x^n-x.
+\end{equation*}
+Thus, a Carmichael number is a composite number $n$ dividing the fixed divisor of the polynomial $x^n$. In order to find examples of Carmichael numbers, it is therefore useful to first compute the fixed divisor of this polynomial.
+
+Recall from \cref{definition:fixed-divisor} that the fixed divisor of a polynomial $f(x)$ is the greatest common divisor of all the values of $f(x)$. In \cref{section:fixed-divisors} we showed that the fixed divisor of $f(x)=x^n-x$ can be determined by computing the greatest common divisor of the values
+\begin{equation*}
+  f(2),\ldots,f(\lfloor{\textstyle\frac{n+1}{2}}\rfloor).
+\end{equation*}
+While this theorem is useful to compute the fixed divisor of any specific polynomial, such as $x^7-x$, we shall compute the fixed divisor of $x^n-x$ using \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} and \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem}.
+
+\begin{theorem}\label{theorem:fixed-divisors-fermat-polynomials}
+  Consider the polynomial $x^n-x$, for some natural number $n> 1$. Its fixed divisor is the square-free number
+  \begin{equation*}
+    \prod_{\substack{p\ \textup{prime} \\ p-1 \mid n-1}} p.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  First, we claim that a prime number $p$ appears as a factor of the fixed divisor of $x^n-x$ if and only if
+  \begin{equation*}
+    p-1\mid n-1.
+  \end{equation*}
+  For the forward direction of this claim, suppose that $p$ divides every integer of the form $x^n-x$ and write $n-1=k(p-1)+r$ where $0\leq r<p-1$. Since $x^n-x=x(x^{n-1}-1)$ and $p$ is prime, it follows from \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} that
+  \begin{equation*}
+    x^r-1\equiv x^{k(p-1)+r}-1\equiv x^{n-1}-1\equiv 0\pmod{p},
+  \end{equation*}
+  when $x$ is not divisible by $p$. However, \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem} tells us that the polynomial $x^r-1$ has at most $r<p-1$ roots modulo $p$ when $r\neq 0$. Therefore we conclude that $r=0$; that is, $p-1\mid n-1$.
+
+  Conversely, if $p-1\mid n-1$, then it follows by Fermat's Little Theorem that
+  \begin{equation*}
+    x^{n-1}\equiv 1\pmod{p}
+  \end{equation*}
+  for every $x$ not divisible by $p$. This implies that $x(x^{n-1}-1)$ is divisible by $p$ for every $x$, completing the proof of the first claim.
+
+  To finish the proof, it remains to show that the fixed divisor of $x^n-x$ is square-free, i.e., that for each prime number $p$ there is an integer $x$ such that $p^2\nmid x^n-x$. We choose $x=p$, because the integer $p^n-p=p(p^{n-1}-1)$ is indeed not divisible by $p^2$.
+\end{proof}
+
+\cref{theorem:fixed-divisors-fermat-polynomials} can be used to obtain a characterization of the Carmichael numbers due to Alwin Korselt \cite{korselt1899}. Since $n$ is a Carmichael number if and only if $n$ divides the fixed divisor of $x^n-x$, we see that such $n$ must be square-free and for each of its prime divisors $p$ we must have $p-1\mid n-1$. Thus, we obtain:
+
+\begin{theorem}[Korselt's criterion]
+  A composite number $n>1$ is a Carmichael number if and only if the following two conditions hold:
+  \begin{enumerate}
+  \item The number $n$ is squarefree.
+  \item For any prime divisor $p$ of $n$, we have $p-1\mid n-1$.
+  \end{enumerate}
+\end{theorem}
+
+In order to narrow our search for examples of Carmichael numbers further, we show that there are no Carmichael numbers of the form $pq$, and that they are always odd.
+
+\begin{theorem}
+  Any Carmichael number is an odd number with at least three prime factors.
+\end{theorem}
+
+\begin{proof}
+  First, suppose $n$ is an even Carmichael number. Since $n$ is composite and square-free, there must exists an odd prime $p$ dividing $n$. For such a prime $p$ we have
+  \begin{equation*}
+    p-1\mid n-1.
+  \end{equation*}
+  However, $p-1$ is even while $n-1$ is odd, which is a contradiction. Any Carmichael number must therefore be odd.
+  
+  Now consider a number $n=pq$ where $p$ and $q$ are distinct primes. In order for $n$ to be a Carmichael number, we must have
+  \begin{equation*}
+    p-1\mid pq-1\qquad\text{and}\qquad q-1\mid pq-1.
+  \end{equation*}
+  By writing $pq-1=(p-1)q + (q-1)$ we see that
+  \begin{equation*}
+    p-1\mid pq-1\qquad\Leftrightarrow\qquad p-1\mid q-1
+  \end{equation*}
+  and we get a similar logical equivalence when we reverse the roles of $p$ and $q$. This shows that $p=q$, contradicting the assumption that $p$ and $q$ are distinct.
+\end{proof}
+
+A trick similar to the factorization trick we used to rule out two-prime Carmichael numbers can be used to obtain some useful congruences involving the prime factors of a three-prime Carmichael number.
+
+\begin{proposition}
+  Any three-prime Carmichael number $n=pqr$ satisfies the congruences
+  \begin{align*}
+    qr & \equiv 1\pmod{p-1} \\
+    pr & \equiv 1\pmod{q-1} \\
+    pq & \equiv 1\pmod{r-1}.
+  \end{align*}
+\end{proposition}
+
+\begin{proof}
+  Since the three congruences are symmetric in $p$, $q$, and $r$, it suffices to show prove the first congruence. By writing $pqr-1=(p-1)qr+qr-1$ we see that
+  \begin{equation*}
+    p-1\mid pqr-1\qquad\Leftrightarrow\qquad p-1\mid qr-1,
+  \end{equation*}
+  from which it follows that if $n=pqr$ is a Carmichael number then $qr\equiv 1\pmod{p-1}$.
+\end{proof}
+
+We have now gathered enough information about three-prime Carmichael numbers to start hunting for small examples. In the following theorem we will show that there is exactly one three-prime Carmichael number divisible by $3$. Similar techniques can be used to find the finitely many three-prime Carmichael numbers whose smallest prime divisor is a fixed small prime $p$ such as $p=5$ or $p=7$.
+
+\begin{theorem}
+  There is exactly one Carmichael number of the form $3qr$ with $3<q<r$ prime, namely
+  \begin{equation*}
+    561=3\cdot 11\cdot 17.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Suppose that the number $3qr$ is a Carmichael number. Then the congruences
+  \begin{align*}
+    qr & \equiv 1\pmod{2} \\
+    3r & \equiv 1\pmod{q-1} \\
+    3q & \equiv 1\pmod{r-1}
+  \end{align*}
+  hold. The first one simply says that $q$ and $r$ are both odd, which we already knew. The second congruence says that $3$ is invertible modulo $q-1$. This implies that $q\equiv 0$ or $2\pmod{3}$. However, since $q$ is assumed to be a prime larger than $3$ it follows that $q\equiv 2\pmod{3}$.
+
+  Using that $q=3u+2$ with $0<u$ we see that the congruences $3r\equiv 1\pmod{q-1}$ and $3q\equiv 1\pmod{r-1}$ can be stated equivalently as the congruences
+  \begin{align*}
+    r & \equiv 2u+1\pmod{3u+1} \\
+    9u+5 & \equiv 0\pmod{r-1}.
+  \end{align*}
+  From the first of these congruences we see that $r=k(3u+1)+(2u+1)$, where we may note that $k\neq 0$ since $q<r$. However, the second congruence now gives us that $r\leq 9u+6$. This inequality can be used to further restrict the possible values of the integer $k$:
+  \begin{equation*}
+    k(3u+1)+(2u+1)\leq 9u+6\qquad\Rightarrow\qquad
+    k \leq \frac{7u+5}{3u+1}\leq 3.
+  \end{equation*}
+  There are thus three options for $k$:
+  \begin{enumerate}
+  \item If $k=3$ then we must have $q=5$ and $r=15$. However, $15$ is composite, so we conclude that $k\neq 3$.
+  \item If $k=2$ then $r-1=8u+2$. However, no number of the form $8u+2$ divides a number of the form $9u+5$, so we conclude that $k\neq 2$.
+  \item The only remaining case is where $k=1$ and $r-1=5u+1$. The divisibility relation
+    \begin{equation*}
+      5u+1\mid 9u+5
+    \end{equation*}
+    implies that $0<u\leq 3$. Since
+    \begin{equation*}
+      5\cdot 1 + 1\nmid 9\cdot 1+5,\qquad 5\cdot 2+1 \nmid 9\cdot 2+5,\qquad\text{and}\qquad 5\cdot 3+1\mid 9\cdot 3+5
+    \end{equation*}
+    we find that $u=3$, and therefore $q=11$ and $r=17$.\qedhere
+  \end{enumerate}
+\end{proof}
+
+In 1994, William Robert Alford, Andrew Granville, and Carl Pomerance made extensive use of Korselt's criterion to show that there are infinitely many Carmichael numbers \cite{alfordea1994}. Thomas Wright showed in 2013 that there are infinitely many Carmichael numbers in any arithmetic progression $ax+b$ with $a$ and $b$ relatively prime \cite{wright2013}.
+
+\section{The Lucas--Lehmer Primality Test}
+
+This test is named after \'Edouard Lucas and Derrick Henry Lehmer, who refined Lucas's ideas in the 1930s. 
+
+\section{Pocklington's Criteria}
+
+\begin{theorem}[Pocklington's Theorem]
+  Consider a number $n>1$, and suppose there exist a positive integer $a$ and a prime number $p$ such that
+  \begin{enumerate}
+  \item $a^{n-1}\equiv 1\pmod{n}$,
+  \item $p\mid n-1$ and $p>\sqrt{n}-1$,
+  \item $\gcd\big(a^{(n-1)/p}-1,n\big)=1$.
+  \end{enumerate}
+  Then the number $n$ is prime.
+\end{theorem}
+
+\begin{proof}
+  Assume to the contrary that $n$ is composite, and let $q$ be a prime factor of $n$ such that $q\leq \sqrt{n}$. Then we have
+  \begin{equation*}
+    q-1\leq \sqrt{n}-1<p,
+  \end{equation*}
+  showing that $q-1$ and $p$ are relatively prime. Thus, it follows that there is an integer $u$ such that $pu\equiv 1\pmod{q-1}$. Now we get the following congruences modulo $q$:
+  \begin{align*}
+    a^{(n-1)/p} & \equiv a^{pu(n-1)/p} \\
+                & \equiv a^{u(n-1)} \\
+                & \equiv (a^{n-1})^u \\
+                & \equiv 1.
+  \end{align*}
+  The last congruence holds since $q\mid n$ and the assumption that $a^{n-1}\equiv 1\pmod{n}$. Thus, it follows that $q$ is a divisor of both $a^{(n-1)/p}-1$ and $n$, which contradicts the assumption that they are relatively prime.
+\end{proof}
+
+\begin{example}
+  In order to illustrate the Pocklington-Lehmer test, we will show that the number
+  \begin{equation*}
+    11!+1 = 39,916,801
+  \end{equation*}
+  is prime. Primes of the form $n!\pm 1$ are called \emph{factorial primes}. The largest known example is $632,760!-1$.
+
+  Given that $n:=11!+1$, we have that
+  \begin{equation*}
+    n-1=11!=2^8\cdot 3^4\cdot 5^2\cdot 7\cdot 11.
+  \end{equation*}
+  
+\end{example}
+
+\section{Mersenne Primes}
+
+\begin{definition}
+  The \emph{Mersenne numbers} are the numbers of the form $M_n:= 2^n-1$. \emph{Mersenne primes} are Mersenne numbers that are prime. 
+\end{definition}
+
+\begin{proposition}
+  If $M_n$ is a Mersenne prime, then $n$ is prime.
+\end{proposition}
+
+\begin{lemma}\label{lemma:base-2-probable-prime}
+  The congruence
+  \begin{equation*}
+    2^{M_p}\equiv 2\pmod{M_p}.
+  \end{equation*}
+  holds for any prime number $p$.
+\end{lemma}
+
+\begin{proof}
+  First observe that by the definition $M_n=2^n-1$, it follows that $\ord_{M_n}(2)= n$. This implies that
+  \begin{equation*}
+    2^k\equiv 2^l\pmod{M_n}
+  \end{equation*}
+  if and only if $k\equiv l\pmod{n}$.
+
+  By Fermat's Little Theorem we have that $2^p\equiv 2\pmod{p}$, so that $M_p\equiv 1\pmod{p}$. Thus we obtain that
+  \begin{equation*}
+    2^{M_p}\equiv 2^1\pmod{M_p}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{proposition}
+  The Mersenne number $M_{31}=2,147,483,647$ is prime.
+\end{proposition}
+
+\begin{proof}
+  We set $a:=2$ and $n:=M_{31}$ so that $n-1 =2(2^{30}-1)$. First, note that since $31$ is prime, it follows from \cref{lemma:base-2-probable-prime} that
+  \begin{equation*}
+    2^{n-1}\equiv 1\pmod{n}.
+  \end{equation*}
+  Thus, the first condition in the Pocklington--Lehmer primality test is satisfied.
+  
+  First, we factor the number $M_{31}-1=2^{31}-2$, which is $2(2^{30}-1)$. We do so by the following calculation:
+  \begin{align*}
+    2^{30}-1 & = (2^{15}-1)(2^{15}+1) \\
+             & = (2^5-1)(2^{10}+2^5+1)(2^5+1)(2^{10}-2^{5}+1) \\
+             & = 31\cdot 1057\cdot 33\cdot 993 \\
+             & = 3^2\cdot 7 \cdot 11\cdot 31 \cdot 151\cdot 331.
+  \end{align*}
+  The number $151\cdot 331$ is strictly larger than $\sqrt{M_{31}}$, so it will be suitable for the Pocklington Lehmer test.
+\end{proof}
+
+\begin{exercises}
+  \exercise Use Pocklington's criterion to show that the following numbers are prime:
+  \begin{subexenum}
+  \item $13,421=11^4-11^3+11^2-11+1$,
+  \item $28,393=13^4-13^2+1$,
+  \item $2,311,921=39^4-39^2+1$.
+  \end{subexenum}
+  Hints: $13,421$ divides $11^{10}-1$, $28,393$ divides $13^{12}-1$, and $2,311,921$ divides $39^{12}-1$.
+  \exercise Prove that the following are equivalent:
+  \begin{enumerate}
+  \item $2^{M_n}\equiv 2\pmod{M_n}$.
+  \item $2^{n-1}\equiv 1\pmod{n}$.
+  \end{enumerate}
+  \exercise Show that for every integer $n$ there is an integer $x$ such that $\lambda(n)/2$ is the least positive integer $k$ for which the congruence
+  \begin{equation*}
+    x^{k}\equiv -1\pmod{n}
+  \end{equation*}
+  is solvable.
+  \exercise Show that the only Carmichael numbers of the form $5qr$ are
+  \begin{equation*}
+    1105=5\cdot 13\cdot 17,\qquad 2464=5\cdot 17\cdot 29,\qquad\text{and}\qquad 10585=5\cdot 29\cdot 73.
+  \end{equation*}
+  \exercise Show that any Carmichael number $n$ is relatively prime to the value $\phi(n)$ of Euler's totient function. Numbers with this property are called \emph{cyclic}.
+\end{exercises}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% End:
+
