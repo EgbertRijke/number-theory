@@ -335,7 +335,7 @@ In the remainder of this section we will derive the classic formula that describ
 
 By the previous lemma we can restrict our attention to primitive Pythagorean triples. Next, we do a parity analysis of the components of a primitive Pythagorean triple to show that exactly one of the components of $(x,y,z)$ in a Pythagorean triple is divisible by $4$. In \cref{exercise:divisibility-legs-pythagorean-triples} we make the similar claims that exactly one of the components of a Pythagorean triple is divisible by $3$, and exactly one divisible by $5$.
 
-\begin{lemma}
+\begin{lemma}\label{lemma:div-4-pythagorean-triple}
   Consider a primitive Pythagorean triple $(x,y,z)$. Then $z$ is odd, exactly one of $x$ and $y$ is divisible by $4$, and the other is odd.
 \end{lemma}
 
@@ -396,15 +396,128 @@ By the previous lemma we may assume, without loss of generality, that in a primi
 
 \section{Rational Points on the Unit Circle}
 
-The unit circle consists of all points $(u,v)$ that are a unit distance from the origin. In other words, a point $(u,v)$ in the plane with real number coordinates lies on the unit circle if it satisfies the condition
+The unit circle consists of all points $(u,v)$ that are a unit distance from the origin. In other words, a point $(u,v)$ in the plane with real number coordinates lies on the unit circle if it satisfies the equation
 \begin{equation*}
   u^2+v^2=1.
 \end{equation*}
-Every Pythagorean triple $(x,y,z)$ corresponds to a point
+When both coordinates $u$ and $v$ are rational numbers, we say that $(u,v)$ is a \emph{rational point} on the unit circle. Pythagorean triples can be used to obtain such rational points on the unit circle. Every Pythagorean triple $(x,y,z)$ determines the point
 \begin{equation*}
-  \left(\frac{x}{z},\frac{y}{z}\right)
+  \left(\frac{x}{z},\frac{y}{z}\right),
 \end{equation*}
-on the unit circle. Since both coordinates of the point $(\frac{x}{z},\frac{y}{z})$ are rational numbers, we say that this point is a \emph{rational point} on the unit circle.
+which satisfies $(\frac{x}{z})^2+(\frac{y}{z})^2=(x^2+y^2)/z^2= 1$. Thus we see that if $(x,y,z)$ is a Pythagorean triple, then $(\frac{x}{z},\frac{y}{z})$ is a rational point on the unit circle. We will show that \emph{every} rational point on the unit circle arises in this way.
+
+\begin{figure}[t]
+  \begin{center}
+    \begin{tikzpicture}[scale=4]
+      % Draw the grid with spacing 0.2, extending 0.1 beyond the square
+      \draw[gray,very thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
+      
+      % Draw the thick black square
+      \draw[thick,Gray] (-1,-1) rectangle (1,1);
+      
+      % Draw the thick black circle
+      \draw[very thick] (0,0) circle (1);
+      
+      % Draw the x and y axes as arrows
+      \draw[->] (-1.2,0) -- (1.2,0) node[right] {\(x\)};
+      \draw[->] (0,-1.2) -- (0,1.2) node[above] {\(y\)};
+      
+      % Coordinates for the node
+      \coordinate (P1) at (-1,0);
+      \coordinate (P2) at ({5/13},{12/13});
+      \coordinate (P3) at ({-2/5},{2/5});
+    
+      
+      % Draw the line from (1,1) through the node
+      \draw[CornflowerBlue,very thick,->,shorten >=.5ex] (P1) -- (P2);
+      
+      % Draw the node
+      \draw[fill=black,thick] (P1) circle (.5pt) node[rounded corners=2pt,fill=white,below,inner sep=1pt,yshift=-1ex] {$\textstyle{(-1,0)}$};
+      \draw[fill=white,thick] (P2) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=.8ex,yshift=2ex] {\(\left(\frac{1-m^2}{1+m^2},\frac{2m}{1+m^2}\right)\)};
+
+      \node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1ex,yshift=-2ex] at (P3) {$\textstyle{y=m(x+1)}$};
+    \end{tikzpicture}
+  \end{center}
+  \caption[Rational points on the unit circle]{\label{figure:rational-points-unit-circle}A point $(u,v)$ on the unit circle is rational if and only if the line through $(-1,0)$ and $(u,v)$ has a rational slope.}
+\end{figure}
+
+In order to prove that all rational points on the unit circle are determined by Pythagorean triples, we need a systematic way of studying the rational points on the unit circle. A standard way to classify all (rational) points on the unit circle is to parametrize them using a single parameter. We will use a parametrization called the \emph{stereographic projection}. This starts with a single rational point on the unit circle, in our case we start with the point $(-1,0)$. Then we consider all the lines through this point with a rational slope. Surely, if $(u,v)$ is a rational point on the circle, then the line through $(-1,0)$ and $(u,v)$ will have a rational slope. The question that thus arises is: Does every line through $(-1,0)$ with a rational slope intersect the unit circle in a rational point?
+
+At first consideration, it might not be so clear that this should indeed be the case. The key insights are obtained through Vieta's formulas for the roots of a (quadratic) polynomial, named after the 16th century French mathematician Fran\c{c}ois Vi\`{e}te. He was one of the first to use letters as parameters in his study of algebraic equations.
+
+\begin{theorem}[Vieta's Formulas for the Roots of a Quadratic Polynomial]\label{theorem:vieta-formulas-quadratic}
+  Consider a polynomial of the form $t^2-Bt+C$ and suppose that $r$ is a root of this polynomial. Then the other root $s$ satisfies
+  \begin{equation*}
+    s=B-r=\frac{C}{r}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  The two roots of a quadratic polynomial $f(t)=t^2-Bt+C$ are $r$ and $s$ if and only if we can write $f(t)$ in the form
+  \begin{equation*}
+    f(t)=(t-r)(t-s).
+  \end{equation*}
+  However, if this equation holds, then we find that
+  \begin{equation*}
+    t^2-(r+s)t+rs=t^2-Bt+C.
+  \end{equation*}
+  In other words, $B=r+s$ and $C=rs$. The asserted equations for the root $s$ follow.
+\end{proof}
+
+A corollary of the previous theorem is that if $B$ and $C$ are rational numbers and $r$ is a rational root of the polynomial $t^2-Bt+C$, then the other root $s$ is also rational.
+
+\begin{theorem}
+  Consider the line given by the equation $y=m(x+1)$, which has slope $m$ and passes through the point $(-1,0)$. This line intersects the unit circle at the point
+  \begin{equation*}
+    \left(\frac{1-m^2}{1+m^2},\frac{2m}{1+m^2}\right).
+  \end{equation*}
+  Consequently, the line $y=m(x+1)$ intersects the unit circle at a rational point if and only if the slope $m$ is rational.
+\end{theorem}
+
+\begin{proof}
+  Let $(u,v)$ be the point at which the line $y=m(x+1)$ intersects the circle, satisfying $u>-1$. Clearly, if $(u,v)$ is such a rational point on the unit circle, then the slope of the line through $(-1,0)$ and $(u,v)$ is rational, so it suffices to prove the converse direction, for which we assume that $m$ is rational.
+
+  In order to find the point $(u,v)$, we have to solve the equation
+  \begin{equation*}
+    x^2+m^2(x+1)^2=1.
+  \end{equation*}
+  By rearranging, we find that it is equivalent to solve the equation
+  \begin{equation*}
+    x^2 + \frac{2m^2}{1+m^2}x + \frac{m^2-1}{1+m^2} = 0.
+  \end{equation*}
+  Since we already know one root, which is given by $x=-1$, we can find the other root by Vieta's formulas given in \cref{theorem:vieta-formulas-quadratic}:
+  \begin{equation*}
+    u=\frac{1-m^2}{1+m^2}.
+  \end{equation*}
+  Using the equation $v=m(u+1)$ for the line, we find that $v=\frac{2m}{1+m^2}$, so that both $u$ and $v$ are seen to be rational numbers.
+\end{proof}
+
+\begin{theorem}
+  The map
+  \begin{equation*}
+    (a,b,c)\mapsto (\tfrac{a}{c},\tfrac{b}{c})
+  \end{equation*}
+  from primitive Pythagorean triples $(a,b,c)$ in which $b$ is even, to rational points $(u,v)$ on the unit circle with $0<u,v$ is a bijection.
+\end{theorem}
+
+\begin{proof}
+  The inclusion of the Pythagorean triples into the positive quadrant of the unit circle is clearly injective, so it suffices to show that it is surjective.
+  Consider a rational point $(u,v)$ on the unit circle with $0<u,v$. By the previous theorem, such a point is of the form
+  \begin{equation*}
+    \left(\frac{1-m^2}{1+m^2},\frac{2m}{1+m^2}\right).
+  \end{equation*}
+  Now write $m$ as the integer fraction $\frac{s}{t}$, which we assume to be in lowest terms. Since $(u,v)$ is in the positive quadrant of the unit circle, we have $0<s<t$. Furthermore, we have
+  \begin{equation*}
+    u=\frac{t^2-s^2}{t^2+s^2}\qquad\text{and}\qquad v = \frac{2st}{t^2+s^2}.
+  \end{equation*}
+  The triple $(a,b,c)$ given by $a:=t^2-s^2$, $b:=2st$, and $c:=t^2+s^2$ describes a Pythagorean triple, since the equation
+  \begin{equation*}
+    (t^2-s^2)^2+(2st)^2 = (t^2+s^2)^2
+  \end{equation*}
+  holds. It follows by \cref{lemma:div-4-pythagorean-triple} that $2st$ is divisible by $4$, and hence that $s$ and $t$ are of opposite parity, so we conclude that the Pythagorean triple $(a,b,c)$ is primitive.
+\end{proof}
+
+\section{The Tree of Primitive Pythagorean Triples (*)}
 
 \begin{figure}[t]
   \begin{center}
@@ -431,11 +544,11 @@ on the unit circle. Since both coordinates of the point $(\frac{x}{z},\frac{y}{z
       
       % Draw the line from (1,1) through the node
       \draw[CornflowerBlue,very thick,dashed] (1,1) -- (P1);
-      \draw[CornflowerBlue,very thick,->,shorten >=1.5ex] (P1) -- (P2);
+      \draw[CornflowerBlue,very thick,->,shorten >=2ex] (P1) -- (P2);
       \draw[YellowOrange,very thick,dashed] (1,-1) -- (P2);
       \draw[YellowOrange,very thick,->,shorten >=0.8ex] (P2) -- (P3);
       \draw[Green,very thick,dashed] (1,1) -- (P3);
-      \draw[Green,very thick,->,shorten >=1ex] (P3) -- (P4);
+      \draw[Green,very thick,->,shorten >=1.5ex] (P3) -- (P4);
       \draw[DarkOrchid,very thick,dashed] (-1,1) -- (P4);
       \draw[DarkOrchid,very thick,->,shorten >=0.8ex] (P4) -- (1,0);
       
@@ -448,10 +561,120 @@ on the unit circle. Since both coordinates of the point $(\frac{x}{z},\frac{y}{z
       
     \end{tikzpicture}
   \end{center}
-  \caption[Vieta jumps between rational points on the unit circle]{For any rational point $(x,y)$ on the unit circle apart from $(0,\pm1)$ and $(\pm1,0)$, draw a straight line through it from the outer corner of its quadrant to find a new rational point $(x',y')$ on the unit circle. The common denominator of $(x',y')$ is strictly smaller than that of $(x,y)$, so that this process eventually terminates at $(0,\pm1)$ or $(\pm1,0)$.}
+  \caption[Vieta jumps between rational points on the unit circle]{\label{figure:vieta-jumps-pythagorean-triples}For any rational point $(x,y)$ on the unit circle apart from $(0,\pm1)$ and $(\pm1,0)$, draw a straight line through it from the outer corner of its quadrant to find a new rational point $(x',y')$ on the unit circle. The common denominator of the factions $x'$ and $y'$, when brought to lowest terms, is strictly smaller than that of $x$ and $y$, so that this process eventually terminates at $(0,\pm1)$ or $(\pm1,0)$.}
 \end{figure}
 
-\section{The Tree of Primitive Pythagorean Triples}
+Consider a primitive Pythagorean triple $(a,b,c)$, where $a$ and $b$ are arbitrary integers and $c>1$, so that the point $(x,y)$ with $x:=\frac{a}{c}$ and $y:=\frac{b}{c}$ is an arbitrary rational point on the unit circle, and let $(u,v)$ be one of the points $(\pm 1,\pm 1)$. If we draw a line through $(u,v)$ and $(x,y)$, then this always results in a new rational point $(x',y')$ on the unit circle. We will do this for
+\begin{equation*}
+  u:= \sgn(a)\qquad\text{and}\qquad v:=\sgn(b),
+\end{equation*}
+which leads us to discover a tree structure on the Pythagorean triples.
+
+\begin{theorem}[Vieta Jumping for Pythagorean Triples]
+  Consider a primitive Pythagorean triple $(a,b,c)$ and let
+  \begin{equation*}
+    x=\frac{a}{c},\qquad\text{and}\qquad y=\frac{b}{c}.
+  \end{equation*}
+  For any point $(u,v)$ with rational coordinates such that $u\neq x$, the line through $(u,v)$ and $(x,y)$ intersects the unit circle at a second point $(x',y')$ satisfies
+  \begin{equation*}
+    x' = \frac{c}{a}\frac{(bu-av)^2-(a-uc)^2}{(b-vc)^2+(a-uc)^2}
+    \qquad\text{and}\qquad y' = \frac{b-vc}{a-uc}(x'-u)+v,
+  \end{equation*}
+  In particular, the new point $(x',y')$ is again a rational point on the unit circle.
+\end{theorem}
+
+\begin{proof}
+  First, we parametrize the line through $(u,v)$ and $(x,y)$ as a function of $t$ given by
+  \begin{equation*}
+    s(t) := m(t-u)+v,
+  \end{equation*}
+  where the slope $m$ is defined by $m:=\frac{y-v}{x-u}=\frac{b-vc}{a-uc}$. In order to find the intersection points of this line through the unit circle, we have to solve the equation $t^2+s(t)^2=1$. We can simplify this equation as follows
+  \begin{align*}
+    0 & = t^2 + (v+m(t-u))^2 - 1 \\
+      & = t^2 + v^2 + 2vm(t-u) +m^2(t^2-2ut + u^2) -1 \\
+      & = (1+m^2)t^2 + (2vm - 2um^2)t + (mu-v)^2 -1
+  \end{align*}
+  Dividing through by $1+m^2$, we see that $x$ and $x'$ are the roots of the quadratic equation
+  \begin{equation*}
+    t^2 + \frac{2vm - 2um^2}{1+m^2}t + \frac{(mu-v)^2 -1}{1+m^2}=0.
+  \end{equation*}
+  We have thus reached a quadratic equation of the form $t^2+Bt+C$, which has by assumption one rational solution at $t=x$. By the equation
+  \begin{equation*}
+    (x-r)(x-s)=x^2-(r+s)x+rs,
+  \end{equation*}
+  it follows that if $r$ is one of the roots of $t^2+Bt+C$, then the other root is given by $s:=\frac{C}{r}$, or equivalently by $s=B-r$. This allows us to immediately access the value for $x'$ at the second intersection point of the line and the circle:
+  \begin{equation*}
+    x' = \frac{1}{x}\frac{(mu-v)^2 -1}{(1+m^2)}.
+  \end{equation*}
+  Using the definition of $m$ now gives the desired equation for $x'$.
+\end{proof}
+
+By the previous theorem, we know that any line that passes through two rational points, one of which is on the unit circle, will pass through a third rational point which is also on the unit circle. Next, we will consider the case where the point $(u,v)$ of the previous theorem is of the form $(\pm 1,\pm 1)$. By choosing $u:=\sgn(x)$ and $v:=\sgn(y)$, we will see that the line through $(u,v)$ and $(x,y)$ intersects the unit circle at a rational point with a smaller denominator. We will use this observation to put the structure of a ternary tree on the set of Pythagorean triples.
+
+\begin{theorem}
+  Consider a primitive Pythagorean triple $(a,b,c)$ with $c>1$. Let
+  \begin{equation*}
+    x=\frac{a}{c},\qquad y=\frac{b}{c},
+  \end{equation*}
+  and let $u=\sgn(a)$ and $v=\sgn(b)$, so that $ua=|a|$ and $vb=|b|$. The line through $(u,v)$ and $(x,y)$ intersects the unit circle at $(x,y)$ and at a second point, as incidated in \cref{figure:vieta-jumps-pythagorean-triples}, which we call $(x',y')$. Then $(x',y')$ is a rational point on the unit circle corresponding to a Pythagorean triple $(a',b',c')$ with $0<c'<c$.
+\end{theorem}
+
+% \begin{proof}
+%   If we write $M:=a-uc$ and $N:=b-vc$, we see that $m=\frac{N}{M}$. This allows us to rewrite the quadratic equation above to
+%   \begin{equation*}
+%     t^2 + 2\frac{vMN - uN^2}{M^2+N^2}t + \frac{N^2 - 2uv MN}{M^2+N^2}=0.
+%   \end{equation*}
+%   We have thus reached a quadratic equation of the form $t^2+Bt+C$, which has by assumption one rational solution at $t=x$. By the equation
+%   \begin{equation*}
+%     (x-r)(x-s)=x^2-(r+s)x+rs,
+%   \end{equation*}
+%   it follows that if $r$ is one of the roots of $t^2+Bt+C$, then the other root is given by $s:=\frac{C}{s}$, or equivalently by $s=B-r$. This allows us to immediately access the value for $x'$ at the second intersection point of the line and the circle:
+%   \begin{equation*}
+%     x' := \frac{N^2 - 2uv MN}{x(M^2+N^2)} = \frac{c(N^2 - 2uv MN)}{a(M^2+N^2)}
+%   \end{equation*}
+%   This jump to the new solution $x'$ is called a \emph{Vieta jump}. We conclude immediately that $x'$ and hence $y'$ are rational.
+
+%   Now we unfold the definitions of $M$ and $N$ to find that
+%   \begin{equation*}
+%     x' = \frac{c((b-vc)^2 - 2uv (a-uc)(b-vc))}{a((a-uc)^2+(b-vc)^2)}
+%     = \frac{2uc - 2uvb - a}{3c-2(|a|+|b|)}
+%   \end{equation*}
+%   Notice that the denominator $3c-2(|a|+|b|)$ is a positive integer strictly less than $c$. It follows that if we bring $x'$ to lowest terms, then the denominator is still strictly less than $c$.
+% \end{proof}
+
+% \begin{proof}
+%   Parametrize the line through $(u,v)$ and $(x,y)$ by $s(t)=v+m(t-u)$ where
+%   \[
+%     m=\frac{y-v}{x-u}=\frac{b-vc}{a-uc}=\frac{N}{M} \in\mathbb{Q},
+%     \qquad M:=a-uc,\; N:=b-vc.
+%   \]
+%   Intersections with the unit circle are solutions of $t^2+s(t)^2=1$, i.e. the quadratic
+%   \[
+%     t^2 + 2\frac{v m - u m^2}{1+m^2}t + \frac{m^2-2uvm}{1+m^2}=0.
+%   \]
+%   One root of this quadratic is $t=x\in\mathbb{Q}$, hence by Vieta the other root $x'$ is rational and equals
+%   \[
+%     x'=\frac{m^2-2uvm}{x(1+m^2)}
+%     =\frac{N^2-2uvMN}{x(M^2+N^2)}
+%     =\frac{c\bigl(N^2-2uvMN\bigr)}{a\bigl(M^2+N^2\bigr)}.
+%   \]
+%   It remains to show that when $x'$ is written in lowest terms its denominator is strictly less than~$c$.
+
+%   The key identity is
+%   \[
+%     M^2+N^2=(a-uc)^2+(b-vc)^2
+%     =c\bigl(3c-2(|a|+|b|)\bigr),
+%   \]
+%   which is a one-line expansion using $a^2+b^2=c^2$ and $u^2=v^2=1$. Since $a$ and $b$ are nonzero (otherwise $c\le1$), we have
+%   \[
+%     (|a|+|b|)^2=c^2+2|ab|>c^2,
+%   \]
+%   hence $|a|+|b|>c$. Consequently
+%   \[
+%     0<3c-2(|a|+|b|)<3c-2c=c,
+%   \]
+%   so $M^2+N^2=c\cdot d$ with an integer $d$ satisfying $0<d<c$. Therefore after cancelling any common factors the denominator of $x'$ (and likewise of $y'$) is strictly less than~$c$. This proves the claimed descent $0<c'<c$ and completes the proof.
+% \end{proof}
 
 The set of all primitive Pythagorean triples has the structure of a rooted ternary tree. This structure was first discovered by Berggren in 1934 \cite{berggren1934}.
 
@@ -513,12 +736,12 @@ Thus, we are looking for three squares $a^2$, $b^2$, and $c^2$ increasing in inc
   \begin{equation*}
     b^2-a^2=c^2-b^2.
   \end{equation*}
-  This common increment is denoted by $\Delta_{a,b,c}$, or simply $\Delta$. An arithmetic triple of squares $(a^2,b^2,c^2)$ is said to be \emph{primitive} if $\gcd(a,b,c)=1$.
+  This common increment is called the \emph{congruum} and is denoted by $\Delta_{a,b,c}$, or simply $\Delta$. An arithmetic triple of squares $(a^2,b^2,c^2)$ is said to be \emph{primitive} if $\gcd(a,b,c)=1$.
 \end{definition}
 
 It follows immediately from the definition that if $(a^2,b^2,c^2)$ is a primitive arithmetic triple of squares, then $a$, $b$, and $c$ are also pairwise relatively prime.
 
-We are thus looking for an arithmetic triple of squares, with increment of the form $\Delta:=5t^2$. In \cref{exercise:div-increment-a-p-squares} you were asked to show that the increment $\Delta$ of an arithmetic triple of squares is always divisible by $24$, which Fibonacci also reported on in Liber Quadratorum. We conclude from this observation that if $\Delta$ is of the form $5t^2$ then $\Delta$ must be a multiple of $2\cdot3\cdot 5 \cdot 24=720$.
+We are thus looking for an arithmetic triple of squares, with a congruum of the form $\Delta:=5t^2$. In \cref{exercise:div-increment-a-p-squares} you were asked to show that the congruum $\Delta$ of an arithmetic triple of squares is always divisible by $24$, which Fibonacci also reported on in Liber Quadratorum. We conclude from this observation that if $\Delta$ is of the form $5t^2$ then $\Delta$ must be a multiple of $2\cdot3\cdot 5 \cdot 24=720$.
 
 \begin{figure}[t]
   \centering
@@ -643,7 +866,7 @@ We are thus looking for an arithmetic triple of squares, with increment of the f
   }
 \end{figure}
 
-The fact that the common increment in an arithmetic triple of squares is always a multiple of $24$ implies that primitive arithmetic triples of squares consist entirely of integers of the form $(6m\pm 1)^2$. Any such square exceeds a multiple of $24$ by one. This significantly reduces the search space for arithmetic triples of squares. If $a_n$ is the $n$th positive integer of the form $(6k\pm 1)^2$, then
+The fact that the congruum in an arithmetic triple of squares is always a multiple of $24$ implies that primitive arithmetic triples of squares consist entirely of integers of the form $(6m\pm 1)^2$. Any such square exceeds a multiple of $24$ by one. This significantly reduces the search space for arithmetic triples of squares. If $a_n$ is the $n$th positive integer of the form $(6k\pm 1)^2$, then
 \begin{equation*}
   d_n:=\frac{a_{n+1}-a_n}{24}=
   \begin{cases}
@@ -703,7 +926,7 @@ determine a Pythagorean triple $(x,y,z)$. Conversely, if $(x,y,z)$ is a Pythagor
 \begin{equation*}
   a := |y-x|, \qquad b := z,\qquad\text{and}\qquad c:= y+x,
 \end{equation*}
-so that $(a^2,b^2,c^2)$ is easily seen to be an arithmetic triple of squares. Here, we defined $a$ to be the \emph{distance} between $y$ and $x$ in order to ensure that $a$ is positive. The common increment in this arithmetic triple is given by
+so that $(a^2,b^2,c^2)$ is easily seen to be an arithmetic triple of squares. Here, we defined $a$ to be the \emph{distance} between $y$ and $x$ in order to ensure that $a$ is positive. The congruum of this arithmetic triple is given by
 \begin{equation*}
   z^2-(y-x)^2=2xy,
 \end{equation*}
@@ -794,8 +1017,8 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
     % (221,60,229),
     % (899,60,901).
   \end{subexenum}
-  \exercise Show that for every positive integer $y$ divisible by $4$, there is a primitive Pythagorean triple of the form $(x,y,z)$.
-  \exercise Show that every odd positive integer $x\geq 3$ can be written in the form $s^2-t^2$, so that there is a primitive Pythagorean triple of the form $(x,y,z)$.
+  \exercise Show that for every positive integer $y$ divisible by $4$, there is a primitive Pythagorean triple $(a,b,c)$ with $b=y$.
+  \exercise Show that every odd positive integer $x\geq 3$ can be written in the form $t^2-s^2$, where $s<t$ are relatively prime positive integers of opposite parity. Conclude that every odd integer $x\geq 3$ occurs in a Pythagorean triple $(a,b,c)$ with $a=x$.
   \exercise Define
   \begin{align*}
     x_n & := F_n F_{n+1}+(-1)^n, \\

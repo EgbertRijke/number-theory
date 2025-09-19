@@ -55,10 +55,6 @@ This sequence of quotients determines, again via \cref{theorem:correspondence-th
   Furthermore, we have $d^2\equiv -1\pmod c$.
 \end{theorem}
 
-\begin{proof}
-  
-\end{proof}
-
 Consider the prime $p:= 521$, which is clearly congruent to $1$ modulo $4$. By fast-exponentiation one checks that $2^{260}\equiv -1\pmod{521}$, so that
 \begin{equation*}
   (235)^2\equiv (2^{130})^2 \equiv -1\pmod{521}.
@@ -83,10 +79,79 @@ There are some special things to observe here. Let us write $a_i=q_ib_i+r_i$ for
 \end{align*}
 Exclam! We have expressed $521$ as a sum of squares!
 
+\begin{theorem}[Reversal Theorem for Continued Fractions]
+  Consider a continued fraction $[\mathbf{q},r]=[q_0,\ldots,q_n,r]$ with value $\frac{a_{\mathbf{q},r}}{b_{\mathbf{q},r}}$.
+  Then the reverse continued fraction $[r,q_n,\ldots,q_0]$ has the value
+  \begin{equation*}
+    \frac{a_{\mathbf{q},r}}{a_{\mathbf{q}}}=[r,q_n,\ldots,q_0].
+  \end{equation*}
+  Furthermore, if the partial quotients $q_0,\ldots,q_n,r$ are integers, then this is an integer fraction in lowest terms.
+\end{theorem}
+
+\begin{proof}
+  For the final claim of the theorem, note that the identity
+  \begin{equation*}
+    b_{\mathbf{q},r}a_{\mathbf{q}}-a_{\mathbf{q},r}b_{\mathbf{q}}=(-1)^n
+  \end{equation*}
+  of \cref{theorem:determinant-formula-convergents} implies at once that $a_{\mathbf{q},r}$ and $a_{\mathbf{q}}$ are relatively prime, so that the fraction $\frac{a_\mathbf{q},r}{a_{\mathbf{q}}}$ is indeed in lowest terms.
+\end{proof}
+
+\begin{theorem}[Palindromic Continued Fractions of Even Length]
+  Consider a continued fraction
+  \begin{equation*}
+    \frac{a}{b} = [q_0,\ldots,q_n],
+  \end{equation*}
+  and let
+  \begin{equation*}
+    \frac{s}{t} := [q_n,\ldots,q_0,q_0,\ldots,q_n].
+  \end{equation*}
+  Then $s=a^2+b^2$ and $s\mid t^2+1$.
+\end{theorem}
+
+\begin{proof}
+  The proof is by list induction. For the base case, note that $[q_0]=q_0$ so that $a=q_0$ and $b=1$. It follows that 
+  \begin{equation*}
+    [q_0,q_0]=q_0+\frac{1}{q_0}=\frac{q_0^2+1}{q_0}.
+  \end{equation*}
+  Thus we find that $s=a^2+b^2$ as claimed. Furthermore, in this case we have $s=t^2+1$ so that also the divisibility claim holds.
+
+  We will do one more base case. Consider a continued fraction of the form $[q_0,q_1]$. Then we have
+  \begin{equation*}
+    [q_1,q_0,q_0,q_1]=q_1+\cfrac{1}{q_0+\cfrac{1}{q_0+\frac{1}{q_1}}}=\frac{(q_1q_0+1)^2+q_1^2}{q_1(q_0^2+1)+q_0}.
+  \end{equation*}
+  Then we have
+  \begin{equation*}
+    t^2+1=q_1^2(q_0^2+1)^2+2q_0q_1(q_0^2+1)+(q_0^2+1)=(q_0^2+1)((q_1q_0+1)^2+q_1^2),
+  \end{equation*}
+  so that $t^2+1=(q_0^2+1)s$. 
+
+  For the inductive step, consider a continued fraction of the form $[\mathbf{q},r,r']$. Then
+\end{proof}
 
 \begin{theorem}
-  Consider a prime $p\equiv 1\pmod{4}$ and an element $x$ such that $p\mid x^2+1$. Furthermore, consider the sequence of remainders $r_i$, where $r_0:=p$
+  Consider two relatively prime natural numbers $0<m<n$. The following are equivalent:
+  \begin{enumerate}
+  \item The number $n$ is a primitive sum of two squares.
+  \item The number $m$ is a root of the quadratic congruence $x^2\equiv -1\pmod{n}$.
+  \item The fraction for $\frac{n}{m}$ has a palindromic continued fraction expression; that is, there is a continued fraction $\frac{a}{b}=[q_0,\ldots,q_k]$ such that
+    \begin{equation*}
+      \frac{n}{m}=[q_k,\ldots,q_0,q_0,\ldots,q_k].
+    \end{equation*}
+  \end{enumerate}
+  Furthermore, if the third condition holds then $n=a^2+b^2$
 \end{theorem}
+
+% \begin{theorem}[Palindromic Continued Fractions of Odd Length]
+%   Consider a continued fraction
+%   \begin{equation*}
+%     \frac{a}{b} = [q_0,\ldots,q_N],
+%   \end{equation*}
+%   and let
+%   \begin{equation*}
+%     \frac{s}{t} := [q_N,\ldots,q_0,\ldots,q_N].
+%   \end{equation*}
+%   Then
+% \end{theorem}
 
 \begin{exercises}
   \exercise For every prime $p\equiv 1\pmod{4}$ below $100$, write $p$ as a sum of two squares.

@@ -352,7 +352,7 @@ but it doesn't reveal much about how the integers $k$ and $l$ can be found, or e
 
 As an immediate corollary, we obtain:
 
-\begin{corollary}
+\begin{corollary}\label{corollary:gcd-euclidean-division}
   If $b$ is of the form $ka+1$, then $a$ and $b$ are always relatively prime.
 \end{corollary}
 
@@ -558,6 +558,11 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \end{subexenum}
   \exercise Show that $a\mid bc$ if and only if $a/\gcd(a,b) \mid c$.
   \exercise Show that if $d\mid a + b$, then $\gcd(d,a)\mid \gcd(a,b)$ and $\gcd(d,b)\mid\gcd(a,b)$. Conclude that if $a$ and $b$ are relatively prime, then $d$ is relatively prime to both $a$ and $b$.
+  \exercise Consider three integers $a$, $b$, and $c$. Show that the following are equivalent:
+  \begin{enumerate}
+  \item The integers $a$ and $b$ are both relatively prime to $c$.
+  \item The integer $ab$ is relatively prime to $c$.
+  \end{enumerate}
   \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
   \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
   \exercise
@@ -577,7 +582,11 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \end{subexenum}
   \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
   \exercise \label{exercise:div-product-sum-of-squares}Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2$, then $x=y$.
-  \exercise Show that any three consecutive Fibonacci numbers are pairwise relatively prime.
+  \exercise
+  \begin{subexenum}
+  \item Show that any three consecutive Fibonacci numbers are pairwise relatively prime.
+  \item Find all $n$ for which the five consecutive Fibonacci numbers $F_n,...,F_{n+4}$ are pairwise relatively prime.
+  \end{subexenum}
   \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
   \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
   \exercise Show that
@@ -614,12 +623,6 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
     \end{enumerate}
   \item Show that the Fibonacci sequence preserves and reflects divisibility: We have $m\mid n$ if and only if $F_m\mid F_n$.
   \end{subexenum}
-  \exercise Find all $n$ for which the five consecutive Fibonacci numbers $F_n,...,F_{n+4}$ are pairwise relatively prime.
-  \exercise Consider three integers $a$, $b$, and $c$. Show that the following are equivalent:
-  \begin{enumerate}
-  \item The integers $a$ and $b$ are both relatively prime to $c$.
-  \item The integer $ab$ is relatively prime to $c$.
-  \end{enumerate}
   \exercise Prove that if $a$ and $b$ are relatively prime integers, and $n$ is an arbitrary positive integer, then in the arithmetical progression
   \begin{equation*}
     a+kb,\qquad k=0,1,2,\ldots

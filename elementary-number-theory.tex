@@ -7,6 +7,7 @@
 \usepackage{alphabeta}
 \usepackage[english]{babel}
 \usepackage{csquotes}
+\usepackage{caption}
 
 \usepackage{geometry}
 \geometry{
@@ -38,6 +39,10 @@
 \usepackage{totcount}
 \usepackage{enumitem}
 \usepackage{aliascnt}
+
+\setlist[enumerate,1]{label=\textup{(\roman*)}}
+\setlist[enumerate,2]{label=\textup{(\alph*)}}
+\setlist[enumerate,3]{label=\textup{\arabic*.}}
 
 \captionsetup[figure]{font=small}
 \captionsetup[table]{font=small}
@@ -78,7 +83,7 @@
 
 % TikZ and plotting
 \usepackage{tikz}
-\usetikzlibrary{angles,quotes,decorations.pathreplacing,calc,intersections,backgrounds}
+\usetikzlibrary{angles,arrows.meta,backgrounds,calc,decorations.pathreplacing,decorations.pathmorphing,hobby,intersections,quotes,shapes.geometric}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \tikzset{
@@ -103,7 +108,7 @@
   pdfpagemode=FullScreen,
 }
 
-\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+\usepackage[backend=biber, style=numeric, sorting=nyt]{biblatex}
 \addbibresource{references.bib}
 
 \usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
@@ -159,7 +164,7 @@
   }
 }
 
-\DeclareTextFontCommand{\define}{\bfseries}
+\newcommand{\define}{\emph}
 
   % We set up the exercise environment, which produces list environment in a new
 % unnumbered subsection that also gets mentioned in the table of contents.
@@ -195,6 +200,7 @@
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\ind}{ind}
 \DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator{\sgn}{sgn}
 \newcommand{\legendre}[2]{%
   \mathchoice
     {\left(\frac{#1}{#2}\right)}% display style
@@ -251,11 +257,11 @@
       \coordinate (P4) at ({-3/5},{4/5});
 
       \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
-      \draw[CornflowerBlue,ultra thick,->,shorten >=2ex] (P1) -- (P2);
+      \draw[CornflowerBlue,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
       \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
       \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
       \draw[Green,ultra thick,dashed] (1,1) -- (P3);
-      \draw[Green,ultra thick,->,shorten >=1.5ex] (P3) -- (P4);
+      \draw[Green,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
       \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
       \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
       \draw[fill=white,very thick] (P1) circle (.5pt);
@@ -311,9 +317,9 @@
 
 \tableofcontents
 
-\listoffigures
+ \listoffigures
 
-%\input{course-information}
+\input{course-information}
 
 \input{introduction}
 
@@ -335,55 +341,55 @@
 
 \input{infinite-descent}
 
-\input{congruences}
+% \input{congruences}
 
-\input{systems-of-linear-congruences}
+% \input{systems-of-linear-congruences}
 
-\input{prime-numbers}
+% \input{prime-numbers}
 
-\input{arithmetic-functions}
+% \input{arithmetic-functions}
 
-\input{modular-arithmetic}
+% \input{modular-arithmetic}
 
-\input{sums-of-squares}
+% \input{sums-of-squares}
 
-\input{gaussian-integers}
+% \input{gaussian-integers}
 
-\input{polynomials}
+% \input{polynomials}
 
-\input{polynomial-congruences}
+% \input{polynomial-congruences}
 
-\input{primality-testing}
+% \input{primitive-roots}
 
-\input{primitive-roots}
+% \input{quadratic-residues}
 
-\input{quadratic-residues}
+% \input{quadratic-reciprocity}
 
-\input{quadratic-reciprocity}
+% \input{primality-testing}
 
-\input{conics}
+% \input{conics}
 
-\input{pells-equation}
+% \input{pells-equation}
 
-\input{polygonal-numbers}
+% \input{polygonal-numbers}
 
-\input{fermats-last-theorem}
+% \input{fermats-last-theorem}
 
-\input{real-numbers}
+% \input{real-numbers}
 
-\input{dirichlet-series}
+% \input{dirichlet-series}
 
-\input{distribution-of-primes}
+% \input{distribution-of-primes}
 
-\input{cyclotomic-polynomials}
+% \input{cyclotomic-polynomials}
 
-\input{prime-partition-function}
+% \input{prime-partition-function}
 
-\input{bernoulli-numbers}
+% \input{bernoulli-numbers}
 
-\input{miscellaneous}
+% \input{miscellaneous}
 
-\input{open-problems}
+% \input{open-problems}
 
 \printbibliography[heading=bibintoc,title=References]
 

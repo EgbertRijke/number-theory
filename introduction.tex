@@ -27,7 +27,7 @@ During the Islamic Golden Age, scholars like Al-Khwarizmi, Ibn al-Haytham, and O
 
 After the invention of the printing press, Erhard Ratdolt, a German printer based in Venice, produced the first printed edition of the Elements in 1482. This edition included mathematical diagrams and marked an important step in the dissemination of Euclid’s work. The first printed edition of Diophantus' Arithmetica was published in 1575 by Wilhelm Xylander, a German mathematician. The printing was done in Basel, Switzerland, a major hub for academic publishing at the time. By the time of Pierre de Fermat in the 17th century, both the Elements and Arithmetica had become essential texts for mathematicians across Europe, influencing the development of number theory and inspiring Fermat’s groundbreaking contributions.
 
-\begin{wrapfigure}[18]{r}{0.35\textwidth}
+\begin{wrapfigure}[19]{r}{0.35\textwidth}
   \centering
   \begin{tikzpicture}
     \node[inner sep=0pt, rounded corners=0.2em, clip] {%
@@ -38,25 +38,23 @@ After the invention of the printing press, Erhard Ratdolt, a German printer base
   \label{fig:fermat}
 \end{wrapfigure}
 
-Pierre de Fermat (1607–1665) is often considered the founder of modern number theory. He was a contemporary of Blaise Pascal and Marin Mersenne, both of whom he corresponded with, and also of Galileo Galilei. He wrote a manuscript titled \emph{Éléments de Géométrie}, which served as an extension and commentary on Euclid’s Elements. In this work, he sought to modernize Euclid’s geometry by applying the emerging methods of algebra and analytic geometry to classical geometric problems.
+Pierre de Fermat (1607–1665) is often considered the founder of modern number theory \cite{mahoney1994,weil1984}. He was a contemporary of Blaise Pascal and Marin Mersenne, both of whom he corresponded with, and also of Galileo Galilei. He wrote a manuscript titled \emph{Éléments de Géométrie}, which served as an extension and commentary on Euclid’s Elements. In this work, he sought to modernize Euclid’s geometry by applying the emerging methods of algebra and analytic geometry to classical geometric problems.
 
-Fermat made several groundbreaking contributions to number theory. He proved \emph{Fermat's Little Theorem}, which is a central theorem of this course, and he formulated the \emph{sum of two squares theorem} asserting that an odd prime $p$ can be expressed as the sum of two squares if and only if $p\equiv 1\pmod{4}$. He also introduced the method of \emph{infinite descent}, and formulated the \emph{Polygonal Number Theorem}, which states that every positive integer can be expressed as the sum of at most $n$ $n$-gonal numbers.
+Fermat made several groundbreaking contributions to number theory. Among his most influential contributions is \emph{Fermat's Little Theorem}, which states that if $p$ is a prime number then
+\begin{equation*}
+  a^p\equiv a\pmod{p}.  
+\end{equation*}
+This theorem is key to many further results in modular arithmetic, and has modern applications in RSA encryption. Fermat also came up with the method of \emph{infinite descent}, which allows one to show that a certain equation or proposition cannot hold by showing that it would lead to an infinite descending sequence of positive integers. Fermat was very fond of this method, and used it brilliantly to prove some of his most profound claims. For instance, the case $n=4$ of \emph{Fermat's Last Theorem}, which states that there are no positive integers $x$, $y$, and $z$ such that $x^4+y^4=z^4$ is proven using infinite descent. In order to prove this fact, Fermat also showed that the area of a Pythagorean triangle is never a perfect square. Fermat is also famous for the \emph{Two-Squares Theorem}, which states that any prime $p\equiv 1\pmod{4}$ can be written uniquely as a sum of two squares, and that primes $p\equiv 3\pmod{4}$ cannot be written as a sum of two squares. Fermat also claimed that any number can be written as the sum of at most three triangular numbers, as the sum of four squares, as the sum of five pentagonal numbers, and so on, but he did not indicate how these claims might be proven. The case of the triangular numbers is now known as Gauss's \emph{Eureka Theorem}, the \emph{Four-Squares} theorem was proven by Lagrange, and Cauchy proved the general theorem asserting that any number can be expressed as the sum of at most $n$ $n$-gonal numbers.
 
 Fermat also made several famous conjectures. He conjectured that the equation $x^2+Ny^2=1$ has infinitely many solutions for any non-square integer $N$. Euler made a significant advance to this problem by proving it for specific values of $N$. The general form of the solution to equations of the form $x^2+Ny^2=1$ was found later by Legendre and Lagrange.
 
-Finally, Fermat famously asserted that there could be no three nonzero integers $x$, $y$, and $z$ such that the equation
+Finally, Fermat famously asserted that there could be no three positive integers $x$, $y$, and $z$ such that the equation
 \begin{equation*}
   x^n+y^n=z^n
 \end{equation*}
 holds, when $n\geq 3$. This statement is now known as \emph{Fermat's Last Theorem}. He claimed to have a "truly marvelous proof", but that the margin of his copy of \emph{Arithmetica} was too small to contain it. His assertion, known as \emph{Fermat’s Last Theorem}, captivated mathematicians for centuries. It was finally proven in 1995 by Andrew Wiles, about 350 years after Fermat made his famous note in the margin, using advanced techniques from algebraic geometry and modular forms. Wiles’s achievement is considered one of the most remarkable milestones in the history of mathematics.
 
-While Fermat laid the groundwork for modern number theory, we should mention that the concept of \emph{function} hasn't been crystallized until Leibniz coined the term in 1673, using it to describe quantities related to curves, such as slopes, tangents, and areas. Bernoulli played a significant role in expanding the idea of functions. He used the term explicitly in 1718, describing it as a quantity dependent on another variable. Euler provided the first modern definition of a function in his \emph{Introductio in Analysin Infinitorum} (1748) \cite{euler1988}. He emphasized that functions could include both algebraic (e.g., polynomials) and transcendental forms (e.g., trigonometric and exponential functions). Peter Gustav Lejeune Dirichlet was the first to define functions abstractly as a correspondence between two sets, removing the requirement for expressions or formulas. This abstraction was a key insight for the theorem that we now know as \emph{Dirichlet's theorem}: Every arithmetic progression
-\begin{equation*}
-  a,\ a+b,\ a+2b,\ a+3b,\ \ldots
-\end{equation*}
-in which $a$ and $b$ are coprime, contains an infinitude of primes. Dirichlet proved his theorem in 1837, more than 150 years after Leibniz first coined the term of function.
-
-\begin{wrapfigure}[19]{r}{0.35\textwidth}
+\begin{wrapfigure}[20]{r}{0.35\textwidth}
   \centering
   \begin{tikzpicture}
     \node[inner sep=0pt, rounded corners=0.2em, clip] {%
@@ -66,6 +64,15 @@ in which $a$ and $b$ are coprime, contains an infinitude of primes. Dirichlet pr
   \caption[Leonhard Euler]{Leonhard Euler. Engraving by Friedrich Weber.}
   \label{fig:euler}
 \end{wrapfigure}
+While Fermat laid the groundwork for modern number theory, we should mention that the concept of \emph{function} hasn't been crystallized until Leibniz coined the term in 1673, using it to describe quantities related to curves, such as slopes, tangents, and areas. Bernoulli played a significant role in expanding the idea of functions.
+He used the term explicitly in 1718, describing it as a quantity dependent on another variable. Euler provided the first modern definition of a function in his \emph{Introductio in Analysin Infinitorum} (1748) \cite{euler1988}.
+He emphasized that functions could include both algebraic (e.g., polynomials) and transcendental forms (e.g., trigonometric and exponential functions). Peter Gustav Lejeune Dirichlet was the first to define functions abstractly as a correspondence between two sets, removing the requirement for expressions or formulas.
+This abstraction was a key insight for the theorem that we now know as \emph{Dirichlet's theorem}: Every arithmetic progression
+\begin{equation*}
+  a,\ a+b,\ a+2b,\ a+3b,\ \ldots
+\end{equation*}
+in which $a$ and $b$ are coprime, contains an infinitude of primes. Dirichlet proved his theorem in 1837, more than 150 years after Leibniz first coined the term of function.
+
 Euler's Introductio in Analysin Infinitorum marked the beginning of \emph{analytical number theory}. As we mentioned before, Euler defined functions here and established the notation $f(x)$ of a function applied to its variable, which we still use today. He derived the famous formula for complex exponentials
 \begin{equation*}
   e^{ix}=\cos(x) + i \sin(x).

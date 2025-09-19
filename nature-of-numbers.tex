@@ -1,61 +1,136 @@
 \chapter{The Nature of Numbers}\label{chapter:induction}
 
-\section{On the Concept of Number Throughout History}
+\section{The Concept of Number Through History}
 
-Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns of truths and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Truths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs—conclusive arguments that establish why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out what the natural numbers really are.
+Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Truths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. Mathematical proofs, on the other hand, are logical arguments that establish beyond any possibility of doubt why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out first what the natural numbers really are, a question with a rich and very interesting history.
 
-Although natural numbers arise from counting, the notion of number is not inherently linked to any particular collection of entities being counted. Scholars in the Pythagorean tradition were among the first to articulate this insight. Nicomachus emphasized the concepts of \emph{monad}, \emph{dyad}, and \emph{triad} for the totality of all things that come in one, two, or three units \cite{nicomachus1926}. Nicomachus ascribed divine properties to the monad, or unity: ``{\it It generates itself without beginning, without end, and appears to be the cause of enduring, as God in the realm of physical actualities is in such manner perceived of as a preserving and guarding agent of nature}''. Nicomachus drew strong parallels between the monad and the concept of sameness, and likewise between the dyad and the concept of otherness. He also emphasized that numbers were composed of monads. In other words, the monad is the source of all numbers. Although mathematicians do not ascribe divine properties to numbers anymore, we see here the emergence of some important ideas. The first is that all numbers are generated from the monad, that is, unity. The second idea is to connect unity with sameness. The idea that all things equal to a given object form a unit, or a singleton, anticipates a fundamental principle of equality. However, we shall forego the interesting digressions that we could make about equality and focus our attention on the concept of number.
+Although natural numbers arise from counting, the notion of number is not inherently linked to any particular collection of entities being counted. Scholars in the Pythagorean tradition were among the first to articulate this insight. Nicomachus emphasized in his \emph{Introduction to Arithmetic} the concepts of \emph{monad} and \emph{dyad} for the totality of all things that come in one or two units \cite{nicomachus1926}. Nicomachus ascribed divine properties to the monad, or unity: ``{\it It generates itself without beginning, without end, and appears to be the cause of enduring, as God in the realm of physical actualities is in such manner perceived of as a preserving and guarding agent of nature}''. Nicomachus drew strong parallels between the monad and the concept of sameness, and dually between the dyad and the concept of otherness. He also emphasized that numbers were composed of monads. In other words, the monad is the source of all numbers. Although mathematicians do not ascribe divine properties to numbers anymore, we see here the emergence of some important ideas. The first is that all numbers are generated from the monad, that is, unity. The second idea is to connect unity with sameness. The idea that all things equal to a given object form a unit, or a singleton, anticipates a fundamental principle of equality. However, we shall forego the interesting digressions that we could make about equality and focus our attention on the concept of number.
 
-With Euclid, we see a shift away from the divine conception of the monad. For Euclid, a \emph{unit} is the conceptual principle by which an individual object is identified as one, and a \emph{number} is a multitude composed of such units in a discrete fashion \cite{euclid2015}. In other words, the concept of unit captures the notion of oneness, but this is distinct of the number $1$ itself. Both Nicomachus's and Euclid's views on the concept of number were highly influential throughout late antiquity and the Middle Ages, particularly through Boethius's Latin rendition of Nicomachus's \emph{Introduction to Arithmetic} and Adelard of Bath's translation of Euclid's \emph{Elements}.
+With Euclid, we see a shift away from the divine conception of the monad. For Euclid, a \emph{unit} is the conceptual principle by which an individual object is identified as one, and a \emph{number} is a multitude composed of such units in a discrete fashion \cite{euclid2015}. In other words, the concept of unit captures the notion of oneness, but this is distinct of the number $1$ itself. Both Nicomachus's and Euclid's views on the concept of number were highly influential throughout late antiquity and the Middle Ages, particularly through Boethius's Latin rendition of Nicomachus's \emph{Introduction to Arithmetic} \cite{kaylorphillips2012} and Adelard of Bath's translation of Euclid's \emph{Elements} \cite{clagett1953}.
 
-While Pierre de Fermat is regarded the founder of modern number theory, he did not write extensively on the philosophy of mathematics. Nevertheless, certain themes in his correspondence and work show a clear orientation. For him, mathematics is about truths intrinsic to numbers. Numbers were the object of exact reasoning. He emphasized that \emph{induction}, by which mathematicians up to the early 19th century understood experimental verification, was insufficient to establish universal truths of numbers. Among Fermat’s lasting contributions was his method of infinite descent, a method of proof by contradiction in which one shows that any supposed solution would lead to an ever-decreasing sequence of natural numbers, which is impossible.
+While Pierre de Fermat is regarded the founder of modern number theory, he did not write extensively on the philosophy of mathematics. Nevertheless, certain themes in his correspondence and work show a clear orientation. For him, mathematics is about truths intrinsic to numbers. Numbers were the object of exact reasoning. He emphasized that \emph{induction}, by which mathematicians up to the early 19th century understood experimental verification, was insufficient to establish universal truths of numbers. Nowadays, this historical use of the word induction is sometimes called \emph{empirical induction}. Among Fermat’s lasting contributions was his method of infinite descent, a method of proof by contradiction in which one shows that any supposed solution would lead to an ever-decreasing sequence of natural numbers, which is impossible.
 
 With Euler, we witness a significant conceptual expansion. In his \emph{Elements of Algebra}, Euler extended the notion of number beyond the natural and rational to encompass negative numbers, irrationals, complex numbers, and even infinite series. He was among the first to conjecture that constants like $e$ and $\pi$ are transcendental; that is, not the roots of any algebraic equation with rational coefficients. For Euler, numbers were entities governed by formal laws, irrespective of whether they corresponded to geometric magnitudes. Euler's broadening of the concept of numbers, and his use of analytic methods would eventually spark debates about the foundations of mathematics and the logical principles underlying mathematical truth.
 
-In the 19th century, the nature of mathematics itself began to change. The emergence of non-Euclidean geometry was a challenge to the status of Euclid's Elements as the de facto foundation of mathematics. Weierstrass's discovery of continuous, nowhere differentiable functions underscored the need for a more solid foundation of calculus, and with Galois's use of symmetries in order to show that quintic equations had no solutions expressible in terms of radicals abstract algebra started to become more prominent.
+In the 19th century, the nature of mathematics itself began to change. The emergence of non-Euclidean geometry was a challenge to the status of Euclid's Elements as the de facto foundation of mathematics, and Weierstrass's discovery of continuous, nowhere differentiable functions meant that one could not simply rely on intuition in the study of calculus and analytics. Furthermore, with Galois's use of symmetries in order to show that quintic equations had no solutions expressible in terms of radicals, abstract algebra became a prominent subject of mathematics with algebraic objects that have little in common with numbers except for a few formal laws. These discoveries underscored the need for a more solid foundation of mathematics, ultimately resulting in the emergence of Frege's logicism and set theory.
 
-We view the set of numbers as an abstract entity that exist as a precisely specified concept within the collective imagination of conscious beings to convey and communicate ideas such as counting, comparing, and measuring quantities.
+Nevertheless, the question of formally defining the set of natural numbers was left mostly unexplored until the second half of the 19th century. Even as late as 1886, Kronecker is quoted as proclaiming that ``God created the integers, all else is human work'' \cite{weber1893}, not helping the cause of finding a definition of the natural numbers. In \emph{Was sind und sollen die Zahlen?} (translated to English as \emph{What are numbers and what should they be?}), Dedekind was the first to formally define the set of natural numbers. His idea was that the number zero and the successor function together should be sufficient to describe all the natural numbers. He formalized this idea in 1888 by specifying that the set of natural numbers is a \emph{simply infinite set}, meaning that there is a one-to-one function $S:\mathbb{N}\to\mathbb{N}$ such that every element of $\mathbb{N}$ can be reached by iteratively applying $S$ to an element $0$, which is not itself a value of $S$ \cite{dedekind1888}. Dedekind showed furthermore that all simply infinite sets are similar to each other; in modern termimology, he showed that all simply infinite sets are \emph{isomorphic}. Thus, Dedekind's definition was structural in nature, in the sense that it captured the structure a set must possess in order for it to be considered a set of natural numbers.
 
-When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $n\mapsto n+1$. The collection of all natural numbers forms a set or type
+Not much later, Giuseppe Peano arrives at a very similar definition of the set of natural numbers. In \emph{Arithmetices principia nova methodo exposita} he established the set of natural numbers as a set satisfying a small number of axioms, the celebrated \emph{Peano axioms} \cite{peano1889}:
+\begin{enumerate}
+\item For any two natural numbers $x$ and $y$ we have
+  \begin{equation*}
+    (x=y)\Leftrightarrow (S(x)=S(y)).
+  \end{equation*}
+\item There is no natural number $x$ such that $S(x)=0$.
+\item For any set $A$, if $0\in A$ and if for any natural number $x$ we have $(x\in A) \Rightarrow (S(x)\in A)$, then every natural number is in $A$.
+\end{enumerate}
+The first axiom establishes that the successor function $S$ is one-to-one. This means that every natural number is the successor of at most one natural number. The number $0$ itself is, in the setup of Dedekind and Peano, not a successor by the second axiom. The third axiom encodes \emph{mathematical induction}. The notation $x\in A$ means that $x$ is an element of $A$, or in other words that $A$ contains the element $x$. Thus, Peano's third axiom asserts that if $A$ is a set containing $0$ and containing the successor of every element it contains, then it contains all the natural numbers. While the similarity between Dedekind's and Peano's approach is clear, we note Dedekind's approach was structural, set-theoretic, and intended for a philosophical audience, Peano's approach was formal, logical, and symbolic.
 
-\begin{equation}
-  \mathbb{N}:=\{0,1,2,\ldots\}.
-\end{equation}
-
-Mathematicians often prefer to work with sets, while computer scientists might prefer to work with types, both of which are collections of abstract objects often referred to as \define{elements}. The distinction is merely that of the logical framework being used: Most mathematicians rely on the Zermelo--Fraenkel set theory, while computer scientist rely on programming languages that often have a type theory in its foundation. Theorem proving in computer programs called \emph{proof assistants} is rapidly becoming a more essential mathematical activity for students and researchers alike. However, many of the most popular proof assistants are based on type theory, in which collections of mathematical objects are called types.
-
-\section{Induction and Recursion}
-
-The natural number zero and the successor function together are sufficient to describe all the natural numbers. The mathematician's way to express this sufficiency is by stating the principle of \define{mathematical induction}: Given any property $P(n)$ expressing a condition of an arbitrary natural number $n$, in order to prove that $P(n)$ is true for all $n$ it suffices to prove that:
+A common alternative way of formulating mathematical induction is as follows. Given any property $P(n)$ expressing a condition of an arbitrary natural number $n$, in order to prove that $P(n)$ is true for all $n$ it suffices to prove that:
 \begin{enumerate}
 \item The property $P(0)$ is true.
 \item For all $n$, if the property $P(n)$ holds then the property $P(n+1)$ holds.
 \end{enumerate}
-Mathematical induction works, because every natural number is either $0$ or it is the successor of a previous natural number. Proving a property for all natural numbers therefore breaks down in two cases: The \define{base case} in which we prove that $P(0)$ is true, and the \define{inductive step} where we prove that $P(n+1)$ is true provided that $P(n)$ is true.
+Mathematical induction formalizes the idea that every natural number is either $0$ or it is the successor of a previous natural number. Proving a property for all natural numbers therefore breaks down in two cases: The \define{base case} in which we prove that $P(0)$ is true, and the \define{inductive step} where we prove that $P(n+1)$ is true provided that $P(n)$ is true.
 
-Proofs by induction can be broken down into the following steps: First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is to prove that $P(n)$ is true for all $n$. Then prove the base case. While this step is often trivial, it is a necessary and essential part of an induction proof. Finally, for the inductive step, write down the exact induction hypothesis, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds. After these steps the proof that $P(n)$ holds is complete.
+While proofs by mathematical induction go back to antiquity, the first to formulate the mathematical induction abstractly as a method of proof was Blaise Pascal in his \emph{Traité du triangle arithmétique} \cite{pascal1665}. In this work, he studied the triangle of numbers now named after him. In a passage on the ratios of two horizontally adjacent binomial coefficients he wrote:
+\begin{quote}
+  {\itshape
+    Quoy que cette proposition ait une infinité de cas, j’en donneray une démonstration bien courte, en supposant deux lemmes.
+    
+    Le 1.~qui est évident de soy-mesme, que cette proportion se rencontre dans la seconde base; car il est bien visible que φ est à σ comme 1 à 1.
+    
+    Le 2.~que si cette proportion se trouve dans une base quelconque, elle se trouvera nécessairement dans la base suivante.  
+  }
+\end{quote}
+Notice, however, that Pascal did not yet use the term \emph{induction} for this method of proof. As we mentioned earlier, mathematicians of his time understood the word induction to refer to the empirical method of extrapolating patterns from finite data. Augustus De Morgan was the first to coin the term \emph{mathematical induction} in 1838, albeit somewhat incidentally \cite{cajori1918}. In his article on this topic in the \emph{Penny Cyclopedia} he coined the term \emph{successive induction}, but he used the phrase \emph{mathematical induction} in a concluding remark \cite{demorgan1838}. Through the efforts of Dedekind and Peano, the induction principle has evolved from a method of proof to a defining principle for the set of natural numbers. 
 
-Since we have previously defined the set of natural numbers to be a set equipped with an element $0$ and a function $S$, satisfying an induction principle, it is of some importance to demonstrate that this definition is sufficiently strong to define familiar operations on the natural numbers, such as addition and multiplication, and to verify their laws.
+By the turn of the 20th century, set theory, as pioneered by Georg Cantor and developed further by Richard Dedekind and others, was increasingly seen as a promising foundation for mathematics. However, the emergence of paradoxes around 1900 prompted efforts to axiomatize set theory. Beginning with Zermelo’s axioms in 1908 and refined into the Zermelo--Fraenkel system in the 1920s, set theory gradually became the de facto foundational framework for modern mathematics. This raises the question whether the natural numbers can be defined within Zermelo--Fraenkel's set theory. Von Neumann gave an elegant set-theoretic definition of the natural numbers: The number $0$ was defined as the empty set $\varnothing$, the number $1$ was defined as the set $\{0\}$ containing the empty set, the number $2$ was defined as the set $\{0,1\}$, and so on:
+\begin{equation*}
+  0:=\varnothing,\qquad 1:=\{\varnothing\},\qquad 2:=\{\varnothing,\{\varnothing\}\}\qquad 3:=\{\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\}\},\qquad\ldots
+\end{equation*}
+However, Von Neumann's definition is not the only possible definition. One can also define
+\begin{equation*}
+  0:=\varnothing,\qquad 1=\{\varnothing\}, \qquad 2:=\{\{\varnothing\}\},\qquad 3 := \{\{\{\varnothing\}\}\},\qquad\ldots
+\end{equation*}
+These two definitions are clearly distinct, since $0\in 2$ is true in Von Neumann's definition but false in the latter definition. This raises the question, if Zermelo--Fraenkel set theory is to be the foundation of mathematics, then what is \emph{the} set of natural numbers? Paul Benacerraf argued in his famous essay \emph{What numbers could not be?} that the essence of the set of natural numbers is its structure, much like Dedekind had already argued almost a century before him \cite{benacerraf1965}.
 
-This naturally leads us to the principle of \define{recursion}, which allows us to define certain operation by a mechanism that is not unlike induction. While the induction principle of the natural numbers is used to \emph{prove} properties uniformly about the natural numbers, recursion is a way to \emph{define} functions, operations, and sequences of elements. Its general principle is that if we wish to specify a function $f:\mathbb{N}\to X$ by recursion, then we have to specify its value at $0$ and its value at $n+1$ using an expression that possibly refers to $n$ and the value $f(n)$. More precisely, a function $f$ is defined by recursion as follows:
+While mathematicians often prefer to work with sets, computer scientists might prefer to work with types.  The distinction is merely that of the logical framework being used: Most mathematicians rely on the Zermelo--Fraenkel set theory, while computer scientist rely on programming languages that often have a type theory in its foundation. Theorem proving in computer programs called \emph{proof assistants} is rapidly becoming a more essential mathematical activity for students and researchers alike. However, many of the most popular proof assistants are based on type theory, in which collections of mathematical objects are called types.
+
+Modern mathematics is increasingly formalized in computer programs called \emph{proof assistants}. There are many libraries of formalized mathematics in active current development, containing vast amounts of mathematics from a wide variety of mathematical subjects. However, the foundation of most such systems is not set-theoretic. Instead, many proof assistants use \emph{dependent type theory} as their foundational language, which was developed in the 1970s and 80s by Per Martin-L\"of. Both sets and types are collections of abstract objects often referred to as \define{elements}, but the formalisms by which they are studied are different in character, thus justifying the different names \emph{sets} and \emph{types}. The way the natural numbers are introduced in type theory is also slightly different. Whereas the induction principles of Dedekind and Peano establish the inclusion of the set of natural numbers into other sets, the natural numbers in type theory come equipped with a \emph{structural induction principle} that allows one to define functions out of the natural numbers. Similar to the previous definitions, the type of natural numbers comes equipped with $0$ and a successor function. The structural induction principle states that in order to define a function $f(n)$ taking as input a natural number $n$ and as output an element of a set $A_n$, possibly depending on $n$, one has to specify:
+\begin{enumerate}
+\item an element $a_0\in A_0$, and
+\item a function $h_n: A_n\to A_{n+1}$ for every natural number $n$.
+\end{enumerate}
+The function $f$ obtained in this manner satisfies the equations
 \begin{align*}
-  f(0) & := x_0 \\
-  f(n+1) & := h(n,f(n)).
+  f(0) & = a_0, \\
+  f(n+1) & = h_n(f(n)).
 \end{align*}
-Here $h$ is a function that is previously defined. If we define $f$ in this way, then by definition $f$ satisfies the equalities
+From a type-theoretic perspective, there is no need to assume that the successor function is a one-to-one function or that $0$ is not a successor. Indeed, these two axioms can be derived from structural induction.
+
+We have thus seen that the concept of number has evolved over thousands of years of mathematical effort and underwent refinements up to the second half of the 20th century. We will follow the type-theoretic approach, and take a structural approach to the subject. Thus, the set of natural numbers contains an element $0$ and a successor function, and together they generate all the natural numbers in the sense that functions out of the natural numbers can be uniquely specified with recursive definitions. Similarly, we will give in this course structural accounts of the set $\mathbb{Z}$ of all integers, and the set $\mathbb{Q}$ of rational numbers. In the remainder of this chapter, we will explore from a practical perspective what induction and recursion mean, and how to use them.
+
+\section{Recursion and Induction}
+
+When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $n\mapsto n+1$, which we also denote by $S$. As we saw in our exposition on the history of the concept of number, the definition of the natural numbers evolves around precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
+
+\begin{definition}
+  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$, satisfying the following principle of \emph{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
+  \begin{enumerate}
+  \item an element $a_0\in A_0$,
+  \item for each $n$ a function $h_n:A_n\to A_{n+1}$,
+  \end{enumerate}
+  there is a function $f$ taking a natural number $n$ as input and returning a value $f(n)$ in the set $A_n$ satisfying the equations
+  \begin{align*}
+    f(0) & = a_0, \\
+    f(n+1) & = h_n(f(n)).
+  \end{align*}
+\end{definition}
+
+Thus, when defining a function by structural induction there are two subtasks: First, we have to specify the value of $f(0)$ by specifying an element of the set $A_0$, and second, we have to specify how each potential value of $f$ at $n$ can be used to obtain the value of $f$ at $n+1$. The last task is performed by defining a function $h_n$ from $A_n$ to $A_{n+1}$, so that if $f(n)$ is determined, then we can determine $f(n+1)$ by applying $h_n$ to $f(n)$.
+
+The two equations that the function $f$ in the structural induction principle satisfies are called the \emph{computation rules}. By these computation rules we can present definitions by structural induction in the following shorthand form:
 \begin{align*}
-  f(0) & = x_0 \\
-  f(n+1) & = h(n,f(n)).
+  f(0) & := a_0, \\
+  f(n+1) & := h_n(f(n)).
 \end{align*}
 
-An important special case of recursion, by which we will define many examples of recursive functions, is to iterate any function $f$ on any set $X$: We define the $n$th iteration $f^n$ of $f$ by
-\begin{align*}
-  f^0(x) & := x \\
-  f^{n+1}(x) & := f(f^n(x)). 
-\end{align*}
-In other words, the $0$th iteration of $f$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$st iteration of $f$ is obtained by applying $f$ once more to the values of the $n$th iteration of $f$.
+An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to iterate any function $f$ on any set $X$. Here we pick $A_n$ to be the set $X$ (so it is not dependent on $n$), and we pick $h_n:X\to X$ to be the function $f$ (again not dependent on $n$). In the following definition we give the precise definition of the $n$th iteration of $f$.
 
-Notice that we made a choice in the definition of the $(n+1)$st iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In the following proposition we will prove by induction that this leads to the same definition.
+\begin{definition}
+  We define the \emph{$n$th iteration} $f^n$ of $f$ by
+  \begin{align*}
+    f^0(x) & := x, \\
+    f^{n+1}(x) & := f(f^n(x)). 
+  \end{align*}  
+\end{definition}
+
+In other words, the $0$th iteration of $h$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$st iteration of $h$ is obtained by applying $f$ once more to the values of the $n$th iteration of $h$.
+
+Notice that we made a choice in the definition of the $(n+1)$st iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In order to prove that the identity
+\begin{equation*}
+  f^{n+1}(x)=f^n(f(x))
+\end{equation*}
+indeed holds we will need mathematical induction, which is a special case of structural induction.
+
+\begin{definition}
+  The principle of \emph{mathematical induction} asserts that for any predicate $P(n)$ (that is, for any property of numbers depending on $n$), if
+  \begin{enumerate}
+  \item the proposition $P(0)$ holds,
+  \item for any $n$, if the proposition $P(n)$ holds then the proposition $P(n+1)$ holds,
+  \end{enumerate}
+  then $P(n)$ is true for all $n$.
+\end{definition}
+
+Proofs by induction can thus be broken down into the following steps:
+\begin{enumerate}
+\item First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is always to prove that $P(n)$ is true for all $n$.
+\item Next, prove the \emph{base case}. In other words, show that $P(0)$ is a true proposition.While this step is often trivial, it is a necessary and essential part of an induction proof.
+\item Finally, for the \emph{inductive step}, write down the exact \emph{induction hypothesis}, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds.
+\end{enumerate}
+After these steps the proof that $P(n)$ holds is complete. Using induction we can prove, for example, that the identity $f^{n+1}(x)=f^n(f(x))$ holds for every $n$.
 
 \begin{proposition}\label{proposition:iterate-successor}
   Consider a function $f:X\to X$ on a set $X$, and let $n$ be a natural number. Then we have
@@ -82,13 +157,15 @@ Notice that we made a choice in the definition of the $(n+1)$st iteration of $f$
   \begin{equation*}
     f^{n+2}(x)=f^{n+1}(f(x)).
   \end{equation*}
-  Here we use that $f^{n+1}(y)=f(f^n(y))$ for all $y\in X$. Indeed, this allows us to complete the proof:
+  Recall from the definition of iteration that $f^{n+2}(y)=f(f^{n+1}(y))$ for all $y\in X$. This, together with the induction hypothesis, allows us to complete the proof:
   \begin{equation*}
     f^{n+2}(x) = f(f^{n+1}(x)) = f(f^n(f(x)))=f^{n+1}(f(x)).\qedhere
   \end{equation*}
 \end{proof}
 
 \section{Addition of Natural Numbers}
+
+Iterating functions is a basic operation that we can use to define many further operations. For example, addition is defined by iteratively adding $1$ to a number $m$. In other words, addition is defined by iterating the successor function. The $n$th iteration of the successor function is denoted by $S^n$.
 
 \begin{definition}
   The \define{addition operation} ${+}:\mathbb{N}\to\mathbb{N}\to\mathbb{N}$ is a binary operation defined by iterating the successor function $S$:
@@ -98,22 +175,24 @@ Notice that we made a choice in the definition of the $(n+1)$st iteration of $f$
   In other words, $m+n$ is the $n$th successor of $m$.
 \end{definition}
 
+For example $2+3$ is defined as $S(S(S(2)))$, which is equal to $S(S(3))$, which is equal to $S(4)$, which is equal to $5$.
+
 The operation $m,n\mapsto m+n$ satisfies the equalities
 \begin{align*}
-  m+0 & = m \\
+  m+0 & = m, \\
   m+(n+1) & = (m+n)+1
 \end{align*}
-by definition. However, the equalities
+by definition. However, these are the only equalities given to us via the computation rules of the strong induction principles. Other equalities, such as the equalities
 \begin{align*}
-  0+n & = n \\
+  0+n & = n, \\
   (m+1)+n & = (m+n)+1
 \end{align*}
-require a short proof.
+are still true, but require a short proof.
 
 \begin{proposition}\label{proposition:unit-law-addition-nat}
   For any two natural numbers $m$ and $n$ we have
   \begin{align*}
-    0+n & = n \\
+    0+n & = n, \\
     (m+1)+n & = (m+n)+1.
   \end{align*}
 \end{proposition}
@@ -145,7 +224,7 @@ require a short proof.
   \begin{equation*}
     f^{m+(n+1)}(x)=f^m(f^{n+1}(x)).
   \end{equation*}
-  Here, we use that $m+(n+1)=(m+n)+1$ and that $f^{n+1}(x)=f(f^n(x))$ hold by definition, and that $f^m(f(x))=f(f^m(x))$ by \cref{proposition:iterate-successor}. Together, these identities give:
+  Here, we use that the equalities $m+(n+1)=(m+n)+1$ and $f^{n+1}(x)=f(f^n(x))$ hold by definition, and that the equality $f^m(f(x))=f(f^m(x))$ holds by \cref{proposition:iterate-successor}. Together, these identities give:
   \begin{equation*}
     \begin{split}
       f^{m+(n+1)}(x)=f^{(m+n)+1}(x) & =f(f^{m+n}(x))=f(f^m(f^n(x))) \\
@@ -190,15 +269,15 @@ require a short proof.
 
 Some further useful identifications of addition, which follow from the associativity and commutativity laws, are:
 \begin{align*}
-  (l+m)+n & = (l+n)+m \\
-  l+(m+n) & = m+(l+n) \\
+  (l+m)+n & = (l+n)+m, \\
+  l+(m+n) & = m+(l+n), \\
   (k+l)+(m+n) & = (k+m)+(l+n).
 \end{align*}
 The last identification is called the \define{interchange law} for addition. The first one follows from the second, and the second and third are proven by a short calculation:
 \begin{align*}
   l+(m+n) & = (l+m)+n & (k+l)+(m+n) & = k+(l+(m+n)) \\
           & = (m+l)+n & & = k + (m + (l+n)) \\
-          & = m+(l+n) & & = (k+m)+(l+n).
+          & = m+(l+n), & & = (k+m)+(l+n).
 \end{align*}
 
 \section{Arithmetic of Natural Numbers}
@@ -206,7 +285,7 @@ The last identification is called the \define{interchange law} for addition. The
 \begin{definition}
   The multiplication function $m,n\mapsto mn$ on the natural numbers is defined recursively by
   \begin{align*}
-    m0 & := 0 \\
+    m0 & := 0, \\
     m(n+1) & := mn + m.
   \end{align*}
 \end{definition}
@@ -214,11 +293,11 @@ The last identification is called the \define{interchange law} for addition. The
 \begin{proposition}
   Multiplication of natural numbers satisfies the following laws:
   \begin{align*}
-    0n & = 0 & m0 & = 0 \\
-    (m+1)n & = mn+n & m(n+1) & = mn+m \\
-    1m & = m & m1 & = m \\
-    l(m+n) & = lm+ln & (l+m)n & = ln+mn \\
-    (lm)n & = l(mn) & mn & = nm.
+    0n & = 0, & m0 & = 0, \\
+    (m+1)n & = mn+n, & m(n+1) & = mn+m, \\
+    1m & = m & m1, & = m, \\
+    l(m+n) & = lm+ln, & (l+m)n & = ln+mn, \\
+    (lm)n & = l(mn), & mn & = nm.
   \end{align*}
 \end{proposition}
 
@@ -329,7 +408,7 @@ We illustrate induction with another example, the \define{formula for the geomet
   This completes the inductive step, and therefore the proof.
 \end{proof}
 
-\section{A First Counting Problem}
+\section{Hemachandra's Counting Problem}
 
 \begin{figure}[b]
   \centering
@@ -382,12 +461,14 @@ We illustrate induction with another example, the \define{formula for the geomet
       }
     \end{scope}
   \end{tikzpicture}
-  \caption[Some Fibonacci tilings of a 1-by-19 grid]{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
+  \caption[Some Hemachandra tilings of a 1-by-19 grid]{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
 \end{figure}
 
-Consider the set of patterns one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). In \cref{figure:fibonacci-tilings} we have displayed some examples. How many such patterns are there?
+In the 12th century, the Indian scholars Gopāla and Hemachandra studied the number of rhythmic patterns formed by combining short and long syllables in Sanskrit prosody. Hemachandra, around the year 1150, found a systematic way of counting the number of rhythmic patterns that can occur for any number of beats.
 
-In order to count them, let $T(n)$ be the number of such tilings. One way of finding the number $T(n)$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \cref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
+In order to rediscover Hemachandra's method, it might be helpful to think of the patterns of short and long syllables in terms of tilings one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). We have displayed some arbitrary examples of such tilings in \cref{figure:fibonacci-tilings}. The question is thus: How many such patterns are there?
+
+In order to count them, let $H_n$ be the number of such tilings. One way of finding the number $H_n$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \cref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[scale=0.6]
@@ -423,24 +504,31 @@ In order to count them, let $T(n)$ be the number of such tilings. One way of fin
     \drawtiling{7}{ -4.5}{0/2,2/2,4/1}          % 2 2 1
     
   \end{tikzpicture}  
-  \caption[Fibonacci tilings of a 1-by-5 grid]{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
+  \caption[Hemachandra tilings of a 1-by-5 grid]{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
 \end{figure}
 
-However, listing all such tilings gets elaborate quite quickly, and furthermore doing so by hand is quite error-prone. The problem is therefore to find a clever way of counting all possible patterns for all $n$.
+For the first few numbers it is easy to determine the value of $H_n$. For example, the number $H_1$ is just $1$, since the only way of tiling a 1-by-1 grid using monominoes and dominoes is to use a single monomino. Likewise, the number $H_2$ is $2$, since we can either use two monominoes or one domino as a tiling of a 1-by-2 grid. However, listing all such tilings gets elaborate for larger $n$ quite quickly, and furthermore doing so by hand is quite error-prone. The problem is therefore to find a clever way of counting all possible patterns for all $n$.
 
-Notice that the last tile is either a monomino or a domino, so there are two cases to consider. The number of tilings ending in a monomino is exactly the number $T(n-1)$, and the number of tilings ending in a domino is exactly the number $T(n-2)$. Thus, the total number of tilings of a 1-by-$n$ grid is the sum of these two numbers:
+Notice that the last tile is either a monomino or a domino, so there are two cases to consider. The number of tilings ending in a monomino is exactly the number $H_{n-1}$, and the number of tilings ending in a domino is exactly the number $H_{n-2}$. This can be seen in \cref{figure:complete-fifth-fibonacci-tiling}, where we listed all the tilings of the 1-by-5 grid. There are five tilings ending in a monomino, corresponding to each of the five different tilings of the 1-by-4 grid. Similarly, there are three tilings ending in a domino, corresponding to the three different tilings of the 1-by-3 grid. Thus, the total number of tilings of a 1-by-$n$ grid is the sum of these two numbers:
 \begin{equation*}
-  T(n) = T(n-1)+T(n-2).
+  H_n = H_{n-1} + H_{n-2}.
 \end{equation*}
-This is exactly the same recursive rule as for the Fibonacci numbers!
+This recursive rule is very famous: It is the rule that generates the \emph{Fibonacci numbers}.
 
-To complete the computation of $T(n)$, we have to determine how the sequence $T(n)$ starts off. That is, we need to determine $T(1)$ and $T(2)$. There is exactly one way to tile a 1-by-1 grid using monominoes and dominoes, namely by using one monomino, and there are two ways of tiling a 1-by-2 grid using monominoes and dominoes, namely by using either two monominoes or one domino. We therefore find that $T(1)=1$ and $T(2)=2$, and we can therefore conclude that
+\begin{definition}
+  The sequence $F_n$ of \emph{Fibonacci numbers} is defined by
+  \begin{equation*}
+    F_0:= 0,\qquad F_1:= 1,\qquad\text{and}\qquad F_{n+2}=F_{n+1}+F_{n}.
+  \end{equation*}
+\end{definition}
+
+Since the numbers $H_n$ start with $H_1=1$ and $H_2=2$, we find that
 \begin{equation*}
-  T(n) = F_{n+1}.
+  H_n = F_{n+1}.
 \end{equation*}
-This tiling interpretation of the Fibonacci numbers appears in \cite{brigham1996}, though equivalent counting problems have a much older origin. In the 12th century, the Indian scholars Gopāla and Hemachandra studied the number of rhythmic patterns formed by combining short and long syllables in Sanskrit prosody. Hemachandra, around the year 1150, gave a precise formulation of the recurrence relation now associated with the Fibonacci sequence, and listed the initial values: $1$, $2$, $3$, $5$, $8$, $13$, $21$. His results appear in his treatise on metrics, the \emph{Chandonuśāsana} \cite{hemachandra1961}, composed several decades before Fibonacci’s \emph{Liber Abaci} (1202). These numbers are therefore sometimes referred to as the \emph{Hemachandra numbers}.
+Hemachandra applied this recurrence to list the initial values of the sequence $H_n$:  $1$, $2$, $3$, $5$, $8$, $13$, $21$. His results appear in his treatise on metrics, the \emph{Chandonuśāsana} \cite{hemachandra1961}, composed several decades before Fibonacci’s \emph{Liber Abaci} (1202). Nevertheless, in most of the world this sequence of numbers is called the Fibonacci numbers, even though it might be more appropriate to call them the Hemachandra--Fibonacci numbers.
 
-The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
+The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham1996}. The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
 
 \begin{exercises}
   \exercise \label{exercise:difference-of-powers}Prove the \define{formula for the difference of $n$th powers}
@@ -459,6 +547,11 @@ The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Pro
   % \begin{equation*}
   %   a^4+4b^4=(a^2-2ab+2b^2)(a^2+2ab+2b^2).
   % \end{equation*}
+  \exercise \label{exercise:sum-of-odd-numbers}Prove that the sum of the first $n$ odd numbers is a perfect square. That is, prove that
+  \begin{equation*}
+    \sum_{k=0}^{n-1} 2k+1 = n^2.
+  \end{equation*}
+  Note: This summation formula is the starting point from which Fibonacci derived much of his work in his book  \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987}.
   \exercise \label{exercise:identities-triangular-numbers}Write $T_n$ for the $n$th triangular number.
   \begin{subexenum}
   \item For $0\leq m<n$, show that
@@ -486,11 +579,6 @@ The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Pro
       8T_n+1=(2n+1)^2.
     \end{equation*}
   \end{subexenum}
-  \exercise \label{exercise:sum-of-odd-numbers}Prove that that the sum of the first $n$ odd numbers is a perfect square. That is, prove that
-  \begin{equation*}
-    \sum_{k=0}^{n-1} 2k+1 = n^2.
-  \end{equation*}
-  Note: This summation formula is the starting point from which Fibonacci derived much of his work in his book  \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987}.
   \exercise Write $T_n$ for the $n$th triangular number.
   \begin{subexenum}
   \item The numbers
@@ -507,49 +595,60 @@ The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Pro
       S_{m+n}=S_m+S_n+\frac{mn(m+n+2)}{2}.
     \end{equation*}
   \end{subexenum}
-  \exercise Prove the \define{formula for the square pyramidal numbers}
-  \begin{equation*}
-    \sum_{k=0}^n k^2 = \frac{n(n+1)(2n+1)}{6}.
-  \end{equation*}
-  Can you explain why the numbers of the form $\sum_{k=0}^n k^2$ are called square pyramidal numbers?
-  \exercise Prove that
-  \begin{equation*}
-    \sum_{k=0}^{n-1}(2k+1)^2 = \frac{n(4n^2-1)}{3}.
-  \end{equation*}
-  \exercise Prove \define{Nicomachus's Theorem}
-  \begin{equation*}
-    \sum_{k=0}^n k^3 = \left(\sum_{k=0}^{n}k\right)^2.
-  \end{equation*}
-  \exercise Prove that
-  \begin{equation*}
-    \sum_{k=0}^{n-1}(2k+1)^3=n^2(2n^2-1).
-  \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item
+    Prove the \define{formula for the square pyramidal numbers}
+    \begin{equation*}
+      \sum_{k=0}^n k^2 = \frac{n(n+1)(2n+1)}{6}.
+    \end{equation*}
+    Can you explain why the numbers of the form $\sum_{k=0}^n k^2$ are called square pyramidal numbers?
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^{n-1}(2k+1)^2 = \frac{n(4n^2-1)}{3}.
+    \end{equation*}
+  \end{subexenum}
+  \exercise
+  \begin{subexenum}
+  \item Prove \define{Nicomachus's Theorem}
+    \begin{equation*}
+      \sum_{k=0}^n k^3 = \left(\sum_{k=0}^{n}k\right)^2.
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^{n-1}(2k+1)^3=n^2(2n^2-1).
+    \end{equation*}
+  \end{subexenum}
   \exercise Prove that
   \begin{equation*}
     \sum_{k=0}^n k(k+1)(k+2) = \frac{n(n+1)(n+2)(n+3)}{4}.
   \end{equation*}
-  \exercise Consider the Fibonacci numbers $F(n)$ given by
-  \begin{align*}
-    F_0 & := 0 \\
-    F_1 & := 1 \\
-    F_{n+2} & := F_{n+1}+F_n.
-  \end{align*}
-  Prove that
-  \begin{equation*}
-    \sum_{k=0}^nF_k = F_{n+2}-1.
-  \end{equation*}
-  \exercise Prove that
-  \begin{equation*}
-    \sum_{k=0}^{n-1}F_{2k+1}=F_{2n}.
-  \end{equation*}
-  \exercise Prove that
-  \begin{equation*}
-    \sum_{k=0}^{n}F_{2k}=F_{2n+1}-1.
-  \end{equation*}
-  \exercise Prove \define{Cassini's identity}
+  \exercise
+  \begin{subexenum}
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^nF_k = F_{n+2}-1.
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^{n-1}F_{2k+1}=F_{2n}.
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^{n}F_{2k}=F_{2n+1}-1.
+    \end{equation*}
+  \end{subexenum}
+  \exercise
+  \begin{subexenum}
+  \item Prove \define{Cassini's identity}:
     \begin{equation*}
       F_{n+1}^2-F_nF_{n+2}=(-1)^n.
     \end{equation*}
+  \item Prove the following generalization of Cassini's identity:
+    \begin{equation*}
+      F_{n+k}^2 - F_{n}F_{n+2k} = (-1)^n F_k^2.
+    \end{equation*}
+  \end{subexenum}
   \exercise Consider two nonzero natural numbers $a$ and $b$ satisfying $a(a+b) < b^2$. Prove that the strict inequality
   \begin{equation*}
     F_n<\left(\frac{b}{a}\right)^n
@@ -565,7 +664,11 @@ The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Pro
   \begin{equation*}
     b_n^2-a_n^2=c_n^2-b_n^2.
   \end{equation*}
-  \exercise Show that there is exactly one 3-term arithmetic progression of distinct positive Fibonacci numbers. Are there any 4-term arithmetic progressions of distinct positive Fibonacci numbers?
+  \exercise A $3$-term arithmetic progression $(a,b,c)$ is a triple of numbers $a\leq b\leq c$ with common increment, so that $b-a=c-b$. Show that every 3-term arithmetic progression of distinct positive Fibonacci numbers is of the form
+  \begin{equation*}
+    (F_n,F_{n+2},F_{n+3}).
+  \end{equation*}
+  Conclude that there are no 4-term arithmetic progressions of distinct positive Fibonacci numbers.
 \end{exercises}
 
 %%% Local Variables:

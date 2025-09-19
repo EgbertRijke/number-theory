@@ -613,6 +613,28 @@ The logical equivalence in the definition of the order of an element can be used
   Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
 \end{remark}
 
+\section{Decimal Expansions of Rational Numbers}
+
+\begin{theorem}
+  Consider a reduced integer fraction $\frac{a}{b}$ with $\gcd(b,10)=1$. Then there exists a positive integer $k$ such that
+  \begin{equation*}
+    10^k\frac{a}{b}-\frac{a}{b}
+  \end{equation*}
+  is an integer. Further more, the least such $k$ is $\ord_b(10)$.
+\end{theorem}
+
+\begin{proof}
+  The number $10^k\frac{a}{b}-\frac{a}{b}$ is an integer if and only if
+  \begin{equation*}
+    10^ka-a\equiv 0\pmod{b}.
+  \end{equation*}
+  Furthermore, since $a$ is assumed to be relatively prime to $b$, this is equivalent to the congruence
+  \begin{equation*}
+    10^k-1\equiv 0\pmod{b},
+  \end{equation*}
+  which we can rewrite to $10^k\equiv 1\pmod{b}$. By the \crefnamed{theorem:order-theorem}{Order Theorem} it follows that this congruence holds if and only if $\ord_b(10)\mid k$.
+\end{proof}
+
 \begin{exercises}
   \exercise Describe a complete residue system modulo $7$ consisting entirely of multiples of $3$.
   \exercise List all the numbers $0\leq a<6$ such that $a\equiv x^2\pmod 6$ for some $x$, and all the numbers $0\leq a<8$ such that $a\equiv x^2\pmod 8$ for some $x$.

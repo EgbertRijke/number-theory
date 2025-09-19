@@ -1,8 +1,68 @@
 \chapter{The Integers}
 
-\section{Cyclically Ordered Sets}
+\section{Cyclic Sets}
 
-Natural numbers count elements of finite sets. The empty set has zero elements, the set of solutions to the equation $3x-3=0$ has exactly one element, the booleans have exactly two elements, true and false, and so on. Natural numbers have been around for at least as long as humans count. But what do negative numbers count? Surely, there are no sets with $-5$ elements! One explanation of negative numbers is that they represent deficits. In other words, integers can be thought of as \emph{differences} between natural numbers. This point of view is completely valid, and we will come back to it. There is, however, another way of thinking about integers, using cycles. Cyclic sets, as we will call them, are an often recurring structure in mathematics. Some of the prettiest proofs of \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} and \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} use them. In \cref{figure:cyclically-ordered-set} we displayed an example of a cyclically ordered set.
+Natural numbers count elements of finite sets. The empty set has zero elements, the set of solutions to the equation $3x-3=0$ has exactly one element, the booleans have exactly two elements, true and false, and so on.
+
+Natural numbers have been around for at least as long as humans count. But what do negative numbers count? Surely, there are no sets with $-5$ elements! One explanation of negative numbers is that they represent deficits. In other words, integers can be thought of as \emph{differences} between natural numbers. This point of view is completely valid, and we will come back to it. There is, however, a more structural and conceptually compelling way of thinking about integers, using cyclic sets. Cyclic sets are an often recurring structure in mathematics. Some of the prettiest proofs of \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} and \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem} use them.
+
+\begin{figure}[b]
+  \centering
+  \begin{tikzpicture}[
+    % local styles
+    element/.style={circle, draw, thick, minimum size=6.5mm, inner sep=0pt, font=\small},
+    set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=80mm},
+    arrow/.style={->, thick, shorten >=1mm, shorten <=1mm}
+    ]
+
+% The set
+    \node[set] (A) at (0,0) {};
+
+    % Elements inside (3 rows of 4, staggered)
+    \node[element] (a1)  at ($(A.center)+(-3.0,  0.6)$) {$a_1$};
+    \node[element] (a2)  at ($(A.center)+(-0.3,  1.1)$) {$a_2$};
+    \node[element] (a3)  at ($(A.center)+( 1.0,  1.2)$) {$a_3$};
+    \node[element] (a4)  at ($(A.center)+( 2.4,  0.9)$) {$a_4$};
+
+    \node[element] (a5)  at ($(A.center)+(-1.6,  0.5)$) {$a_5$};
+    \node[element] (a6)  at ($(A.center)+(-0.7,  0.0)$) {$a_6$};
+    \node[element] (a7)  at ($(A.center)+( 1.8,  0.2)$) {$a_7$};
+    \node[element] (a8)  at ($(A.center)+( 3.2, -0.1)$) {$a_8$};
+
+    \node[element] (a9)  at ($(A.center)+(-2.5, -0.6)$) {$a_9$};
+    \node[element] (a10) at ($(A.center)+(-1.2, -1.1)$) {$a_{10}$};
+    \node[element] (a11) at ($(A.center)+( 0.5, -0.9)$) {$a_{11}$};
+    \node[element] (a12) at ($(A.center)+( 1.6, -1)$) {$a_{12}$};
+
+    \draw[arrow] (a1) to[bend left=10] (a5);
+    \draw[arrow] (a5) to[bend left=10] (a9);
+    \draw[arrow] (a9) to[bend left=10] (a1);
+
+    \draw[arrow] (a6) to[bend left=10] (a11);
+    \draw[arrow] (a11) to[bend left=10] (a10);
+    \draw[arrow] (a10) to[bend left=10] (a6);
+
+    \draw[arrow] (a3) to[bend left=10] (a4);
+    \draw[arrow] (a4) to[bend left=10] (a8);
+    \draw[arrow] (a8) to[bend left=10] (a12);
+    \draw[arrow] (a12) to[bend left=10] (a7);
+    \draw[arrow] (a7) to[bend left=10] (a3);
+
+    \draw[arrow] (a2) to[out=340,in=280,looseness=5] (a2);
+
+  \end{tikzpicture}  
+  \caption{\label{figure:bijection-12-element-set}A bijection on a $12$-element set.}
+\end{figure}
+
+When we map out a bijection $f:A\to A$ from a finite set $A$ to itself by displaying an arrow between each element and its value under $f$, as we did in \cref{figure:bijection-12-element-set}, we discover that the finite set $A$ gets partitioned into cycles. The iterated action of $f$ on an element $f$ is mapped out by tracing along the arrows, which eventually loops back to itself. An intuitive reason for this phenomenon is that by iterating $f$ often enough, we obtain a sequence
+\begin{equation*}
+  a,~f(a),~f^2(a),~\ldots
+\end{equation*}
+which must eventually have repeated values since the set $A$ was assumed to be finite. If $f^n(a)$ is the first $n$ such that $f^n(a)=f^m(a)$ for a later value of $m$, then we must have $n=0$. Indeed, if $n>0$ then we find that
+\begin{equation*}
+  f(f^{n-1}(a))=f(f^{m-1}(a)),
+\end{equation*}
+which implies by the assumption that $f$ is a bijection that $f^{n-1}(a)=f^{m-1}(a)$. This is impossible by the minimality of $n$, so we must have $n=0$. We conclude that the iterations of $f$ trace out cycles. Such cycles are called \emph{orbits}.
 
 \begin{definition}
   Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \emph{in the same orbit} of $f$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$; that is, if one can be reached from the other by iteratively applying $f$.
@@ -10,38 +70,40 @@ Natural numbers count elements of finite sets. The empty set has zero elements, 
   An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
 \end{definition}
 
+The bijection on the 12-element set in \cref{figure:bijection-12-element-set}, for example, has three such orbits. Since bijections on a set partition the set into cyclic orbits, we can now define a \emph{cyclic set} to be a set equipped with a bijection that has exactly one orbit, so that all the elements of the set fit in the same cycle. In \cref{figure:cyclically-ordered-set} we displayed an example of a cyclic set.
+
 \begin{figure}[t]
   \centering
-\begin{tikzpicture}[thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
-  % Define number of nodes and radius
-  \def\n{11}
-  \def\radius{2.5cm}
-  % Place nodes evenly around the circle
-  \foreach \i in {1,...,\n} {
-    \pgfmathsetmacro{\value}{int(\i-1)}
-    \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
-  }
-  % Draw directed edges following the circle clockwise, shortened at node edges
-  \foreach \i in {1,...,\n} {
-    % Compute start angle
-    \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
-    \draw[->, shorten >=4mm, shorten <=4mm] 
-      (\angle:\radius) arc[start angle=\angle, delta angle=-360/\n, radius=\radius];
-  }
+  \begin{tikzpicture}[
+    thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
+    \def\n{12}
+    \def\radius{2.5cm}
+    
+    \foreach \i in {1,...,\n} {
+      \pgfmathsetmacro{\value}{int(\i-1)}
+      \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+    }
+    
+    \foreach \i in {1,...,\n} {
+      \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+      \draw[->] 
+      (\angle-10:\radius)
+      arc[start angle=\angle-10, delta angle=-360/\n+20, radius=\radius];
+    }
 \end{tikzpicture}  
-  \caption[A cyclically ordered set with 11 elements]{\label{figure:cyclically-ordered-set}A cyclically ordered set with 11 elements.}
+  \caption[A cyclic set with 12 elements]{\label{figure:cyclically-ordered-set}A cyclic set with 12 elements.}
 \end{figure}
 
 \begin{definition}
-  A \emph{cyclically ordered set} is a pair $(X,s)$ consisting of a set $X$ and a bijection $s:X\cong X$ that has exactly one orbit.
+  A \emph{cyclic set} is a pair $(X,s)$ consisting of a set $X$ and a bijection $s:X\cong X$ that has exactly one orbit.
 \end{definition}
 
 \begin{remark}
-  Since orbits are assumed to be inhabited---that is, nonempty---subsets of a set $X$, it follows that cyclically ordered sets are always inhabited. Indeed, if $U$ is the unique orbit of a cyclically ordered set, and $U$ is inhabited by an element $x\in U$, then we have $x\in X$. Thus, empty sets are not considered to be cyclically ordered.
+  Since orbits are assumed to be inhabited---that is, nonempty---subsets of a set $X$, it follows that cyclic sets are always inhabited. Indeed, if $U$ is the unique orbit of a cyclic set, and $U$ is inhabited by an element $x\in U$, then we have $x\in X$. Thus, empty sets are not considered to be cyclically structured.
 \end{remark}
 
 \begin{example}
-  Every inhabited standard finite set can be given the structure of a cyclically ordered set. The cyclic structure on the standard finite set $[n+1]$ is given by
+  Every inhabited standard finite set can be given the structure of a cyclic set. The cyclic structure on the standard finite set $[n+1]$ is given by
   \begin{equation*}
     0\mapsto 1 \mapsto 2 \mapsto \cdots \mapsto n \mapsto 0.
   \end{equation*}
@@ -50,59 +112,78 @@ Natural numbers count elements of finite sets. The empty set has zero elements, 
 
 \section{Maps Preserving Cyclic Structure}
 
-Mathematicians like to organize structures into categories. In such categories, they keep track of the kind of structured sets, and the structure preserving maps between them. In this text, we won't be bothered too much with categories, except that we will silently uphold its organizational principles. One of them says that, whenever you introduce a new kind of object, such as cyclically ordered sets in our case, then it is good practice to also specify what maps between them preserve its structure. Thus, we will now introduce cyclic order preserving maps.
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[every node/.style={circle,draw,fill=white,inner sep=1pt,minimum size=6mm,thick}]
+    % ––– local “preamble” –––
+    \newdimen\radiusInner 
+    \newdimen\radiusMiddle
+    \newdimen\radiusOuter
+        
+    \def\radiusInner{1.5cm}
+    \def\radiusMiddle{3.5cm}
+    \def\radiusOuter{4.3cm}
+    
+    % place the seven nodes on all three radii:
+    \foreach \i in {0,...,6} {
+      \pgfmathsetmacro{\ang}{-360/7*\i}
+      \pgfmathtruncatemacro{\highlabel}{7+\i}
+      \pgfmathtruncatemacro{\targetlabel}{mod(3+\i,7)}
+      \node (N1\i) at (\ang:\radiusInner)  {\targetlabel};
+      \node (N2\i) at (\ang:\radiusMiddle) {\highlabel};
+      \node (N3\i) at (\ang:\radiusOuter)  {\i};
+    }
+
+    \foreach \i in {0,...,6} {
+      \pgfmathsetmacro{\angle}{-360/7*(\i-1)}
+      \draw[->,thick,shorten <=2pt,shorten >=2pt] 
+      (\angle-12:\radiusInner)
+      arc[start angle=\angle-12, delta angle=-360/7+24, radius=\radiusInner];
+    }
+
+    \foreach \i in {0,...,6} {
+      \draw [|->,thick,shorten >=6pt,shorten <=6pt] (N2\i) -- (N1\i);
+    }
+
+    \foreach \i in {0,...,5} {
+      \pgfmathsetmacro{\angle}{-360/7*\i}
+      \draw[->,thick,shorten <=2pt,shorten >=2pt] 
+      (\angle-6:\radiusMiddle)
+      arc[start angle=\angle-6, delta angle=-360/7+12, radius=\radiusMiddle];
+    }
+
+    \foreach \i in {0,...,5} {
+      \pgfmathsetmacro{\angle}{-360/7*\i}
+      \draw[->,thick,shorten <=2pt,shorten >=2pt] 
+      (\angle-5:\radiusOuter)
+      arc[start angle=\angle-5, delta angle=-360/7+10, radius=\radiusOuter];
+    }
+
+    \draw[->,thick,shorten >=3pt,shorten <=3pt] (N36) to[out=360/7-95,in=96] (N20);
+    \draw[-,line width=3pt,white,shorten >=3pt,shorten <=3pt] (N26) to[out= 360/7-96,in=95] (N30);
+    \draw[->,thick,shorten >=2pt,shorten <=2pt] (N26) to[out= 360/7-96,in=95] (N30);
+  \end{tikzpicture}
+  \caption{\label{figure:example-cyclic-structure-map}A cyclic-structure map from a 14-element set to a 7-element set.}
+\end{figure}
+
+An important organizational principle of structural mathematics is that when we define a certain kind of structured sets, such as cyclic sets in our case, then it is good practice to also define the \emph{structure-preserving maps} between them. Doing so allows us to learn more about how such structured sets relate to each other. Thus, we will now introduce cyclic-structure maps. As we will see shortly, maps preserving the cyclic structure on a set have some interesting properties, and they feature prominently in our structural definition of the set of integers.
 
 \begin{definition}
-  Consider two cyclically ordered sets $(X,s)$ and $(Y,t)$. A map $f:X\to Y$ is said to be a \emph{cyclic order preserving map} if
+  Consider two cyclic sets $(X,s)$ and $(Y,t)$. A map $f:X\to Y$ is said to be a \emph{cyclic-structure map} if
   \begin{equation*}
     f(s(x))=t(f(x))
   \end{equation*}
-  for every $x\in X$. We will write $\mathrm{hom}((X,s),(Y,t))$ for the set of all cyclic order preserving maps from $(X,s)$ to $(Y,t)$.
+  for every $x\in X$. We will write $\mathrm{hom}((X,s),(Y,t))$ for the set of all cyclic-structure maps from $(X,s)$ to $(Y,t)$.
 \end{definition}
 
-The idea of a cyclic order preserving map is that we can overlay the elements of a cyclically ordered set $X$ onto the elements of a cyclically ordered set $Y$ so that the cyclic structure of the overlay matches the cyclic structure of $Y$. This means that in a cyclic order preserving map, we can't skip any elements.
+For example, if $(X,s)$ is a cyclic set, then $s$ is always a cyclic-structure map onto itself. To see this, we simply note that the equality
+\begin{equation*}
+  s(s(x))=s(s(x))
+\end{equation*}
+holds trivially. In \cref{figure:example-cyclic-structure-map} we displayed an example of a cyclic-structure map from a 14-element set to a 7-element set. More generally, the idea of a cyclic-structure map is that we can overlay the elements of a cyclic set $X$ onto the elements of a cyclic set $Y$ so that the cyclic structure of the overlay matches the cyclic structure of $Y$. This means that in a cyclic-structure map, we can't skip any elements.
 
-\begin{center}
-\begin{tikzpicture}[scale=.1,every node/.style={circle,draw,fill=white,inner sep=1pt,minimum size=6mm,thick}]
-  %––– local “preamble” –––
-  \newdimen\radiusInner 
-  \newdimen\radiusMiddle
-  \newdimen\radiusOuter
-
-  \def\unit{1cm}       
-  \def\ratioInner{2}   
-  \def\ratioMiddle{4}  
-  \def\ratioOuter{5}   
-
-  \radiusInner  = \ratioInner\unit
-  \radiusMiddle = \ratioMiddle\unit
-  \radiusOuter  = \ratioOuter\unit
-
-  % compute our “gap” angles:
-  \pgfmathsetmacro{\startAngle}{360/7*3}
-  \pgfmathsetmacro{\endAngle}{360/7*4}
-
-  % draw the inner full circle:
-  \draw[thick] (0,0) circle (\radiusInner);
-
-  % draw the two outer arcs (CCW from startAngle to endAngle):
-  \draw[thick] (\startAngle:\radiusMiddle)
-    arc[start angle=\startAngle,end angle=\endAngle,radius=\radiusMiddle];
-
-  \draw[thick] (\startAngle:\radiusOuter)
-    arc[start angle=\startAngle,end angle=\endAngle,radius=\radiusOuter];
-
-  % place the seven nodes on all three radii:
-  \foreach \i in {0,...,6} {
-    \pgfmathsetmacro{\ang}{360/7*\i}
-    \node at (\ang:\radiusInner)  {};
-    \node at (\ang:\radiusMiddle) {};
-    \node at (\ang:\radiusOuter)  {};
-  }
-\end{tikzpicture}
-\end{center}
-
-\begin{center}
+\begin{figure}[t]
+  \centering
   \begin{tikzpicture}
     [ declare function={f(\x)=0.2*sin(\x)+\x/900;}, line cap=butt, line join=miter,
     rubout/.style=
@@ -113,7 +194,7 @@ The idea of a cyclic order preserving map is that we can overlay the elements of
           \draw [white,line width=\pgfkeysvalueof{/tikz/rubout/line width}+2*\pgfkeysvalueof{/tikz/rubout/halo}] 
           (\tikzinputsegmentfirst) .. controls
           (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb)  ..(\tikzinputsegmentlast); 
-          \draw [line width=\pgfkeysvalueof{/tikz/rubout/line width},shorten <=-0.1pt,shorten >=-0.1pt] (\tikzinputsegmentfirst) .. controls
+          \draw [thick,shorten <=-0.1pt,shorten >=-0.1pt] (\tikzinputsegmentfirst) .. controls
           (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb) ..(\tikzinputsegmentlast);  
         }}},
     rubout/.cd,line width/.initial=2pt,halo/.initial=0.5pt]
@@ -121,18 +202,55 @@ The idea of a cyclic order preserving map is that we can overlay the elements of
     \draw[rubout={line width=1.5pt,halo=0.5pt},decorate]
     
     plot[variable=\x,domain=-50:1690,samples=200,smooth] ({cos(\x)},{f(\x)}) to[out=0,in=195] cycle;
-    \draw[line width=1.5pt] (0,-2) arc(-90:270:1cm and 0.2cm);
+    \draw[thick] (0,-2) arc(-90:270:1cm and 0.2cm);
     \draw[thick,->]  (0,-0.4) -- (0,-1.4);
-  \end{tikzpicture}
-\end{center}
+  \end{tikzpicture}  
+  \caption[Cyclic-structure maps]{\label{figure:cyclic-structure-maps}Cyclic-structure maps are defined by ``winding'' the source cyclic set around the target cyclic set.}
+\end{figure}
 
 \begin{theorem}
-  Consider two cyclically ordered sets $(X,s)$ and $(Y,t)$. If the set
+  Consider two cyclic sets $(X,s)$ and $(Y,t)$ with a cyclic-structure map $f:X\to Y$ between them. If $X$ is an $m$-element set and $Y$ is an $n$-element set, then $m$ is a multiple of $n$.
+\end{theorem}
+
+\begin{proof}
+  For each $y\in Y$ consider the set
+  \begin{equation*}
+    f^{-1}(y) := \{x\in X\mid f(x)=y\}
+  \end{equation*}
+  consisting of all the elements in $X$ that have the value $y$ under $f$. Then the bijection $s:X\to X$ restricts to a bijection
+  \begin{equation*}
+    s : f^{-1}(y) \to f^{-1}(s(y)).
+  \end{equation*}
+  Thus it follows that all the sets of the form $f^{-1}(y)$ have the same size. Since $X$ is the union of these sets, it follows that the size of $X$ is $n$ times the size of the set $f^{-1}(y)$.
+\end{proof}
+
+Cyclic-structure maps have the special property that if they share an equal value for a given input, then they are equal everywhere. Indeed, suppose that $f,g:X\to Y$ are two cyclic-structure maps between cyclic sets $(X,s)$ and $(Y,t)$ such that $f(x)=g(x)$ for some $x\in X$. By the cyclic structure of $X$, it follows that for every $x'\in X$, there exists a natural number $k$ such that $s^k(x)=x'$ or $s^k(x')=x$. Thus there are two cases to consider. If $s^k(x)=x'$ then it follows that
+\begin{equation*}
+  f(x')=f(s^k(x))=s^k(f(x))=s^k(g(x))=g(s^k(x))=g(x').
+\end{equation*}
+On the other hand, if $s^k(x')=x$ then it follows that $f(x')=g(x')$ if and only if $s^k(f(x'))=s^k(g(x'))$, which follows from the calculation
+\begin{equation*}
+  s^k(f(x'))=f(s^k(x'))=f(x)=g(x)=g(s^k(x'))=s^k(g(x')).
+\end{equation*}
+The previous observation can be used to prove the following theorem:
+
+\begin{theorem}
+  Consider two cyclic sets $(X,s)$ and $(Y,t)$. If the set
   \begin{equation*}
     \mathrm{hom}((X,s),(Y,t))
   \end{equation*}
-  of cyclic order preserving maps from $(X,s)$ to $(Y,t)$ is inhabited, then it is a cyclically ordered set.
+  of cyclic-structure maps from $(X,s)$ to $(Y,t)$ is inhabited, then it is itself a cyclic set.
 \end{theorem}
+
+\begin{proof}
+  The function $h\mapsto t\circ h$ is a bijection from $\hom((X,s),(Y,t))$ to itself. To see that it has exactly one orbit, consider two cyclic-structure maps $f,g:X\to Y$, and let $x_0\in X$. Then there exists an integer $k$ such that
+  \begin{equation*}
+    t^k(f(x_0))=g(x_0)\qquad\text{or}\qquad t^k(g(x_0))=f(x_0).
+  \end{equation*}
+  In the first case it follows that $t^k\circ f=g$, while in the second case it follows that $t^k\circ g=f$. Thus it follows that $f$ and $g$ are in the same orbit of the map $h\mapsto t\circ h$.
+\end{proof}
+
+The organizational principle of defining structured sets along with their structure-preserving maps comes from \emph{category theory}, a mathematical discipline which emphasizes structural mathematics. What we have defined here is the category of cyclic sets. In this course we won't rely on category theory, but the curious reader might find Emily Riehl's book \emph{Category Theory in Context} of interest \cite{riehl2016}. Riehl is a world-famous professor in our department.
 
 \section{A Structural Definition of the Integers}
 
@@ -169,7 +287,7 @@ The idea of a cyclic order preserving map is that we can overlay the elements of
   \caption[The infinite cyclic set of integers]{\label{figure:integers}The infinite cyclic set of integers.}
 \end{figure}
 
-Although the examples we have discussed so far are finite, the definition of cyclically ordered sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \cref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
+Although the examples we have discussed so far are finite, the definition of cyclic sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \cref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
 
 \begin{definition}\label{definition:integers}
   The set of integers is specified to be a set $\mathbb{Z}$ equipped with an element $0\in \mathbb{Z}$ and a bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
@@ -177,17 +295,10 @@ Although the examples we have discussed so far are finite, the definition of cyc
   \item $f(0)=x_0$, and
   \item $f(S(a))=h(f(a))$ for every $a\in\mathbb{Z}$.
   \end{enumerate}
+  Such functions are said to be defined by \emph{integer recursion}.
 \end{definition}
 
-\begin{theorem}
-  The pair $(\mathbb{Z},S)$ consisting of the set $\mathbb{Z}$ of integers and the successor function $S$ is a cyclically ordered set.
-\end{theorem}
-
-\begin{theorem}
-  Suppose that $X$ is a set equipped with an element $x_0\in X$ and a bijection $h:X\cong X$. Then the image of the unique map $f:\mathbb{Z}\to X$ determined by $x_0$ and $h$ is cyclically ordered.
-\end{theorem}
-
-Just as for the natural numbers, the definition of the integers allows us to iterate bijections any integer number of times. In order to make this definition, we need the following theorem:
+For example, integer recursion can be used to define \emph{iterated bijections} $f^k:A\cong A$ for any bijection $f:A\cong A$. The idea is entirely analogous to the idea of iterated functions, where a function $f:A\to A$ could be iterated any natural number of times. For iterated bijections, we restrict to the case of a bijection $f:A\cong A$, which allows us to also consider the \emph{negative iterations} of $f$ by using the inverse of $f$. In order to formally define iterated bijections, we need the following theorem:
 
 \begin{theorem}
   For any bijection $f: A\cong B$ and any set $X$, there are bijections
@@ -214,7 +325,7 @@ Just as for the natural numbers, the definition of the integers allows us to ite
   This definition is possible, since composing with $f$ on the left is a bijection $(X\cong X)\cong(X\cong X)$.
 \end{definition}
 
-So far, we have described in precise detail how to make constructions using the integers, but we haven't touched upon how to prove properties of all integers yet. The integers satisfy the following reasoning principle.
+The specification of the set of integers with integer recursion also allows us to formulate an induction principle for the integers. This induction principle states what one should do in order to show that a proposition $P(x)$ is true for all integers $x$.
 
 \begin{theorem}[Integer Induction Principle]\label{theorem:integer-induction}
   Consider a property $P(a)$ parametrized by an integer $a$. In order to prove that $P(a)$ is true for all $a$, it suffices to prove:
@@ -244,16 +355,36 @@ In \cref{section:integer-arithmetic} we will use the integer induction principle
 
   To see that $s$ is a bijection, we define an inverse $t$. For any $a\in A$, consider the unique integer $b$ such that $S(b)=a$. Such an element is indeed uniquely determined since $S:\mathbb{Z}\to\mathbb{Z}$ is a bijection. Since $P(a)$ holds, it follows that $P(b)$ holds, so we find that $b\in A$. Thus, we define $t(a):=b$. It follows immediately from the definition of $t$ that the identities $s(t(a))=a$ and $t(s(a))=a$ hold. Thus we see that $t$ is an inverse of $s$, which concludes the proof that $s$ is a bijection on $A$.
 
-  By the specification of $\mathbb{Z}$, it follows that there is a unique function $f:\mathbb{Z}\to A$ so that
+  By the specification of $\mathbb{Z}$, it follows that there is a unique function $f:\mathbb{Z}\to A$ such that
   \begin{equation*}
-    f(0)=0\qquad\text{and}\qquad f(S(a))=s(a)=S(a).
+    f(0)=0\qquad\text{and}\qquad f(S(a))=S(a).
   \end{equation*}
-  It follows from these identities that $f(a)=a$ for all $a\in \mathbb{Z}$. However, since we have $f(a)\in A$ by definition, we obtain that $a\in A$ for every integer $a$, and thus we conclude that the property $P(a)$ holds for all $a\in\mathbb{Z}$.
+  Now we claim that $f(a)=a$ for all $a\in\mathbb{Z}$. To see this, note that by the inclusion of $A\subseteq \mathbb{Z}$ we may regard $f$ as a function $\mathbb{Z}\to\mathbb{Z}$ satisfying the equations
+  \begin{equation*}
+    f(0)=0\qquad\text{and}\qquad f(S(a))=S(a).
+  \end{equation*}
+  However, there is a known function satisfying these equations: the \emph{identity function} $x\mapsto x$, which is often denoted by $\mathrm{id}$. Since $f$ is uniquely determined by its equations, which are also satisfied by the identity function, it follows that $f$ and the identity function must be the same. Thus it follows that $f(a)=a$ for all $a\in\mathbb{Z}$. Furthermore, since we have $f(a)\in A$ by definition, we obtain that $a\in A$ for every integer $a$. Thus we conclude that the property $P(a)$ holds for all $a\in\mathbb{Z}$.
+\end{proof}
+
+The induction principle for the integers may be used, for instance, to prove that the integers form a cyclic set.
+
+\begin{theorem}
+  The pair $(\mathbb{Z},S)$ consisting of the set $\mathbb{Z}$ of integers and the successor bijection $S$ is a cyclic set. Furthermore, for any cyclic set $(Y,t)$ there is a unique cyclic-structure preserving map from $(\mathbb{Z},S)$ to $(Y,t)$.
+\end{theorem}
+
+\begin{proof}
+  Our goal is to show by integer induction that every integer $a$ is in the orbit of $0$. Clearly $0$ is in the same orbit as itself, so the base case is trivial. For the inductive step, we have to show that $x$ is in the orbit of $0$ if and only if $S(x)$ is in the orbit of $0$.
+
+  For the forward implication, there are two cases to consider. Either there is a natural number $k$ such that $S^k(0)=x$ or there is a natural number $k$ such that $S^k(x)=0$. In the first case, it immediately follows that $S^{k+1}(0)=S(x)$. In the second case it follows that $S^k(S(x))=S(0)$, which implies that $S^{k-1}(S(x))=0$. Thus we see that in both cases, $S(x)$ is in the orbit of $0$.
+
+  For the reverse implication, there are again two cases to consider. Either there is a natural number $k$ such that $S^k(0)=S(x)$ or there is a natural number $k$ such that $S^k(S(x))=0$. In the first case, it follows that $S^{k-1}(0)=x$. In the second case, it follows that $S^{k+1}(x)=0$. In both cases it follows that $x$ is in the orbit of $0$, completing the proof.
+
+  The final claim follows immediately by the integer recursion principle.
 \end{proof}
 
 \section{Constructing the Integers from the Natural Numbers}
 
-We have given a structural definition of the set of integers as the universal cyclically ordered set. We think of this as the \emph{specification} of the integers. In this section we will construct a set that meets this specification.
+We have given a structural definition of the set of integers as the universal cyclic set. We think of this as the \emph{specification} of the integers. In this section we will construct a set that meets this specification.
 
 \begin{figure}[t]
   \centering
@@ -388,7 +519,7 @@ Before we start proving the laws of addition and the additive inverse of the int
   note that $f^{a+(b+1)}(x)=f(f^{a+b}(x))$ and $f^{b+1}(f^a(x))=f(f^b(f^a(x)))$. Furthermore, since $f$ is a bijection, it follows that $f(y)=f(z)$ if and only if $y=z$. In our case we get:
   \begin{align*}
     f^{a+b}(x)=f^b(f^a(x)) & \Leftrightarrow f(f^{a+b}(x))=f(f^b(f^a(x))) \\
-                           & \Leftrightarrow f^{a+(b+1)}(x)=f^{b+1}(f^a(x)).\qedhere
+                           & \Leftrightarrow f^{a+(b+1)}(x)=f^{b+1}(f^a(x)).
   \end{align*}
   This completes the proof of the first identity. The second identity is proven by integer induction on $a$. Since $-0=0$, it follows that
   \begin{equation*}
@@ -427,7 +558,7 @@ Before we start proving the laws of addition and the additive inverse of the int
   \end{equation*}
   This can be seen by chaining the injectivity of the successor function and associativity:
   \begin{align*}
-    0+a=a & (0+a)+1=a+1 \\
+    0+a=a & \Leftrightarrow (0+a)+1=a+1 \\
           & \Leftrightarrow 0+(a+1)=a+1.
   \end{align*}
   The fact that $a-a=0$ follows from the observation that
@@ -455,24 +586,48 @@ Next, we define multiplication of integers.
 \end{definition}
 
 \begin{theorem}
-  Multiplication of integers is associative: For any three integers $a$, $b$, and $c$ we have:
+  Multiplication of integers distributes from both sides over addition: For any three integers $a$, $b$, and $c$ we have
   \begin{equation*}
-    (ab)c=a(bc).
+    a(b+c)=ab+ac\qquad\text{and}\qquad (a+b)c=ac+bc.
   \end{equation*}
 \end{theorem}
 
 \begin{proof}
-  The proof is by integer induction on $c$. In the base case, we have
+  We will prove only the first equation, leaving the other equation as an exercise. To show that multiplication of the integers distributes from the left over addition, we will use integer induction on $c$ to show that for any two integers $a$ and $b$ we have $a(b+c)=ab+ac$.
+
+  In the base case, we simply note that
   \begin{equation*}
-    (ab)0=0=a0=a(b0).
+    a(b+0)=ab=ab+0=ab+a0.
   \end{equation*}
-  For the inductive step we have to prove the logical equivalence
+  For the inductive step, we have to show that
   \begin{equation*}
-    (ab)c=a(bc) \qquad\Leftrightarrow\qquad (ab)(c+1)=a(b(c+1)).
+    \forall_{a,b\in\mathbb{Z}}a(b+c)=ab+ac\qquad\Leftrightarrow \forall_{a,b\in\mathbb{Z}} a(b+(c+1))=ab+a(c+1).
+  \end{equation*}
+  For the forward implication, assume that $a(b+c)=ab+ac$ is true for any two integers $a$ and $b$. Then we have
+  \begin{equation*}
+    a(b+(c+1))=a((b+1)+c)=a(b+1)+ac=ab+a+ac=ab+a(c+1).
+  \end{equation*}
+  For the reverse implication, assume that $a(b+(c+1))=ab+a(c+1)$ is true for any two integers $a$ and $b$. Then we have
+  \begin{equation*}
+    a(b+c)=a((b-1)+(c+1))=a(b-1)+a(c+1)=ab-a+ac+a=ab+ac.\qedhere.
   \end{equation*}
 \end{proof}
 
 \begin{exercises}
+  \exercise Show that multiplication of integers is associative: For any three integers $a$, $b$, and $c$ we have
+  \begin{equation*}
+    (ab)c=a(bc).
+  \end{equation*}
+  \exercise Show that multiplication of integers is commutative: For any two integers $a$ and $b$ we have
+  \begin{equation*}
+    ab=ba.
+  \end{equation*}
+  \exercise Show that multiplication with a nonzero integer $a$ satisfies the cancellation law
+  \begin{equation*}
+    ax=ay\qquad\Rightarrow\qquad x=y.
+  \end{equation*}
+  \exercise Prove that for any two integers $a$ and $b$, either $b\leq a$ or $a+a\leq b$.
+  \exercise Suppose that $X$ is a set equipped with an element $x_0\in X$ and a bijection $h:X\cong X$. Show that the image of the unique map $f:\mathbb{Z}\to X$ determined by $x_0$ and $h$ is a cyclic set.
   \exercise Prove the identity
   \begin{equation*}
     a^3+b^3+c^3-3abc = \frac{1}{2}(a+b+c)((a-b)^2+(a-c)^2+(b-c)^2)

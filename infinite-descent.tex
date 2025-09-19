@@ -61,7 +61,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   \begin{equation*}
     st(t^2-s^2)=st(t-s)(t+s).
   \end{equation*}
-  Now observe that all of these factors are relatively prime to one another; indeed, given that $s$ and $t$ are relatively prime, this follows at once from \cref{proposition:gcd-euclidean-division}. Thus we conclude that if the area of the Pythagorean triangle is a square, then each of these factors must also be a square. This allows us to write
+  Now observe that all of these factors are relatively prime to one another; indeed, given that $s$ and $t$ are relatively prime, it follows at once from \cref{proposition:gcd-euclidean-division} that both $s$ and $t$ are relatively prime to both $s-t$ and $s+t$. Furthermore, any common divisor of $s-t$ and $s+t$ must be a common divisor of $2s$ and $2t$, which implies that it must divide $2$. However, $s-t$ and $s+t$ are odd since $s$ and $t$ are of opposite parity, so that $s-t$ and $s+t$ are seen to be relatively prime. Thus we conclude that if the area of the Pythagorean triangle is a square, then each of these factors must also be a square. This allows us to write
   \begin{equation*}
     s=u^2,\quad t=v^2,\quad t-s=x^2,\quad\text{and}\quad t+s=y^2.
   \end{equation*}
@@ -143,7 +143,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   which is impossible.
 \end{proof}
 
-\section{The Nonexistence of Four Squares in an Arithmetic Progression}
+\section{The Nonexistence of Four Squares in an Arithmetic Progression (*)}
 
 We have shown in \cref{theorem:correspondence-arithmetic-triples-squares} that there is a bijective correspondence between arithmetic triples of squares and Pythagorean triples. It is natural to wonder whether there are any longer arithmetic progressions of squares. Fermat posed this problem in his correspondence with Bernard Frénicle de Bessy in 1640, and noted that it was impossible to find four such squares. The first publicly known proof is due to Euler. Here we will follow a proof of Alf van der Poorten \cite{vanderpoorten2007}, who observed that any four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression determine, besides the Pythagorean triples corresponding to $(a^2,b^2,c^2)$ and $(b^2,c^2,d^2)$, a third Pythagorean triple. To see this, assume the step size is a number of the form $2n$, where it follows from \cref{exercise:div-increment-a-p-squares} that $n$ is divisible by $12$, and let $x$ be the average of $b^2$ and $c^2$ so that $b^2=x-n$ and $c^2=x+n$. Then the number $y:=abcd$ satisfies
 \begin{equation*}
@@ -163,80 +163,80 @@ Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ 
   For every four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression we can uniquely determine a pair of relatively prime positive integers $u$ and $v$ such that $4u^2+v^2$ and $u^2+v^2$ are both squares, and the step size in the arithmetic progression of squares is $2uv$.
 \end{lemma}
 
-\begin{proof}
-  Consider four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression, where $a$, $b$, $c$, and $d$ are assumed to be relatively prime numbers of the form $6k\pm 1$, and the step size is a number of the form $2n$ so that $n$ is divisible by $12$. As previously shown, we obtain a primitive Pythagorean triple
-  \begin{equation*}
-    y^2+(4n^2)^2=(x^2-5n^2)^2,
-  \end{equation*}
-  where $y=abcd$ and $x$ is the average of $b^2$ and $c^2$.
+% \begin{proof}
+%   Consider four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression, where $a$, $b$, $c$, and $d$ are assumed to be relatively prime numbers of the form $6k\pm 1$, and the step size is a number of the form $2n$ so that $n$ is divisible by $12$. As previously shown, we obtain a primitive Pythagorean triple
+%   \begin{equation*}
+%     y^2+(4n^2)^2=(x^2-5n^2)^2,
+%   \end{equation*}
+%   where $y=abcd$ and $x$ is the average of $b^2$ and $c^2$.
   
 
-  By averaging $b^2$ and $c^2$, we obtain a number $x$ such that
-  \begin{equation*}
-    a^2=x-3n,\qquad b^2=x-n,\qquad c^2=x+n,\qquad\text{and}\qquad d^2=x+3n.
-  \end{equation*}
-  Thus, the product of these four squares is of the form
-  \begin{equation*}
-    y^2=a^2b^2c^2d^2= (x^2-n^2)(x^2-9n^2).
-  \end{equation*}
-  By completing the square, we see that
-  \begin{equation*}
-    y^2=x^4-10n^2x^2+9n^4=(x^2-5n^2)^2-16n^4.
-  \end{equation*}
-  Thus we obtain a Pythagorean triple
-  \begin{equation*}
-    y^2+(4n^2)^2=(x^2-5n^2)^2.
-  \end{equation*}
-  Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. Thus there are relatively prime positive integers $2s$ and $t$ such that
-  \begin{equation*}
-    y=|t^2-4s^2|,\qquad 4n^2=4st,\qquad\text{and}\qquad x^2-5n^2=t^2+4s^2.
-  \end{equation*}
-  Since $n^2=st$ and $s$ and $t$ are relatively prime, it follows that $s=u^2$, $t=v^2$, and $uv=n$. We obtain that
-  \begin{equation*}
-    y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(v^2+4u^2)(v^2+u^2).
-  \end{equation*}
-\end{proof}
+%   By averaging $b^2$ and $c^2$, we obtain a number $x$ such that
+%   \begin{equation*}
+%     a^2=x-3n,\qquad b^2=x-n,\qquad c^2=x+n,\qquad\text{and}\qquad d^2=x+3n.
+%   \end{equation*}
+%   Thus, the product of these four squares is of the form
+%   \begin{equation*}
+%     y^2=a^2b^2c^2d^2= (x^2-n^2)(x^2-9n^2).
+%   \end{equation*}
+%   By completing the square, we see that
+%   \begin{equation*}
+%     y^2=x^4-10n^2x^2+9n^4=(x^2-5n^2)^2-16n^4.
+%   \end{equation*}
+%   Thus we obtain a Pythagorean triple
+%   \begin{equation*}
+%     y^2+(4n^2)^2=(x^2-5n^2)^2.
+%   \end{equation*}
+%   Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. Thus there are relatively prime positive integers $2s$ and $t$ such that
+%   \begin{equation*}
+%     y=|t^2-4s^2|,\qquad 4n^2=4st,\qquad\text{and}\qquad x^2-5n^2=t^2+4s^2.
+%   \end{equation*}
+%   Since $n^2=st$ and $s$ and $t$ are relatively prime, it follows that $s=u^2$, $t=v^2$, and $uv=n$. We obtain that
+%   \begin{equation*}
+%     y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(v^2+4u^2)(v^2+u^2).
+%   \end{equation*}
+% \end{proof}
 
 \begin{theorem}[Fermat--Euler]
   Every arithmetic progression of length four of the integer squares is constant.
 \end{theorem}
 
-\begin{proof}
-  Consider four squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression. Then there exist relatively prime positive integers $s<t$ of opposite parity and relatively prime positive integers $u,v$ of opposite parity such that
-  \begin{align*}
-    t^2+s^2 = b & = |2uv - v^2 + u^2|, \\
-    2st + t^2 - s^2 = c & = v^2+u^2.
-  \end{align*}
-  There are two cases to consider. If we assume that $2uv - v^2 + u^2$ is nonnegative, then adding and subtracting both sides from each other and dividing by $2$ give the identities
-  \begin{align*}
-    s(t-s) & = v(v-u), \\
-    t(t+s) & = u(v+u).    
-  \end{align*}
-  Those equations added together yield $b=s^2+t^2=u^2+v^2=c$, so that the arithmetic progression $(a^2,b^2,c^2,d^2)$ is shown to be constant.
+% \begin{proof}
+%   Consider four squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression. Then there exist relatively prime positive integers $s<t$ of opposite parity and relatively prime positive integers $u,v$ of opposite parity such that
+%   \begin{align*}
+%     t^2+s^2 = b & = |2uv - v^2 + u^2|, \\
+%     2st + t^2 - s^2 = c & = v^2+u^2.
+%   \end{align*}
+%   There are two cases to consider. If we assume that $2uv - v^2 + u^2$ is nonnegative, then adding and subtracting both sides from each other and dividing by $2$ give the identities
+%   \begin{align*}
+%     s(t-s) & = v(v-u), \\
+%     t(t+s) & = u(v+u).    
+%   \end{align*}
+%   Those equations added together yield $b=s^2+t^2=u^2+v^2=c$, so that the arithmetic progression $(a^2,b^2,c^2,d^2)$ is shown to be constant.
   
-  If, on the other hand, we assume that $2uv - v^2 +u^2$ is negative, then we obtain that
-  \begin{equation*}
-    2(t^2+s^2)^2 - (2st+t^2-s^2)^2
-  \end{equation*}
-  similarly the identities
-  \begin{align*}
-    s(t-s) & = u(v+u), \\
-    t(t+s) & = v(v-u).
-  \end{align*}
-  We claim that there are no solutions with $0<s<t$ and $0<u<v$ of this system of equations. The second equation is a quadratic equation in $t$, with discriminant $s^2+4v(v-u)$. Thus, if there is to be a solution to the given system of equations, each equation seen as a quadratic equation in one variable $s$, $t$, $u$, or $v$ must have a square discriminant:
-  \begin{align*}
-    t^2+4u(v+u) & = k^2, \\
-    u^2+4t(t+s) & = l^2, \\
-    s^2+4v(v-u) & = m^2, \\
-    v^2+4s(t-s) & = n^2, \\
-  \end{align*}
-  Notice that the first two equations are the same up to swapping the roles of $t$ and $u$ and the roles of $s$ and $v$. Likewise, the last two equations are the same up to a similar swap of variables.
-  \begin{equation*}
-    k^2-l^2 = t^2-u^2 + 4(u(v+u) - t(t+s)) = (t-u)(t+u)+ 4(t-u)(t+u+s) = t^2+ts-u^2-us
-  \end{equation*}
-\end{proof}
+%   If, on the other hand, we assume that $2uv - v^2 +u^2$ is negative, then we obtain that
+%   \begin{equation*}
+%     2(t^2+s^2)^2 - (2st+t^2-s^2)^2
+%   \end{equation*}
+%   similarly the identities
+%   \begin{align*}
+%     s(t-s) & = u(v+u), \\
+%     t(t+s) & = v(v-u).
+%   \end{align*}
+%   We claim that there are no solutions with $0<s<t$ and $0<u<v$ of this system of equations. The second equation is a quadratic equation in $t$, with discriminant $s^2+4v(v-u)$. Thus, if there is to be a solution to the given system of equations, each equation seen as a quadratic equation in one variable $s$, $t$, $u$, or $v$ must have a square discriminant:
+%   \begin{align*}
+%     t^2+4u(v+u) & = k^2, \\
+%     u^2+4t(t+s) & = l^2, \\
+%     s^2+4v(v-u) & = m^2, \\
+%     v^2+4s(t-s) & = n^2, \\
+%   \end{align*}
+%   Notice that the first two equations are the same up to swapping the roles of $t$ and $u$ and the roles of $s$ and $v$. Likewise, the last two equations are the same up to a similar swap of variables.
+%   \begin{equation*}
+%     k^2-l^2 = t^2-u^2 + 4(u(v+u) - t(t+s)) = (t-u)(t+u)+ 4(t-u)(t+u+s) = t^2+ts-u^2-us
+%   \end{equation*}
+% \end{proof}
 
-\section{The Congruent Number Problem}
+\section{The Congruent Number Problem (*)}
 
 Recall from \cref{sec:squares-in-aps} the challenge that Master John posed in the early 13th century to Leonardo Fibonacci: To find a rational number $q$ such that both
 \begin{equation*}
@@ -248,7 +248,13 @@ are both rational. Or equivalently, to find a Pythagorean triangle whose area is
   A positive integer $a$ is said to be a \emph{congruent number} if it occurs as the area of a right triangle with rational sides and rational hypotenuse.
 \end{definition}
 
-The following lemma rephrases the condition of being a congruent number in terms of Pythagorean triangles.
+From Fibonacci's solution to Master John's challenge we thus conclude that $5$ is a congruent number: The area of the rational right triangle with sides
+\begin{equation*}
+  a=\frac{3}{2},\qquad b=\frac{20}{3},\qquad\text{and}\qquad c=\frac{41}{6}.
+\end{equation*}
+is $5$.
+
+The number $6$ is also congruent since it is the area of the $(3,4,5)$-triangle. The following lemma rephrases the condition of being a congruent number in terms of Pythagorean triangles.
 
 \begin{lemma}\label{lemma:congruent-numbers}
   A number $n$ is congruent if and only if there is a primitive Pythagorean triangle whose area is $n$ times a square.
@@ -266,7 +272,7 @@ The following lemma rephrases the condition of being a congruent number in terms
   so that $(A,B,C)$ constitutes a Pythagorean triple whose area is $n$ times a square. By dividing out any common divisors, we obtain a primitive such Pythagorean triangle. Since this process is clearly reversible, this proves the claim.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{theorem:not-congruent-square}
   No square positive integer is a congruent number.
 \end{theorem}
 
@@ -276,7 +282,7 @@ The following lemma rephrases the condition of being a congruent number in terms
 
 We will show in the following theorem that the number $2$ is not congruent. The noncongruence of the number $3$ is stated as an exercise. Having the integers $1$, $2$, $3$, and $4$ ruled out as congruent numbers, we see indeed that $5$ is the least congruent number.
 
-\begin{theorem}
+\begin{theorem}\label{theorem:not-congruent-twice-square}
   If a positive integer is twice a square, then it isn't congruent.
 \end{theorem}
 
@@ -296,39 +302,27 @@ We will show in the following theorem that the number $2$ is not congruent. The 
   However, the integers $s$, $t$, and $t^2-s^2$ are all relatively prime, which implies that exactly one of them---either $s$ or $t$---is twice a square and the other two are squares.
 \end{proof}
 
-Determining which numbers are congruent turns out to be an incredibly difficult problem, which is still unsolved. This problem is called the \emph{congruent number problem}, and via Tunnell's theorem it has connections to the famous Birch and Swinnerton--Dyer conjecture.
+\begin{corollary}
+  No power of $2$ is congruent.
+\end{corollary}
+
+\begin{proof}
+  Any power of $2$ is either a square or twice a square, so it can't be congruent by \cref{theorem:not-congruent-square,theorem:not-congruent-twice-square}.
+\end{proof}
+
+Determining which numbers are congruent turns out to be an incredibly difficult problem, which is still unsolved. This problem is called the \emph{congruent number problem}, and via Tunnell's theorem it has connections to the famous Birch and Swinnerton-Dyer conjecture.
 
 \section{Vieta Jumping}
 
-Consider a polynomial with roots $a_1$, $a_2$, and $a_3$, i.e., the polynomial
+Vieta jumping is a problem-solving technique that builds on the observation that
 \begin{equation*}
-  (x-a_1)(x-a_2)(x-a_3).
+  (x-r)(x-s)=x^2-(r+s)x+rs.
 \end{equation*}
-If we expand this polynomial, it takes the form
+We saw in \cref{theorem:vieta-formulas-quadratic} that if $r$ is a root of a monic polynomial $x^2-Bx+C$, then the other root $s$ satisfies
 \begin{equation*}
-  x^3-(a_1+a_2+a_3)x^2+(a_1a_2+a_2a_3+a_3a_1)x-a_1a_2a_3.
+  s=B-r=\frac{C}{s}.
 \end{equation*}
-François Vi\`ete recognized in the 16th century that this yields a relation between the coefficients and the roots of a monic polynomial, i.e., a polynomial with leading coefficient $1$. In the case of a monic polynomial $x^3+c_2x^2+c_1x+c_0$ with roots $a_1$, $a_2$, and $a_3$, we get
-\begin{align*}
-  c_2 & = -(a_1+a_2+a_3) \\
-  c_1 & = a_1a_2+a_1a_3+a_2a_3 \\
-  c_0 & = -a_1a_2a_3.
-\end{align*}
-
-More generally, the coefficients of the polynomial
-\begin{equation*}
-  f(x)=(x-a_1)\cdots (x-a_n)
-\end{equation*}
-are of the form
-\begin{equation*}
-  e_k(a_1,\ldots,a_n):=\sum_{1\leq i_1<i_2<\cdots<i_k\leq n}a_{i_1}a_{i_2}\cdots a_{i_k}.
-\end{equation*}
-Notice that these coefficients are themselves polynomials in the variables $a_1,\ldots,a_n$. These polynomials are called the \emph{elementary symmetric polynomials}. For example, for $n=3$ we have
-\begin{equation*}
-  f(x)=x^3-(a_1+a_2+a_3)x^2+(a_1a_2+a_1a_3+a_2a_3)x-a_1a_2a_3.
-\end{equation*}
-
-Vieta jumping is a modern problem-solving technique that became popular in international contest problems.
+Thus, if we know one root of a quadratic polynomial then we can easily `jump' to the other root using one the above formulas. Vieta jumping became a popular problem-solving technique for international contests such as the International Mathematics Olympiad.
 
 \begin{example}
   In \cref{exercise:div-product-sum-of-squares} you were asked to show that for any two positive integers $x$ and $y$ such that $xy\mid x^2+y^2$, we must have $x=y$. The expected solution was to observe that the discriminant of the quadratic equation $x^2-kxy+y^2=0$ seen as an equation in one variable $x$ and a parameter $y$ is $(ky)^2-4y^2$, which is a square if and only if $k=2$. Although this problem can readily be solved directly, we will use it here to illustrate Vieta jumping.
@@ -351,21 +345,12 @@ Vieta jumping is a modern problem-solving technique that became popular in inter
 \end{example}
 
 \begin{exercises}
-  \exercise Use the method of infinite descent to show that if $a$ and $b$ are relatively prime and the product $ab$ is a square, then both $a$ and $b$ are squares.
-  \exercise Show that there are no positive integer squares of the form
-  \begin{equation*}
-    x^2+xy+y^2.
-  \end{equation*}
-  \exercise Show that there are no positive integer squares of the form
-  \begin{equation*}
-    2x^2+2xy+2y^2.
-  \end{equation*}
-  \exercise Show that there are no integer solutions to the equation
+  \exercise Use the method of infinite descent to show that there are no integer solutions to the equation
   \begin{equation*}
     x^2+y^2=3t^2
   \end{equation*}
   such that $t>0$.
-  \exercise Show that there are no integer solutions to the equation
+  \exercise Use the method of infinite descent to show that there are no integer solutions to the equation
   \begin{equation*}
     x^2+y^2+z^2=7t^2
   \end{equation*}
@@ -374,7 +359,19 @@ Vieta jumping is a modern problem-solving technique that became popular in inter
   \begin{equation*}
     x^2-xy+y^2=1.
   \end{equation*}
-  Prove that $x=y=1$.
+  \begin{subexenum}
+  \item Use the determinant $y^2-4(y^2-1)$ to give a direct proof that the only solution is $x=y=1$.
+  \item Find a second proof by Vieta jumping that $x=y=1$.
+  \end{subexenum}
+  \exercise Use the method of infinite descent to show that if $a$ and $b$ are relatively prime and the product $ab$ is a square, then both $a$ and $b$ are squares.
+  % \exercise Show that there are no positive integer squares of the form
+  % \begin{equation*}
+  %   x^2+xy+y^2.
+  % \end{equation*}
+  \exercise Show that there are no positive integer squares of the form
+  \begin{equation*}
+    2x^2+2xy+2y^2.
+  \end{equation*}
   \exercise Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2+1$, then
   \begin{equation*}
     \frac{x^2+y^2+1}{xy}=3.

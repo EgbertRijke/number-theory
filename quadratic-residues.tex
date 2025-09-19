@@ -404,6 +404,11 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
     to show that there is a prime $q\equiv 1\pmod{5}$ that is not already among the primes $p_1,\ldots,p_k$. Conclude that there are infinitely many primes congruent to $1$ modulo $5$.
   \end{subexenum}
   \exercise Show that the polynomial $n^2-79n+1601$ returns primes for all $0\leq n\leq 79$.
+  \exercise
+  \begin{subexenum}
+  \item Consider a prime $p\equiv 1\pmod{4}$. Show that $g$ is a primitive root modulo $p$ if and only if $-g$ is a primitive root modulo $p$.
+  \item Consider a prime $p\equiv 3\pmod{4}$. Show that $g$ is a primitive root modulo $p$ if and only if $-g$ has order $(p-1)/2$ modulo $p$.
+  \end{subexenum}
   \exercise Consider an odd prime $p$. Show that there are exactly
   \begin{equation*}
     \frac{(p-1)p^{m}}{2}
@@ -411,6 +416,17 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
   quadratic residues modulo $p^{m+1}$ that are not divisible by $p$.
   \exercise Consider an odd prime $p$ and two positive integers $m$ and $n$. Show that any number $a$ not divisible by $p$ is a quadratic residue modulo $p^m$ if and only if it is a quadratic residue modulo $p^n$.
   \exercise Consider an integer $a$ and a prime $p$. Show that $-a$ is a quadratic residue modulo $p$ if and only if $p$ divides a number of the form $x^2+ay^2$.
+  \exercise Recall that a Fermat prime is a prime of the form $F_n:=2^{2^n}+1$. Show that the following are equivalent for a prime number $p$:
+  \begin{enumerate}
+  \item The prime $p$ is a Fermat prime.
+  \item Every quadratic nonresidue modulo $p$ is a primitive root.
+  \end{enumerate}
+  \exercise Recall that a prime $p$ is said to be a Sophie Germain prime if the number $q=2p+1$ is prime.
+  \begin{subexenum}
+  \item Show that $p$ is a Sophie Germain prime if and only if every quadratic nonresidue modulo $q$ apart from $-1$ is a primitive root modulo $q$.
+  \item Show that if $p\equiv 1\pmod{4}$ is a Sophie Germain prime, then $2$ is a primitive root modulo $q$.
+  \item Show that if $p\equiv 3\pmod{4}$ is a Sophie Germain prime, then $-2$ is a primitive root modulo $q$.
+  \end{subexenum}  
 \end{exercises}
 
 %%% Local Variables:

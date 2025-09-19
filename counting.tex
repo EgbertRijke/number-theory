@@ -1,12 +1,24 @@
 \chapter{Counting}\label{chapter:combinatorial-methods}
 
-Combinatorics, or discrete mathematics, is mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Sometimes, counting methods can be used to obtain results in number theory. In this lecture we will use a combinatorial argument to show that the product
-\begin{equation*}
-  n(n+1)\cdots(n+k-1)
-\end{equation*}
-of any $k$ consecutive natural numbers is always divisible by $k!$. We will also establish the binomial theorem, which has a myriad of applications throughout mathematics.
+\section{Hume's Principle}
 
-\section{The Standard Finite Sets}
+Combinatorics, or discrete mathematics, is the mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Such counting methods can sometimes be used to obtain results in number theory. For instance, we will use a counting argument to show that the product
+\begin{equation*}
+  n(n-1)\cdots(n-k+1)
+\end{equation*}
+of any $k$ consecutive natural numbers is always divisible by $k!$.
+
+We will begin by investigating more conceptually what mathematicians mean by counting, and work towards Hume's principle. David Hume stated this principle in Part III of Book I of his \emph{Treatise of Human Nature}, a philosphical work in which he set out to found a general ``science of man'' by applying empirical methods to understanding, the passions, and morals \cite{hume1978}. In discussing the idea of number, he observes that equality of numbers can be determined whenever there is a one-to-one correspondence between their constituents:
+\begin{quote}
+  {\itshape We are possest of a precise standard, by which we can judge
+    of the equality and proportion of numbers; and according as they correspond
+    or not to that standard, we determine their relations, without any
+    possibility of error. When two numbers are so combin’d, as that the one has
+    always an unite answering to every unite of the other, we pronounce them
+    equal; and ’tis for want of such a standard of equality in extension, that
+    geometry can scarce be esteem’d a perfect and infallible science.}
+\end{quote}
+We note here that Hume relies on the Euclidean conception of number, where a number is a multitude of units: the number $n$ is the collection of $n$ units. By contrast, in modern mathematics we treat the natural numbers as an inductively generated set. To recover Hume’s insight in our setting, we introduce the notion of a standard $n$-element set, which is to be a fixed set with exactly $n$ elements playing the role of Euclid’s collection of $n$ units.
 
 \begin{definition}
   The \emph{standard finite set} $[n]$ with $n$ elements is defined by
@@ -15,23 +27,270 @@ of any $k$ consecutive natural numbers is always divisible by $k!$. We will also
   \end{equation*}
 \end{definition}
 
-We now turn to the question of formally defining the process of counting. What does it mean when we say that a set $X$ has $n$ elements? It means that we can, at least in principle, label each element of $X$ with a number $0\leq i<n$ in such a way that every number $0\leq i<n$ is used at least once, and that no two elements of $X$ got assigned the same number.
+The standard $0$-element set $[0]$ is the empty set, since there are no natural numbers strictly smaller than $0$. The standard $1$-element set is the set $\{0\}$, since $0$ is the only element strictly smaller than $1$. The standard $2$-element set is the set $\{0,1\}$, since the only two elements strictly smaller than $2$ are $0$ and $1$, and so forth.
+
+Suppose now that we are given an arbitrary set $A$, and we wish to count its elements. What does it mean when we say that the set $A$ has $n$ elements? It means that we can, at least in principle, label each element of $A$ with a number $0\leq i<n$ in such a way that every element of $A$ is labeled by \emph{exactly one} number $0\leq i<n$. By making sure that every element of $A$ is labeled \emph{at least once} we make sure that every element of $A$ is accounted for, and by making sure that every element of $A$ is labeled \emph{at most once} we make sure to not overshoot the count.
+
+Thus, in order to show that the set $A$ has $n$ elements, we have to create what is called a \emph{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    % local styles
+    element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
+    set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+    arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
+    underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
+    ]
+    
+    % Left set (domain)
+    \node[set,label=left:$A$] (A) at (0,0) {};
+    \node[element] (a1) at ($(A.center)+(0,1.2)$) {$a_1$};
+    \node[element] (a2) at ($(A.center)+(0,0)$) {$a_2$};
+    \node[element] (a3) at ($(A.center)+(0,-1.2)$) {$a_3$};
+    
+    % Right set (codomain)
+    \node[set,label=right:$B$] (B) at (5,0) {};
+    \node[element] (b1) at ($(B.center)+(0,1.2)$) {$b_1$};
+    \node[element] (b2) at ($(B.center)+(0,0)$) {$b_2$};
+    \node[element] (b3) at ($(B.center)+(0,-1.2)$) {$b_3$};
+    
+    % Bijection arrows
+    \draw[underpass] (a1) to (b2);
+    \draw[arrow] (a1) to (b2);
+    \draw[underpass] (a2) to (b3);
+    \draw[arrow] (a2) to (b3);
+    \draw[underpass] (a3) to (b1);
+    \draw[arrow] (a3) to (b1);
+    
+  \end{tikzpicture}
+  \caption[A bijection]{\label{figure:bijection}A bijection between two $3$-element sets.}
+\end{figure}
 
 \begin{definition}
-  A function $f:X\to Y$ is said to be a \emph{bijection} if for every $y\in Y$, the set
+  A function $f:X\to Y$ is said to be a \emph{bijection} if for every $y\in Y$ there is exactly one element $x\in X$ such that $f(x)=y$. The set of bijections from $X$ to $Y$ is denoted by
   \begin{equation*}
-    \{x\in X\mid f(x)=y\}
+    X\cong Y.
   \end{equation*}
-  consisting of all elements $x\in X$ with value $f(x)=y$ has exactly one element. Some authors call bijections \emph{one-to-one correspondences}.
+  Furthermore, we say that $X$ is an $n$-element set if there exists a bijection $[n]\cong X$.
 \end{definition}
+
+\begin{figure}[t]
+  \centering
+  \begin{minipage}{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[
+      % local styles
+      element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
+      set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+      arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
+      underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
+      ]
+      
+      % Left set (domain)
+      \node[set,label=left:$A$] (A) at (0,0) {};
+      \node[element] (a1) at ($(A.center)+(0,1.2)$) {$a_1$};
+      \node[element] (a2) at ($(A.center)+(0,0)$) {$a_2$};
+      \node[element] (a3) at ($(A.center)+(0,-1.2)$) {$a_3$};
+      
+      % Right set (codomain)
+      \node[set,label=right:$B$] (B) at (3,0) {};
+      \node[element] (b1) at ($(B.center)+(0,0.6)$) {$b_1$};
+      \node[element] (b2) at ($(B.center)+(0,-0.6)$) {$b_2$};
+      
+      % Bijection arrows
+      \draw[underpass] (a1) to (b1);
+      \draw[arrow] (a1) to (b1);
+      \draw[underpass] (a2) to (b2);
+      \draw[arrow] (a2) to (b2);
+      \draw[underpass] (a3) to (b1);
+      \draw[arrow] (a3) to (b1);
+      
+    \end{tikzpicture}
+    \captionof{figure}[Not a bijection]{\label{figure:not-bijection-1}This function is not a bijection since $b_1$ is the value of the distinct elements $a_1$ and $a_3$.}
+  \end{minipage}\hspace{.1\textwidth}
+  \begin{minipage}{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[
+      % local styles
+      element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
+      set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+      arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
+      underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
+      ]
+      
+      % Left set (domain)
+      \node[set,label=left:$A$] (A) at (0,0) {};
+      \node[element] (a1) at ($(A.center)+(0,1.2)$) {$a_1$};
+      \node[element] (a2) at ($(A.center)+(0,0)$) {$a_2$};
+      \node[element] (a3) at ($(A.center)+(0,-1.2)$) {$a_3$};
+      
+      % Right set (codomain)
+      \node[set,label=right:$B$] (B) at (3,0) {};
+      \node[element] (b1) at ($(B.center)+(0,1.2)$) {$b_1$};
+      \node[element] (b2) at ($(B.center)+(0,0.4)$) {$b_2$};
+      \node[element] (b3) at ($(B.center)+(0,-0.4)$) {$b_3$};
+      \node[element] (b4) at ($(B.center)+(0,-1.2)$) {$b_4$};
+      
+      % Bijection arrows
+      \draw[underpass] (a1) to (b2);
+      \draw[arrow] (a1) to (b2);
+      \draw[underpass] (a2) to (b3);
+      \draw[arrow] (a2) to (b3);
+      \draw[underpass] (a3) to (b1);
+      \draw[arrow] (a3) to (b1);
+      
+    \end{tikzpicture}
+    \captionof{figure}[Not a bijection]{\label{figure:not-bijection-2}This function is not a bijection since $b_4$ is not the value of any element in $A$.}    
+  \end{minipage}
+\end{figure}
+In \cref{figure:bijection} we displayed an example of a bijection between two $3$-element sets. Note that such a bijection would not exist between $A$ and $B$ if the number of elements in $B$ was different from three. If $B$ had fewer than $3$ elements, as shown in \cref{figure:not-bijection-1}, then any function $f:A\to B$ would necessarily repeat a value, while if $B$ had more than $3$ elements, as shown in \cref{figure:not-bijection-2}, then no function $f:A\to B$ could have all the elements of $B$ in its range.
+
+This is precisely the reason why we are interested in bijections: If there is a bijection between $A$ and $B$, then they must have the same number of elements. The principle that any two finite sets have the same number of elements if and only if there is a bijection between them is \emph{Hume's Principle}.
+
+In order to prove Hume's principle more formally, we need two lemmas. The first is an abstract lemma that asserts that two bijections $f:A\cong B$ and $g:B\cong C$ can be composed into a bijection $g\circ f:A\cong C$. The second is a self-evident looking lemma that establishes that if $A$ is an $(n+1)$-element set and $a\in A$, then the set $A\setminus\{a\}$ consisting of all elements of $A$ except $a$ is an $n$-element set. Indeed, such a lemma also requires proof.
+
+Before we state the composability of bijections, a few comments about how to prove that a function is a bijection and how to use the assumption that a function is a bijection are in order.
+
+\emph{Proving that $f:X\to Y$ is a bijection}. The condition that a function $f:X\to Y$ is a bijection states that for every element $y\in Y$ there is a unique element $x\in X$ such that $f(x)=y$. Such unique existence properties have two parts: first we have to show that there indeed exists at least one such $x$, and second we have to show that it is unique. For the second part, we assume that if both $x$ satisfies $f(x)=y$ and $x'$ satisfies $f(x')=y$, then we must have $x=x'$.
+
+\emph{Using the condition that $f:X\to Y$ is a bijection}. If we assume that $f:X\to Y$ is a bijection, then we have for every $y\in Y$ access to an element $x\in X$ such that $f(x)=y$. Furthermore, for every $x'\in X$ such that $f(x')=y$ we know that the equality $x=x'$ must hold, which we may use if it helps us in our proof.
+
+\begin{figure}[b]
+  \centering
+  \begin{tikzpicture}[
+    % local styles
+    element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
+    set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+    arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
+    underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
+    ]
+    
+    \node[set,label=left:$A$] (A) at (0,0) {};
+    \node[element] (a1) at ($(A.center)+(0,1.2)$) {$a_1$};
+    \node[element] (a2) at ($(A.center)+(0,0)$) {$a_2$};
+    \node[element] (a3) at ($(A.center)+(0,-1.2)$) {$a_3$};
+    
+    \node[set,label=right:$B$] (B) at (4,0) {};
+    \node[element] (b1) at ($(B.center)+(0,1.2)$) {$b_1$};
+    \node[element] (b2) at ($(B.center)+(0,0)$) {$b_2$};
+    \node[element] (b3) at ($(B.center)+(0,-1.2)$) {$b_3$};
+
+    \node[set,label=right:$C$] (C) at (8,0) {};
+    \node[element] (c1) at ($(C.center)+(0,1.2)$) {$c_1$};
+    \node[element] (c2) at ($(C.center)+(0,0)$) {$c_2$};
+    \node[element] (c3) at ($(C.center)+(0,-1.2)$) {$c_3$};
+
+    % Bijection arrows
+    \draw[underpass] (a1) to (b2);
+    \draw[arrow] (a1) to (b2);
+    \draw[underpass] (a2) to (b3);
+    \draw[arrow] (a2) to (b3);
+    \draw[underpass] (a3) to (b1);
+    \draw[arrow] (a3) to (b1);
+    \draw[underpass] (b1) to (c2);
+    \draw[arrow] (b1) to (c2);
+    \draw[underpass] (b2) to (c1);
+    \draw[arrow] (b2) to (c1);
+    \draw[underpass] (b3) to (c3);
+    \draw[arrow] (b3) to (c3);
+    
+  \end{tikzpicture}
+  \caption[Composition of bijections]{\label{figure:bijection}Composition of bijections between 3-element sets.}
+\end{figure}
+
+\begin{lemma}
+  Consider two bijections $f:A\cong B$ and $g:B\cong C$. Then the function $g\circ f$ defined by $a\mapsto g(f(a))$ is also a bijection.
+\end{lemma}
+
+\begin{proof}
+  We have to show that for every element $z\in C$ there is exactly one element $x\in A$ such that $g(f(x))=z$.
+
+  Since $g$ is assumed to be a bijection, there is exactly one element $y\in B$ such that $g(y)=z$. Furthermore, since $f$ is assumed to be a bijection there is exactly one element $x\in A$ such that $f(x)=y$. For such $x$, we have
+  \begin{equation*}
+    g(f(x))=g(y)=z.
+  \end{equation*}
+  Thus we have shown that there is at least one such element $x$.
+
+  To see that there is at most one, let $x'\in A$ be such that $g(f(x'))=z$. Since both $g(f(x))=z$ and $g(f(x'))=z$ it follows from the assumption that $g$ is a bijection that $f(x)=f(x')$. However, this shows that $x$ and $x'$ have the same value, which implies that $x=x'$ by the assumption that $f$ is a bijection. This completes the proof that the element $x\in A$ is the only element of $A$ mapping to $z$.
+\end{proof}
+
+\begin{lemma}
+  Consider an $(n+1)$-element set $A$ equipped with an element $a$. Then the set
+  \begin{equation*}
+    A\setminus\{a\}:=\{x\in A\mid x\neq a\}
+  \end{equation*}
+  is an $n$-element set.
+\end{lemma}
+
+\begin{proof}
+  Suppose $f:[n+1]\to A$ is a bijection. Then there is a unique element $x<n+1$ such that $f(x)=a$. We will first construct a bijection $h:[n+1]\to[n+1]$ such that $h(n)=x$. Once we have such a bijection, it follows that $f\circ h:[n+1]\to A$ is a bijection such that $f(h(n))=a$, which will allow us to make progress.
+
+  The bijection $h$ is defined by swapping the elements $n$ and $x$:
+  \begin{equation*}
+    h(y) :=
+    \begin{cases}
+      x & \text{if $y=n$},\\
+      n & \text{if $y=x$},\\
+      y & \text{otherwise}.
+    \end{cases}
+  \end{equation*}
+  The fact that $h$ is a bijection follows by case analysis on $y$: If $y=n$ then the only element mapping to $y$ is $x$; if $y=x$ then the only element mapping to $y$ is $n$, and otherwise the only element mapping to $y$ is $y$ itself.
+
+  Now, since we have a bijection $g:=f\circ h:[n+1]\to[n+1]$ such that $g(n)=a$, it follows that the restriction of $g$ to the set $[n]$ is a bijection from $[n]$ to $A\setminus\{a\}$.
+\end{proof}
+
+\begin{theorem}[Hume's Principle]
+  Consider an $m$-element set $A$ and an $n$-element set $B$. Then there exists a bijection between $A$ and $B$ if and only if $m=n$.
+\end{theorem}
+
+\begin{proof}
+  The claim has two directions. In the forward direction, we have to show that if there is a bijection $A\cong B$, then $m=n$. In the reverse direction we have to show that if $m=n$, then there is a bijection $A\cong B$. The reverse direction is direct, so we do it first.
+
+  Suppose that $m=n$. This implies that $[m]=[n]$, which in particular implies that there is a bijection $[m]\cong[n]$. Since $A$ is an $m$-element set, there exists a bijection $[m]\cong A$, and since $B$ is an $n$-element set, there is a bijection $[n]\cong B$. Chaining these bijections gives
+  \begin{equation*}
+    A\cong [m]\cong[n]\cong B.
+  \end{equation*}
+  In other words, the composite of all these bijections results in a bijection $A\cong B$. This completes the reverse direction of the claim.
+  
+  The proof of the forward direction is by induction on $m$. For the base case, if $m=0$ it follows that $A$ is empty. This implies that $n$ is not nonzero. Indeed, if $n$ were nonzero, then $B$ would have an element, which would correspond to a unique element in $A$, which does not exist. Thus we conclude that $n=0$, and hence that $m=n$.
+
+  Now assume that for any $m$-element set $A$ with a bijection into an $n$-element set $B$, we have $m=n$. Our goal is to show that if $A$ is an $(m+1)$-element set with a bijection into an $n$-element set $B$, then $m+1=n$. Note that $n>0$, since $A$ has at least one element. Thus, we can write $n=n'+1$. Furthermore, given an element $a\in A$, we obtain $f(a)\in B$. Then the bijection $f$ restricts to a bijection
+  \begin{equation*}
+    (A\setminus \{a\})\cong (B\setminus\{f(a)\})
+  \end{equation*}
+  between an $m$-element set and an $n'$-element set. By the inductive hypothesis, this implies that $m=n'$ and thus we conclude that $m+1=n'+1=n$.
+\end{proof}
+
+\section{Equivalent Ways of Defining Bijections}
+
+We have defined bijections to be functions $f:X\to Y$ such that for every $y\in Y$ there exists exactly one element $x\in X$ such that $f(x)=y$. The unique existence of such an element $x$ can be broken down in two parts: existence and uniqueness. This suggests that also the definition of bijectivity can be broken down in two parts. This is indeed the case, and both concepts turn out to be useful.
+
+\begin{definition}
+  A function $f:X\to Y$ is said to be \emph{surjective} if for every $y\in Y$ there exists an element $x\in X$ such that $f(x)=y$.
+
+  A function $f:X\to Y$ is said to be \emph{injective} if for every $y\in Y$ there is at most one element $x\in X$ such that $f(x)=y$.
+\end{definition}
+
+Thus, a function $f:X\to Y$ is surjective if every element of $Y$ is a value of $f$. The function shown in \cref{figure:not-bijection-1} is an example of a surjective function.
+
+Likewise, a function $f:X\to Y$ is injective if the function $f$ does not repeat values. Another way of stating the condition that $f$ is injective is by the condition
+\begin{equation*}
+  (f(x)=f(y))\Rightarrow (x=y),
+\end{equation*}
+which states that if two elements $x$ and $y$ have the same value under $f$, then they must be the same. The function shown in \cref{figure:not-bijection-2} is an example of an injective function.
+
+An immediate corollary of these definitions is that a function is a bijection if and only if it is both surjective and injective. Indeed, many authors take this as the definition of bijections. The concept of bijection is also closely related to the concept of \emph{invertible function}.
 
 \begin{definition}
   A function $f:X\to Y$ is said to be \emph{invertible} if there is a function $g:Y\to X$ such that
   \begin{equation*}
     f(g(y))=y \qquad\text{and}\qquad g(f(x))=x
   \end{equation*}
-  for every $x\in X$ and $y\in Y$.
+  for every $x\in X$ and $y\in Y$. Such a function $g$ is called an \emph{inverse} of $f$.
 \end{definition}
+
+The idea behind the concept of invertible functions is that mapping an element via an invertible function can be undone by means of a function in the reverse direction. Thus, if $f:X\to Y$ is an invertible function with inverse $g:Y\to X$, then if we map an element $x\in X$ to $f(x)\in Y$, we can undo this by mapping it back to $g(f(x))\in X$ which is equal to $x$. Furthermore, the function $f$ is also inverse to the function $g$ so that if we map an element $y\in Y$ to $g(y)\in X$, we can undo this by mapping it back to $f(g(y))\in Y$ which is equal to $y$.
 
 \begin{theorem}
   A function $f:X\to Y$ is a bijection if and only if it is invertible.
@@ -61,26 +320,19 @@ We now turn to the question of formally defining the process of counting. What d
 
 \section{Counting Bijections}
 
+Recall that the set $[n]$ consists of all natural numbers strictly smaller than $n$. That is, the set $[n]$ is the set $\{0,\ldots,n-1\}$. If $n=0$ this set is understood to be empty. Assuming that $n>0$, the largest element of $[n]$ is therefore $n-1$.
+
+Intuitively, a bijection from $[n]$ to $[n]$ is determined, at least for $n>0$, by first specifying the value of the largest element $n-1$, which may be any element $x<n$, and second by picking a bijection $[n-1]\cong[n]\setminus\{x\}$
+
 \begin{definition}
-  A function $f:A \to B$ is said to be a \emph{bijection} if for every $y\in B$, the \emph{preimage} of $b$
-\begin{equation*}
-  f^{-1}(y) := \{x\in A\mid f(x)=y\}
-\end{equation*}
-has exactly one element. We write $A\cong B$ for the set of bijections from $A$ to $B$.
+  The \define{factorial function} $n\mapsto n!$ is defined recursively by
+  \begin{align*}
+    0! & := 1, \\
+    (n+1)! & := n!(n+1).
+  \end{align*}  
 \end{definition}
 
-A function $f:A \to B$ is a bijection precisely when it is \emph{invertible} in the sense that there is a function $g:B\to A$ such that $f\circ g=\mathrm{id}_B$ and $g\circ f=\mathrm{id}_A$. Here, the composite $g\circ f$ of $g$ and $f$ is the function $x\mapsto g(f(x))$ defined by applying $g$ to the value $f(x)$ of $f$ at the input variable $x$.
-
-The \define{factorial function} $n\mapsto n!$ is defined recursively by
-  \begin{align*}
-    0! & := 1 \\
-    (n+1)! & := n!(n+1).
-  \end{align*}
-  In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set}
-  \begin{equation*}
-    [n] := \{0,\ldots,n-1\}.
-  \end{equation*}
-  is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
+In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set} is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
   
 \begin{proposition}
   The number of bijections $[n]\cong [n]$ from the standard $n$-element set to itself is exactly $n!$.
@@ -152,11 +404,11 @@ The terms from $1/0!$ to $1/5!$ add up to $2+\frac{86}{120}\approx 2.71\cdots$, 
 
 \section{Counting Subsets}
 
-A subset $A$ of a set $X$ is a set consisting entirely of elements of $X$. Subsets may be empty or they may contain all elements of $X$. When $A$ is a subset of $X$, we write
+A subset $A$ of a set $X$ is a set consisting entirely of elements of $X$. Subsets may be empty, they may contain some elements of $X$, or they may also contain all elements of $X$. When $A$ is a subset of $X$, we write
 \begin{equation*}
   A\subseteq X.
 \end{equation*}
-Subsets of $X$ can be formed using predicates over the elements of $X$. Predicates are propositions or conditions about indeterminate elements. For example, the predicate that $n$ is an even natural number is a predicate with the indeterminate natural number $n$. This predicate determines the subset of all even natural numbers
+Subsets of $X$ can be formed using \emph{predicates} over the elements of $X$. Predicates are propositions or conditions about indeterminate elements. For example, the assertion that $n$ is an even natural number is a predicate with the indeterminate natural number $n$. This predicate determines the subset of all even natural numbers
 \begin{equation*}
   0,2,4,6,\ldots.
 \end{equation*}
@@ -170,11 +422,11 @@ For example, the set of even natural numbers can be written in set-builder notat
 \end{equation*}
 Here, the condition that $n$ is even could also be expressed through the logical formula
 \begin{equation*}
-  \exists_{(k\in\mathbb{N})}2k=n
+  \exists_{(k\in\mathbb{N})}2k=n,
 \end{equation*}
 asserting that there exists a natural number $k$ such that the number $2k$ is equal to the number $n$. Nevertheless, we often find ourself preferring expressions in natural language that convey the intended meaning more easily.
 
-To avoid any complications of constructive logic, we shall assume that all predicates are decidable, meaning that for every predicate $P(x)$ on the indeterminate element $x$ and for any element $a$, we can decide whether or not the property $P(a)$ holds. The typical predicates of concern in elementary number theory, until the real and complex numbers are considered, are indeed decidable.
+To avoid any complications of constructive logic, we shall assume that all predicates are decidable, meaning that for every predicate $P(x)$ on the indeterminate element $x$ and for any element $a$, we can decide whether or not the property $P(a)$ holds. The typical predicates of concern in elementary number theory, until the real and complex numbers are considered, are indeed provably decidable.
 
 Subsets of a finite set $X$ are determined by a function $X\to \{0,1\}$. Indeed, given a subset $A$ of $X$, we define its \emph{characteristic function} $\chi_A$ by
 \begin{equation*}
@@ -196,7 +448,7 @@ Knowing that the total number of subsets of an $n$-element set is $2^n$, we now 
 \begin{equation*}
   \{1,2\},~\{1,3\},~\{1,4\},~\{2,3\},~\{2,4\},~\text{and}~\{3,4\}.
 \end{equation*}
-The binomial coefficients are introduced precisely to answer this question for generela $n$ and $k$.
+The binomial coefficients are introduced precisely to answer this question for general $n$ and $k$.
 
 \begin{definition}
   The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
@@ -243,7 +495,7 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
       \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
     }
   \end{tikzpicture}
-  \caption[Pascal's triangle]{\label{figure:pascals-triangle}Pascal's triangle.}
+  \caption[Pascal's triangle]{\label{figure:pascals-triangle}Pascal's triangle. Counting from $0$ from the top, the $k$th entry in the $n$th row is the binomial coefficient $\binom{n}{k}$.}
 \end{figure}
 
 \begin{theorem}
@@ -265,23 +517,41 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
   \end{equation*}
 \end{proof}
 
+Next, we turn to the question of proving that any product of $k$ consecutive natural numbers in descending order
+\begin{equation*}
+  n(n-1)\cdots (n-k+1)
+\end{equation*}
+is divisible by $k!$. Such products are called \emph{falling factorials}.
+
 \begin{definition}
-  We define the set $P_S(k)$ of $k$-permutations of a set $S$ recursively by:
+  Let $k$ and $n$ be natural numbers such that $k\leq n$. The \emph{$k$th falling factorial} of $n$ is the number
+  \begin{equation*}
+    n_{k}:=n(n-1)\cdots (n-k+1).
+  \end{equation*}
+\end{definition}
+
+The $0$th falling factorial requires some explanation. It is the product of $0$ consecutive integers going down from $n$. The product of no numbers is an empty product, which is $1$ by definition. Thus, we have
+\begin{equation*}
+  n_0=1.
+\end{equation*}
+From here on, the falling factorials are less tricky: The first falling factorial of $n$ is $n_1=n$, the second falling factorial of $n$ is $n_2=n(n-1)$, the third falling factorial of $n$ is $n_3=n(n-1)(n-2)$, and so on.
+
+We will prove that the falling factorial $n_{k}$ is divisible by the factorial $k!$ using a combinatorial argument, by first establishing that the falling factorials $n_{k}$ count something called \emph{$k$-permutations}. A $k$-permutation of $n$ is essentially a list of length $k$ of nonrepeating elements of the set $[n]$.
+
+\begin{definition}
+  We define the set $P_k(S)$ of \emph{$k$-permutations} of a set $S$ recursively by:
   \begin{enumerate}
-  \item The set $P_S(0)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
-  \item The set $P_S(k+1)$ of $(k+1)$-permutations of $S$ is the set
+  \item The set $P_0(S)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
+  \item The set $P_{k+1}(S)$ of $(k+1)$-permutations of $S$ is the set
     \begin{equation*}
-      \{(s,t) \mid s\in S,\ t\in P_{S\setminus\{s\}}(r)\}
+      \{(s,t) \mid s\in S,\ t\in P_r(S\setminus\{s\})\}
     \end{equation*}
     of pairs $(s,t)$ consisting of an element in $S$ and an $k$-permutation of the set $S\setminus\{s\}$.
   \end{enumerate}
 \end{definition}
 
 \begin{lemma}
-  The number of $k$-permutations of an $n$-element set $S$ is the number $\rpermutation{n}{k}$ defined by
-  \begin{equation*}
-    \rpermutation{n}{k} := n(n-1)\cdots(n-k+1).
-  \end{equation*}
+  The number of $k$-permutations of an $n$-element set $S$ is $n_k$.
 \end{lemma}
 
 \begin{proof}
@@ -306,7 +576,7 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
 \end{proof}
 
 \begin{proposition}
-  The product $n(n-1)\cdots(n-k+1)$ of any $k$ consecutive numbers is divisible by $k!$.
+  The falling factorial $n_k$ is divisible by $k!$.
 \end{proposition}
 
 \begin{proof}
@@ -316,20 +586,23 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
   \end{equation*}
   These two sets therefore have the same number of elements. Thus, it follows that
   \begin{equation*}
-    n(n-1)\cdots(n-k+1) = \binom{n}{k}\cdot k!,
+    n_k = \binom{n}{k}\cdot k!,
   \end{equation*}
   showing that the left-hand side is divisible by $k!$.
 \end{proof}
 
 \begin{corollary}
-  \emph{Formula for binomial coefficients.} For any two natural numbers $n$ and $k$, we have
+  \emph{Formula for binomial coefficients.} For any two natural numbers $n$ and $k$ such that $k\leq n$, we have
   \begin{equation*}
     \binom{n}{k}=\frac{n!}{k!(n-k)!}.
   \end{equation*}
 \end{corollary}
 
 \begin{proof}
-  By the previous proposition we have $\binom{n}{k}\cdot k!= \rpermutation{n}{k}= n!/k!$.
+  By the previous proposition we have
+  \begin{equation*}
+    \binom{n}{k}\cdot k!= n_k = \frac{n!}{(n-k)!}. \qedhere
+  \end{equation*}
 \end{proof}
 
 \section{The Binomial Theorem}
@@ -375,7 +648,7 @@ The binomial theorem has many proofs, including combinatorial proofs and algebra
 
 The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2nd century BCE. Around the 11th century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13th century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
 
-\section{The Inclusion-Exclusion Principle}
+\section{The Inclusion-Exclusion Principle (*)}
 
 Consider two subsets $A$ and $B$ of a set $X$. The \emph{union} of $A$ and $B$ is the set
 \begin{equation*}
@@ -412,16 +685,22 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
 
 \begin{exercises}
   \exercise Prove that $2^n<n!$ for all $n\geq 4$.
+  \exercise \label{exercise:estimates-central-binomial-coefficients}Show that the strict inequalities
+  \begin{equation*}
+    \frac{4^n}{2n+1} < \binom{2n}{n} < 4^n
+  \end{equation*}
+  hold for all $n\geq 1$.
   \exercise Prove that
   \begin{equation*}
     \sum_{k=0}^n \binom{n}{k} = 2^n
   \end{equation*}
   in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
   \exercise
-  \begin{enumerate}
-  \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
+  \begin{subexenum}
+  \item Draw Pascal's triangle with at least 10 rows and mark the positions of all the odd binomial coefficients. It is not necessary to compute them all.
   \item Show that in the $n$th row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
-  \end{enumerate}
+  \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
+  \end{subexenum}
   \exercise Prove that
   \begin{equation*}
     \sum_{k=0}^n\binom{n}{k}(-1)^k = 0.
@@ -444,11 +723,6 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
     \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
   \end{equation*}
   The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
-  \exercise \label{exercise:estimates-central-binomial-coefficients}Show that the strict inequalities
-  \begin{equation*}
-    \frac{4^n}{2n+1} < \binom{2n}{n} < 4^n
-  \end{equation*}
-  hold for all $n\geq 1$.
   \exercise Show that
   \begin{equation*}
     \sum_{k=0}^n\prod_{i=0}^m (k+i) = (m+1)!\binom{n+m+1}{m+2}.
