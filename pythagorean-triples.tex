@@ -2,7 +2,7 @@
 
 \section{The Pythagorean Theorem}
 
-Recall that a right triangle is a triangle in which one of the angles is a right angle, i.e., it is exactly $90^\circ$. The Pythagorean theorem relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the trigonometric proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as high school students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
+Recall that a right triangle is a triangle in which one of the angles is a right angle; that is, it is exactly $90^\circ$. The Pythagorean theorem relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the trigonometric proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as high school students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
 
 \begin{theorem}\label{theorem:pythagorean-theorem}
   Consider a right triangle with side lengths $a$ and $b$, and a hypotenuse of length $c$. Then
@@ -120,14 +120,14 @@ In the proof of the Pythagorean theorem, we will make use of the addition formul
   \sin(\theta + \phi) & = \sin(\theta)\cos(\phi) + \cos(\theta)\sin(\phi) \\
   \cos(\theta + \phi) & = \sin(\theta)\sin(\phi) - \cos(\theta)\cos(\phi).
 \end{align*}
-In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. These laws can be derived geometrically if $\theta+\phi$ is an acute angle, i.e., if it is strictly less than $90^\circ$, see \cref{exercise:addition-laws-sin-cos}.
+In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. These laws can be derived geometrically if $\theta+\phi$ is an acute angle; that is, if it is strictly less than $90^\circ$.
 
 \begin{proof}[The Jackson--Johnson proof \cite{jacksonjohnson2024}]
   Consider a right triangle $ABC$ with the right angle at $C$, and label the sides $a=BC$, $b=AC$, and $c=AB$ so $c$ is the hypotenuse.
 
-  In the special case where $ABC$ is isosceles, i.e., if $a=b$, the hypotenuse is the diagonal of an $a$-by-$a$ square, which gives us that $c^2=2a^2$. Hence, we may assume that $ABC$ is nonisosceles.
+  In the special case where $ABC$ is isosceles, meaning that $a=b$, the hypotenuse is the diagonal of an $a$-by-$a$ square, which gives us that $c^2=2a^2$. Hence, we may assume that $ABC$ is nonisosceles.
 
-  Without loss of generality, we will assume that $a<b$, i.e., that $BC$ is the shorter side. We reflect the triangle along the longer side $AC$, as indicated in the diagram below:
+  Without loss of generality, we will assume that $a<b$, so that $BC$ is the shorter side. We reflect the triangle along the longer side $AC$, as indicated in the diagram below:
   \begin{equation*}
     \begin{tikzpicture}[scale=.2,line join=round,line cap=round]
       \pgfmathsetmacro{\length}{((2 * (64 / 225)) / (1 - (64 / 225)))}
@@ -264,14 +264,14 @@ The trivial solutions are $(0,1,1)$ and $(1,0,1)$. The simplest nontrivial solut
   \caption[The Babylonian tablet Plimpton 322]{The Babylonian tablet Plimpton 322, listing Pythagorean triples. }
   \label{fig:plimpton322}
 \end{figure}
-The triangle with side lengths $3$ and $4$ and a hypotenuse of length $5$ is sometimes called the \emph{Egyptian triangle}, since it is believed that the ancient Egyptians used this triangle for practical applications. The oldest surviving table of Pythagorean triples was created by the Babylonians, in what is now known as the tablet \emph{Plimpton 322}. This clay tablet, which is estimated to date from 1800 BCE, contains a mathematical table written in cuneiform script, where each row describes a Pythagorean triple in sexagesimal notation, i.e., base 60.
+The triangle with side lengths $3$ and $4$ and a hypotenuse of length $5$ is sometimes called the \emph{Egyptian triangle}, since it is believed that the ancient Egyptians used this triangle for practical applications. The oldest surviving table of Pythagorean triples was created by the Babylonians, in what is now known as the tablet \emph{Plimpton 322}. This clay tablet, which is estimated to date from 1800 BCE, contains a mathematical table written in cuneiform script, where each row describes a Pythagorean triple in sexagesimal notation; that is, in base 60.
 
 Some further Pythagorean triples include
 \begin{equation*}
   (5,12,13),\qquad (21,20,29),\qquad\text{and}\qquad (15,8,17).
 \end{equation*}
 
-Fibonacci devised in his book \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, i.e., if $a^2=2n+1$, then there are positive integers $b$ and $c$ such that
+Fibonacci devised in his book \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, so that $a^2=2n+1$, then there are positive integers $b$ and $c$ such that
 \begin{equation*}
   b^2 = \sum_{i=0}^{n-1}(2i+1),\qquad\text{and}\qquad c^2=\sum_{i=0}^{n}(2i+1)
 \end{equation*}
@@ -517,7 +517,7 @@ A corollary of the previous theorem is that if $B$ and $C$ are rational numbers 
   holds. It follows by \cref{lemma:div-4-pythagorean-triple} that $2st$ is divisible by $4$, and hence that $s$ and $t$ are of opposite parity, so we conclude that the Pythagorean triple $(a,b,c)$ is primitive.
 \end{proof}
 
-\section{The Tree of Primitive Pythagorean Triples (*)}
+\section{The Tree of Primitive Pythagorean Triples}
 
 \begin{figure}[t]
   \begin{center}
@@ -648,7 +648,7 @@ By the previous theorem, we know that any line that passes through two rational 
 %     m=\frac{y-v}{x-u}=\frac{b-vc}{a-uc}=\frac{N}{M} \in\mathbb{Q},
 %     \qquad M:=a-uc,\; N:=b-vc.
 %   \]
-%   Intersections with the unit circle are solutions of $t^2+s(t)^2=1$, i.e. the quadratic
+%   Intersections with the unit circle are solutions of $t^2+s(t)^2=1$. In other words, they are the solutions to the the quadratic equation
 %   \[
 %     t^2 + 2\frac{v m - u m^2}{1+m^2}t + \frac{m^2-2uvm}{1+m^2}=0.
 %   \]
@@ -982,7 +982,9 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
   with common difference $d= 2st(t-s)^2$.
 \end{corollary}
 
-\begin{exercises}
+\exercises
+
+\begin{starter}
   \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}:
   \begin{equation*}
     \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
@@ -992,7 +994,10 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
       \draw (\x,\y) -- ++({\myangle + 90*\k}:45);
     \end{tikzpicture}
   \end{equation*}
-  \exercise \label{exercise:addition-laws-sin-cos}
+  
+\end{starter}
+
+\begin{routine}
   \exercise \label{exercise:brahmagupta-fibonacci-identity}\emph{The Brahmagupta--Fibonacci identity.} Show that
   \begin{equation*}
     (a^2+b^2)(c^2+d^2)=(ac\pm bd)^2 + (ad\mp bc)^2.
@@ -1017,6 +1022,29 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
     % (221,60,229),
     % (899,60,901).
   \end{subexenum}
+  \exercise Find three distinct triangular numbers in an arithmetic progression.
+  \exercise Find three distinct tetrahedral numbers, that is, numbers of the form $\binom{n+2}{3}$, in an arithmetic progression.  
+  \exercise Define an \emph{Egyptian triple} to be a triple $(a,b,c)$ of integers such that
+  \begin{equation*}
+    \frac{1}{a}+\frac{1}{b}=\frac{1}{c}.
+  \end{equation*}
+  Such an Egyptian triple is called \emph{primitive} if $\gcd(a,b)=1$.
+  \begin{enumerate}
+  \item Show that if $(a,b,c)$ is a primitive Egyptian triple, then $\gcd(a,c)=\gcd(b,c)=1$.
+  \item Show that for any primitive Egyptian triple $(a,b,c)$ with $a\leq b$, we can uniquely determine two relatively prime positive integers $s\leq t$ such that
+    \begin{equation*}
+      a=s(s+t),\qquad b=t(s+t),\qquad c=st.
+    \end{equation*}
+  \end{enumerate}
+\end{routine}
+
+\begin{challenge}
+  \exercise Find a parametrization of all pairs $(m,n)$ of natural numbers such that $n^2-m^2$ is a number of the form $2^k$, and prove that your parametrization is a bijection.
+  \exercise Find a complete parametrization of all triples $(a,b,c)$ satisfying $\gcd(a,b,c)=1$ such that
+    \begin{equation*}
+      \frac{1}{a^2}+\frac{1}{b^2}=\frac{1}{c^2}.
+    \end{equation*}
+    Note: The condition $\gcd(a,b,c)=1$ does not imply that $a$, $b$, and $c$ are pairwise relatively prime.
   \exercise Show that for every positive integer $y$ divisible by $4$, there is a primitive Pythagorean triple $(a,b,c)$ with $b=y$.
   \exercise Show that every odd positive integer $x\geq 3$ can be written in the form $t^2-s^2$, where $s<t$ are relatively prime positive integers of opposite parity. Conclude that every odd integer $x\geq 3$ occurs in a Pythagorean triple $(a,b,c)$ with $a=x$.
   \exercise Define
@@ -1074,11 +1102,21 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
     x+y+z+x^2,\qquad x+y+z+x^2+y^2,\qquad\text{and}\qquad x+y+z+x^2+y^2+z^2
   \end{equation*}
   are all squares.
-  \exercise Find three distinct triangular numbers in an arithmetic progression.
-  \exercise Find three distinct tetrahedral numbers, that is, numbers of the form $\binom{n+2}{3}$, in an arithmetic progression.
-\end{exercises}
+  \exercise Consider a quadruple $(a,b,c,d)$ such that $\gcd(a,b,c,d)=1$ and
+  \begin{equation*}
+    a^2+b^2+c^2=d^2.
+  \end{equation*}
+  Prove that there is a unique quadruple $(s,t,u,v)$ such that $\gcd(s,t,u,v)=1$, the numbers $s^2+t^2$ and $u^2+v^2$ have opposite parity, and
+  \begin{align*}
+    a & = 2(su-tv), \\
+    b & = 2(sv+tu), \\
+    c & = s^2+t^2-u^2-v^2, \\
+    d & = s^2+t^2+u^2+v^2.
+  \end{align*}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

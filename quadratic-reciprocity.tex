@@ -565,7 +565,9 @@ Théophile Pépin observed that the quadratic character of $-1$ can be used to r
   Thus, it follows that $\ord_{F_n}(3)=F_n-1$ since it must be a power of $2$ dividing $2^{2^n}$ and not dividing $2^{2^n-1}$. Since $3$ is an element of order $F_n-1$ modulo $F_n$, it follows that $F_n$ is prime.
 \end{proof}
 
-\begin{exercises}
+\exercises
+
+\begin{routine}
   \exercise Compute the values of the following Legendre symbols:
   \begin{equation*}
     \legendre{101}{163}, \quad \legendre{137}{359}, \quad \legendre{113}{479}, \quad\text{and}\quad \legendre{139}{953}.
@@ -642,9 +644,14 @@ Théophile Pépin observed that the quadratic character of $-1$ can be used to r
     M_{11},M_{23},M_{83},M_{131},M_{179},~\text{and}~M_{191}
   \end{equation*}
   are all composite.
-\end{exercises}
+  \exercise Consider a prime $p$ such that $q:=2p+1$ and $r:=2(2p+1)+1=4p+3$ are both prime. Prove that
+  \begin{equation*}
+    \ord_r(2)=q.
+  \end{equation*}
+\end{routine}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

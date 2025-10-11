@@ -1,5 +1,17 @@
 \chapter{The Nature of Numbers}\label{chapter:induction}
 
+\objectives
+
+In this chapter we discuss the trajectory through history that led to the modern definition of natural numbers, or the nonnegative integers. We embark on this journey in order to give a solid foundational footing to our subject. We will also make a first encounter with the idea of \emph{structural} definitions; definitions of sets made entirely in terms of constants and functions. At the end of this chapter we will dive into a mathematical question posed by ancient Indian poets.
+
+After having worked through this chapter, you will be able to:
+\begin{enumerate}
+\item Articulate the need for precise definitions of such basic objects as the natural numbers.
+\item Make recursive definitions.
+\item Write rigorous proofs by induction.
+\end{enumerate}
+Learning induction and recursion is like learning to ride a bycicle: It is fun, it opens the door to proving lots of beautiful identities, and once it is learnt you will not unlearn it.
+
 \section{The Concept of Number Through History}
 
 Many people are familiar with numbers through everyday experiences like counting, measuring, or comparing quantities. From a young age, we develop an intuition about how numbers behave. Our experience with numbers reveals patterns and properties that seem to always be true. For example, we quickly learn that it does not matter in which order we add two numbers: Given two numbers $a$ and $b$ it is always true that $a+b=b+a$. Truths such as this one seem so self-evident that we might be tempted to just accept them. However, for a rigorous mathematical theory we need to be more careful. Mathematicians require proofs. Checking a property for every number up to a hundred, a million, or even $10^{27}$ might confirm a pattern, but infinitely many numbers remain beyond such finite checks. Mathematical proofs, on the other hand, are logical arguments that establish beyond any possibility of doubt why certain properties hold universally for all numbers, or at least for precisely defined sets of numbers. To reason about all natural numbers at once, we need formal principles that extend beyond empirical observation and anecdotal evidence. In order to discover such reasoning principles, we need to find out first what the natural numbers really are, a question with a rich and very interesting history.
@@ -530,7 +542,34 @@ Hemachandra applied this recurrence to list the initial values of the sequence $
 
 The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham1996}. The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
 
-\begin{exercises}
+\exercises
+
+\begin{starter}
+  \exercise \label{exercise:sum-of-odd-numbers}Prove that the sum of the first $n$ odd numbers is a perfect square. That is, prove that
+  \begin{equation*}
+    \sum_{k=0}^{n-1} 2k+1 = n^2.
+  \end{equation*}
+  Note: This summation formula is the starting point from which Fibonacci derived much of his work in his book  \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987}.
+  \exercise
+  \begin{subexenum}
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^nF_k = F_{n+2}-1.
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^{n-1}F_{2k+1}=F_{2n}.
+    \end{equation*}
+  \item Prove that
+    \begin{equation*}
+      \sum_{k=0}^{n}F_{2k}=F_{2n+1}-1.
+    \end{equation*}
+  \end{subexenum}  
+  \exercise Just as in Hemachandra's counting problem, suppose we have a metre of $n$ beats composed of long (2 beats) and short syllables (1 beat). This time, the short syllables are distinguished between strong or soft beats. Write down the recursive formula for the number of rhythmic patterns of $n$ beats, and use it to determine the correct values for $1\leq n\leq 10$.
+  \exercise Gopa the grasshopper can jump either 5 or 8 steps. Find a recursive expression for the number of ways in which he can reach a spot $n$ steps away, without jumping backwards, and determine in how many ways can he reach his favorite spot, 29 steps away.
+\end{starter}
+
+\begin{routine}
   \exercise \label{exercise:difference-of-powers}Prove the \define{formula for the difference of $n$th powers}
   \begin{equation*}
     x^n-y^n=(x-y)\sum_{k=0}^{n-1}x^ky^{n-1-k}.
@@ -547,11 +586,6 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   % \begin{equation*}
   %   a^4+4b^4=(a^2-2ab+2b^2)(a^2+2ab+2b^2).
   % \end{equation*}
-  \exercise \label{exercise:sum-of-odd-numbers}Prove that the sum of the first $n$ odd numbers is a perfect square. That is, prove that
-  \begin{equation*}
-    \sum_{k=0}^{n-1} 2k+1 = n^2.
-  \end{equation*}
-  Note: This summation formula is the starting point from which Fibonacci derived much of his work in his book  \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987}.
   \exercise \label{exercise:identities-triangular-numbers}Write $T_n$ for the $n$th triangular number.
   \begin{subexenum}
   \item For $0\leq m<n$, show that
@@ -623,21 +657,13 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \begin{equation*}
     \sum_{k=0}^n k(k+1)(k+2) = \frac{n(n+1)(n+2)(n+3)}{4}.
   \end{equation*}
-  \exercise
-  \begin{subexenum}
-  \item Prove that
-    \begin{equation*}
-      \sum_{k=0}^nF_k = F_{n+2}-1.
-    \end{equation*}
-  \item Prove that
-    \begin{equation*}
-      \sum_{k=0}^{n-1}F_{2k+1}=F_{2n}.
-    \end{equation*}
-  \item Prove that
-    \begin{equation*}
-      \sum_{k=0}^{n}F_{2k}=F_{2n+1}-1.
-    \end{equation*}
-  \end{subexenum}
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=0}^n F_k^2 = F_nF_{n+1}.
+  \end{equation*}
+\end{routine}
+
+\begin{challenge}
   \exercise
   \begin{subexenum}
   \item Prove \define{Cassini's identity}:
@@ -669,9 +695,10 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
     (F_n,F_{n+2},F_{n+3}).
   \end{equation*}
   Conclude that there are no 4-term arithmetic progressions of distinct positive Fibonacci numbers.
-\end{exercises}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

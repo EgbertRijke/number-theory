@@ -6,7 +6,7 @@ The simplest linear congruence is the linear congruence
 \begin{equation*}
   ax\equiv b\pmod{n}.
 \end{equation*}
-To solve this linear congruence, we are tasked with finding an integer for which the congruence $ax\equiv b\pmod{n}$ holds. However, we may immediately observe that if $x\equiv x' \mod{n}$, then the congruence $ax\equiv b\pmod{n}$ holds if and only if the congruence $ax'\equiv b\pmod{n}$ holds. Thus, we are really interested in solving such congruences in $\mathbb{Z}/n\mathbb{Z}$, i.e., in finding a congruence class $[x]$ modulo $n$ for which the congruence $ax\equiv b\pmod{n}$ holds.
+To solve this linear congruence, we are tasked with finding an integer $x$ for which the congruence $ax\equiv b\pmod{n}$ holds. However, we may immediately observe that if $x\equiv x' \mod{n}$, then the congruence $ax\equiv b\pmod{n}$ holds if and only if the congruence $ax'\equiv b\pmod{n}$ holds. Thus, we are really interested in solving such congruences in $\mathbb{Z}/n\mathbb{Z}$, i.e., in finding a congruence class $[x]$ modulo $n$ for which the congruence $ax\equiv b\pmod{n}$ holds.
 
 A complete solution to the linear congruence $ax\equiv b\pmod{n}$ is a description of the set of all congruence classes $[x]$ modulo $n$ that satisfy the linear congruence. We typically list these solutions by listing the numbers $0\leq x < n$ for which the congruence holds. For example, the linear congruence
 \begin{equation*}
@@ -167,7 +167,7 @@ of linear congruences, where $m_1,\ldots,m_n$ are pairwise relatively prime. Fir
 \begin{equation}\label{equation:gauss-method-crt}
   e_i\equiv
   \begin{cases}
-    1 \pmod{m_i}, & \\
+    1 \pmod{m_j} & \text{if }j=i,\\
     0 \pmod{m_j} & \text{if }j\neq i.
   \end{cases}
 \end{equation}
@@ -179,7 +179,7 @@ Indeed, by the given specification of $e_i$ it follows that
 \begin{equation*}
   \sum_{j=1}^n a_je_j\equiv a_i\pmod{m_i}
 \end{equation*}
-for every $1\leq i\leq n$. Notice that the strategy here is quite similar to that which was used to prove \crefnamed{theorem:lagrange-interpolation}{Lagrange's interpolation theorem}.
+for every $1\leq i\leq n$.
 
 In order to find $e_i$ as specified, we need to find a multiple of $M_i := \prod_{j\neq i}m_j$ which leaves a remainder of $1$ after division by $m_i$. That is, the number $e_i$ is determined to be the number $M_i u_i$, where $u_i$ is the unique solution to the linear congruence
 \begin{equation*}
@@ -245,46 +245,50 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
 % where $\gcd(a,m)=1$ and $\gcd(c,n)=1$. 
 
 
-\section{Linear Congruences in Multiple Variables}
+% \section{Linear Congruences in Multiple Variables}
 
-\section{Products of Cyclically Ordered Sets}
+% \section{Products of Cyclically Ordered Sets}
 
-The Chinese Remainder Theorem establishes a bijection between the set of pairs of integers modulo $m$ and integers modulo $n$ and the set of integers modulo $mn$, provided that $m$ and $n$ are relatively prime. Thus, the Chinese Remainder Theorem is an algebraic statement that allows us to decompose 
+% The Chinese Remainder Theorem establishes a bijection between the set of pairs of integers modulo $m$ and integers modulo $n$ and the set of integers modulo $mn$, provided that $m$ and $n$ are relatively prime. Thus, the Chinese Remainder Theorem is an algebraic statement that allows us to decompose 
 
-\begin{theorem}
-  Consider to finite cyclically ordered sets $(C,f)$ and $(D,g)$ of order $m$ and $n$, respectively. Then their product $(C\times D,f\times g)$ is cyclically ordered if and only if $m$ and $n$ are relatively prime.
-\end{theorem}
+% \begin{theorem}
+%   Consider to finite cyclically ordered sets $(C,f)$ and $(D,g)$ of order $m$ and $n$, respectively. Then their product $(C\times D,f\times g)$ is cyclically ordered if and only if $m$ and $n$ are relatively prime.
+% \end{theorem}
 
-\begin{exercises}
+\exercises
+
+\begin{starter}
+  \exercise Solve Master Sun's mathematical problem, which he stated in \emph{Sunzi Suanjing}, written between the 3rd and 5th century CE: Find all integers $x$ satisfying the linear congruences
+  \begin{align*}
+    x & \equiv 2 \pmod{3},\\
+    x & \equiv 3 \pmod{5},\\
+    x & \equiv 2 \pmod{7}.
+  \end{align*}
+  \exercise Three musicians perform a piece of percussion music. The first musician plays on the first of every four beats, the second plays on the third of every five beats, and the third plays on the second of every third beat. The performance concludes when all three musicians play on the same beat for the first time. How many beats does the performance last?
+\end{starter}
+
+\begin{routine}
+  \exercise Find all integers $x$ satisfying the linear congruences
+  \begin{align*}
+    x & \equiv 4 \pmod{9},\\
+    x & \equiv 3 \pmod{10},\\
+    x & \equiv 2 \pmod{11}.
+  \end{align*}
+  \exercise Find all integers $x$ satisfying the linear congruences
+  \begin{align*}
+    x & \equiv 3 \pmod{5}, \\
+    x & \equiv 6 \pmod{11}, \\
+    x & \equiv 9 \pmod{17}.
+  \end{align*}
   \exercise Consider the congruence
   \begin{equation*}
     xy + 7x + 4y \equiv 10\pmod{13}.
   \end{equation*}
   Compute the congruence class of $y$ modulo $13$ for $x\equiv 2,5,8\pmod{13}$.
-  \exercise Three musicians perform a piece of interwoven rhythms. One plays on the first of every four beats, the second plays on the third of every five beats, and the third plays on the second of every third beat. The performance concludes when all three musicians play simultaneously for the first time. How many beats does the composition last?
-  \exercise Let $F_n=2^{2^n}+1$ be the $n$th Fermat number. Show that $F_n\equiv 5\pmod{12}$ for $n\geq 1$.
-  \exercise
-  \begin{subexenum}
-  \item Show that $m\mid n$ implies $\phi(m)\mid\phi(n)$.
-  \item Prove that if $\gcd(a,b)=d$, then
-  \begin{equation*}
-    \phi(ab)=\frac{d\phi(a)\phi(b)}{\phi(d)}
-  \end{equation*}
-  \item For any $n>1$, prove that
-  \begin{equation*}
-    \sum_{a<n\\\gcd(a,n)=1}a = \frac{n\phi(n)}{2}
-  \end{equation*}
-  \end{subexenum}
-  \exercise How many fractions $\frac{a}{b}$ are there where $\gcd(a,b)=1$, and $0\leq a\leq b\leq n$. Such fractions are called \emph{Farey fractions} of order $n$.
-  \exercise Prove that there is no positive integer $n<2^{65}$ such that $\phi(n)=2^{64}$.
-  \exercise For any $d\mid \phi(n)$, prove that
-  \begin{equation*}
-    \prod_{\substack{0<x<n \\\ord_n(x)=d}}x\equiv 1\pmod n.
-  \end{equation*}
-
-\end{exercises}
+\end{routine}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

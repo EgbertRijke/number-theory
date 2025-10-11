@@ -1,4 +1,4 @@
-\chapter{Congruences}\label{chapter:congruences}
+\chapter{Modular Arithmetic}\label{chapter:congruences}
 
 \section{The Congruence Relations}
 
@@ -24,12 +24,138 @@ Carl Friedrich Gauss introduced the congruence relations in his monumental work,
   because $28-3=25$ and $25$ is divisible by $5$.
 \end{example}
 
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+    
+    \def\clockhour{8}
+    \def\clockminute{20}
+    
+    % clock radius
+    \def\R{3}
+    
+    % rim
+    \draw[ultra thick] (0,0) circle (\R);
+
+    % minute angle in degrees
+    \pgfmathsetmacro{\minangle}{90 - (\clockminute)*6}
+    
+    % hour angle in degrees
+    \pgfmathsetmacro{\hourangle}{90 - (mod(\clockhour,12))*30 - (\clockminute)*0.5}
+
+    % minute & hour ticks
+    \foreach \i in {0,...,59}{
+      \pgfmathsetmacro{\ang}{90 - \i*6}
+      \pgfmathparse{mod(\i,5)==0 ? 1 : 0}
+      \ifnum\pgfmathresult=1
+        % hour tick (every 5 minutes)
+        \draw[ultra thick] (\ang:\R) -- (\ang:{.85*\R});
+      \else
+        % minute tick
+        \draw[thick] (\ang:\R) -- (\ang:{.93*\R});
+      \fi
+    }
+    
+    % length of the minute hand
+    \pgfmathsetmacro{\minlength}{0.8*\R}
+    
+    % minute hand
+    \draw[line width=3pt, line cap=round] (0,0) -- (\minangle:\minlength);
+
+    % length of the hour hand
+    \pgfmathsetmacro{\hourlength}{0.52*\R}
+        
+    % hour hand
+    \draw[line width=5pt, line cap=round] (0,0) -- (\hourangle:\hourlength);
+    
+    % central boss
+    \fill[black] (0,0) circle (5pt);    
+  \end{tikzpicture}
+  \caption[The 12-hour clock]{The 12-hour clock contains two systems of modular arithmetic: A system with modulus 12 to mark the hours and a system with modulus 60 to mark the minutes.}
+  \label{figure:clock}
+\end{figure}
+
 \begin{example}
-  The 24-hour clock is widely used in Europe, Asia, and Africa, while in North and South America, the 12-hour clock is more common. For instance, what is written as $19{:}05$ in the 24-hour format corresponds to $7{:}05$pm in the 12-hour format. The numbers $19$ and $7$ are congruent modulo $12$ because 
-  \[
-  19 \equiv 7 \pmod{12}.
-  \]
-  This follows from the fact that $19 - 7 = 12$ is a multiple of $12$.
+  The most well-known system for modular arithmetic is the $12$-hour clock. If a typical $8$-hour workday starts at $9$ in the morning, then it ends at
+  \begin{equation*}
+    9+8\equiv 5\pmod{12},
+  \end{equation*}
+  that is, at $5$ in the afternoon. Analog clocks also display a modular system with base $60$ to mark the minutes.
+
+  Since the clock is the most well-known system of modular arithmetic, some people use the term \emph{clock arithmetic} for modular arithmetic.
+\end{example}
+
+\begin{example}
+  A classic application of modular arithmetic is to compute the day of the week it is on any given date. Various people, including Gauss, Zeller, and Conway, have found algorithms for this purpose. We will present here Zeller's algorithm to compute which day of the week it is on day $d$ of month $m$ in year $y$.
+
+  In essence, the weekday algorithm proceeds by separately computing the number $Y(y)$ of days in all the prior years, the number $M(m)$ in all the prior months of the current year, and the number $D(d)$ of all the days in the current month. The number
+  \begin{equation*}
+    Y(y)+M(m)+D(d)
+  \end{equation*}
+  thus obtained is then reduced modulo $7$ and calibrated to obtain the following correspondence between residues modulo $7$ and days of the week:
+  \begin{align*}
+    0 & \mapsto \text{Sunday,}\\
+    1 & \mapsto \text{Monday,}\\
+      & \mathrel{\makebox[\widthof{$\mapsto$}][c]{\vdots}}
+\\
+    6 & \mapsto \text{Saturday.}
+  \end{align*}
+
+  The main difficulty is obtaining the right correction terms for leap days. Since leap days are added at the end of February, it is therefore customary to consider the days in January and February to belong to the prior year. That is, we will be working with the values
+  \begin{equation*}
+    m' :=
+    \begin{cases}
+      m+12 & \text{if $m=1$ or $m=2$,} \\
+      m & \text{otherwise,}
+    \end{cases}
+    \qquad\text{and}\qquad
+    y' :=
+    \begin{cases}
+      y-1 & \text{if $m=1$ or $m=2$,} \\
+      y & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+
+  Every year has $365$ days, except in a leap year, which has an extra day at the end of February. In the Gregorian calendar, every fourth year is a leap year, except every hundredth year, in which the leap day is skipped, except every four hundredth year, in which skipping the leap day is skipped. Thus, the exact number of days in all years prior to the given date is
+  \begin{equation*}
+    Y(y') := 365y'+\left\lfloor\frac{y'}{4}\right\rfloor-\left\lfloor\frac{y'}{100}\right\rfloor+\left\lfloor\frac{y'}{400}\right\rfloor.
+  \end{equation*}
+  Furthermore, since we are only interested in the quantity $Y(y')$ modulo $7$, we observe that $365\equiv 1\pmod 7$ so that the factor $365$ can be dropped from the first term.
+
+  The quantity $M(m')$ returns the number of days in all full months in the given year $y'$, from March to the given month $m'$. The standard length of one month is $30$ days, so that $M(m')$ is $30(m'-3)$ and a correction term for the months having a $31$st day. The months from March to January having a $31$st day follow the following pattern:
+  \begin{equation*}
+    1,0,1,0,1,1,0,1,0,1,1.
+  \end{equation*}
+  Note that there is a recurring pattern of $1,0,1,0,1$, which is truncated after eleven steps. The function that makes increments of $1$ according to this pattern is given by
+  \begin{equation*}
+    \left\lfloor\frac{3x+2}{5}\right\rfloor.
+  \end{equation*}
+  Thus, the number $M(m')$ of days in the year from March $1$st onwards is
+  \begin{equation*}
+    M(m'):= 30(m'-3) + \left\lfloor\frac{3(m'-3)+2}{5}\right\rfloor.
+  \end{equation*}
+  We note that $30\equiv 2\pmod 7$, so the factor $30$ in the first term may be replaced by $2$. Furthermore, we will drop any constants such as $2\cdot (-3)$ since we will be recalibrating the function towards the end.
+
+  Finally, we add the number $d$ of the given day in the month plus a given calibration constant $c$. The formula that calculates the correct day in the week is thus
+  \begin{equation*}
+    y'+
+    \left\lfloor\frac{y'}{4}\right\rfloor
+    -\left\lfloor\frac{y'}{100}\right\rfloor
+    +\left\lfloor\frac{y'}{400}\right\rfloor
+    +2m'
+    + \left\lfloor\frac{3m'-2}{5}\right\rfloor
+    +d
+    +2 \pmod{7},
+  \end{equation*}
+  where $m'$ and $y'$ are determined as previously specified.
+  
+  The lecture in which this example is presented was on September 23rd, 2025. For this date, we have $d:= 23$, $m':= 9$, and $y'=2025$. Then $Y(y')=2025+506-20+5=2516$, $M(m')=2\cdot 9+5=23$ and $D(d)=23+2=25$, so that the day of the week comes out to be
+  \begin{equation*}
+    2516+23+25 \equiv 2\pmod{7},
+  \end{equation*}
+  a Tuesday.
+
+  We note that our formula for the day of the week does not take into account some rare oddities, most of which have occured during the process of switching from the Julian calendar to the Gregorian calendar. Italy, Poland, Portugal, and Spain skipped 10 days between Thursday October 4th and Friday October 15th; Sweden and Finland had a February 30th in 1712; Britain and its colonies skipped 11 days from Wednesday September 2nd, 1752 to Thursday September 14, 1752; and Greece skipped 13 days between February 14th, 1923 and March 1st, 1923. In 1867, when the US bought Alaska from Russia and Alaska switched from the Julian calendar to the Gregorian calendar, Friday October 6th was followed by Friday October 18th, thus having two consecutive Fridays.
 \end{example}
 
 \begin{remark}
@@ -96,7 +222,7 @@ ax+by \equiv a'x+b'y \pmod{n}.
   This shows that $ab\equiv a'b'\pmod{n}$.
 \end{proof}
 
-One way of thinking about the following corollary, is that every polynomial is periodic modulo $n$, i.e., every polynomial repeats itself modulo $n$ after every $n$ steps.
+One way of thinking about the following corollary, is that every polynomial is periodic modulo $n$. In other words, every polynomial repeats itself modulo $n$ after every $n$ steps.
 
 \begin{corollary}
   If $x\equiv y\pmod {n}$, then we have
@@ -159,17 +285,34 @@ Thus, where the ordering relation of a poset is reflexive, \emph{antisymmetric} 
   showing that $a\equiv c\pmod{n}$.
 \end{proof}
 
+\begin{proposition}
+  For any two integer fractions $\frac{a}{b}$ and $\frac{c}{d}$, the sameness relation given by
+  \begin{equation*}
+    \frac{a}{b}=\frac{c}{d} := (ad-bc=0)
+  \end{equation*}
+  is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  Reflexivity follows from the fact that $ab-ba=0$. Symmetry follows from the fact that if $ad-bc=0$, then $cb-da=0$. To prove transitivity, suppose that
+  $ad-bc=0$ and $cf-de=0$. Then we have
+  \begin{equation*}
+    d(af-be)=(da)f-b(de)=(bc)f-b(cf)=0.
+  \end{equation*}
+  Since denominators of integer fractions are assumed to be nonzero, it follows that $d\neq 0$, so that $af-be=0$.
+\end{proof}
+
 Equivalence relations come about in many forms, and one can get quite creative in defining them. We illustrate the generality of equivalence relations with some examples.
 
-\begin{example}
-  Consider a prime number $p$. Every nonzero integer $a$ can be written in the form $p^k u$ where $u$ is not divisible by $p$. The number $u$ is called the \emph{$p$-core} or the \emph{$p$-free part} of $a$. The relation $a\sim b$ defined by the condition that $a$ and $b$ have the same $p$-core is an equivalence relation.
-\end{example}
+% \begin{example}
+%   Consider a prime number $p$. Every nonzero integer $a$ can be written in the form $p^k u$ where $u$ is not divisible by $p$. The number $u$ is called the \emph{$p$-core} or the \emph{$p$-free part} of $a$. The relation $a\sim b$ defined by the condition that $a$ and $b$ have the same $p$-core is an equivalence relation.
+% \end{example}
 
-The equivalence relation of the previous example is an instance of a general class of equivalence relations. Given a function $f:A\to B$, there is an equivalence relation $\sim_f$ on the set $A$, given by
+A common way in which equivalence relations come about is via a function. Given a function $f:A\to B$, there is an equivalence relation $\sim_f$ on the set $A$, given by
 \begin{equation*}
   x\sim_f y \qquad\text{if and only if}\qquad f(x)=f(y).
 \end{equation*}
-This relation is also called the \emph{kernel} of $f$. In the previous example, the function $f:\mathbb{Z}_{\neq 0} \to\mathbb{Z}_{\neq 0}$ is the function that sends $a$ to the unique integer $u$ not divisible by $p$ for which there is a \emph{valuation} $k$ such that $p^ku=a$.
+This relation is also called the \emph{kernel} of $f$.
 
 \begin{proposition}
   For any function $f:A\to B$, the relation $\sim_f$ is an equivalence relation.
@@ -178,6 +321,15 @@ This relation is also called the \emph{kernel} of $f$. In the previous example, 
 \begin{proof}
   To see that any relation of the form $\sim_f$ is an equivalence relation, we need to check reflexivity, symmetry, and transitivity. Note that we have reflexivity because $f(x)=f(x)$ for any $x\in A$. The relation $\sim_f$ is symmetric because $f(y)=f(x)$ holds whenever $f(x)=f(y)$ holds. Finally, the relation $\sim_f$ is transitive because $f(x)=f(z)$ holds whenever both $f(x)=f(y)$ and $f(y)=f(z)$ hold.
 \end{proof}
+
+\begin{example}
+  Consider the function $r:\mathbb{Z}\to\{0,\ldots,n-1\}$, defined via the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} so that $r(x)$ is the unique integer $0\leq r(x)<n$ such that $x-r(x)$ is divisible by $n$. Then the equivalence relation $\sim_{r}$ is such that $x\sim_r y$ if and only if $x$ and $y$ have the same remainder after division by $n$. In other words,
+  \begin{equation*}
+    x\sim_r y \Leftrightarrow x\equiv y\pmod{n}.
+  \end{equation*}
+\end{example}
+
+Another way in which equivalence relations come about is by looking at iterations of an operation $T:X\to X$. We illustrate this by an example first.
 
 \begin{example}
   Recall from \cref{exercise:zeckendorf} that Zeckendorf's representation theorem established that any natural number $n$ can be written uniquely as a sum
@@ -194,7 +346,7 @@ This relation is also called the \emph{kernel} of $f$. In the previous example, 
   \end{equation*}
 \end{example}
 
-The equivalence relation of the previous example is an instance of another general way of constructing equivalence relations. Given an operation $T:A \to A$, define the equivalence relation $\sim_T$ by declaring that
+The general method of obtaining equivalence relations of this kind assumes an arbitrary operation $T:A\to A$. Given such an operation, we define the equivalence relation $\sim_T$ by declaring that
 \begin{equation*}
   x\sim_T y \qquad\text{if and only if}\qquad \exists_{(s,t\in\mathbb{N})} T^s(x)=T^t(y).
 \end{equation*}
@@ -250,7 +402,7 @@ eventually reaches the value $1$. In our notation, the Collatz conjecture assert
 
   The congruence class modulo $2$ of any even integer consists precisely of all the even integers, and the congruence class of any odd integer consists precisely of all the odd integers.
 
-  To see this, suppose that $a$ is an even integer. Then $a \equiv x\pmod{2}$ holds if and only if $a$ and $x$ have the same remainder after division by $2$. Since the remainder of $a$ divided by $2$ is $0$, it follows that $a$ is congruent to $x$ precisely when $x$ is divisible by $2$, i.e., when $x$ is even. This shows that for an even integer $a$, the congruence class
+  To see this, suppose that $a$ is an even integer. Then $a \equiv x\pmod{2}$ holds if and only if $a$ and $x$ have the same remainder after division by $2$. Since the remainder of $a$ divided by $2$ is $0$, it follows that $a$ is congruent to $x$ precisely when $x$ is divisible by $2$; that is, when $x$ is even. This shows that for an even integer $a$, the congruence class
   \begin{equation*}
     [a] := \{x\in A \mid a \equiv x\pmod {2}\}
   \end{equation*}
@@ -287,9 +439,9 @@ sending an element to its equivalence class is called the \emph{quotient map}. W
 \begin{proof}
   The first claim is true by definition: the set of equivalence classes is defined as
   \begin{equation*}
-    \{U\subseteq A\mid \exists_{(a\in A)}U=[a]\},
+    \{U\subseteq A\mid \exists_{(a\in A)}U=[a]\}.
   \end{equation*}
-  i.e., it is defined as the set of subsets of $A$ of the form $[a]$ for some $a\in A$.
+  In other words, the set of equivalence classes is the set of subsets of $A$ of the form $[a]$ for some $a\in A$.
 
   For the second claim, let $a,b\in A$. If we have the equality $[a]=[b]$, then it follows that $b\in [a]$, so that $a\sim b$. For the converse, if $a\sim b$ holds, and $x\in A$, then we have $a\sim x$ if and only if $b\sim x$ by symmetry and transitivity of the relation $\sim$. This shows that $x\in [a]$ if and only if $x\in [b]$. Thus, the subsets $[a]$ and $[b]$ contain the same elements, so they must be the same.
 \end{proof}
@@ -324,43 +476,6 @@ satisfying the condition that for every integer $a$ there is a exactly one index
   \end{equation*}
 \end{remark}
 
-\section{Reduced Residue Systems}
-
-Before we introduce reduced residue systems, let us prove a lemma.
-
-\begin{lemma}
-  Suppose that $a\equiv b\pmod{n}$. Then $\gcd(a,n)=\gcd(b,n)$. Consequently, we have $\gcd(a,n)=1$ if and only if $\gcd(b,n)=1$.
-\end{lemma}
-
-\begin{proof}
-  By the assumption that $a$ and $b$ are congruent modulo $n$, it follows that they have the same remainder after division by $n$. Let $r$ be this remainder. Since $\gcd(a,n)=\gcd(r,n)$ and $\gcd(b,n)=\gcd(r,n)$ we see that
-  \begin{equation*}
-    \gcd(a,n)=\gcd(b,n).
-  \end{equation*}
-  This equality implies that the left hand side equals $1$ if and only if the right hand side equals $1$.
-\end{proof}
-
-By the previous lemma, we can test whether an integer is relatively prime to $n$ by testing any element in its congruence class. This allows us to make the following definition.
-
-\begin{definition}
-  A \emph{reduced residue system} modulo $n$ is a set
-  \begin{equation*}
-    \{r_1,\ldots,r_k\}
-  \end{equation*}
-  of integers satisfying the condition that for every integer $a$ relatively prime to $n$, there is exactly one index $1\leq i\leq k$ such that
-  \begin{equation*}
-    a\equiv r_i\pmod{n}.
-  \end{equation*}
-\end{definition}
-
-\begin{corollary}
-  Any two reduced residue systems modulo $n$ have the same size, for which we write $\phi(n)$. The function $\phi$ is called \emph{Euler's totient function}.
-\end{corollary}
-
-\begin{proof}
-  Reduced residue systems are choices of representatives of the congruence classes in which all elements are relatively prime to $n$. Thus, the size of a reduced residue system is always equal to the number of such congruence classes.
-\end{proof}
-
 \section{The Integers Modulo \texorpdfstring{$n$}{n}}
 
 We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
@@ -386,7 +501,7 @@ This ensures that the definitions of addition and multiplication on the integers
   \begin{equation*}
     f([a]) := g(a).
   \end{equation*}
-  For this definition to make sense, the values of $f$ must depend only on the equivalence classes. In other words, if $a$ and $a'$ represent the same equivalence class, i.e., if $a\sim a'$, then we must have that $f([a])=f([a'])$, i.e., we must have that
+  For this definition to make sense, the values of $f$ must depend only on the equivalence classes. In other words, if $a$ and $a'$ represent the same equivalence class, so that $a\sim a'$, then we must have that $f([a])=f([a'])$. In other words, we must have that
   \begin{equation*}
     g(a)=g(a').
   \end{equation*}
@@ -409,7 +524,7 @@ This ensures that the definitions of addition and multiplication on the integers
 \end{example}
 
 \begin{theorem}
-  The set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ form a commutative ring, i.e., it satisfies the following laws of arithmetic:
+  The set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ satisfies the following laws of arithmetic:
   \begin{align*}
     (x+y)+z & = x + (y+z) & (xy)z & = x(yz) \\
     0+x & = x & 1x & = x \\
@@ -418,6 +533,7 @@ This ensures that the definitions of addition and multiplication on the integers
     -x+x & = 0 & (x+y)z & = xz + yz \\
     x+y & = y+x & xy & = yx.
   \end{align*}
+  In proper mathematical parlance: the set $\mathbb{Z}/n\mathbb{Z}$ equipped with the operations of addition and multiplication form a \emph{commutative ring}.
 \end{theorem}
 
 \begin{proof}
@@ -456,31 +572,59 @@ This ensures that the definitions of addition and multiplication on the integers
 
 \section{The Multiplicative Order of an Integer Modulo $n$}
 
-This section is about the function $n\mapsto a^n-1$. We will begin by showing that this function preserves divisibility.
+Expanding a fraction such as $\frac{1}{7}$ in decimal notation amounts to writing
+\begin{equation*}
+  \frac{1}{7}=\sum_{k=0}^\infty \frac{d_k}{10^k},
+\end{equation*}
+where each digit $d_k$ is an integer from $0$ to $9$ except possibly the number $d_0$, which can be any integer. In the case of $\frac{1}{7}$, the integer $d_0$ is $0$. The digits $d_1$, $d_2$, $d_3$ are called the tenth's digit, the hundredth's digit, the thousandth's digit, and so on.
 
-\begin{proposition}
-  Suppose that $m\mid n$. Then we have
-  \begin{equation*}
-    a^m-1\mid a^n-1.
-  \end{equation*}
-\end{proposition}
+We see from the above expression that the tenth's digit of $\frac{1}{7}$ can be computed as the integer part of the number $\frac{10}{7}$, which has all the decimal digits of $\frac{1}{7}$ shifted by one position to the left. It also follows that the remainder of the digits coincide with the digits of $\frac{3}{7}$, where the numerator is the remainder of $10$ after division by $7$. The first digit of the fractional part of $\frac{3}{7}$ is the integer part of $\frac{30}{7}$, which is $4$. For the next digit after that, we take the remainder of $30$ after division by $7$, which is $2$, and we compute the integer part of the fraction $\frac{20}{7}$. If we keep going in this manner, we find that
+\begin{equation*}
+  d_1=\left\lfloor\frac{10}{7}\right\rfloor,~~
+  d_2=\left\lfloor\frac{30}{7}\right\rfloor,~~
+  d_3=\left\lfloor\frac{20}{7}\right\rfloor,~~
+  d_4=\left\lfloor\frac{60}{7}\right\rfloor,~~
+  d_5=\left\lfloor\frac{40}{7}\right\rfloor,~~
+  d_6=\left\lfloor\frac{50}{7}\right\rfloor,~~
+  d_7=\left\lfloor\frac{10}{7}\right\rfloor.
+\end{equation*}
+Here we see that our task at hand begins to repeat itself. We have already computed the integer part of $\frac{10}{7}$ in the first step, which led us to compute the integer part of $\frac{30}{7}$, and so on. Thus, we find that the decimal expansion of $\frac{1}{7}$ is given by
+\begin{equation*}
+  \frac{1}{7}=0.142857142857142857\ldots
+\end{equation*}
+This satisfies the property that, after shifting the decimal expansion for $\frac{1}{7}$ by $6$ places, the decimal digits will line up exactly. A mathematically precise way of expressing that decimal expansion of the fraction $\frac{1}{7}$ repeats with period $6$, is by the property that
+\begin{equation*}
+  \frac{10^6}{7}-\frac{1}{7}\in\mathbb{Z}.
+\end{equation*}
+Note that this difference of fractions is only an integer if $7$ divides the number $10^6-1$. In other words,
+\begin{equation*}
+  10^6\equiv 1\pmod{7}.
+\end{equation*}
+Since $6$ is the first positive integer for which $10^k\equiv 1\pmod{7}$, we say that the \emph{multiplicative order} of $10$ modulo $7$ is $6$.
 
-\begin{proof}
-  Suppose that $qm=n$. Then we can write
-  \begin{equation*}
-    a^n-1 = (a^m)^{q} -1^q = (a^m-1)\sum_{k=0}^{q-1}a^{km}
-  \end{equation*}
-  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}).
-\end{proof}
+% \begin{proposition}
+%   Suppose that $m\mid n$. Then we have
+%   \begin{equation*}
+%     a^m-1\mid a^n-1.
+%   \end{equation*}
+% \end{proposition}
 
-We will now define the multiplicative order of an element $a$ modulo $n$. If $\gcd(a,n)=1$, then we can simply define the multiplicative order of $a$ to be the least positive integer $k$ such that
+% \begin{proof}
+%   Suppose that $qm=n$. Then we can write
+%   \begin{equation*}
+%     a^n-1 = (a^m)^{q} -1^q = (a^m-1)\sum_{k=0}^{q-1}a^{km}
+%   \end{equation*}
+%   by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}).
+% \end{proof}
+
+For the general definition of the multiplicative order of an element $a$ modulo $n$, note that if $\gcd(a,n)=1$, then we can simply define the multiplicative order of $a$ to be the least positive integer $k$ such that
 \begin{equation*}
   a^k\equiv 1\pmod{n}.
 \end{equation*}
 However, if $\gcd(a,n)\neq 1$ then there will not be such a positive integer. In this case we set the multiplicative order of $a$ modulo $n$ to be $0$. At first glance, this may look quite arbitrary. However, there is a natural way of looking at it.
 
 \begin{definition}
-  Consider an integer $a$ and a natural number $n$. We define he \emph{multiplicative order} of $a$ modulo $n$ to be the unique natural number $m$ such that the ideal
+  Consider an integer $a$ and a natural number $n$. We define the \emph{multiplicative order} of $a$ modulo $n$ to be the unique natural number $m$ such that the ideal
   \begin{equation*}
     I_{a,n}:=\{k\in\mathbb{Z}\mid a^{|k|} \equiv 1\pmod{n}\}
   \end{equation*}
@@ -488,12 +632,6 @@ However, if $\gcd(a,n)\neq 1$ then there will not be such a positive integer. In
 \end{definition}
 
 Using this definition, we see that if $\gcd(a,n)=1$, then indeed the order $\ord_n(a)$ of $a$ modulo $n$ is the least positive integer $k$ such that $a^k\equiv 1\pmod{n}$. If $\gcd(a,n)\neq 1$, then the ideal $I_{a,n}$ is the zero ideal $(0)$, which implies that $\ord_n(a)=0$.
-
-We saw the multiplicative order featuring in the second proof of \crefnamed{theorem:eulers-theorem}{Euler's Theorem}. Thus, using the second proof of Euler's theorem we immediately observe that
-\begin{equation*}
-  \ord_n(a)\mid \phi(n),
-\end{equation*}
-for any $a$ and $n$ such that $\gcd(a,n)=1$.
 
 In the following theorem, which is also known as the \emph{Order Theorem}, we will see that by setting the value of the order of $a$ modulo $n$ to be $0$ when $\gcd(a,n)\neq 1$, we prove a powerful duality principle between multiples of $\ord_n(a)$ and numbers dividing $a^k-1$.
 
@@ -509,26 +647,69 @@ In the following theorem, which is also known as the \emph{Order Theorem}, we wi
   \begin{equation*}
     a^m\equiv 1 \pmod{n}.
   \end{equation*}
-  It is immediate from this condition that if $m\mid k$, then it follows that $a^k\equiv 1\pmod{n}$. Conversely, if $a^k\equiv 1\pmod{n}$, then we can write $k=qm+r$ by the Euclidean division theorem, where $0\leq r<m$. It follows that
+  It is immediate from this condition that if $m\mid k$, then it follows that $a^k\equiv 1\pmod{n}$. Conversely, if $a^k\equiv 1\pmod{n}$, then we can write $k=qm+r$ by the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem}, where $0\leq r<m$. It follows that
   \begin{equation*}
     a^r \equiv a^{qm}a^r \equiv a^{qm+r} \equiv a^k \equiv 1\pmod{n}. 
   \end{equation*}
   Since $r$ is strictly less than $m$ and $m$ is the least positive integer such that $a^m\equiv 1\pmod{n}$, it follows that $r=0$. Thus we conclude that $\ord_n(a)\mid k$. This proves the claim in the first case.
 
-  In the second case we have $\ord_n(a)=0$. Then the condition that $\ord_n(a)\mid k$ is equivalent to the condition that $k=0$. Thus, our task is to show that $n\mid a^k-1$ if and only if $k=0$. Consider a common divisor $d>1$ of $a$ and $n$. Then we have $d\mid a^k-1$, so it follows that $d\mid a^k$ if and only if $d\mid 1$. Since we have assumed that $d>1$, it therefore follows that $d\nmid a^k$. However, since $d$ divides $a$, the only way in which this is possible is that $k=0$.
-  \begin{equation*}
-    \ord_n(a)\mid k.\qedhere
-  \end{equation*}
+  In the second case we have $\ord_n(a)=0$. Then the condition that $\ord_n(a)\mid k$ is equivalent to the condition that $k=0$. Thus, our task is to show that $n\mid a^k-1$ if and only if $k=0$. If $k=0$, then we have $a^k-1=0$ so that $n\mid a^k-1$. This proves the reverse direction.
+
+  For the forward direction, assume that $n\mid a^k-1$, and consider a common divisor $d>1$ of $a$ and $n$. Then we have $d\mid a^k-1$. The assumption that $d>1$ then implies that $d\nmid a^k$. On the other hand, we have assumed that $d\mid a$. Therefore, we must have $k=0$.
 \end{proof}
 
-The previous theorem has strong implications about the function $k\mapsto a^k-1$, which we will present as a corollary of the following definition and theorem.
+The Order Theorem can be used to show that the digits in the fractional part of a reduced integer fraction $\frac{a}{b}$ such that $b$ is relatively prime to $10$ are periodic. The case where $b$ is not relatively prime can be dealt with from the relatively prime case, since we can multiply $\frac{a}{b}$ with a sufficiently high power of $10$, so that after bringing it to lowest terms, the denominator becomes relatively prime to $10$. This leads us to conclude that every rational number has an \emph{eventually periodic} decimal expansion.
+
+\begin{theorem}
+  Consider a reduced integer fraction $\frac{a}{b}$ with $\gcd(b,10)=1$. Then there exists a positive integer $k$ such that
+  \begin{equation*}
+    10^k\frac{a}{b}-\frac{a}{b}
+  \end{equation*}
+  is an integer. Furthermore, the least such $k$ is $\ord_b(10)$.
+\end{theorem}
+
+\begin{proof}
+  The number $10^k\frac{a}{b}-\frac{a}{b}$ is an integer if and only if $b\mid 10^ka-a$, which is another way of expressing the condition
+  \begin{equation*}
+    10^ka \equiv a \pmod{b}.
+  \end{equation*}
+  Furthermore, since $a$ is assumed to be relatively prime to $b$, this is equivalent to the congruence
+  \begin{equation*}
+    10^k \equiv 1 \pmod{b}.
+  \end{equation*}
+  By the \crefnamed{theorem:order-theorem}{Order Theorem} it follows that this congruence holds if and only if $\ord_b(10)\mid k$.
+\end{proof}
+
+The logical equivalence in the \crefnamed{theorem:order-theorem}{Order Theorem} can also be used effectively to compute the order of a power of an element in terms of the order of that element.
+
+\begin{theorem}\label{theorem:order-power}
+  For any integer $a$ of order $k=\ord_n(a)$, we have
+  \begin{equation*}
+    \ord_n(a^m)=\frac{k}{\gcd(m,k)}.
+  \end{equation*}
+  In particular, we have $\ord_n(a^m)=k$ if and only if $m$ and $k$ are relatively prime.
+\end{theorem}
+
+\begin{proof}
+  We have the following chain of logical equivalences:
+  \begin{equation*}
+    \ord_n(a^m) \mid l ~~\Leftrightarrow~~ n \mid (a^m)^l-1
+    ~~\Leftrightarrow~~ \ord_n(a) \mid ml
+    ~~\Leftrightarrow~~ \frac{\ord_n(a)}{\gcd(m,\ord_n(a))} \mid l.
+  \end{equation*}
+  Thus, we see that $\ord_n(a^m)$ and $k/\gcd(m,k)$ divide the same numbers, so they must be equal.
+\end{proof}
+
+\section{Strong Divisibility Sequences}
+
+The Order Theorem has strong implications about the function $k\mapsto a^k-1$, which we will present as a corollary of the following definition and theorem.
 
 \begin{definition}
-  A function $f:\mathbb{N}\to\mathbb{N}$ is said to be a \emph{divisibility sequence} if it preserves divisibility, i.e., if it satisfies the condition
+  A function $f:\mathbb{N}\to\mathbb{N}$ is said to be a \emph{divisibility sequence} if it preserves divisibility, meaning that it satisfies the condition
   \begin{equation*}
     m\mid n \Rightarrow f(m)\mid f(n)
   \end{equation*}
-  for all $m$ and $n$. A divisibility sequence is said to be a \emph{strong divisibility sequence} if $f(0)=0$ and $f$ preserves greatest common divisors, i.e., if
+  for all $m$ and $n$. A divisibility sequence is said to be a \emph{strong divisibility sequence} if $f(0)=0$ and $f$ preserves greatest common divisors, meaning that it satisfies the equation
   \begin{equation*}
     f(\gcd(m,n))=\gcd(f(m),f(n))
   \end{equation*}
@@ -547,7 +728,7 @@ The previous theorem has strong implications about the function $k\mapsto a^k-1$
 \end{theorem}
 
 \begin{proof}
-  Suppose first that a function $g$ exists satisfying the logical equivalence
+  Suppose first that there exists a function $g$ satisfying the logical equivalence
   \begin{equation*}
     g(m)\mid n \Leftrightarrow m\mid f(n).
   \end{equation*}
@@ -560,92 +741,83 @@ The previous theorem has strong implications about the function $k\mapsto a^k-1$
   \end{align*}
   Since $f(\gcd(m,n))$ and $\gcd(f(m),f(n))$ have the exact same set of divisors, they must be equal.
   
-  For the converse, suppose $f$ preserves greatest common divisors. Then consider the ideal
+  For the converse, suppose that $f(0)=0$ and that $f$ preserves greatest common divisors. More generally, we will have for any finite list of natural numbers
+  \begin{equation*}
+    f(\gcd_i(n_i))=\gcd_i(f(n_i)).
+  \end{equation*}
+  Here, the expression $gcd_i(n_i)$ means that the greatest common divisor is taken over all the numbers $n_i$ in the list. Now consider for any natural number $m$ the ideal
   \begin{equation*}
     I_m := \left\{ k_1n_1+\cdots+ k_rn_r \mathbin{\big|} m\mid f(n_i) \text{ for all } i \right\}
   \end{equation*}
-  and define the function $g$ by letting $g(m)$ be the unique natural number such that $I_m=(g(m))$. In other words, $g(m)$ is the least natural number that can be written as a linear combination of numbers $n_i$, such that $m\mid f(n_i)$.
+  and define the function $g$ by letting $g(m)$ be the unique natural number such that $I_m=(g(m))$.
 
-  To see that $g$ is a divisibility sequence, suppose that $m\mid m'$, i.e., suppose that $qm=m'$. Then any linear combination of natural numbers $n$ such that $m'\mid f(n)$ is also a linear combination of natural numbers $n$ such that $m\mid f(n)$. In particular $g(m')$ is in the ideal $(g(m))$, which means that $g(m)\mid g(m')$.
+  To see that $g$ is a divisibility sequence, suppose that $m\mid m'$. Then any linear combination of natural numbers $n$ such that $m'\mid f(n)$ is also a linear combination of natural numbers $n$ such that $m\mid f(n)$. In particular $g(m')$ is in the ideal $(g(m))$, which means that $g(m)\mid g(m')$.
 
-  We claim that the function $g$ satisfies the desired logical equivalence. Suppose first that $g(m)\mid n$, say $qg(m)=n$. Note that $g(m)$ can be written in the form $k_1n_1+\cdots+ k_rn_r$, so we can proceed by induction on $r$. In the base case, we have that $g(m)=0$. Then it follows that $n=0$, and it also follows that every linear combination of natural numbers $n$ such that $m\mid f(n)$ must be $0$. Since $f(0)=0$ by the assumption that $f$ is a strong divisibility sequence, this shows that $m\mid f(n)$.
-
-  For the inductive step, suppose that for every $m$ such that $g(m)$ can be written in the form $k_1n_1+\cdots+ k_rn_r$, we have $g(m)\mid n$ implies $m\mid f(n)$, and consider $m$ such that $g(m)$ can be written in the form
+  We claim that the function $g$ satisfies the logical equivalence
   \begin{equation*}
-    k_1n_1+\cdots+ k_rn_r + k_{r+1}n_{r+1}.\qedhere
+    g(m)\mid n\Leftrightarrow m\mid f(n).
+  \end{equation*}
+  If $m\mid f(n)$, then it follows that $n\in I_m$ so that $g(m)\mid n$. This proves the reverse direction.
+
+  For the forward direction, suppose that $g(m)\mid n$. Then it also follows that $n\in I_m$, so that we can write
+  \begin{equation*}
+    n=\sum_i k_in_i
+  \end{equation*}
+  for some finite list of natural numbers $n_i$ satisfying $m\mid f(n_i)$. By the assumption that $m\mid f(n_i)$, it follows that $m\mid\gcd_i(f(n_i))$. Furthermore, since $\gcd_i(n_i)\mid n$ it follows that
+  \begin{equation*}
+    f(\gcd\nolimits_i(n_i))\mid f(n).
+  \end{equation*}
+  Combined with the fact that $m\mid\gcd_i(f(n_i))$ and the assumption that $f$ preserves greatest common divisors, we conclude that
+  \begin{equation*}
+    m\mid f(n).\qedhere
   \end{equation*}
 \end{proof}
 
 \begin{corollary}
-  Consider an integer $a$ and two natural numbers $m$ and $n$ relatively prime to $a$. Then
+  The function $n\mapsto a^n-1$ is a strong divisibility sequence. Thus, for any integer $a$ and any two natural numbers $m$ and $n$ we have
   \begin{equation*}
     \gcd(a^m-1,a^n-1)=a^{\gcd(m,n)}-1.
   \end{equation*}
 \end{corollary}
 
-The logical equivalence in the definition of the order of an element can be used effectively to compute the order of a power of an element in terms of the order of that element.
-
-\begin{proposition}\label{proposition:order-power}
-  For any integer $a$ of order $k=\ord_n(a)$, we have
-  \begin{equation*}
-    \ord_n(a^m)=\frac{k}{\gcd(m,k)}.
-  \end{equation*}
-  In particular, we have $\ord_n(a^m)=k$ if and only if $m$ and $k$ are relatively prime.
-\end{proposition}
-
 \begin{proof}
-  We have the following chain of logical equivalences:
+  Note that the function $k\mapsto a^k-1$ is a divisibility sequence, since for $qm=n$ we have the identity
   \begin{equation*}
-    \ord_n(a^m) \mid l ~~\Leftrightarrow~~ n \mid (a^m)^l-1
-    ~~\Leftrightarrow~~ \ord_n(a) \mid ml
-    ~~\Leftrightarrow~~ \frac{\ord_n(a)}{\gcd(m,\ord_n(a))} \mid l.
+    a^n-1=(a^m)^q-1^q=(a^m-1)\sum_{k=0}^{q-1}a^{km}
   \end{equation*}
-  Thus, we see that $\ord_n(a^m)$ and $k/\gcd(m,k)$ divide the same numbers, so they must be equal.
+  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \cref{theorem:galois-connections-divisibility} and the \crefnamed{theorem:order-theorem}{Order Theorem}.
 \end{proof}
 
 \begin{remark}
   More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \emph{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
   \begin{equation*}
-    g(x)\leq_P y \Leftrightarrow x\leq_Q f(x)
+    g(x)\leq_P y \Leftrightarrow x\leq_Q f(y)
   \end{equation*}
   for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \emph{upper adjoint}, and the map $g$ is said to be the \emph{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \cref{theorem:galois-connections-divisibility} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
 
   Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
 \end{remark}
 
-\section{Decimal Expansions of Rational Numbers}
+\exercises
 
-\begin{theorem}
-  Consider a reduced integer fraction $\frac{a}{b}$ with $\gcd(b,10)=1$. Then there exists a positive integer $k$ such that
-  \begin{equation*}
-    10^k\frac{a}{b}-\frac{a}{b}
-  \end{equation*}
-  is an integer. Further more, the least such $k$ is $\ord_b(10)$.
-\end{theorem}
-
-\begin{proof}
-  The number $10^k\frac{a}{b}-\frac{a}{b}$ is an integer if and only if
-  \begin{equation*}
-    10^ka-a\equiv 0\pmod{b}.
-  \end{equation*}
-  Furthermore, since $a$ is assumed to be relatively prime to $b$, this is equivalent to the congruence
-  \begin{equation*}
-    10^k-1\equiv 0\pmod{b},
-  \end{equation*}
-  which we can rewrite to $10^k\equiv 1\pmod{b}$. By the \crefnamed{theorem:order-theorem}{Order Theorem} it follows that this congruence holds if and only if $\ord_b(10)\mid k$.
-\end{proof}
-
-\begin{exercises}
+\begin{starter}
   \exercise Describe a complete residue system modulo $7$ consisting entirely of multiples of $3$.
   \exercise List all the numbers $0\leq a<6$ such that $a\equiv x^2\pmod 6$ for some $x$, and all the numbers $0\leq a<8$ such that $a\equiv x^2\pmod 8$ for some $x$.
   \exercise Find the multiplicative inverses of $1$, $2$, $3$, $4$, $5$, and $6$ modulo $7$.
-  \exercise Find the multiplicative inverses of $1$, $3$, $7$, $9$, $11$, $13$, $17$, and $19$ modulo $20$.
-  \exercise For how many congruence classes $b \pmod{n}$ is the linear congruence
-  \begin{equation*}
-    ax\equiv b\pmod{n}
-  \end{equation*}
-  solvable?
-  \exercise Compute $\phi(n)$ for $n=1,\ldots,12$.
+  \exercise Find the multiplicative inverses of $1$, $3$, $7$, $9$, $11$, $13$, $17$, and $19$ modulo $20$.  
+\end{starter}
+
+\begin{routine}
+  \exercise
+  \begin{subexenum}
+  \item Show that no century ever starts on a Sunday.
+  \item Show that any seven consecutive leap days within a century run through all weekdays.
+  \end{subexenum}
+  \exercise Show that the following are equivalent for any $n>0$ and any integer $a$:
+  \begin{enumerate}
+  \item $\gcd(a,n)=1$.
+  \item There exists an integer $b$ such that $ab\equiv 1\pmod{n}$.
+  \end{enumerate}
   \exercise
   \begin{subexenum}
   \item Find integers $k$, $a$, and $b$ such that
@@ -657,19 +829,6 @@ The logical equivalence in the definition of the order of an element can be used
       ka\equiv kb\pmod{n}\qquad\text{if and only if}\qquad a\equiv b\pmod{\frac{n}{d}}.
     \end{equation*}
   \end{subexenum}
-  \exercise Show that the following are equivalent for any $n>0$ and any integer $a$:
-  \begin{enumerate}
-  \item $\gcd(a,n)=1$.
-  \item There exists an integer $b$ such that $ab\equiv 1\pmod{n}$.
-  \end{enumerate}
-  \exercise \label{exercise:self-inverse-modulo-prime}Consider a prime number $p$ and an integer $a$. Show that
-  \begin{equation*}
-    a^2\equiv 1\pmod{p}\qquad\text{if and only if}\qquad a\equiv \pm 1\pmod{p}.
-  \end{equation*}
-  \exercise Prove that for any $n>1$ and any $k$, we have
-  \begin{equation*}
-    (n-1)^2\mid n^k-1\qquad\text{if and only if}\qquad n-1\mid k.
-  \end{equation*}
   \exercise Show that if $a\equiv b\pmod{m}$, then we have
   \begin{equation*}
     \gcd(a,m)=\gcd(b,m).
@@ -685,6 +844,22 @@ The logical equivalence in the definition of the order of an element can be used
   \end{equation*}
   then $m\mid n$.
   \exercise Show that $\ord_{a^k-1}(a)=k$.
+\end{routine}
+
+\begin{challenge}
+  \exercise Let $F_n=2^{2^n}+1$ be the $n$th Fermat number. Show that $F_n\equiv 17\pmod{24}$ for $n\geq 2$.
+  \exercise Consider the $n$th Fermat number $F_n=2^{2^n}+1$ and the $m$th Mersenne number $M_m=2^m-1$. Show that
+  \begin{equation*}
+    \gcd(F_n,M_m)=
+    \begin{cases}
+      F_n & \text{if $2^{n+1}\mid m$,}\\
+      1 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  \exercise Prove that for any $n>1$ and any $k$, we have
+  \begin{equation*}
+    (n-1)^2\mid n^k-1\qquad\text{if and only if}\qquad n-1\mid k.
+  \end{equation*}
   \exercise
   \begin{subexenum}
   \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
@@ -698,16 +873,17 @@ The logical equivalence in the definition of the order of an element can be used
     \begin{equation*}
       G_m\mid n \Leftrightarrow m \mid F_n.
     \end{equation*}
-    Conclude that the Fibonacci sequence is a strong division sequence.
+    Conclude that the Fibonacci sequence is a strong divisibility sequence.
   \end{subexenum}
   \exercise Use methods similar to the previous exercise to show that the sequence of Pell numbers $P_n$, which are defined by
   \begin{equation*}
     P_0:=0,\qquad P_1:=1,\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
   \end{equation*}
-  forms a strong division sequence.
-\end{exercises}
+  forms a strong divisibility sequence.
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

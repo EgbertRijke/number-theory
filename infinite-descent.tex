@@ -116,7 +116,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   \end{equation*}
   and hence their product $uv$ is also relatively prime to $v^2+u^2$.
 
-  Since $uv$ and $v^2+u^2$ are relatively prime, the fact that $4uv(v^2+u^2)$ is a square implies that both $uv$ and $v^2+u^2$ are squares. Given that $u$ and $v$ are relatively prime, this implies that $u$ and $v$ are squares, i.e., that there are integers $a$ and $b$ such that $u=a^2$ and $v=b^2$. Thus, it follows that
+  Since $uv$ and $v^2+u^2$ are relatively prime, the fact that $4uv(v^2+u^2)$ is a square implies that both $uv$ and $v^2+u^2$ are squares. Given that $u$ and $v$ are relatively prime, this implies that $u$ and $v$ are squares. It follows that there are integers $a$ and $b$ such that $u=a^2$ and $v=b^2$, and thus we see that
   \begin{equation*}
     v^2+u^2=a^4+b^4
   \end{equation*}
@@ -143,7 +143,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   which is impossible.
 \end{proof}
 
-\section{The Nonexistence of Four Squares in an Arithmetic Progression (*)}
+\section{The Nonexistence of Four Squares in an Arithmetic Progression}
 
 We have shown in \cref{theorem:correspondence-arithmetic-triples-squares} that there is a bijective correspondence between arithmetic triples of squares and Pythagorean triples. It is natural to wonder whether there are any longer arithmetic progressions of squares. Fermat posed this problem in his correspondence with Bernard Frénicle de Bessy in 1640, and noted that it was impossible to find four such squares. The first publicly known proof is due to Euler. Here we will follow a proof of Alf van der Poorten \cite{vanderpoorten2007}, who observed that any four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression determine, besides the Pythagorean triples corresponding to $(a^2,b^2,c^2)$ and $(b^2,c^2,d^2)$, a third Pythagorean triple. To see this, assume the step size is a number of the form $2n$, where it follows from \cref{exercise:div-increment-a-p-squares} that $n$ is divisible by $12$, and let $x$ be the average of $b^2$ and $c^2$ so that $b^2=x-n$ and $c^2=x+n$. Then the number $y:=abcd$ satisfies
 \begin{equation*}
@@ -236,7 +236,7 @@ Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ 
 %   \end{equation*}
 % \end{proof}
 
-\section{The Congruent Number Problem (*)}
+\section{The Congruent Number Problem}
 
 Recall from \cref{sec:squares-in-aps} the challenge that Master John posed in the early 13th century to Leonardo Fibonacci: To find a rational number $q$ such that both
 \begin{equation*}
@@ -344,15 +344,12 @@ Thus, if we know one root of a quadratic polynomial then we can easily `jump' to
   We have thus found a new solution with $x'<y$. Now we can swap the roles for $x'$ and $y$ and repeat the process, obtaining every smaller solutions in the positive integers. Since this is clearly impossible, it must have been impossible for there to be a pair of relatively prime positive integers $x$ and $y$ such that $xy\mid x^2+y^2$.
 \end{example}
 
-\begin{exercises}
+\exercises
+
+\begin{starter}
   \exercise Use the method of infinite descent to show that there are no integer solutions to the equation
   \begin{equation*}
     x^2+y^2=3t^2
-  \end{equation*}
-  such that $t>0$.
-  \exercise Use the method of infinite descent to show that there are no integer solutions to the equation
-  \begin{equation*}
-    x^2+y^2+z^2=7t^2
   \end{equation*}
   such that $t>0$.
   \exercise Let $x$ and $y$ be positive integers satisfying the equation
@@ -360,18 +357,31 @@ Thus, if we know one root of a quadratic polynomial then we can easily `jump' to
     x^2-xy+y^2=1.
   \end{equation*}
   \begin{subexenum}
-  \item Use the determinant $y^2-4(y^2-1)$ to give a direct proof that the only solution is $x=y=1$.
+  \item Use the discriminant $y^2-4(y^2-1)$ to give a direct proof that the only solution is $x=y=1$.
   \item Find a second proof by Vieta jumping that $x=y=1$.
   \end{subexenum}
+\end{starter}
+
+\begin{routine}
   \exercise Use the method of infinite descent to show that if $a$ and $b$ are relatively prime and the product $ab$ is a square, then both $a$ and $b$ are squares.
-  % \exercise Show that there are no positive integer squares of the form
-  % \begin{equation*}
-  %   x^2+xy+y^2.
-  % \end{equation*}
   \exercise Show that there are no positive integer squares of the form
   \begin{equation*}
     2x^2+2xy+2y^2.
   \end{equation*}
+  \exercise Use the method of infinite descent to show that there are no integer solutions to the equation
+  \begin{equation*}
+    x^2+y^2+z^2=7t^2
+  \end{equation*}
+  such that $t>0$.
+  \exercise Prove that the area of a Pythagorean triangle cannot be twice a square.
+\end{routine}
+
+\begin{challenge}
+  \exercise Prove that the Diophantine equation
+  \begin{equation*}
+    x^4-y^4=z^2
+  \end{equation*}
+  has no solutions in the positive integers.
   \exercise Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2+1$, then
   \begin{equation*}
     \frac{x^2+y^2+1}{xy}=3.
@@ -381,16 +391,11 @@ Thus, if we know one root of a quadratic polynomial then we can easily `jump' to
     \frac{x^2+y^2+z^2}{xy+yz+zx}
   \end{equation*}
   is a perfect square.
-  \exercise Prove that the area of a Pythagorean triangle cannot be twice a square.
-  \exercise Prove that the Diophantine equation
-  \begin{equation*}
-    x^4-y^4=z^2
-  \end{equation*}
-  has no solutions in the positive integers.
   \exercise Show that the only triangular number which is also a fourth power is $1$.
-\end{exercises}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

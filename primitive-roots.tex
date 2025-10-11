@@ -33,7 +33,7 @@ While the orders of the integers modulo $13$ might at first glance appear to be 
 \begin{equation*}
   2^0,~2^1,~2^2,~2^3,~2^4,~2^5,~2^6,~2^7,~2^8,~2^9,~2^{10},~\text{and}~2^{11},
 \end{equation*}
-and by \cref{proposition:order-power} it follows that
+and by \cref{theorem:order-power} it follows that
 \begin{equation*}
   \ord_{13}(2^m)=12\qquad\Leftrightarrow\qquad\gcd(m,12)=1.
 \end{equation*}
@@ -73,7 +73,7 @@ However, we can go further: There are two integers that have order $6$ modulo $1
     x^k\equiv 1 \pmod{p}.
   \end{equation*}
   Since $\ord_p(a)\mid p-1$ holds for any element $a$, this polynomial congruence as exactly $k$ solutions by \cref{theorem:maximal-number-of-roots-pow-minus-id}.
-  However, since we are given an element $a$ of order $k$, we can describe the set of solutions to the congruence $x^k\equiv 1\pmod{p}$: it is the set consisting of $1$, $a$, $a^2$, \ldots, $a^{k-1}$. In other words, every solution is congruent to a power of $a$. The powers of $a$ that are also of order $k$ are characterized by \cref{proposition:order-power}:
+  However, since we are given an element $a$ of order $k$, we can describe the set of solutions to the congruence $x^k\equiv 1\pmod{p}$: it is the set consisting of $1$, $a$, $a^2$, \ldots, $a^{k-1}$. In other words, every solution is congruent to a power of $a$. The powers of $a$ that are also of order $k$ are characterized by \cref{theorem:order-power}:
   \begin{equation*}
     \ord_p(a^m)=k \qquad\Leftrightarrow\qquad \gcd(m,k)=1.
   \end{equation*}
@@ -403,7 +403,9 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
   has a unique solution. In other words, the map $x\mapsto x^n$ is a bijection on $\mathbb{Z}/p\mathbb{Z}$.
 \end{corollary}
 
-\begin{exercises}
+\exercises
+
+\begin{routine}
   \exercise
   \begin{subexenum}
   \item Find the least primitive root $g$ modulo $23$, and give a table of the congruence classes of its powers.
@@ -483,9 +485,10 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
     of the form $x=5^k$.
   \end{subexenum}
   \exercise Consider an integer $n>2$. Show that $n$ admits a primitive root if and only if there is a unique integer of order $2$ modulo $n$.
-\end{exercises}
+\end{routine}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

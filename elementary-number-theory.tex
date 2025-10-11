@@ -1,8 +1,12 @@
 \documentclass[12pt]{book}
 
-% Encoding & language
-\usepackage[LGR,T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\newfontfamily\cuneifont[
+  Path = fonts/,
+  Extension = .ttf,
+  UprightFont = *-Regular
+  ]{NotoSansCuneiform}
+  
 \usepackage{textgreek}
 \usepackage{alphabeta}
 \usepackage[english]{babel}
@@ -11,15 +15,14 @@
 
 \usepackage{geometry}
 \geometry{
-  letterpaper,                 % default for the document
-  margin=0.12\paperwidth,  % margins = 10% of paper width
-  vmargin=0.10\paperheight, % vertical margins = 8% of paper height
+  letterpaper,
+  margin=0.12\paperwidth,
+  vmargin=0.10\paperheight,
   includehead,
 }
 
 \usepackage{fancyhdr}
 
-% Graphics and layout
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{booktabs}
@@ -30,10 +33,10 @@
 
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
-  {\normalfont\huge\bfseries} % Format of the text
-  {Chapter \thechapter}       % Label (e.g., "Lecture 1")
-  {0.5em}                     % Spacing between label and title
-  {\Huge}                     % Format of the title
+  {\normalfont\huge\bfseries}
+  {Chapter \thechapter}
+  {0.5em}
+  {\Huge}
 
 % Counters
 \usepackage{totcount}
@@ -54,6 +57,7 @@
 \usepackage{newtxtext,newtxmath}
 \usepackage{microtype}
 \usepackage{relsize}
+\usepackage{calc}
 
 \newtheorem{theorem}{Theorem}[section]
 
@@ -99,6 +103,7 @@
 
 \usepackage{hyperref}
 \hypersetup{
+  unicode=true,
   colorlinks=true,
   linkcolor=grayblue,
   filecolor=grayblue,
@@ -166,31 +171,81 @@
 
 \newcommand{\define}{\emph}
 
-  % We set up the exercise environment, which produces list environment in a new
-% unnumbered subsection that also gets mentioned in the table of contents.
-
 \newtotcounter{exercisecounter}
 \newcommand{\exercise}{\item\stepcounter{exercisecounter}}
 
 \newlist{exenum}{enumerate}{1}
-\setlist[exenum]{noitemsep,label=\thechapter.\arabic*}
-  %,ref=\thechapter.\arabic*}
+\setlist[exenum]{label=\thechapter.\arabic*,noitemsep}
 
 \crefname{exenumi}{Exercise}{Exercises}
-  
+
 \newlist{subexenum}{enumerate}{1}
 \setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
 \crefname{subexenumi}{Exercise}{Exercises}
 
-\newenvironment{exercises}
-{%
-\subsection*{Exercises}%
+\newif\ifthischapex
+\global\thischapexfalse
+  
+\newcommand{\exercises}{%
+\section*{Exercises}%
 \addcontentsline{toc}{section}{Exercises}%
-\markboth{\leftmark}{\MakeUppercase{Exercises}}
-\begin{exenum}}
+\markboth{\leftmark}{\MakeUppercase{Exercises}}%
+\setcounter{exenumi}{0}%
+\restartlist{exenum}
+\global\thischapexfalse
+}
+
+\newcommand{\italicsubsection}[1]{%
+  \begingroup
+    \let\bfseries\itshape
+    \subsection*{#1}%
+  \endgroup
+}
+
+\newenvironment{starter}
 {%
-%\addtocounter{exercisecounter}{\theexenumi}%
-\end{exenum}}
+  \italicsubsection{Starter Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+  \end{exenum}
+  \global\thischapextrue
+}
+
+% Dutch: Routinevormende opgaven
+\newenvironment{routine}
+{%
+  \italicsubsection{Routine-Building Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+\end{exenum}
+\global\thischapextrue
+}
+
+\newenvironment{challenge}
+{%
+  \italicsubsection{Challenge Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+\end{exenum}
+\global\thischapextrue
+}
+
+\newcommand\objectives{\italicsubsection{Learning Objectives}}
 
 \setcounter{tocdepth}{2}
 
@@ -220,6 +275,7 @@
 \newcommand{\mediant}{\mathbin{\triangledown}}
 \newcommand{\bimapsto}{\mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}}
 \newcommand{\content}{\mathrm{cont}}
+\newcommand{\floorfrac}[2]{\left\lfloor\frac{#1}{#2}\right\rfloor}
 
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -273,7 +329,6 @@
     
     \vspace{1cm}
 
-    % {\Huge \textbf{Foundational Studies in Arithmetic}} \\[1cm]
     {\Huge \textbf{Elementary Number Theory}} \\[1cm]
     {\LARGE\textit{Fall 2025}}
   \end{center}
@@ -288,36 +343,15 @@
 
 \cleardoublepage
 
-% \thispagestyle{empty}
-
-% \begingroup
-% %\renewcommand{\rmdefault}{ebgaramond}
-
-% \begin{center}
-%     \vspace*{3cm}
-%     {\Huge\textbf{Johns Hopkins University}} \\[1cm]
-%     {\LARGE\textsc{Math 304}} \\[4cm]
-%     {\Huge \textbf{Elementary Number Theory}} \\[1cm]
-%     {\LARGE\textit{Spring 2025}}\\[2cm]
-%     {\LARGE Egbert Rijke}
-% \end{center}
-
-% \vfill
-% \begin{center}
-%     {\large \today}
-% \end{center}
-
-% \endgroup % Return to newtxtext for the main document
-
-% \newpage % Ensures the rest of the document uses newtxtext
-
 \frontmatter
 
 \pagestyle{fancy}
 
 \tableofcontents
 
- \listoffigures
+\listoffigures
+
+% \listoftables
 
 \input{course-information}
 
@@ -341,56 +375,64 @@
 
 \input{infinite-descent}
 
-% \input{congruences}
+\input{congruences}
 
-% \input{systems-of-linear-congruences}
+\input{systems-of-linear-congruences}
 
-% \input{prime-numbers}
+\input{prime-numbers}
 
-% \input{arithmetic-functions}
+\input{arithmetic-functions}
 
-% \input{modular-arithmetic}
+\input{fermats-little-theorem}
 
-% \input{sums-of-squares}
+\input{famous-congruences}
 
-% \input{gaussian-integers}
+\input{sums-of-squares}
 
-% \input{polynomials}
+\input{gaussian-integers}
 
-% \input{polynomial-congruences}
+\input{polynomials}
 
-% \input{primitive-roots}
+\input{polynomial-congruences}
 
-% \input{quadratic-residues}
+\input{primitive-roots}
 
-% \input{quadratic-reciprocity}
+\input{quadratic-residues}
 
-% \input{primality-testing}
+\input{quadratic-characters}
 
-% \input{conics}
+\input{quadratic-reciprocity}
 
-% \input{pells-equation}
+\input{primality-testing}
 
-% \input{polygonal-numbers}
+\input{conics}
 
-% \input{fermats-last-theorem}
+\input{pells-equation}
 
-% \input{real-numbers}
+\input{polygonal-numbers}
 
-% \input{dirichlet-series}
+\input{fermats-last-theorem}
 
-% \input{distribution-of-primes}
+\input{real-numbers}
 
-% \input{cyclotomic-polynomials}
+\input{dirichlet-series}
 
-% \input{prime-partition-function}
+\input{distribution-of-primes}
 
-% \input{bernoulli-numbers}
+\input{cyclotomic-polynomials}
 
-% \input{miscellaneous}
+\input{prime-partition-function}
 
-% \input{open-problems}
+\input{bernoulli-numbers}
+
+\input{miscellaneous}
+
+\input{open-problems}
 
 \printbibliography[heading=bibintoc,title=References]
 
 \end{document}
+
+%%% Local Variables:
+%%% TeX-engine: luatex
+%%% End:

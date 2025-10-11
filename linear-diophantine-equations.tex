@@ -545,7 +545,11 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   The integers $\frac{a}{d}$ and $\frac{b}{d}$ are relatively prime, so we find that $x=x_0+\frac{b}{d}k$ and $y=y_0-\frac{a}{d}k$ for some integer $k$.
 \end{proof}
 
-\begin{exercises}
+\exercises
+
+\begin{starter}
+  \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
+  \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
   \exercise Show that if $a\mid b$, then $d\mid b/a$ if and only if $ad\mid b$.
   \exercise Suppose that $a\mid b$ and $b\mid c$. Show that if $d\mid b/a$ then $d\mid c/a$.
   \exercise Show that $a\mid b$ implies $ac\mid bc$. Furthermore, show that if $c$ is nonzero, then $ac\mid bc$ implies $a\mid b$. Conclude that $a^n\mid b^n$ if and only if $a\mid b$ for any natural number $n$.
@@ -557,14 +561,22 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \item Show that $d$ is a greatest common divisor of $a$ and $b$ if and only if $a/d$ and $b/d$ are relatively prime.  
   \end{subexenum}
   \exercise Show that $a\mid bc$ if and only if $a/\gcd(a,b) \mid c$.
+  \exercise Show that if $\gcd(a,b)=1$ and both $a\mid c$ and $b\mid c$, then $ab\mid c$.  
+  \exercise Show that $\gcd(a^n,b^n)=\gcd(a,b)^n$.
   \exercise Show that if $d\mid a + b$, then $\gcd(d,a)\mid \gcd(a,b)$ and $\gcd(d,b)\mid\gcd(a,b)$. Conclude that if $a$ and $b$ are relatively prime, then $d$ is relatively prime to both $a$ and $b$.
   \exercise Consider three integers $a$, $b$, and $c$. Show that the following are equivalent:
   \begin{enumerate}
   \item The integers $a$ and $b$ are both relatively prime to $c$.
   \item The integer $ab$ is relatively prime to $c$.
   \end{enumerate}
-  \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
-  \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
+\end{starter}
+
+\begin{routine}
+  \exercise Let $M_n:=2^n-1$ be the $n$th \emph{Mersenne number}.
+  \begin{subexenum}
+  \item Show that if $n$ is even, then $3\mid M_n$.
+  \item Show that if $3\mid n$, then $7\mid M_n$.
+  \end{subexenum}
   \exercise
   \begin{subexenum}
   \item Show that $a^2-b^2$ is divisible by $8$ for any two odd integers $a$ and $b$.
@@ -581,18 +593,26 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \item Use the previous identity to give a geometric interpretation of the numbers $(a^3-a)/6$.
   \end{subexenum}
   \exercise \label{exercise:div-fifth-power-minus-first-power}Show that $a^5-a$ is divisible by $30$ for every integer $a$.
-  \exercise \label{exercise:div-product-sum-of-squares}Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2$, then $x=y$.
   \exercise
   \begin{subexenum}
   \item Show that any three consecutive Fibonacci numbers are pairwise relatively prime.
   \item Find all $n$ for which the five consecutive Fibonacci numbers $F_n,...,F_{n+4}$ are pairwise relatively prime.
   \end{subexenum}
-  \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
   \exercise Show that $n!+1$ and $(n+1)!+1$ are relatively prime for all nonzero $n$.
-  \exercise Show that
-  \begin{equation*}
-    \gcd(a^m-b^m,a^n-b^n)=a^{\gcd(m,n)}-b^{\gcd(m,n)}.
-  \end{equation*}
+\end{routine}
+
+\begin{challenge}
+  \exercise
+  \begin{subexenum}
+  \item Prove the \emph{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
+  \item For any integer $d$ and any two natural numbers $m$ and $n$, show that if two of the three following conditions hold, then so does the third:
+    \begin{enumerate}
+    \item $d\mid F_m$.
+    \item $d\mid F_n$.
+    \item $d\mid F_{n+m}$.
+    \end{enumerate}
+  \item Show that the Fibonacci sequence preserves and reflects divisibility: We have $m\mid n$ if and only if $F_m\mid F_n$.
+  \end{subexenum}
   \exercise \label{exercise:div-increment-a-p-squares}
   \begin{subexenum}
   \item Show that if $a$ and $b$ are both relatively prime to $24$, then $a^2-b^2$ is divisible by $24$.
@@ -614,26 +634,6 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
   \end{subexenum}
   \exercise
   \begin{subexenum}
-  \item Prove the \emph{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
-  \item For any integer $d$ and any two natural numbers $m$ and $n$, show that if two of the three following conditions hold, then so does the third:
-    \begin{enumerate}
-    \item $d\mid F_m$.
-    \item $d\mid F_n$.
-    \item $d\mid F_{n+m}$.
-    \end{enumerate}
-  \item Show that the Fibonacci sequence preserves and reflects divisibility: We have $m\mid n$ if and only if $F_m\mid F_n$.
-  \end{subexenum}
-  \exercise Prove that if $a$ and $b$ are relatively prime integers, and $n$ is an arbitrary positive integer, then in the arithmetical progression
-  \begin{equation*}
-    a+kb,\qquad k=0,1,2,\ldots
-  \end{equation*}
-  there are infinitely many numbers relatively prime to $n$.
-  \exercise Show that
-  \begin{equation*}
-    \binom{a+k}{k}\Bigm| \lcm(a,a+1,\ldots,a+k).
-  \end{equation*}
-  \exercise
-  \begin{subexenum}
   \item Consider two positive integers $a$ and $n$ such that $\gcd(a,n)=1$. Prove that there is a natural number $m$ such that
     \begin{equation*}
       n\,\Bigm|\, \sum_{k=0}^m a^k.
@@ -644,33 +644,40 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
       7\,\Bigm|\, \sum_{k=0}^{m-1} 10^k = \underbrace{11\cdots1}_{m}.
     \end{equation*}
   \end{subexenum}
+  \exercise \label{exercise:div-product-sum-of-squares}Show that if $x$ and $y$ are positive integers such that $xy$ divides $x^2+y^2$, then $x=y$.
+  \exercise Show that $2^m-1$ and $2^n+1$ are relatively prime, provided that $m$ is odd.
+  \exercise Show that
+  \begin{equation*}
+    \gcd(a^m-b^m,a^n-b^n)=a^{\gcd(m,n)}-b^{\gcd(m,n)}.
+  \end{equation*}
   \exercise Consider a positive integer $a$, and write $S_m:=\sum_{k=0}^m a^k$. Prove that
   \begin{equation*}
     \gcd(S_m,S_n)=S_{\gcd(m+1,n+1)-1}.
   \end{equation*}
+  \exercise Show that
+  \begin{equation*}
+    \binom{a+k}{k}\Bigm| \lcm(a,a+1,\ldots,a+k).
+  \end{equation*}
+  \exercise Show that in any subset of $n+1$ integers from the set $\{1,\ldots,2n\}$, there is a pair of distinct integers such that one divides the other. Does the claim still hold for every subset of $n$ integers from the set $\{1,\ldots,2n\}$?
   \exercise (Erd\H{o}s) Show that any set of $n+1$ integers chosen from an interval $a,\ldots,a+2n-1$ must contain a pair of relatively prime integers.
-  \exercise An interval $a,\ldots,a+n-1$ of consecutive positive integers is said to be \emph{stapled} if it does not contain any integer that is relatively prime to all the others \cite{evans1969}. The sequence A090318 of the OEIS lists for each $n$ the first positive integer $a$ such that the interval $a,\ldots,a+n-1$ is stapled, or $0$ if no such number exists. This sequence starts to show nonzero values from $n=17$ onwards, with the value $2184$ at $n=17$.
-  \begin{subexenum}
-  \item Check that the interval $2184,\ldots, 2200$ is stapled.
-  \item Show that in every interval of ten consecutive digits there is an integer that is relatively prime to all the others. In other words, no interval of ten consecutive digits is stapled.
-  \end{subexenum}
   \exercise Show that for $n>1$ there are no solutions in the positive integers to the equation
   \begin{equation*}
     a(a+1)(a+2)=b^n.
   \end{equation*}
   More generally, Paul Erd\H{o}s and John Lewis Selfridge showed that no product of at least two consecutive integers can be an $n$th power for $n>1$ \cite{erdosselfridge1975}.
-  \exercise Let $M_n:=2^n-1$ be the $n$th \emph{Mersenne number}.
-  \begin{subexenum}
-  \item Show that if $n$ is even, then $3\mid M_n$.
-  \item Show that if $3\mid n$, then $7\mid M_n$.
-  \end{subexenum}
   \exercise Find all solutions to the equation
   \begin{equation*}
     3^m-2^n=1.
   \end{equation*}
-\end{exercises}
+  \exercise An interval $a,\ldots,a+n-1$ of consecutive positive integers is said to be \emph{stapled} if it does not contain any integer that is relatively prime to all the others \cite{evans1969}. The sequence A090318 of the OEIS lists for each $n$ the first positive integer $a$ such that the interval $a,\ldots,a+n-1$ is stapled, or $0$ if no such number exists. This sequence starts to show nonzero values from $n=17$ onwards, with the value $2184$ at $n=17$.
+  \begin{subexenum}
+  \item Check that the interval $2184,\ldots, 2200$ is stapled.
+  \item Show that in every interval of ten consecutive digits there is an integer that is relatively prime to all the others. In other words, no interval of ten consecutive digits is stapled.
+  \end{subexenum}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

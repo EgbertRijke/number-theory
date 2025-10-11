@@ -1,10 +1,48 @@
 \chapter[Euclidean Division and Representability]{Euclidean Division and the Representability Theorem}\label{chapter:euclidean-division-and-representability}
 
+\section{Notation for Numbers}
+
+\begin{table}
+  \centering
+  \setlength{\tabcolsep}{8pt}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{*{10}{r}}
+    \toprule
+    & {\cuneifont 𒁹} & {\cuneifont 𒈫} & {\cuneifont 𒐈} & {\cuneifont 𒃻} & {\cuneifont 𒐊} & {\cuneifont 𒐋} & {\cuneifont 𒐌} & {\cuneifont 𒐍} & {\cuneifont 𒐎} \\
+    {\cuneifont 𒌋} & {\cuneifont 𒌋𒁹} & {\cuneifont 𒌋𒈫} & {\cuneifont 𒌋𒐈} & {\cuneifont 𒌋𒃻} & {\cuneifont 𒌋𒐊} & {\cuneifont 𒌋𒐋} & {\cuneifont 𒌋𒐌} & {\cuneifont 𒌋𒐍} & {\cuneifont 𒌋𒐎} \\
+    {\cuneifont 𒎙} & {\cuneifont 𒎙𒁹} & {\cuneifont 𒎙𒈫} & {\cuneifont 𒎙𒐈} & {\cuneifont 𒎙𒃻} & {\cuneifont 𒎙𒐊} & {\cuneifont 𒎙𒐋} & {\cuneifont 𒎙𒐌} & {\cuneifont 𒎙𒐍} & {\cuneifont 𒎙𒐎} \\
+    {\cuneifont 𒌍} & {\cuneifont 𒌍𒁹} & {\cuneifont 𒌍𒈫} & {\cuneifont 𒌍𒐈} & {\cuneifont 𒌍𒃻} & {\cuneifont 𒌍𒐊} & {\cuneifont 𒌍𒐋} & {\cuneifont 𒌍𒐌} & {\cuneifont 𒌍𒐍} & {\cuneifont 𒌍𒐎} \\
+    {\cuneifont 𒐏} & {\cuneifont 𒐏𒁹} & {\cuneifont 𒐏𒈫} & {\cuneifont 𒐏𒐈} & {\cuneifont 𒐏𒃻} & {\cuneifont 𒐏𒐊} & {\cuneifont 𒐏𒐋} & {\cuneifont 𒐏𒐌} & {\cuneifont 𒐏𒐍} & {\cuneifont 𒐏𒐎} \\
+    {\cuneifont 𒐐} & {\cuneifont 𒐐𒁹} & {\cuneifont 𒐐𒈫} & {\cuneifont 𒐐𒐈} & {\cuneifont 𒐐𒃻} & {\cuneifont 𒐐𒐊} & {\cuneifont 𒐐𒐋} & {\cuneifont 𒐐𒐌} & {\cuneifont 𒐐𒐍} & {\cuneifont 𒐐𒐎} \\
+    {\cuneifont 𒁹} & {\cuneifont 𒁹\thinspace 𒁹} & {\cuneifont 𒁹\thinspace 𒈫} & {\cuneifont 𒁹\thinspace 𒐈} & {\cuneifont 𒁹\thinspace 𒃻} & {\cuneifont 𒁹\thinspace 𒐊} & {\cuneifont 𒁹\thinspace 𒐋} & {\cuneifont 𒁹\thinspace 𒐌} & {\cuneifont 𒁹\thinspace 𒐍} & {\cuneifont 𒁹\thinspace 𒐎} \\
+    {\cuneifont 𒁹\thinspace 𒌋} & {\cuneifont 𒁹\thinspace 𒌋𒁹} & {\cuneifont 𒁹\thinspace 𒌋𒈫} & {\cuneifont 𒁹\thinspace 𒌋𒐈} & {\cuneifont 𒁹\thinspace 𒌋𒃻} & {\cuneifont 𒁹\thinspace 𒌋𒐊} & {\cuneifont 𒁹\thinspace 𒌋𒐋} & {\cuneifont 𒁹\thinspace 𒌋𒐌} & {\cuneifont 𒁹\thinspace 𒌋𒐍} & {\cuneifont 𒁹\thinspace 𒌋𒐎} \\
+    
+    \bottomrule
+  \end{tabular}
+  \caption[The sexagesimal notation in cuneiform script]{The sexagesimal system in cuneiform script was developed by the ancient Sumerians in Mesopotamia, around 3200 BCE, and continued to be used by the Babylonians. Note that there was no notation for the number $0$ in cuneiform script. Consequently, there was no visual distinction between the numbers $1$, $60$, and $3600$, and so on.}
+\end{table}
+
+The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number two hundred and thirty-one, which consists of two lots of hundred, three lots of ten and one unit. Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $(11100111)_2$, while the hexadecimal representation of this number is $(E7)_{16}$. In each of these representations of the number 231, the position of the digits relative to each other is significant for its value. Such ways of writing numbers are therefore called \emph{positional}. Positional number systems have a long history, going back to the Sumerians in ancient Mesopotamia. The Sumerians were known for using a \emph{sexagesimal} system, which is in base $60$. They used cuneiform script, which was also the earliest form of writing.
+
+On the other side of the world, the Mayans developed roughly between 400 BCE and 150 CE a \emph{vigesimal} numerical system; that is, a system base $20$. Notably, there was no contact between the Mayans in Mesoamerica and civilizations in Africa, Asia, or Europe. They had thus developed their number system entirely independently, and conversely their number system did not influence the Indian and Arabic developments which would eventually make its way into the modern mathematical tradition. The Mayans were the first known civilization to have notation for the number $0$.
+
+Although zero was conceived independently by the Mayans, the modern digit $0$
+has its roots in the Indian mathematical tradition. One of the earliest known
+occurrences appears in the Bakhshali manuscript, a collection of around seventy
+birch-bark leaves, many of which are fragmentary. It was discovered by a farmer in
+1881 near Bakhshali in present-day Pakistan. The text was written in an early form of the Śāradā script, and the number $0$ was denoted by a dot. Radiocarbon analysis shows that different leaves date from between the 3rd and 9th centuries CE, which suggests a long process of compilation and copying. Nevertheless, instances of the number $0$ occur on leaves dating from the 3rd or 4th century CE, making this one of the earliest surviving records of the modern number $0$ in written form.
+
+The earliest surviving stone inscription of the number $0$ was found in the ruins of a temple in Mekong, Cambodia, by the French archaeologist George Cœdès. He catalogued this stone tablet as K-127. It mentions the year in which the temple was built, the year 605 of the Śāka era, which corresponds to the year 683 CE. The number $0$ again appeared as a dot.
+
+Another famous early inscription of the number $0$ can be found in the Chaturbhuj temple in Gwalior, India, from 876 CE. The numerals were written in an early Nāgarī script, in which the number $0$ already had its modern, circular form. The inscription tells of the temple built on a piece of land $270$ hastas in length and 187 hastas in breadth. Since the $0$ is used at the last digit of a number, as opposed to a placeholder in the middle of a number, this is considered to be the earliest occurrence of $0$ as a numeral.
+
+We saw that throughout the history of human civilization, we have seen numerical systems with various bases. The decimal system is most common nowadays, a sexagesimal system was used by the Sumerians and Babylonians, a vigesimal system was used by the Mayans, and other systems such as the binary and hexadecimal systems are used by computers. The following mathematical theorem may not come as a surprise anymore: Any number $k>1$ can serve as the basis of a numerical system. We will prove this theorem using the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem}, which itself rests on the \crefnamed{theorem:well-ordering-natural-numbers}{Well-Ordering Principle of the Natural Numbers}.
+
 \section{The Well-Ordering Principle of the Natural Numbers}
 
 The induction principle of the natural numbers implies other important reasoning principles. One of them is the \emph{well-ordering principle}. The well-ordering principle has many practical implications. For example, in the next section we will apply a variation of the well-ordering principle, which we will describe below, to construct division with remainder.
 
-\begin{theorem}\label{theorem:well-ordering-natural-numbers}
+\begin{theorem}[Well-Ordering Principle of the Natural Numbers]\label{theorem:well-ordering-natural-numbers}
   Any inhabited subset of the natural numbers has a least element.
 \end{theorem}
 
@@ -102,12 +140,6 @@ The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it capt
 \end{proof}
 
 \section{The Representability Theorem}
-
-The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number
-\begin{equation*}
-  2\cdot 10^2+3\cdot 10^1+1\cdot 10^0.
-\end{equation*}
-Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $(11100111)_2$, while the hexadecimal representation of this number is $(E7)_{16}$. More generally, for any \emph{base} $k$ there is a unique representation of all integers using powers of $k$.
 
 \begin{theorem}\label{theorem:representability}
   Consider a natural number $k>1$. Then there exists for every natural number $n$ a unique list $\ell$ of digits $d_0,\ldots,d_{l-1}$ of length $l$, such that the inequalities $0\leq d_i<k$ hold for each $i<l$, such that the \emph{leading digit} $d_{l-1}\neq 0$, and satisfying the equation
@@ -220,13 +252,29 @@ In the present chapter, we will be content with some very elementary application
   There are $2^k$ subsets of $S$, of which $2^k-1$ are nonempty. By \cref{theorem:existence-difference-divisible} it follows that there are two distinct nonempty subsets of $S$ such that the difference of their sums is divisible by $m$.
 \end{proof}
 
-\begin{exercises}
-\exercise Show that a number written as $d_{l-1}\cdots d_0$ in its decimal representation is divisible by $11$ if and only if the alternating sum
+\exercises
+
+\begin{routine}
+  \exercise Prove that among any choice of $n+1$ numbers from the set $\{1,\ldots, 2n\}$, there will be two distinct numbers that sum to $2n+1$.
+  \exercise Show that a number written as $d_{l-1}\cdots d_0$ in its decimal representation is divisible by $11$ if and only if the alternating sum
   \begin{equation*}
     \sum_{i=0}^{l-1}(-1)^{i}d_i
   \end{equation*}
   is divisible by $11$. For example, the number $2541$ is divisible by $11$ because $-2+5-4+1=0$ is divisible by $11$.
-\exercise \label{exercise:zeckendorf}\emph{Zeckendorf's representation theorem}. Show that for any natural number $n$ there is a unique list $\ell=(d_0,\ldots,d_{l-1})$ of digits $0$ and $1$, such that its leading digit $d_{l-1}$ is nonzero, no two consecutive digits are both $1$, and satisfying the identity
+  \exercise Show that for any natural number $n>0$ there is a unique pair of numbers $(m,r)$ such that the only square dividing $r$ is $1$, and
+  \begin{equation*}
+    n = m^2r.
+  \end{equation*}
+  This is called the \emph{square-free decomposition} of $n$.
+  \exercise Show that for any natural number $n>0$ there is a unique pair of numbers $(k,m)$ such that
+  \begin{equation*}
+    n = 2^k(2m+1).
+  \end{equation*}
+  This is called the \emph{$2$-adic representation} of $n$.
+\end{routine}
+
+\begin{challenge}
+  \exercise \label{exercise:zeckendorf}\emph{Zeckendorf's representation theorem}. Show that for any natural number $n$ there is a unique list $\ell=(d_0,\ldots,d_{l-1})$ of digits $0$ and $1$, such that its leading digit $d_{l-1}$ is nonzero, no two consecutive digits are both $1$, and satisfying the identity
   \begin{equation*}
     n=\sum_{i=0}^{l-1}d_iF_{i+2},
   \end{equation*}
@@ -235,11 +283,11 @@ In the present chapter, we will be content with some very elementary application
   \item The Zeckendorf representation theorem can be used in the design of any document to get meaningful relative font sizes: If $d_{l-1}\cdots d_0$ is the Zeckendorf representation of a font size $n$, then adding an extra zero at the end gives the Zeckendorf representation $d_{l-1}\cdots d_00$ of a good next font size. If you are working with font size $12$, what is the next sensible font size?
   \item Zeckendorf representations can also be used to convert miles to kilometers with a fair degree of accuracy. Again, given a number $n$ of miles, with Zeckendorf representation $d_{l-1}\cdots d_0$, add a $0$ at the end to get the Zeckendorf representation $d_{l-1}\cdots d_00$ of the number of kilometers. How fast is $65$ mph in kph according to this conversion?
   \end{enumerate}
-  \exercise Prove that among any choice of $n+1$ numbers from the set $\{1,\ldots, 2n\}$, there will be two distinct numbers that sum to $2n+1$.
   \exercise (Erd\H{o}s--Szekeres) Show that any sequence $a_1,\ldots,a_{mn+1}$ of real numbers contains either an increasing subsequence of length $m+1$ or a decreasing subsequence of length $n+1$.
-\end{exercises}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

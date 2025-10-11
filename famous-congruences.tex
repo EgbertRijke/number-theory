@@ -1,133 +1,4 @@
-\chapter{The Central Theorems of Modular Arithmetic}\label{chapter:modular-arithmetic}
-
-\section{Fermat's Little Theorem}
-
-\begin{theorem}[Fermat's Little Theorem]\label{theorem:fermats-little-theorem}
-  Consider a prime number $p$ and an integer $a$. Then the congruence
-  \begin{equation*}
-    a^{p}\equiv a\pmod{p}
-  \end{equation*}
-  holds.
-\end{theorem}
-
-\begin{proof}[Fermat's additive proof]
-  Note that the congruence $(-a)^p\equiv -a^p\pmod{p}$ holds for all primes $p$, so it suffices to prove the claim for the nonnegative integers. We proceed by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds.
-
-  For the inductive step, assume that $a^p\equiv a\pmod{p}$. The \crefnamed{theorem:binomial-theorem}{Binomial Theorem} then gives us that
-  \begin{equation*}
-    (a+1)^p=\sum_{k=0}^p \binom{p}{k}a^k
-  \end{equation*}
-  However, note that $p\mid\binom{p}{k}$ for any $0<k<p$. We therefore find that
-  \begin{equation*}
-    (a+1)^p\equiv a^p+1\pmod{p}.
-  \end{equation*}
-  Since $a^p\equiv a\pmod{p}$ holds by the induction hypothesis, the claim follows.
-\end{proof}
-
-\begin{corollary}
-  Consider a prime number $p$ and an integer $a$ not divisible by $p$. Then the congruence
-  \begin{equation*}
-    a^{p-1}\equiv 1\pmod{p}
-  \end{equation*}
-  holds.
-\end{corollary}
-
-\begin{proof}
-  Since $a$ is not divisible by $p$, it follows that $a$ is relatively prime to $p$, and therefore the claim follows from the cancellation law
-  \begin{equation*}
-    ax\equiv ay\pmod{p}\qquad\Rightarrow\qquad x\equiv y\pmod{p}.\qedhere
-  \end{equation*}
-\end{proof}
-
-\begin{theorem}\label{theorem:prime-divisors-fermat-numbers}
-  If $p$ is a prime divisor of a Fermat number $F_n:=2^{2^n}+1$, then
-  \begin{equation*}
-    p\equiv 1\pmod{2^{n+1}}
-  \end{equation*}
-\end{theorem}
-
-\begin{corollary}
-  The fourth Fermat number $2^{2^4}+1=65537$ is prime.
-\end{corollary}
-
-\begin{proof}
-  Any prime divisor of $F_4=2^{2^4}+1$ must satisfy the congruence $p\equiv 1\pmod{33}$. If $F_4$ is composite, then it must have a prime divisor below $\sqrt{F_4}$, and thus below $2^8=256$. The sieve of Eratosthenes displayed in \cref{figure:sieve-of-eratosthenes} reveals that the only two primes $p\equiv 1\pmod{33}$ below $256$ are $97$ and $193$. A quick computation gives that
-  \begin{equation*}
-    F_4\equiv 62\pmod{97}\qquad\text{and}\qquad F_4\equiv 110\pmod{193},
-  \end{equation*}
-  so that neither $97$ nor $193$ is a prime divisor of $F_4$, and therefore we conclude that $F_4$ is prime.
-\end{proof}
-
-\begin{corollary}
-  The fifth Fermat number $2^{2^5}+1=4,294,967,297$ is composite with prime factor
-  \begin{equation*}
-    641\mid 2^{2^5}+1.
-  \end{equation*}
-\end{corollary}
-
-It is widely believed, and strongly supported by evidence, that every Fermat number is square-free.
-
-\section{Euler's Theorem}
-
-Euler figured out a way to generalize Fermat's Little Theorem to the composite moduli. He made use of his totient function $\phi$, which counts for each $n$ the number of $0\leq m<n$ relatively prime to $n$.
-
-\begin{theorem}[Euler's Theorem]\label{theorem:eulers-theorem}
-  Consider a natural number $n$ and an integer $a$ such that $\gcd(a,n)=1$. The congruence
-  \begin{equation*}
-    a^{\phi(n)}\equiv 1\pmod{n}
-  \end{equation*}
-  holds
-\end{theorem}
-
-We present two proofs of Euler's Theorem. The first is the standard proof, and the other is inspired by methods of group theory.
-
-\begin{proof}[First proof of Euler's Theorem]
-  Consider an integer $a$ relatively prime to $n$, and consider a reduced residue system $r_1,\ldots,r_{\phi(n)}$ modulo $n$. We claim that
-  \begin{equation*}
-    ar_1,\ldots,ar_{\phi(n)}
-  \end{equation*}
-  is again a reduced residue system modulo $n$. Indeed, since multiplying by $a$ induces a bijection on $\mathbb{Z}/n\mathbb{Z}$, we see that all integers $ar_1,\ldots,ar_{\phi(n)}$ are incongruent. Furthermore, the product of any two integers relatively prime to $n$ is again relatively prime to $n$, so all the integers $ar_i$ are relatively prime to $n$. Since any set of $\phi(n)$ incongruent integers relatively prime to $n$ form a reduced residue system, the claim follows.
-
-  Using that the integers $ar_1,\ldots,ar_{\phi(n)}$ form a reduced residue system, it follows that
-  \begin{equation*}
-    \prod_{i=1}^{\phi(n)}r_i\equiv \prod_{i=1}^{\phi(n)}ar_i = a^{\phi(n)}\prod_{i=1}^{\phi(n)}r_i\pmod{n}
-  \end{equation*}
-  Since $\prod_{i=1}^{\phi(n)}r_i$ is relatively prime to $n$, it follows that $a^{\phi(n)}\equiv 1\pmod{n}$.
-\end{proof}
-
-\begin{proof}[Second proof of Euler's Theorem]
-  Consider the least positive integer $k$ such that $a^k\equiv 1\pmod{n}$, and consider the relation $\sim$ on the set of integers $0\leq b<n$ relatively prime to $n$, where
-  \begin{equation*}
-    b\sim c \qquad\text{if and only if}\qquad \exists_{0\leq i< k} ba^i\equiv c\pmod{n}.
-  \end{equation*}
-  This relation is reflexive, because $ba^0 \equiv b\pmod{n}$. It is symmetric, because if $ba^i\equiv c\pmod{n}$ for some nonzero $i$, then $ca^{k-i}\equiv ba^ia^{k-i}\equiv b\pmod{n}$. Furthermore, it is transitive, because if $ba^i\equiv c$ and $ca^j\equiv d$, then $ba^{i+j}\equiv d$. If $k\leq i+j$, then we find that also $ba^{i+j-k}\equiv d$. Thus, the relation $\sim$ is an equivalence relation.
-
-  We claim that each equivalence class has size $k$. Indeed, for each $b$, the set
-  \begin{equation*}
-    \{b,ba,ba^2,\ldots,ba^{k-1}\}
-  \end{equation*}
-  consists of $k$ distinct elements, because multiplying with $b$ is a bijection. Thus we have partitioned the set of all numbers $0\leq b<n$ relatively prime to $n$ into equivalence classes of size $k$. On the other hand, the total number of elements $0\leq b<n$ relatively prime to $n$ is the number $\phi(n)$. This shows that $k\mid \phi(n)$, so it follows that $a^{\phi(n)}\equiv 1\pmod{n}$.
-\end{proof}
-
-\begin{remark}
-  The second proof of Euler's theorem can be simplified using the language of group theory. A \emph{group} is a set $G$ equipped with a binary operation $x,y\mapsto xy$, a unary operation $x\mapsto x^{-1}$, and a unit element $1$, satisfying the axioms
-  \begin{align*}
-    (xy)z & = x(yz) \\
-    x1 & = x \\
-    1x & = x \\
-    xx^{-1} & = 1 \\
-    x^{-1}x & = 1.
-  \end{align*}
-  One can show that the set of integers modulo $n$ relatively prime to $n$ forms a group, where the binary operation is multiplication, the unit element is the integer $1$, and the inverse $x^{-1}$ of an integer $x$ modulo $n$ is the unique solution to the equation $xy\equiv 1\pmod{n}$. The number of elements in this group is $\phi(n)$. For any integer $a$ modulo $n$ relatively prime to $n$ such that $a^k\equiv 1\pmod{n}$, the set $\{1,a,a^2,\ldots,a^{k-1}\}$ is a subgroup, which means that it is closed under the group operations. The argument where we introduced an equivalence relation $\sim$ to partition the set of all integers modulo $n$ relatively prime to $n$ into equivalence classes of size $k$ is an instance of a much more general result, Lagrange's Theorem, which asserts that the size of any subgroup of a finite group divides the size of the entire group.
-\end{remark}
-
-Since $\phi(p)=p-1$, it follows that \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} is also a direct corollary of \crefnamed{theorem:eulers-theorem}{Euler's Theorem}.
-
-Some questions about Euler's totient function remain unresolved. While we have seen that $\phi(p)=p-1$ for any prime number $p$, Lehmer asked whether there is any composite number $n$ such that
-\begin{equation*}
-  \phi(n)\mid n-1.
-\end{equation*}
-This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
+\chapter{Some Famous Congruences}\label{chapter:modular-arithmetic}
 
 \section{Wilson's Theorem}
 
@@ -276,7 +147,9 @@ The previous theorem is a special case of a deep theorem in analytic number theo
 \end{equation*}
 The techniques of proving Dirichlet's Theorem are beyond the scope of this course. However, having taken this course, you are well equipped to read LeVeque's excellent \emph{Topics in Number Theory} \cite{leveque1956vol1,leveque1956vol2}, a two-volume work that contains well-explained proofs of Dirichlet's Theorem as well as the Prime Number Theorem.
 
-\begin{exercises}
+\exercises
+
+\begin{routine}
   \exercise For every prime $p\equiv 1\pmod{4}$ below $100$, find the least positive integer $a$ such that $a^2\equiv -1\pmod{p}$.
   \exercise Consider an odd prime $p=2n+1$. Show that
   \begin{equation*}
@@ -377,10 +250,16 @@ The techniques of proving Dirichlet's Theorem are beyond the scope of this cours
     \sum_{k=1}^{n} k^n\equiv 0\pmod{n}
   \end{equation*}
   holds if and only if $n$ is odd.
-  \exercise. Find the least integer $k>1$ such that every integer of the form $x^k-x$ is divisible by $47$ and $89$.
-\end{exercises}
+  \exercise Find the least integer $k>1$ such that every integer of the form $x^k-x$ is divisible by $47$ and $89$.
+  \exercise Consider the function $f(n)=2n+1$. Show for every prime $p$, the sequence
+  \begin{equation*}
+    k\mapsto f^k(p)
+  \end{equation*}
+  obtained by iterating the function $f$, contains composite numbers.
+\end{routine}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

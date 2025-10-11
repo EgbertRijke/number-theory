@@ -2,13 +2,23 @@
 
 \section{Hume's Principle}
 
-Combinatorics, or discrete mathematics, is the mathematics of finite structures. A central theme in combinatorics is counting, establishing a closed form for the number of objects of a certain kind. Such counting methods can sometimes be used to obtain results in number theory. For instance, we will use a counting argument to show that the product
+Combinatorics, or discrete mathematics,
+is the mathematics of finite structures.
+A central theme in combinatorics is counting,
+establishing a closed form for the number of objects of a certain kind.
+Such counting methods can sometimes be used to obtain results in number theory.
+For instance, we will use a counting argument to show that the product
 \begin{equation*}
   n(n-1)\cdots(n-k+1)
 \end{equation*}
 of any $k$ consecutive natural numbers is always divisible by $k!$.
 
-We will begin by investigating more conceptually what mathematicians mean by counting, and work towards Hume's principle. David Hume stated this principle in Part III of Book I of his \emph{Treatise of Human Nature}, a philosphical work in which he set out to found a general ``science of man'' by applying empirical methods to understanding, the passions, and morals \cite{hume1978}. In discussing the idea of number, he observes that equality of numbers can be determined whenever there is a one-to-one correspondence between their constituents:
+We will begin by investigating more conceptually what mathematicians mean by counting,
+and work towards Hume's principle.
+David Hume stated this principle in Part III of Book I of his \emph{Treatise of Human Nature},
+a philosphical work in which he set out to found a general ``science of man'' by applying empirical methods to understanding, the passions, and morals \cite{hume1978}.
+In discussing the idea of number,
+he observes that equality of numbers can be determined whenever there is a one-to-one correspondence between their constituents:
 \begin{quote}
   {\itshape We are possest of a precise standard, by which we can judge
     of the equality and proportion of numbers; and according as they correspond
@@ -18,7 +28,14 @@ We will begin by investigating more conceptually what mathematicians mean by cou
     equal; and ’tis for want of such a standard of equality in extension, that
     geometry can scarce be esteem’d a perfect and infallible science.}
 \end{quote}
-We note here that Hume relies on the Euclidean conception of number, where a number is a multitude of units: the number $n$ is the collection of $n$ units. By contrast, in modern mathematics we treat the natural numbers as an inductively generated set. To recover Hume’s insight in our setting, we introduce the notion of a standard $n$-element set, which is to be a fixed set with exactly $n$ elements playing the role of Euclid’s collection of $n$ units.
+We note here that Hume relies on the Euclidean conception of number,
+where a number is a multitude of units:
+the number $n$ is the collection of $n$ units.
+By contrast,
+in modern mathematics we treat the natural numbers as an inductively generated set.
+To recover Hume’s insight in our setting,
+we introduce the notion of a standard $n$-element set,
+which is to be a fixed set with exactly $n$ elements playing the role of Euclid’s collection of $n$ units.
 
 \begin{definition}
   The \emph{standard finite set} $[n]$ with $n$ elements is defined by
@@ -27,11 +44,25 @@ We note here that Hume relies on the Euclidean conception of number, where a num
   \end{equation*}
 \end{definition}
 
-The standard $0$-element set $[0]$ is the empty set, since there are no natural numbers strictly smaller than $0$. The standard $1$-element set is the set $\{0\}$, since $0$ is the only element strictly smaller than $1$. The standard $2$-element set is the set $\{0,1\}$, since the only two elements strictly smaller than $2$ are $0$ and $1$, and so forth.
+The standard $0$-element set $[0]$ is the empty set,
+since there are no natural numbers strictly smaller than $0$.
+The standard $1$-element set is the set $\{0\}$,
+since $0$ is the only element strictly smaller than $1$.
+The standard $2$-element set is the set $\{0,1\}$,
+since the only two elements strictly smaller than $2$ are $0$ and $1$,
+and so forth.
 
-Suppose now that we are given an arbitrary set $A$, and we wish to count its elements. What does it mean when we say that the set $A$ has $n$ elements? It means that we can, at least in principle, label each element of $A$ with a number $0\leq i<n$ in such a way that every element of $A$ is labeled by \emph{exactly one} number $0\leq i<n$. By making sure that every element of $A$ is labeled \emph{at least once} we make sure that every element of $A$ is accounted for, and by making sure that every element of $A$ is labeled \emph{at most once} we make sure to not overshoot the count.
+Suppose now that we are given an arbitrary set $A$,
+and we wish to count its elements.
+What does it mean when we say that the set $A$ has $n$ elements?
+It means that we can, at least in principle,
+label each element of $A$ with a number $0\leq i<n$ in such a way that every element of $A$ is labeled by \emph{exactly one} number $0\leq i<n$.
+By making sure that every element of $A$ is labeled \emph{at least once} we make sure that every element of $A$ is accounted for,
+and by making sure that every element of $A$ is labeled \emph{at most once} we make sure to not overshoot the count.
 
-Thus, in order to show that the set $A$ has $n$ elements, we have to create what is called a \emph{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
+Thus,
+in order to show that the set $A$ has $n$ elements,
+we have to create what is called a \emph{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
 
 \begin{figure}[t]
   \centering
@@ -68,7 +99,8 @@ Thus, in order to show that the set $A$ has $n$ elements, we have to create what
 \end{figure}
 
 \begin{definition}
-  A function $f:X\to Y$ is said to be a \emph{bijection} if for every $y\in Y$ there is exactly one element $x\in X$ such that $f(x)=y$. The set of bijections from $X$ to $Y$ is denoted by
+  A function $f:X\to Y$ is said to be a \emph{bijection} if for every $y\in Y$ there is exactly one element $x\in X$ such that $f(x)=y$.
+  The set of bijections from $X$ to $Y$ is denoted by
   \begin{equation*}
     X\cong Y.
   \end{equation*}
@@ -144,17 +176,44 @@ Thus, in order to show that the set $A$ has $n$ elements, we have to create what
     \captionof{figure}[Not a bijection]{\label{figure:not-bijection-2}This function is not a bijection since $b_4$ is not the value of any element in $A$.}    
   \end{minipage}
 \end{figure}
-In \cref{figure:bijection} we displayed an example of a bijection between two $3$-element sets. Note that such a bijection would not exist between $A$ and $B$ if the number of elements in $B$ was different from three. If $B$ had fewer than $3$ elements, as shown in \cref{figure:not-bijection-1}, then any function $f:A\to B$ would necessarily repeat a value, while if $B$ had more than $3$ elements, as shown in \cref{figure:not-bijection-2}, then no function $f:A\to B$ could have all the elements of $B$ in its range.
+In \cref{figure:bijection} we displayed an example of a bijection between two $3$-element sets.
+Note that such a bijection would not exist between $A$ and $B$ if the number of elements in $B$ was different from three.
+If $B$ had fewer than $3$ elements, as shown in \cref{figure:not-bijection-1},
+then any function $f:A\to B$ would necessarily repeat a value,
+while if $B$ had more than $3$ elements,
+as shown in \cref{figure:not-bijection-2},
+then no function $f:A\to B$ could have all the elements of $B$ in its range.
 
-This is precisely the reason why we are interested in bijections: If there is a bijection between $A$ and $B$, then they must have the same number of elements. The principle that any two finite sets have the same number of elements if and only if there is a bijection between them is \emph{Hume's Principle}.
+This is precisely the reason why we are interested in bijections:
+If there is a bijection between $A$ and $B$,
+then they must have the same number of elements.
+The principle that any two finite sets have the same number of elements if and only if there is a bijection between them is \emph{Hume's Principle}.
 
-In order to prove Hume's principle more formally, we need two lemmas. The first is an abstract lemma that asserts that two bijections $f:A\cong B$ and $g:B\cong C$ can be composed into a bijection $g\circ f:A\cong C$. The second is a self-evident looking lemma that establishes that if $A$ is an $(n+1)$-element set and $a\in A$, then the set $A\setminus\{a\}$ consisting of all elements of $A$ except $a$ is an $n$-element set. Indeed, such a lemma also requires proof.
+In order to prove Hume's principle more formally,
+we need two lemmas.
+The first is an abstract lemma that asserts that two bijections $f:A\cong B$ and $g:B\cong C$ can be composed into a bijection $g\circ f:A\cong C$.
+The second is a self-evident looking lemma that establishes that if $A$ is an $(n+1)$-element set and $a\in A$,
+then the set $A\setminus\{a\}$ consisting of all elements of $A$ except $a$ is an $n$-element set.
+Indeed, such a lemma also requires proof.
 
-Before we state the composability of bijections, a few comments about how to prove that a function is a bijection and how to use the assumption that a function is a bijection are in order.
+Before we state the composability of bijections,
+a few comments about how to prove that a function is a bijection and how to use the assumption that a function is a bijection are in order.
 
-\emph{Proving that $f:X\to Y$ is a bijection}. The condition that a function $f:X\to Y$ is a bijection states that for every element $y\in Y$ there is a unique element $x\in X$ such that $f(x)=y$. Such unique existence properties have two parts: first we have to show that there indeed exists at least one such $x$, and second we have to show that it is unique. For the second part, we assume that if both $x$ satisfies $f(x)=y$ and $x'$ satisfies $f(x')=y$, then we must have $x=x'$.
+\emph{Proving that $f:X\to Y$ is a bijection}.
+The condition that a function $f:X\to Y$ is a bijection states that for every element $y\in Y$ there is a unique element $x\in X$ such that $f(x)=y$.
+Such unique existence properties have two parts:
+first we have to show that there indeed exists at least one such $x$,
+and second we have to show that it is unique.
+For the second part,
+we assume that if both $x$ satisfies $f(x)=y$ and $x'$ satisfies $f(x')=y$,
+then we must have $x=x'$.
 
-\emph{Using the condition that $f:X\to Y$ is a bijection}. If we assume that $f:X\to Y$ is a bijection, then we have for every $y\in Y$ access to an element $x\in X$ such that $f(x)=y$. Furthermore, for every $x'\in X$ such that $f(x')=y$ we know that the equality $x=x'$ must hold, which we may use if it helps us in our proof.
+\emph{Using the condition that $f:X\to Y$ is a bijection}.
+If we assume that $f:X\to Y$ is a bijection,
+then we have for every $y\in Y$ access to an element $x\in X$ such that $f(x)=y$.
+Furthermore,
+for every $x'\in X$ such that $f(x')=y$ we know that the equality $x=x'$ must hold,
+which we may use if it helps us in our proof.
 
 \begin{figure}[b]
   \centering
@@ -648,7 +707,7 @@ The binomial theorem has many proofs, including combinatorial proofs and algebra
 
 The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2nd century BCE. Around the 11th century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13th century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
 
-\section{The Inclusion-Exclusion Principle (*)}
+\section{The Inclusion-Exclusion Principle}
 
 Consider two subsets $A$ and $B$ of a set $X$. The \emph{union} of $A$ and $B$ is the set
 \begin{equation*}
@@ -683,24 +742,25 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   \end{equation*}
 \end{theorem}
 
-\begin{exercises}
+\exercises
+
+\begin{starter}
+  \exercise In the empty copy of Pascal's triangle at the end of this chapter, shade all the positions of the odd binomial coefficients. It is not necessary to compute them all.
   \exercise Prove that $2^n<n!$ for all $n\geq 4$.
-  \exercise \label{exercise:estimates-central-binomial-coefficients}Show that the strict inequalities
-  \begin{equation*}
-    \frac{4^n}{2n+1} < \binom{2n}{n} < 4^n
-  \end{equation*}
-  hold for all $n\geq 1$.
   \exercise Prove that
   \begin{equation*}
     \sum_{k=0}^n \binom{n}{k} = 2^n
   \end{equation*}
   in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
-  \exercise
-  \begin{subexenum}
-  \item Draw Pascal's triangle with at least 10 rows and mark the positions of all the odd binomial coefficients. It is not necessary to compute them all.
-  \item Show that in the $n$th row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
-  \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
-  \end{subexenum}
+ 
+\end{starter}
+
+\begin{routine}
+  \exercise \label{exercise:estimates-central-binomial-coefficients}Show that the strict inequalities
+  \begin{equation*}
+    \frac{4^n}{2n+1} < \binom{2n}{n} < 4^n
+  \end{equation*}
+  hold for all $n\geq 1$.
   \exercise Prove that
   \begin{equation*}
     \sum_{k=0}^n\binom{n}{k}(-1)^k = 0.
@@ -727,9 +787,6 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   \begin{equation*}
     \sum_{k=0}^n\prod_{i=0}^m (k+i) = (m+1)!\binom{n+m+1}{m+2}.
   \end{equation*}
-  \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. This is https://oeis.org/A147956
-  \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
-  \exercise Find a parametrization of all pairs $(m,n)$ of natural numbers such that $n^2-m^2$ is a number of the form $2^k$, and prove that your parametrization is a bijection.
   % \exercise
   % \begin{subexenum}
   % \item Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. %This is https://oeis.org/A147956
@@ -743,9 +800,58 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   % \item Find the first $20$ positive integers that are not divisible by any Pell number other than $1$.
   % \item Determine for each $n$ the number of integers from $1$ to the $n$th Pell number $P_n$ that are not divisible by any Pell number other than $1$.
   % \end{subexenum}
-\end{exercises}
+\end{routine}
+
+\begin{challenge}
+  \exercise
+  \begin{subexenum}
+  \item Show that in the $n$th row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
+  \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
+  \end{subexenum}
+  \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. This is https://oeis.org/A147956
+  \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
+\end{challenge}
+
+\cleardoublepage
+
+\thispagestyle{empty}
+
+\thispagestyle{empty} % no header/footer if you like
+\vspace*{\fill}
+\begin{center}
+  \begin{tikzpicture}[every node/.style={
+      draw,
+      thick,
+      circle,
+      minimum size=6mm,
+      inner sep=0pt,
+      align=center
+    }]
+
+    \foreach \n in {0,...,15}{
+      \foreach \r in {0,...,\n}{
+        \node (n\n\r) at (\r-\n/2,-\n) {};
+      }
+    }
+    
+    \foreach \n in {0,...,14}{
+      \pgfmathtruncatemacro{\nn}{\n+1}
+      \foreach \r in {0,...,\n}{
+        \pgfmathtruncatemacro{\rp}{\r+1}
+        \draw[thick] (n\n\r) -- (n\nn\r) (n\n\r) -- (n\nn\rp);
+      }
+    }
+  \end{tikzpicture}
+  \captionof{figure}[Parity in Pascal's triangle]{\label{figure:parity-pascals-triangle}Shade all the circles in which the binomial coefficient is odd.}
+\end{center}
+\vspace*{\fill}
+
+\clearpage
+
+\thispagestyle{empty}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

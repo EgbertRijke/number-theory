@@ -1,5 +1,16 @@
 \chapter{Prime Numbers}\label{chapter:fundamental-theorem-of-arithmetic}
 
+\objectives
+
+In this chapter we define primes, discuss the sieve of Eratosthenes, the fundamental theorem of arithmetic, and we prove in several ways the infinitude of primes. We also introduce the concept of $p$-adic valuation, which is used to prove Legendre's formula for $n!$ and Kummer's theorem about the prime factorization of binomial coefficients. Finally, we prove Bertrand's Postulate, which states that there is a prime number between $n$ and $2n$, for any $n$.
+
+After working through this chapter, you will be able to:
+\begin{enumerate}
+\item Compute prime factorizations and $p$-adic valuations of structured numbers such as $a^n-1$, $n!$, or $\binom{n}{k}$, using algebraic factorizations, Legendre's formula, and Kummer's theorem.
+\item Establish elementary congruence constraints involving primes.
+\item Prove divisibility properties using prime factorizations.
+\end{enumerate}
+
 \section{The Fundamental Theorem of Arithmetic}
 
 \begin{definition}
@@ -120,7 +131,7 @@ The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which 
 \end{theorem}
 
 \begin{proof}
-  Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by the well-ordering principle of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
+  Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by the \crefnamed{theorem:well-ordering-natural-numbers}{Well-Ordering Principle} of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
 \end{proof}
 
 The following proposition is due to Euclid, who included it as proposition 30 of book VII of the \emph{Elements}.
@@ -238,45 +249,6 @@ There are many proofs of the infinitude of primes. The following is due to Filip
     N_{n+1} := N_n(N_n + 1).
   \end{equation*}
   We claim that $N_n$ has at least $n$ prime factors. In the base case, we note that it is indeed true that $1$ has at least zero prime factors. For the inductive step, suppose that $N_n$ has at least $n$ prime factors. The number $N_n+1$ is relatively prime to $N_n$, so its prime factors are all distinct from the prime factors of $N_n$. Furthermore, we have $1<N_n+1$, so $N_n+1$ indeed has at least one prime factor. Thus it follows that $N_{n+1}$ has at least $n+1$ prime factors, and therefore there must be infinitely many primes.
-\end{proof}
-
-\subsection{Goldbach's Proof}
-
-Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private correspondences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes.
-
-Recall that the Fermat numbers $\Phi_n$ are defined by
-\begin{equation*}
-  \Phi_n := 2^{2^n}+1.
-\end{equation*}
-
-\begin{theorem}
-  The $n$th Fermat number satisfies the identity
-  \begin{equation*}
-    \Phi_n - 2 = \prod_{k=0}^{n-1}\Phi_k.
-  \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  We will prove the claim by strong induction. In the base case, we have
-  \begin{equation*}
-    \Phi_0-2 = 2^{2^0}
-  \end{equation*}
-\end{proof}
-
-\begin{theorem}[Goldbach's Theorem]\label{theorem:goldbachs-theorem}
-  Any two distinct Fermat numbers are relatively prime.
-\end{theorem}
-
-\begin{proof}
-  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Recall from \cref{exercise:product-formula-fermat-numbers} that
-  \begin{equation*}
-    \Phi_n-2 = \prod_{k<n}\Phi_k.
-  \end{equation*}
-  Thus we see that $\Phi_m \mid \Phi_n - 2$. It follows that any common divisor $d$ of $\Phi_m$ and $\Phi_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $\Phi_m$ and $\Phi_n$ is $1$. In other words, $\Phi_m$ and $\Phi_n$ are relatively prime.
-\end{proof}
-
-\begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]
-  Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $\Phi_n$, then we picked infinitely many distinct prime numbers.
 \end{proof}
 
 \subsection{Furstenberg's Proof, Following Cass--Wildenberg}
@@ -473,30 +445,151 @@ so that $m_1+\cdots+m_{n}=k$? We establish the answer in the following theorem.
   Assuming that our initial list of primes includes all the primes below $12$ so that $n\geq 5$, this inequality fails for $N\geq 2^{2^n}$. This shows that any finite set $p_1,\ldots,p_n$ of primes cannot be the set of all primes, so there must be infinitely many primes.
 \end{proof}
 
+\section{Fermat Primes}
+
+During the 17th century, when computational resources were limited to human cognitive capacity aided with pen and paper, it was a significant challenge to come up with large prime numbers. The hunt for large primes was focused primes of the form $2^n-1$ and $2^n+1$, since such numbers have a simple form yet grow very fast. Fermat observed that if $2^n+1$ is a prime, then $n$ cannot have any odd divisors.
+
+\begin{theorem}
+  If a number of the form $2^n+1$ is prime, then $n=2^k$ for some natural number $k$.
+\end{theorem}
+
+\begin{proof}
+  Write $n=2^km$, where $m$ is odd. Recall that when $m$ is odd, then we have the following algebraic identity:
+  \begin{equation*}
+    a^m+b^m=(a+b)\sum_{i=0}^{m-1}(-1)^ia^ib^{m-i-1}
+  \end{equation*}
+  By this formula for the sum of odd powers, we obtain the factorization
+  \begin{equation*}
+    2^{2^km}+1=(2^{2^k})^m+1=(2^{2^k}+1)\sum_{i=0}^{m-1} (-1)^i2^{2^k i}.
+  \end{equation*}
+  Thus, if $2^{2^km}+1$ is prime, then we must have $m=1$.
+\end{proof}
+
+In other words, all primes of the form $2^n+1$ are in fact of the form $2^{2^{k}}+1$. Such numbers are called \emph{Fermat numbers}: The $n$th Fermat number is given by
+\begin{equation*}
+  F_n:=2^{2^n}+1.
+\end{equation*}
+The first few Fermat numbers are:
+\begin{equation*}
+  F_0=3,\qquad F_1=5,\qquad F_2=17,\qquad F_3=257,\qquad F_4=65537.
+\end{equation*}
+Of these numbers, $F_0$ through $F_3$ are easily seen to be prime. The number $F_4$ is also prime, but to prove this in a clean manner requires us to develop some more theory. Fermat famously conjectured that all Fermat numbers are prime. Goldbach brought this claim to Euler's attention in his letter, who was sceptical. A little later, Euler was able to prove that $F_5$ is indeed composite. Fermat had an extremely strong record of correct mathematical claims and conjectures, but this was one of the very few he got wrong. We will prove in \cref{corollary:F4,corollary:F5} that $F_4$ is prime and that $F_5$ is composite, once we have developed a bit more theory to help us reduce the search for prime factors.
+
+Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private correspondences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes. Recall that the Fermat numbers $F_n$ are defined by
+\begin{equation*}
+  F_n := 2^{2^n}+1.
+\end{equation*}
+
+\begin{theorem}[Product formula for the Fermat numbers]\label{theorem:product-formula-fermat-numbers}
+  The $n$th Fermat number satisfies the identity
+  \begin{equation*}
+    F_n - 2 = \prod_{0\leq k<n}F_k.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  We will prove the claim by strong induction. In the base case, we have
+  \begin{equation*}
+    F_0-2 = 2^{2^0}-1=1=\prod_{0\leq k<0}F_k,
+  \end{equation*}
+  since the product on the right-hand side is empty.
+
+  For the inductive step, we use the formula for the difference of squares:
+  \begin{equation*}
+    (F_{n+1}-2)=2^{2^{n+1}}-1=(2^{2^n}+1)(2^{2^n}-1)=F_n \cdot \prod_{0\leq k<n}F_k= \prod_{0\leq k<n+1}F_k.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}[Goldbach's Theorem]\label{theorem:goldbachs-theorem}
+  Any two distinct Fermat numbers are relatively prime.
+\end{theorem}
+
+\begin{proof}
+  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Using the \crefnamed{theorem:product-formula-fermat-numbers}{Product formula of the Fermat numbers}, we see that $F_m \mid F_n - 2$. It follows that any common divisor $d$ of $F_m$ and $F_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $F_m$ and $F_n$ is $1$. In other words, $F_m$ and $F_n$ are relatively prime.
+\end{proof}
+
+\begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]
+  Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $F_n$, then we picked infinitely many distinct prime numbers.
+\end{proof}
+
 \section{Legendre's Formula and Kummer's Theorem}
 
-In some cases we can give precise expressions of the prime factorization of a number. We will describe here two such cases: The prime factorization of the factorial $n!$, which is due to Adrien-Marie Legendre, and the prime factorization of the binomial coefficients $\binom{n}{m}$, which is due to Ernst Kummer. These explicit formulas will be useful in the study of the distribution of the primes.
+In some cases we can give precise expressions of the prime factorization of a number. We will describe here two such cases: The prime factorization of the factorial $n!$, which is due to Adrien-Marie Legendre, and the prime factorization of the binomial coefficients $\binom{n}{m}$, which is due to Ernst Kummer. We will use a corollary to Kummer's theorem in the proof of Bertrand's Postulate.
 
 \begin{definition}
-  The \emph{$p$-adic valuation} of a positive integer $n$ is the largest exponent $m$ such that $p^m\mid n$. That is, it is the unique natural number $m$ such that
+  The \emph{$p$-adic valuation} of a positive integer $n$ is the largest exponent $m$ such that $p^m\mid n$. That is, the $p$-adic valuation $\nu_p(n)$ of $n$ satisfies the logical equivalence
   \begin{equation*}
-    p^k\mid n\qquad\Leftrightarrow\qquad k\leq m
+    p^k\mid n\qquad\Leftrightarrow\qquad k\leq \nu_p(n)
   \end{equation*}
-  for every natural number $k$. We will write $\nu_p(n)$ for the $p$-adic valuation of $n$.
+  for every natural number $k$.
 \end{definition}
 
-For example, the $2$-adic valuation of $24$ is $\nu_2(24)=3$ because the exponent of $2$ in $24=2^3\cdot 3$ is $3$, and its $3$-adic valuation is $\nu_3(24)=1$ because the exponent of $3$ in $2^3\cdot 3$ is $1$. Another useful fact is that the $p$-adic valuation of the greatest common divisor of two numbers is the minimum of their respective $p$-adic valuations. More generally, if the greatest common divisor is taken of multiple natural numbers we obtain
-\begin{equation*}
-  \nu_p(\gcd(n_1,\ldots,n_k))=\min(\nu_p(n_1),\ldots,\nu_p(n_k)).
-\end{equation*}
-Likewise, the $p$-adic valuation of the least common multiple of $n_1,\ldots,n_k$ is
-\begin{equation*}
-  \nu_p(\lcm(n_1,\ldots,n_k))=\max(\nu_p(n_1),\ldots,\nu_p(n_k)).
-\end{equation*}
-For example the greatest common divisor and the least common multiple of $60=2^2\cdot 3\cdot 5$ and $525=3\cdot 5^2\cdot 7$ are
-\begin{equation*}
-  \gcd(60,525)=3\cdot 5=15\qquad\text{and}\qquad\lcm(60,525)=2^2\cdot 3\cdot 5^2\cdot 7=2100.
-\end{equation*}
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[x=0.9cm, y=0.9cm]
+    
+    \def\N{15} % up to which x we draw
+    \pgfmathtruncatemacro{\Kmax}{floor(ln(\N)/ln(2))} % = floor(log2(N))
+    % axes
+    \draw[->] (0,0) -- (15.5,0) node[below right] {$x$};
+    \draw[->] (0,0) -- (0,3.5) node[left] {$v_2(x)$};
+    
+    % y tick labels
+    \foreach \y in {1,2,3} {\node[left] at (0,\y-.5) {\small{\y}};}
+    \foreach \x in {1,...,\N} {\node[below] at (\x-.5,0) {\small{\x}};}
+
+    \foreach \k in {1,...,\Kmax} {
+      \pgfmathtruncatemacro{\exp}{int(2^(\k))}          % exp = 2^k
+      \pgfmathtruncatemacro{\bound}{int(\N/\exp)}       % how many multiples fit in 1..N
+      \foreach \i in {1,...,\bound} {
+        \pgfmathtruncatemacro{\x}{int(\i*\exp)}         % x = i * 2^k
+        \path[draw=CornflowerBlue,fill=CornflowerBlue!30,thick] (\x-1,\k-1) rectangle (\x,\k);
+      }
+    }
+  
+      \end{tikzpicture}
+  \caption{\label{figure:2-adic-valuation}The $2$-adic valuations of the numbers up to $15$.}
+  
+\end{figure}
+
+In other words, the $p$-adic valuation of $n$ is the exponent of $p$ in the prime factorization of $n$. For example, the $2$-adic valuation of $24$ is $\nu_2(24)=3$ because the exponent of $2$ in $24=2^3\cdot 3$ is $3$, and its $3$-adic valuation is $\nu_3(24)=1$ because the exponent of $3$ in $2^3\cdot 3$ is $1$. On the other hand, the $5$-adic valuation of $24$ is $\nu_5(24)=0$ since $24$ is not divisible by $5$. The $2$-adic valuations of the numbers up to $15$ are displayed in \cref{figure:2-adic-valuation}.
+
+\begin{example}
+  A useful application of $p$-adic valuations is that the $p$-adic valuation of the greatest common divisor of two numbers is the minimum of their respective $p$-adic valuations. More generally, if the greatest common divisor is taken of multiple natural numbers we obtain
+  \begin{equation*}
+    \nu_p(\gcd(n_1,\ldots,n_k))=\min(\nu_p(n_1),\ldots,\nu_p(n_k)).
+  \end{equation*}
+  Likewise, the $p$-adic valuation of the least common multiple of $n_1,\ldots,n_k$ is
+  \begin{equation*}
+    \nu_p(\lcm(n_1,\ldots,n_k))=\max(\nu_p(n_1),\ldots,\nu_p(n_k)).
+  \end{equation*}
+  For example the greatest common divisor and the least common multiple of $60=2^2\cdot 3\cdot 5$ and $525=3\cdot 5^2\cdot 7$ are
+  \begin{equation*}
+    \gcd(60,525)=3\cdot 5=15\qquad\text{and}\qquad\lcm(60,525)=2^2\cdot 3\cdot 5^2\cdot 7=2100.
+  \end{equation*}  
+\end{example}
+
+An immediate consequence of the definition of $p$-adic valuations is the following proposition:
+
+\begin{proposition}
+  For any two positive integes $a$ and $b$, the following are equivalent:
+  \begin{enumerate}
+  \item $a\mid b$.
+  \item $\nu_p(a)\leq\nu_p(b)$ for every prime $p$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{example}\label{example:15!}
+  The prime factorization of $15!$ can be obtained by computing the prime factorization of the numbers $1$ through $15$ individually, which are:
+  \begin{equation*}
+    1,2,3,2^2,5,2\cdot 3,7,2^3,3^2,2\cdot 5,11,2^2\cdot 3,13,2\cdot 7,3\cdot 5.
+  \end{equation*}
+  Thus, we obtain
+  \begin{equation*}
+    15!=2^{11}\cdot 3^6\cdot 5^3\cdot 7^2 \cdot 11\cdot 13.
+  \end{equation*}
+  
+\end{example}
 
 \begin{theorem}[Legendre's formula]\label{theorem:legendres-formula}
   For any natural number $n$, we have
@@ -635,7 +728,7 @@ where $c_i$ is obtained by the following recursive procedure, simultaneously wit
 \end{theorem}
 
 \begin{proof}
-  Write $s_p(x)$ for the sum of the digits of the $p$-adic representation of natural number $x$. By de Polignac's formula for the $p$-adic valuation of $(m+n)!$ we find that
+  Write $s_p(x)$ for the sum of the digits of the $p$-adic representation of a natural number $x$. By de Polignac's formula for the $p$-adic valuation of $(m+n)!$ we find that
   \begin{equation*}
     \nu_p\binom{m+n}{m} = \nu_p((m+n)!)-\nu_p(m!)-\nu_p(n!) =
     \frac{s_p(m)+s_p(n)-s_p(m+n)}{p-1}.
@@ -699,7 +792,70 @@ In 1845, Joseph Bertrand observed that for any $1\leq n \leq 3,000,000$ there is
 
 The primes in this list are sometimes called the \emph{Bertrand primes}, and they are listed as A006992 in the On-Line Encyclopedia of Integer Sequences \cite{oeis:A006992}. Bertrand's conjecture was proven five years later by Pafnuty Chebyshev, who contributed many more results about the distribution of the primes using analytical methods \cite{chebyshev1850}. We will give a proof by Paul Erd\H{o}s \cite{erdos1932}, which can be obtained through the methods of the previous section.
 
-\begin{lemma}\label{lemma:upper-bound-product-of-primes}
+% \subsection{The Sylvester--Schur Theorem}
+
+% Bertrand's postulate can be seen as a corollary of the following theorem by James Joseph Sylvester, which was later rediscovered by Issai Schur. The methods of proving this lemma bypasses the estimates in the approach of Erd\H{o}s.
+
+% \begin{lemma}\label{lemma:floorfrac-sum}
+%   Consider two nonnegative integers $a=qd+r$ and $b=pd+s$, where $0\leq r,s<d$. Then
+%   \begin{equation*}
+%     \floorfrac{a+b}{d}-\floorfrac{b}{d}-\floorfrac{a\vphantom{b}}{d}=
+%     \begin{cases}
+%       0 & \text{if $r+s<d$,}\\
+%       1 & \text{otherwise.}
+%     \end{cases}
+%   \end{equation*}
+% \end{lemma}
+
+% \begin{theorem}[Sylvester--Schur]
+%   Consider two positive integers $k$ and $n$ such that $2k\leq n$. Then the falling factorial
+%   \begin{equation*}
+%     n_k=n(n-1)\cdots (n-k+1)
+%   \end{equation*}
+%   has a prime factor $p>k$.
+% \end{theorem}
+
+% \begin{proof}
+%   We will write $m:=n-k$ so that $n=m+k$. Furthermore, the assumption that $2k\leq n$ is equivalent to the condition that $k\leq m$.
+  
+%   Since $n_k=\frac{n!}{(n-k)!}=\frac{n!}{m!}$, it follows from Legendre's formula that the $p$-adic valuation of $n_k$ is
+%   \begin{equation*}
+%     \nu_p(n!)-\nu_p(m!)=
+%     \sum_{j=1}^\infty \floorfrac{n}{p^j}-\floorfrac{m}{p^j}.
+%   \end{equation*}
+%   Here, the quantity
+%   \begin{equation*}
+%     \floorfrac{n}{p^j}-\floorfrac{m}{p^j}
+%   \end{equation*}
+%   is a count for the number of multiples of $p^j$ occurring among the integers $m<x\leq n$.
+
+%   For $j\geq 1$, write $k=a_jp^j+b_j$ and $m=c_jp^j+d_j$ where $0\leq b_j,d_j<p^j$. Now it follows from \cref{lemma:floorfrac-sum} that
+%   \begin{equation*}
+%     \left\lfloor\frac{n}{p^j}\right\rfloor-\left\lfloor\frac{m}{p^j}\right\rfloor =
+%     \begin{cases}
+%       \floorfrac{k}{p^j} & \text{if $b_j+d_j<p^j$,} \\[1em]
+%       \floorfrac{k}{p^j} + 1 & \text{if $b_j+d_j\geq p^j$.}
+%     \end{cases}
+%   \end{equation*}
+
+%   Now observe that if $p\leq k$, then this count cannot exceed the number of multiples of $p^j$ in the interval $0<x\leq k$. In other words, for $p\leq k$ we have
+%   \begin{equation*}
+%     \nu_p(n!)-\nu_p((n-k)!)=
+%     \sum_{j=1}^\infty \left\lfloor\frac{n}{p^j}\right\rfloor-\left\lfloor\frac{n-k}{p^j}\right\rfloor\leq
+%     \sum_{j=1}^\infty \left\lfloor\frac{k}{p^j}\right\rfloor=\nu_p(k!).
+%   \end{equation*}
+%   It follows that if all prime divisors of $n_k$ were at most $k$, then we would have
+%   \begin{equation*}
+%     \nu_p(n_k)\leq \nu_p(k!).
+%   \end{equation*}
+%   Since $k!<n_k$ it follows that $n_k$ must have a prime divisor $p>k$.
+% \end{proof}
+
+% \subsection{Erd\H{o}s's Proof}
+
+%The standard elementary proof of Bertrand's postulate is one given by Erd\H{o}s. We will make use of the following strict estimate.
+
+\begin{lemma}[Chebyshev’s primorial bound]\label{lemma:upper-bound-product-of-primes}
   For any positive integer $n$, we have
   \begin{equation*}
     \prod_{p\leq n}p< 4^n.
@@ -709,7 +865,7 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
 \begin{proof}
   The proof is by induction on $n$. For $n=1$, there are no primes $p\leq 1$, so the product over all the primes $p\leq 1$ is just $1$, which is indeed strictly below $4$. Likewise, the theorem holds for $n=2$, because $2<4^2$.
 
-  For the inductive step, assume that $\prod_{p\leq n}p<4^n$. In order to show that
+  For the inductive step, assume that $n\geq 2$ and that $\prod_{p\leq n}p<4^n$. In order to show that
   \begin{equation*}
     \prod_{p\leq n+1}p < 4^{n+1},
   \end{equation*}
@@ -731,59 +887,67 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
 \begin{proof}
   Consider an integer $n\geq 2$ for which there is no prime $n<p<2n$, and let $p$ be a prime divisor of the central binomial coefficient $\binom{2n}{n}$. Such a prime divisor must then be less than or equal to $\frac{2}{3}n$, since $q^3\nmid (2n)!$ for any prime $\frac{2}{3}n<q\leq n$, while $q^2\mid (n!)^2$.
 
-  Now, if $m$ is the largest exponent such that $p^m\mid \binom{2n}{n}$, then it follows from \cref{corollary:kummers-theorem} that
+  Now, recall from \cref{corollary:kummers-theorem} that any prime power $p^m\mid\binom{2n}{n}$ must satisfy $p^m\leq 2n$. In particular, the number of primes $p$ such that $p^2\mid\binom{2n}{n}$ is bound from above by the inequality
   \begin{equation*}
-    p^m\leq 2n.
+    p\leq \sqrt{2n}.
   \end{equation*}
-  This allows us to estimate the number of primes for which $p^2\mid \binom{2n}{n}$. Indeed, if $m\geq 2$, then it follows that
+  This shows that there are at most $\sqrt{2n}$ primes in the prime factorization of $\binom{2n}{n}$, of which the exponent is larger than $1$. Furthermore, it follows that
   \begin{equation*}
-    p \leq \sqrt[\raisebox{0.3ex}{${\scriptscriptstyle m}$}]{2n}\leq \sqrt{2n}.
+    \prod_{p^2\mid\binom{2n}{n}}p^{\nu_p\binom{2n}{n}}\leq (2n)^{\sqrt{2n}}.
   \end{equation*}
-  This shows that there are at most $\sqrt{2n}$ primes in the prime factorization of $\binom{2n}{n}$, of which the exponent is larger than $1$. It follows that
+  Combined with the fact that the prime factors of $\binom{2n}{n}$ don't exceed $\frac{2n}{3}$, we obtain the following estimates:
   \begin{equation*}
-    \frac{4^n}{2n+1}<\binom{2n}{n}\leq (2n)^{\sqrt{2n}}\prod_{p\leq 2n/3}p< (2n)^{\sqrt{2n}} 4^{\frac{2n}{3}},
+    \frac{4^n}{2n+1}<\binom{2n}{n}\leq (2n)^{\sqrt{2n}}\cdot \prod_{p\leq 2n/3}p< (2n)^{\sqrt{2n}} \cdot 4^{\frac{2n}{3}}.
   \end{equation*}
-  where the first inequality was established in \cref{exercise:estimates-central-binomial-coefficients}, and the last inequality follows from \cref{lemma:upper-bound-product-of-primes}. Rearranging this strict inequality, we obtain
+  Here, the first inequality was established in \cref{exercise:estimates-central-binomial-coefficients}, and the last inequality follows from \cref{lemma:upper-bound-product-of-primes}. Rearranging this strict inequality, we obtain
   \begin{equation*}
-    4^{\frac{n}{3}}<(2n+1)(2n)^{\sqrt{2n}}<(2n)^{\sqrt{2n}+1}.
+    4^{\frac{n}{3}}<(2n+1)(2n)^{\sqrt{2n}}<2(2n)^{\sqrt{2n}+1}.
   \end{equation*}
   Taking logarithms base $2$ on both sides, we find that
   \begin{equation*}
-    \frac{n}{2}<\frac{2n}{3} < (\sqrt{2n}+1)\log_2(2n).
+    \frac{2n}{3} < (\sqrt{2n}+1)\log_2(2n)+1.
   \end{equation*}
   We see that this strict inequality fails for $n\geq 2^9=512$, since
   \begin{equation*}
-    2^8 = 512 \nless 330 = (2^5+1)\cdot 10.
+    341 \leq \frac{2^{10}}{3} \nless 331 = (2^5+1)\cdot 10 + 1.
   \end{equation*}
-  We conclude that Bertrand's postulate must be true for all $n\geq 512$. Using the sieve of Eratosthenes up to 1050, as displayed in \cref{figure:sieve-of-eratosthenes}, we see that the Bertrand primes are indeed primes up to $631$, which is sufficient and thus the theorem is proven.
+  We have thus proven that if there does not exist a prime $n<p\leq 2n$, then we must have $p<512$. However, using the Bertrand primes up to $631$, we see that for every $n<512$ there exists a prime $n<p\leq 2n$. Thus Bertrand's postulate is proven for all $n$.
 \end{proof}
 
-\begin{exercises}
+\exercises
+
+\begin{starter}
   \exercise \label{exercise:shading} In the number grid provided at the end of the introduction, shade the numbered cells in two colors:
   \begin{enumerate}
   \item Leave all the prime numbers unshaded.
   \item Shade the number $1$ and all square-free composite numbers in one color.
   \item Shade all non-square-free numbers in the other color.
   \end{enumerate}
-  Explain your method.
-  \exercise Find the longest arithmetic progression of primes under $1000$. Hint: Use congruences to constrain the step size.
+  Explain your method.  
   \exercise Find the first ten primes of the form $n^2+1$. The first of Laundau's four open problems about primes asks whether there are infinitely many such primes \cite{landau1912}.
   \exercise Find the first ten primes $p$ such that $2p-1$ is also prime. It is unknown whether there are infinitely many such primes.
-  \exercise Compute the square-free decompositions of $72$, $200$, $315$, $462$, and $2205$.
-  \exercise Compute the prime factorization of the number
-  \begin{equation*}
-    5^{15}-1.
-  \end{equation*}
-  \exercise Compute the prime factorization of the number
-  \begin{equation*}
-    3^{18}-1.
-  \end{equation*}
-  \exercise Compute the prime factorization of the number
-  \begin{equation*}
-    2^{48}-1.
-  \end{equation*}
-  \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
   \exercise Given a prime $p>3$, show that $p^2\equiv 1\pmod{24}$.
+  \exercise By computing its prime factorization, show that
+  \begin{equation*}
+    \binom{50}{3}
+  \end{equation*}
+  is a square number. % 140^2
+  \exercise Show that
+  \begin{equation*}
+    \sum_{k=1}^n k^3 \mathrel{\Big|} \prod_{k=1}^n k^3
+  \end{equation*}
+  holds for every $n$, except when $n+1$ is an odd prime.
+\end{starter}
+
+\begin{routine}
+  \exercise Find the longest arithmetic progression of primes under $1000$. Hint: Use congruences to constrain the step size.
+  \exercise Compute the prime factorizations of the following numbers:
+  \begin{subexenum}
+  \item $5^{15}-1$.
+  \item $3^{18}-1$.
+  \item $2^{48}-1$.
+  \end{subexenum}
+  \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
   \exercise Show that any Mersenne prime $M_p=2^p-1$ with $p$ an odd prime satisfies the congruence
   \begin{equation*}
     M_p\equiv 7\pmod{24}.
@@ -793,12 +957,15 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   \item Show that $p+q\equiv 0\pmod{12}$.
   \item Show that $pq\equiv -1\pmod{9}$.
   \end{subexenum}
-  \exercise Show that for any prime $p$, if $p^2+2$ is prime then $p+2$ is prime.
-  \exercise \label{exercise:sophie-germain-primes}A \emph{Sophie Germain prime} is a prime $p$ such that $2p+1$ is also prime. Show that if $p$ is a Sophie Germain prime, then $p(2p+1)\equiv 1\pmod{18}$.
-  \exercise Show that any odd prime of the form $x^2+y^2$ must be of the form $4k+1$.
-  \exercise Show that any prime $p>3$ of the form $x^2+3y^2$ must be of the form $6k+1$.
+  \exercise \label{exercise:sophie-germain-primes}A \emph{Sophie Germain prime} is a prime $p$ such that $2p+1$ is also prime. Show that if $p>3$ is a Sophie Germain prime, then
+  \begin{equation*}
+    p(2p+1)\equiv 1\pmod{18}.
+  \end{equation*}
+  \exercise 
   \begin{subexenum}
-  \item Show that any prime $p$ of the form $x^2+5y^2$ must satisfy
+  \item Show that any odd prime of the form $x^2+y^2$ must be congruent to $1\pmod{4}$, and find the first ten primes of this form.
+  \item Show that any prime $p>3$ of the form $x^2+3y^2$ must be congruent to $1\pmod{6}$, and find the first ten primes of this form.
+  \item Show that any prime $p\neq 5$ of the form $x^2+5y^2$ must satisfy
     \begin{equation*}
       p\equiv 1\text{ or }9\pmod{20}
     \end{equation*}
@@ -810,28 +977,32 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
     and find the first ten primes of this form.
   \end{subexenum}
   The book \cite{cox1989} contains a beautiful exposition of the theory of primes of the form $x^2+ny^2$, and serves as a wonderful introduction to class field theory.
-  \exercise Show that there is exactly one positive integer $k$ such that both $2^k-1$ and $2^k+1$ are prime.
-  \exercise Consider $n\geq 1$. Prove that among any $2^n$ integers all of whose prime factors are less than or equal to $n$, there are two distinct integers such that their product is a square.
-  \exercise Show that in any subset of $n+1$ integers from the set $\{1,\ldots,2n\}$, there is a pair of distinct integers such that one divides the other. Does the claim still hold for every subset of $n$ integers from the set $\{1,\ldots,2n\}$?
   \exercise Show that
   \begin{equation*}
     p\,\,\Big|\,\, \binom{p}{k}
   \end{equation*}
   for any $0<k<p$, and any prime number $p$.
   \exercise Determine the number of trailing zeros in the decimal representations of $100!$ and $2^{10}!$.
-  \exercise By computing its prime factorization, show that
+  \exercise
+  \begin{subexenum}
+  \item In \cref{figure:2-adic-valuation} we saw that $\nu_2((2^4-1)!)=11$. More generally, prove that
   \begin{equation*}
-    \binom{50}{3}
+    \nu_p((p^k-1)!)=\frac{p^k-1}{p-1}-k
   \end{equation*}
-  is a square number. % 140^2
+  \item Show that
+  \begin{equation*}
+    \nu_p\left(\binom{p^n-1}{p^m-1}\right)=0
+  \end{equation*}
+  for any $0\leq m\leq n$.
+  \end{subexenum}
   \exercise Show that
   \begin{equation*}
     \binom{42}{6}\,\Bigm|\,\binom{42}{12}\qquad\text{and}\qquad \binom{42}{6}\,\Bigm|\,\binom{42}{18}.
   \end{equation*}
-  \exercise Show that
-  \begin{equation*}
-    \binom{20}{4}\,\Bigm|\,\binom{20}{8},\quad \binom{35}{7}\,\Bigm|\,\binom{35}{14},\quad \binom{50}{10}\,\Bigm|\,\binom{50}{20},\quad\text{and}\quad \binom{120}{24}\,\Bigm|\,\binom{120}{48}.
-  \end{equation*}
+  % \exercise Show that
+  % \begin{equation*}
+  %   \binom{20}{4}\,\Bigm|\,\binom{20}{8},\quad \binom{35}{7}\,\Bigm|\,\binom{35}{14},\quad \binom{50}{10}\,\Bigm|\,\binom{50}{20},\quad\text{and}\quad \binom{120}{24}\,\Bigm|\,\binom{120}{48}.
+  % \end{equation*}
   \exercise
   \begin{subexenum}
   \item Show that
@@ -876,29 +1047,36 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
     for every $m\leq n$ such that $n\leq 2m$.
   \end{subexenum}
   % Solution: If $p\mid L(n,m)$ so that $m< p^k\leq n$, then $m$ and $n-m$ have at most $k$ digits base $p$, while $n$ has $k+1$ digits base $p$, so at least one carry must occur.
-  \exercise
-  \begin{subexenum}
-  \item Prove the following identity of Bakir Farhi \cite{farhi2009}:
-    \begin{equation*}
-      \lcm\left(\binom{n}{0},\binom{n}{1},\ldots,\binom{n}{n}\right)=
-      \frac{\lcm(1,\ldots,n+1)}{n+1}.
-    \end{equation*}
-  \item Prove the following identity:
-    \begin{equation*}
-      \lcm_{0\leq k\leq n}\left(\gcd\left(\binom{n}{k},\binom{n}{k+1}\right)\right)=
-      \frac{\lcm(1,\ldots,n+1)}{n(n+1)}.
-    \end{equation*}
-  \end{subexenum}
+  % \exercise \label{exercise:self-inverse-modulo-prime}Consider a prime number $p$ and an integer $a$. Show that
+  % \begin{equation*}
+  %   a^2\equiv 1\pmod{p}\qquad\text{if and only if}\qquad a\equiv \pm 1\pmod{p}.
+  % \end{equation*}
+\end{routine}
+
+\begin{challenge}
+  \exercise Show that for any prime $p$, if $p^2+2$ is prime then $p+2$ is prime.
+  \exercise Consider $n\geq 1$. Prove that among any $2^n$ integers all of whose prime factors are less than or equal to $n$, there are two distinct integers such that their product is a square.
   \exercise For any $n$, let $\omega(n)$ be the number of its prime divisors. Show that the number of integers $0<x<n$ such that $x^2\equiv x\pmod{n}$ is $2^{\omega(n)}$. Hint: Use the Chinese Remainder Theorem to show that there is a bijection between the integers $x$ such that $x^2\equiv x\pmod{n}$ and the subsets of the set of prime divisors of $n$.
+  \exercise Show that there is exactly one positive integer $k$ such that both $2^k-1$ and $2^k+1$ are prime.
   \exercise Suppose that $p$ is a prime, and that $q$ is a prime divisor of the Mersenne number $M_p=2^p-1$. Show that
   \begin{equation*}
     q\equiv 1\pmod{2p}.
   \end{equation*}
-  \exercise Show that any Fermat number $F_n=2^{2^n}+1$ other than $F_0=3$ is relatively prime to all Mersenne numbers $M_n=2^n-1$.
-  \exercise In this exercise $F_n$ denotes the $n$th Fibonacci number. Show that a prime $p$ divides $F_{p-1}$ if and only if $p\equiv \pm 1\pmod{5}$ and $p$ divides $F_{p+1}$ if and only if $p\equiv \pm 2\pmod{5}$.
-\end{exercises}
+  \exercise In this exercise $F_n$ denotes the $n$th Fibonacci number. Show that a prime $p$ divides $F_{p-1}$ if and only if $p\equiv \pm 1\pmod{5}$ and $p$ divides $F_{p+1}$ if and only if $p\equiv \pm 2\pmod{5}$.  
+  \exercise Prove the following identity of Bakir Farhi \cite{farhi2009}:
+  \begin{equation*}
+    \lcm\left(\binom{n}{0},\binom{n}{1},\ldots,\binom{n}{n}\right)=
+    \frac{\lcm(1,\ldots,n+1)}{n+1}.
+  \end{equation*}
+  \exercise Use Bertrand's postulate to show that
+  \begin{equation*}
+    \frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{2n}
+  \end{equation*}
+  is never an integer.
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:

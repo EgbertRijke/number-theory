@@ -72,7 +72,9 @@ The following theorem is due to Emmanuel Vantieghem \cite{vantieghem1991}.
 
 \section{Zsigmondy's Theorem}
 
-\begin{exercises}
+\exercises
+
+\begin{routine}
   \exercise Let $M_n=2^n-1$ be the $n$th Mersenne number. Show that if $d\mid n$, then
   \begin{equation*}
     \Phi_d(2)\mid M_n.
@@ -95,12 +97,22 @@ The following theorem is due to Emmanuel Vantieghem \cite{vantieghem1991}.
     \end{equation*}
   \item Show that the fixed divisor of the polynomial $f(x)=x\Phi_n(x)$ is $p$ if $n=p^k$ with $k\geq 1$ and $1$ otherwise.
   \end{subexenum}
+  \exercise Let $\sigma(n)$ be the sum of the divisors of a natural number $n$. Show that
+  \begin{equation*}
+    \sigma(p^m)=\prod_{\substack{d\mid m+1\\d>1}}\Phi_d(p).
+  \end{equation*}
+\end{routine}
+
+\begin{challenge}
   \exercise For $k\geq 4$, show that the $k$th Fibonacci number $F_k$ is in the image of Euler's totient function if and only if $k\equiv 0\pmod{6}$.
 
   Hint: If $k=6m$, consider $n=2F_{3m}F_{3m+3}$.
-\end{exercises}
+  \exercise Show that every positive integer can be represented as the ratio between two products of Fibonacci numbers.  
+\end{challenge}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:
 

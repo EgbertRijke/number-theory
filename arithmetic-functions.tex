@@ -1,5 +1,253 @@
 \chapter{Arithmetic Functions}
 
+\section{Perfect Numbers}
+
+The number $6$ satisfies the curious property that the sum of its divisors $1+2+3$ is equal to the number $6$ itself. This property of a number being equal to the sum of its own divisors, was deemed so special in ancient times, that these numbers were called \emph{perfect}.
+
+\begin{definition}
+  A number $n$ is said to be \emph{perfect} if the sum of its divisors, including $n$ itself, is $2n$.
+\end{definition}
+
+Euclid observed that if $2^m-1$ is prime, then we can always find a number $k$ such that
+\begin{equation*}
+  2^k(2^m-1)
+\end{equation*}
+is perfect. Indeed, since the divisors of $2^k$ are precisely the numbers $2^i$ with $0\leq i\leq k$, it follows that the divisors of $2^k(2^m-1)$ are exactly
+\begin{equation*}
+  1,~2,\ldots,~2^k,\qquad\text{and}\qquad (2^m-1),~2(2^m-1),\ldots,~2^k(2^m-1).
+\end{equation*}
+The sum of the divisors of $2^k(2^m-1)$ is thus
+\begin{equation*}
+  (2^{k+1}-1)+(2^{k+1}-1)(2^m-1)=(2^{k+1}-1)2^m.
+\end{equation*}
+The equation
+\begin{equation*}
+  (2^{k+1}-1)2^m=2\cdot 2^k(2^m-1)
+\end{equation*}
+now implies that $m=k+1$. Thus we have proven the following proposition, which Euclid recorded as Proposition 36 in Book IX of the Elements.
+
+\begin{proposition}[Euclid]
+  If the number $2^m-1$ is prime, then $2^{m-1}(2^m-1)$ is perfect.
+\end{proposition}
+
+Using Euclid's method, we can find the first few perfect numbers. \cref{tab:mersenne-numbers} displays the prime factorization of the number $2^m-1$ for $2\leq m\leq 11$.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|cccccccccc}
+    $m$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ \\
+    \midrule
+    $2^m-1$ & $\mathbf{3}$ & $\mathbf{7}$ & $3\cdot 5$ & $\mathbf{31}$ & $3^2\cdot 7$ & $\mathbf{127}$ & $3\cdot 5\cdot 17$ & $7\cdot 73$ & $3\cdot 11\cdot 31$ & $23\cdot 89$
+  \end{tabular}
+  \caption[The first few Mersenne numbers]{The Mersenne numbers $M_m$ for $2\leq m\leq 11$.}
+  \label{tab:mersenne-numbers}
+\end{table}
+
+We see that $M_2$, $M_3$, $M_5$, and $M_7$ are prime, and thus we obtain the following perfect numbers:
+\begin{align*}
+  6 & = 2^1(2^2-1), \\
+  28 & = 2^2(2^3-1), \\
+  496 & = 2^4(2^5-1), \\
+  8128 & = 2^6(2^7-1).
+\end{align*}
+
+Prime numbers of the form $M_m=2^m-1$ are called Mersenne primes, after Father Marin Mersenne who studied them more deeply in the 17th century. An elementary property of Mersenne primes is that if $M_m$ is prime, then $m$ must be prime.
+
+\begin{proposition}
+  If the $m$th Mersenne number $M_m=2^m-1$ is prime, then $m$ is prime.
+\end{proposition}
+
+\begin{proof}
+  We prove the contrapositive: If $m$ is composite, so that $m=ab$ for some $a,b>1$, then $M_m$ is composite. This follows directly from the formula for the difference of powers:
+  \begin{equation*}
+    2^{ab}-1=(2^a)^b-1^b= (2^a-1)\sum_{k=0}^{b-1} (2^a)^k.\qedhere
+  \end{equation*}
+\end{proof}
+
+Mersenne numbers which are prime are called \emph{Mersenne primes}. They are used in the search for extremely large prime numbers. Note, however, that not every Mersenne number $M_p$ with $p$ prime is a prime number. For example, $M_{11}=23\cdot 89$.
+
+No perfect numbers other than the ones described by Euclid have been found, so it is natural to wonder whether Euclid described all of them. This leads us to Euler, who was able to prove in the 18th century that every \emph{even} perfect number is of Euclid's form. Euler did so by analyzing the function $\sigma$, which returns for each $n$ the sum of its divisors. Euler's proof marks the beginning of the theory of \emph{arithmetic functions}. 
+
+\begin{definition}
+  We define the \emph{sum-of-divisors} function $\sigma$ by
+  \begin{equation*}
+    \sigma(n):=\sum_{d\mid n}d.
+  \end{equation*}
+\end{definition}
+
+Thus, a number $n$ is perfect if $\sigma(n)=2n$. Notice that a number $n$ is prime if and only if $\sigma(n)=n+1$. The next easiest sum of divisors to calculate is the sum of divisors of a prime power. For any prime $p$ we have
+\begin{equation*}
+  \sigma(p^m)=\sum_{k=0}^m p^k=\frac{p^{m+1}-1}{p-1}.
+\end{equation*}
+Indeed, $d\mid p^m$ if and only if $d=p^k$ for some $0\leq k\leq m$, so the sum of the divisors of $p^m$ is the finite geometric series $1+p+p^2+\cdots + p^m$.
+
+\begin{proposition}
+  Suppose $m$ and $n$ are relatively prime. Then
+  \begin{equation*}
+    \sigma(mn)=\sigma(m)\sigma(n).
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  Consider a divisor $d\mid mn$. Since $m$ and $n$ are relatively prime, it follows that $d=\gcd(d,m)\gcd(d,n)$. Thus we can assign to every divisor $d\mid mn$ a pair of numbers $(u,v)$ such that $u\mid m$, $v\mid n$, and $d=uv$.
+
+  Conversely, if we start a pair $(u,v)$ of numbers such that $u\mid m$ and $v\mid n$, then $u=\gcd(uv,m)$ and $v=\gcd(uv,n)$. This shows that the operation $d\mapsto (\gcd(d,m),\gcd(d,n))$ is inverse to the operation $u,v\mapsto uv$. Thus we obtain a bijection
+  \begin{equation*}
+    \big\{u\bigm\vert u\mid m\big\}\times\big\{v\bigm\vert v\mid n\big\}\cong
+    \big\{d \bigm\vert d\mid mn\big\}
+  \end{equation*}
+  given by $(u,v)\mapsto uv$. Using this bijection, we see that
+  \begin{equation*}
+    \left(\sum_{u\mid m}u\right)\left(\sum_{v\mid n}v\right)=\sum_{u\mid m}\sum_{v\mid n} uv = \sum_{d\mid mn} d.\qedhere
+  \end{equation*}
+\end{proof}
+
+The multiplicative property of the sum-of-divisors function along with the expressions for $\sum(p^m)$ completely determine the values of the function $\sigma$ for any positive integer of which the prime factorization is known.
+
+\begin{corollary}
+  Suppose that $n=p_1^{m_1}\cdots p_k^{m_k}$, where all the primes $p_i$ are distinct. Then
+  \begin{equation*}
+    \sigma(n)=\frac{p_1^{m_1+1}-1}{p_1-1}\cdots \frac{p_k^{m_k+1}-1}{p_k-1}.
+  \end{equation*}
+\end{corollary}
+
+\begin{example}
+  We saw in \cref{example:15!} that $15!=2^{11}\cdot 3^6\cdot 5^3\cdot 7^2 \cdot 11\cdot 13$. It follows that
+  \begin{equation*}
+    \sigma(15!)=(2^{12}-1)\cdot \frac{3^7-1}{2}\cdot \frac{5^4-1}{4}\cdot \frac{7^3-1}{6}\cdot 12\cdot 14=2^5\cdot 3^5\cdot 5\cdot 7^2 \cdot 13^2\cdot 19\cdot 1093.
+  \end{equation*}
+\end{example}
+
+\begin{theorem}[Euclid--Euler]
+  An even number $n$ is perfect if and only if it is of the form
+  \begin{equation*}
+    2^{p-1}(2^p-1)
+  \end{equation*}
+  for some prime $p$, where the number $2^p-1$ is prime.
+\end{theorem}
+
+\begin{proof}
+  We have already seen that $n$ is perfect if $n=2^{p-1}(2^p-1)$, provided that $2^p-1$ is prime. Furthermore, since the condition that $2^p-1$ is prime implies that $p$ is prime, and hence that $2^{p-1}$ is divisible by $2$, it follows that numbers of the form $2^{p-1}(2^p-1)$ are even.
+
+  For the converse, assume that $n$ is an even perfect number, so that $\sigma(n)=2n$. Using the $2$-adic decomposition, we can write $n=2^km$ where $m$ is odd. Since odd numbers are relatively prime to powers of $2$, it follows that
+  \begin{equation*}
+    \sigma(2^km)=\sigma(2^k)\sigma(m)=(2^{k+1}-1)\sigma(m).
+  \end{equation*}
+  By the assumption that $2^km$ is perfect, we obtain that
+  \begin{equation*}
+    (2^{k+1}-1)\sigma(m)=2^{k+1}m.
+  \end{equation*}
+  Since the number $s:=2^{k+1}-1$ is relatively prime to $2^{k+1}$, it follows that $s\mid m$. If we write $m=st$, then the displayed equation simplifies to
+  \begin{equation*}
+    \sigma(m)=2^{k+1}t=(s+1)t=t+st.
+  \end{equation*}
+  
+  Now observe that both $t$ and $st$ are divisors of $m$. They are distinct, since $n$ is assumed to be even and thus we have $s>1$. Since $\sigma(m)=t+st$ is the sum of all the divisors of $m$, it follows that $t$ and $st$ are the only divisors of $m$. We conclude that $t=1$ and $s=m$. Furthermore, we obtain that $\sigma(m)=m+1$, which implies that $m$ is prime. We have thus shown that
+  \begin{equation*}
+    n=2^k(2^{k+1}-1),
+  \end{equation*}
+  and that $2^{k+1}-1$ is prime. This last property implies that $k+1$ is prime, which completes the proof.
+\end{proof}
+
+The Euclid--Euler theorem completely characterizes even perfect numbers. However, it doesn't tell us anything about odd perfect numbers. No odd perfect numbers have ever been found, and it is conjectured that none exist. It has been shown that any odd perfect number must be greater than $10^{1500}$. 
+
+\section{Euler's Totient Function}
+
+Before we introduce reduced residue systems, let us prove a lemma.
+
+\begin{lemma}
+  Suppose that $a\equiv b\pmod{n}$. Then $\gcd(a,n)=\gcd(b,n)$. Consequently, we have $\gcd(a,n)=1$ if and only if $\gcd(b,n)=1$.
+\end{lemma}
+
+\begin{proof}
+  By the assumption that $a$ and $b$ are congruent modulo $n$, it follows that they have the same remainder after division by $n$. Let $r$ be this remainder. Since $\gcd(a,n)=\gcd(r,n)$ and $\gcd(b,n)=\gcd(r,n)$ we see that
+  \begin{equation*}
+    \gcd(a,n)=\gcd(b,n).
+  \end{equation*}
+  This equality implies that the left hand side equals $1$ if and only if the right hand side equals $1$.
+\end{proof}
+
+By the previous lemma, we can test whether an integer is relatively prime to $n$ by testing any element in its congruence class. This allows us to make the following definition.
+
+\begin{definition}
+  A \emph{reduced residue system} modulo $n$ is a set
+  \begin{equation*}
+    \{r_1,\ldots,r_k\}
+  \end{equation*}
+  of integers satisfying the condition that for every integer $a$ relatively prime to $n$, there is exactly one index $1\leq i\leq k$ such that
+  \begin{equation*}
+    a\equiv r_i\pmod{n}.
+  \end{equation*}
+\end{definition}
+
+\begin{corollary}
+  Any two reduced residue systems modulo $n$ have the same size, for which we write $\phi(n)$. The function $\phi$ is called \emph{Euler's totient function}.
+\end{corollary}
+
+\begin{proof}
+  Reduced residue systems are choices of representatives of the congruence classes in which all elements are relatively prime to $n$. Thus, the size of a reduced residue system is always equal to the number of such congruence classes.
+\end{proof}
+
+\begin{theorem}\label{theorem:product-formula-totient}
+  Consider a positive integer $n$ with prime factorization $n=p_1^{m_1}\cdots p_k^{m_k}$. Then
+  \begin{equation*}
+    \phi(n)=\prod_{i=1}^k(p_i^{m_i}-p_i^{m_i-1})=n\prod_{i=1}^k\left(1-\frac{1}{p_i}\right).
+  \end{equation*}
+\end{theorem}
+
+\begin{corollary}
+  The value $\phi(n)$ of Euler's totient function is even for $n>2$.
+\end{corollary}
+
+\begin{proof}
+  Every odd prime factor $p$ contributes an even factor $p-1$ to $\phi(n)$.
+\end{proof}
+
+\begin{example}
+  \begin{table}[t]
+    \centering
+    \begin{tabular}{lll}
+      $2^k$ & Fermat primes & $\{n\mid \phi(n)=2^k\}$ \\
+      \midrule
+      $1$   &             & $\{1,2\}$ \\
+      $2$   & $3$         & $\{3,4,6\}$ \\
+      $4$   & $3,5$       & $\{5,8,10,12\}$ \\
+      $8$   & $3,5$       & $\{15,16,20,24,30\}$ \\
+      $16$  & $3,5,17$    & $\{17,32,34,40,48,60\}$ \\
+      $32$  & $3,5,17$    & $\{51,64,68,80,96,102,120\}$ \\
+      $64$  & $3,5,17$    & $\{85,128,136,160,170,192,204,240\}$ \\
+      $128$ & $3,5,17$    & $\{255,256,272,320,340,384,408,480,510\}$
+    \end{tabular}
+    \caption{\label{table:totient-power-of-two}Lists of numbers $n$ for which $\phi(n)=2^k$}
+  \end{table}
+  We will use \cref{theorem:product-formula-totient} to determine all $n$ for which $\phi(n)=2^k$ for some $k$.
+
+  If $p$ is an odd prime so that $p^a-p^{a-1}=p^{a-1}(p-1)$ is a power of $2$, then it follows that $a-1=0$. In other words, in order for $p^a-p^{a-1}$ to be a power of $2$, we must have $a=1$. This shows that if $\phi(n)$ is a power of $2$, then $n$ must be of the form
+  \begin{equation*}
+    n=2^a\prod_{p\in S}p,
+  \end{equation*}
+  where $S$ is a subset of the \emph{Fermat primes}; that is, every prime in $S$ is the form $2^b+1$. The only known such primes are
+  \begin{equation*}
+    3,~5,~17,~257,~\text{and}~65537.
+  \end{equation*}
+  We conclude that the only numbers $n$ for which $\phi(n)=4$ are $5$, $8$, $10$, and $12$, and the only numbers $n$ for which $\phi(n)=8$ are $15$, $16$, $20$, $24$, and $30$. \cref{table:totient-power-of-two} lists the numbers $n$ for which $\phi(n)=2^k$ up to $2^k=128$.
+\end{example}
+
+% \begin{proposition}
+%   Any ring homomorphism preserves invertible elements.
+% \end{proposition}
+
+% \begin{proof}
+%   Suppose $f:R\to S$ is a homomorphism of rings, and let $x$ be an invertible element in $R$ with inverse $x^{-1}$. Then $f(x^{-1})$ is an inverse of $f(x)$, since
+%   \begin{equation*}
+%     f(x)f(x^{-1})=f(xx^{-1})=f(1)=1
+%   \end{equation*}
+%   and
+%   \begin{equation*}
+%     f(x^{-1})f(x)=f(x^{-1}x)=f(1)=1.\qedhere
+%   \end{equation*}
+% \end{proof}
+
 \section{Multiplicative Functions}
 
 A function $f$ defined on the positive integers with output in any number system, such as the integers, real numbers, or complex numbers, is called an \emph{arithmetic function}. For example, Euler's totient function $\phi$, which returns for each $n$ the number of elements $0<k<n$ relatively prime to $n$, is an arithmetic function. Some other important arithmetic functions include the \emph{number of divisors function} $\tau$ and the \emph{sum of divisors function} $\sigma$:
@@ -99,67 +347,15 @@ Indeed, for any prime power $p^m$, the divisors of $p^m$ are the prime powers $p
   1+p+\cdots +p^m=\frac{p^{m+1}-1}{p-1}.
 \end{equation*}
 
-\section{Euler's Totient Function}
-
-\begin{theorem}\label{theorem:product-formula-totient}
-  Consider a positive integer $n$ with prime factorization $n=p_1^{m_1}\cdots p_k^{m_k}$. Then
+\begin{remark}
+  Many identities of arithmetic functions involve reindexing double sums such as in the proof of \cref{theorem:multiplicative-functions}. Here are some other reindexing tricks that can be occasionally helpful:
   \begin{equation*}
-    \phi(n)=\prod_{i=1}^k(p_i^{m_i}-p_i^{m_i-1})=n\prod_{i=1}^k\left(1-\frac{1}{p_i}\right).
+    \sum_{c\mid n}\sum_{d\mid c}f(c,d)=\sum_{d\mid n}\sum_{e\mid \frac{n}{d}}f(de,d).
   \end{equation*}
-\end{theorem}
-
-\begin{corollary}
-  The value $\phi(n)$ of Euler's totient function is even for $n>2$.
-\end{corollary}
-
-\begin{proof}
-  Every odd prime factor $p$ contributes an even factor $p-1$ to $\phi(n)$.
-\end{proof}
-
-\begin{example}
-  \begin{table}[t]
-    \centering
-    \begin{tabular}{lll}
-      $2^k$ & Fermat primes & $\{n\mid \phi(n)=2^k\}$ \\
-      \midrule
-      $1$   &             & $\{1,2\}$ \\
-      $2$   & $3$         & $\{3,4,6\}$ \\
-      $4$   & $3,5$       & $\{5,8,10,12\}$ \\
-      $8$   & $3,5$       & $\{15,16,20,24,30\}$ \\
-      $16$  & $3,5,17$    & $\{17,32,34,40,48,60\}$ \\
-      $32$  & $3,5,17$    & $\{51,64,68,80,96,102,120\}$ \\
-      $64$  & $3,5,17$    & $\{85,128,136,160,170,192,204,240\}$ \\
-      $128$ & $3,5,17$    & $\{255,256,272,320,340,384,408,480,510\}$
-    \end{tabular}
-    \caption{\label{table:totient-power-of-two}Lists of numbers $n$ for which $\phi(n)=2^k$}
-  \end{table}
-  We will use \cref{theorem:product-formula-totient} to determine all $n$ for which $\phi(n)=2^k$ for some $k$.
-
-  If $p$ is an odd prime so that $p^a-p^{a-1}=p^{a-1}(p-1)$ is a power of $2$, then it follows that $a-1=0$. In other words, in order for $p^a-p^{a-1}$ to be a power of $2$, we must have $a=1$. This shows that if $\phi(n)$ is a power of $2$, then $n$ must be of the form
   \begin{equation*}
-    n=2^a\prod_{p\in S}p,
+    \sum_{c\mid n}\sum_{d\mid c}f(c,d)=\sum_{\substack{d,e\\ de\mid n}}f(de,d)
   \end{equation*}
-  where $S$ is a subset of the \emph{Fermat primes}; that is, every prime in $S$ is the form $2^b+1$. The only known such primes are
-  \begin{equation*}
-    3,~5,~17,~257,~\text{and}~65537.
-  \end{equation*}
-  We conclude that the only numbers $n$ for which $\phi(n)=4$ are $5$, $8$, $10$, and $12$, and the only numbers $n$ for which $\phi(n)=8$ are $15$, $16$, $20$, $24$, and $30$. \cref{table:totient-power-of-two} lists the numbers $n$ for which $\phi(n)=2^k$ up to $2^k=128$.
-\end{example}
-
-% \begin{proposition}
-%   Any ring homomorphism preserves invertible elements.
-% \end{proposition}
-
-% \begin{proof}
-%   Suppose $f:R\to S$ is a homomorphism of rings, and let $x$ be an invertible element in $R$ with inverse $x^{-1}$. Then $f(x^{-1})$ is an inverse of $f(x)$, since
-%   \begin{equation*}
-%     f(x)f(x^{-1})=f(xx^{-1})=f(1)=1
-%   \end{equation*}
-%   and
-%   \begin{equation*}
-%     f(x^{-1})f(x)=f(x^{-1}x)=f(1)=1.\qedhere
-%   \end{equation*}
-% \end{proof}
+\end{remark}
 
 \section{The M\"obius Function}
 \begin{definition}
@@ -386,24 +582,64 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
 \begin{theorem}
   Consider a divisibility sequence $n\mapsto a_n$ indexed by the natural numbers, with $a_1=1$. Then the following are equivalent:
   \begin{enumerate}
-  \item The sequence $a_n$ is a strong divisibility sequence; that is,
+  \item The sequence $(a_n)_{n\in\mathbb{N}}$ is a strong divisibility sequence; that is,
     \begin{equation*}
       a_{\gcd(m,n)}=\gcd(a_m,a_n)
     \end{equation*}
     for every $m$ and $n$.
-  \item If $u(a)_n$ is the primitive sequence of $a_n$, then
+  \item The primitive sequence $(u(a)_n)_{n\in\mathbb{N}}$ of $(a_n)_{n\in\mathbb{N}}$ satisfies the identity
     \begin{equation*}
-      a(n)=\prod_{d\mid n} u(a)_d.
+      a_n=\prod_{d\mid n} u(a)_d.
     \end{equation*}
   \end{enumerate}
 \end{theorem}
 
-\begin{exercises}
+\begin{proof}
+  Suppose that the sequence $(a_n)_{n\in\mathbb{N}}$ is a strong divisibility sequence. By interchanging the product, we find that
+  \begin{equation*}
+    \prod_{e\mid n}\prod_{d\mid e} a_{d}^{\mu(e/d)}=\prod_{d\mid n}\prod_{c\mid\frac{n}{d}} a_{d}^{\mu(c)}=\prod_{d\mid n}a_d^{\sum_{c\mid\frac{n}{d}}\mu(c)}=\prod_{d\mid n}a_d^{\varepsilon(n/d)}=a_n.
+  \end{equation*}
+  This proves the forward direction. For the converse, assume that
+  \begin{equation*}
+    a(n)=\prod_{d\mid n} u(a)_d.
+  \end{equation*}
+  Then we have
+  \begin{equation*}
+    a_{\gcd(m,n)}=\prod_{d\mid \gcd(m,n)} u(a)_d=\prod_{d\mid m\land d\mid n} u(a)_d
+  \end{equation*}
+\end{proof}
+
+\exercises
+
+\begin{starter}
+  \exercise Compute $\phi(n)$ for $n=1,\ldots,12$.
   \exercise Show that the number $\tau(n)$ of divisors of $n$ is odd if and only if $n$ is a square number.
+  \exercise Compute $\mu\ast\sigma$. % Answer: id.
+\end{starter}
+
+\begin{routine}
   \exercise Compute $\mu\ast\mu$.
   \exercise Prove that
   \begin{equation*}
     \sum_{k=1}^n\gcd(k,n)\mu(\gcd(k,n))=\mu(n).
+  \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item Show that $m\mid n$ implies $\phi(m)\mid\phi(n)$.
+  \item Prove that if $\gcd(a,b)=d$, then
+  \begin{equation*}
+    \phi(ab)=\frac{d\phi(a)\phi(b)}{\phi(d)}
+  \end{equation*}
+  \item For any $n>1$, prove that
+  \begin{equation*}
+    \sum_{a<n\\\gcd(a,n)=1}a = \frac{n\phi(n)}{2}
+  \end{equation*}
+  \end{subexenum}
+  \exercise How many fractions $\frac{a}{b}$ are there where $\gcd(a,b)=1$, and $0\leq a\leq b\leq n$. Such fractions are called \emph{Farey fractions} of order $n$.
+  \exercise Prove that there is no positive integer $n<2^{65}$ such that $\phi(n)=2^{64}$.
+  \exercise For any $d\mid \phi(n)$, prove that
+  \begin{equation*}
+    \prod_{\substack{0<x<n \\\ord_n(x)=d}}x\equiv 1\pmod n.
   \end{equation*}
   \exercise
   \begin{subexenum}
@@ -475,6 +711,54 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
       J_k(n) = n^k\prod_{p\mid n}\left(1-\frac{1}{p^k}\right).
     \end{equation*}
   \end{subexenum}
+  \exercise \cite[art. 81]{gauss1986}~Consider a prime $p$. Prove that the sum of all primitive roots satisfies the following property:
+  \begin{equation*}
+    \sum_{g~\text{primitive root}\pmod{p}}g \equiv \mu(p-1)\pmod{p}.
+  \end{equation*}
+  \exercise Consider a prime $p$. Show that
+  \begin{equation*}
+    \sum_{\substack{0<n<p-1\\\gcd(n,p-1)=1}}a^n\equiv\mu(\ord_p(a))\frac{\phi(p-1)}{\phi(\ord_p(a))}\pmod{p}.
+  \end{equation*}
+  \exercise
+  \begin{subexenum}
+  \item Show that
+    \begin{equation*}
+      \sigma(p^m)\mid \sigma(p^n) \Leftrightarrow m+1\mid n+1.
+    \end{equation*}
+  \item Let $d:=\gcd(m+1,n+1)$. Show that
+    \begin{equation*}
+      \gcd(\sigma(p^m),\sigma(p^n))=\sigma(p^{d-1}).
+    \end{equation*}
+  \end{subexenum}
+\end{routine}
+
+\begin{challenge}
+  \exercise For any two natural numbers $0\leq d\leq n$, determine the number of ordered pairs $(a,b)$ of nonnegative integers $a$ and $b$ such that $a+b=n$ and $\gcd(a,b)=d$.
+  \exercise For how many congruence classes $b \pmod{n}$ is the linear congruence
+  \begin{equation*}
+    ax\equiv b\pmod{n}
+  \end{equation*}
+  solvable?
+  \exercise
+  \begin{subexenum}
+  \item Find all primes $p$ and exponents $m$ such that
+    \begin{equation*}
+      \nu_2\left(\frac{p^{m+1}-1}{p-1}\right)=0.
+    \end{equation*}
+  \item Find all primes $p$ and exponents $m$ such that
+    \begin{equation*}
+      \nu_2\left(\frac{p^{m+1}-1}{p-1}\right)=1.
+    \end{equation*}
+  \item (Euler) Show that if $n$ is an odd perfect number, then $n$ is of the form
+    \begin{equation*}
+      p^{\alpha}m^2
+    \end{equation*}
+    where $p$ is a prime such that $p\equiv \alpha \equiv 1\pmod{4}$ and $p\nmid m$.
+  \end{subexenum}
+  \exercise Show that
+  \begin{equation*}
+    \sigma(2^n-1) = \prod_{\substack{p~\text{odd prime}\\d:=\ord_p(2)\mid n}}\frac{p^{\nu_p(2^d-1)+\nu_p(n/d)+1}-1}{p-1}.
+  \end{equation*}
   \exercise Let $\Omega$ be the arithmetic function given by
   \begin{equation*}
     \Omega(m)=m_1+\cdots+m_n
@@ -485,18 +769,11 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
     \frac{\log m}{\log \left(\frac{1}{n}\sum_{i=1}^n p_i\right)}.
   \]
   Hint: Use Jensen's inequality.
-  \exercise \cite[art. 81]{gauss1986}~Consider a prime $p$. Prove that the sum of all primitive roots satisfies the following property:
-  \begin{equation*}
-    \sum_{g~\text{primitive root}\pmod{p}}g \equiv \mu(p-1)\pmod{p}.
-  \end{equation*}
-  \exercise Consider a prime $p$. Show that
-  \begin{equation*}
-    \sum_{\substack{0<n<p-1\\\gcd(n,p-1)=1}}a^n\equiv\mu(\ord_p(a))\frac{\phi(p-1)}{\phi(\ord_p(a))}\pmod{p}.
-  \end{equation*}
-\end{exercises}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
 %%% End:
 
