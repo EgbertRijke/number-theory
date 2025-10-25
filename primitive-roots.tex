@@ -403,6 +403,28 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
   has a unique solution. In other words, the map $x\mapsto x^n$ is a bijection on $\mathbb{Z}/p\mathbb{Z}$.
 \end{corollary}
 
+In the following corollary, we show that the congruence $x^n\equiv -1\pmod{p}$ is solvable if and only if the $2$-adic valuation of $n$ is strictly smaller than the $2$-adic valuation of $p-1$. In other words, for any number $n=2^km$ with $m$ odd, the congruence
+\begin{equation*}
+  x^{n}\equiv -1\mod{p}
+\end{equation*}
+is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$. 
+
+\begin{corollary}
+  The congruence
+  \begin{equation*}
+    x^n\equiv -1\pmod{p}
+  \end{equation*}
+  is solvable if and only if $\nu_2(n)<\nu_2(p-1)$. 
+\end{corollary}
+
+\begin{proof}
+  Since the congruence $x^n\equiv -1\pmod{p}$ is solvable if and only if
+  \begin{equation*}
+    (-1)^{\frac{p-1}{\gcd(n,p-1)}}\equiv 1\pmod{p},
+  \end{equation*}
+  it suffices to show that the exponent $\frac{p-1}{\gcd(n,p-1)}$ is an even integer if and only if $\nu_2(n)<\nu_2(p-1)$. Indeed, this exponent is even if and only if $\min(\nu_2(n),\nu_2(p-1))=\nu_2(\gcd(n,p-1))<\nu_2(p-1)$. This strict inequality holds if and only if $\nu_2(n)<\nu_2(p-1)$.
+\end{proof}
+
 \exercises
 
 \begin{routine}

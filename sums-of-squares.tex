@@ -1,12 +1,212 @@
-\chapter{Fermat's Two-Square Theorem}
+\chapter{Fermat's Two-Squares Theorem}
 
-\section{Reduction to the Primes}
+\section{Numbers Representable as a Sum of Two Squares}
 
-\begin{theorem}[Fermat's Two-Square Theorem]
-  A natural number $n$ is presentable as the sum of two squares if and only if its square-free part is a product of primes congruent to $1$ modulo $4$.
+In this chapter we are concerned with the question which numbers are representable as a sum of two squares. In other words, our goal is to find a precise characterization of the numbers $n$ that can be written in the form
+\begin{equation*}
+  n=a^2+b^2.
+\end{equation*}
+Here, we permit ourselves to pick $a=0$ or $b=0$, so that any perfect square is trivially representable as a sum of two squares. The problem of finding those numbers $n$ that can be written as the sum of two squares is equivalent to the problem of finding integer lattice points on the circle of radius $\sqrt{n}$, as illustrated in \cref{figure:sums-of-two-squares}.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+
+    % Draw the grid
+    \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
+
+    % Draw the thick black circle
+    \draw[thick] (0,0) circle (sqrt{10});
+    \draw[thick] (0,0) circle (sqrt{13});
+    
+    % Draw the x and y axes as arrows
+    \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
+    \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
+    
+    \coordinate (P1) at (3,1);
+    \draw[thick,CornflowerBlue] (0,0) -- (P1) node[text=black,midway, above, fill=white,inner sep=1pt,xshift=-4pt,yshift=4pt] {$\sqrt{10}$};
+    \draw[fill=white,thick] (P1) circle (2pt);
+    \coordinate (P2) at (1,3);
+    \draw[fill=white,thick] (P2) circle (2pt);
+    \coordinate (P3) at (-1,3);
+    \draw[fill=white,thick] (P3) circle (2pt);
+    \coordinate (P4) at (-3,1);
+    \draw[fill=white,thick] (P4) circle (2pt);
+    \coordinate (P5) at (-3,-1);
+    \draw[fill=white,thick] (P5) circle (2pt);
+    \coordinate (P6) at (-1,-3);
+    \draw[fill=white,thick] (P6) circle (2pt);
+    \coordinate (P7) at (1,-3);
+    \draw[fill=white,thick] (P7) circle (2pt);
+    \coordinate (P8) at (3,-1);
+    \draw[fill=white,thick] (P8) circle (2pt);
+
+    \coordinate (Q1) at (3,2);
+    \draw[fill=white,thick] (Q1) circle (2pt);
+    \coordinate (Q2) at (2,3);
+    \draw[fill=white,thick] (Q2) circle (2pt);
+    \coordinate (Q3) at (-2,3);
+    \draw[fill=white,thick] (Q3) circle (2pt);
+    \coordinate (Q4) at (-3,2);
+    \draw[thick,YellowOrange] (0,0) -- (Q4) node[text=black,midway, above, fill=white,inner sep=1pt,xshift=6pt,yshift=4pt] {$\sqrt{13}$};
+    \draw[fill=white,thick] (Q4) circle (2pt);
+    \coordinate (Q5) at (-3,-2);
+    \draw[fill=white,thick] (Q5) circle (2pt);
+    \coordinate (Q6) at (-2,-3);
+    \draw[fill=white,thick] (Q6) circle (2pt);
+    \coordinate (Q7) at (2,-3);
+    \draw[fill=white,thick] (Q7) circle (2pt);
+    \coordinate (Q8) at (3,-2);
+    \draw[fill=white,thick] (Q8) circle (2pt);
+  \end{tikzpicture}
+  \caption[Sums of two squares]{Representing a number as a sum of two squares is equivalent to finding an integer lattice point on the circle of radius $\sqrt{n}$. Here we displayed the integer lattice points on the circles of radii $\sqrt{10}$ and $\sqrt{13}$.}
+  \label{figure:sums-of-two-squares}
+\end{figure}
+
+Using modular arithmetic, we can find some basic obstructions to the possibility of representing a number as a sum of two squares. Recall that the square of an even number is always divisible by $4$, and the square of an odd number is always of the form $4k+1$. As a direct consequence we see that if $n$ is of the form $4k+3$ then it is not representable as a sum of two squares. This observation leads to the following lemma.
+
+\begin{lemma}\label{lemma:div-3-mod-4-sum-of-squares}
+  Suppose that $n=a^2+b^2$ and consider a prime $p\equiv 3\pmod{4}$ such that $p\mid n$. Then $p\mid a$ and $p\mid b$.
+\end{lemma}
+
+\begin{proof}
+  If $p\nmid a$, then the integer $a$ is invertible modulo $p$. Then the congruence $a^2+b^2\equiv 0\pmod{p}$ implies that
+  \begin{equation*}
+    (a^{-1}b)^2\equiv -1\pmod{p}.
+  \end{equation*}
+  This is a contradiction, since the congruence $x^2\equiv -1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{4}$. Thus, it follows that $p\mid a$ and consequently we also obtain $p\mid b$.
+\end{proof}
+
+The previous lemma can be used to find an obstruction to numbers being representble as a sum of two squares.
+
+\begin{corollary}\label{corollary:obstruction-sum-of-two-squares}
+  If the square-free part of a natural number $n$ is divisible by a prime $p\equiv 3\pmod{4}$, then $n$ is not representable as a sum of two squares.
+\end{corollary}
+
+\begin{proof}
+  By \cref{lemma:div-3-mod-4-sum-of-squares} it follows that if $n$ is divisible by a prime $p\equiv 3\pmod{4}$, then we also have $p^2\mid n$. Writing $n=p^2n'$, $a=pa'$ and $b=pb'$, we find that
+  \begin{equation*}
+    n' = a'^2+b'^2.
+  \end{equation*}
+  By iterating this process, we see that the $p$-adic valuation of $n$ is even. Thus, if the $p$-adic valuation of $n$ is odd, which is equivalent to the condition that the square-free part of $n$ is divisible by $p$, then $n$ is not representable as a sum of two squares.
+\end{proof}
+
+One of Fermat's most remarkable discoveries was that the statement in \cref{corollary:obstruction-sum-of-two-squares} is sharp: A number is representable as a sum of two squares if and only if its square-free part is not divisible by any primes congruent to $3\pmod{4}$. The first published proof of this claim was due to Euler. Fermat's discovery is now known as \emph{Fermat's Two-Squares Theorem}. We will give Euler's proof in the next section. Another classic proof is Don Zagier's, who famously wrote it up in a single---rather complicated---sentence.
+
+A commonality between all these proofs is a reduction to the primes, which we will also perform here. Just as we did for the Pythagorean triples, we will consider numbers that are representable as a sum of two squares, which are relatively prime to each other. Such representations will be called \emph{primitive}.
+
+\begin{definition}
+  We say that a number $n$ is \emph{primitively representable} as a sum of two squares if there are relatively prime positive integers $a$ and $b$ such that
+  \begin{equation*}
+    a^2+b^2=n.
+  \end{equation*}
+\end{definition}
+
+By \cref{corollary:obstruction-sum-of-two-squares} it follows immediately that numbers divisible by a prime $p\equiv 3\pmod{4}$ are never primitively representable as a sum of two squares: Either they are not representable at all, or they are representable as the sum of two squares of numbers, each of which is divisible by $p$. Likewise, any number divisible by $4$ is not primitively representable, since two squares only sum to a number divisible by $4$ if they are both even. Thus, we obtain the following corollary.
+
+\begin{corollary}\label{corollary:obstruction-primitive-sum-of-two-squares}
+  Any number divisible by $4$ or by any prime $p\equiv 3\pmod{4}$ is not primitively representable as a sum of two squares.
+\end{corollary}
+
+We can thus formulate the Two-Squares Theorem for primitive representations as sums of two squares as follows: A number $n$ has a primitive representation as a sum of two squares if and only if $n$ is a product of primes congruent to $1\pmod{4}$ or $n$ is twice such a product.
+
+In order to reduce the Two-Squares Theorem to the primes $p\equiv 1\pmod{4}$, we first recall the \emph{Brahmagupta--Fibonacci identity}, from which it follows that products of numbers representable as sums of two squares are again so representable. While this identity might appear to come out of thin air, it has a natural interpretation in the Gaussian integers, which we will discuss in \cref{chapter:gaussian-integers}.
+
+\begin{lemma}[The Brahmagupta--Fibonacci Identity]
+  For an integers $a$, $b$, $c$, and $d$, we have
+  \begin{equation*}
+    (a^2+b^2)(c^2+d^2) = (ac\pm bd)^2 + (ad \mp bc)^2.
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  This identity can be verified by a simple calculation:
+  \begin{align*}
+    (a^2+b^2)(c^2+d^2)
+    & = a^2c^2+a^2d^2+b^2c^2+b^2d^2\\
+    & = a^2c^2 \pm 2abcd+b^2d^2+a^2d^2 \mp 2abcd+b^2c^2\\
+    & = (ac \pm bd)^2 + (ad \mp bc)^2.\qedhere
+  \end{align*}
+\end{proof}
+
+By the Brahmagupta--Fibonacci identity it is easy to note that the number $65$ can be represented as a sum of two squares in two distinct ways:
+\begin{equation*}
+  65=1^2+8^2\qquad\text{and}\qquad 65=4^2+7^2.
+\end{equation*}
+Indeed, the Brahmagupta--Fibonacci identity gives that
+\begin{equation*}
+  65=13\cdot 5=(2^2+3^2)(1^2+2^2)=(6\pm 2)^2 + (4 \mp 3)^2.
+\end{equation*}
+
+We have thus reduced the Two-Squares Theorem to the following statement: Every prime $p\equiv 1\pmod{4}$ can be represented as a sum of two squares. In fact, somthing stronger is true: Every prime $p\equiv 1\pmod{4}$ can be \emph{uniquely} represented as a sum of two squares.
+
+\begin{proposition}
+  Any prime number $p$ can be represented in at most one way as a sum of two squares.
+\end{proposition}
+
+\begin{proof}
+  We have already seen that primes of the form $p\equiv 3\pmod{4}$ are not representable as the sum of two squares, which means that the claim is indeed true for such primes. The only way to represent $2$ as a sum of two squares is
+  \begin{equation*}
+    2=1^2+1^2.
+  \end{equation*}
+  The only remaining case is $p\equiv 1\pmod{4}$.
+
+  Consider a prime $p\equiv 1\pmod{4}$, and suppose that $p=x^2+y^2$ and $p=u^2+v^2$ are two distinct representations of $p$ as a sum of two squares with $x<y$ and $u<v$. Any such representations are automatically primitive, since $p$ is prime. It follows that $y$ and $v$ are invertible modulo $p$, so we have
+  \begin{equation*}
+    (xy^{-1})^2\equiv -1\pmod{p}\qquad\text{and}\qquad (uv^{-1})^2\equiv -1\pmod{p}.
+  \end{equation*}
+  This implies that $xy^{-1}\equiv \pm uv^{-1}\pmod{p}$. By changing the sign of $u$, which doesn't affect the equation $u^2+v^2=p$, we may assume that $xy^{-1}\equiv uv^{-1}\pmod{p}$, which is equivalent to
+  \begin{equation*}
+    xv\equiv yu\pmod{p}.
+  \end{equation*}
+  However, note that all of $x$, $y$, $u$, and $v$ are strictly below $\sqrt{p}$. Hence it follows that $xv= yu$. This implies that the fractions $\frac{x}{y}$ and $\frac{u}{v}$ are equal. Since they are in lowest terms, we must have $x=u$ and $y=v$.
+\end{proof}
+
+In order to prove this claim, suppose that $a^2\equiv -1\pmod{p}$. Such a solution indeed exists, since $p\equiv 1\pmod{4}$. We will now analyze the multiples of $a$
+\begin{equation*}
+  0,~a,~2a,~3a,\ldots,ma
+\end{equation*}
+modulo $p$, up to some bound $m<p$ which is yet to be determined. At first sight, we don't know much about the distribution of these residues, except that they are all distinct since the integer $a$ is invertible modulo $p$. In order to analyze them further, write $|x|_p$ for the least distance to a multiple of $p$. The least distance from any number to a multiple of $p$ is always at most $p/2$. For example, $|13|_5=2$ and $|39|_7=3$. The following lemma, which is due to Axel Thue, will be of use.
+
+\begin{lemma}[Thue's Lemma]\label{lemma:thues-lemma}
+  Consider two positive integers $a$ and $n$ such that $\gcd(a,n)=1$. For any natural number $m$, there is some $1\leq k\leq m$ such that
+  \begin{equation*}
+    |ka|_n\leq\frac{n}{m+1}.
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  We will assume that $m<n$, for if $m$ is greater then we find $|na|_n=0$. For each $0\leq i,j\leq m$, write $d_{i,j}:=|(i-j)a|_n$ be the distance to the nearest multiple of $n$ from the difference between $ia$ and $ja$. Since $i$ ranges over $m+1$ numbers, the shortest such distance can be no longer than $n/(m+1)$. In other words, we can find distinct numbers $0\leq i,j\leq m$ such that
+  \begin{equation*}
+    d_{i,j}=|(i-j)a|_n\leq \frac{n}{m+1}.
+  \end{equation*}
+  Now define $k:=j-i$. Then we clearly have $0<k\leq m$, and we have
+  \begin{equation*}
+    |ka|_n=|(i-j)a|_n\leq \frac{n}{m+1}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}\label{theorem:two-squares-primes}
+  Any prime $p\equiv 1\pmod{4}$ has a unique primitive representation as a sum of two squares.
 \end{theorem}
 
-We will give three proofs of Fermat's Two-Square Theorem in the sections following this one. In the current section we will prove some statements facilitating these three proofs.
+\begin{proof}
+  Consider a prime $p\equiv 1\pmod{4}$. We have already seen that there is at most one way to represent $p$ as a sum of two squares, so it remains to prove existence.
+
+  Consider an integer $0\leq a<p$ such that $a^2\equiv -1\pmod{p}$. Such an integer exists, since $p\equiv 1\pmod{4}$. By \crefnamed{lemma:thues-lemma}{Thue's Lemma} with $m:=\lfloor\sqrt{p}\rfloor$, we find that there is some $1\leq k<\sqrt{p}$ such that
+  \begin{equation*}
+    |ka|_p\leq \frac{p}{\sqrt{p}+1}<\sqrt{p}.
+  \end{equation*}
+  If we define $r:=|ka|_p$, then it follows that $0<r^2+k^2<2p$. On the other hand, since $a^2\equiv-1\pmod{p}$ we have $r^2+k^2\equiv (ka)^2+k^2\equiv -k^2+k^2\equiv 0\pmod{p}$. Thus, $r^2+k^2$ is a multiple of $p$ strictly between $0$ and $2p$, so we conclude that $r^2+k^2=p$. This shows that $p$ can be represented as the sum of two squares.
+\end{proof}
+
+\begin{theorem}[Fermat's Two-Squares Theorem]\label{theorem:two-squares-theorem}
+  A natural number $n$ is presentable as the sum of two squares if and only if the prime divisors of its square-free part are either $2$ or congruent to $1\pmod{4}$.
+\end{theorem}
+
+We will give three more proofs of Fermat's Two-Squares Theorem in remainder of this chapter.
+
+\section{Euler's Proof by Infinite Descent}
 
 \begin{theorem}
   Consider two nonnegative integers $a$ and $b$. If any two of the nonnegative integers $a$, $b$, and $ab$ can be written as the sum of two squares, then so can the third.
@@ -22,16 +222,15 @@ We will give three proofs of Fermat's Two-Square Theorem in the sections followi
   It remains to show that if $b$ and $ab$ are sums of two squares, then so is $a$. 
 \end{proof}
 
-\section{Euler's Proof by Infinite Descent}
 
-\begin{proof}
-  Consider an odd prime $p$. We will prove two claims:
-  \begin{enumerate}
-  \item There exist relatively prime integers $x$ and $y$ such that $p\mid x^2+y^2$.
-  \item If $p\mid x^2+y^2$, where $\gcd(x,y)=1$, then we can find relatively prime integers $u$ and $v$ such that $p=u^2+v^2$.
-  \end{enumerate}
+\begin{proof}[Proof of \cref{theorem:two-squares-theorem}]
+  Consider a prime $p\equiv 1\pmod{4}$. First we claim that there are integers $a$ and $b$ such that
+  \begin{equation*}
+    p\mid a^2+b^2.
+  \end{equation*}
+  To see this, recall from \cref{theorem:quadratic-character-neg-1} that $-1$ is congruent to a square modulo $p$. In other words, there is an integer $a$ such that $a^2\equiv -1\pmod{p}$. This implies that $p\mid a^2+1$, which proves the first claim.
 
-  For the second claim,
+  Now assume that $a$ and $b$ are integers such that $p\mid a^2+b^2$. Note that by passing to the congruence class modulo $p$, we may assume that $0\leq a,b<p$. Moreover, since $x^2\equiv (p-x)^2\pmod{p}$ for any integer $x$, we may furthermore assume that $0<a,b\leq \frac{p-1}{2}$.
 \end{proof}
 
 \section{Zagier's Proof Using Fixed Points of Involutions}

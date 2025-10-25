@@ -30,6 +30,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{afterpage}
 \usepackage{tocbibind}
+\usepackage{subcaption}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
@@ -196,10 +197,7 @@
 }
 
 \newcommand{\italicsubsection}[1]{%
-  \begingroup
-    \let\bfseries\itshape
-    \subsection*{#1}%
-  \endgroup
+\begingroup\let\bfseries\itshape\subsection*{#1}\endgroup
 }
 
 \newenvironment{starter}
@@ -276,6 +274,7 @@
 \newcommand{\bimapsto}{\mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}}
 \newcommand{\content}{\mathrm{cont}}
 \newcommand{\floorfrac}[2]{\left\lfloor\frac{#1}{#2}\right\rfloor}
+\newcommand{\totient}{\phi}
 
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -375,7 +374,7 @@
 
 \input{infinite-descent}
 
-\input{congruences}
+\input{modular-arithmetic}
 
 \input{systems-of-linear-congruences}
 
@@ -385,11 +384,9 @@
 
 \input{fermats-little-theorem}
 
-\input{famous-congruences}
+%\input{sums-of-squares}
 
-\input{sums-of-squares}
-
-\input{gaussian-integers}
+%\input{gaussian-integers}
 
 \input{polynomials}
 
@@ -399,35 +396,37 @@
 
 \input{quadratic-residues}
 
-\input{quadratic-characters}
+%\input{quadratic-characters}
 
 \input{quadratic-reciprocity}
 
-\input{primality-testing}
+%\input{jacobi-symbols}
 
-\input{conics}
+%\input{primality-testing}
 
-\input{pells-equation}
+% \input{conics}
 
-\input{polygonal-numbers}
+% \input{pells-equation}
 
-\input{fermats-last-theorem}
+% \input{polygonal-numbers}
 
-\input{real-numbers}
+% \input{fermats-last-theorem}
 
-\input{dirichlet-series}
+% \input{real-numbers}
 
-\input{distribution-of-primes}
+% \input{dirichlet-series}
 
-\input{cyclotomic-polynomials}
+% \input{distribution-of-primes}
 
-\input{prime-partition-function}
+% \input{cyclotomic-polynomials}
 
-\input{bernoulli-numbers}
+% \input{prime-partition-function}
 
-\input{miscellaneous}
+% \input{bernoulli-numbers}
 
-\input{open-problems}
+% \input{miscellaneous}
+
+% \input{open-problems}
 
 \printbibliography[heading=bibintoc,title=References]
 

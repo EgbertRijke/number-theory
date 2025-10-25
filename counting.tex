@@ -752,7 +752,7 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
     \sum_{k=0}^n \binom{n}{k} = 2^n
   \end{equation*}
   in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
- 
+  \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. % This is https://oeis.org/A147956 
 \end{starter}
 
 \begin{routine}
@@ -800,6 +800,7 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   % \item Find the first $20$ positive integers that are not divisible by any Pell number other than $1$.
   % \item Determine for each $n$ the number of integers from $1$ to the $n$th Pell number $P_n$ that are not divisible by any Pell number other than $1$.
   % \end{subexenum}
+  \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
 \end{routine}
 
 \begin{challenge}
@@ -808,8 +809,18 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   \item Show that in the $n$th row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
   \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
   \end{subexenum}
-  \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. This is https://oeis.org/A147956
-  \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
+  \exercise A \emph{derangement} is a bijection $f:A\to A$ such that $f(x)\neq x$ for every $x\in A$. We define the \emph{derangement number} $!n$ to be the number of derangements on an $n$-element set.
+  \begin{subexenum}
+  \item Compute $!n$ for $0\leq n\leq 6$.
+  \item Show that the derangement numbers satisfy the following recurrence relation:
+    \begin{equation*}
+      !(n+2)=(n+1)(!(n+1)+!n).
+    \end{equation*}
+  \item Use the principle of inclusion-exclusion to show that
+    \begin{equation*}
+      !n= n!\sum_{k=0}^n \frac{(-1)^k}{k!}.
+    \end{equation*}
+  \end{subexenum}
 \end{challenge}
 
 \cleardoublepage

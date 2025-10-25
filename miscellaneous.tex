@@ -1,5 +1,33 @@
 \chapter{Miscellaneous Results of Number Theory}
 
+\section{Representing Primes with Homogeneous Cyclotomic Polynomials}
+
+Note that the homogenized cyclotomic polynomial $\tilde{\Phi}_n(X,Y)$ is given by
+\begin{equation*}
+  \tilde{\Phi}_n(X,Y):= Y^{\varphi(n)}\Phi_n(\tfrac{X}{Y}).
+\end{equation*}
+For example, $\Phi_3(X) = X^2+X+1$, so $\tilde{\Phi}_3(X,Y) = X^2+XY+Y^2$
+
+\begin{theorem}
+  Consider an odd prime $p\neq 3$. The following are equivalent:
+  \begin{enumerate}
+  \item The prime $p$ can be written in the form $p=x^2+xy+y^2$.
+  \item The congruence $x^2+x+1\equiv 0\pmod{p}$ has a solution.
+  \item $-3$ is a quadratic residue modulo $p$.
+  \item $p\equiv 1\pmod{3}$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+  Consider an odd prime $p>3$. The following are equivalent:
+  \begin{enumerate}
+  \item The prime $p$ can be written in the form $p=x^2-xy+y^2$.
+  \item The congruence $x^2-x+1\equiv 0\pmod{p}$ has a solution.
+  \item $-3$ is a quadratic residue modulo $p$.
+  \item $p\equiv 1\pmod{3}$.
+  \end{enumerate}  
+\end{theorem}
+
 \section{Carmichael's Theorem}
 
 Carmichael's Theorem defines the least exponent $\lambda(n)$ such that $a^{\lambda(n)}\equiv 1\pmod{n}$ for all $a$ relatively prime to $n$.
