@@ -416,7 +416,7 @@ The following table lists the values of $\mu(n)$ for the first $15$ natural numb
   In other words, $\mu\ast 1=\varepsilon$.
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Algebraic proof]
   It is immediate from the definition that the M\"obius function is multiplicative. Likewise, the arithmetic function
   \begin{equation*}
     F(n) := \sum_{d\mid n}\mu(d)
@@ -433,6 +433,26 @@ The following table lists the values of $\mu(n)$ for the first $15$ natural numb
   \begin{equation*}
     \sum_{d\mid p^k}\mu(p^k)=\mu(p^0)+\mu(p^1)+0 = 1-1=0.\qedhere
   \end{equation*}
+\end{proof}
+
+\begin{proof}[Combinatorial proof]
+  It is clear that the formula holds for $n=1$. For $n>1$, we prove the formula by showing that there is a bijection
+  \begin{equation*}
+    \big\{d\mid n \bigm| \mu(d)=1 \big\} \cong \big\{d\mid n \bigm| \mu(d)=-1 \big\}
+  \end{equation*}
+  To describe such a bijection, let $p\mid n$ be a prime divisor of $n$, and define the map on a square-free divisor of $n$ by
+  \begin{equation*}
+    \theta_p(d) :=
+    \begin{cases}
+      pd & \text{if $p\nmid d$}\\
+      \tfrac{d}{p} & \text{if $p\mid d$}.
+    \end{cases}
+  \end{equation*}
+  In other words, $\theta_p$ is defined by \enquote{toggling} the prime $p$ in a square-free divisor $d$ of $n$. Note that $\theta_p(d)$ is again square-free, and that
+  \begin{equation*}
+    \mu(\theta_p(d))=-\mu(d).
+  \end{equation*}
+  Furthermore, the equality $\theta_p(\theta_p(d))=d$ holds for every $d$, so we conclude that $\theta_p$ defines a bijection between the set of divisors $d$ of $n$ such that $\mu(d)=1$ and the set of divisors $d$ of $n$ such that $\mu(d)=-1$.
 \end{proof}
 
 \begin{remark}
@@ -647,11 +667,32 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
 \end{starter}
 
 \begin{routine}
-  \exercise Compute $\mu\ast\mu$.
-  \exercise Prove that
+  \exercise Let $M_n:=2^n-1$ be the $n$th Mersenne number.
+  \begin{subexenum}
+  \item Show that if $n$ is even, then $3\mid M_n$.
+  \item Show that if $3\mid n$, then $7\mid M_n$.
+  \end{subexenum}
+  \exercise Show that any Mersenne prime $M_p=2^p-1$ with $p$ an odd prime satisfies the congruence
   \begin{equation*}
-    \sum_{k=1}^n\gcd(k,n)\mu(\gcd(k,n))=\mu(n).
+    M_p\equiv 7\pmod{24}.
   \end{equation*}
+  \exercise Suppose that $p$ is an odd prime, and that $q$ is a prime divisor of the Mersenne number $M_p=2^p-1$. Show that
+  \begin{equation*}
+    q\equiv 1\pmod{2p}.
+  \end{equation*}
+  Hint: Apply the \crefnamed{theorem:order-theorem}{Order Theorem}.
+  % This exercise uses Fermat's little theorem
+  \exercise
+  \begin{subexenum}
+  \item Show that
+    \begin{equation*}
+      \sigma(p^m)\mid \sigma(p^n) \Leftrightarrow m+1\mid n+1.
+    \end{equation*}
+  \item Let $d:=\gcd(m+1,n+1)$. Show that
+    \begin{equation*}
+      \gcd(\sigma(p^m),\sigma(p^n))=\sigma(p^{d-1}).
+    \end{equation*}
+  \end{subexenum}
   \exercise
   \begin{subexenum}
   \item Show that $m\mid n$ implies $\totient(m)\mid\totient(n)$.
@@ -661,14 +702,40 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
   \end{equation*}
   \item For any $n>1$, prove that
   \begin{equation*}
-    \sum_{a<n\\\gcd(a,n)=1}a = \frac{n\totient(n)}{2}
+    \sum_{\substack{a<n\\\gcd(a,n)=1}}a = \frac{n\totient(n)}{2}
   \end{equation*}
   \end{subexenum}
-  \exercise How many fractions $\frac{a}{b}$ are there where $\gcd(a,b)=1$, and $0\leq a\leq b\leq n$. Such fractions are called \emph{Farey fractions} of order $n$.
   \exercise Prove that there is no positive integer $n<2^{65}$ such that $\totient(n)=2^{64}$.
-  \exercise For any $d\mid \totient(n)$, prove that
+  \exercise For any $d\mid \totient(n)$ such that $d>2$, prove that
   \begin{equation*}
     \prod_{\substack{0<x<n \\\ord_n(x)=d}}x\equiv 1\pmod n.
+  \end{equation*}
+  \exercise 
+  % https://www.mathpages.com/home/kmath073/kmath073.htm
+  \begin{subexenum}
+  \item Show that
+    \begin{equation*}
+      \frac{\totient(n)}{2}\equiv 1\pmod{2}
+    \end{equation*}
+    if and only if
+    \begin{equation*}
+      n=4,\qquad\text{or}\qquad n= p^k,\qquad\text{or}\qquad n=2p^k,
+    \end{equation*}
+    where $p\equiv 3\pmod{4}$ is a prime.
+  \item Show that
+    \begin{equation*}
+      \frac{\totient(n)}{2}\equiv 1\pmod{4}
+    \end{equation*}
+    if and only if
+    \begin{equation*}
+      n=4,\qquad\text{or}\qquad n=p^k,\qquad\text{or}\qquad n=2p^k,
+    \end{equation*}
+    where either $p\equiv 3\pmod{8}$ and $k$ is odd or $p\equiv 7\pmod{8}$ and $k$ is even.
+  \end{subexenum}
+  \exercise Compute $\mu\ast\mu$.
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=1}^n\gcd(k,n)\mu(\gcd(k,n))=\mu(n).
   \end{equation*}
   \exercise
   \begin{subexenum}
@@ -692,76 +759,23 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
       f^{-1}(p^m) = \sum_{k=1}^m (-1)^k\left(\sum_{\substack{i_1+\cdots +i_k=m\\ i_1,\ldots,i_k\geq 1}}f(p^{i_1})\cdots f(p^{i_k})\right).
     \end{equation*}
   \end{subexenum}
-  \exercise 
-  % https://www.mathpages.com/home/kmath073/kmath073.htm
-  \begin{subexenum}
-  \item Show that
-    \begin{equation*}
-      \frac{\totient(n)}{2}\equiv 1\pmod{2}
-    \end{equation*}
-    if and only if
-    \begin{equation*}
-      n= p^k\qquad\text{or}\qquad n=2p^k
-    \end{equation*}
-    where $p\equiv 3\pmod{4}$ is a prime.
-  \item Show that
-    \begin{equation*}
-      \frac{\totient(n)}{2}\equiv 1\pmod{4}
-    \end{equation*}
-    if and only if there is a prime $p$ with
-    \begin{equation*}
-      n=p^k\qquad\text{or}\qquad n=2p^k
-    \end{equation*}
-    where either $p\equiv 3\pmod{8}$ and $k$ is odd $p\equiv 7\pmod{8}$ and $k$ is even.
-  \end{subexenum}  \exercise Define \emph{Jordan's totient function} $J_k(n)$ by
-  \begin{equation*}
-    J_k(n) = \#\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}.
-  \end{equation*}
-  In other words, Jordan's totient function counts the number of $k$-tuples $(x_1,\ldots,x_k)$ of positive integers not exceeding $n$ such that if $d$ simultaneously divides all the integers $x_1,\ldots,x_k$ and $n$, then $d=1$. Note that $J_1(n)$ is just Euler's totient function $\totient$.
-  \begin{subexenum}
-  \item Find $J_2(n)$ for $1\leq n\leq 12$.
-  \item Show that for any divisor $d$ of $n$, the number of elements in the set
-    \begin{equation*}
-      \left\{(x_1,\ldots,x_k) \,\middle|\, 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=\frac{n}{d}\right\}
-    \end{equation*}
-    is exactly $J_k(d)$.
-  \item Show that
-    \begin{equation*}
-      \sum_{d\mid n}J_k(d) = n^k\qquad\text{and}\qquad \sum_{d\mid n}\mu(d)\left(\frac{n}{d}\right)^k = J_k(n).
-    \end{equation*}
-  \item Show that $J_k$ is a multiplicative function.
-  \item Show that
-    \begin{equation*}
-      J_k(p^m) = p^{km}-p^{k(m-1)}
-    \end{equation*}
-    for any prime $p$ and any exponent $m\geq 1$.
-  \item Show that
-    \begin{equation*}
-      J_k(n) = n^k\prod_{p\mid n}\left(1-\frac{1}{p^k}\right).
-    \end{equation*}
-  \end{subexenum}
-  \exercise \cite[art. 81]{gauss1986}~Consider a prime $p$. Prove that the sum of all primitive roots satisfies the following property:
-  \begin{equation*}
-    \sum_{g~\text{primitive root}\pmod{p}}g \equiv \mu(p-1)\pmod{p}.
-  \end{equation*}
   \exercise Consider a prime $p$. Show that
   \begin{equation*}
     \sum_{\substack{0<n<p-1\\\gcd(n,p-1)=1}}a^n\equiv\mu(\ord_p(a))\frac{\totient(p-1)}{\totient(\ord_p(a))}\pmod{p}.
   \end{equation*}
-  \exercise
-  \begin{subexenum}
-  \item Show that
-    \begin{equation*}
-      \sigma(p^m)\mid \sigma(p^n) \Leftrightarrow m+1\mid n+1.
-    \end{equation*}
-  \item Let $d:=\gcd(m+1,n+1)$. Show that
-    \begin{equation*}
-      \gcd(\sigma(p^m),\sigma(p^n))=\sigma(p^{d-1}).
-    \end{equation*}
-  \end{subexenum}
 \end{routine}
 
 \begin{challenge}
+  \exercise Determine the number of reduced fractions $\frac{a}{b}$, where $0\leq a\leq b\leq n$.
+  % Answer: \totient(n).
+  \exercise Consider the $n$th Fermat number $F_n=2^{2^n}+1$ and the $m$th Mersenne number $M_m=2^m-1$. Show that
+  \begin{equation*}
+    \gcd(F_n,M_m)=
+    \begin{cases}
+      F_n & \text{if $2^{n+1}\mid m$,}\\
+      1 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
   \exercise For any two natural numbers $0\leq d\leq n$, determine the number of ordered pairs $(a,b)$ of nonnegative integers $a$ and $b$ such that $a+b=n$ and $\gcd(a,b)=d$.
   \exercise For how many congruence classes $b \pmod{n}$ is the linear congruence
   \begin{equation*}
@@ -788,6 +802,33 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
   \begin{equation*}
     \sigma(2^n-1) = \prod_{\substack{p~\text{odd prime}\\d:=\ord_p(2)\mid n}}\frac{p^{\nu_p(2^d-1)+\nu_p(n/d)+1}-1}{p-1}.
   \end{equation*}
+  \exercise Define \emph{Jordan's totient function} $J_k(n)$ by
+  \begin{equation*}
+    J_k(n) = \#\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}.
+  \end{equation*}
+  In other words, Jordan's totient function counts the number of $k$-tuples $(x_1,\ldots,x_k)$ of positive integers not exceeding $n$ such that if $d$ simultaneously divides all the integers $x_1,\ldots,x_k$ and $n$, then $d=1$. Note that $J_1(n)$ is just Euler's totient function $\totient$.
+  \begin{subexenum}
+  \item Find $J_2(n)$ for $1\leq n\leq 12$.
+  \item Show that for any divisor $d$ of $n$, the number of elements in the set
+    \begin{equation*}
+      \left\{(x_1,\ldots,x_k) \,\middle|\, 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=\frac{n}{d}\right\}
+    \end{equation*}
+    is exactly $J_k(d)$.
+  \item Show that
+    \begin{equation*}
+      \sum_{d\mid n}J_k(d) = n^k\qquad\text{and}\qquad \sum_{d\mid n}\mu(d)\left(\frac{n}{d}\right)^k = J_k(n).
+    \end{equation*}
+  \item Show that $J_k$ is a multiplicative function.
+  \item Show that
+    \begin{equation*}
+      J_k(p^m) = p^{km}-p^{k(m-1)}
+    \end{equation*}
+    for any prime $p$ and any exponent $m\geq 1$.
+  \item Show that
+    \begin{equation*}
+      J_k(n) = n^k\prod_{p\mid n}\left(1-\frac{1}{p^k}\right).
+    \end{equation*}
+  \end{subexenum}
   \exercise Let $\Omega$ be the arithmetic function given by
   \begin{equation*}
     \Omega(m)=m_1+\cdots+m_n

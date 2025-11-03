@@ -753,6 +753,7 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   \end{equation*}
   in three different ways: using the binomial theorem, by a direct proof by induction, and by a combinatorial proof.
   \exercise Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. % This is https://oeis.org/A147956 
+  \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
 \end{starter}
 
 \begin{routine}
@@ -800,7 +801,12 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   % \item Find the first $20$ positive integers that are not divisible by any Pell number other than $1$.
   % \item Determine for each $n$ the number of integers from $1$ to the $n$th Pell number $P_n$ that are not divisible by any Pell number other than $1$.
   % \end{subexenum}
-  \exercise Define the \emph{inclusion-exclusion sequence} $a_n$ by $a_0:=0$, $a_1:=1$, and let $a_{n+1}$ be the largest positive integer so that the number of positive integers $1\leq x < a_{n+1}$ not divisible by any $a_i$ for $2\leq i\leq n$ is $a_n$. Determine the values for $a_n$ for $1\leq n\leq 10$.
+  \exercise Consider a set $A\subseteq \mathbb{N}$, and let the sets $\mathcal{P}_0(A)$ and $\mathcal{P}_1(A)$ be defined as follows:
+  \begin{equation*}
+    \mathcal{P}_0(A):=\big\{S\subseteq A\bigm| {\textstyle \sum_{s\in S}s}\text{ is even}\big\}\quad\text{and}\quad
+    \mathcal{P}_1(A):=\big\{S\subseteq A\bigm| {\textstyle \sum_{s\in S}s}\text{ is odd}\big\}.
+  \end{equation*}
+  Show that there is a bijection bijection $f:\mathcal{P}_0(A)\to\mathcal{P}_1(A)$ if and only if the set $A$ contains an odd number. Use this bijection to conclude that for $n\geq 1$, there are exactly $2^{n-1}$ subsets $S\subseteq\{1,\ldots,n\}$ whose sum of elements is even.
 \end{routine}
 
 \begin{challenge}

@@ -279,7 +279,7 @@ We have established the existence of primitive roots modulo any prime. In this s
   \end{equation*}
 \end{theorem}
 
-Gauss, in his \emph{Disquisitiones Airthmeticae} \cite[art.~78]{gauss1986} generalizes Wilson's Theorem as follows:
+Gauss, in his \emph{Disquisitiones Arithmeticae} \cite[art.~78]{gauss1986} generalizes Wilson's Theorem as follows:
 
 \begin{proof}
   We will write $P:=\prod_{(\substack{0<x<n,~\gcd(x,n)=1})} x$. Note that any two distinct elements $x$ and $y$ such that $xy\equiv 1\pmod{n}$ cancel each other out in this product, so we have
@@ -508,6 +508,14 @@ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$.
   \end{subexenum}
   \exercise Consider an integer $n>2$. Show that $n$ admits a primitive root if and only if there is a unique integer of order $2$ modulo $n$.
 \end{routine}
+
+\begin{challenge}
+  \exercise \cite[art. 81]{gauss1986}~Consider a prime $p$. Prove that the sum of all primitive roots satisfies the following property:
+  \begin{equation*}
+    \sum_{g~\text{primitive root}\pmod{p}}g \equiv \mu(p-1)\pmod{p}.
+  \end{equation*}
+
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex

@@ -1,0 +1,126 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{totcount}
+\usepackage{enumitem}
+
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries} % Format of the text
+  {Lecture \thechapter}       % Label (e.g., "Lecture 1")
+  {0.5em}                     % Spacing between label and title
+  {\Huge}                     % Format of the title
+
+% Theorem-like environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator*{\lcm}{lcm}
+
+\title{Worksheet for Chapter 11}
+\author{Egbert Rijke}
+\date{October 3, 2025}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=purple,
+    filecolor=magenta,
+    urlcolor=blue,
+    citecolor=purple,
+    pdftitle={Lecture notes on Number Theory},
+    pdfpagemode=FullScreen,
+}
+\usepackage[capitalize,english]{cleveref}
+
+  % We set up the exercise environment, which produces list environment in a new
+% unnumbered subsection that also gets mentioned in the table of contents.
+
+\newtotcounter{exercisecounter}
+\newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+
+\newlist{exenum}{enumerate}{1}
+\setlist[exenum]{noitemsep,label=\arabic*.}
+  %,ref=\thechapter.\arabic*}
+
+\crefname{exenumi}{Exercise}{Exercises}
+  
+\newlist{subexenum}{enumerate}{1}
+\setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
+\crefname{subexenumi}{Exercise}{Exercises}
+  
+\newenvironment{exercises}
+{%
+\subsection*{Exercises}%
+\addcontentsline{toc}{section}{Exercises}%
+\sectionmark{Exercises}%
+\begin{exenum}}
+{%
+%\addtocounter{exercisecounter}{\theexenumi}%
+\end{exenum}}
+
+\newcommand{\floorfrac}[2]{\left\lfloor\frac{#1}{#2}\right\rfloor}
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+
+Recall that for $0\leq k\leq n$ the falling factorial $n_k$ is defined by
+\begin{equation*}
+  n_k=n(n-1)\cdots (n-k+1).
+\end{equation*}
+In this worksheet, we will assume that $2k\leq n$. We will also write $m:=n-k$ so that $n=m+k$.
+
+\begin{exercises}
+  \exercise Prove that $n_k\nmid k!$.
+  \exercise Use Legendre's formula to find an expression for $\nu_p(n_k)$.
+  \exercise Consider two nonnegative integers $a=qd+r$ and $b=pd+s$, where $0\leq r,s<d$. Show that
+  \begin{equation*}
+    \floorfrac{a+b}{d}-\floorfrac{b}{d}-\floorfrac{a\vphantom{b}}{d}=
+    \begin{cases}
+      0 & \text{if $r+s<d$,}\\
+      1 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  \exercise Prove that
+    \begin{equation*}
+    \left\lfloor\frac{n}{p^j}\right\rfloor-\left\lfloor\frac{m}{p^j}\right\rfloor =
+    \begin{cases}
+      \floorfrac{k}{p^j} & \text{if $b_j+d_j<p^j$,} \\[1em]
+      \floorfrac{k}{p^j} + 1 & \text{if $b_j+d_j\geq p^j$.}
+    \end{cases}
+  \end{equation*}
+  \exercise Prove that for any prime number $p\leq k$, we have
+  \begin{equation*}
+    {\textstyle \nu_p\left(\binom{n}{k}\right)}\leq 1+\lfloor\log_p(k)\rfloor.
+  \end{equation*}
+  \exercise Prove that if every prime factor $p\mid n_k$ satisfies $p\leq k$, then we have the inequalities
+  \begin{equation*}
+    \frac{4^k}{2k+1}<\binom{n}{k}\leq \prod_{p\leq k}p^{1+\lfloor\log_p(k)\rfloor}.
+  \end{equation*}
+  \exercise (Sylvester--Schur) Conclude that if $2k\leq n$, then $n_k$ has a prime divisor $p>k$.
+  \exercise (Bertrand's Postulate) Prove that there exists a prime $n<p<2n$ for every $n$.
+  \exercise (Bonse's inequality). Let $p_k$ be the $k$th prime, so that $p_1=2$, $p_2=3$, $p_3=5$, and so forth. Use Bertrand's postulate to show that for $k\geq 5$, then
+  \begin{equation*}
+    \prod_{k=1}^n p_k < p_{n+1}^3.
+  \end{equation*}
+\end{exercises}
+\end{document}

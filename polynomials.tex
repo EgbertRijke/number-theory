@@ -3,12 +3,14 @@
 \section{Polynomials with Integer Coefficients}
 
 \begin{definition}
-  An \emph{polynomial with integer coefficients} in one variable $x$ is an expression of the form
+  An \emph{polynomial} in one variable $x$ is an expression of the form
   \begin{equation*}
     f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0,
   \end{equation*}
-  in which we require that if $n\neq 0$ then the \emph{leading coefficient} $a_n$ is nonzero. The integers $a_k$ are called the \emph{coefficients} of $f(x)$. The \emph{zero polynomial} is the constant polynomial $0$ and the \emph{unit polynomial} is the constant polynomial $1$. The \emph{degree} of a polynomial is the highest power of $x$ with a nonzero coefficient. 
+  in which we require that the \emph{leading coefficient} $a_n$ is nonzero, unless $n=0$. A polynomial $f(x)$ as above with leading coeffcient $a_n$ is said to be of \emph{degree} $n$. The integers $a_k$ are called the \emph{coefficients} of $f(x)$. The \emph{zero polynomial} is the constant polynomial $f(x)=0$ and the \emph{unit polynomial} is the constant polynomial $f(x)=1$.
 \end{definition}
+
+  The coefficients of a polynomial may be taken from any number system. When we wish to specify that the coefficients are integers or rational numbers. In such cases we speak of \emph{polynomials with integer coefficients} or \emph{polynomials with rational coefficients}.
 
 There is a subtle, yet important distinction between polynomials and the functions they describe, which has to do with equality of polynomials. Two polynomials
   \begin{equation*}
@@ -20,7 +22,7 @@ There is a subtle, yet important distinction between polynomials and the functio
   \end{equation*}
   while the polynomials $x^p$ and $x$ clearly can be distinguished by their coefficients. Nevertheless, we will show in \cref{corollary:extensionality-integer-polynomials} that two polynomials with integer coefficients have equal coefficients if and only if they define equal functions.
 
-  The viewpoint that polynomials are formal expressions, and not functions, was emphasized by Leopold Kronecker, in the 19th century. With this distinction in mind, we make the following definition.
+  The viewpoint that polynomials are formal expressions, and not functions, was emphasized by Leopold Kronecker \cite{kronecker1882}, in the 19th century. With this distinction in mind, we make the following definition.
 
 \begin{definition}
   A function $f:\mathbb{Z}\to\mathbb{Z}$ is said to be \emph{polynomial in the integers} if there is a polynomial with integer coefficients such as the above, such that
@@ -37,20 +39,25 @@ There is a subtle, yet important distinction between polynomials and the functio
     & = \sum_{i=0}^n\sum_{j=0}^ma_ib_jx^{i+j} \\
     & = \sum_{k=0}^{n+m}\sum_{i=0}^n a_i b_{k-i}x^{k}.    
   \end{align*}
-  These operations of addition, subtraction, and multiplication, polynomials satisfy the laws of arithmetic. More precisely, the polynomials with integer coefficients form a commutative ring.
+  These operations of addition, subtraction, and multiplication, polynomials satisfy the laws of arithmetic. More precisely, the polynomials with integer coefficients form a commutative ring. We say that a polynomial $g(x)$ \emph{divides} a polynomial $f(x)$ if there is a polynomial $h(x)$ such that
+  \begin{equation*}
+    f(x)=g(x)h(x).
+  \end{equation*}
 \end{remark}
 
 \begin{definition}
-  A \emph{root} of a polynomial $f(x)$ is an element $r$ such that
+  A \emph{root} of a polynomial $f(x)$ is a number $r$ such that
   \begin{equation*}
     f(r)=0.
   \end{equation*}
   Sometimes we will write $N(f)$ for the set of roots of $f$.
 \end{definition}
 
+In the following theorem we will prove that if $r$ is a root of the polynomial $f(x)$, then we can factor $f(x)$ as $(x-r)g(x)$. This theorem applies for polynomials in any number system. However, to keep the statement concrete we will state the factor theorem only for polynomials with integer coefficients.
+
 \begin{theorem}[Factor Theorem]\label{theorem:factor-theorem}
-  Consider a nonzero polynomial $f(x)$ of degree $n$.
-  An integer $r$ is a root of $f(x)$ if and only if there is a polynomial $g(x)$ of degree $n-1$ such that $f(x)=(x-r)g(x)$.
+  Consider a nonzero polynomial $f(x)$ of degree $n$ with integer coefficients.
+  An integer $r$ is a root of $f(x)$ if and only if there is a polynomial $g(x)$ of degree $n-1$ with integer coefficients such that $f(x)=(x-r)g(x)$.
 \end{theorem}
 
 \begin{proof}
@@ -60,21 +67,20 @@ There is a subtle, yet important distinction between polynomials and the functio
   \begin{equation*}
     f(x) = f(x)-f(r) = a_n(x^n-r^n)+\cdots + a_1(x-r).
   \end{equation*}
-  By the formula for the difference of $n$th powers, we can factor $x^n-r^n$ as
+  By the formula for the difference of $k$th powers, which was stated in \cref{exercise:difference-of-powers}, we can factor $x^k-r^k$ as
   \begin{equation*}
-    x^k-r^k=(x-r)q_k(x),
+    x^k-r^k=(x-r)q_k(x),\qquad\text{where}\qquad q_k(x)=\sum_{i=0}^{k-1}x^iy^{k-1-i}
   \end{equation*}
-  for some polynomial $q_k(x)$ of degree $k-1$. Now let
+  is a polynomial of degree $k-1$. Now define $g(x) := \sum_{k=1}^{n}a_k q_k(x)$. Then we compute
   \begin{equation*}
-    g(x) := \sum_{k=1}^{n}a_k q_k(x).
+    (x-r)g(x)=\sum_{k=1}^{n}a_k (x-r)q_k(x)=\sum_{k=1}^{n}a_k (x^k-r^k)=f(x)-f(r)=f(x).\qedhere
   \end{equation*}
-  Then we have $f(x)=(x-r)q_k(x)$ by rearranging the terms.
 \end{proof}
 
-The factor theorem has some useful corollaries. The first is that a polynomial of degree has at most $n$ roots, and the second is a factor theorem for modular arithmetic, which we will establish in the next section.
+The \crefnamed{theorem:factor-theorem}{Factor Theorem} has some important corollaries. One of them states that a polynomial of degree $n$ has at most $n$ roots, and the second is a factor theorem for modular arithmetic, which we will establish in \cref{theorem:factor-theorem-modular-arithmetic}.
 
 \begin{corollary}\label{corollary:number-of-roots-polynomial}
-  A polynomial of degree $n$ with nonzero leading coefficient has at most $n$ roots.
+  A polynomial of degree $n$ with integer coefficients has at most $n$ roots.
 \end{corollary}
 
 \begin{proof}
@@ -93,9 +99,9 @@ The derivative of a function $f$ at a point $x$, if it exists, measures the rate
 \begin{equation*}
   f'(x):=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}
 \end{equation*}
-Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There are two important theorems in number theory that require knowledge of the derivatives of polynomials: Hensel's Lemma and the Lifting the Exponent Lemma.
+Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There are two important theorems in number theory that require knowledge of the derivatives of polynomials: \crefnamed{theorem:hensels-lemma} and the \crefnamed{theorem:lte}{Lifting the Exponent Lemma}.
 
-The following theorem is not only useful when $h$ approaches $0$; in the case where $h$ is a prime $p$ it tells us that $f(x+p)-f(x)$ is always a multiple of $p$.
+The following theorem is not only useful when $h$ approaches $0$. For example, in the case where $h$ is a prime $p$ it tells us that $f(x+p)-f(x)$ is always a multiple of $p$.
 
 \begin{theorem}
   Consider the polynomial
@@ -136,7 +142,9 @@ The following theorem is not only useful when $h$ approaches $0$; in the case wh
 
 \section{Lagrange's Interpolation Theorem}
 
-Lagrange's Interpolation Theorem establishes that for any set of data points, there is always a way of defining a polynomial that exactly matches the data. Moreover, it gives the unique way of defining such a polynomial in the lowest degree. Lagrange's Interpolation Theorem has the important consequence that any polynomial of degree $n$ is uniquely determined by any $n+1$ of its values. We will also use Lagrange's Interpolation Theorem in the next section to derive a divisibility property of polynomials due to Hensel.
+Lagrange's Interpolation Theorem establishes that for any set of data points, as illustrated in \cref{figure:lagrange-interpolation}, there is always a way of defining a polynomial that exactly matches the data. Moreover, it gives the unique way of defining such a polynomial in the lowest degree. Interpolation theorems such as Lagrange's or Newton's addressed a practical need for geometers of the $17th$ and $18th$ centuries: It allowed them to estimate intermediate values of a function from a finite amount of data such as tables of planetary positions or values of trigonometric functions.
+
+Lagrange's Interpolation Theorem has the important consequence that any polynomial of degree $n$ is uniquely determined by any $n+1$ of its values. We will also use Lagrange's Interpolation Theorem in the next section to derive a divisibility property of polynomials due to Kurt Hensel.
 
 \begin{figure}[t]
   \centering
@@ -194,7 +202,7 @@ Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus ther
   \begin{equation*}
     f(x) := \frac{1}{6}(x-1)(x-2)(x-3) - x(x-2)(x-3) + \frac{1}{6}x(x-1)(x-2),
   \end{equation*}
-  which we have plotted.
+  which exactly matches the values specified in the initial data set.
 \end{example}
 
 \begin{theorem}[Lagrange's Interpolation Theorem]\label{theorem:lagranges-interpolation-theorem}
@@ -223,12 +231,29 @@ Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus ther
   is a polynomial of degree at most $n$ with $n+1$ roots. By virtue of \cref{corollary:number-of-roots-polynomial} this is only possible if $f(x)-g(x)$ is the zero polynomial, that is, if $f(x)=g(x)$.
 \end{proof}
 
-\begin{corollary}
-  Any polynomial $f(x)$ of degree $n$ is uniquely determined by any $n+1$ of its values. In particular, it is uniquely determined by the values
+\begin{corollary}\label{corollary:extensionality-integer-polynomials}
+  Consider two polynomials $f(x)$ and $g(x)$. Then the following are equivalent:
+  \begin{enumerate}
+  \item The polynomials $f(x)$ and $g(x)$ have equal coefficients; that is, they are equal as polynomials.
+  \item The polynomials $f(x)$ and $g(x)$ have equal values; that is, they are equal as functions.
+  \item The polynomials $f(x)$ and $g(x)$ have equal values of any set of $n+1$ inputs.
+  \end{enumerate}
+  In particular, any polynomial $f(x)$ is uniquely determined by the values
   \begin{equation*}
     f(0),\ldots,f(n).
   \end{equation*}
 \end{corollary}
+
+% \begin{proof}
+%   The forward direction, which asserts that if $f(x)$ and $g(x)$ have equal coefficients then they define the same function, is immediate. For the converse, assume that $f(x)=g(x)$ for every $x$. Then the polynomial $f(x)-g(x)$ must be the zero polynomial, since any other polynomial has a degree and a polynomial of degree $n$ has at most $n$ roots by \cref{corollary:number-of-roots-polynomial}.
+  
+%   On the other hand, the polynomial $f(x)-g(x)$ is defined as
+%   \begin{equation*}
+%     f(x)-g(x) = (a_n-b_n)x^n+\cdots (a_0-b_0),
+%   \end{equation*}
+%   where $a_i$ and $b_i$ are the coefficients of $f$ and $g$, respectively, or taken to be $0$ if there is no such coefficient. Thus it follows that $a_i-b_i=0$ for all $i$, which proves that $a_i=b_i$.
+% \end{proof}
+
 
 Even though the basis polynomials of Lagrange's Interpolation Theorem don't always have integer coefficients, we can use Lagrange's Interpolation Theorem to show that for any polynomial $f$ with real coefficients, if
 \begin{equation*}
@@ -249,12 +274,12 @@ which returns the triangular numbers.
 
 Lagrange's Interpolation Theorem establishes a polynomial $f(x)$ as a linear combination of the basis polynomials, thus obtaining
 \begin{equation*}
-  \sum_{k=0}^n f(k)g_i(x).
+  f(x)=\sum_{k=0}^n f(k)g_i(x).
 \end{equation*}
 However, we can turn this perspective around. Each value $f(x)$ can be written as a linear combination of the values $f(k)$ for $0\leq k\leq n$. This observation is important enough that we establish it in its own lemma, which is a direct corollary of Lagrange's Interpolation Theorem.
 
 \begin{lemma}\label{lemma:is-linear-combination-values-polynomials}
-  Consider a polynomial $f(x)$. Then each value $f(x)$ can be written as a linear combination of the values $f(0)$, \ldots, $f(n)$, i.e., there are coefficients $a_i(x)$ for each $0\leq i\leq n$ depending on $x$ such that
+  Consider a polynomial $f(x)$. Then each value $f(x)$ can be written as a linear combination of the values $f(0)$, \ldots, $f(n)$; that is, there are coefficients $a_i(x)$ for each $0\leq i\leq n$ depending on $x$ such that
   \begin{equation*}
     f(x) = \sum_{i=0}^na_i(x)f(i).
   \end{equation*}
@@ -281,28 +306,14 @@ Equipped with this change of perspective, we can prove that a polynomial of degr
   \end{equation*}
   We can express $g_i(x)$ using binomial coefficients as
   \begin{equation*}
-    g_i(x)=\binom{x}{i}\binom{x-i-1}{n-i},
+    g_i(x)=\prod_{j=0}^{i-1}\frac{x-j}{i-j}\prod_{j=i+1}^{n}\frac{x-j}{i-j}=(-1)^{n-i}\binom{x}{i}\binom{x-i-1}{n-i},
   \end{equation*}
   which is an integer for every integer $x$. Therefore it follows by \crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem} that every value $f(x)$ can be written as an integer linear combination of the integers $f(0),\ldots,f(n)$, which proves the theorem.
 \end{proof}
 
-\begin{corollary}\label{corollary:extensionality-integer-polynomials}
-  Two polynomials $f(x)$ and $g(x)$ with integer coefficients have equal coefficients if and only if their values are equal.
-\end{corollary}
-
-\begin{proof}
-  The forward direction, which asserts that if $f(x)$ and $g(x)$ have equal coefficients then they define the same function, is immediate. For the converse, assume that $f(x)=g(x)$ for every $x$. Then the polynomial $f(x)-g(x)$ must be the $0$ polynomial, since any other polynomial has a degree and a polynomial of degree $n$ has at most $n$ roots by \cref{corollary:number-of-roots-polynomial}.
-  
-  On the other hand, the polynomial $f(x)-g(x)$ is defined as
-  \begin{equation*}
-    f(x)-g(x) = (a_n-b_n)x^n+\cdots (a_0-b_0),
-  \end{equation*}
-  where $a_i$ and $b_i$ are the coefficients of $f$ and $g$, respectively, or taken to be $0$ if there is no such coefficient. Thus it follows that $a_i-b_i=0$ for all $i$, which proves that $a_i=b_i$.
-\end{proof}
-
 \section{Fixed Divisors of Integer Polynomials}\label{section:fixed-divisors}
 
-In the previous chapter, we have done a few exercises which asked us to show that integers in certain polynomial forms satisfy a divisibility property. For example, we showed that $a^3-a$ is always divisible by $6$, and that $a^5-a$ is always divisible by $30$. We also showed that the product of any $n$ consecutive integers is always divisible by $n!$. In this section we will establish a vast generalization of these facts.
+In \cref{chapter:linear-diophantine-equations}, we have done a few exercises which asked us to show that integers in certain polynomial forms satisfy a divisibility property. For example, we showed that $a^3-a$ is always divisible by $6$, and that $a^5-a$ is always divisible by $30$. We also showed that the product of any $n$ consecutive integers is always divisible by $n!$. In this section we will establish a vast generalization of these facts.
 
 \begin{definition}\label{definition:fixed-divisor}
   The \emph{fixed divisor} of a function $f:X\to \mathbb{Z}$ into the integers is the greatest common divisor of all values of $f$, i.e.,
@@ -366,7 +377,7 @@ In the previous chapter, we have done a few exercises which asked us to show tha
     \begin{equation*}
       f(2)=126\qquad\text{and}\qquad f(3)=2184.
     \end{equation*}
-    Furthermore, using that $4^7=(2^7)^2$ we see that $f(4)$ factors as $(2^7-2)(2^7+2)$ by the formula for the difference of squares. Therefore it follows that the fixed divisor of $f(x)$ is the greatest common divisor of $f(2)$, $f(3)$, and $f(4)$, is just the greatest common divisor of $f(2)$ and $f(3)$, which is
+    Furthermore, using that $4^7=(2^7)^2$ we see that $f(4)$ factors as $(2^7-2)(2^7+2)$ by the formula for the difference of squares. Therefore it follows that the fixed divisor of $f(x)$ is the greatest common divisor of $f(2)$, $f(3)$, and $f(4)$, which is just the greatest common divisor of $f(2)$ and $f(3)$, which is
     \begin{equation*}
       \gcd(126,2184)=42=2\cdot 3\cdot 7.
     \end{equation*}
@@ -481,7 +492,7 @@ In the previous chapter, we have done a few exercises which asked us to show tha
   \begin{equation*}
     a_nx^n+\cdots a_1x+a_0=0
   \end{equation*}
-  with integer coefficients has a rational solution $x_0=\frac{s}{t}$ with $\gcd(s,t)=1$, then $s\mid a_0$ and $t\mid a_n$. Conclude that if the polynomial is monic, meaning that $a_n=1$, then any rational root is an integer, and that $\sqrt[3]{7}$ is irrational.
+  with integer coefficients has a rational solution $x_0=\frac{s}{t}$ with $\gcd(s,t)=1$, then $s\mid a_0$ and $t\mid a_n$. Conclude that if the polynomial is monic, meaning that $a_n=1$, then any rational root is an integer. Also conclude that $\sqrt[3]{7}$ is irrational.
 \end{routine}
 
 %%% Local Variables:

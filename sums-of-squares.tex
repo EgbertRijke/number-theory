@@ -162,11 +162,59 @@ We have thus reduced the Two-Squares Theorem to the following statement: Every p
   However, note that all of $x$, $y$, $u$, and $v$ are strictly below $\sqrt{p}$. Hence it follows that $xv= yu$. This implies that the fractions $\frac{x}{y}$ and $\frac{u}{v}$ are equal. Since they are in lowest terms, we must have $x=u$ and $y=v$.
 \end{proof}
 
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt},
+    highlight/.style={fill=YellowOrange!40}]
+
+    \def\n{17}
+    \def\a{7}
+    \def\radius{4.5cm}
+    \def\kmax{5}
+    
+    \foreach \i in {1,...,\n} {
+      \pgfmathtruncatemacro{\value}{\i-1}
+      \ifnum\value=0\relax
+        \node[fill=CornflowerBlue!40] (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+      \else 
+        \ifnum\value=7\relax
+          \node[highlight] (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+        \else
+          \ifnum\value=14\relax
+            \node[highlight] (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+          \else
+            \ifnum\value=4\relax
+              \node[highlight] (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+            \else
+              \ifnum\value=11\relax
+                \node[highlight] (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+              \else
+                \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+              \fi
+            \fi
+          \fi
+        \fi
+      \fi
+    }
+    
+    \foreach \i in {1,...,\n} {
+      \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+      \draw[->] 
+      (\angle-6:\radius)
+      arc[start angle=\angle-6, delta angle=-360/\n+12, radius=\radius];
+    }
+\end{tikzpicture}  
+  \caption[Thue's Lemma]{\label{figure:multiples-of-7}By Thue's lemma, in any set of $m$ multiples $\{a,2a,\ldots,ma\}$ modulo any prime $p$, there is one multiple whose cyclic distance to $0$ does not exceed $\frac{p}{m+1}$. Here we see that there is a number of the form $k\cdot 7$, for $1\leq k\leq 4$, whose cyclic distance to $0$ is $3$, which is indeed below $\frac{17}{5}$.}
+\end{figure}
+
 In order to prove this claim, suppose that $a^2\equiv -1\pmod{p}$. Such a solution indeed exists, since $p\equiv 1\pmod{4}$. We will now analyze the multiples of $a$
 \begin{equation*}
   0,~a,~2a,~3a,\ldots,ma
 \end{equation*}
-modulo $p$, up to some bound $m<p$ which is yet to be determined. At first sight, we don't know much about the distribution of these residues, except that they are all distinct since the integer $a$ is invertible modulo $p$. In order to analyze them further, write $|x|_p$ for the least distance to a multiple of $p$. The least distance from any number to a multiple of $p$ is always at most $p/2$. For example, $|13|_5=2$ and $|39|_7=3$. The following lemma, which is due to Axel Thue, will be of use.
+modulo $p$, up to some bound $m<p$ which is yet to be determined. At first sight, we don't know much about the distribution of these residues, except that they are all distinct since the integer $a$ is invertible modulo $p$.
+
+In order to analyze them further, write $|x|_p$ for the least distance to a multiple of $p$. The least distance from any number to a multiple of $p$ is always at most $p/2$. For example, $|13|_5=2$ and $|39|_7=3$. The following lemma, which is due to Axel Thue, will be of use.
 
 \begin{lemma}[Thue's Lemma]\label{lemma:thues-lemma}
   Consider two positive integers $a$ and $n$ such that $\gcd(a,n)=1$. For any natural number $m$, there is some $1\leq k\leq m$ such that
@@ -208,153 +256,170 @@ We will give three more proofs of Fermat's Two-Squares Theorem in remainder of t
 
 \section{Euler's Proof by Infinite Descent}
 
-\begin{theorem}
-  Consider two nonnegative integers $a$ and $b$. If any two of the nonnegative integers $a$, $b$, and $ab$ can be written as the sum of two squares, then so can the third.
-\end{theorem}
+% \begin{theorem}
+%   Consider two nonnegative integers $a$ and $b$. If any two of the nonnegative integers $a$, $b$, and $ab$ can be written as the sum of two squares, then so can the third.
+% \end{theorem}
 
-\begin{proof}
-  If $a=x^2+y^2$ and $b=u^2+v^2$, then the Brahmagupta--Fibonacci identity (\cref{exercise:brahmagupta-fibonacci-identity}) gives us that
-  \begin{equation*}
-    (x^2+y^2)(u^2+v^2) = (xu\pm yv)^2 + (xv\mp yu)^2.
-  \end{equation*}
-  This establishes $ab$ as a sum of two squares.
+% \begin{proof}
+%   If $a=x^2+y^2$ and $b=u^2+v^2$, then the Brahmagupta--Fibonacci identity (\cref{exercise:brahmagupta-fibonacci-identity}) gives us that
+%   \begin{equation*}
+%     (x^2+y^2)(u^2+v^2) = (xu\pm yv)^2 + (xv\mp yu)^2.
+%   \end{equation*}
+%   This establishes $ab$ as a sum of two squares.
 
-  It remains to show that if $b$ and $ab$ are sums of two squares, then so is $a$. 
-\end{proof}
+%   It remains to show that if $b$ and $ab$ are sums of two squares, then so is $a$. 
+% \end{proof}
 
+Euler proved that every prime $p\equiv 1\pmod{4}$ can be written as a sum of two squares by using the Brahmagupta--Fibonacci identity in a clever descent argument.
 
-\begin{proof}[Proof of \cref{theorem:two-squares-theorem}]
-  Consider a prime $p\equiv 1\pmod{4}$. First we claim that there are integers $a$ and $b$ such that
+\begin{proof}[Proof of \cref{theorem:two-squares-primes}]
+  Consider a prime $p\equiv 1\pmod{4}$. First we observe that there are integers $a$ and $b$ such that
   \begin{equation*}
     p\mid a^2+b^2.
   \end{equation*}
-  To see this, recall from \cref{theorem:quadratic-character-neg-1} that $-1$ is congruent to a square modulo $p$. In other words, there is an integer $a$ such that $a^2\equiv -1\pmod{p}$. This implies that $p\mid a^2+1$, which proves the first claim.
+  Indeed, it follows from \cref{theorem:quadratic-character-neg-1} that $-1$ is congruent to a square modulo $p$, which shows that $p\mid a^2+1^2$ for some integer $a$.
 
-  Now assume that $a$ and $b$ are integers such that $p\mid a^2+b^2$. Note that by passing to the congruence class modulo $p$, we may assume that $0\leq a,b<p$. Moreover, since $x^2\equiv (p-x)^2\pmod{p}$ for any integer $x$, we may furthermore assume that $0<a,b\leq \frac{p-1}{2}$.
+  Now assume that $a$ and $b$ are integers such that $p\mid a^2+b^2$. We claim that if $a^2+b^2=rp$ for some $r>1$, then we can find integers $x$ and $y$ such that $x^2+y^2=sp$ for some $s<r$. The theorem then follows at once, since we can keep writing smaller multiples of $p$ as sums of two squares until we have written $p$ itself as a sum of two squares.
+
+  To prove the claim, consider let $u$ and $v$ be two integers satisfying the conditions
+  \begin{equation*}
+    u\equiv a\pmod{r},\qquad v\equiv b\pmod{r},\qquad\text{and}\qquad |u|, |v|\leq \frac{r}{2}.
+  \end{equation*}
+  Then $u^2+v^2\equiv a^2+b^2\equiv 0\pmod{r}$, so that $u^2+v^2=rs$. We also observe that it is not possible for both $u$ and $v$ to be congruent to $0\pmod{r}$. Indeed, if this were the case, then $a$ and $b$ would be divisible by $r$, which would make the prime $p$ divisible by $r$. The inequality $u^2+v^2\leq \frac{r^2}{2}$ implies that $s\leq \frac{r}{2}$.
+
+  Multiplying $a^2+b^2$ with $u^2+v^2$ gives $(a^2+b^2)(u^2+v^2)=r^2sp$. By the Brahmagupta--Fibonacci identity, we can write this as
+  \begin{equation*}
+    (a^2+b^2)(c^2+d^2) = (au+ bv)^2 + (av - bu)^2.
+  \end{equation*}
+  Now we observe that $au+bv\equiv a^2+b^2\equiv 0\pmod{r}$, and that $av-bu\equiv ab-ab\equiv 0\pmod{r}$. This shows that both $au+bv$ and $av-bu$ are divisible by $r$, so we obtain the identity
+  \begin{equation*}
+    \left(\frac{au+ bv}{r}\right)^2 + \left(\frac{av- bu}{r}\right)^2=sp.
+  \end{equation*}
+  Thus we have written a smaller multiple of $p$ as a sum of two squares, so the theorem is proven.
 \end{proof}
 
-\section{Zagier's Proof Using Fixed Points of Involutions}
+% \section{Zagier's Proof Using Fixed Points of Involutions}
 
-\section{The Method of Brillhart--Hermite--Serret}
+% \section{The Method of Brillhart--Hermite--Serret}
 
-Charles Hermite and Joseph-Alfred Serret observed independently in the same year \cite{hermite1848,serret1848}, that there is a remarkable connection between Fermat's problem of expressing a prime $p$ congruent to $1$ modulo $4$ and Euclid's algorithm for finding the greatest common divisor. Their method was later improved by John Brillhart in \cite{brillhart1972}, which we will follow here.
+% Charles Hermite and Joseph-Alfred Serret observed independently in the same year \cite{hermite1848,serret1848}, that there is a remarkable connection between Fermat's problem of expressing a prime $p$ congruent to $1$ modulo $4$ and Euclid's algorithm for finding the greatest common divisor. Their method was later improved by John Brillhart in \cite{brillhart1972}, which we will follow here.
 
-The method of Brillhart--Hermite--Serret starts by making the following observation. Consider first a pair $(a,b)$ of relatively prime integers with $a>b>0$, and use Euclid's algorithm to find a corresponding sequence $(q_0,\ldots,q_N)$ of positive integers, as described in \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, and form the sequence
-\begin{equation*}
-  (q_N,\ldots,q_0,q_0,\ldots,q_N).
-\end{equation*}
-This sequence of quotients determines, again via \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, a pair $(c,d)$ of relatively prime integers with $c>d>0$.
+% The method of Brillhart--Hermite--Serret starts by making the following observation. Consider first a pair $(a,b)$ of relatively prime integers with $a>b>0$, and use Euclid's algorithm to find a corresponding sequence $(q_0,\ldots,q_N)$ of positive integers, as described in \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, and form the sequence
+% \begin{equation*}
+%   (q_N,\ldots,q_0,q_0,\ldots,q_N).
+% \end{equation*}
+% This sequence of quotients determines, again via \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, a pair $(c,d)$ of relatively prime integers with $c>d>0$.
 
-\begin{theorem}
-  Let $(a,b)$ and $(c,d)$ be defined as in the preceeding paragraph. Then we have the identities
-  \begin{align*}
-    c = a^2+b^2 \\
-    d = ab+rs.
-  \end{align*}
-  Furthermore, we have $d^2\equiv -1\pmod c$.
-\end{theorem}
+% \begin{theorem}
+%   Let $(a,b)$ and $(c,d)$ be defined as in the preceeding paragraph. Then we have the identities
+%   \begin{align*}
+%     c = a^2+b^2 \\
+%     d = ab+rs.
+%   \end{align*}
+%   Furthermore, we have $d^2\equiv -1\pmod c$.
+% \end{theorem}
 
-Consider the prime $p:= 521$, which is clearly congruent to $1$ modulo $4$. By fast-exponentiation one checks that $2^{260}\equiv -1\pmod{521}$, so that
-\begin{equation*}
-  (235)^2\equiv (2^{130})^2 \equiv -1\pmod{521}.
-\end{equation*}
-Since the number $521$ is prime, the greatest common divisor of $521$ and $235$ is $1$. Nevertheless, we will run Euclid's algorithm:
-\begin{align*}
-  521 & = 2\cdot 235 + 51 \\
-  235 & = 4\cdot 51 + 31 \\
-  51 & = 1\cdot 31 + 20 \\
-  31 & = 1\cdot 20 + 11 \\
-  20 & = 1\cdot 11 + 9 \\
-  11 & = 1\cdot 9 + 2 \\
-  9 & = 4\cdot 2 + 1 \\
-  2 & = 2\cdot 1 + 0.
-\end{align*}
-There are some special things to observe here. Let us write $a_i=q_ib_i+r_i$ for the $i$th equation, where $0\leq i\leq 7$. For starters, the sequence of $q_i$s is palindromic, which means that it reads the same forwards and backwards. More significantly, the number $b_i^2+b_{8-i}^2$ is always a multiple of $521$:
-\begin{align*}
-  235^2 + 1^2 & = 106 \cdot 521 \\
-  51^2 + 2^2 & = 5 \cdot 521 \\
-  31^2 + 9^2 & = 2 \cdot 521 \\
-  20^2 + 11^1 & = 1 \cdot 521.
-\end{align*}
-Exclam! We have expressed $521$ as a sum of squares!
+% Consider the prime $p:= 521$, which is clearly congruent to $1$ modulo $4$. By fast-exponentiation one checks that $2^{260}\equiv -1\pmod{521}$, so that
+% \begin{equation*}
+%   (235)^2\equiv (2^{130})^2 \equiv -1\pmod{521}.
+% \end{equation*}
+% Since the number $521$ is prime, the greatest common divisor of $521$ and $235$ is $1$. Nevertheless, we will run Euclid's algorithm:
+% \begin{align*}
+%   521 & = 2\cdot 235 + 51 \\
+%   235 & = 4\cdot 51 + 31 \\
+%   51 & = 1\cdot 31 + 20 \\
+%   31 & = 1\cdot 20 + 11 \\
+%   20 & = 1\cdot 11 + 9 \\
+%   11 & = 1\cdot 9 + 2 \\
+%   9 & = 4\cdot 2 + 1 \\
+%   2 & = 2\cdot 1 + 0.
+% \end{align*}
+% There are some special things to observe here. Let us write $a_i=q_ib_i+r_i$ for the $i$th equation, where $0\leq i\leq 7$. For starters, the sequence of $q_i$s is palindromic, which means that it reads the same forwards and backwards. More significantly, the number $b_i^2+b_{8-i}^2$ is always a multiple of $521$:
+% \begin{align*}
+%   235^2 + 1^2 & = 106 \cdot 521 \\
+%   51^2 + 2^2 & = 5 \cdot 521 \\
+%   31^2 + 9^2 & = 2 \cdot 521 \\
+%   20^2 + 11^1 & = 1 \cdot 521.
+% \end{align*}
+% Exclam! We have expressed $521$ as a sum of squares!
 
-\begin{theorem}[Reversal Theorem for Continued Fractions]
-  Consider a continued fraction $[\mathbf{q},r]=[q_0,\ldots,q_n,r]$ with value $\frac{a_{\mathbf{q},r}}{b_{\mathbf{q},r}}$.
-  Then the reverse continued fraction $[r,q_n,\ldots,q_0]$ has the value
-  \begin{equation*}
-    \frac{a_{\mathbf{q},r}}{a_{\mathbf{q}}}=[r,q_n,\ldots,q_0].
-  \end{equation*}
-  Furthermore, if the partial quotients $q_0,\ldots,q_n,r$ are integers, then this is an integer fraction in lowest terms.
-\end{theorem}
+% \begin{theorem}[Reversal Theorem for Continued Fractions]
+%   Consider a continued fraction $[\mathbf{q},r]=[q_0,\ldots,q_n,r]$ with value $\frac{a_{\mathbf{q},r}}{b_{\mathbf{q},r}}$.
+%   Then the reverse continued fraction $[r,q_n,\ldots,q_0]$ has the value
+%   \begin{equation*}
+%     \frac{a_{\mathbf{q},r}}{a_{\mathbf{q}}}=[r,q_n,\ldots,q_0].
+%   \end{equation*}
+%   Furthermore, if the partial quotients $q_0,\ldots,q_n,r$ are integers, then this is an integer fraction in lowest terms.
+% \end{theorem}
 
-\begin{proof}
-  For the final claim of the theorem, note that the identity
-  \begin{equation*}
-    b_{\mathbf{q},r}a_{\mathbf{q}}-a_{\mathbf{q},r}b_{\mathbf{q}}=(-1)^n
-  \end{equation*}
-  of \cref{theorem:determinant-formula-convergents} implies at once that $a_{\mathbf{q},r}$ and $a_{\mathbf{q}}$ are relatively prime, so that the fraction $\frac{a_\mathbf{q},r}{a_{\mathbf{q}}}$ is indeed in lowest terms.
-\end{proof}
+% \begin{proof}
+%   For the final claim of the theorem, note that the identity
+%   \begin{equation*}
+%     b_{\mathbf{q},r}a_{\mathbf{q}}-a_{\mathbf{q},r}b_{\mathbf{q}}=(-1)^n
+%   \end{equation*}
+%   of \cref{theorem:determinant-formula-convergents} implies at once that $a_{\mathbf{q},r}$ and $a_{\mathbf{q}}$ are relatively prime, so that the fraction $\frac{a_\mathbf{q},r}{a_{\mathbf{q}}}$ is indeed in lowest terms.
+% \end{proof}
 
-\begin{theorem}[Palindromic Continued Fractions of Even Length]
-  Consider a continued fraction
-  \begin{equation*}
-    \frac{a}{b} = [q_0,\ldots,q_n],
-  \end{equation*}
-  and let
-  \begin{equation*}
-    \frac{s}{t} := [q_n,\ldots,q_0,q_0,\ldots,q_n].
-  \end{equation*}
-  Then $s=a^2+b^2$ and $s\mid t^2+1$.
-\end{theorem}
-
-\begin{proof}
-  The proof is by list induction. For the base case, note that $[q_0]=q_0$ so that $a=q_0$ and $b=1$. It follows that 
-  \begin{equation*}
-    [q_0,q_0]=q_0+\frac{1}{q_0}=\frac{q_0^2+1}{q_0}.
-  \end{equation*}
-  Thus we find that $s=a^2+b^2$ as claimed. Furthermore, in this case we have $s=t^2+1$ so that also the divisibility claim holds.
-
-  We will do one more base case. Consider a continued fraction of the form $[q_0,q_1]$. Then we have
-  \begin{equation*}
-    [q_1,q_0,q_0,q_1]=q_1+\cfrac{1}{q_0+\cfrac{1}{q_0+\frac{1}{q_1}}}=\frac{(q_1q_0+1)^2+q_1^2}{q_1(q_0^2+1)+q_0}.
-  \end{equation*}
-  Then we have
-  \begin{equation*}
-    t^2+1=q_1^2(q_0^2+1)^2+2q_0q_1(q_0^2+1)+(q_0^2+1)=(q_0^2+1)((q_1q_0+1)^2+q_1^2),
-  \end{equation*}
-  so that $t^2+1=(q_0^2+1)s$. 
-
-  For the inductive step, consider a continued fraction of the form $[\mathbf{q},r,r']$. Then
-\end{proof}
-
-\begin{theorem}
-  Consider two relatively prime natural numbers $0<m<n$. The following are equivalent:
-  \begin{enumerate}
-  \item The number $n$ is a primitive sum of two squares.
-  \item The number $m$ is a root of the quadratic congruence $x^2\equiv -1\pmod{n}$.
-  \item The fraction for $\frac{n}{m}$ has a palindromic continued fraction expression; that is, there is a continued fraction $\frac{a}{b}=[q_0,\ldots,q_k]$ such that
-    \begin{equation*}
-      \frac{n}{m}=[q_k,\ldots,q_0,q_0,\ldots,q_k].
-    \end{equation*}
-  \end{enumerate}
-  Furthermore, if the third condition holds then $n=a^2+b^2$
-\end{theorem}
-
-% \begin{theorem}[Palindromic Continued Fractions of Odd Length]
+% \begin{theorem}[Palindromic Continued Fractions of Even Length]
 %   Consider a continued fraction
 %   \begin{equation*}
-%     \frac{a}{b} = [q_0,\ldots,q_N],
+%     \frac{a}{b} = [q_0,\ldots,q_n],
 %   \end{equation*}
 %   and let
 %   \begin{equation*}
-%     \frac{s}{t} := [q_N,\ldots,q_0,\ldots,q_N].
+%     \frac{s}{t} := [q_n,\ldots,q_0,q_0,\ldots,q_n].
 %   \end{equation*}
-%   Then
+%   Then $s=a^2+b^2$ and $s\mid t^2+1$.
 % \end{theorem}
+
+% \begin{proof}
+%   The proof is by list induction. For the base case, note that $[q_0]=q_0$ so that $a=q_0$ and $b=1$. It follows that 
+%   \begin{equation*}
+%     [q_0,q_0]=q_0+\frac{1}{q_0}=\frac{q_0^2+1}{q_0}.
+%   \end{equation*}
+%   Thus we find that $s=a^2+b^2$ as claimed. Furthermore, in this case we have $s=t^2+1$ so that also the divisibility claim holds.
+
+%   We will do one more base case. Consider a continued fraction of the form $[q_0,q_1]$. Then we have
+%   \begin{equation*}
+%     [q_1,q_0,q_0,q_1]=q_1+\cfrac{1}{q_0+\cfrac{1}{q_0+\frac{1}{q_1}}}=\frac{(q_1q_0+1)^2+q_1^2}{q_1(q_0^2+1)+q_0}.
+%   \end{equation*}
+%   Then we have
+%   \begin{equation*}
+%     t^2+1=q_1^2(q_0^2+1)^2+2q_0q_1(q_0^2+1)+(q_0^2+1)=(q_0^2+1)((q_1q_0+1)^2+q_1^2),
+%   \end{equation*}
+%   so that $t^2+1=(q_0^2+1)s$. 
+
+%   For the inductive step, consider a continued fraction of the form $[\mathbf{q},r,r']$. Then
+% \end{proof}
+
+% \begin{theorem}
+%   Consider two relatively prime natural numbers $0<m<n$. The following are equivalent:
+%   \begin{enumerate}
+%   \item The number $n$ is a primitive sum of two squares.
+%   \item The number $m$ is a root of the quadratic congruence $x^2\equiv -1\pmod{n}$.
+%   \item The fraction for $\frac{n}{m}$ has a palindromic continued fraction expression; that is, there is a continued fraction $\frac{a}{b}=[q_0,\ldots,q_k]$ such that
+%     \begin{equation*}
+%       \frac{n}{m}=[q_k,\ldots,q_0,q_0,\ldots,q_k].
+%     \end{equation*}
+%   \end{enumerate}
+%   Furthermore, if the third condition holds then $n=a^2+b^2$
+% \end{theorem}
+
+% % \begin{theorem}[Palindromic Continued Fractions of Odd Length]
+% %   Consider a continued fraction
+% %   \begin{equation*}
+% %     \frac{a}{b} = [q_0,\ldots,q_N],
+% %   \end{equation*}
+% %   and let
+% %   \begin{equation*}
+% %     \frac{s}{t} := [q_N,\ldots,q_0,\ldots,q_N].
+% %   \end{equation*}
+% %   Then
+% % \end{theorem}
 
 \exercises
 
-\begin{routine}
+\begin{starter}
   \exercise For every prime $p\equiv 1\pmod{4}$ below $100$, write $p$ as a sum of two squares.
   %  5 = 2^2 + 1^2,
   % 13 = 3^2 + 2^2,
@@ -367,6 +432,9 @@ Exclam! We have expressed $521$ as a sum of squares!
   % 73 = 8^2 + 3^2,
   % 89 = 8^2 + 5^2,
   % 97 = 9^2 + 4^2.
+\end{starter}
+
+\begin{routine}
   \exercise Show that a natural number $n$ can be written as the sum of two triangular numbers if and only if $8n+2$ can be written as the sum of two squares. Hint: Use one of the identities stated in \cref{exercise:identities-triangular-numbers}.
 \end{routine}
 

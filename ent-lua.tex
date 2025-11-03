@@ -1,0 +1,383 @@
+\documentclass[12pt]{book}
+
+% Encoding & language
+\usepackage{fontspec}
+\newfontfamily\cuneifont[
+  Path = fonts/,      % relative path to the folder
+  Extension = .ttf,   % file extension
+  UprightFont = *-Regular
+  ]{NotoSansCuneiform}
+  
+\usepackage{textgreek}
+\usepackage{alphabeta}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{caption}
+
+\usepackage{geometry}
+\geometry{
+  letterpaper,                 % default for the document
+  margin=0.12\paperwidth,  % margins = 10% of paper width
+  vmargin=0.10\paperheight, % vertical margins = 8% of paper height
+  includehead,
+}
+
+\usepackage{fancyhdr}
+
+% Graphics and layout
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{afterpage}
+\usepackage{tocbibind}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries} % Format of the text
+  {Chapter \thechapter}       % Label (e.g., "Lecture 1")
+  {0.5em}                     % Spacing between label and title
+  {\Huge}                     % Format of the title
+
+% Counters
+\usepackage{totcount}
+\usepackage{enumitem}
+\usepackage{aliascnt}
+
+\setlist[enumerate,1]{label=\textup{(\roman*)}}
+\setlist[enumerate,2]{label=\textup{(\alph*)}}
+\setlist[enumerate,3]{label=\textup{\arabic*.}}
+
+\captionsetup[figure]{font=small}
+\captionsetup[table]{font=small}
+
+% Math environments
+\usepackage{mathtools,amssymb,amsthm}
+
+% Fonts and micro-typography
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{relsize}
+\usepackage{calc}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+
+\newcommand{\crefnamed}[2]{\hyperref[#1]{#2}}
+
+% TikZ and plotting
+\usepackage{tikz}
+\usetikzlibrary{angles,arrows.meta,backgrounds,calc,decorations.pathreplacing,decorations.pathmorphing,hobby,intersections,quotes,shapes.geometric}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\tikzset{
+  every picture/.append style={line cap=round, line join=round}
+}
+
+% \title{Foundational Studies in Arithmetic}
+\title{Lectures on Elementary Number Theory}
+\author{Egbert Rijke}
+\date{\today}
+
+\definecolor{grayblue}{HTML}{0047AB}
+
+\usepackage{hyperref}
+\hypersetup{
+  unicode=true,
+  colorlinks=true,
+  linkcolor=grayblue,
+  filecolor=grayblue,
+  urlcolor=grayblue,
+  citecolor=grayblue,
+  pdftitle={Lecture notes on Number Theory},
+  pdfpagemode=FullScreen,
+}
+
+\usepackage[backend=biber, style=numeric, sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
+
+\crefname{table}{Table}{Tables}
+
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+
+\aliascntresetthe{lemma}
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+
+\aliascntresetthe{proposition}
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+
+\aliascntresetthe{corollary}
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+
+\aliascntresetthe{definition}
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+
+\aliascntresetthe{example}
+\crefname{example}{Example}{Examples}
+\Crefname{example}{Example}{Examples}
+
+\aliascntresetthe{remark}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\pgfplotsset{
+  lectureplot/.style={
+    width=12cm, height=8cm,
+    axis lines=middle,                         % draw only the middle axes
+    axis line style={-stealth},                % put arrow heads on them
+    tick style={draw=none},                    % no ticks
+    xlabel={$x$}, ylabel={$y$},
+    xmin=0, xmax=1e6,
+    ymin=0, ymax=8.5e4,                        % a bit above π(10^6)=78498
+    clip=false,                                % allow legend to stick out
+    legend style={
+      draw=none,                               
+      fill=none,
+      font=\footnotesize,
+      at={(0.05,0.95)},                        
+      anchor=north west,
+      /tikz/every even column/.append style={column sep=1em}
+    },
+    legend cell align=left                     % left‑align text in legend
+  }
+}
+
+\newcommand{\define}{\emph}
+
+  % We set up the exercise environment, which produces list environment in a new
+% unnumbered subsection that also gets mentioned in the table of contents.
+
+\newtotcounter{exercisecounter}
+\newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+
+\newlist{exenum}{enumerate}{1}
+\setlist[exenum]{noitemsep,label=\thechapter.\arabic*}
+  %,ref=\thechapter.\arabic*}
+
+\crefname{exenumi}{Exercise}{Exercises}
+  
+\newlist{subexenum}{enumerate}{1}
+\setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
+\crefname{subexenumi}{Exercise}{Exercises}
+
+\newenvironment{exercises}
+{%
+\subsection*{Exercises}%
+\addcontentsline{toc}{section}{Exercises}%
+\markboth{\leftmark}{\MakeUppercase{Exercises}}
+\begin{exenum}}
+{%
+%\addtocounter{exercisecounter}{\theexenumi}%
+\end{exenum}}
+
+\setcounter{tocdepth}{2}
+
+\newcommand{\Sierpinski}{Sierpiński}
+\newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
+\renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\legendre}[2]{%
+  \mathchoice
+    {\left(\frac{#1}{#2}\right)}% display style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% text style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% script style
+    {\bigl(\tfrac{#1}{#2}\bigr)}% scriptscript style
+}
+\newcommand{\lres}[2]{\ensuremath{\lfloor #1 \rceil_{#2}}}
+\newcommand{\abslres}[2]{\ensuremath{|\mkern-3mu \lfloor #1 \rceil\mkern-3mu |_{#2}}}
+\newcommand{\complementsubset}[1]{#1^{\mathrm{c}}}
+\newcommand{\Oh}{O}
+\newcommand{\oh}{o}
+\newcommand{\blank}{\mathord{\hspace{1pt}\text{--}\hspace{1pt}}}
+\newcommand{\apart}{\mathbin{\#}}
+\DeclareMathOperator{\numerator}{num}
+\DeclareMathOperator{\denominator}{denom}
+\newcommand{\mediant}{\mathbin{\triangledown}}
+\newcommand{\bimapsto}{\mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}}
+\newcommand{\content}{\mathrm{cont}}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+% Header:
+\fancyhead[LE]{\thepage}
+\fancyhead[RE]{\itshape \leftmark}
+\fancyhead[LO]{\itshape \rightmark}
+\fancyhead[RO]{\thepage}
+\fancyfoot{}
+
+\fancypagestyle{noheader}{
+  \fancyhf{}                     % clear header & footer
+  \renewcommand{\headrulewidth}{0pt}
+  \setlength{\headheight}{0pt}
+  \setlength{\headsep}{0pt}
+}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begingroup
+\begin{titlepage}
+  \begin{center}
+    {\Huge\textbf{Johns Hopkins University}} \\[1cm]
+    {\LARGE\textsc{Math 304}} \\[1cm]
+    {\LARGE Egbert Rijke}\\[1cm]
+
+    \begin{tikzpicture}[scale=5]
+      \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
+      \draw[ultra thick] (0,0) circle (1);
+      \coordinate (P1) at ({117/125},{44/125});
+      \coordinate (P2) at ({45/53},{-28/53});
+      \coordinate (P3) at ({5/13},{12/13});
+      \coordinate (P4) at ({-3/5},{4/5});
+
+      \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
+      \draw[CornflowerBlue,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
+      \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
+      \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
+      \draw[Green,ultra thick,dashed] (1,1) -- (P3);
+      \draw[Green,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
+      \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
+      \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
+      \draw[fill=white,very thick] (P1) circle (.5pt);
+      \draw[fill=white,very thick] (P2) circle (.5pt);
+      \draw[fill=white,very thick] (P3) circle (.5pt); 
+      \draw[fill=white,very thick] (P4) circle (.5pt);
+      \draw[fill=black,very thick] (1,0) circle (.5pt);
+    \end{tikzpicture}
+    
+    \vspace{1cm}
+
+    {\Huge \textbf{Elementary Number Theory}} \\[1cm]
+    {\LARGE\textit{Fall 2025}}
+  \end{center}
+\end{titlepage}
+\endgroup
+
+\cleardoublepage
+
+\vspace*{\fill}
+\noindent
+\textit{Cover image:} Vieta jumps between the rational points on the unit circle eventually reach one of the points $(1,0)$, $(0,1)$, $(-1,0)$, or $(0,-1)$.
+
+\cleardoublepage
+
+\frontmatter
+
+\pagestyle{fancy}
+
+\tableofcontents
+
+ \listoffigures
+
+\input{course-information}
+
+\input{introduction}
+
+\mainmatter
+
+\input{nature-of-numbers}
+
+\input{counting}
+
+\input{integers}
+
+\input{euclidean-division}
+
+\input{linear-diophantine-equations}
+
+\input{rational-numbers}
+
+\input{pythagorean-triples}
+
+\input{infinite-descent}
+
+\input{congruences}
+
+\input{systems-of-linear-congruences}
+
+\input{prime-numbers}
+
+\input{arithmetic-functions}
+
+\input{modular-arithmetic}
+
+\input{sums-of-squares}
+
+\input{gaussian-integers}
+
+\input{polynomials}
+
+\input{polynomial-congruences}
+
+\input{primitive-roots}
+
+\input{quadratic-residues}
+
+\input{quadratic-reciprocity}
+
+\input{primality-testing}
+
+\input{conics}
+
+\input{pells-equation}
+
+\input{polygonal-numbers}
+
+\input{fermats-last-theorem}
+
+\input{real-numbers}
+
+\input{dirichlet-series}
+
+\input{distribution-of-primes}
+
+\input{cyclotomic-polynomials}
+
+\input{prime-partition-function}
+
+\input{bernoulli-numbers}
+
+\input{miscellaneous}
+
+\input{open-problems}
+
+\printbibliography[heading=bibintoc,title=References]
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-engine: luatex
+%%% End:
