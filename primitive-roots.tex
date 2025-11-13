@@ -2,58 +2,111 @@
 
 \section{Counting Elements of a Given Order Modulo a Prime}
 
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
+    \def\n{13}
+    \def\mult{2}
+    \pgfmathtruncatemacro{\nminusone}{\n-1}
+    \def\radius{3cm}
+    
+    \foreach \i in {0,...,\nminusone} {
+      \pgfmathsetmacro{\value}{int(\i)}
+      \node (N\i) at ({90-360/\n*(\i)}:\radius) {$\value$};
+    }
+    
+    \foreach \i in {0,...,\nminusone} {
+      \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+      \draw[->] 
+      ({\angle-8}:\radius)
+      arc[start angle={\angle-8}, delta angle={-360/\n+16}, radius=\radius];
+    }
+    
+    \draw[very thick,YellowOrange,->,shorten >= 3pt,shorten <= 3pt] (N0) to[out=240,in=300,looseness=5] (N0);
+    
+    \foreach \i in {1,...,\nminusone} {
+      \pgfmathtruncatemacro{\j}{mod(\mult*\i,\n)}
+      \pgfmathtruncatemacro{\d}{mod(\j-\i+\n,\n)}
+      \pgfmathtruncatemacro{\useRight}{(\d <= \n/2 ? 1 : 0)}
+      \ifnum\useRight=1
+        \draw[very thick, CornflowerBlue, ->, shorten >= 3pt, shorten <= 3pt]
+        (N\i) to[bend right=20] (N\j);
+      \else
+        \draw[very thick, CornflowerBlue, ->, shorten >= 3pt, shorten <= 3pt]
+        (N\i) to[bend left=20] (N\j);
+      \fi
+    }
+  \end{tikzpicture}  
+  \caption[Doubling integers modulo $13$]{Doubling integers modulo $13$.}
+  \label{figure:doubling-modulo-13}
+\end{figure}
+
 \crefnamed{theorem:eulers-theorem}{Euler's Theorem} tells us that
 \begin{equation*}
-  a^{\phi(n)}\equiv 1\pmod{n}
+  a^{\totient(n)}\equiv 1\pmod{n}
 \end{equation*}
 for every integer $a$ such that $\gcd(a,n)=1$. By the \crefnamed{theorem:order-theorem}{Order Theorem} this implies that
 \begin{equation*}
-  \ord_n(a)\mid \phi(n).
+  \ord_n(a)\mid \totient(n).
 \end{equation*}
-Euler's theorem therefore gives an upper bound for the order of any element modulo $n$. For example, since $13$ is a prime number, we have $\phi(13)=12$, so all integers relatively prime to $13$ have an order dividing the number $12$. Computing the powers of $2$, for instance, we see that $\ord_{13}(2)=12$:
+Euler's theorem therefore gives an upper bound for the order of any element modulo $n$. For example, since $13$ is a prime number, we have $\totient(13)=12$, so all integers relatively prime to $13$ have an order dividing the number $12$. Computing the powers of $2$, for instance, we see that $\ord_{13}(2)=12$:
 \begin{equation*}
-  \begin{tabular}{lllllllllllll}
-    $m$             & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$  & $7$  & $8$ & $9$ & $10$ & $11$ \\ \midrule
-    $2^m \pmod{13}$ & $1$ & $2$ & $4$ & $8$ & $3$ & $6$ & $12$ & $11$ & $9$ & $5$ & $10$ & $7$. \\
+    \newcolumntype{C}{>{\centering\arraybackslash$}m{1em}<{$}}
+  \begin{tabular}{l*{12}{C}}
+    $m$             & 0 & 1 & 2 & 3 & 4 & 5 & 6  & 7  & 8 & 9 & 10 & 11 \\ \midrule
+    $2^m \pmod{13}$ & 1 & 2 & 4 & 8 & 3 & 6 & 12 & 11 & 9 & 5 & 10 & 7.
   \end{tabular}
 \end{equation*}
-We can use this table to compute the orders of all the nonzero integers modulo $13$. For example, since $3\equiv 2^4\pmod{13}$, it follows that the order of $3$ modulo $13$ is $3$. Similarly, since $5\equiv 2^9\pmod{13}$, it follows that
+The process of doubling integers modulo $13$ is illustrated in \cref{figure:doubling-modulo-13}. Using \cref{theorem:order-power}, we can use this table to compute the orders of all the nonzero integers modulo $13$. Recall that \cref{theorem:order-power} states that
+\begin{equation*}
+  \ord_n(a^m)=\frac{\ord_n(a)}{\gcd(m,\ord_n(a))}.
+\end{equation*}
+For example, since $3\equiv 2^4\pmod{13}$, it follows that the order of $3$ modulo $13$ is $3$. Similarly, since $5\equiv 2^9\pmod{13}$, it follows that
 \begin{equation*}
   5^4 \equiv (2^9)^4 \equiv (2^{12})^3 \equiv 1 \pmod{13}.
 \end{equation*}
 Computing the orders of all the elements from $1$ to $12$ modulo $13$ this way, we obtain:
 \begin{equation*}
-  \begin{tabular}{lllllllllllll}
-    $a$           & $1$ & $2$  & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ \\ \midrule
-    $\ord_{13}(a)$ & $1$ & $12$ & $3$ & $6$ & $4$ & $12$ & $12$ & $4$ & $3$ & $6$ & $12$ & $2$.
+  \newcolumntype{C}{>{\centering\arraybackslash$}m{1em}<{$}}
+  \begin{tabular}{l*{12}{C}}
+    $a$           & 1 & 2  & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\ \midrule
+    $\ord_{13}(a)$ & 1 & 12 & 3 & 6 & 4 & 12 & 12 & 4 & 3 & 6 & 12 & 2.
   \end{tabular}
+  % \begin{tabular}{lllllllllllll}
+  %   $a$           & $1$ & $2$  & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ \\ \midrule
+  %   $\ord_{13}(a)$ & $1$ & $12$ & $3$ & $6$ & $4$ & $12$ & $12$ & $4$ & $3$ & $6$ & $12$ & $2$.
+  % \end{tabular}
 \end{equation*}
 
-While the orders of the integers modulo $13$ might at first glance appear to be somewhat unwieldy, there are some important patterns to uncover. First of all, we notice that there are four integers that have the maximal possible order of $12$, and the number of integers $1\leq x\leq 12$ relatively prime to $12$ is also $\phi(12)=4$. This is no coincidence, because every integer relatively prime to $13$ is congruent to one of the integers
+While the orders of the integers modulo $13$ might at first glance appear to be somewhat unwieldy, \cref{theorem:order-power} is the key to some important patterns. For example, given an integer $a\pmod{p}$ with $\ord_p(a)=p-1$ such as $2\pmod{13}$, \cref{theorem:order-power} tells us that
 \begin{equation*}
-  2^0,~2^1,~2^2,~2^3,~2^4,~2^5,~2^6,~2^7,~2^8,~2^9,~2^{10},~\text{and}~2^{11},
+  \ord_p(a^m)=k \Leftrightarrow \frac{p-1}{\gcd(m,p-1)}=k
 \end{equation*}
-and by \cref{theorem:order-power} it follows that
-\begin{equation*}
-  \ord_{13}(2^m)=12\qquad\Leftrightarrow\qquad\gcd(m,12)=1.
-\end{equation*}
+In particular, $\ord_p(a^m)=p-1$ if and only if $\gcd(m,p-1)=1$. Indeed, we see that there are four integers modulo $13$ of order $12$, corresponding to the powers of $2$ with exponents $1$, $5$, $7$, and $11$.
 
-However, we can go further: There are two integers that have order $6$ modulo $13$, and indeed $\phi(6)=2$ as well. Similar for the we find that there are $\phi(1)$, $\phi(2)$, $\phi(3)$, and $\phi(4)$ integers of order $1$, $2$, $3$, and $4$, respectively. The following proposition tells us that modulo a prime $p$, the number of integers of order $k$ modulo $p$ is either $0$ or $\phi(k)$. This suggests that for any prime number $p$ and any $k\mid p-1$, it should be true that the number of elements of order $k$ is exactly $\phi(k)$. To prove this, we will need the following important fact about Euler's totient function:
+However, we can go further: There are two integers that have order $6$ modulo $13$, and indeed $\totient(6)=2$ as well. Similarly, we find that there are $\totient(1)$, $\totient(2)$, $\totient(3)$, and $\totient(4)$ integers of order $1$, $2$, $3$, and $4$, respectively. The following proposition tells us that modulo a prime $p$, the number of integers of order $k$ modulo $p$ is either $0$ or $\totient(k)$. This suggests that for any prime number $p$ and any $k\mid p-1$, it should be true that the number of elements of order $k$ is exactly $\totient(k)$. To make this observation precise, we first need a fundamental property of the totient function.
 
 \begin{theorem}\label{theorem:dirichlet-convolution-phi}
   For every positive integer $n$, we have
   \begin{equation*}
-    \sum_{d\mid n}\phi(d) = n,
+    \sum_{d\mid n}\totient(d) = n,
   \end{equation*}
   where the sum ranges over the positive integers $d$ dividing $n$.
 \end{theorem}
 
-\begin{proof}
-  The sum suggests that there is a way of partitioning the set $\{1,\ldots,n\}$ into sets $A_d$ of size $\phi(d)$, and this is indeed how this theorem is proven. For each positive divisor $d$ of $n$, define the map
+In terms of Dirichlet convolution, the identity in \cref{theorem:dirichlet-convolution-phi} can be stated as follows:
+\begin{equation*}
+  \totient\ast 1=\mathrm{id}.
+\end{equation*}
+We will give a combinatorial and an arithmetic proof.
+
+\begin{proof}[Combinatorial proof]
+  The sum suggests that there is a way of partitioning the set $\{1,\ldots,n\}$ into sets $A_d$ of size $\totient(d)$, and this is indeed how this theorem is proven. For each positive divisor $d$ of $n$, define the map
   \begin{equation*}
     f_d:{\textstyle \{1\leq x\leq  d \mid \gcd(x,d) = 1\}} \to \{1,\ldots,n\}
   \end{equation*}
-  by $x\mapsto \frac{n}{d}x$, and define the set $A_d$ to be the image of $f_d$. Since $\frac{n}{d}$ is a positive integer, it follows that the map $f_d$ is injective, and therefore each set $A_d$ has exactly $\phi(d)$ elements. Now notice that
+  by $x\mapsto \frac{n}{d}x$, and define the set $A_d$ to be the image of $f_d$. Since $\frac{n}{d}$ is a positive integer, it follows that the map $f_d$ is injective, and therefore each set $A_d$ has exactly $\totient(d)$ elements. Now notice that
   \begin{equation*}
     y\in A_d \qquad\Leftrightarrow\qquad \gcd(y,n)=\frac{n}{d},
   \end{equation*}
@@ -61,38 +114,74 @@ However, we can go further: There are two integers that have order $6$ modulo $1
   Therefore, it follows that for every $1\leq y\leq n$ there is exactly one $d\mid n$ such that $y\in A_d$, so it follows that the sets $A_d$ partition the set $\{1,\ldots,n\}$. The sum of the numbers of elements of each $A_d$ is therefore $n$.
 \end{proof}
 
-\begin{theorem}
-  Consider a prime number $p$. Then there are for every $k\mid p-1$ exactly $\phi(k)$ integers of order $k$ modulo $p$.
+\begin{proof}[Arithmetic proof]
+  Recall from \cref{theorem:multiplicative-totient} that $\totient$ is a multiplicative function, which implies by \cref{theorem:multiplicative-functions} that the function
+  \begin{equation*}
+    n\mapsto \sum_{d\mid n}\totient(d)
+  \end{equation*}
+  is multiplicative. Since multiplicative functions are completely determined by their values on prime powers, it suffices to show that
+  \begin{equation*}
+    \sum_{d\mid p^m}\totient(d)=p^m.
+  \end{equation*}
+  The only divisors of $p^m$ are $p^k$ for $0\leq k\leq m$, and for any $k\geq 1$ we have $\totient(p^k)=p^k-p^{k-1}$. Thus, it follows that
+  \begin{equation*}
+    \sum_{d\mid p^m}\totient(d) = \sum_{k=0}^m\totient(p^k)= 1+\sum_{k=1}^m p^k-p^{k-1}=1+(p^m-1)=p^m.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}\label{theorem:count-integers-of-order-mod-prime}
+  Consider a prime number $p$. Then there are for every $k\mid p-1$ exactly $\totient(k)$ integers of order $k$ modulo $p$.
+\end{theorem}
+
+The proof of this theorem makes essential use of the fact that any polynomial congruence of the form
+\begin{equation*}
+  x^d\equiv 1\pmod{p}
+\end{equation*}
+has at most $d$ solutions. This was established in \cref{theorem:maximal-number-of-roots-pow-minus-id}. To emphasize this observation, we will prove \cref{theorem:count-integers-of-order-mod-prime} as a consequence of the following more general theorem.
+
+\begin{theorem}\label{theorem:count-integers-of-order}
+  Consider a number $n$ with the property that every polynomial congruence of the form
+  \begin{equation*}
+    x^d\equiv 1\pmod{n}
+  \end{equation*}
+  has at most $d$ solutions. Then there are for every $k\mid\totient(n)$ exactly $\totient(k)$ integers of order $k$ modulo $n$.
 \end{theorem}
 
 \begin{proof}
-  In this proof, let us write $\psi(k)$ for the number of integers of order $k$ modulo $p$. It is clear that $\psi(k)=0$ if $k\nmid p-1$. On the other hand, we claim that for any $k\mid p-1$, we have either $\psi(k)=0$ or $\psi(k)=\phi(k)$. In other words, we will first show that if there is an element $a$ of order $k$ modulo $p$, then there are $\phi(k)$ elements of order $k$.
+  In this proof, let us write $\psi(k)$ for the number of integers of order $k$ modulo $n$. We claim that
+  \begin{equation*}
+    \psi(k)=
+    \begin{cases}
+      \totient(k) & \text{if $k\mid \totient(n)$,} \\
+      0 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  The fact that if $k\nmid \totient(n)$ then $\psi(k)=0$ follows immediately from the \crefnamed{theorem:order-theorem}{Order Theorem} and \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem}. Thus, it remains to show that $\psi(k)=\totient(k)$ for any $k\mid \totient(n)$.
 
-  First recall that every integer of order $k$ modulo $p$ is a solution to the polynomial congruence
+  Consider an integer $a$ of order $k$ modulo $n$. By definition, every integer of order $k$ modulo $n$ is a solution to the polynomial congruence
   \begin{equation*}
-    x^k\equiv 1 \pmod{p}.
+    x^k\equiv 1 \pmod{n}.
   \end{equation*}
-  Since $\ord_p(a)\mid p-1$ holds for any element $a$, this polynomial congruence as exactly $k$ solutions by \cref{theorem:maximal-number-of-roots-pow-minus-id}.
-  However, since we are given an element $a$ of order $k$, we can describe the set of solutions to the congruence $x^k\equiv 1\pmod{p}$: it is the set consisting of $1$, $a$, $a^2$, \ldots, $a^{k-1}$. In other words, every solution is congruent to a power of $a$. The powers of $a$ that are also of order $k$ are characterized by \cref{theorem:order-power}:
+  This polynomial congruence has at most $k$ solutions. Given that the integer $a$ has order $k$ modulo $n$, we see that the set of solutions can be described exactly as the following set of numbers:
   \begin{equation*}
-    \ord_p(a^m)=k \qquad\Leftrightarrow\qquad \gcd(m,k)=1.
+    1,~a,~\ldots,~a^{k-1}.
   \end{equation*}
-  Thus we see that there are exactly $\phi(k)$ integers of order $k$.
+  Thus, we see that every solution is congruent to a power of $a$. In particular, it follows that every integer of order $k$ modulo $n$ is itself a power of $a$. Recall from \cref{theorem:order-power} that an integer of the form $a^m$ has order $k$ if and only if $\gcd(m,k)=1$. Thus we conclude that, given an element of order $k$, there are exactly $\totient(k)$ integers of order $k$. In other words, $\psi(k)$ is either $0$ or $\totient(k)$, and certainly we have that $\psi(k)\leq \totient(k)$.
 
-  We have thus established that $\psi(k)\leq \phi(k)$ for every $k\mid p-1$. Now we see that, since every element $1\leq x<p$ has an order modulo $p$, we have
+  To finish the proof, observe that, since every element $1\leq x<n$ relatively prime to $n$ has an order modulo $n$, we have
   \begin{equation*}
-    n=\sum_{k\mid p-1}\psi(k)\leq \sum_{k\mid p-1}\phi(k)=n.
+    \totient(n) =\sum_{k\mid \totient(n)}\psi(k)\leq \sum_{k\mid \totient(n)}\totient(k)=\totient(n).
   \end{equation*}
-  This inequality is therefore an equality, and since $\psi(k)\leq \phi(k)$ for every $k\mid p-1$ it follows that $\psi(k)=\phi(k)$ for every $k\mid p-1$.
+  It follows that the inequality is in fact an equality, and since $\psi(k)\leq \totient(k)$ for every $k\mid\totient(n)$ it follows that $\psi(k)=\totient(k)$ for every $k\mid \totient(n)$.
 \end{proof}
 
 \section{Primitive Roots}
 
-We saw in the previous section that there are four integers modulo $13$ that have order $12$, which is the maximal possible order by Euler's theorem. We also saw that there are exactly $\phi(k)$ elements of order $k$ modulo $p$, for every $k\mid p-1$. It follows that there are
+We saw in the previous section that there are exactly $\totient(k)$ integers of order $k$ modulo $p$, for every $k\mid p-1$. It follows that there are
 \begin{equation*}
-  \phi(p-1)
+  \totient(p-1)
 \end{equation*}
-elements of order $p-1$. In other words, for every prime number $p$, there is an integer $g$ such that the integers
+integers of order $p-1$. Since $\totient(p-1)>0$, it follows that for every prime number $p$, there is an integer $g$ such that the integers
 \begin{equation*}
   1,g,g^2,\ldots,g^{p-2}
 \end{equation*}
@@ -101,59 +190,64 @@ form a reduced residue system modulo $p$. That is, there is an integer $g$ such 
 \begin{definition}
   A \emph{primitive root} modulo a natural number $n$ is an integer $g$ such that
   \begin{equation*}
-    \ord_n(g)=\phi(n).
+    \ord_n(g)=\totient(n).
   \end{equation*}
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{theorem:primitive-roots}
   Consider a natural number $n$. The following are equivalent:
   \begin{enumerate}
-  \item The number $n$ admits a primitive root modulo $n$.
-  \item Any polynomial congruence of the form
+  \item \label{itemi:primitive-roots}The number $n$ admits a primitive root modulo $n$.
+  \item \label{itemii:primitive-roots}Any polynomial congruence of the form
     \begin{equation*}
       x^d\equiv 1\pmod{n}
     \end{equation*}
     has at most $d$ solutions.
+%  \item \label{itemiii:primitive-roots}Unless $n\leq 2$, there is exactly one element of order $2$ modulo $n$.
   \end{enumerate}
-  Furthermore, if the first condition holds then there are $\phi(\phi(n))$ primitive roots, and if the last condition holds and the polynomial congruence $x^d\equiv 1\pmod{n}$ has a solution, then it has exactly $\gcd(d,\phi(n))$ solutions.
+  Furthermore, if the first condition holds then there are $\totient(\totient(n))$ primitive roots, and if the last condition holds and the polynomial congruence $x^d\equiv 1\pmod{n}$ has a solution, then it has exactly $\gcd(d,\totient(n))$ solutions.
 \end{theorem}
 
 \begin{proof}
-  First, consider a primitive root $g$ modulo $n$. Every polynomial congruence of degree $1$ has at most one solution. 
+  We have already proven that \ref{itemii:primitive-roots} implies \ref{itemi:primitive-roots} in \cref{theorem:count-integers-of-order}. To prove that \ref{itemi:primitive-roots} implies \ref{itemii:primitive-roots}, consider a primitive root $g$ modulo $n$, and consider the polynomial congruence
+  \begin{equation*}
+    x^d\equiv 1\pmod{n}.
+  \end{equation*}
+  An integer $a\equiv g^m\pmod{n}$ is a solution if and only if $g^{dm}\equiv 1\pmod{n}$. Since we assumed that $\ord_n(g)=\totient(n)$, it follows from the \crefnamed{theorem:order-theorem}{Order Theorem} that the congruence $g^{dm}\equiv 1\pmod{n}$ holds if and only if $\totient(n)\mid dm$. The number of $0\leq m<\totient(n)$ such that $\totient(n)\mid dm$ is exactly $\gcd(d,\totient(n))$, which is at most $d$. Therefore, it follows that there are at most $d$ solutions to the congruence $x^d\equiv 1\pmod{n}$.
 \end{proof}
 
-\begin{corollary}
-  The number of primitive roots of a prime number $p$ is $\phi(p-1)$. In particular, every prime $p$ admits a primitive root.
+\begin{corollary}\label{corollary:primitive-roots-primes}
+  The number of primitive roots of a prime number $p$ is $\totient(p-1)$. In particular, every prime $p$ admits a primitive root.
 \end{corollary}
 
-\begin{remark}
-  The number $9$ has the primitive root $2$. Indeed $\phi(9)=6$, and $2^3\equiv-1\pmod{9}$ so that $\ord_9(2)=6$. Thus, by the previous theorem it follows that the congruence $x^d\equiv 1\pmod{9}$ has at most $d$ solutions.
+\begin{example}
+  The number $9$ has the primitive root $2$. Indeed $\totient(9)=6$, and $2^3\equiv-1\pmod{9}$ so that $\ord_9(2)=6$. Thus, by the previous theorem it follows that the congruence $x^d\equiv 1\pmod{9}$ has at most $d$ solutions.
 
   Nevertheless, there are polynomials $f(x)$ of degree $2$ that are not of this form that have more than two solutions among the integers relatively prime to $9$. For example, the polynomial congruence
   \begin{equation*}
     x^2+x+7\equiv 0\pmod{9},
   \end{equation*}
   has the three solutions $x\equiv 1$, $4$, and $7\pmod{9}$.
-\end{remark}
 
-In fact, it is possible to precisely classify all the natural numbers that have primitive roots. They are the numbers
-\begin{equation*}
-  2,~4,~p^k,~\text{and}~2p^k.
-\end{equation*}
-where $p$ is an odd prime. For example, $3$ is a primitive root of $4$, and $5$ is a primitive root of $6$. The number $8$, on the other hand, does not have primitive roots because $\phi(8)=4$ while the nonunital odd integers $3$, $5$, and $7$ all have order $2$.
+  Some further composite numbers with primitive roots include $4$ and $6$: The number $3$ is a primitive root of $4$, and $5$ is a primitive root of $6$.
+
+  The number $8$, on the other hand, does not have primitive roots because $\totient(8)=4$ while the odd integers $3$, $5$, and $7$ all have order $2$. In fact, it is possible to precisely classify all the natural numbers that have primitive roots. We will do so in \cref{theorem:moduli-with-primitive-roots}.
+\end{example}
+
+\section{The Discrete Logarithm}
 
 It is useful to have access to primitive roots, if they exist, because if $g$ is a primitive root modulo $n$, then the integers
 \begin{equation*}
-  1,g,g^2,\ldots,g^{\phi(n)-1}
+  1,g,g^2,\ldots,g^{\totient(n)-1}
 \end{equation*}
-form a reduced residue system modulo $n$. This gives a convenient way of representing all the elements of a reduced residue system.
+form a reduced residue system modulo $n$. This means that every number relatively prime to $n$ is congruent to exactly one of the integers $g^i$, for $0\leq i<\totient(n)$. Having a primitive root therefore gives a convenient way of representing all the elements of a reduced residue system.
 
 \begin{definition}
   Suppose $g$ is a primitive root modulo $n$, and let $a$ be an integer relatively prime to $n$. Then we define the \emph{discrete logarithm} or \emph{index}
   \begin{equation*}
     \ind_g(a)
   \end{equation*}
-  of $a$ base $g$ to be the unique integer modulo $\phi(n)$ such that $g^{k}=a$.
+  of $a$ base $g$ to be the unique integer $k$ modulo $\totient(n)$ such that $g^{k}=a$.
 \end{definition}
 
 \begin{theorem}
@@ -161,12 +255,12 @@ form a reduced residue system modulo $n$. This gives a convenient way of represe
   \begin{enumerate}
   \item For any two integers $a$ and $b$ relatively prime to $n$, we have
     \begin{equation*}
-      a\equiv b\pmod{n}\qquad\Leftrightarrow\qquad\ind_g(a)\equiv\ind_g(b)\pmod{\phi(n)}.
+      a\equiv b\pmod{n}\qquad\Leftrightarrow\qquad\ind_g(a)\equiv\ind_g(b)\pmod{\totient(n)}.
     \end{equation*}
   \item Furthermore, we have
     \begin{align*}
-      \ind_g(ab) & \equiv \ind_g(a)+\ind_g(b)\pmod{\phi(n)} \\
-      \ind_g(a^m) & \equiv m\ind_g(a)\pmod{\phi(n)}.
+      \ind_g(ab) & \equiv \ind_g(a)+\ind_g(b)\pmod{\totient(n)} \\
+      \ind_g(a^m) & \equiv m\ind_g(a)\pmod{\totient(n)}.
     \end{align*}
   \end{enumerate}
 \end{theorem}
@@ -187,17 +281,17 @@ form a reduced residue system modulo $n$. This gives a convenient way of represe
   is a solution of the original linear congruence.
 \end{example}
 
-\begin{theorem}
-  Consider a natural number $n$ that admits primitive roots, and let $a$ be relatively prime to $n$. Then the set
-  \begin{equation*}
-    I_a := \{0\leq k<\phi(n)\mid \text{there is a primitive root $g$ such that $g^k\equiv a\pmod{n}$}\}
-  \end{equation*}
-  has exactly $\phi(\ord_n(a))$ elements, the least of which is $\frac{\phi(n)}{\ord_n(a)}$.
-\end{theorem}
+% \begin{theorem}
+%   Consider a natural number $n$ that admits primitive roots, and let $a$ be relatively prime to $n$. Then the set
+%   \begin{equation*}
+%     I_a := \{0\leq k<\totient(n)\mid \text{there is a primitive root $g$ such that $g^k\equiv a\pmod{n}$}\}
+%   \end{equation*}
+%   has exactly $\totient(\ord_n(a))$ elements, the least of which is $\frac{\totient(n)}{\ord_n(a)}$.
+% \end{theorem}
 
-\begin{theorem}
-  Suppose $n$ is a natural number that admits a primitive root and write $n=2^{\alpha}p^k$. Consider a polynomial $f(x)=a_dx^d+\cdots+a_0$ with integer coefficients so that the leading coefficient $a_d$ is relatively prime to $n$. Furthermore, assume that for every prime divisor $q\mid n$, the polynomials $f(x)$ and $f'(x)$ are relatively prime as polynomials. Then the number of roots of $f(x)$ modulo $n$ is at most $d$.
-\end{theorem}
+% \begin{theorem}
+%   Suppose $n$ is a natural number that admits a primitive root and write $n=2^{\alpha}p^k$. Consider a polynomial $f(x)=a_dx^d+\cdots+a_0$ with integer coefficients so that the leading coefficient $a_d$ is relatively prime to $n$. Furthermore, assume that for every prime divisor $q\mid n$, the polynomials $f(x)$ and $f'(x)$ are relatively prime as polynomials. Then the number of roots of $f(x)$ modulo $n$ is at most $d$.
+% \end{theorem}
 
 %\section{Primitive Roots of Composite Moduli}
 
@@ -205,7 +299,7 @@ form a reduced residue system modulo $n$. This gives a convenient way of represe
 % \begin{equation*}
 %   2,~4,~p^k,~\text{and}~2p^k.
 % \end{equation*}
-% The number $8$, for example, does not have elements of order $\phi(8)=4$, because the orders of all the elements modulo $8$ are:
+% The number $8$, for example, does not have elements of order $\totient(8)=4$, because the orders of all the elements modulo $8$ are:
 % \begin{align*}
 %   \ord_8(0) & = 0 & \ord_8(1) & = 1 & \ord_8(2) & = 0 & \ord_8(3) & = 2 \\
 %   \ord_8(4) & = 0 & \ord_8(5) & = 2 & \ord_8(6) & = 0 & \ord_8(7) & = 2.
@@ -256,17 +350,117 @@ form a reduced residue system modulo $n$. This gives a convenient way of represe
 % \end{proof}
 
 
-\section{A Complete Characterization of Moduli with Primitive Roots}
+\section{The Moduli with Primitive Roots}
 
-We have established the existence of primitive roots modulo any prime. In this section, we extend our attention to arbitrary moduli and give a complete characterization of those moduli for which a primitive root exists.
+We have established the existence of primitive roots modulo any prime. In this section, we will give a complete characterization of those moduli for which a primitive root exists.
 
-\begin{theorem}
-  There is a primitive root modulo $n$ if and only if
+\subsection{Primitive Roots Modulo Odd Prime Powers}
+Our first target is to show that any odd prime power $p^k$ has a primitive root. To see this, we need two lemmas.
+
+\begin{lemma}[Lifting the Exponent]\label{lemma:lte}
+  Consider an odd prime $p$, and let $x\equiv 1\pmod{p}$. Then for any natural number $m$, we have
+  \begin{equation*}
+    \nu_p(x^{p^m}-1)=\nu_p(x-1)+m.
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  Write $x=kp+1$. The proof is by induction on $m$. In the base case, the claim is simply that $\nu_p(x-1)=\nu_p(x-1)$, which holds by reflexivity. For the inductive step, write $y:=x^{p^m}$ so that $y^p=x^{p^{m+1}}$. Since $y\equiv 1\pmod{p}$, it follows that $y=kp+1$ for some integer $k$. By the induction hypothesis we have that $\nu_p(y-1)=\nu_p(x-1)+m$. Writing $\alpha:=\nu_p(y-1)$, we obtain from the \cref{theorem:binomial-theorem} that
+  \begin{equation*}
+    y^p-1=\sum_{i=1}^p\binom{p}{i}(kp)^i\equiv kp^2=p(y-1) \pmod{p^{\alpha+2}}.
+  \end{equation*}
+  This shows that $p^{\alpha+1}\mid y^p-1$ but $p^{\alpha+2}\nmid y^p-1$. We conclude that
+  \begin{equation*}
+    \nu_p(x^{p^{m+1}}-1)=\nu_p(y^p-1)=\alpha+1=\nu_p(x-1)+(m+1).\qedhere
+  \end{equation*} 
+\end{proof}
+
+Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is divisible by $p$ by \cref{theorem:fermats-little-theorem}. Therefore, its $p$-adic valuation $\alpha:=\nu_p(a^{p-1}-1)$ is at least $1$. In the following lemma we will establish that the order of $a$ modulo $p^k$ can be determined in terms of $\alpha$.
+
+\begin{lemma}\label{lemma:order-modulo-prime-power-primitive-root}
+  Consider an odd prime $p$ and a primitive root $g$ modulo $p$. Furthermore, let
+  \begin{equation*}
+    m:=\nu_p(g^{p-1}-1).
+  \end{equation*}
+  Then the order of $g$ modulo $p^k$ is $p^{\max(0,k-m)}(p-1)$. 
+\end{lemma}
+
+\begin{proof}
+  First, we observe that $\ord_p(g)\mid \ord_{p^k}(g)$, so the order of $g$ modulo $p^k$ must be a multiple of $p-1$. Write $g^{p-1}=kp^{m}+1$, so that $p\nmid k$. By the \crefnamed{lemma:lte}{Lifting the Exponent Lemma} it follows that
+  \begin{equation*}
+    \nu_p(g^{p^t(p-1)}-1)=m+t.
+  \end{equation*}
+  Consequently, for any integer $s$ not divisible by $p$ we have
+  \begin{equation*}
+    g^{p^ts(p-1)}=(kp^{m+t}+1)^s\equiv 1+skp^{m+t}\pmod{p^{m+t+1}}.
+  \end{equation*}
+  This shows that $\nu_p(g^{p^ts(p-1)}-1)=m+t$ for such $s$. The first exponent $r$ such that $g^r\equiv 1\pmod{p^k}$ is therefore $r=p^{\max(0,k-m)}(p-1)$.
+\end{proof}
+
+\begin{theorem}\label{theorem:primitive-roots-odd-prime-powers}
+  Any prime power $p^k$ with $k\geq 1$ admits a primitive root.
+\end{theorem}
+
+\begin{proof}
+  By \cref{lemma:order-modulo-prime-power-primitive-root} it suffices to construct a primitive root $h$ modulo $p$ such that $\nu_p(h^{p-1}-1)=1$.
+
+  Consider a primitive root $g$ modulo $p$. Write $g^{p-1}=kp+1$, and define $h_t:=g+tp$. Then we have
+  \begin{equation*}
+    h_t^{p-1}=(g+tp)^{p-1}\equiv g^{p-1}+(p-1)g^{p-2}tp\equiv 1+p(k-g^{p-2}t) \pmod{p^2}.
+  \end{equation*}
+  Thus we see that $h_t^{p-1}\equiv 1\pmod{p^2}$ if and only if
+  \begin{equation*}
+    k \equiv g^{p-2}t \pmod{p}.
+  \end{equation*}
+  This linear congruence has the unique solution $t\equiv kg\pmod{p}$. Thus we see that for any $t\nequiv kg\pmod{p}$, we have $h_t^{p-1}\nequiv 1\pmod{p^2}$ and hence
+  \begin{equation*}
+    \nu_p(h_t^{p-1}-1)=1.\qedhere
+  \end{equation*}
+\end{proof}
+
+\subsection{The Complete Characterization of Moduli with Primitive Roots}
+
+\begin{theorem}\label{theorem:moduli-with-primitive-roots}
+  Consider a positive integer $n$. The following are equivalent:
+  \begin{enumerate}
+  \item \label{itemi:classification-primitive-roots}The number $n$ admits a primitive root.
+  \item \label{itemii:classification-primitive-roots}Either $n=2$, or there is a unique element of order $2$ modulo $n$.
+  \item \label{itemiii:classification-primitive-roots}We have
   \begin{equation*}
     n=2,~4,~p^k,~\text{or }~2p^k,
   \end{equation*}
   where $p$ is an odd prime.
+  \end{enumerate}
 \end{theorem}
+
+\begin{proof}
+  We saw in \cref{theorem:primitive-roots} that if $n$ admits a primitive root, then the congruence
+  \begin{equation*}
+    x^d\equiv 1\pmod{n}
+  \end{equation*}
+  had at most $d$ solutions, for any $d\geq 0$. In particular, there are at most two solutions to the congruence $x^2\equiv 1\pmod{n}$. One of them is the number $1$, which is of order $1$. The other is $-1$, which is of order $2$. Since any element of order $2$ is a solution to the congruence $x^2\equiv 1\pmod{n}$, we see that \ref{itemi:classification-primitive-roots} implies \ref{itemii:classification-primitive-roots}.
+
+  Next, assume that there is a unique element of order $2$ modulo $n$. The case $n=4$ is swiftly dealt with, since $-1$ is the unique integer of order $2$ modulo $4$. If $n=2^k$ for some $k\geq 3$, then there are three integers of order $2$ modulo $2^k$:
+  \begin{equation*}
+    x=- 1\qquad\text{and}\qquad x=2^{k-1}\pm 1.
+  \end{equation*}
+  Thus we see that if $n=2^k$ for some $k\geq 3$, then $n$ does not satisfy the hypothesis in \ref{itemii:classification-primitive-roots}.
+
+  Now suppose that $n=km$, where $\gcd(k,m)=1$ and $m$ is odd and strictly greater than $1$. By the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem}, it follows that any pair of solutions
+  \begin{align*}
+    x^2 & \equiv 1\pmod{k}, \\
+    y^2 & \equiv 1\pmod{m},
+  \end{align*}
+  determines a unique solution to the congruence $z^2\equiv 1\pmod{km}$. It follows that one of them can have only one nontrivial solution. Since we assumed that $m>1$ is odd, and thus has two distinct solutions, it follows that there is only one solution to the congruence $x^2\equiv 1\pmod{k}$. Observe that there is only one such solution if and only if $k=1$ or $k=2$. Furthermore, the previous observation implies that $m$ cannot have distinct prime factors, so we conclude that $m$ must be of the form $m=p^k$ for some odd prime $p$. Thus we have proven that \ref{itemii:classification-primitive-roots} implies \ref{itemiii:classification-primitive-roots}.
+
+  Finally, we have to show that any number of the form $n=2,4,p^k$, or $2p^k$, where $p$ is an odd prime, admits a primitive root. The number $1$ is a primitive root modulo $2$, and the number $-1$ is a primitive root modulo $4$. The fact that any odd prime power $p^k$ admits primitive roots was established in \cref{theorem:primitive-roots-odd-prime-powers}. To finish the proof that \ref{itemiii:classification-primitive-roots} implies \ref{itemi:classification-primitive-roots}, it therefore remains to show that each number of the form $n=2p^k$, where $p$ is an odd prime, has a primitive root. To see this, observe that the integers relatively prime to $2p^k$ are exactly the odd integers $1\leq x<2p^k$ relatively prime to $p^k$. Among those odd integers is a primitive root $g$ modulo $p^k$. Its order modulo $2p^k$ is
+  \begin{equation*}
+    \ord_{2p^k}(g)=\ord_{p^k}(g)=p^{k-1}(p-1)=\phi(2p^k),
+  \end{equation*}
+  so we see that $g$ is also a primitive root of $2p^k$.
+\end{proof}
+
+Gauss, in his \emph{Disquisitiones Arithmeticae} \cite[art.~78]{gauss1986} generalizes Wilson's Theorem as follows:
 
 \begin{theorem}
   For any positive integer $n$ we have
@@ -279,8 +473,6 @@ We have established the existence of primitive roots modulo any prime. In this s
   \end{equation*}
 \end{theorem}
 
-Gauss, in his \emph{Disquisitiones Arithmeticae} \cite[art.~78]{gauss1986} generalizes Wilson's Theorem as follows:
-
 \begin{proof}
   We will write $P:=\prod_{(\substack{0<x<n,~\gcd(x,n)=1})} x$. Note that any two distinct elements $x$ and $y$ such that $xy\equiv 1\pmod{n}$ cancel each other out in this product, so we have
   \begin{equation*}
@@ -288,15 +480,6 @@ Gauss, in his \emph{Disquisitiones Arithmeticae} \cite[art.~78]{gauss1986} gener
   \end{equation*}
   In particular, $P$ itself satisfies $P^2=1$. 
 \end{proof}
-
-\section{Primary Decomposition of the Symmetries of \texorpdfstring{$\mathbb{Z}/p\mathbb{Z}$}{ℤ/pℤ}}
-
-\begin{proposition}
-  Consider a prime $p$ and a prime divisor $q\mid p-1$ so that the $q$-adic valuation of $p-1$ is $m_q$. Then the number of elements of order $q^{m_q}$ modulo $p$ is given by
-  \begin{equation*}
-    q^{m_q-1}(q-1).
-  \end{equation*}
-\end{proposition}
 
 \section{A Criterion for Congruences of Degree \texorpdfstring{$n$}{n}}
 
@@ -432,7 +615,7 @@ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$.
   \begin{subexenum}
   \item Find the least primitive root $g$ modulo $23$, and give a table of the congruence classes of its powers.
   \item Find all primitive roots modulo $23$.
-  \item For each $k\mid\phi(23)$, find all elements of order $k$ modulo $23$.
+  \item For each $k\mid\totient(23)$, find all elements of order $k$ modulo $23$.
   \item For each integer $1,\ldots,22$, find its index base $g$ modulo $23$.
   \item Solve the linear congruence
     \begin{equation*}
@@ -484,7 +667,7 @@ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$.
     \end{equation*}
   \end{subexenum}
   \exercise Consider a prime $p\neq 3$. Prove that the product of all primitive roots modulo $p$ is congruent to $1$ modulo $p$.
-  \exercise \cite[art.~85]{gauss1986} Consider an odd prime $p$, and let $n$ and $m$ be positive integers with $\gcd(n,\phi(p^m))=d$. Show that the congruence
+  \exercise \cite[art.~85]{gauss1986} Consider an odd prime $p$, and let $n$ and $m$ be positive integers with $\gcd(n,\totient(p^m))=d$. Show that the congruence
   \begin{equation*}
     x^n\equiv 1\pmod{p^m}
   \end{equation*}

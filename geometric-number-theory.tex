@@ -1,0 +1,52 @@
+\chapter{Geometric Number Theory}
+
+\section{Pick's Theorem}
+
+\begin{definition}
+  Consider two points $(a,b)$ and $(c,d)$ in the plane. The line segment $L((a,b),(c,d))$ is defined by
+  \begin{equation*}
+    L((a,b),(c,d))= \{t(a,b)+(1-t)(c,d)\mid 0\leq t\leq 1\}.
+  \end{equation*}
+\end{definition}
+
+\begin{definition}
+  A \emph{simple polygon with integer vertices} in the plane consists of an ordered list of points $(x_i,y_i)$  with integer coordinates $x_i$ and $y_i$, where $0\leq i < n$, such that the line segments $L_i:=L((x_i,y_i),(x_{i+1},y_{i+1}))$, satisfy the following condition:
+  \begin{equation*}
+    L_i\cap L_j=
+    \begin{cases}
+      \{(x_j,y_j)\} & \text{if $j-i\equiv 1\pmod{n}$}, \\
+      \{(x_i,y_i)\} & \text{if $i-j\equiv 1\pmod{n}$}, \\
+      \varnothing & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  In other words, a simple polygon with integer vertices in the plane consists of an ordered list of 
+\end{definition}
+
+\begin{theorem}[Pick's Theorem]
+  If $P$ is a polygon whose vertices have integer coordinates, then
+  
+\end{theorem}
+
+\section{Minkowski's Convex Body Theorem}
+
+\begin{theorem}[Minkowski's Convex Body Theorem]
+  Consider a lattice $\Lambda\subseteq \mathbb{R}^n$, and consider a convex, centrally symmetric, measurable subset $K\subseteq \mathbb{R}^n$ with
+  \begin{equation*}
+    \mathrm{vol}(K)\geq 2^n\mathrm{det}(\Lambda).
+  \end{equation*}
+  Then $K$ contains a nonzero element of $\Lambda$.
+\end{theorem}
+
+\section{Blichfeldt's Principle}
+
+\begin{theorem}[Blichfeldt's Principle]
+  If $\mathrm{vol}(S)\geq\mathrm{det}(\Lambda)$, then there exist distinct $x,y\in S$ such that $x-y\in\Lambda$.
+\end{theorem}
+
+\section{Erhardt's Theorem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
+%%% End:

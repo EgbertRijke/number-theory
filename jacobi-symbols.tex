@@ -15,5 +15,16 @@
 \begin{proof}
   We first observe that if $p=x^4+y^4$ with $x$ odd and $y$ even, then $x^4\equiv 1\pmod{16}$ and $y^4\equiv 0\pmod{16}$ so that $p\equiv 1\pmod{16}$. Furthermore, the number $a=x^2$ is congruent to $1\pmod{4}$. This proves that the stated conditions are necessary.
 
-  Now suppose that $p\equiv 1\pmod{16}$ and $a\equiv 1\pmod{4}$. 
+  Now suppose that $p\equiv 1\pmod{16}$ and $a\equiv 1\pmod{4}$. Our goal is to show that both $a$ and $b$ are quadratic residues modulo $p$. First, we note that
+  \begin{equation*}
+    \legendre{a}{p}\equiv a^{\frac{p-1}{2}}\equiv (a^2)^{\frac{p-1}{4}} \equiv (-b^2)^{\frac{p-1}{4}} \equiv (b^2)^{\frac{p-1}{4}}\equiv b^{\frac{p-1}{2}}\equiv \legencre{b}{p}.
+  \end{equation*}
+  This shows that $a$ is a quadratic residue modulo $p$ if and only if $b$ is. To see that $a$ is a quadratic residue modulo $p$, we use the law of quadratic reciprocity for Jacobi symbols:
+  \begin{equation*}
+    \legendre{a}{p}\legendre{p}{a}=(-1)^{\frac{a-1}{2}\frac{p-1}{2}}.
+  \end{equation*}
+  Note that $\frac{p-1}{2}$ is even, so it follows that $\legendre{a}{p}=\legendre{p}{a}$. Since $p=a^2+b^2\equiv b^2\pmod{a}$, it follows that
+  \begin{equation*}
+    \legendre{a}{p}=\legendre{p}{a}=\legendre{b^2}{a}=\legendre{b}{a}^2=1.\qedhere
+  \end{equation*}
 \end{proof}

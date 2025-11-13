@@ -66,7 +66,7 @@ has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we wi
 
 The previous theorem is due to Joseph-Louis Lagrange, published in 1770 in \emph{Réflexions sur la résolution algébrique des équations} \cite{lagrange1770}. Lagrange demonstrated that the roots of polynomials can be studied by their permutations. His ideas would eventually lead to the emergence of group theory (the study of symmetry), and Galois theory.
 
-While Lagrange's theorem establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} to find examples of polynomial congruences that have the maximum allowable number of solutions.
+While \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem} establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} to find examples of polynomial congruences that have the maximum allowable number of solutions.
 
 \begin{theorem}\label{theorem:maximal-number-of-roots-pow-minus-id}
   Consider a prime $p$ and a positive integer $n$ such that $n\mid p-1$. Then the polynomial congruence
@@ -88,10 +88,10 @@ While Lagrange's theorem establishes an upper bound for the number of incongruen
   have at most $n$ and $p-1-n$ solutions, respectively. Since their product has $p-1$ solutions, it follows that the polynomial congruence $x^n-1\equiv 0\pmod{p}$ must have exactly $n$ solutions.
 \end{proof}
 
-Lagrange's Theorem can also be used to give yet another proof of the fact that if $p=4k+1$, then $p\mid y^2+1$ for some integer $y$.
+\crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem} can also be used to give another proof of \cref{theorem:quadratic-character-neg-1}, which states that for an odd prime $p$, the quadratic congruence $x^2\equiv -1\pmod{p}$ has a solution if and only if $p\equiv 1\pmod{4}$.
 
-\begin{proof}
-  Consider a prime $p$ of the form $4k+1$. Then \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} implies that
+\begin{proof}[Proof of \cref{theorem:quadratic-character-neg-1}]
+  We prove that if $p\equiv 1\pmod{4}$, then there is a square root of $-1$ modulo $p$. Consider a prime $p$ of the form $4k+1$. Then \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} implies that
   \begin{equation*}
     (x^{2k}+1)(x^{2k}-1)=x^{4k}-1\equiv 0\pmod{p}.
   \end{equation*}
@@ -103,16 +103,8 @@ Lagrange's Theorem can also be used to give yet another proof of the fact that i
   \begin{equation*}
     x^{2k}+1\equiv 0\pmod{p}.
   \end{equation*}
-  Setting $y:=x^k$ for such $x$, we find that $p\mid y^2+1^2$.
+  Given such an integer $x$, we see that $y:=x^k$ is a square root of $-1$ modulo $p$.
 \end{proof}
-
-\begin{theorem}
-  Consider a cyclotomic polynomial $\Phi_n(x)$ and a prime $p$. Then we have
-  \begin{equation*}
-    \Phi_n(x)\equiv 0\pmod{p}\text{ is solvable}\qquad\Leftrightarrow\qquad n\mid p-1.
-  \end{equation*}
-  Furthermore, if $\Phi_n(x)\equiv 0\pmod{p}$ is solvable, then $\Phi_n(x)$ has exactly $\phi(n)$ roots modulo $p$.
-\end{theorem}
 
 \section{Polynomial Congruences of Composite Moduli}
 
@@ -166,83 +158,83 @@ In the following theorem we generalize the \crefnamed{theorem:chinese-remainder-
   By induction on the number of prime factors of $n$.
 \end{proof}
 
-\section{Reduced Polynomials Modulo a Prime}
+% \section{Reduced Polynomials Modulo a Prime}
 
-\begin{definition}
-  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
-\end{definition}
+% \begin{definition}
+%   Two polynomials $f(x)$ and $g(x)$ are said to be \emph{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
+% \end{definition}
 
-\begin{definition}
-  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
-  \begin{equation*}
-    f(x)\equiv g(x)\pmod{p}
-  \end{equation*}
-  holds.
-\end{definition}
+% \begin{definition}
+%   Two polynomials $f(x)$ and $g(x)$ are said to be \emph{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
+%   \begin{equation*}
+%     f(x)\equiv g(x)\pmod{p}
+%   \end{equation*}
+%   holds.
+% \end{definition}
 
-\begin{definition}
-  A polynomial $f(x)$ is said to be \emph{reduced} modulo $p$ if it is of degree less than $p$.
-\end{definition}
+% \begin{definition}
+%   A polynomial $f(x)$ is said to be \emph{reduced} modulo $p$ if it is of degree less than $p$.
+% \end{definition}
 
-\begin{theorem}
-  Any two equivalent reduced polynomials modulo $p$ are congruent.
-\end{theorem}
+% \begin{theorem}
+%   Any two equivalent reduced polynomials modulo $p$ are congruent.
+% \end{theorem}
 
-\begin{proof}
-  Consider two equivalent reduced polynomials $f(x)$ and $g(x)$. Then $f(x)-g(x)$ is a reduced polynomial equivalent to $0$. However, if $f(x)-g(x)$ were nonzero then its number of roots would be strictly less than $p$. Since the number of roots is $p$, it follows that $f(x)-g(x)$ is congruent to the zero polynomial.
-\end{proof}
+% \begin{proof}
+%   Consider two equivalent reduced polynomials $f(x)$ and $g(x)$. Then $f(x)-g(x)$ is a reduced polynomial equivalent to $0$. However, if $f(x)-g(x)$ were nonzero then its number of roots would be strictly less than $p$. Since the number of roots is $p$, it follows that $f(x)-g(x)$ is congruent to the zero polynomial.
+% \end{proof}
 
-\begin{theorem}
-  For every polynomial $f(x)$ there is a unique reduced polynomial $g(x)$ equivalent to $f(x)$.
-\end{theorem}
+% \begin{theorem}
+%   For every polynomial $f(x)$ there is a unique reduced polynomial $g(x)$ equivalent to $f(x)$.
+% \end{theorem}
 
-\section{The Elementary Symmetric Polynomials}
+% \section{The Elementary Symmetric Polynomials}
 
-Using the fact that equivalent reduced polynomials must be congruent, we obtain the following factorization of the polynomial $x^{p-1}-1$ in $\mathbb{Z}/p\mathbb{Z}$, which has roots at the numbers $1$, \ldots, $p-1$.
+% Using the fact that equivalent reduced polynomials must be congruent, we obtain the following factorization of the polynomial $x^{p-1}-1$ in $\mathbb{Z}/p\mathbb{Z}$, which has roots at the numbers $1$, \ldots, $p-1$.
 
-\begin{theorem}\label{theorem:factorization-fermats-polynomial}
-  Consider a prime $p$. Then we have
-  \begin{equation*}
-    x^{p-1}-1 \equiv (x-1)\cdots (x-p+1)\pmod{p}
-  \end{equation*}
-  for every $x$. Hence their coefficients are congruent.
-\end{theorem}
+% \begin{theorem}\label{theorem:factorization-fermats-polynomial}
+%   Consider a prime $p$. Then we have
+%   \begin{equation*}
+%     x^{p-1}-1 \equiv (x-1)\cdots (x-p+1)\pmod{p}
+%   \end{equation*}
+%   for every $x$. Hence their coefficients are congruent.
+% \end{theorem}
 
-\begin{proof}
-  Both polynomials are equivalent and reduced, so they must be congruent.
-\end{proof}
+% \begin{proof}
+%   Both polynomials are equivalent and reduced, so they must be congruent.
+% \end{proof}
 
-The previous theorem provides another way of proving \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
+% The previous theorem provides another way of proving \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
 
-\begin{proof}[Proof of \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}]
-  The integer $(p-1)!$ is the constant coefficient of the polynomial $(x-1)\cdots(x-p+1)$, which is congruent to the polynomial $x^{p-1}-1$ with constant coefficient $-1$.
-\end{proof}
+% \begin{proof}[Proof of \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}]
+%   The integer $(p-1)!$ is the constant coefficient of the polynomial $(x-1)\cdots(x-p+1)$, which is congruent to the polynomial $x^{p-1}-1$ with constant coefficient $-1$.
+% \end{proof}
 
-Using the elementary symmetric polynomials, we find another way of stating \cref{theorem:factorization-fermats-polynomial}:
+% Using the elementary symmetric polynomials, we find another way of stating \cref{theorem:factorization-fermats-polynomial}:
 
-\begin{theorem}
-  For each prime $p$ and each $1\leq k < p-1$ we have
-  \begin{equation*}
-    e_k(1,\ldots,p-1) \equiv 0 \pmod{p}.
-  \end{equation*}
-\end{theorem}
+% \begin{theorem}
+%   For each prime $p$ and each $1\leq k < p-1$ we have
+%   \begin{equation*}
+%     e_k(1,\ldots,p-1) \equiv 0 \pmod{p}.
+%   \end{equation*}
+% \end{theorem}
 
-\section{Hensel's Lemma and Lifting the Exponent}
+% \section{Hensel's Lemma and Lifting the Exponent}
 
-\begin{theorem}[Hensel's Lemma]\label{theorem:hensels-lemma}
-  Consider a prime number $p$ and a polynomial $f(x)$ with integer coefficients. Furthermore, consider an integer $a$ such that $f(a)\equiv 0\pmod{p}$ and $f'(a)\nequiv 0\pmod{p}$, where $f'(x)$ is the derivative of $f$. Then there exists for every $k\geq 1$ a unique integer $a_k$ modulo $p^k$ with $a_1\equiv a\pmod{p}$ such that the congruences
-  \begin{equation*}
-    a_{k+1}\equiv a_k\pmod{p^k},\qquad\text{and}\qquad f(a_k)\equiv 0\pmod{p^k}
-  \end{equation*}
-  hold for all $k$.
-\end{theorem}
+% \begin{theorem}[Hensel's Lemma]\label{theorem:hensels-lemma}
+%   Consider a prime number $p$ and a polynomial $f(x)$ with integer coefficients. Furthermore, consider an integer $a$ such that $f(a)\equiv 0\pmod{p}$ and $f'(a)\nequiv 0\pmod{p}$, where $f'(x)$ is the derivative of $f$. Then there exists for every $k\geq 1$ a unique integer $a_k$ modulo $p^k$ with $a_1\equiv a\pmod{p}$ such that the congruences
+%   \begin{equation*}
+%     a_{k+1}\equiv a_k\pmod{p^k},\qquad\text{and}\qquad f(a_k)\equiv 0\pmod{p^k}
+%   \end{equation*}
+%   hold for all $k$.
+% \end{theorem}
 
-\begin{theorem}[Lifting the Exponent Lemma]\label{theorem:lte}
-  Let $p$ be an odd prime, and consider integers $x$ and $y$ not divisible by $p$ such that $p\mid x-y$. Then
-  \begin{equation*}
-    \nu_p(x^n-y^n)=\nu_p(x-y)+\nu_p(n).
-  \end{equation*}
-\end{theorem}
+% \begin{theorem}[Lifting the Exponent Lemma]\label{theorem:lte}
+%   Let $p$ be an odd prime, and consider integers $x$ and $y$ not divisible by $p$ such that $p\mid x-y$. Then
+%   \begin{equation*}
+%     \nu_p(x^n-y^n)=\nu_p(x-y)+\nu_p(n).
+%   \end{equation*}
+% \end{theorem}
 
 \exercises
 
