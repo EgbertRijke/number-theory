@@ -1,0 +1,368 @@
+\chapter{Strong Divisibility Sequences}
+
+\section{Lucas Sequences}
+
+The French mathematician \'Edouard Lucas observed that the familiar Fibonacci sequence was just a single instance of a larger family of recursively defined sequences that all share similar properties. 
+
+\begin{definition}
+  Consider two integers $a$ and $b$. The \emph{Lucas sequence} $u_n$ at $a$ and $b$ is defined by
+  \begin{equation*}
+    u_0:= 0, \qquad u_1:=1,\qquad\text{and}\qquad u_{n+2}:= au_{n+1}- bu_n.
+  \end{equation*}
+  If the parameters $a$ and $b$ are not clear from the context, we will write $u(a,b)_n$ for $u_n$. When $a$ and $b$ are relatively prime, we say that the Lucas sequence $(u_n)$ is \emp{reduced}.
+\end{definition}
+
+\begin{example}
+  Some special cases of Lucas sequences are famous:
+  \begin{enumerate}
+  \item When $a=1$ and $b=-1$, then the sequence $(u_n)$ is the Fibonacci sequence
+    \begin{equation*}
+      0,1,1,2,3,5,8,13,21,34,55,89,\ldots
+    \end{equation*}
+    When we look at the Fibonacci sequence modulo a prime $p$, we see clear patterns emerging:
+    \begin{equation*}
+      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      \renewcommand{\arraystretch}{1.25}
+      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+        $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
+        $F_n\pmod{2}$ & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
+        $F_n\pmod{3}$ & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 \\
+        $F_n\pmod{5}$ & 0 & 1 & 1 & 2 & -2 & 0 & -2 & -2 & 1 & -1 & 0 & -1 & -1 & -2 & 2 & 0 \\
+        $F_n\pmod{7}$ & 0 & 1 & 1 & 2 & 3 & -2 & 1 & -1 & 0 & -1 & -1 & -2 & -3 & 2 & -1 & 1
+      \end{tabular}
+    \end{equation*}
+  \item When $a=2$ and $b=-1$, then the sequence $(u_n)$ is the \emph{Pell sequence}
+    \begin{equation*}
+      0,1,2,5,12,29,70,169,408,985,\ldots
+    \end{equation*}
+    When we look at the Pell sequence modulo a prime $p$, we again see clear patterns emerging:
+    \begin{equation*}
+      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      \renewcommand{\arraystretch}{1.25}
+      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+        $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
+        $P_n\pmod{2}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+        $P_n\pmod{3}$ & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 \\
+        $P_n\pmod{5}$ & 0 & 1 & 2 & 0 & 2 & -1 & 0 & -1 & -2 & 0 & -2 & 1 & 0 & 1 & 2 & 0 \\
+        $P_n\pmod{7}$ & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2
+      \end{tabular}  \end{enumerate}
+\end{example}
+
+\begin{theorem}[Binet's Formula]\label{theorem:binets-formula}
+  Consider two $a$ and $b$ such that $a^2-4b\neq 0$. Suppose $\alpha$ and $\beta$ are roots of the polynomial
+  \begin{equation*}
+    x^2-ax+b=0.
+  \end{equation*}
+  Then we have $\alpha\neq \beta$, and the Lucas sequence $(u_n)$ at $a$ and $b$ satisfies
+  \begin{equation*}
+    u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Given that $\alpha$ and $\beta$ are roots of the polynomial $x^2-ax+b$, we have $\alpha^2=a\alpha-b$ and $\beta^2=a\beta-b$. This implies the identities
+  \begin{equation*}
+    \alpha^{n+2}=a\alpha^{n+1}-b\alpha^n\qquad\text{and}\qquad \beta^{n+2}=a\beta^{n+1}-b\beta^n.
+  \end{equation*}
+  We will now prove Binet's formula by induction on $n$. There are two base cases, which are both immediate, since $\alpha^0-\beta^0=0$ and $\alpha^1-\beta^1=\alpha-\beta$. For the inductive step, we have
+  \begin{equation*}
+    \frac{\alpha^{n+2}-\beta^{n+2}}{\alpha-\beta}=\frac{a(\alpha^{n+1}-\beta^{n+1})-b(\alpha^n-\beta^n)}{\alpha-\beta}=au_{n+1}-bu_n=u_{n+2}.\qedhere
+  \end{equation*}
+\end{proof}
+
+Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Sequences with this property are called \emph{divisibility sequences}. We will additionally assume that divisibility sequences $(a_n)$ satisfy $a_0=0$ and $a_1=0$. Such divisibility sequences are sometimes called \emph{normalized}.
+
+\begin{definition}
+  An integer sequence $(a_n)$ is said to be a \emph{divisibility sequence} if $a_0=0$, $a_1=1$, and it preserves the divisibility relation, meaning that it satisfies the condition
+  \begin{equation*}
+    m\mid n \Rightarrow a_m\mid a_n
+  \end{equation*}
+  for all $m$ and $n$.
+\end{definition}
+
+\begin{corollary}
+  Consider two integers $a$ and $b$ such that $a^2-4b\neq 0$. Then the Lucas sequence $(u_n)$ at $a$ and $b$ is a divisibility sequence.
+\end{corollary}
+
+\begin{proof}
+  Suppose that $n=km$. Then we have
+  \begin{equation*}
+    u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}=\frac{(\alpha^m-\beta^m)\sum_{i=0}^k \alpha^i\beta^{k-i}}{\alpha-\beta}=u_m\sum_{i=0}^k \alpha^i\beta^{k-i}
+  \end{equation*}
+  by the formula for the difference of $m$th powers. This shows that if $m\mid n$, then $u_m\mid u_n$.
+\end{proof}
+
+\begin{definition}
+  A divisibility sequence is said to be a \emph{strong divisibility sequence} if $f$ preserves greatest common divisors, meaning that it satisfies the equation
+  \begin{equation*}
+    f(\gcd(m,n))=\gcd(f(m),f(n))
+  \end{equation*}
+  for all $m$ and $n$.
+\end{definition}
+
+\section{The Rank of Apparition}
+
+\begin{definition}
+  Consider an integer sequence $(a_n)$ and a positive integer $m$. The \emph{rank of apparition} $\rho_a(m)$ of $m$ is the least positive integer $n$ such that $m\mid a_n$.
+\end{definition}
+
+\begin{theorem}[Rank of Apparition Theorem]\label{theorem:galois-connections-divisibility}
+  Suppose that $f:\mathbb{N}\to\mathbb{N}$ is a divisibility sequence. Then the following are equivalent:
+  \begin{enumerate}
+  \item There is a function $g:\mathbb{N}\to\mathbb{N}$ satisfying the logical equivalence
+  \begin{equation*}
+    g(m)\mid n \Leftrightarrow m\mid f(n).
+  \end{equation*}
+  \item The divisibility sequence $f$ is a strong divisibility sequence.
+  \end{enumerate}
+  If the first condition holds, then the function $g$ is equal to the rank of apparition function; that is, $g(m)=\rho_f(m)$ for every natural number $m$.
+\end{theorem}
+
+\begin{proof}
+  Suppose first that there exists a function $g$ satisfying the logical equivalence
+  \begin{equation*}
+    g(m)\mid n \Leftrightarrow m\mid f(n).
+  \end{equation*}
+  Then it follows that
+  \begin{align*}
+    d\mid f(\gcd(m,n)) & \Leftrightarrow g(d)\mid \gcd(m,n) \\
+                       & \Leftrightarrow g(d)\mid m \land g(d)\mid n \\
+                       & \Leftrightarrow d\mid f(m) \land d\mid f(n) \\
+                       & \Leftrightarrow d\mid \gcd(f(m),f(n)).
+  \end{align*}
+  Since $f(\gcd(m,n))$ and $\gcd(f(m),f(n))$ have the exact same set of divisors, they must be equal.
+  
+  For the converse, suppose that $f(0)=0$ and that $f$ preserves greatest common divisors. More generally, we will have for any finite list of natural numbers
+  \begin{equation*}
+    f(\gcd_i(n_i))=\gcd_i(f(n_i)).
+  \end{equation*}
+  Here, the expression $gcd_i(n_i)$ means that the greatest common divisor is taken over all the numbers $n_i$ in the list. Now consider for any natural number $m$ the ideal
+  \begin{equation*}
+    I_m := \left\{ k_1n_1+\cdots+ k_rn_r \mathbin{\big|} m\mid f(n_i) \text{ for all } i \right\}
+  \end{equation*}
+  and define the function $g$ by letting $g(m)$ be the unique natural number such that $I_m=(g(m))$.
+
+  To see that $g$ is a divisibility sequence, suppose that $m\mid m'$. Then any linear combination of natural numbers $n$ such that $m'\mid f(n)$ is also a linear combination of natural numbers $n$ such that $m\mid f(n)$. In particular $g(m')$ is in the ideal $(g(m))$, which means that $g(m)\mid g(m')$.
+
+  We claim that the function $g$ satisfies the logical equivalence
+  \begin{equation*}
+    g(m)\mid n\Leftrightarrow m\mid f(n).
+  \end{equation*}
+  If $m\mid f(n)$, then it follows that $n\in I_m$ so that $g(m)\mid n$. This proves the reverse direction.
+
+  For the forward direction, suppose that $g(m)\mid n$. Then it also follows that $n\in I_m$, so that we can write
+  \begin{equation*}
+    n=\sum_i k_in_i
+  \end{equation*}
+  for some finite list of natural numbers $n_i$ satisfying $m\mid f(n_i)$. By the assumption that $m\mid f(n_i)$, it follows that $m\mid\gcd_i(f(n_i))$. Furthermore, since $\gcd_i(n_i)\mid n$ it follows that
+  \begin{equation*}
+    f(\gcd\nolimits_i(n_i))\mid f(n).
+  \end{equation*}
+  Combined with the fact that $m\mid\gcd_i(f(n_i))$ and the assumption that $f$ preserves greatest common divisors, we conclude that
+  \begin{equation*}
+    m\mid f(n).\qedhere
+  \end{equation*}
+\end{proof}
+
+By the \crefnamed{theorem:order-theorem}{Order Theorem}, it follows that the function $g$ defined by $g(m):=\ord_m(a)$ satisfies the logical equivalence in the first condition of the \crefnamed{theorem:rank-of-apparition-theorem}{Rank of Apparition Theorem}. Thus we obtain the following corollary:
+
+\begin{corollary}
+  The function $n\mapsto a^n-1$ is a strong divisibility sequence. Thus, for any integer $a>1$ and any two natural numbers $m$ and $n$ we have
+  \begin{equation*}
+    \gcd(a^m-1,a^n-1)=a^{\gcd(m,n)}-1.
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  Note that the function $k\mapsto a^k-1$ is a divisibility sequence, since for $qm=n$ we have the identity
+  \begin{equation*}
+    a^n-1=(a^m)^q-1^q=(a^m-1)\sum_{k=0}^{q-1}a^{km}
+  \end{equation*}
+  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \cref{theorem:galois-connections-divisibility} and the \crefnamed{theorem:order-theorem}{Order Theorem}.
+\end{proof}
+
+\begin{remark}
+  More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \emph{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
+  \begin{equation*}
+    g(x)\leq_P y \Leftrightarrow x\leq_Q f(y)
+  \end{equation*}
+  for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \emph{upper adjoint}, and the map $g$ is said to be the \emph{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \cref{theorem:galois-connections-divisibility} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
+
+  Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
+\end{remark}
+
+\section{Primitive Sequences}
+
+\begin{definition}
+  Consider a divisibility sequence $n\mapsto a_n$ indexed by the natural numbers, with $a_1=1$. The \emph{primitive sequence} of $a_n$ is the sequence $(u_n)$ of rational numbers defined by
+  \begin{equation*}
+    u_n:=\prod_{d\mid n}a_d^{\mu(n/d)}.
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  The primitive sequence $(u_n)$ of a divisibility sequence $(a_n)$ satisfies the identity
+  \begin{equation*}
+    a_n=\prod_{d\mid n} u_d.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  By interchanging the product, we find that
+  \begin{equation*}
+    \prod_{e\mid n}\prod_{d\mid e} a_{d}^{\mu(e/d)}=\prod_{d\mid n}\prod_{c\mid\frac{n}{d}} a_{d}^{\mu(c)}=\prod_{d\mid n}a_d^{\sum_{c\mid\frac{n}{d}}\mu(c)}=\prod_{d\mid n}a_d^{\varepsilon(n/d)}=a_n. \qedhere
+  \end{equation*}
+\end{proof}
+
+\section{LCM-sequences}
+
+\begin{definition}
+  The \emph{lcm-sequence} $(m_n)$ of an integer sequence $(a_n)$ is given by $m_1:=1$ and
+  \begin{equation*}
+    m_n := \frac{\lcm(a_1,\ldots,a_n)}{\lcm(a_1,\ldots,a_{n-1})}\qquad\text{for $n\geq 2$}.
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  Consider a divisibility sequence $(a_n)$ indexed by the natural numbers, with $a_1=1$. Then the following are equivalent:
+  \begin{enumerate}
+  \item The sequence $(a_n)$ is a strong divisibility sequence; that is,
+    \begin{equation*}
+      a_{\gcd(m,n)}=\gcd(a_m,a_n)
+    \end{equation*}
+    for every $m$ and $n$.
+  \item \textup{\cite{ward1936}} For each prime $p$, we have $p^k\mid a_n$ if and only if $\rho_k(p)\mid n$, where $\rho_k(p)$ is the rank of apparition of $p^k$.
+  \item Each $u_n$ in primitive sequence $(u_n)$ of $(a_n)$ is an integer, and furthermore $u_m$ and $u_n$ are relatively prime for distinct $m$ and $n$.
+  \item \textup{\cite{nowicki2015}} The sequence $(a_n)$ satisfies the following divisor-product formula, where $(m_n)$ is the lcm-sequence of $(a_n)$:
+    \begin{equation*}
+      a_n = \prod_{d\mid n}m_d.
+    \end{equation*}
+  \end{enumerate}
+\end{theorem}
+
+The following corollary, due to Morgan Ward \cite{ward1936}, is a generalization of a theorem of \'Edouard Lucas \cite{lucas1878}.
+
+\begin{corollary}
+  If $(a_n)$ is a strong divisibility sequence, then
+  \begin{equation*}
+    \prod_{i=1}^ka_i \Bigm| \prod_{i={n+1}}^{n+k}a_i.
+  \end{equation*}
+\end{corollary}
+
+\section{The Lifting the Exponent Lemma}
+
+For the following lemma, recall that $\nu_p(a-b)=m$ if and only if $a\equiv b\pmod{p^m}$ but $a\nequiv b\pmod{p^{m+1}}$. We also recall that for any prime $p$ and any $0<i<p$, the binomial coefficient $\binom{p}{i}$ is divisible by $p$. 
+
+\begin{lemma}\label{lemma:lte-step}
+  Consider an odd prime $p$, and two integers $a\equiv b\pmod{p}$ such that neither $a$ nor $b$ is divisible by $p$. Then
+  \begin{equation*}
+    \nu_p(a^p-b^p)=\nu_p(a-b)+1.
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  Write $s:=\nu_p(a-b)$, so that $s\geq 1$ by the assumption that $a\equiv b\pmod{p}$. Then we have $a\equiv b\pmod{p^s}$, so we can write $b=a+tp^s$, where $p\nmid t$. The value of $b^p$ can therefore be computed using the \crefnamed{theorem:binomial-theorem}{Binomial Theorem} by
+  \begin{equation*}
+    b^p=(a+tp^s)^p=\sum_{i=0}^p\binom{p}{i}a^i(tp^s)^{p-i} \equiv a^p+a^{p-1}tp^{s+1}\pmod{p^{s+2}}.
+  \end{equation*}
+  Since neither $a$ nor $t$ is divisible by $p$, it follows that $a^p\nequiv b^p\pmod{p^{s+2}}$. On the other hand, we see from the binomial expansion of $b^p$ that $a^p\equiv b^p\pmod{p^{s+1}}$. Therefore we conclude that
+  \begin{equation*}
+    \nu_p(a^p-b^p)=s+1.\qedhere
+  \end{equation*}
+\end{proof}
+
+The previous lemma can be iterated to obtain a general lemma called the \emph{Lifting the Exponent Lemma}. This lemma was popularized by the Romanian mathematician Mihai Manea \cite{manea2006}.
+
+\begin{lemma}[Lifting the Exponent]\label{lemma:lte}
+  Consider an odd prime $p$, and let $x\equiv y\pmod{p}$, where neither $x$ nor $y$ is divisible by $p$. Then for any natural number $n\geq 1$, we have
+  \begin{equation*}
+    \nu_p(x^n-y^n)=\nu_p(x-y)+\nu_p(n).
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  Write $n=p^km$ with $p\nmid m$, so that $\nu_p(n)=k$, and write $s=\nu_p(x-y)$. Since we have assumed that $x\equiv y\pmod{p}$, we have $s\geq 1$. We will prove the claim by induction on $k$.
+
+  In the base case, where $k=0$, the claim is simply that
+  \begin{equation*}
+    \nu_p(x^m-y^m)=s.
+  \end{equation*}
+  To see this, write $y=x+tp^s$, where $p\nmid t$. Then we have
+  \begin{equation*}
+    y^m=(x+tp^s)^m\equiv x^m+mx^{m-1}tp^s \pmod{p^{s+1}}.
+  \end{equation*}
+  Now observe that $m$, $x$, and $t$ are not divisible by $p$ by assumption, so it follows that $mx^{m-1}t$ is not divisible by $p$. This implies that $y^m\nequiv x^m\pmod{p^{s+1}}$. On the other hand, the congruence $x\equiv y\pmod{p^s}$ clearly implies that $x^m\equiv y^m\pmod{p^s}$, so we conclude that
+  \begin{equation*}
+    \nu_p(x^m-y^m)=s.
+  \end{equation*}
+  The inductive step is a direct consequence of \cref{lemma:lte-step}.
+\end{proof}
+
+\begin{definition}
+  A strong divisibility sequence is said to satisfy the \emph{law of repetition} if for any prime $p$, we have
+  \begin{equation*}
+    \nu_p(a_{n\rho_a(p)})=\nu_p(a_{\rho_a(p)})+\nu_p(n).
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  Consider a strong divisibility sequence $(a_n)$, such that for each prime $p$ we have
+  \begin{equation*}
+    \rho_a(p^k)=\rho_a(p)p^{k-1}.
+  \end{equation*}
+  Then $(a_n)$ satisfies the law of repetition.
+\end{theorem}
+
+\begin{example}
+  For any two relatively prime integers $a$ and $b$, the sequence
+  \begin{equation*}
+    (a^n-b^n)
+  \end{equation*}
+  satisfies the law of repetition.
+\end{example}
+
+\begin{example}
+  Any Lucas sequence satisfies the law of repetition.
+\end{example}
+
+\exercises
+
+\begin{routine}
+    \exercise Show that
+  \begin{equation*}
+    \gcd(a^m-b^m,a^n-b^n)=a^{\gcd(m,n)}-b^{\gcd(m,n)}.
+  \end{equation*}
+  \exercise Consider a positive integer $a$, and write $S_m:=\sum_{k=0}^m a^k$. Prove that
+  \begin{equation*}
+    \gcd(S_m,S_n)=S_{\gcd(m+1,n+1)-1}.
+  \end{equation*}
+\end{routine}
+
+\begin{challenge}
+    \exercise
+  \begin{subexenum}
+  \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
+  \item Show that for any $m$, the Fibonacci sequence is periodic modulo $m$. Its period is called the \emph{Pisano period}.
+  \item Show that for any natural number $m$, there is a least positive number $n$ such that
+    \begin{equation*}
+      m\mid F_n.
+    \end{equation*}
+    We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \emph{cofibonacci sequence}.
+  \item Show that $G(m)$ satisfies the following logical equivalence
+    \begin{equation*}
+      G_m\mid n \Leftrightarrow m \mid F_n.
+    \end{equation*}
+    Conclude that the Fibonacci sequence is a strong divisibility sequence.
+  \end{subexenum}
+  \exercise Use methods similar to the previous exercise to show that the sequence of Pell numbers $P_n$, which are defined by
+  \begin{equation*}
+    P_0:=0,\qquad P_1:=1,\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
+  \end{equation*}
+  forms a strong divisibility sequence.
+\end{challenge}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
+%%% End:

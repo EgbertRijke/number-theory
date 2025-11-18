@@ -115,7 +115,7 @@
   pdfpagemode=FullScreen,
 }
 
-\usepackage[backend=biber, style=numeric, sorting=nyt]{biblatex}
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
 \addbibresource{references.bib}
 
 \usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
@@ -189,6 +189,7 @@
 \global\thischapexfalse
   
 \newcommand{\exercises}{%
+\clearpage%
 \section*{Exercises}%
 \addcontentsline{toc}{section}{Exercises}%
 \markboth{\leftmark}{\MakeUppercase{Exercises}}%
@@ -391,6 +392,10 @@
 
 \input{arithmetic-functions}
 
+% \input{strong-divisibility-sequences}
+
+\part{Fermat's Discoveries Regarding the Primes}
+
 \input{fermats-little-theorem}
 
 \input{sums-of-squares}
@@ -416,6 +421,8 @@
 % \input{jacobi-symbols}
 
 \input{primality-testing}
+
+% \part{Topics}
 
 % \input{conics}
 

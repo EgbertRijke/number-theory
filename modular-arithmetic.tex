@@ -700,104 +700,6 @@ The logical equivalence in the \crefnamed{theorem:order-theorem}{Order Theorem} 
   Thus, we see that $\ord_n(a^m)$ and $k/\gcd(m,k)$ divide the same numbers, so they must be equal.
 \end{proof}
 
-\section{Strong Divisibility Sequences}
-
-The Order Theorem has strong implications about the function $k\mapsto a^k-1$, which we will present as a corollary of the following definition and theorem.
-
-\begin{definition}
-  A function $f:\mathbb{N}\to\mathbb{N}$ is said to be a \emph{divisibility sequence} if it preserves divisibility, meaning that it satisfies the condition
-  \begin{equation*}
-    m\mid n \Rightarrow f(m)\mid f(n)
-  \end{equation*}
-  for all $m$ and $n$. A divisibility sequence is said to be a \emph{strong divisibility sequence} if $f(0)=0$ and $f$ preserves greatest common divisors, meaning that it satisfies the equation
-  \begin{equation*}
-    f(\gcd(m,n))=\gcd(f(m),f(n))
-  \end{equation*}
-  for all $m$ and $n$.
-\end{definition}
-
-\begin{theorem}\label{theorem:galois-connections-divisibility}
-  Suppose that $f:\mathbb{N}\to\mathbb{N}$ is a divisibility sequence. Then the following are equivalent:
-  \begin{enumerate}
-  \item There is a function $g:\mathbb{N}\to\mathbb{N}$ satisfying the logical equivalence
-  \begin{equation*}
-    g(m)\mid n \Leftrightarrow m\mid f(n).
-  \end{equation*}
-  \item The divisibility sequence $f$ is a strong divisibility sequence.
-  \end{enumerate}
-\end{theorem}
-
-\begin{proof}
-  Suppose first that there exists a function $g$ satisfying the logical equivalence
-  \begin{equation*}
-    g(m)\mid n \Leftrightarrow m\mid f(n).
-  \end{equation*}
-  Then it follows that
-  \begin{align*}
-    d\mid f(\gcd(m,n)) & \Leftrightarrow g(d)\mid \gcd(m,n) \\
-                       & \Leftrightarrow g(d)\mid m \land g(d)\mid n \\
-                       & \Leftrightarrow d\mid f(m) \land d\mid f(n) \\
-                       & \Leftrightarrow d\mid \gcd(f(m),f(n)).
-  \end{align*}
-  Since $f(\gcd(m,n))$ and $\gcd(f(m),f(n))$ have the exact same set of divisors, they must be equal.
-  
-  For the converse, suppose that $f(0)=0$ and that $f$ preserves greatest common divisors. More generally, we will have for any finite list of natural numbers
-  \begin{equation*}
-    f(\gcd_i(n_i))=\gcd_i(f(n_i)).
-  \end{equation*}
-  Here, the expression $gcd_i(n_i)$ means that the greatest common divisor is taken over all the numbers $n_i$ in the list. Now consider for any natural number $m$ the ideal
-  \begin{equation*}
-    I_m := \left\{ k_1n_1+\cdots+ k_rn_r \mathbin{\big|} m\mid f(n_i) \text{ for all } i \right\}
-  \end{equation*}
-  and define the function $g$ by letting $g(m)$ be the unique natural number such that $I_m=(g(m))$.
-
-  To see that $g$ is a divisibility sequence, suppose that $m\mid m'$. Then any linear combination of natural numbers $n$ such that $m'\mid f(n)$ is also a linear combination of natural numbers $n$ such that $m\mid f(n)$. In particular $g(m')$ is in the ideal $(g(m))$, which means that $g(m)\mid g(m')$.
-
-  We claim that the function $g$ satisfies the logical equivalence
-  \begin{equation*}
-    g(m)\mid n\Leftrightarrow m\mid f(n).
-  \end{equation*}
-  If $m\mid f(n)$, then it follows that $n\in I_m$ so that $g(m)\mid n$. This proves the reverse direction.
-
-  For the forward direction, suppose that $g(m)\mid n$. Then it also follows that $n\in I_m$, so that we can write
-  \begin{equation*}
-    n=\sum_i k_in_i
-  \end{equation*}
-  for some finite list of natural numbers $n_i$ satisfying $m\mid f(n_i)$. By the assumption that $m\mid f(n_i)$, it follows that $m\mid\gcd_i(f(n_i))$. Furthermore, since $\gcd_i(n_i)\mid n$ it follows that
-  \begin{equation*}
-    f(\gcd\nolimits_i(n_i))\mid f(n).
-  \end{equation*}
-  Combined with the fact that $m\mid\gcd_i(f(n_i))$ and the assumption that $f$ preserves greatest common divisors, we conclude that
-  \begin{equation*}
-    m\mid f(n).\qedhere
-  \end{equation*}
-\end{proof}
-
-\begin{corollary}
-  The function $n\mapsto a^n-1$ is a strong divisibility sequence. Thus, for any integer $a$ and any two natural numbers $m$ and $n$ we have
-  \begin{equation*}
-    \gcd(a^m-1,a^n-1)=a^{\gcd(m,n)}-1.
-  \end{equation*}
-\end{corollary}
-
-\begin{proof}
-  Note that the function $k\mapsto a^k-1$ is a divisibility sequence, since for $qm=n$ we have the identity
-  \begin{equation*}
-    a^n-1=(a^m)^q-1^q=(a^m-1)\sum_{k=0}^{q-1}a^{km}
-  \end{equation*}
-  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \cref{theorem:galois-connections-divisibility} and the \crefnamed{theorem:order-theorem}{Order Theorem}.
-\end{proof}
-
-\begin{remark}
-  More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \emph{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
-  \begin{equation*}
-    g(x)\leq_P y \Leftrightarrow x\leq_Q f(y)
-  \end{equation*}
-  for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \emph{upper adjoint}, and the map $g$ is said to be the \emph{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \cref{theorem:galois-connections-divisibility} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
-
-  Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
-\end{remark}
-
 \exercises
 
 \begin{starter}
@@ -852,26 +754,6 @@ The Order Theorem has strong implications about the function $k\mapsto a^k-1$, w
   \begin{equation*}
     (n-1)^2\mid n^k-1\qquad\text{if and only if}\qquad n-1\mid k.
   \end{equation*}
-  \exercise
-  \begin{subexenum}
-  \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
-  \item Show that for any $m$, the Fibonacci sequence is periodic modulo $m$. Its period is called the \emph{Pisano period}.
-  \item Show that for any natural number $m$, there is a least positive number $n$ such that
-    \begin{equation*}
-      m\mid F_n.
-    \end{equation*}
-    We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \emph{cofibonacci sequence}.
-  \item Show that $G(m)$ satisfies the following logical equivalence
-    \begin{equation*}
-      G_m\mid n \Leftrightarrow m \mid F_n.
-    \end{equation*}
-    Conclude that the Fibonacci sequence is a strong divisibility sequence.
-  \end{subexenum}
-  \exercise Use methods similar to the previous exercise to show that the sequence of Pell numbers $P_n$, which are defined by
-  \begin{equation*}
-    P_0:=0,\qquad P_1:=1,\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
-  \end{equation*}
-  forms a strong divisibility sequence.
 \end{challenge}
 
 %%% Local Variables:

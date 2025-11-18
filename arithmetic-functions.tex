@@ -217,14 +217,7 @@ By the previous lemma, we can test whether an integer is relatively prime to $n$
   For the converse, suppose that $\gcd(x,m)=\gcd(x,n)=1$, and suppose that $d\mid x$ and $d\mid mn$. Since $m$ and $n$ are relatively prime, we can uniquely determine two numbers $a$ and $b$ satisfying $d=ab$, such that $a\mid m$ and $b\mid n$. For these numbers, we obtain that $a\mid\gcd(x,m)=1$ and $b\mid\gcd(x,n)=1$ so that both $a=1$ and $b=1$. This shows that $d=1$. 
 \end{proof}
 
-Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient(p^k)\mid \totient(p^l)$. Since Euler's totient function is multiplicative by {theorem:multiplicative-totient}, we obtain the following corollary:
-
-\begin{corollary}
-  The function $n\mapsto\totient(n)$ is a divisibility sequence: For any two natural numbers $m$ and $n$, we have
-  \begin{equation*}
-    m\mid n\qquad\Rightarrow\qquad \totient(m)\mid\totient(n).
-  \end{equation*}
-\end{corollary}
+Since multiplicative functions are fully determined by their values on prime powers, we obtain the following important expression for Euler's totient function.
 
 \begin{theorem}\label{theorem:product-formula-totient}
   Consider a positive integer $n$ with prime factorization $n=p_1^{m_1}\cdots p_k^{m_k}$. Then
@@ -238,8 +231,17 @@ Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient
 \end{corollary}
 
 \begin{proof}
-  Every odd prime factor $p$ contributes an even factor $p-1$ to $\totient(n)$.
+  For $k\geq 2$ we have $\totient(2^k)=2^{k-1}$, which is even. Furthermore, every odd prime factor $p$ contributes an even factor $p-1$ to $\totient(n)$.
 \end{proof}
+
+Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient(p^k)\mid \totient(p^l)$. Since Euler's totient function is multiplicative by {theorem:multiplicative-totient}, we obtain the following corollary:
+
+\begin{corollary}
+  The function $n\mapsto\totient(n)$ is a divisibility sequence: For any two natural numbers $m$ and $n$, we have
+  \begin{equation*}
+    m\mid n\qquad\Rightarrow\qquad \totient(m)\mid\totient(n).
+  \end{equation*}
+\end{corollary}
 
 \begin{example}
   \begin{table}[t]
@@ -386,12 +388,9 @@ Indeed, for any prime power $p^m$, the divisors of $p^m$ are the prime powers $p
 \end{equation*}
 
 \begin{remark}
-  Many identities of arithmetic functions involve reindexing double sums such as in the proof of \cref{theorem:multiplicative-functions}. Here are some other reindexing tricks that can be occasionally helpful:
+  Many identities of arithmetic functions involve reindexing double sums such as in the proof of \cref{theorem:multiplicative-functions}. Another reindexing identity that is occasionally helpful is:
   \begin{equation*}
     \sum_{c\mid n}\sum_{d\mid c}f(c,d)=\sum_{d\mid n}\sum_{e\mid \frac{n}{d}}f(de,d).
-  \end{equation*}
-  \begin{equation*}
-    \sum_{c\mid n}\sum_{d\mid c}f(c,d)=\sum_{\substack{d,e\\ de\mid n}}f(de,d)
   \end{equation*}
 \end{remark}
 
@@ -629,45 +628,6 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
     = \sum_{d\mid n} \mu(d)\frac{n}{d}.
   \end{equation*}
   The last step follows, since there are exactly $\frac{n}{d}$ multiples of $d$ among the numbers from $1$ to $n$.
-\end{proof}
-
-\section{Strong Divisibility Sequences}
-
-\begin{definition}
-  Consider a divisibility sequence $n\mapsto a_n$ indexed by the natural numbers, with $a_1=1$. The \emph{primitive sequence} of $a_n$ is defined by
-  \begin{equation*}
-    u(a)_n:=\prod_{d\mid n}a_d^{\mu(n/d)}.
-  \end{equation*}
-\end{definition}
-
-\begin{theorem}
-  Consider a divisibility sequence $n\mapsto a_n$ indexed by the natural numbers, with $a_1=1$. Then the following are equivalent:
-  \begin{enumerate}
-  \item The sequence $(a_n)_{n\in\mathbb{N}}$ is a strong divisibility sequence; that is,
-    \begin{equation*}
-      a_{\gcd(m,n)}=\gcd(a_m,a_n)
-    \end{equation*}
-    for every $m$ and $n$.
-  \item The primitive sequence $(u(a)_n)_{n\in\mathbb{N}}$ of $(a_n)_{n\in\mathbb{N}}$ satisfies the identity
-    \begin{equation*}
-      a_n=\prod_{d\mid n} u(a)_d.
-    \end{equation*}
-  \end{enumerate}
-\end{theorem}
-
-\begin{proof}
-  Suppose that the sequence $(a_n)_{n\in\mathbb{N}}$ is a strong divisibility sequence. By interchanging the product, we find that
-  \begin{equation*}
-    \prod_{e\mid n}\prod_{d\mid e} a_{d}^{\mu(e/d)}=\prod_{d\mid n}\prod_{c\mid\frac{n}{d}} a_{d}^{\mu(c)}=\prod_{d\mid n}a_d^{\sum_{c\mid\frac{n}{d}}\mu(c)}=\prod_{d\mid n}a_d^{\varepsilon(n/d)}=a_n.
-  \end{equation*}
-  This proves the forward direction. For the converse, assume that
-  \begin{equation*}
-    a(n)=\prod_{d\mid n} u(a)_d.
-  \end{equation*}
-  Then we have
-  \begin{equation*}
-    a_{\gcd(m,n)}=\prod_{d\mid \gcd(m,n)} u(a)_d=\prod_{d\mid m\land d\mid n} u(a)_d
-  \end{equation*}
 \end{proof}
 
 \exercises

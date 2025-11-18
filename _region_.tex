@@ -1,7 +1,12 @@
-\documentclass[12pt]{book}
+\message{ !name(elementary-number-theory.tex)}\documentclass[12pt]{book}
 
-% Encoding & language
 \usepackage{fontspec}
+\newfontfamily\cuneifont[
+  Path = fonts/,
+  Extension = .ttf,
+  UprightFont = *-Regular
+  ]{NotoSansCuneiform}
+  
 \usepackage{textgreek}
 \usepackage{alphabeta}
 \usepackage[english]{babel}
@@ -10,29 +15,30 @@
 
 \usepackage{geometry}
 \geometry{
-  letterpaper,                 % default for the document
-  margin=0.12\paperwidth,  % margins = 10% of paper width
-  vmargin=0.10\paperheight, % vertical margins = 8% of paper height
+  letterpaper,
+  margin=0.12\paperwidth,
+  vmargin=0.10\paperheight,
   includehead,
 }
 
 \usepackage{fancyhdr}
 
-% Graphics and layout
 \usepackage{graphicx}
 \usepackage{wrapfig}
+\usepackage{array}
 \usepackage{booktabs}
 \usepackage{caption}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{afterpage}
 \usepackage{tocbibind}
+\usepackage{subcaption}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
-  {\normalfont\huge\bfseries} % Format of the text
-  {Chapter \thechapter}       % Label (e.g., "Lecture 1")
-  {0.5em}                     % Spacing between label and title
-  {\Huge}                     % Format of the title
+  {\normalfont\huge\bfseries}
+  {Chapter \thechapter}
+  {0.5em}
+  {\Huge}
 
 % Counters
 \usepackage{totcount}
@@ -54,8 +60,6 @@
 \usepackage{microtype}
 \usepackage{relsize}
 \usepackage{calc}
-
-\newfontfamily\cuneifont{Noto Sans Cuneiform}
 
 \newtheorem{theorem}{Theorem}[section]
 
@@ -111,7 +115,7 @@
   pdfpagemode=FullScreen,
 }
 
-\usepackage[backend=biber, style=numeric, sorting=nyt]{biblatex}
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
 \addbibresource{references.bib}
 
 \usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
@@ -169,31 +173,78 @@
 
 \newcommand{\define}{\emph}
 
-  % We set up the exercise environment, which produces list environment in a new
-% unnumbered subsection that also gets mentioned in the table of contents.
-
 \newtotcounter{exercisecounter}
 \newcommand{\exercise}{\item\stepcounter{exercisecounter}}
 
 \newlist{exenum}{enumerate}{1}
-\setlist[exenum]{noitemsep,label=\thechapter.\arabic*}
-  %,ref=\thechapter.\arabic*}
+\setlist[exenum]{label=\thechapter.\arabic*,noitemsep}
 
 \crefname{exenumi}{Exercise}{Exercises}
-  
+
 \newlist{subexenum}{enumerate}{1}
 \setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
 \crefname{subexenumi}{Exercise}{Exercises}
 
-\newenvironment{exercises}
-{%
-\subsection*{Exercises}%
+\newif\ifthischapex
+\global\thischapexfalse
+  
+\newcommand{\exercises}{%
+\section*{Exercises}%
 \addcontentsline{toc}{section}{Exercises}%
-\markboth{\leftmark}{\MakeUppercase{Exercises}}
-\begin{exenum}}
+\markboth{\leftmark}{\MakeUppercase{Exercises}}%
+\setcounter{exenumi}{0}%
+\restartlist{exenum}
+\global\thischapexfalse
+}
+
+\newcommand{\italicsubsection}[1]{%
+\begingroup\let\bfseries\itshape\subsection*{#1}\endgroup
+}
+
+\newenvironment{starter}
 {%
-%\addtocounter{exercisecounter}{\theexenumi}%
-\end{exenum}}
+  \italicsubsection{Starter Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+  \end{exenum}
+  \global\thischapextrue
+}
+
+% Dutch: Routinevormende opgaven
+\newenvironment{routine}
+{%
+  \italicsubsection{Routine-Building Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+\end{exenum}
+\global\thischapextrue
+}
+
+\newenvironment{challenge}
+{%
+  \italicsubsection{Challenge Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+\end{exenum}
+\global\thischapextrue
+}
+
+\newcommand\objectives{\italicsubsection{Learning Objectives}}
 
 \setcounter{tocdepth}{2}
 
@@ -223,6 +274,8 @@
 \newcommand{\mediant}{\mathbin{\triangledown}}
 \newcommand{\bimapsto}{\mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}}
 \newcommand{\content}{\mathrm{cont}}
+\newcommand{\floorfrac}[2]{\left\lfloor\frac{#1}{#2}\right\rfloor}
+\newcommand{\totient}{\phi}
 
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -242,24 +295,46 @@
 
 \begin{document}
 
-\message{ !name(ent-lua.tex) !offset(-247) }
-% !TEX TS-program = lualatex
+\message{ !name(strong-divisibility-sequences.tex) !offset(-275) }
 
-\documentclass[12pt]{book}
+    \end{equation*}
+  \item When $a=2$ and $b=-1$, then the sequence $(u_n)$ is the \emph{Pell sequence}
+    \begin{equation*}
+      0,1,2,5,12,29,70,169,408,985,\ldots
+    \end{equation*}
+  \end{enumerate}
+\end{example}
 
-% Encoding & language
-\usepackage{fontspec}
-\usepackage{textgreek}
-\usepackage{alphabeta}
-\usepackage[english]{babel}
-\usepackage{csquotes}
-\usepackage{caption}
+\begin{theorem}[Binet's Formula]\label{theorem:binets-formula}
+  Consider two $a$ and $b$ such that $a^2-4b\neq 0$. Suppose $\alpha$ and $\beta$ are roots of the polynomial
+  \begin{equation*}
+    x^2-ax+b=0.
+  \end{equation*}
+  Then we have $\alpha\neq \beta$, and the Lucas sequence $(u_n)$ at $a$ and $b$ satisfies
+  \begin{equation*}
+    u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}.
+  \end{equation*}
+\end{theorem}
 
-\message{ !name(ent-lua.tex) !offset(139) }
+\begin{proof}
+  Given that $\alpha$ and $\beta$ are roots of the polynomial $x^2-ax+b$, we have $\alpha^2=a\alpha-b$ and $\beta^2=a\beta-b$. This implies the identities
+  \begin{equation*}
+    \alpha^{n+2}=a\alpha^{n+1}-b\alpha^n\qquad\text{and}\qquad \beta^{n+2}=a\beta^{n+1}-b\beta^n.
+  \end{equation*}
+  We will now prove Binet's formula by induction on $n$. There are two base cases, which are both immediate, since $\alpha^0-\beta^0=0$ and $\alpha^1-\beta^1=\alpha-\beta$. For the inductive step, we have
+  \begin{equation*}
+    \frac{\alpha^{n+2}-\beta^{n+2}}{\alpha-\beta}=\frac{a(\alpha^{n+1}-\beta^{n+1})-b(\alpha^n-\beta^n)}{\alpha-\beta}=au_{n+1}-bu_n=u_{n+2}.\qedhere
+  \end{equation*}
+\end{proof}
+
+Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Sequences with this property are called \emph{divisibility sequences}. We will additionally assume that divisibility sequences $(a_n)$ satisfy $a_0=0$ and $a_1=0$. Such divisibility sequences are sometimes called \emph{normalized}.
+
+\begin{definition}
+  An integer sequence $(a_n)$ is said to be a \emph{divisibility sequence} if $a_0=0$, $
+\message{ !name(elementary-number-theory.tex) !offset(118) }
 
 \end{document}
 
 %%% Local Variables:
-%%% mode: latex
 %%% TeX-engine: luatex
 %%% End:

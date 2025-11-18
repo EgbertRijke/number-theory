@@ -346,9 +346,37 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
 
 \exercises
 
-\begin{routine}
-  \exercise Show that a number $n$ is square-free if and only if the only solution of the quadratic congruence $x^2\equiv 0\pmod{n}$ is $x=0$.
+\begin{starter}
+  \exercise Find all the quadratic residues modulo:
+  \begin{subexenum}
+  \item $23$,
+  \item $29$,
+  \item $31$,
+  \item $37$.
+  \end{subexenum}
+  Confirm in each case that the number of quadratic residues is $(p-1)/2$.
   \exercise Find the first prime which cannot be written in the form $n^2+n+q$ for any $q\in\{2,3,5,11,17,41\}$.
+  \exercise Compute the Legendre symbols
+  \begin{subexenum}
+  \item $\legendre{5}{23}$,
+  \item $\legendre{7}{29}$,
+  \item $\legendre{3}{31}$.
+  \end{subexenum}
+  \exercise Compute the Legendre symbols
+  \begin{subexenum}
+  \item $\legendre{6}{11}$,
+  \item $\legendre{12}{23}$,
+  \item $\legendre{15}{41}$.
+  \end{subexenum}
+\end{starter}
+
+\begin{routine}
+  \exercise Consider an integer $a$ and a prime $p$. Show that $-a$ is a quadratic residue modulo $p$ if and only if $p$ divides a number of the form $x^2+ay^2$.
+  \exercise
+  \begin{subexenum}
+  \item Consider a prime $p\equiv 1\pmod{4}$. Show that $g$ is a primitive root modulo $p$ if and only if $-g$ is a primitive root modulo $p$.
+  \item Consider a prime $p\equiv 3\pmod{4}$. Show that $g$ is a primitive root modulo $p$ if and only if $-g$ has order $(p-1)/2$ modulo $p$.
+  \end{subexenum}
   \exercise \label{exercise:uniform-legendre-exponent}Consider an odd prime $p$ and an integer $a$.
   \begin{subexenum}
   \item Show that if $\ord_p(a)$ is odd, then $\legendre{a}{p}=1$.
@@ -360,13 +388,9 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
     \end{equation*}
     and $a^k\equiv -1\pmod{p}$. Thus, in the case where $p\equiv 3\pmod{4}$, the quadratic residues are precisely the integers of odd order, and the quadratic nonresidues are precisely the integers of even order.
   \item Show that if $p\equiv 1\pmod{4}$ and $\ord_p(a)$ is even, then $\legendre{a}{p}=1$ if and only if $\ord_p(a)\mid\frac{p-1}{2}$.
-  \item Combine the previous parts to show that for any odd prime $p$ and for any integer $a\nequiv 0\pmod{p}$, we have the identity
-    \begin{equation*}
-      \legendre{a}{p}=(-1)^{\frac{p-1}{\ord_p(a)}}.
-    \end{equation*}
-  \end{subexenum}
-  The following table lists the value $(p-1)/\ord_p(q)$, with $p$ and $q$ ranging over the first ten odd primes (note that the value $1$ indicates that $q$ is a primitive root modulo $p$):
-  \begin{center}
+  \item %
+    \begin{table}
+    \centering
     \begin{tabular}{c|cccccccccc}
       \toprule
       $p \backslash q$ & $3$ & $5$ & $7$ & $11$ & $13$ & $17$ & $19$ & $23$ & $29$ & $31$ \\ \midrule
@@ -382,11 +406,38 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
       $31$ & $1$ & $10$ & $2$ & $1$ & $1$ & $1$ & $2$ & $3$ & $3$ & \text{-} \\
       \bottomrule
     \end{tabular}
-  \end{center}
+    \caption{The value $(p-1)/\ord_p(q)$, with $p$ and $q$ ranging over the first ten odd primes. Note that the value $1$ indicates that $q$ is a primitive root modulo $p$.}
+    \label{table:universal-exponents}
+  \end{table}
+  Combine the previous parts to show that for any odd prime $p$ and for any integer $a\nequiv 0\pmod{p}$, we have the identity
+    \begin{equation*}
+      \legendre{a}{p}=(-1)^{\frac{p-1}{\ord_p(a)}}.
+    \end{equation*}
+    \cref{table:universal-exponents} lists the values of $\frac{p-1}{\ord_p(a)}$, where $p$ and $q$ range over the first ten primes.
+  \item Using \cref{exercise:primitive-root-with-universal-exponent}, give a direct proof of the identity
+    \begin{equation*}
+      \legendre{a}{p}=(-1)^{\frac{p-1}{\ord_p(a)}}.
+    \end{equation*}
+  \end{subexenum}
   \exercise Consider an odd prime $p$, an integer $a$, and an integer $m$. Show that
   \begin{equation*}
     a^m\equiv \legendre{a}{p}\pmod{p}\qquad\Leftrightarrow\qquad m\equiv\frac{p-1}{2}\pmod{\ord_p(a)}.
   \end{equation*}
+\end{routine}
+
+\begin{challenge}
+  \exercise Without computing any values, show that the polynomial $n^2-79n+1601$ returns primes for all $0\leq n\leq 79$.
+  \exercise Recall that a Fermat prime is a prime of the form $F_n:=2^{2^n}+1$. Show that the following are equivalent for a prime number $p$:
+  \begin{enumerate}
+  \item The prime $p$ is a Fermat prime.
+  \item Every quadratic nonresidue modulo $p$ is a primitive root.
+  \end{enumerate}
+  \exercise Recall that a prime $p$ is said to be a Sophie Germain prime if the number $q=2p+1$ is prime.
+  \begin{subexenum}
+  \item Show that $p$ is a Sophie Germain prime if and only if every quadratic nonresidue modulo $q$ apart from $-1$ is a primitive root modulo $q$.
+  \item Show that if $p\equiv 1\pmod{4}$ is a Sophie Germain prime, then $2$ is a primitive root modulo $q$.
+  \item Show that if $p\equiv 3\pmod{4}$ is a Sophie Germain prime, then $-2$ is a primitive root modulo $q$.
+  \end{subexenum}  
   \exercise
   \begin{subexenum}
   \item Show that $\legendre{-3}{p}=1$ if and only if $p\equiv 1\pmod{3}$.
@@ -405,31 +456,13 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
     \end{equation*}
     to show that there is a prime $q\equiv 1\pmod{5}$ that is not already among the primes $p_1,\ldots,p_k$. Conclude that there are infinitely many primes congruent to $1$ modulo $5$.
   \end{subexenum}
-  \exercise Show that the polynomial $n^2-79n+1601$ returns primes for all $0\leq n\leq 79$.
-  \exercise
-  \begin{subexenum}
-  \item Consider a prime $p\equiv 1\pmod{4}$. Show that $g$ is a primitive root modulo $p$ if and only if $-g$ is a primitive root modulo $p$.
-  \item Consider a prime $p\equiv 3\pmod{4}$. Show that $g$ is a primitive root modulo $p$ if and only if $-g$ has order $(p-1)/2$ modulo $p$.
-  \end{subexenum}
+  \exercise Consider an odd prime $p$ and two positive integers $m$ and $n$. Show that any number $a$ not divisible by $p$ is a quadratic residue modulo $p^m$ if and only if it is a quadratic residue modulo $p^n$.
   \exercise Consider an odd prime $p$. Show that there are exactly
   \begin{equation*}
     \frac{(p-1)p^{m}}{2}
   \end{equation*}
   quadratic residues modulo $p^{m+1}$ that are not divisible by $p$.
-  \exercise Consider an odd prime $p$ and two positive integers $m$ and $n$. Show that any number $a$ not divisible by $p$ is a quadratic residue modulo $p^m$ if and only if it is a quadratic residue modulo $p^n$.
-  \exercise Consider an integer $a$ and a prime $p$. Show that $-a$ is a quadratic residue modulo $p$ if and only if $p$ divides a number of the form $x^2+ay^2$.
-  \exercise Recall that a Fermat prime is a prime of the form $F_n:=2^{2^n}+1$. Show that the following are equivalent for a prime number $p$:
-  \begin{enumerate}
-  \item The prime $p$ is a Fermat prime.
-  \item Every quadratic nonresidue modulo $p$ is a primitive root.
-  \end{enumerate}
-  \exercise Recall that a prime $p$ is said to be a Sophie Germain prime if the number $q=2p+1$ is prime.
-  \begin{subexenum}
-  \item Show that $p$ is a Sophie Germain prime if and only if every quadratic nonresidue modulo $q$ apart from $-1$ is a primitive root modulo $q$.
-  \item Show that if $p\equiv 1\pmod{4}$ is a Sophie Germain prime, then $2$ is a primitive root modulo $q$.
-  \item Show that if $p\equiv 3\pmod{4}$ is a Sophie Germain prime, then $-2$ is a primitive root modulo $q$.
-  \end{subexenum}  
-\end{routine}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
