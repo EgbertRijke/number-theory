@@ -1,5 +1,46 @@
 \chapter{Primality Testing}
 
+\section{P\'epin's Primality Test for the Fermat Numbers}
+
+\'Edouard Lucas observed that the quadratic character of $-1$ can be used to reach a sharper conclusion on the congruence class of a prime dividing a Fermat number.
+
+\begin{theorem}[Lucas's refinement of \cref{theorem:prime-divisors-fermat-numbers}]
+  Consider a prime divisor $p=k2^{n+1}+1$ of the $n$th Fermat number $F_n$, where $n\geq 2$. Then $k$ is even and
+  \begin{equation*}
+    \ord_p(k)= \ord_p(2^{n+1})=2^{n+1-\nu_2(n+1)}.
+  \end{equation*}
+  Consequently, we have $p\equiv 1\pmod{2^{n+2}}$.
+\end{theorem}
+
+\begin{noteblock}
+  \begin{proof}
+    For the first claim, suppose that $p=k\cdot 2^{n+1}+1$ with $k$ even. Then we have
+    \begin{equation*}
+      2^{\frac{p-1}{2}}\equiv 2^{k2^{n}}\equiv (-1)^k\equiv 1\pmod{p}.
+    \end{equation*}
+    This shows that $\ord_{p}(2)\mid k2^n$.
+  \end{proof}
+\end{noteblock}  
+
+Théophile Pépin used the theory of quadratic residues to develop a deterministic primality test for Fermat primes.
+
+\begin{theorem}[P\'epin's Primality Test]
+  For $n\geq 1$, the $n$th Fermat number $F_n$ is prime if and only if
+  \begin{equation*}
+    3^{\frac{F_n-1}{2}}\equiv -1\pmod{F_n}.
+  \end{equation*}
+\end{theorem}
+
+\begin{noteblock}
+  \begin{proof}
+    First, assume that $F_n$ is prime. By Fermat's Little Theorem it follows that
+    \begin{equation*}
+      3^{F_n-1}\equiv 1\pmod{F_n}.
+    \end{equation*}
+    Thus, it follows that $\ord_{F_n}(3)=F_n-1$ since it must be a power of $2$ dividing $2^{2^n}$ and not dividing $2^{2^n-1}$. Since $3$ is an element of order $F_n-1$ modulo $F_n$, it follows that $F_n$ is prime.
+  \end{proof}
+\end{noteblock}
+
 \section{The Carmichael Numbers}
 
 \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} asserts that if $p$ is a prime number, then the congruence

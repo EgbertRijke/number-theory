@@ -529,14 +529,14 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
       inner sep=1pt,
       align=center
     }]
-    % nodes
+
     \foreach \n in {0,...,6}{
       \foreach \r in {0,...,\n}{
         \pgfmathtruncatemacro{\val}{int(factorial(\n)/(factorial(\r)*factorial(\n-\r)))}
         \node (n\n\r) at (\r-\n/2,-\n) {\val};
       }
     }
-    % normal connections
+
     \foreach \n in {0,...,5}{
       \pgfmathtruncatemacro{\nn}{\n+1}
       \foreach \r in {0,...,\n}{
@@ -544,13 +544,9 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
         \draw[thick] (n\n\r) -- (n\nn\r) (n\n\r) -- (n\nn\rp);
       }
     }
-    % bottom‐row extensions (solid then dotted)
+
     \foreach \r in {0,...,6}{
-      % down‐left
-      %\draw[thick,solid, shorten >=6mm]  (n6\r) -- ++(-0.5cm,-1cm);
       \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++(-0.5cm,-1cm);
-      % down‐right
-      % \draw[thick,solid, shorten >=6mm]  (n6\r) -- ++( 0.5cm,-1cm);
       \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
     }
   \end{tikzpicture}
@@ -788,19 +784,6 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   \begin{equation*}
     \sum_{k=0}^n\prod_{i=0}^m (k+i) = (m+1)!\binom{n+m+1}{m+2}.
   \end{equation*}
-  % \exercise
-  % \begin{subexenum}
-  % \item Find the first $20$ positive integers that are not divisible by any Fibonacci number other than $1$. %This is https://oeis.org/A147956
-  % \item Determine for each $n$ the number of integers from $1$ to the $n$th Fibonacci number $F_n$ that are not divisible by any Fibonacci number other than $1$.
-  % \end{subexenum}
-  % \exercise The Pell numbers $P_n$ are defined by
-  % \begin{equation*}
-  %   P_0:=0,\qquad P_1:= 1,\qquad\text{and}\qquad P_{n+2}:=2P_{n+1}+P_n.
-  % \end{equation*}
-  % \begin{subexenum}
-  % \item Find the first $20$ positive integers that are not divisible by any Pell number other than $1$.
-  % \item Determine for each $n$ the number of integers from $1$ to the $n$th Pell number $P_n$ that are not divisible by any Pell number other than $1$.
-  % \end{subexenum}
   \exercise Consider a set $A\subseteq \mathbb{N}$, and let the sets $\mathcal{P}_0(A)$ and $\mathcal{P}_1(A)$ be defined as follows:
   \begin{equation*}
     \mathcal{P}_0(A):=\big\{S\subseteq A\bigm| {\textstyle \sum_{s\in S}s}\text{ is even}\big\}\quad\text{and}\quad

@@ -295,23 +295,51 @@ Legendre and Gauss spotted these patterns towards the end of the 18th century. T
   \end{equation*}
 \end{example}
 
-% Many approaches to quadratic reciprocity, including approaches that use \crefnamed{lemma:gausss-lemma}{Gauss's Lemma} or \crefnamed{lemma:zolotarevs-lemma}{Zolotarev's Lemma}, involve finding an exponent $m_a$ depending on $a$, such that
-% \begin{equation*}
-%   \legendre{a}{p}= (-1)^{m_a}.
-% \end{equation*}
-% In \cref{exercise:uniform-legendre-exponent} we found that
-% \begin{equation*}
-%   \legendre{a}{p}= (-1)^{\frac{p-1}{\ord_p(a)}}.
-% \end{equation*}
-% Such an exponent can therefore always be found.
-
+The quadratic residuosity of an odd prime $q$ modulo a distinct odd prime $p$ determines some important restrictions on the form of the prime $p$. We spell these out in the following theorem, which is essentially a reformulation of the law of quadratic reciprocity.
+  
 \begin{theorem}
-  Consider two distinct odd primes $p$ and $q$. Then the following are equivalent:
+  Consider two distinct odd primes $p$ and $q$. The following two statements hold:
   \begin{enumerate}
-  \item The prime $q$ is a quadratic residue modulo $p$.
-  \item The prime $p$ is of the form $4qk\pm a^2$ where $0<a<q$ is an odd integer.
+  \item \label{itemi:explicit-reciprocity}If $p\equiv 1\pmod{4}$, then $q$ is a quadratic residue modulo $p$ if and only if there exists an odd integer $0<a<q$ such that
+    \begin{equation*}
+      p\equiv a^2\pmod{4q}.
+    \end{equation*}
+  \item \label{itemii:explicit-reciprocity}If $p\equiv 3\pmod{4}$, then $q$ is a quadratic residue modulo $p$ if and only if there exists an odd integer $0<a<q$ such that
+    \begin{equation*}
+      p\equiv -a^2\pmod{4q}.
+    \end{equation*}
   \end{enumerate}
 \end{theorem}
+
+\begin{proof}
+  Before proving each statement, we note that for any $u\nequiv 0\pmod{q}$, if the quadratic congruence
+  \begin{equation*}
+    x^2\equiv u\pmod{q}
+  \end{equation*}
+  is solvable, then it has two solutions. Of these two solutions, one is even and the other is odd. Thus, if it is solvable, we can always pick an odd solution.
+  
+  For the first claim of the theorem, assume that $p\equiv 1\pmod{4}$. By the law of quadratic reciprocity, it follows that
+  \begin{equation*}
+    \legendre{q}{p}=\legendre{p}{q}. 
+  \end{equation*}
+  Furthermore, $\legendre{p}{q}=1$ if and only if there exists an odd integer $0<a<q$ such that $p\equiv a^2\pmod{q}$. Furthermore, since $a$ is odd and $p\equiv 1\pmod{4}$, it also follows that $p\equiv a^2\pmod{4}$. Thus we see that $\legendre{q}{p}=1$ if and only if there exists an odd integer $0<a<q$ such that
+  \begin{equation*}
+    p\equiv a^2\pmod{4q}.
+  \end{equation*}
+  
+  For the second claim, assume that $p\equiv 3\pmod{4}$. By the law of quadratic reciprocity, it follows that
+  \begin{equation*}
+    \legendre{q}{p}\legendre{p}{q}=(-1)^{\frac{p-1}{2}\frac{q-1}{2}}=(-1)^{\frac{q-1}{2}}=\legendre{-1}{q}.
+  \end{equation*}
+  By rearranging the terms, we find that $\legendre{q}{p}=\legendre{-p}{q}$, and thus there is an odd integer $a$ such that
+  \begin{equation*}
+    p\equiv -a^2\pmod{q}.
+  \end{equation*}
+  Since $a$ is assumed to be odd and $p\equiv 3\pmod{4}$, we find furthermore that $-a^2\equiv p\pmod{4}$. We conclude that $\legendre{q}{p}=1$ if and only if there is an odd integer $0<a<q$ such that
+  \begin{equation*}
+    p\equiv -a^2\pmod{4q}.\qedhere
+  \end{equation*}
+\end{proof}
 
 The previous theorem can be used at once to characterize the primes $p$ for which $3$ is a quadratic residue modulo $p$. Taking $q=3$ in the previous theorem, we find that $3$ is a quadratic residue modulo $p$ if and only if $p$ is of the form $12k\pm 1$, since the only odd quadratic residue modulo $3$ is $1$. For any odd prime $p\neq 3$, we have thus shown that
 \begin{equation*}
@@ -539,35 +567,9 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   Subtracting $\sum_k k$ from both sides, we find that $\sum_k q_k\equiv 0\pmod{2}$.
 \end{proof}
 
-\section{P\'epin's Primality Test for the Fermat Numbers}
-
-Théophile Pépin observed that the quadratic character of $-1$ can be used to reach a sharper conclusion on the congruence class of a prime dividing a Fermat number.
-
-\begin{theorem}[P\'epin's refinement of \cref{theorem:prime-divisors-fermat-numbers}]
-  If $p$ is a prime divisor of the $n$th Fermat number $F_n=2^{2^n}+1$, then
-  \begin{equation*}
-    p\equiv 1\pmod{2^{n+2}}.
-  \end{equation*}
-\end{theorem}
-
-\begin{theorem}[P\'epin's Primality Test]
-  For $n\geq 1$, the $n$th Fermat number $F_n$ is prime if and only if
-  \begin{equation*}
-    3^{\frac{F_n-1}{2}}\equiv -1\pmod{F_n}.
-  \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  First, assume that $F_n$ is prime. By Fermat's Little Theorem it follows that
-  \begin{equation*}
-    3^{F_n-1}\equiv 1\pmod{F_n}.
-  \end{equation*}
-  Thus, it follows that $\ord_{F_n}(3)=F_n-1$ since it must be a power of $2$ dividing $2^{2^n}$ and not dividing $2^{2^n-1}$. Since $3$ is an element of order $F_n-1$ modulo $F_n$, it follows that $F_n$ is prime.
-\end{proof}
-
 \exercises
 
-\begin{routine}
+\begin{starter}
   \exercise Compute the values of the following Legendre symbols:
   \begin{equation*}
     \legendre{101}{163}, \quad \legendre{137}{359}, \quad \legendre{113}{479}, \quad\text{and}\quad \legendre{139}{953}.
@@ -584,24 +586,6 @@ Théophile Pépin observed that the quadratic character of $-1$ can be used to r
   \begin{equation*}
     \legendre{337}{373}, \quad \legendre{373}{733}, \quad\text{and}\quad \legendre{733}{337}.
   \end{equation*}
-  \exercise Determine whether the following quadratic congruences have solutions:
-  \begin{subexenum}
-  \item $x^2+x+1\equiv 0\pmod{13}$.
-  \item $x^2+x+3\equiv 0\pmod{7}$.
-  \item $2x^2+3x+5\equiv 0\pmod{17}$.
-  \item $x^2+4x+8\equiv 0\pmod{23}$.
-  \item $2x^2+3x+4\equiv 0\pmod{11}$.
-  \item $4x^2 + 7x+14 \equiv 0\pmod{31}$.
-  \end{subexenum}
-  % \exercise Determine whether the following quadratic congruences have solutions:
-  % \begin{subexenum}
-  % \item $x^2+x+1\equiv 0\pmod{15}$.
-  % \item $x^2 + x +4\equiv 0\pmod{15}$.
-  % \item $3x^2+2x+5\equiv 0\pmod{24}$.
-  % \item $3x^2 + 7x + 2\equiv 0\pmod{24}$.
-  % \item $x^2 - 2x -8 \equiv 0 \pmod{35}$.
-  % \item $x^2 + x -6\equiv 0\pmod{77}$.
-  % \end{subexenum}
   \exercise Consider a prime $p>3$. Show that
   \begin{equation*}
     \legendre{6}{p}=
@@ -618,6 +602,51 @@ Théophile Pépin observed that the quadratic character of $-1$ can be used to r
       -1 & \text{if }p\equiv \pm 7, \pm 11, \pm 17, \pm 19 \pmod{40}.
     \end{cases}
   \end{equation*}
+  % \exercise Determine whether the following quadratic congruences have solutions:
+  % \begin{subexenum}
+  % \item $x^2+x+1\equiv 0\pmod{15}$.
+  % \item $x^2 + x +4\equiv 0\pmod{15}$.
+  % \item $3x^2+2x+5\equiv 0\pmod{24}$.
+  % \item $3x^2 + 7x + 2\equiv 0\pmod{24}$.
+  % \item $x^2 - 2x -8 \equiv 0 \pmod{35}$.
+  % \item $x^2 + x -6\equiv 0\pmod{77}$.
+  % \end{subexenum}
+\end{starter}
+
+\begin{routine}
+  \exercise Determine whether the following quadratic congruences have solutions:
+  \begin{subexenum}
+  \item $x^2+x+1\equiv 0\pmod{13}$.
+  \item $x^2+x+3\equiv 0\pmod{7}$.
+  \item $2x^2+3x+5\equiv 0\pmod{17}$.
+  \item $x^2+4x+8\equiv 0\pmod{23}$.
+  \item $2x^2+3x+4\equiv 0\pmod{11}$.
+  \item $4x^2 + 7x+14 \equiv 0\pmod{31}$.
+  \end{subexenum}  
+  \exercise Show that $2$ is a quadratic residue modulo any prime divisor of the $n$th Fermat number $F_n=2^{2^n}+1$, for $n\geq 2$.
+  \exercise Consider a prime $p$ such that $q:=2p+1$ and $r:=2(2p+1)+1=4p+3$ are both prime. Prove that
+  \begin{equation*}
+    \ord_r(2)=q.
+  \end{equation*}
+\end{routine}
+
+\begin{challenge}
+  \exercise Show that if the $n$th Fermat number $F_n=2^{2^n}+1$ is prime, then $3$ is a primitive root modulo $F_n$.
+  \exercise Consider an odd prime $p$. Show that the following are equivalent:
+  \begin{enumerate}
+  \item The Mersenne number $M_p=2^p-1$ has a common prime divisor with $2p+1$.
+  \item The prime $p$ is a \emph{Sophie Germain prime}, meaning that the number $2p+1$ is prime, and furthermore $p\equiv 3\pmod{4}$.
+  \end{enumerate}
+  Conclude that
+  \begin{equation*}
+    M_{11},M_{23},M_{83},M_{131},M_{179},~\text{and}~M_{191}
+  \end{equation*}
+  are all composite.
+  \exercise
+  \begin{subexenum}
+  \item Show that for any prime $p\equiv 3\pmod{4}$ greater than $3$, there exists a prime $q<p$ such that $p$ is a quadratic nonresidue modulo $q$.
+  \item Show that for any prime $p\equiv 1\pmod{4}$, there exists a prime $q<p$ such that $p$ is a quadratic nonresidue modulo $q$. Hint: First show that there exists a quadratic nonresidue $0<a<p$ such that $a\equiv 1\pmod{4}$.
+  \end{subexenum}
   \exercise
   \begin{subexenum}
   \item For any integer $a>2$, let $p$ be a prime factor of $a^4-a^2+1$. Show that
@@ -630,33 +659,6 @@ Théophile Pépin observed that the quadratic character of $-1$ can be used to r
     \end{equation*}
     to show that there are infinitely many primes congruent to $1$ modulo $12$.
   \item For each $r$ in the set $\{5,7,11\}$, show that there are infinitely many primes congruent to $r$ modulo $12$.    
-  \end{subexenum}
-  \exercise Show that if the $n$th Fermat number $F_n=2^{2^n}+1$ is prime, then $3$ is a primitive root modulo $F_n$.
-  \exercise Show that $2$ is a quadratic residue modulo any prime divisor of the $n$th Fermat number $F_n=2^{2^n}+1$, for $n\geq 2$.
-  \exercise Consider an odd prime $p$.
-
-  Show that the following are equivalent:
-  \begin{enumerate}
-  \item The Mersenne number $M_p=2^p-1$ has a common prime divisor with $2p+1$.
-  \item The prime $p$ is a \emph{Sophie Germain prime}, meaning that the number $2p+1$ is prime, and furthermore $p\equiv 3\pmod{4}$.
-  \end{enumerate}
-  Conclude that
-  \begin{equation*}
-    M_{11},M_{23},M_{83},M_{131},M_{179},~\text{and}~M_{191}
-  \end{equation*}
-  are all composite.
-  \exercise Consider a prime $p$ such that $q:=2p+1$ and $r:=2(2p+1)+1=4p+3$ are both prime. Prove that
-  \begin{equation*}
-    \ord_r(2)=q.
-  \end{equation*}
-\end{routine}
-
-\begin{challenge}
-  \exercise
-  \begin{subexenum}
-  \item Show that for any prime $p\equiv 3\pmod{4}$ greater than $3$, there exists a prime $q<p$ such that $p$ is a quadratic nonresidue modulo $q$.
-  \item Show that if $p\equiv 1\pmod{4}$, then there exists a quadratic nonresidue $0<a<p$ such that $a\equiv 1\pmod{4}$.
-  \item Show that for any prime $p\equiv 1\pmod{4}$, there exists a prime $q<p$ such that $p$ is a quadratic nonresidue modulo $q$.
   \end{subexenum}
 \end{challenge}
 

@@ -158,83 +158,102 @@ In the following theorem we generalize the \crefnamed{theorem:chinese-remainder-
   By induction on the number of prime factors of $n$.
 \end{proof}
 
-% \section{Reduced Polynomials Modulo a Prime}
+\begin{noteblock}
+\section{Reduced Polynomials Modulo a Prime}
 
-% \begin{definition}
-%   Two polynomials $f(x)$ and $g(x)$ are said to be \emph{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
-% \end{definition}
+\begin{definition}
+  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
+\end{definition}
 
-% \begin{definition}
-%   Two polynomials $f(x)$ and $g(x)$ are said to be \emph{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
-%   \begin{equation*}
-%     f(x)\equiv g(x)\pmod{p}
-%   \end{equation*}
-%   holds.
-% \end{definition}
+\begin{definition}
+  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv g(x)\pmod{p}
+  \end{equation*}
+  holds.
+\end{definition}
 
-% \begin{definition}
-%   A polynomial $f(x)$ is said to be \emph{reduced} modulo $p$ if it is of degree less than $p$.
-% \end{definition}
+\begin{definition}
+  A polynomial $f(x)$ is said to be \emph{reduced} modulo $p$ if it is of degree less than $p$.
+\end{definition}
 
-% \begin{theorem}
-%   Any two equivalent reduced polynomials modulo $p$ are congruent.
-% \end{theorem}
+\begin{theorem}
+  Any two equivalent reduced polynomials modulo $p$ are congruent.
+\end{theorem}
 
-% \begin{proof}
-%   Consider two equivalent reduced polynomials $f(x)$ and $g(x)$. Then $f(x)-g(x)$ is a reduced polynomial equivalent to $0$. However, if $f(x)-g(x)$ were nonzero then its number of roots would be strictly less than $p$. Since the number of roots is $p$, it follows that $f(x)-g(x)$ is congruent to the zero polynomial.
-% \end{proof}
+\begin{proof}
+  Consider two equivalent reduced polynomials $f(x)$ and $g(x)$. Then $f(x)-g(x)$ is a reduced polynomial equivalent to $0$. However, if $f(x)-g(x)$ were nonzero then its number of roots would be strictly less than $p$. Since the number of roots is $p$, it follows that $f(x)-g(x)$ is congruent to the zero polynomial.
+\end{proof}
 
-% \begin{theorem}
-%   For every polynomial $f(x)$ there is a unique reduced polynomial $g(x)$ equivalent to $f(x)$.
-% \end{theorem}
+\begin{theorem}
+  For every polynomial $f(x)$ there is a unique reduced polynomial $g(x)$ equivalent to $f(x)$.
+\end{theorem}
 
-% \section{The Elementary Symmetric Polynomials}
+\section{The Elementary Symmetric Polynomials}
 
-% Using the fact that equivalent reduced polynomials must be congruent, we obtain the following factorization of the polynomial $x^{p-1}-1$ in $\mathbb{Z}/p\mathbb{Z}$, which has roots at the numbers $1$, \ldots, $p-1$.
+Using the fact that equivalent reduced polynomials must be congruent, we obtain the following factorization of the polynomial $x^{p-1}-1$ in $\mathbb{Z}/p\mathbb{Z}$, which has roots at the numbers $1$, \ldots, $p-1$.
 
-% \begin{theorem}\label{theorem:factorization-fermats-polynomial}
-%   Consider a prime $p$. Then we have
-%   \begin{equation*}
-%     x^{p-1}-1 \equiv (x-1)\cdots (x-p+1)\pmod{p}
-%   \end{equation*}
-%   for every $x$. Hence their coefficients are congruent.
-% \end{theorem}
+\begin{theorem}\label{theorem:factorization-fermats-polynomial}
+  Consider a prime $p$. Then we have
+  \begin{equation*}
+    x^{p-1}-1 \equiv (x-1)\cdots (x-p+1)\pmod{p}
+  \end{equation*}
+  for every $x$. Hence their coefficients are congruent.
+\end{theorem}
 
-% \begin{proof}
-%   Both polynomials are equivalent and reduced, so they must be congruent.
-% \end{proof}
+\begin{proof}
+  Both polynomials are equivalent and reduced, so they must be congruent.
+\end{proof}
 
-% The previous theorem provides another way of proving \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
+The previous theorem provides another way of proving \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
 
-% \begin{proof}[Proof of \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}]
-%   The integer $(p-1)!$ is the constant coefficient of the polynomial $(x-1)\cdots(x-p+1)$, which is congruent to the polynomial $x^{p-1}-1$ with constant coefficient $-1$.
-% \end{proof}
+\begin{proof}[Proof of \crefnamed{theorem:wilsons-theorem}{Wilson's Theorem}]
+  The integer $(p-1)!$ is the constant coefficient of the polynomial $(x-1)\cdots(x-p+1)$, which is congruent to the polynomial $x^{p-1}-1$ with constant coefficient $-1$.
+\end{proof}
 
-% Using the elementary symmetric polynomials, we find another way of stating \cref{theorem:factorization-fermats-polynomial}:
+Using the elementary symmetric polynomials, we find another way of stating \cref{theorem:factorization-fermats-polynomial}:
 
-% \begin{theorem}
-%   For each prime $p$ and each $1\leq k < p-1$ we have
-%   \begin{equation*}
-%     e_k(1,\ldots,p-1) \equiv 0 \pmod{p}.
-%   \end{equation*}
-% \end{theorem}
+\begin{theorem}
+  For each prime $p$ and each $1\leq k < p-1$ we have
+  \begin{equation*}
+    e_k(1,\ldots,p-1) \equiv 0 \pmod{p}.
+  \end{equation*}
+\end{theorem}
+\end{noteblock}
 
-% \section{Hensel's Lemma and Lifting the Exponent}
+\section{Hensel's Lemma}
 
-% \begin{theorem}[Hensel's Lemma]\label{theorem:hensels-lemma}
-%   Consider a prime number $p$ and a polynomial $f(x)$ with integer coefficients. Furthermore, consider an integer $a$ such that $f(a)\equiv 0\pmod{p}$ and $f'(a)\nequiv 0\pmod{p}$, where $f'(x)$ is the derivative of $f$. Then there exists for every $k\geq 1$ a unique integer $a_k$ modulo $p^k$ with $a_1\equiv a\pmod{p}$ such that the congruences
-%   \begin{equation*}
-%     a_{k+1}\equiv a_k\pmod{p^k},\qquad\text{and}\qquad f(a_k)\equiv 0\pmod{p^k}
-%   \end{equation*}
-%   hold for all $k$.
-% \end{theorem}
+\begin{theorem}[Hensel's Lemma]\label{theorem:hensels-lemma}
+  Consider a prime number $p$ and a polynomial $f(x)$ with integer coefficients. Furthermore, consider an integer $a$ such that
+  \begin{equation*}
+    f(a)\equiv 0\pmod{p}\qquad\text{and}\qquad f'(a)\nequiv 0\pmod{p},
+  \end{equation*}
+  where $f'(x)$ is the derivative of $f$. Then there exists for every $k\geq 1$ a unique integer $a_k$ modulo $p^k$ with $a_1\equiv a\pmod{p}$ such that the congruences
+  \begin{equation*}
+    a_{k+1}\equiv a_k\pmod{p^k},\qquad\text{and}\qquad f(a_k)\equiv 0\pmod{p^k}
+  \end{equation*}
+  hold for all $k$.
+\end{theorem}
 
-% \begin{theorem}[Lifting the Exponent Lemma]\label{theorem:lte}
-%   Let $p$ be an odd prime, and consider integers $x$ and $y$ not divisible by $p$ such that $p\mid x-y$. Then
-%   \begin{equation*}
-%     \nu_p(x^n-y^n)=\nu_p(x-y)+\nu_p(n).
-%   \end{equation*}
-% \end{theorem}
+\begin{proof}
+  We prove the claim by induction. That is, we prove by induction that for each $k\geq 1$ and every integer $a_k\equiv a\pmod{p}$ satisfying
+  \begin{equation*}
+    f(a_k)\equiv 0\pmod{p^k} \qquad\text{and}\qquad f'(a_k)\nequiv 0\pmod{p^k},
+  \end{equation*}
+  there is a unique integer $a_{k+1}\pmod{p^{k+1}}$ satisfying
+  \begin{equation*}
+    f(a_{k+1})\equiv 0\pmod{p^{k+1}}\qquad\text{and}\qquad f'(a_{k+1})\nequiv 0\pmod{p^{k+1}}.
+  \end{equation*}
+  Our goal is to obtain an integer $a_{k+1}=a_k+tp^k$ for some $0\leq t<p$. Observe that by the \crefnamed{theorem:taylor-expansion-theorem}{Taylor Expansion Theorem}, we have the congruence
+  \begin{equation*}
+    f(a_k+tp^k)\equiv f(a_k)+ tp^k f'(a_k) \pmod{p^{k+1}}.
+  \end{equation*}
+  Since $f(a_k)\equiv 0\pmod{p^k}$ and $f'(a_k)\nequiv 0\pmod{p^k}$, it follows that there is a unique integer $t_0$ such that
+  \begin{equation*}
+    f(a_k)+ t_0p^k f'(a_k) \equiv 0 \pmod{p^{k+1}}.
+  \end{equation*}
+  We define $a_{k+1}:=a_k+t_0p^k$. Then we have $f(a_{k+1})\equiv 0\pmod{p^{k+1}}$ by definition. Furthermore, we have $a_{k+1}\equiv a_k\equiv a\pmod{p}$. This implies that $f'(a_{k+1})\equiv f'(a)\nequiv 0\pmod{p}$. Therefore it follows that $f'(a_{k+1})\nequiv 0\pmod{p^{k+1}}$, completing the proof.
+\end{proof}
 
 \exercises
 

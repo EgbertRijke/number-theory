@@ -97,7 +97,7 @@ The derivative of a function $f$ at a point $x$, if it exists, measures the rate
 \begin{equation*}
   f'(x):=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}
 \end{equation*}
-Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There are two important theorems in number theory that require knowledge of the derivatives of polynomials: \crefnamed{theorem:hensels-lemma} and the \crefnamed{theorem:lte}{Lifting the Exponent Lemma}.
+Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There is an important theorem in number theory that require knowledge of the derivatives of polynomials: In our proof of \crefnamed{theorem:hensels-lemma}{Hensel's Lemma} we will make use of the \crefnamed{theorem:taylor-expansion-theorem}{Taylor Expansion Theorem} proven below.
 
 The following theorem is not only useful when $h$ approaches $0$. For example, in the case where $h$ is a prime $p$ it tells us that $f(x+p)-f(x)$ is always a multiple of $p$.
 
@@ -136,6 +136,46 @@ The following theorem is not only useful when $h$ approaches $0$. For example, i
     f'(x)=\sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^i(x+0)^{k-1-i}=\sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^{k-1}=\sum_{k=1}^n ka_kx^{k-1}
   \end{equation*}
   In the last equality we used that the summands in the inner summation do not depend on the summation index $i$.
+\end{proof}
+
+The derivative of any polynomial $f(x)$ is again a polynomial. An immediate consequence of the previous theorem is that if $h(x)=af(x)+bg(x)$ is a linear combination of the polynomials $f(x)$ and $g(x)$, then the derivative of $h$ can be written as the linear combination
+\begin{equation*}
+  h'(x)=af'(x)+bg'(x).
+\end{equation*}
+It also follows that, since the derivative is again a polynomial, it is again differentiable. Thus we have iterated derivatives of polynomials. We will write $\frac{d^k}{dx^k}f(x)$ or $f^{(k)}(x)$ for the $k$th deriviative of $f(x)$. A straightforward induction argument shows that
+\begin{equation*}
+  \frac{d^k}{dx^k}x^n = n(n-1)\cdots (n-k+1)x^{n-k}.
+\end{equation*}
+We can phrase this identity equivalently as:
+\begin{equation*}
+  \frac{1}{k!}\frac{d^k}{dx^k}x^n = \binom{n}{k}x^{n-k}.
+\end{equation*}
+This leads to the following theorem by Brook Taylor, who stated the result more generally in terms of \emph{fluent quantities} in his work \emph{Methodus incrementorum directa et inversa} \cite{taylor1715}. Although Taylor was the first to prove the series expansion that now bears his name, the method was discovered first without proof by James Gregory, who shared his insight in a letter to John Collins in 1671 \cite{gregory1671}. More on the history of Taylor series can be found in \cite{feigenbaum1985}.
+
+\begin{theorem}[Taylor Expansion Theorem for Polynomials]\label{theorem:taylor-expansion-theorem}
+  Consider the polynomial
+  \begin{equation*}
+    f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0.
+  \end{equation*}
+  Then we have for each $y$, the identity
+  \begin{equation*}
+    f(x+y)=\sum_{k=0}^n \frac{f^{(k)}(x)}{k!}y^{k}.
+  \end{equation*}
+  In particular, there is a polynomial $g(x,y)$ in the variables $x$ and $y$, such that
+  \begin{equation*}
+    f(x+y)=f(x)+yf'(x)+y^2g(x,y).
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  We will first prove the theorem for $f(x):=x^n$. By the \crefnamed{theorem:binomial-theorem}{Binomial Theorem} and our earlier observation that $\frac{1}{k!}\frac{d^k}{dx^k}x^n=\binom{n}{k}x^{n-k}$, it follows that
+  \begin{equation*}
+    (x+y)^n = \sum_{k=0}^{n}\binom{n}{k} x^{n-k}y^{k}=\sum_{k=0}^n\frac{1}{k!}\frac{d^kx^n}{dx^k} y^k.
+  \end{equation*}
+  This shows that the Taylor expansion formula holds for $f(x)=x^n$. The general claim follows, since every polynomial is a linear combination of polynomials of the form $x^i$ and differentiation preserves linear combinations. Finally, the polynomial $g(x,y)$ is given by the tail of the series:
+  \begin{equation*}
+    g(x,y)=\sum_{k=2}^n\frac{f^{(k)}(x)}{k!}y^{k-2}.\qedhere
+  \end{equation*}
 \end{proof}
 
 \section{Lagrange's Interpolation Theorem}
@@ -322,7 +362,7 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
 
 \crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem} can be used to determine the greatest common divisor of all the values of a polynomial, by examining only one more value than its degree. This observation is due to Kurt Hensel, who was a student of Leopold Kronecker.
 
-\begin{theorem}[Hensel's Fixed Divisor Theorem \cite{hensel1896}]
+\begin{theorem}[Hensel's Fixed Divisor Theorem \cite{hensel1896}]\label{theorem:hensels-fixed-divisor-theorem}
   Consider a polynomial $f(x)$ of degree $n$, with integer coefficients. Then the fixed divisor of $f$ is the greatest common divisor
   \begin{equation*}
     \gcd(f(a),\ldots,f(a+n))
@@ -383,101 +423,105 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
   We will generalize these examples in \cref{theorem:fixed-divisors-fermat-polynomials}.
 \end{example}
 
-% \section{Euclid's Algorithm for Polynomials}
+%%%%%
 
-% \section{Irreducible Polynomials}
+\begin{noteblock}
+\section{Euclid's Algorithm for Polynomials}
 
-% \begin{definition}
-%   A polynomial $f(x)=a_nx^n+\cdots +a_0$ with integer coefficients is said to be \emph{primitive} if
-%   \begin{equation*}
-%     \gcd(a_0,\ldots,a_n)=1.
-%   \end{equation*}
-% \end{definition}
+\section{Irreducible Polynomials}
 
-% \begin{proposition}
-%   Consider a polynomial $f$ in one variable, with rational coefficients, and let $c$ be the unique positive rational number such that
-%   \begin{equation*}
-%     \frac{1}{c}f(x)
-%   \end{equation*}
-%   is a primitive polynomial with integer coefficients. The positive rational number $c$ is called the \emph{content} of the polynomial, and is denoted by $\content(f)$.
-% \end{proposition}
+\begin{definition}
+  A polynomial $f(x)=a_nx^n+\cdots +a_0$ with integer coefficients is said to be \emph{primitive} if
+  \begin{equation*}
+    \gcd(a_0,\ldots,a_n)=1.
+  \end{equation*}
+\end{definition}
 
-% \begin{remark}
-%   The content of a polynomial $f(x)=a_nx^n+\cdots+a_n$ with integer coefficients is given by
-%   \begin{equation*}
-%     \content(f)=\gcd(a_0,\ldots,a_n).
-%   \end{equation*}
-%   The content 
-% \end{remark}
+\begin{proposition}
+  Consider a polynomial $f$ in one variable, with rational coefficients, and let $c$ be the unique positive rational number such that
+  \begin{equation*}
+    \frac{1}{c}f(x)
+  \end{equation*}
+  is a primitive polynomial with integer coefficients. The positive rational number $c$ is called the \emph{content} of the polynomial, and is denoted by $\content(f)$.
+\end{proposition}
 
-% \begin{lemma}[Gauss's Lemma for Polynomials]
-%   Consider two polynomials $f$ and $g$ in one variable $x$, with rational coefficients. Then
-%   \begin{equation*}
-%     \content(fg)=\content(f)\content(g).
-%   \end{equation*}
-% \end{lemma}
+\begin{remark}
+  The content of a polynomial $f(x)=a_nx^n+\cdots+a_n$ with integer coefficients is given by
+  \begin{equation*}
+    \content(f)=\gcd(a_0,\ldots,a_n).
+  \end{equation*}
+  The content 
+\end{remark}
 
-% \begin{corollary}
-%   Consider two polynomials $f$ and $g$ with integer coefficients. Then the following are equivalent:
-%   \begin{enumerate}
-%   \item Both $f$ and $g$ are primitive.
-%   \item The product polynomial $fg$ is primitive.
-%   \end{enumerate}
-% \end{corollary}
+\begin{lemma}[Gauss's Lemma for Polynomials]
+  Consider two polynomials $f$ and $g$ in one variable $x$, with rational coefficients. Then
+  \begin{equation*}
+    \content(fg)=\content(f)\content(g).
+  \end{equation*}
+\end{lemma}
 
-% \begin{theorem}[Eisenstein's Criterion]
-%   Consider a polynomial $f(x)=a_nx^n+\cdots+a_0$ with integer coefficients. Suppose that there is a prime number $p$ such that:
-%   \begin{enumerate}
-%   \item The prime $p$ is a prime divisor of $a_i$ for every $0\leq i<n$,
-%   \item The coefficient $a_n$ is not divisible by $p$,
-%   \item The coefficient $a_0$ is not divisible by $p^2$.
-%   \end{enumerate}
-%   Then the polynomial $f$ is irreducible.
-% \end{theorem}
+\begin{corollary}
+  Consider two polynomials $f$ and $g$ with integer coefficients. Then the following are equivalent:
+  \begin{enumerate}
+  \item Both $f$ and $g$ are primitive.
+  \item The product polynomial $fg$ is primitive.
+  \end{enumerate}
+\end{corollary}
 
-% \begin{example}
-%   \begin{enumerate}
-%   \item For every prime $p$, the polynomial
-%     \begin{equation*}
-%       f(x):=1+x+x^2+\cdots x^{p-1}
-%     \end{equation*}
-%     is irreducible. Indeed, if we substitute $x=y+1$ in
-%     \begin{equation*}
-%       f(x)=\frac{x^p-1}{x-1},
-%     \end{equation*}
-%     we obtain
-%     \begin{equation*}
-%       f(y+1)=\frac{(y+1)^p-1}{y}=\sum_{i=0}^{p-1}\binom{p}{i+1}y^{i}.
-%     \end{equation*}
-%     This polynomial has coefficients $a_i=\binom{p}{i+1}$. Thus we see that
-%     \begin{enumerate}
-%     \item The binomial coefficient $\binom{p}{i+1}$ is divisible by $p$ for every $0\leq i<p-1$.
-%     \item The binomial coefficient $\binom{p}{p}=1$ is not divisible by $p$.
-%     \item The binomial coefficient $\binom{p}{1}=p$ is not divisible by $p^2$.
-%     \end{enumerate}
-%     Thus it follows from Eisenstein's criterion that $f(y+1)$ is irreducible, which implies that $f(x)$ is irreducible.
-%   \item Consider a prime $p$ and a positive integer $n$ such that $p-1\nmid n$. Show that the polynomial
-%     \begin{equation*}
-%       (x+1)^n+\cdots+(x+p-1)^n
-%     \end{equation*}
-%     is irreducible over $\mathbb{Q}$.
-%   \item Show that the polynomial
-%     \begin{equation*}
-%       x^6+3x^5+6x^4+9x^3+6x^2+3x^1+1
-%     \end{equation*}
-%     is irreducible over $\mathbb{Q}$.
-%   \item Show that the polynomial
-%     \begin{equation*}
-%       (x+2)^n-x^n-2^n
-%     \end{equation*}
-%     is irreducible over $\mathbb{Q}$.
-%   \item Show that the polynomial
-%     \begin{equation*}
-%       (x+1)(x+2)\cdots(x+p)+1
-%     \end{equation*}
-%     is irreducible over $\mathbb{Q}$.
-%   \end{enumerate}
-% \end{example}
+\begin{theorem}[Eisenstein's Criterion]
+  Consider a polynomial $f(x)=a_nx^n+\cdots+a_0$ with integer coefficients. Suppose that there is a prime number $p$ such that:
+  \begin{enumerate}
+  \item The prime $p$ is a prime divisor of $a_i$ for every $0\leq i<n$,
+  \item The coefficient $a_n$ is not divisible by $p$,
+  \item The coefficient $a_0$ is not divisible by $p^2$.
+  \end{enumerate}
+  Then the polynomial $f$ is irreducible.
+\end{theorem}
+
+\begin{example}
+  \begin{enumerate}
+  \item For every prime $p$, the polynomial
+    \begin{equation*}
+      f(x):=1+x+x^2+\cdots x^{p-1}
+    \end{equation*}
+    is irreducible. Indeed, if we substitute $x=y+1$ in
+    \begin{equation*}
+      f(x)=\frac{x^p-1}{x-1},
+    \end{equation*}
+    we obtain
+    \begin{equation*}
+      f(y+1)=\frac{(y+1)^p-1}{y}=\sum_{i=0}^{p-1}\binom{p}{i+1}y^{i}.
+    \end{equation*}
+    This polynomial has coefficients $a_i=\binom{p}{i+1}$. Thus we see that
+    \begin{enumerate}
+    \item The binomial coefficient $\binom{p}{i+1}$ is divisible by $p$ for every $0\leq i<p-1$.
+    \item The binomial coefficient $\binom{p}{p}=1$ is not divisible by $p$.
+    \item The binomial coefficient $\binom{p}{1}=p$ is not divisible by $p^2$.
+    \end{enumerate}
+    Thus it follows from Eisenstein's criterion that $f(y+1)$ is irreducible, which implies that $f(x)$ is irreducible.
+  \item Consider a prime $p$ and a positive integer $n$ such that $p-1\nmid n$. Show that the polynomial
+    \begin{equation*}
+      (x+1)^n+\cdots+(x+p-1)^n
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      x^6+3x^5+6x^4+9x^3+6x^2+3x^1+1
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      (x+2)^n-x^n-2^n
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      (x+1)(x+2)\cdots(x+p)+1
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \end{enumerate}
+\end{example}
+\end{noteblock}
 
 \exercises
 

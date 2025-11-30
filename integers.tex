@@ -54,7 +54,7 @@ Natural numbers have been around for at least as long as humans count. But what 
   \caption{\label{figure:bijection-12-element-set}A bijection on a $12$-element set.}
 \end{figure}
 
-When we map out a bijection $f:A\to A$ from a finite set $A$ to itself by displaying an arrow between each element and its value under $f$, as we did in \cref{figure:bijection-12-element-set}, we discover that the finite set $A$ gets partitioned into cycles. The iterated action of $f$ on an element $f$ is mapped out by tracing along the arrows, which eventually loops back to itself. An intuitive reason for this phenomenon is that by iterating $f$ often enough, we obtain a sequence
+When we map out a bijection $f:A\to A$ from a finite set $A$ to itself by displaying an arrow between each element and its value under $f$, as we did in \cref{figure:bijection-12-element-set}, we discover that the finite set $A$ gets partitioned into cycles. The iterated action of $f$ on an element $a$ is mapped out by tracing along the arrows, which eventually loops back to itself. An intuitive reason for this phenomenon is that by iterating $f$ often enough, we obtain a sequence
 \begin{equation*}
   a,~f(a),~f^2(a),~\ldots
 \end{equation*}
@@ -624,7 +624,7 @@ Next, we define multiplication of integers.
   \begin{equation*}
     ax=ay\qquad\Rightarrow\qquad x=y.
   \end{equation*}
-  \exercise Prove that for any two integers $a$ and $b$, either $b\leq a$ or $a+a\leq b$.
+  \exercise Prove that for any two integers $a$ and $b$, either $b\leq a$ or $a\leq b$.
   \exercise Suppose that $X$ is a set equipped with an element $x_0\in X$ and a bijection $h:X\cong X$. Show that the image of the unique map $f:\mathbb{Z}\to X$ determined by $x_0$ and $h$ is a cyclic set.
   \exercise Prove the identity
   \begin{equation*}

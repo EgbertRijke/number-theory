@@ -256,20 +256,6 @@ We will give three more proofs of Fermat's Two-Squares Theorem in remainder of t
 
 \section{Euler's Proof by Infinite Descent}
 
-% \begin{theorem}
-%   Consider two nonnegative integers $a$ and $b$. If any two of the nonnegative integers $a$, $b$, and $ab$ can be written as the sum of two squares, then so can the third.
-% \end{theorem}
-
-% \begin{proof}
-%   If $a=x^2+y^2$ and $b=u^2+v^2$, then the Brahmagupta--Fibonacci identity (\cref{exercise:brahmagupta-fibonacci-identity}) gives us that
-%   \begin{equation*}
-%     (x^2+y^2)(u^2+v^2) = (xu\pm yv)^2 + (xv\mp yu)^2.
-%   \end{equation*}
-%   This establishes $ab$ as a sum of two squares.
-
-%   It remains to show that if $b$ and $ab$ are sums of two squares, then so is $a$. 
-% \end{proof}
-
 Euler proved that every prime $p\equiv 1\pmod{4}$ can be written as a sum of two squares by using the Brahmagupta--Fibonacci identity in a clever descent argument.
 
 \begin{proof}[Proof of \cref{theorem:two-squares-primes}]
@@ -298,124 +284,126 @@ Euler proved that every prime $p\equiv 1\pmod{4}$ can be written as a sum of two
   Thus we have written a smaller multiple of $p$ as a sum of two squares, so the theorem is proven.
 \end{proof}
 
-% \section{Zagier's Proof Using Fixed Points of Involutions}
+\begin{noteblock}
+\section{Zagier's Proof Using Fixed Points of Involutions}
 
-% \section{The Method of Brillhart--Hermite--Serret}
+\section{The Method of Brillhart--Hermite--Serret}
 
-% Charles Hermite and Joseph-Alfred Serret observed independently in the same year \cite{hermite1848,serret1848}, that there is a remarkable connection between Fermat's problem of expressing a prime $p$ congruent to $1$ modulo $4$ and Euclid's algorithm for finding the greatest common divisor. Their method was later improved by John Brillhart in \cite{brillhart1972}, which we will follow here.
+Charles Hermite and Joseph-Alfred Serret observed independently in the same year \cite{hermite1848,serret1848}, that there is a remarkable connection between Fermat's problem of expressing a prime $p$ congruent to $1$ modulo $4$ and Euclid's algorithm for finding the greatest common divisor. Their method was later improved by John Brillhart in \cite{brillhart1972}, which we will follow here.
 
-% The method of Brillhart--Hermite--Serret starts by making the following observation. Consider first a pair $(a,b)$ of relatively prime integers with $a>b>0$, and use Euclid's algorithm to find a corresponding sequence $(q_0,\ldots,q_N)$ of positive integers, as described in \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, and form the sequence
-% \begin{equation*}
-%   (q_N,\ldots,q_0,q_0,\ldots,q_N).
-% \end{equation*}
-% This sequence of quotients determines, again via \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, a pair $(c,d)$ of relatively prime integers with $c>d>0$.
+The method of Brillhart--Hermite--Serret starts by making the following observation. Consider first a pair $(a,b)$ of relatively prime integers with $a>b>0$, and use Euclid's algorithm to find a corresponding sequence $(q_0,\ldots,q_N)$ of positive integers, as described in \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, and form the sequence
+\begin{equation*}
+  (q_N,\ldots,q_0,q_0,\ldots,q_N).
+\end{equation*}
+This sequence of quotients determines, again via \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, a pair $(c,d)$ of relatively prime integers with $c>d>0$.
 
-% \begin{theorem}
-%   Let $(a,b)$ and $(c,d)$ be defined as in the preceeding paragraph. Then we have the identities
-%   \begin{align*}
-%     c = a^2+b^2 \\
-%     d = ab+rs.
-%   \end{align*}
-%   Furthermore, we have $d^2\equiv -1\pmod c$.
-% \end{theorem}
+\begin{theorem}
+  Let $(a,b)$ and $(c,d)$ be defined as in the preceeding paragraph. Then we have the identities
+  \begin{align*}
+    c = a^2+b^2 \\
+    d = ab+rs.
+  \end{align*}
+  Furthermore, we have $d^2\equiv -1\pmod c$.
+\end{theorem}
 
-% Consider the prime $p:= 521$, which is clearly congruent to $1$ modulo $4$. By fast-exponentiation one checks that $2^{260}\equiv -1\pmod{521}$, so that
-% \begin{equation*}
-%   (235)^2\equiv (2^{130})^2 \equiv -1\pmod{521}.
-% \end{equation*}
-% Since the number $521$ is prime, the greatest common divisor of $521$ and $235$ is $1$. Nevertheless, we will run Euclid's algorithm:
-% \begin{align*}
-%   521 & = 2\cdot 235 + 51 \\
-%   235 & = 4\cdot 51 + 31 \\
-%   51 & = 1\cdot 31 + 20 \\
-%   31 & = 1\cdot 20 + 11 \\
-%   20 & = 1\cdot 11 + 9 \\
-%   11 & = 1\cdot 9 + 2 \\
-%   9 & = 4\cdot 2 + 1 \\
-%   2 & = 2\cdot 1 + 0.
-% \end{align*}
-% There are some special things to observe here. Let us write $a_i=q_ib_i+r_i$ for the $i$th equation, where $0\leq i\leq 7$. For starters, the sequence of $q_i$s is palindromic, which means that it reads the same forwards and backwards. More significantly, the number $b_i^2+b_{8-i}^2$ is always a multiple of $521$:
-% \begin{align*}
-%   235^2 + 1^2 & = 106 \cdot 521 \\
-%   51^2 + 2^2 & = 5 \cdot 521 \\
-%   31^2 + 9^2 & = 2 \cdot 521 \\
-%   20^2 + 11^1 & = 1 \cdot 521.
-% \end{align*}
-% Exclam! We have expressed $521$ as a sum of squares!
+Consider the prime $p:= 521$, which is clearly congruent to $1$ modulo $4$. By fast-exponentiation one checks that $2^{260}\equiv -1\pmod{521}$, so that
+\begin{equation*}
+  (235)^2\equiv (2^{130})^2 \equiv -1\pmod{521}.
+\end{equation*}
+Since the number $521$ is prime, the greatest common divisor of $521$ and $235$ is $1$. Nevertheless, we will run Euclid's algorithm:
+\begin{align*}
+  521 & = 2\cdot 235 + 51 \\
+  235 & = 4\cdot 51 + 31 \\
+  51 & = 1\cdot 31 + 20 \\
+  31 & = 1\cdot 20 + 11 \\
+  20 & = 1\cdot 11 + 9 \\
+  11 & = 1\cdot 9 + 2 \\
+  9 & = 4\cdot 2 + 1 \\
+  2 & = 2\cdot 1 + 0.
+\end{align*}
+There are some special things to observe here. Let us write $a_i=q_ib_i+r_i$ for the $i$th equation, where $0\leq i\leq 7$. For starters, the sequence of $q_i$s is palindromic, which means that it reads the same forwards and backwards. More significantly, the number $b_i^2+b_{8-i}^2$ is always a multiple of $521$:
+\begin{align*}
+  235^2 + 1^2 & = 106 \cdot 521 \\
+  51^2 + 2^2 & = 5 \cdot 521 \\
+  31^2 + 9^2 & = 2 \cdot 521 \\
+  20^2 + 11^1 & = 1 \cdot 521.
+\end{align*}
+Exclam! We have expressed $521$ as a sum of squares!
 
-% \begin{theorem}[Reversal Theorem for Continued Fractions]
-%   Consider a continued fraction $[\mathbf{q},r]=[q_0,\ldots,q_n,r]$ with value $\frac{a_{\mathbf{q},r}}{b_{\mathbf{q},r}}$.
-%   Then the reverse continued fraction $[r,q_n,\ldots,q_0]$ has the value
-%   \begin{equation*}
-%     \frac{a_{\mathbf{q},r}}{a_{\mathbf{q}}}=[r,q_n,\ldots,q_0].
-%   \end{equation*}
-%   Furthermore, if the partial quotients $q_0,\ldots,q_n,r$ are integers, then this is an integer fraction in lowest terms.
-% \end{theorem}
+\begin{theorem}[Reversal Theorem for Continued Fractions]
+  Consider a continued fraction $[\mathbf{q},r]=[q_0,\ldots,q_n,r]$ with value $\frac{a_{\mathbf{q},r}}{b_{\mathbf{q},r}}$.
+  Then the reverse continued fraction $[r,q_n,\ldots,q_0]$ has the value
+  \begin{equation*}
+    \frac{a_{\mathbf{q},r}}{a_{\mathbf{q}}}=[r,q_n,\ldots,q_0].
+  \end{equation*}
+  Furthermore, if the partial quotients $q_0,\ldots,q_n,r$ are integers, then this is an integer fraction in lowest terms.
+\end{theorem}
 
-% \begin{proof}
-%   For the final claim of the theorem, note that the identity
-%   \begin{equation*}
-%     b_{\mathbf{q},r}a_{\mathbf{q}}-a_{\mathbf{q},r}b_{\mathbf{q}}=(-1)^n
-%   \end{equation*}
-%   of \cref{theorem:determinant-formula-convergents} implies at once that $a_{\mathbf{q},r}$ and $a_{\mathbf{q}}$ are relatively prime, so that the fraction $\frac{a_\mathbf{q},r}{a_{\mathbf{q}}}$ is indeed in lowest terms.
-% \end{proof}
+\begin{proof}
+  For the final claim of the theorem, note that the identity
+  \begin{equation*}
+    b_{\mathbf{q},r}a_{\mathbf{q}}-a_{\mathbf{q},r}b_{\mathbf{q}}=(-1)^n
+  \end{equation*}
+  of \cref{theorem:determinant-formula-convergents} implies at once that $a_{\mathbf{q},r}$ and $a_{\mathbf{q}}$ are relatively prime, so that the fraction $\frac{a_\mathbf{q},r}{a_{\mathbf{q}}}$ is indeed in lowest terms.
+\end{proof}
 
-% \begin{theorem}[Palindromic Continued Fractions of Even Length]
-%   Consider a continued fraction
-%   \begin{equation*}
-%     \frac{a}{b} = [q_0,\ldots,q_n],
-%   \end{equation*}
-%   and let
-%   \begin{equation*}
-%     \frac{s}{t} := [q_n,\ldots,q_0,q_0,\ldots,q_n].
-%   \end{equation*}
-%   Then $s=a^2+b^2$ and $s\mid t^2+1$.
-% \end{theorem}
+\begin{theorem}[Palindromic Continued Fractions of Even Length]
+  Consider a continued fraction
+  \begin{equation*}
+    \frac{a}{b} = [q_0,\ldots,q_n],
+  \end{equation*}
+  and let
+  \begin{equation*}
+    \frac{s}{t} := [q_n,\ldots,q_0,q_0,\ldots,q_n].
+  \end{equation*}
+  Then $s=a^2+b^2$ and $s\mid t^2+1$.
+\end{theorem}
 
-% \begin{proof}
-%   The proof is by list induction. For the base case, note that $[q_0]=q_0$ so that $a=q_0$ and $b=1$. It follows that 
-%   \begin{equation*}
-%     [q_0,q_0]=q_0+\frac{1}{q_0}=\frac{q_0^2+1}{q_0}.
-%   \end{equation*}
-%   Thus we find that $s=a^2+b^2$ as claimed. Furthermore, in this case we have $s=t^2+1$ so that also the divisibility claim holds.
+\begin{proof}
+  The proof is by list induction. For the base case, note that $[q_0]=q_0$ so that $a=q_0$ and $b=1$. It follows that 
+  \begin{equation*}
+    [q_0,q_0]=q_0+\frac{1}{q_0}=\frac{q_0^2+1}{q_0}.
+  \end{equation*}
+  Thus we find that $s=a^2+b^2$ as claimed. Furthermore, in this case we have $s=t^2+1$ so that also the divisibility claim holds.
 
-%   We will do one more base case. Consider a continued fraction of the form $[q_0,q_1]$. Then we have
-%   \begin{equation*}
-%     [q_1,q_0,q_0,q_1]=q_1+\cfrac{1}{q_0+\cfrac{1}{q_0+\frac{1}{q_1}}}=\frac{(q_1q_0+1)^2+q_1^2}{q_1(q_0^2+1)+q_0}.
-%   \end{equation*}
-%   Then we have
-%   \begin{equation*}
-%     t^2+1=q_1^2(q_0^2+1)^2+2q_0q_1(q_0^2+1)+(q_0^2+1)=(q_0^2+1)((q_1q_0+1)^2+q_1^2),
-%   \end{equation*}
-%   so that $t^2+1=(q_0^2+1)s$. 
+  We will do one more base case. Consider a continued fraction of the form $[q_0,q_1]$. Then we have
+  \begin{equation*}
+    [q_1,q_0,q_0,q_1]=q_1+\cfrac{1}{q_0+\cfrac{1}{q_0+\frac{1}{q_1}}}=\frac{(q_1q_0+1)^2+q_1^2}{q_1(q_0^2+1)+q_0}.
+  \end{equation*}
+  Then we have
+  \begin{equation*}
+    t^2+1=q_1^2(q_0^2+1)^2+2q_0q_1(q_0^2+1)+(q_0^2+1)=(q_0^2+1)((q_1q_0+1)^2+q_1^2),
+  \end{equation*}
+  so that $t^2+1=(q_0^2+1)s$. 
 
-%   For the inductive step, consider a continued fraction of the form $[\mathbf{q},r,r']$. Then
-% \end{proof}
+  For the inductive step, consider a continued fraction of the form $[\mathbf{q},r,r']$. Then
+\end{proof}
 
-% \begin{theorem}
-%   Consider two relatively prime natural numbers $0<m<n$. The following are equivalent:
-%   \begin{enumerate}
-%   \item The number $n$ is a primitive sum of two squares.
-%   \item The number $m$ is a root of the quadratic congruence $x^2\equiv -1\pmod{n}$.
-%   \item The fraction for $\frac{n}{m}$ has a palindromic continued fraction expression; that is, there is a continued fraction $\frac{a}{b}=[q_0,\ldots,q_k]$ such that
-%     \begin{equation*}
-%       \frac{n}{m}=[q_k,\ldots,q_0,q_0,\ldots,q_k].
-%     \end{equation*}
-%   \end{enumerate}
-%   Furthermore, if the third condition holds then $n=a^2+b^2$
-% \end{theorem}
+\begin{theorem}
+  Consider two relatively prime natural numbers $0<m<n$. The following are equivalent:
+  \begin{enumerate}
+  \item The number $n$ is a primitive sum of two squares.
+  \item The number $m$ is a root of the quadratic congruence $x^2\equiv -1\pmod{n}$.
+  \item The fraction for $\frac{n}{m}$ has a palindromic continued fraction expression; that is, there is a continued fraction $\frac{a}{b}=[q_0,\ldots,q_k]$ such that
+    \begin{equation*}
+      \frac{n}{m}=[q_k,\ldots,q_0,q_0,\ldots,q_k].
+    \end{equation*}
+  \end{enumerate}
+  Furthermore, if the third condition holds then $n=a^2+b^2$
+\end{theorem}
 
-% % \begin{theorem}[Palindromic Continued Fractions of Odd Length]
-% %   Consider a continued fraction
-% %   \begin{equation*}
-% %     \frac{a}{b} = [q_0,\ldots,q_N],
-% %   \end{equation*}
-% %   and let
-% %   \begin{equation*}
-% %     \frac{s}{t} := [q_N,\ldots,q_0,\ldots,q_N].
-% %   \end{equation*}
-% %   Then
-% % \end{theorem}
+\begin{theorem}[Palindromic Continued Fractions of Odd Length]
+  Consider a continued fraction
+  \begin{equation*}
+    \frac{a}{b} = [q_0,\ldots,q_N],
+  \end{equation*}
+  and let
+  \begin{equation*}
+    \frac{s}{t} := [q_N,\ldots,q_0,\ldots,q_N].
+  \end{equation*}
+  Then
+\end{theorem}
+\end{noteblock}
 
 \exercises
 

@@ -24,9 +24,7 @@ The method of infinite descent was invented by Fermat. He used this method effec
   is a nonempty subset of the natural numbers, and by the \crefnamed{theorem:well-ordering-natural-numbers}{well-ordering principle} of the natural numbers it follows that this set has a least element. However, all the elements in $A$ are of the form $a_n$ for some natural number $\mathbb{N}$, and none of these elements are minimal, since we have assumed that $a_n>a_{n+1}$. This contradiction shows that our assumption that there exists an infinite descending sequence must be false, and thus there is no such sequence.
 \end{proof}
 
-The previous proposition leads to Fermat's method of infinite descent. Fermat observed that if an assumption $H$ leads to an infinite descending sequence, then the assumption $H$ must be false. %We will illustrate Fermat's method with the following theorem:
-
-%In the previous proof we introduced a set $A$ of which the elements were pairs $(a,b)$ of natural numbers satisfying $a^2=nb^2$, and we defined a function $f:A\to A$ in order to show that $A$ is empty. In the following theorem we state the method of infinite descent using a generalization of this setup.
+The previous proposition leads to Fermat's method of infinite descent. Fermat observed that if an assumption $H$ leads to an infinite descending sequence, then the assumption $H$ must be false. 
 
 \begin{theorem}[Method of Infinite Descent]\label{theorem:method-of-descent}
   Consider a set $A$ equipped with a function $f:A\to A$ and a function $h:A\to\mathbb{N}$. If $h(f(a))<h(a)$ for all $a$, then $A$ is empty.
@@ -159,84 +157,92 @@ Thus we obtain a Pythagorean triple
 \end{equation*}
 Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. This Pythagorean triple is our entry into a descent argument.
 
-\begin{lemma}
+\begin{lemma}\label{lemma:vanderpoorten}
   For every four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression we can uniquely determine a pair of relatively prime positive integers $u$ and $v$ such that $4u^2+v^2$ and $u^2+v^2$ are both squares, and the step size in the arithmetic progression of squares is $2uv$.
 \end{lemma}
 
-% \begin{proof}
-%   Consider four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression, where $a$, $b$, $c$, and $d$ are assumed to be relatively prime numbers of the form $6k\pm 1$, and the step size is a number of the form $2n$ so that $n$ is divisible by $12$. As previously shown, we obtain a primitive Pythagorean triple
-%   \begin{equation*}
-%     y^2+(4n^2)^2=(x^2-5n^2)^2,
-%   \end{equation*}
-%   where $y=abcd$ and $x$ is the average of $b^2$ and $c^2$.
-  
+\begin{proof}
+  Consider four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression, where $a$, $b$, $c$, and $d$ are assumed to be relatively prime numbers of the form $6k\pm 1$, and the step size is a number of the form $2n$ so that $n$ is divisible by $12$. As previously shown, we obtain a primitive Pythagorean triple
+  \begin{equation*}
+    y^2+(4n^2)^2=(x^2-5n^2)^2,
+  \end{equation*}
+  where $y=abcd$ and $x$ is the average of $b^2$ and $c^2$.
+  Since the Pythagorean triple $(y,4n^2,x)$ is primitive, there are relatively prime positive integers $2s$ and $t$ such that
+  \begin{equation*}
+    y=|t^2-4s^2|,\qquad 4n^2=4st,\qquad\text{and}\qquad x^2-5n^2=t^2+4s^2.
+  \end{equation*}
+  Since $n^2=st$ and $s$ and $t$ are relatively prime, it follows that $s=u^2$, $t=v^2$, and $uv=n$. We obtain that
+  \begin{equation*}
+    y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(v^2+4u^2)(v^2+u^2).
+  \end{equation*}
 
-%   By averaging $b^2$ and $c^2$, we obtain a number $x$ such that
-%   \begin{equation*}
-%     a^2=x-3n,\qquad b^2=x-n,\qquad c^2=x+n,\qquad\text{and}\qquad d^2=x+3n.
-%   \end{equation*}
-%   Thus, the product of these four squares is of the form
-%   \begin{equation*}
-%     y^2=a^2b^2c^2d^2= (x^2-n^2)(x^2-9n^2).
-%   \end{equation*}
-%   By completing the square, we see that
-%   \begin{equation*}
-%     y^2=x^4-10n^2x^2+9n^4=(x^2-5n^2)^2-16n^4.
-%   \end{equation*}
-%   Thus we obtain a Pythagorean triple
-%   \begin{equation*}
-%     y^2+(4n^2)^2=(x^2-5n^2)^2.
-%   \end{equation*}
-%   Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. Thus there are relatively prime positive integers $2s$ and $t$ such that
-%   \begin{equation*}
-%     y=|t^2-4s^2|,\qquad 4n^2=4st,\qquad\text{and}\qquad x^2-5n^2=t^2+4s^2.
-%   \end{equation*}
-%   Since $n^2=st$ and $s$ and $t$ are relatively prime, it follows that $s=u^2$, $t=v^2$, and $uv=n$. We obtain that
-%   \begin{equation*}
-%     y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(v^2+4u^2)(v^2+u^2).
-%   \end{equation*}
-% \end{proof}
+  Finally, we prove the claim that the factors $v^2+4u^2$ and $v^2+u^2$ of $x^2$ are relatively prime, which implies that both $v^2+4u^2$ and $v^2+u^2$ must be perfect squares. To see this, note that any common divisor $k$ of $v^2+4u^2$ and $v^2+u^2$ must satisfy the following divisiblity relations:
+  \begin{align*}
+    k & \mid (v^2+4u^2) - (v^2+u^2) = 3u^2, \\
+    k & \mid 4(v^2+u^2)-(v^2+4u^2) = 3v^2.
+  \end{align*}
+  Since $u$ and $v$ are relatively prime, these relations imply that $k\mid 3$. However, recall that $a,b,c,d$ are of the form $6k\pm 1$. Since $x$ is defined as the average of $b^2$ and $c^2$, which are both $\equiv 1\pmod{24}$, it follows that $x\equiv 1\pmod{12}$. In particular, neither $v^2+4u^2$ nor $v^2+u^2$ is divisible by $3$, so we find that $k=1$.
+\end{proof}
+
+The following lemma is an observation of Euler.
+
+\begin{lemma}\label{lemma:fermat-euler}
+  There does not exist a pair of positive integers $(u,v)$ such that both $u^2+v^2$ and $4u^2+v^2$ are perfect squares.
+\end{lemma}
+
+\begin{proof}
+  First, we observe that if such pair of positive integers exist, then the pair obtained by factoring out any common divisors is again of the same type. Thus, we may assume that $u$ and $v$ are relatively prime. Suppose that
+  \begin{equation*}
+    u^2+v^2=\alpha^2\qquad\text{and}\qquad 4u^2+v^2=\beta^2
+  \end{equation*}
+  By our assumption that $u$ and $v$ are relatively prime, it follows that $(u,v,\alpha)$ is a primitive Pythagorean triple. 
+  
+  As for the parity of $u$ and $v$, there are two cases to consider: Either $u$ is odd or $u$ is even. Assuming the first case, so that $u$ is odd and $v$ is even, we can write $v=2k$, so that
+  \begin{equation*}
+    (2u)^2+(2k)^2=d^2.
+  \end{equation*}
+  Setting $d=2e$ and dividing this equation through by $4$, we obtain the equations
+  \begin{equation*}
+    u^2+k^2=e^2,\qquad\text{and}\qquad u^2+(2k)^2=c^2.
+  \end{equation*}
+  Observe that the first equation, with $u$ being odd, implies that $k$ is even. Thus we have reduced the first case to the second case. From now on, we assume that $u$ is even, so that $v$ is odd.
+
+  Setting $u=2w$, we assume that $w$ and $v$ are relatively prime positive integers satisfying the equations
+  \begin{equation*}
+    4w^2+v^2=\alpha^2\qquad\text{and}\qquad 16w^2+v^2=\beta^2.
+  \end{equation*}
+  Under these assumptions, both $(2w,v,\alpha)$ and $(4w,v,\beta)$ are primitive Pythagorean triples. By \crefnamed{theorem:euclids-parametrization}{Euclid's Parametrization}, there exist positive integers $s<t$ and $q<r$ such that
+  \begin{align*}
+    v & = t^2-s^2, & v & = r^2-q^2, \\
+    2w & = 2st, & 4w & = 2qr.
+  \end{align*}
+  There are again two cases to consider, of which we will prove one and leave the other to the reader: Either $q$ is even or $r$ is even. In the first case, where $q=2q'$ for some integer $q'$, it follows that
+  \begin{equation*}
+    st=w=q'r,
+  \end{equation*}
+  where $\gcd(s,t)=1$ and $\gcd(q',r)=1$. This implies that we can write $s=ab$, $t=cd$, $q'=ac$, and $r=bd$. The equations for $v$ can now be written as follows:
+  \begin{equation*}
+    c^2d^2-a^2b^2=v=b^2d^2-4a^2c^2.
+  \end{equation*}
+  Rearranging this equation, we see that $b^2(d^2+a^2)=c^2(d^2+4a^2)$. We claim that $d^2+a^2$ and $d^2+4a^2$ are relatively prime. Indeed, any common divisor $k$ satisfies
+  \begin{align*}
+    k & \mid (d^2+4a^2) - (d^2+a^2) = 3a^2, \\
+    k & \mid 4(d^2+a^2) - (d^2+4a^2) = 3d^2.
+  \end{align*}
+  Since $a$ and $d$ are relatively prime, this implies that $k\mid 3$. Now observe that $d^2+a^2$ is not divisible by $3$ since it could only be divisible by $3$ if both $d$ and $a$ were divisible by $3$. This implies that $k=1$, from which we conclude that $d^2+a^2$ and $d^2+4a^2$ are relatively prime.
+
+  Since $d^2+a^2$ and $d^2+4a^2$ are relatively prime, it follows that both $d^2+a^2$ and $d^2+4a^2$ are perfect squares. We have thus constructed a strictly smaller pair $(a,d)$ of positive integers of the type of $(u,v)$. By the method of infinite descent, we conclude that no such pair exists.
+\end{proof}
 
 \begin{theorem}[Fermat--Euler]
   Every arithmetic progression of length four of the integer squares is constant.
 \end{theorem}
 
-% \begin{proof}
-%   Consider four squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression. Then there exist relatively prime positive integers $s<t$ of opposite parity and relatively prime positive integers $u,v$ of opposite parity such that
-%   \begin{align*}
-%     t^2+s^2 = b & = |2uv - v^2 + u^2|, \\
-%     2st + t^2 - s^2 = c & = v^2+u^2.
-%   \end{align*}
-%   There are two cases to consider. If we assume that $2uv - v^2 + u^2$ is nonnegative, then adding and subtracting both sides from each other and dividing by $2$ give the identities
-%   \begin{align*}
-%     s(t-s) & = v(v-u), \\
-%     t(t+s) & = u(v+u).    
-%   \end{align*}
-%   Those equations added together yield $b=s^2+t^2=u^2+v^2=c$, so that the arithmetic progression $(a^2,b^2,c^2,d^2)$ is shown to be constant.
-  
-%   If, on the other hand, we assume that $2uv - v^2 +u^2$ is negative, then we obtain that
-%   \begin{equation*}
-%     2(t^2+s^2)^2 - (2st+t^2-s^2)^2
-%   \end{equation*}
-%   similarly the identities
-%   \begin{align*}
-%     s(t-s) & = u(v+u), \\
-%     t(t+s) & = v(v-u).
-%   \end{align*}
-%   We claim that there are no solutions with $0<s<t$ and $0<u<v$ of this system of equations. The second equation is a quadratic equation in $t$, with discriminant $s^2+4v(v-u)$. Thus, if there is to be a solution to the given system of equations, each equation seen as a quadratic equation in one variable $s$, $t$, $u$, or $v$ must have a square discriminant:
-%   \begin{align*}
-%     t^2+4u(v+u) & = k^2, \\
-%     u^2+4t(t+s) & = l^2, \\
-%     s^2+4v(v-u) & = m^2, \\
-%     v^2+4s(t-s) & = n^2, \\
-%   \end{align*}
-%   Notice that the first two equations are the same up to swapping the roles of $t$ and $u$ and the roles of $s$ and $v$. Likewise, the last two equations are the same up to a similar swap of variables.
-%   \begin{equation*}
-%     k^2-l^2 = t^2-u^2 + 4(u(v+u) - t(t+s)) = (t-u)(t+u)+ 4(t-u)(t+u+s) = t^2+ts-u^2-us
-%   \end{equation*}
-% \end{proof}
+\begin{proof}
+  We saw in \cref{lemma:vanderpoorten} that if $(a^2,b^2,c^2,d^2)$ is an arithmetic progression of integer squares with step size $2n$, then we can find relatively prime integers $u$ and $v$ such that $n=uv$ and both $4u^2+v^2$ and $u^2+v^2$ are perfect squares. However, we saw in \cref{lemma:fermat-euler} that there does not exist a pair of positive integers $(u,v)$ such that both $4u^2+v^2$ and $u^2+v^2$ are perfect squares. Hence we conclude that any arithmetic progression of length four of integer squares must be constant.
+\end{proof}
 
-\section{The Congruent Number Problem}
+\section{The Congruent Number Problem}\label{section:congruent-number-problem}
 
 Recall from \cref{sec:squares-in-aps} the challenge that Master John posed in the early 13th century to Leonardo Fibonacci: To find a rational number $q$ such that both
 \begin{equation*}
@@ -245,19 +251,30 @@ Recall from \cref{sec:squares-in-aps} the challenge that Master John posed in th
 are both rational. Or equivalently, to find a Pythagorean triangle whose area is five times a square. Master John must somehow have known that the number $5$ in his challenge was special: It is the smallest positive integer for which his challenge has a solution.
 
 \begin{definition}
-  A positive integer $a$ is said to be a \emph{congruent number} if it occurs as the area of a right triangle with rational sides and rational hypotenuse.
+  A \emph{rational Pythagorean triple} is a triple $(a,b,c)$ consisting of rational numbers satisfying
+  \begin{equation*}
+    a^2+b^2=c^2,
+  \end{equation*}
+  corresponding to the sides and hypothenuse of a right triangle. A positive integer $n$ is said to be a \emph{congruent number} if there exists a rational Pythagorean triangle whose area is exactly $n$. That is, $n$ is congruent if there exists a rational Pythagorean triple $(a,b,c)$ such that
+  \begin{equation*}
+    n=\frac{ab}{2}.
+  \end{equation*}
 \end{definition}
 
 From Fibonacci's solution to Master John's challenge we thus conclude that $5$ is a congruent number: The area of the rational right triangle with sides
 \begin{equation*}
   a=\frac{3}{2},\qquad b=\frac{20}{3},\qquad\text{and}\qquad c=\frac{41}{6}.
 \end{equation*}
-is $5$.
-
-The number $6$ is also congruent since it is the area of the $(3,4,5)$-triangle. The following lemma rephrases the condition of being a congruent number in terms of Pythagorean triangles.
+is $5$. The number $6$ is also congruent since it is the area of the $(3,4,5)$-triangle. The following lemma rephrases the condition of being a congruent number in terms of Pythagorean triangles. Given the connection between Pythagorean triangles and arithmetic triples of squares, the concept of congruent number can be formulated in the following equivalent ways.
 
 \begin{lemma}\label{lemma:congruent-numbers}
-  A number $n$ is congruent if and only if there is a primitive Pythagorean triangle whose area is $n$ times a square.
+  Consider a number $n$. The following are equivalent:
+  \begin{enumerate}
+  \item \label{itemi:congruent-numbers}The number $n$ is congruent.
+  \item \label{itemii:congruent-numbers}There is a primitive Pythagorean triple $(a,b,c)$ whose area $\frac{1}{2}ab$ is $n$ times a square.
+  \item \label{itemiii:congruent-numbers}There is an arithmetic triple of rational squares $(x^2,y^2,z^2)$ with congruum $n$.
+  \item \label{itemiv:congruent-numbers}There is a primitive arithmetic triple of squares $(a^2,b^2,c^2)$ whose congruum is $n$ times a square.
+  \end{enumerate}
 \end{lemma}
 
 \begin{proof}
@@ -269,50 +286,202 @@ The number $6$ is also congruent since it is the area of the $(3,4,5)$-triangle.
   \begin{equation*}
     A^2+B^2=C^2,\qquad\text{and}\qquad \frac{AB}{2}=nm^2
   \end{equation*}
-  so that $(A,B,C)$ constitutes a Pythagorean triple whose area is $n$ times a square. By dividing out any common divisors, we obtain a primitive such Pythagorean triangle. Since this process is clearly reversible, this proves the claim.
+  so that $(A,B,C)$ constitutes a Pythagorean triple whose area is $n$ times a square. By dividing out any common divisors, we obtain a primitive such Pythagorean triangle. Since this process is clearly reversible, this proves that \ref{itemi:congruent-numbers} is logically equivalent to \ref{itemii:congruent-numbers}. The fact that \ref{itemii:congruent-numbers} is logically equivalent to \ref{itemiii:congruent-numbers} follows from \cref{theorem:correspondence-arithmetic-triples-squares}.
 \end{proof}
+
+The previous theorem can be used to show that some numbers are not congruent. For example, the following theorem is merely a rephrasing of Fermat's \cref{theorem:is-not-square-area-pythagorean-triangle}, which states that the area of a Pythagorean theorem cannot be a square.
 
 \begin{theorem}\label{theorem:not-congruent-square}
-  No square positive integer is a congruent number.
+  No positive square integer is a congruent number.\qed
 \end{theorem}
-
-\begin{proof}
-  This claim follows from \cref{lemma:congruent-numbers} and Fermat's \cref{theorem:is-not-square-area-pythagorean-triangle}, which states that the area of a Pythagorean triangle cannot be a square.
-\end{proof}
 
 We will show in the following theorem that the number $2$ is not congruent. The noncongruence of the number $3$ is stated as an exercise. Having the integers $1$, $2$, $3$, and $4$ ruled out as congruent numbers, we see indeed that $5$ is the least congruent number.
 
 \begin{theorem}\label{theorem:not-congruent-twice-square}
-  If a positive integer is twice a square, then it isn't congruent.
+  The number $2$ is not congruent.
 \end{theorem}
 
 \begin{proof}
-  This theorem can be stated equivalently as: The area of a primitive Pythagorean triangle cannot be twice a square. To derive a contradiction, we assume that a Pythagorean triple $(A,B,C)$ exists with
+  It suffices to show that there is no primitive Pythagorean triple $(a,b,c)$ such that
   \begin{equation*}
-    \frac{AB}{2}=2m^2.
+    \frac{1}{2}ab=2d^2.
   \end{equation*}
-  By Euclid's parametrization of the primitive Pythagorean triples, a Pythagorean triple as described above is uniquely determined by a pair of relatively prime positive integers $s<t$ of opposite parity, with
+  Using \crefnamed{theorem:eucids-parametrization}{Euclid's Parametrization} of the primitive Pythagorean triples, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
   \begin{equation*}
-    A=t^2-s^2,\qquad B=2st,\qquad\text{and}\qquad C:=t^2+s^2.
+    st(t^2-s^2)=2d^2.
   \end{equation*}
-  Using this parametrization, we find the following equation for the area:
+  We recall that $s$, $t$, $t-s$, and $t+s$ are all relatively prime. Since one of $s$ and $t$ is assumed to be even and the other odd, it follows that $t-s$ and $t+s$ are odd perfect squares. There are two cases to consider: we have either $s=2u^2$ and $t=v^2$ or $s=u^2$ and $t=2v^2$. We will show that in the first case we can construct a smaller Pythagorean triple whose area is $2$ times a perfect square. The argument we are about to give may also be applied to the second case, which we leave to the reader.
+
+  Consider integers $u$, $v$, $x$, and $y$ such that
   \begin{equation*}
-    st(t^2-s^2)=2m^2.
+    s=2u^2,\qquad t=v^2,\qquad t-s=x^2,\qquad\text{and}\qquad t+s=y^2.
   \end{equation*}
-  However, the integers $s$, $t$, and $t^2-s^2$ are all relatively prime, which implies that exactly one of them---either $s$ or $t$---is twice a square and the other two are squares.
+  Then we define
+  \begin{equation*}
+    a':=\frac{y-x}{2},\qquad b':=\frac{y+x}{2},\qquad\text{and}\qquad c':= v.
+  \end{equation*}
+  Then we have $a'^2+b'^2=t=v^2$, so that $(a',b',c')$ is a Pythagorean triple satisfying the strict inequality $c'=v\leq t<c$. Furthermore, we have
+  \begin{equation*}
+    \frac{1}{2}a'b'=\frac{(y-x)(y+x)}{8}=\frac{y^2-x^2}{8}=\frac{2s}{8}=\frac{u^2}{2}.
+  \end{equation*}
+  Since the area of a Pythagorean triple is always an integer, it follows that $u$ is even. It follows that $\frac{1}{2}a'b'=2d'^2$ for some integer $d'$. We have thus constructed a strictly smaller Pythagorean triple whose area is twice a square, which is impossible by infinite descent.
 \end{proof}
 
-\begin{corollary}
-  No power of $2$ is congruent.
-\end{corollary}
+Using a very similar argument, we will also show that $3$ is not congruent.
+
+\begin{theorem}
+  The number $3$ is not congruent.
+\end{theorem}
 
 \begin{proof}
-  Any power of $2$ is either a square or twice a square, so it can't be congruent by \cref{theorem:not-congruent-square,theorem:not-congruent-twice-square}.
+  It suffices to show that there is no primitive Pythagorean triple $(a,b,c)$ such that
+  \begin{equation*}
+    \frac{1}{2}ab=3d^2.
+  \end{equation*}
+  Using \crefnamed{theorem:eucids-parametrization}{Euclid's Parametrization} of the primitive Pythagorean triples, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
+  \begin{equation*}
+    st(t^2-s^2)=3d^2.
+  \end{equation*}
+  We recall that $s$, $t$, $t-s$, and $t+s$ are all relatively prime, so that exactly one of them is of the form $3k^2$ and the others are perfect squares not divisible by $3$.
+
+  Suppose that $3\nmid s$, so that $s$ is a perfect square and hence we must have $s\equiv 1\pmod{3}$. Then the numbers $t-s$ and $t+s$ are incongruent modulo $3$. Since the numbers $t-s$ and $t+s$ are either perfect squares or divisible by $3$, we conclude that one of them is divisible by $3$ and the other a perfect square $\equiv 1\pmod{3}$. It follows that $t$ is also a perfect square $\equiv 1\pmod{3}$. However, this implies that $t+s\equiv 2\pmod{3}$, which is therefore neither a perfect square nor divisible by $3$. We conclude from this contradiction that $3\mid s$, and thus we have thus shown that there are integers $u$, $v$, $x$, and $y$ such that
+  \begin{equation*}
+    s=3u^2,\qquad t=v^2,\qquad t-s=x^2,\qquad\text{and}\qquad t+s=y^2.
+  \end{equation*}
+  
+  Now observe that $x^2+y^2=2v^2$. Since $x$ and $y$ are relatively prime, it follows from this equation that both $x$ and $y$ are odd. Thus we define
+  \begin{equation*}
+    a':=\frac{y-x}{2},\qquad b':= \frac{y+x}{2}, \qquad\text{and}\qquad c':=v.
+  \end{equation*}
+  It follows that $a'^2+b'^2=v^2$, so that the triple $(a',b',c')$ is again a Pythagorean triple. This triple satisfies the strict inequalities $c'=v<t<c$. Furthermore, we have
+  \begin{equation*}
+    \frac{1}{2}a'b'=\frac{y^2-x^2}{2}=\frac{(t+s)-(t-s)}{2}=s=3u^2.
+  \end{equation*}
+  Thus we have constructed a strictly smaller Pythagorean triangle whose area is $3$ times a square. By the method of infinite descent, we conclude that there cannot be any Pythagorean triangles whose area is $3$ times a square.
 \end{proof}
+
+Having shown that the numbers $1$, $2$, $3$, and $4$ are not congruent, while the numbers $5$ and $6$ are congruent, we now focus on proving that $7$ is congruent. Before we do so, we will reformulate the condition of $n$ being congruent to an equivalent condition.
+
+Suppose we are given the task of showing that a positive integer $n$ is a congruent number. In order to construct a Pythagorean triangle with rational sides and hypotenuse, we observe that any such Pythagorean triangle can be obtained by scaling with a rational factor a Pythagorean triangle described by a rational point on the unit circle. Using the stereographic projection of \cref{theorem:stereographic-projection-unit-circle}, we see that all rational Pythagorean triangles are described by pairs
+\begin{equation*}
+  \left(\frac{r(1-m^2)}{1+m^2},\frac{2rm}{1+m^2}\right),
+\end{equation*}
+where $r$ and $m$ are rational numbers. A simpler parametrization of all rational Pythagorean triangles can be obtained by substituting $s=r/(1+m^2)$:
+\begin{equation*}
+  (s(1-m^2),2sm).
+\end{equation*}
+Thus, our task is to find rational numbers $s$ and $m$ satisfying $n=s^2m(1-m^2)$, which is equivalent to
+\begin{equation*}
+  \frac{n^4}{s^2}=n^3m-(nm)^3.
+\end{equation*}
+Substituting $x=-nm$ and $y=n^2/s$ in this equation, we find that our original problem is equivalent to finding a rational solution to the problem
+\begin{equation*}
+  y^2=x^3-n^2x.
+\end{equation*}
+We have thus proven the following theorem:
+
+\begin{theorem}
+  Consider a number $n$. The following are equivalent:
+  \begin{enumerate}
+  \item The number $n$ is congruent.
+  \item There is a rational solution to the equation
+    \begin{equation*}
+      y^2=x^3-n^2x
+    \end{equation*}
+    such that $y\neq 0$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{figure}[t]
+  \centering
+%   \begin{tikzpicture}
+%   \begin{axis}[
+%     axis lines=middle,
+%     xlabel={$x$},
+%     ylabel={$y$},
+%     xmin=-20, xmax=20,
+%     ymin=-20, ymax=20,
+%     samples=200,
+%     ticks=none,
+%   ]
+%     % Left branch: -7 <= x <= 0
+%     \addplot[domain=-7:0]   {sqrt(x^3 - 49*x)};
+%     \addplot[domain=-7:0]   {-sqrt(x^3 - 49*x)};
+
+%     % Right branch: 7 <= x <= 10
+%     \addplot[domain=7:10]   {sqrt(x^3 - 49*x)};
+%     \addplot[domain=7:10]   {-sqrt(x^3 - 49*x)};
+
+%     % Mark the three obvious rational points
+%     \addplot[only marks, mark=*] coordinates {(-7,0) (0,0) (7,0)};
+%   \end{axis}
+% \end{tikzpicture}
+\begin{tikzpicture}[
+  % choose a simple, “manual” scale like in your other figure
+  x=0.2cm,
+  y=0.2cm,
+  font=\footnotesize,
+  declare function={f(\x) = \x*\x*\x - 49*\x;}
+  ]
+
+  % Axes
+  \draw[->] (-21,0) -- (21,0) node[right] {\normalsize $x$};
+  \draw[->] (0,-21) -- (0,21) node[above] {\normalsize $y$};
+
+  % Tick marks on the x-axis
+  \foreach \x in {-20,-18,-16,-14,-12,-10,-8,-6,-4,-2,0,2,4,6,8,10,12,14,16,18,20} {
+    \draw (\x,0) -- (\x,-0.5);
+  }
+
+  % Tick marks on the y-axis
+  \foreach \y in {-20,-18,-16,-14,-12,-10,-8,-6,-4,-2,0,2,4,6,8,10,12,14,16,18,20} {
+    \draw (0,\y) -- (-0.5,\y);
+  }
+
+  % Elliptic curve y^2 = x^3 - 49x
+  % Real branches occur where x^3 - 49x >= 0:
+  %   on [-7,0] and on [7, +infty).
+  % Upper and lower branches on [-7,0]
+  \draw[very thick, CornflowerBlue, domain=-7:0, samples=300, smooth, variable=\x]
+    plot ({\x},{sqrt(f(\x))}) -- (0,0) ;
+  \draw[very thick, CornflowerBlue, domain=-7:0, samples=300, smooth, variable=\x]
+    plot ({\x},{-sqrt(f(\x))}) -- (0,0);
+
+  % Upper and lower branches on [7,10]
+  \draw[very thick, CornflowerBlue, domain=7:9.5, samples=200, smooth, variable=\x]
+    plot ({\x},{sqrt(f(\x))});
+  \draw[very thick, CornflowerBlue, domain=7:9.5, samples=200, smooth, variable=\x]
+  plot ({\x},{-sqrt(f(\x))});
+
+  \node[below] at (20,-0.5) {$20$};
+  \node[left] at (-0.5,20) {$20$};
+\end{tikzpicture}
+  \caption{The curve $y^2=x^3-49x$}
+\end{figure}
+\begin{example}
+  The number $7$ is a congruent number. We will prove this by finding an integer solution to the Diophantine equation
+  \begin{equation*}
+    y^2=x^3-49x.
+  \end{equation*}
+  We emphasize that the problem of proving that $7$ is congruent is equivalent to showing the existence of a \emph{rational} solution to the above equation. Nevertheless, luck turns out to be on our side in this special case and an integer solution can be found.
+  
+  Note that if $x^3-49x$ is a square, then $7\nmid x$. Indeed, if $7$ were to divide $x$, we would have an integer solution to $y^2=x^3-x$ with $y\neq 0$, showing that $1$ is a congruent number. It follows that $x$ and $x^2-49$ are relatively prime. Consequently, in order for $x^3-49x$ to be a square, we need $x$ and $x^2-49$ to be perfect squares. Set
+  \begin{equation*}
+    x:=u^2\qquad\text{and}\qquad x^2-49 := v^2.
+  \end{equation*}
+  Then we have $u^4-v^2=49$, which we can rewrite as $(u^2-v)(u^2+v)=49$. Since $49=7^2$, this implies that $u^2-v=1$ and $u^2+v=49$. We find that
+  \begin{equation*}
+    2v=(u^2+v)-(u^2-v)=48
+  \end{equation*}
+  so that $v=24$. Furthermore, since $u^2-24=1$, we find that $u=5$. It follows that
+  \begin{equation*}
+    120^2=25^3-49\cdot 25.
+  \end{equation*}
+\end{example}
 
 Determining which numbers are congruent turns out to be an incredibly difficult problem, which is still unsolved. This problem is called the \emph{congruent number problem}, and via Tunnell's theorem it has connections to the famous Birch and Swinnerton-Dyer conjecture.
 
-\section{Vieta Jumping}
+\section{Vieta Jumping}\label{section:vieta-jumping}
 
 Vieta jumping is a problem-solving technique that builds on the observation that
 \begin{equation*}
@@ -392,6 +561,11 @@ Thus, if we know one root of a quadratic polynomial then we can easily `jump' to
   \end{equation*}
   is a perfect square.
   \exercise Show that the only triangular number which is also a fourth power is $1$.
+  \exercise Show that the equation
+  \begin{equation*}
+    x^4-x^2y^2+y^4=z^2
+  \end{equation*}
+  has no solutions in the positive integers.
 \end{challenge}
 
 %%% Local Variables:

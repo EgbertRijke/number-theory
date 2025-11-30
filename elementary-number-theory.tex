@@ -73,6 +73,7 @@
 \newtheorem{corollary}[corollary]{Corollary}
 
 \newtheorem{conjecture}{Conjecture}
+\newtheorem{problem}[conjecture]{Problem}
 
 \theoremstyle{definition}
 \newaliascnt{definition}{theorem}
@@ -89,7 +90,7 @@
 
 % TikZ and plotting
 \usepackage{tikz}
-\usetikzlibrary{angles,arrows.meta,backgrounds,calc,decorations.pathreplacing,decorations.pathmorphing,hobby,intersections,quotes,shapes.geometric}
+\usetikzlibrary{angles,arrows.meta,backgrounds,calc,decorations.pathreplacing,decorations.pathmorphing,hobby,intersections,quotes,shapes.geometric,trees}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \tikzset{
@@ -116,6 +117,19 @@
 }
 
 \usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+
+\DeclareLabelalphaTemplate{%
+  \labelelement{%
+    \field[final]{shorthand}%
+    \field{label}%
+    \field[strwidth=3,strside=left,ifnames=1]{labelname}%
+    \field[strwidth=1,strside=left]{labelname}%
+  }%
+  \labelelement{%
+    \field{year}%
+  }%
+}
+
 \addbibresource{references.bib}
 
 \usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
@@ -175,6 +189,10 @@
 
 \newtotcounter{exercisecounter}
 \newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+
+\AtEndDocument{%
+  \typeout{Total number of exercises: \number\value{exercisecounter}}%
+}
 
 \newlist{exenum}{enumerate}{1}
 \setlist[exenum]{label=\thechapter.\arabic*,noitemsep}
@@ -294,6 +312,23 @@
   \setlength{\headsep}{0pt}
 }
 
+\newif\ifshownotes
+% \shownotestrue     % => show notes
+\shownotesfalse      % => ignore notes
+
+\usepackage{environ}
+\NewEnviron{noteblock}{%
+  \ifshownotes
+    \begingroup\color{black!60}\BODY\endgroup
+  \fi
+}
+
+\newcommand{\note}[1]{%
+  \ifshownotes
+    \begingroup\color{black!60}#1\endgroup
+  \fi
+}
+
 \begin{document}
 
 \pagestyle{empty}
@@ -340,7 +375,7 @@
 
 \vspace*{\fill}
 \noindent
-\textit{Cover image:} Vieta jumps between the rational points on the unit circle eventually reach one of the points $(1,0)$, $(0,1)$, $(-1,0)$, or $(0,-1)$.
+\textit{Cover image:} Vieta jumps between the rational points on the unit circle eventually reach one of the points $(1,0)$, $(0,1)$, $(-1,0)$, or $(0,-1)$. See \cref{section:tree-of-pythagorean-triples} for a full explanation.
 
 \cleardoublepage
 
@@ -352,7 +387,7 @@
 
 \listoffigures
 
-% \listoftables
+\note{\listoftables}
 
 \input{course-information}
 
@@ -392,7 +427,7 @@
 
 \input{arithmetic-functions}
 
-% \input{strong-divisibility-sequences}
+\note{\input{strong-divisibility-sequences}}
 
 \part{Fermat's Discoveries Regarding the Primes}
 
@@ -400,7 +435,7 @@
 
 \input{sums-of-squares}
 
-% \input{gaussian-integers}
+\note{\input{gaussian-integers}}
 
 \part{The Law of Quadratic Reciprocity}
 
@@ -412,43 +447,43 @@
 
 \input{quadratic-residues}
 
-% \input{permutations}
+\note{\input{permutations}}
 
-% \input{quadratic-characters}
+\note{\input{quadratic-characters}}
 
 \input{quadratic-reciprocity}
 
-% \input{jacobi-symbols}
+\note{\input{jacobi-symbols}}
 
-\input{primality-testing}
+\note{\input{primality-testing}}
 
-% \part{Topics}
+\note{\part{Topics}}
 
-% \input{conics}
+\note{\input{conics}}
 
-% \input{pells-equation}
+\note{\input{pells-equation}}
 
-% \input{polygonal-numbers}
+\note{\input{polygonal-numbers}}
 
-% \input{fermats-last-theorem}
+\note{\input{fermats-last-theorem}}
 
-% \input{real-numbers}
+\note{\input{real-numbers}}
 
-% \input{dirichlet-series}
+\note{\input{dirichlet-series}}
 
-% \input{distribution-of-primes}
+\note{\input{distribution-of-primes}}
 
-% \input{cyclotomic-polynomials}
+\note{\input{cyclotomic-polynomials}}
 
-% \input{prime-partition-function}
+\note{\input{prime-partition-function}}
 
-% \input{bernoulli-numbers}
+\note{\input{bernoulli-numbers}}
 
-% \input{geometric-number-theory}
+\note{\input{geometric-number-theory}}
 
-% \input{miscellaneous}
+\note{\input{miscellaneous}}
 
-% \input{open-problems}
+\input{open-problems}
 
 \printbibliography[heading=bibintoc,title=References]
 

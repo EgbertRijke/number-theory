@@ -129,21 +129,6 @@ Fermat's Little Theorem can be used to analyze the prime divisors of special num
   \end{equation*}
 \end{proof}
 
-% \begin{theorem}[Lucas's Theorem]
-%   If $p=k2^{n+1}+1$ is a prime divisor of the $n$th Fermat number $F_n$, then $k$ is even and
-%   \begin{equation*}
-%     \ord_p(k)\mid \ord_p(2^{n+1})=2^{n+1-\nu_2(n+1)}.
-%   \end{equation*}
-% \end{theorem}
-
-% \begin{proof}
-%   For the first claim, suppose that $p=k\cdot 2^{n+1}+1$ with $k$ even. Then we have
-%   \begin{equation*}
-%     2^{\frac{p-1}{2}}\equiv 2^{k2^{n}}\equiv (-1)^k\equiv 1\pmod{p}.
-%   \end{equation*}
-%   This shows that $\ord_{p}(2)\mid k2^n$.
-% \end{proof}
-
 \begin{corollary}\label{corollary:F4}
   The fourth Fermat number $2^{2^4}+1=65537$ is prime.
 \end{corollary}
@@ -571,6 +556,16 @@ The techniques of proving Dirichlet's Theorem are beyond the scope of this cours
     \sum_{k=1}^{n} k^n\equiv 0\pmod{n}
   \end{equation*}
   holds if and only if $n$ is odd.
+  \exercise
+  \begin{subexenum}
+  \item Consider a prime $p$ and an integer $p\nmid a$. Show that
+    \begin{equation*}
+      a^p\equiv a\pmod{p^2}\qquad\Leftrightarrow \qquad a^{p^2}\equiv a\pmod{p^2}.
+    \end{equation*}
+  \item A prime satisfying $a^p\equiv a\pmod{p^2}$ is called a \emph{Wieferich prime base $a$}. Wieferich encountered this condition by showing that if $x^p+y^p=z^p$ with $p\nmid xyz$, then $p$ must be a Wieferich prime base $2$ \cite{wieferich1909}. The only known Wieferich primes base $2$ are $p=1093$ and $p=3511$, and there are no smaller Wieferich primes base $2$.
+    
+    In bases larger than $2$ there are smaller Wieferich primes, although they are still rare. The only known Wieferich primes base $3$ are $p=11$ and $p=1006003$. Show that $5$ is a Wieferich prime base $32$.
+  \end{subexenum}
 \end{routine}
 
 \begin{challenge}
@@ -605,15 +600,18 @@ The techniques of proving Dirichlet's Theorem are beyond the scope of this cours
     k\mapsto f^k(p)
   \end{equation*}
   obtained by iterating the function $f$, contains composite numbers.
-  \exercise
+  \exercise \label{exercise:prime-divisors-feit-thompson-conjecture}
   \begin{subexenum}
-  \item Consider a prime $p$ and an integer $p\nmid a$. Show that
+  \item Consider an odd prime $q$. Show that the numbers
     \begin{equation*}
-      a^p\equiv a\pmod{p^2}\qquad\Leftrightarrow \qquad a^{p^2}\equiv a\pmod{p^2}.
+      2^q-1 \qquad\text{and}\qquad q+1.
     \end{equation*}
-  \item A prime satisfying $a^p\equiv a\pmod{p^2}$ is called a \emph{Wieferich prime base $a$}. Wieferich encountered this condition by showing that if $x^p+y^p=z^p$ with $p\nmid xyz$, then $p$ must be a Wieferich prime base $2$ \cite{wieferich1909}. The only known Wieferich primes base $2$ are $p=1093$ and $p=3511$, and there are no smaller Wieferich primes base $2$.
-    
-    In bases larger than $2$ there are smaller Wieferich primes, although they are still rare. The only known Wieferich primes base $3$ are $p=11$ and $p=1006003$. Show that $5$ is a Wieferich prime base $32$.
+    are relatively prime.
+  \item Consider two distinct primes $p$ and $q$, and let $r$ be a common prime divisor of the numbers
+  \begin{equation*}
+    \frac{p^q-1}{p-1}\qquad\text{and}\qquad\frac{q^p-1}{q-1}.
+  \end{equation*}
+  Show that $r\equiv 1\pmod{2pq}$.  
   \end{subexenum}
 \end{challenge}
 
