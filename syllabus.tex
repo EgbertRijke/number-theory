@@ -1,0 +1,274 @@
+\documentclass{article}
+
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage[colorlinks=true]{hyperref}
+
+\title{Elementary Number Theory}
+\author{Egbert Rijke}
+
+\begin{document}
+\maketitle
+
+\section*{Course information}
+\begin{itemize}[label={},left=0pt, itemindent=0pt]
+\item \emph{Course title:} Elementary Number Theory
+\item \emph{Course number:} 304
+\item \emph{Instructor:} Egbert Rijke
+\item \emph{Teaching Assistant:} Yashi Jain
+\item \emph{Lectures:} Tuesday/Thursday 9:00-10:15AM
+\item \emph{Section:} Friday 9:00-9:50AM
+\item \emph{Office hours:} Wednesday 12:00-1:30PM or on request
+\item \emph{Weekly homework due:} Friday 9:00AM
+\item \emph{Contact information:} \href{mailto:erijke1@jh.edu}{erijke1@jh.edu}
+\end{itemize}
+
+\section*{Objective}
+
+The main purpose of this course is to learn how to answer mathematical questions about whole numbers, integers, and occasionally rational numbers. To this end, the student learns the fundamental methods of proof, such as proofs by mathematical induction, unique existence proofs, counting with bijections, the well-ordering theorem, proofs by contradiction, Fermat's method of infinite descent, Vieta jumping, the lifting-the-exponent lemma, and so on. The course will cover the central theorems of number theory, such as the Euclidean division theorem, the Chinese remainder theorem, the fundamental theorem of arithmetic, Fermat's little theorem, Euler's theorem, Wilson's theorem, Fermat's two-squares theorem, Lagrange's theorem, Euler's criterion, and the law of quadratic reciprocity. Historical anecdotes will be used to give context to the concepts, methods, and theorems. After successfully completing the course, the student will be able to write mathematical proofs with clarity, and solve selected challenge problems, including problems from mathematical contests such as the International Mathematical Olympiad.
+
+\section*{Important Dates}
+\begin{itemize}
+\item First lecture: August 26th.
+\item First midterm: Friday September 26th
+\item Fall break: 16-17 October
+\item Second midterm: November 7th
+\item Thanksgiving break: 24-28 November
+\item Final lecture: December 2nd
+\item Final exam: December 4th, 9-10:15AM.
+\end{itemize}
+
+\begin{enumerate}
+\item Midterm $1$ covers mathematical induction, counting with finite sets, the integers, Euclidean division, the representability theorem, divisibility, greatest common divisors, Euclid's algorithm, rational numbers, finite continued fractions, Pythagorean triples, infinite descent.
+\item Midterm $2$ covers congruences, the Chinese remainder theorem, prime numbers, Legendre's formula, Kummer's theorem, arithmetic functions, Fermat's little theorem, Euler's theorem, Wilson's theorem, Lucas's theorem, the quadratic character of $-1$, Fermat's two-square theorem.
+\item The final exam covers the entire course, including polynomials, polynomial congruences, primitive roots, quadratic residues, and quadratic reciprocity.
+\end{enumerate}
+
+\section*{Course materials}
+
+Course notes will be distributed by the instructor. Additionally, students might find it beneficial to use a textbook. We recommend Silverman's \emph{A Friendly Introduction to Number Theory}. 
+
+\section*{Office hours}
+
+Office hours are held on Wednesdays 12:00-1:30PM. You can make use of the office hours in any way you want, as long as it is related to the course: simply come hang out, bring your laptop, do your homework which is due the next day, ask a question, meet the instructor, get a coffee, and so on. We're here to help you and to set you up for success!
+
+\section*{Assignments and grading}
+
+\subsection*{Homework}
+
+Weekly homework is due on Fridays at 9:00AM. Homework can be handed in during the Wednesday lecture. You will receive your graded homework back on Wednesday 7 days after the original deadline. Your best 10 homework sets will count towards your grade.
+
+\emph{Extension policy:} If you need a little extra time to complete your homework you can request 48h extensions. To do so, send an email to the instructor before the original deadline. If for any reason you need a longer extension, contact Egbert and we will consider your request on a case-by-case basis.
+
+\section*{Grading}
+The course grade will be determined as follows:
+
+\begin{itemize}
+    \item Homework: 60\%
+    \item Each exam (two midterms and final): 15\% each
+\end{itemize}
+
+This adds up to a total of 105\%, allowing students the opportunity to earn extra credit. The grading scale is as follows:
+
+\begin{itemize}
+    \item $>100\%$: A+
+    \item $90$--$100\%$: A
+    \item $80$--$90\%$: B
+    \item $70$--$80\%$: C
+    \item $60$--$70\%$: D
+    \item $<60\%$: F
+\end{itemize}
+
+If the median score for the class falls below a B, grades may be curved so that the median corresponds to a B. Any adjustments will be made consistently for all students.
+
+\section{Topics per Lecture}
+
+\begingroup
+\setlist[enumerate,1]{label=\textup{\arabic*.}}
+\setlist[enumerate,2]{label=\textup{\roman*.}}
+\setlist[enumerate,3]{label=\textup{\alph*.}}
+\begin{enumerate}
+\item Introduction.
+  \begin{enumerate}
+  \item What is number theory about?
+  \item Some history
+  \item What are numbers?
+  \item Reasoning by induction
+  \end{enumerate}
+\item Counting
+  \begin{enumerate}
+  \item Bijections (Hume's Principle)
+  \item Counting bijections
+  \item Counting subsets
+  \item The Binomial Theorem
+  \end{enumerate}
+\item The Integers
+  \begin{enumerate}
+  \item What are the integers
+  \item Definitions of the integers
+  \item Reasoning with the integers
+  \end{enumerate}
+\item Euclidean Division
+  \begin{enumerate}
+  \item The well-ordering principle
+  \item The Euclidean division theorem
+  \item The representability theorem (writing numbers in any base)
+  \end{enumerate}
+\item Linear Diophantine equations
+  \begin{enumerate}
+  \item Divisibility
+  \item The greatest common divisor
+  \item Euclid's algorithm
+  \item Solving linear diophantine equations in multiple variables
+  \end{enumerate}
+\item The rational numbers
+  \begin{enumerate}
+  \item Integer fractions
+  \item Irrationality of square roots
+  \item Continued fractiosn
+  \item Farey's series
+  \end{enumerate}
+\item Pythagorean triples
+  \begin{enumerate}
+  \item The Pythagorean theorem
+  \item Euclid's parametrization
+  \item Rational points on the unit circle
+  \item Optional topics:
+    \begin{enumerate}
+    \item The tree of pythagorean triples
+    \item Squares in arithmetic progressions, in bijection to pythagorean triples
+    \end{enumerate}
+  \end{enumerate}
+\item Infinite descent
+  \begin{enumerate}
+  \item An explanation of the method
+  \item The area of a pythagorean triangle is not a perfect square
+  \item Fermat's proof that $x^4+y^4\neq z^4$.
+  \item Vieta jumping
+  \item Optional topics:
+    \begin{enumerate}
+    \item The nonexistence of four squares in an arithmetic progression
+    \item The congruent number problem
+    \end{enumerate}
+  \end{enumerate}
+\item Modular arithmetic
+  \begin{enumerate}
+  \item The congruence relations
+  \item Equivalence relations
+  \item The integers modulo $n$
+  \item Periodicity of the decimal representation of rational numbers
+  \item Multiplicative orders
+  \end{enumerate}
+\item Systems of linear congruences
+  \begin{enumerate}
+  \item Solving linear congruences
+  \item The Chinese remainder theorem
+  \end{enumerate}
+\item Prime numbers
+  \begin{enumerate}
+  \item The sieve of Eratosthenes
+  \item The fundamental theorem of arithmetic
+  \item The infinitude of primes
+  \item Fermat numbers and Goldbach's theorem
+  \item Legendre's theorem
+  \item Optional topics:
+    \begin{enumerate}
+    \item Kummer's theorem
+    \item Bertrand's postulate
+    \end{enumerate}
+  \end{enumerate}
+\item Multiplicative functions
+  \begin{enumerate}
+  \item Perfect numbers (intro to multiplicative functions)
+  \item Euler's totient function
+  \item General multiplicative functions
+  \item The M\"obius function
+  \item Dirichlet convolution
+  \item M\"obius inversion
+  \end{enumerate}
+\item Optional: Strong divisibility sequences
+  \begin{enumerate}
+  \item Lucas sequences
+  \item The rank of apparition
+  \item The law of repetition/The Lifting the Exponent Lemma
+  \end{enumerate}
+\item Fermat's Little Theorem
+  \begin{enumerate}
+  \item Fermat's Little Theorem
+  \item Euler's Theorem
+  \item Wilson's Theorem
+  \item Lucas's Theorem on binomial coefficients modulo a prime
+  \item The quadratic character of $-1$.
+  \end{enumerate}
+\item Fermat's Two-Squares theorem
+  \begin{enumerate}
+  \item Geometric interpretation of the problem
+  \item Proof via Thue's Lemma (most direct)
+  \item Euler's proof by infinite descent
+  \end{enumerate}
+\item Gaussian integers
+  \begin{enumerate}
+  \item Basic properties
+  \item Euclidean division of Gaussian integers
+  \item Greatest common divisors
+  \item Primes in the Gaussian integers
+  \item Fermat's two-squares theorem
+  \end{enumerate}
+\item Polynomials
+  \begin{enumerate}
+  \item The factor theorem
+  \item Lagrange's interpolation theorem
+  \item Euclid's algorithm for polynomials
+  \item Optional topics:
+    \begin{enumerate}
+    \item Hensel's fixed divisor theorem
+    \item Irreducibility of polynomials
+    \end{enumerate}
+  \end{enumerate}
+\item Polynomial congruences
+  \begin{enumerate}
+  \item The factor theorem modulo a prime
+  \item Lagrange's theorem for polynomial congruences modulo a prime
+  \item Optional topics:
+    \begin{enumerate}
+    \item Elementary symmetric polynomials
+    \item Hensel's lemma
+    \end{enumerate}
+  \end{enumerate}
+\item Primitive roots
+  \begin{enumerate}
+  \item Counting elements by their orders
+  \item A number $n$ has primitive roots if and only if $x^d\equiv 1\pmod{n}$ has at most $d$ solutions
+  \item The discrete logarithm
+  \item Solving congruences if you know a primitive root
+  \end{enumerate}
+\item Moduli with primitive roots
+  \begin{enumerate}
+  \item Odd prime powers have primitive roots
+  \item Full characterization of moduli with primitive roots
+  \end{enumerate}
+\item Quadratic residues
+  \begin{enumerate}
+  \item Solvability of quadratic congruences
+  \item Legendre symbols
+  \item Euler's criterion
+  \item Optional: Euler's prime-generating polynomial
+  \end{enumerate}
+\item Quadratic reciprocity
+  \begin{enumerate}
+  \item The quadratic character of $2$
+  \item The statement of quadratic reciprocity
+  \item Gauss's Lemma
+  \item Eisenstein's proof
+  \end{enumerate}
+\item Primality testing
+  \begin{enumerate}
+  \item P\'epin's primality test for the Fermat numbers
+  \item The Carmichael numbers
+  \item The Lucas--Lehmer primality test
+  \end{enumerate}
+\end{enumerate}
+\endgroup
+
+\end{document}
