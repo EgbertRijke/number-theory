@@ -86,7 +86,8 @@ The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct pro
 
 \end{tikzpicture}%
 }
-\caption[The sieve of Eratosthenes]{\label{figure:sieve-of-eratosthenes}The sieve of Eratosthenes up to 1050: The number 1 and every composite number are marked in black, leaving just the primes in white circles.}
+\caption[The sieve of Eratosthenes]{The sieve of Eratosthenes up to 1050: The number 1 and every composite number are marked in black, leaving just the primes in white circles.}
+\label{figure:sieve-of-eratosthenes}
 \end{figure}
 
 The sieve of Eratosthenes is an iterative process that generates at stage $n$ a set $P_n$ of numbers known to be prime at stage $n$, and a set $Q_n$ of prime candidates. In other words, the sets $P_n$ form an increasing sequence
@@ -372,7 +373,8 @@ The stars-and-bars problem asks in how many ways it is possible to place $n-1$ b
     % box around config 4
     \draw[thick] (0.5,-4) rectangle (11.5,-5);
   \end{tikzpicture}  
-  \caption[Example configurations of stars and bars]{\label{figure:stars-and-bars}Four example configurations with five stars and three bars.}
+  \caption[Example configurations of stars and bars]{Four example configurations with five stars and three bars.}
+  \label{figure:stars-and-bars}
 \end{figure}
 
 The stars-and-bars problem admits several equivalent formulations. For example, the stars-and-bars problem is equivalently posed by asking in how many ways one can place $k$ indistinguishable balls in $n$ distinguishable boxes. It is also equivalent to the problem of writing $k$ as an ordered sum of $n$ natural numbers. The four example configurations of \cref{figure:stars-and-bars} correspond to writing $5=0+3+2+0$, $5=1+3+1+0$, $5=2+0+2+1$, and $5=0+2+2+1$. Making use of the \crefnamed{theorem:fundamental-theorem-of-arithmetic}{Fundamental Theorem of Arithmetic}, we find yet another equivalent way of formulating the stars-and-bars problem: Given a set $p_1,\ldots,p_{n}$ primes, how many natural numbers are there of the form
@@ -527,29 +529,27 @@ In some cases we can give precise expressions of the prime factorization of a nu
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[x=0.9cm, y=0.9cm]
+    \def\N{15}
+    \pgfmathtruncatemacro{\Kmax}{floor(ln(\N)/ln(2))}
     
-    \def\N{15} % up to which x we draw
-    \pgfmathtruncatemacro{\Kmax}{floor(ln(\N)/ln(2))} % = floor(log2(N))
-    % axes
     \draw[->] (0,0) -- (15.5,0) node[below right] {$x$};
     \draw[->] (0,0) -- (0,3.5) node[left] {$v_2(x)$};
     
-    % y tick labels
     \foreach \y in {1,2,3} {\node[left] at (0,\y-.5) {\small{\y}};}
     \foreach \x in {1,...,\N} {\node[below] at (\x-.5,0) {\small{\x}};}
 
     \foreach \k in {1,...,\Kmax} {
-      \pgfmathtruncatemacro{\exp}{int(2^(\k))}          % exp = 2^k
-      \pgfmathtruncatemacro{\bound}{int(\N/\exp)}       % how many multiples fit in 1..N
+      \pgfmathtruncatemacro{\exp}{int(2^(\k))}
+      \pgfmathtruncatemacro{\bound}{int(\N/\exp)}
       \foreach \i in {1,...,\bound} {
-        \pgfmathtruncatemacro{\x}{int(\i*\exp)}         % x = i * 2^k
+        \pgfmathtruncatemacro{\x}{int(\i*\exp)}
         \path[draw=CornflowerBlue,fill=CornflowerBlue!30,thick] (\x-1,\k-1) rectangle (\x,\k);
       }
     }
-  
-      \end{tikzpicture}
-  \caption{\label{figure:2-adic-valuation}The $2$-adic valuations of the numbers up to $15$.}
-  
+    
+  \end{tikzpicture}
+  \caption[The $2$-adic valuations of the numbers up to $15$]{The $2$-adic valuations of the numbers up to $15$.}
+  \label{figure:2-adic-valuation}
 \end{figure}
 
 In other words, the $p$-adic valuation of $n$ is the exponent of $p$ in the prime factorization of $n$. For example, the $2$-adic valuation of $24$ is $\nu_2(24)=3$ because the exponent of $2$ in $24=2^3\cdot 3$ is $3$, and its $3$-adic valuation is $\nu_3(24)=1$ because the exponent of $3$ in $2^3\cdot 3$ is $1$. On the other hand, the $5$-adic valuation of $24$ is $\nu_5(24)=0$ since $24$ is not divisible by $5$. The $2$-adic valuations of the numbers up to $15$ are displayed in \cref{figure:2-adic-valuation}.

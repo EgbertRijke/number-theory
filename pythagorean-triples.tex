@@ -265,7 +265,7 @@ The trivial solutions are $(0,1,1)$ and $(1,0,1)$. The simplest nontrivial solut
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.68\textwidth]{Plimpton_322.jpg}
-  \caption[The Babylonian tablet Plimpton 322]{The Babylonian tablet Plimpton 322, listing Pythagorean triples. }
+  \caption[The Babylonian tablet Plimpton 322]{The Babylonian tablet Plimpton 322, listing Pythagorean triples.}
   \label{fig:plimpton322}
 \end{figure}
 The triangle with side lengths $3$ and $4$ and a hypotenuse of length $5$ is sometimes called the \emph{Egyptian triangle}, since it is believed that the ancient Egyptians used this triangle for practical applications. Some further Pythagorean triples include
@@ -409,6 +409,26 @@ When both coordinates $x$ and $y$ are rational numbers, we say that $(x,y)$ is a
 \end{equation*}
 which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)$ is a primitive Pythagorean triple, then $(\frac{a}{c},\frac{b}{c})$ is a rational point on the unit circle. We will show that \emph{every} rational point on the unit circle arises in this way.
 
+\begin{theorem}\label{theorem:correspondence-rational-points-unit-circle}
+  There is a bijection between the set of primitive Pythagorean triples $(a,b,c)$, where we allow $a$ and $b$ to be negative, and rational points on the unit circle.
+\end{theorem}
+
+\begin{proof}
+  We begin by observing that the map
+  \begin{equation*}
+    (a,b,c)\mapsto \left(\frac{a}{c},\frac{b}{c}\right)
+  \end{equation*}
+  is injective, so it suffices to show that it is surjective, meaning that every rational point on the unit circle is of this form. We first claim that if $(x,y)$ is a rational point on the unit circle with $x=\frac{a}{c}$ and $y=\frac{b}{d}$ in lowest terms, then we must have $c=d$. This is a special case of \cref{exercise:equal-denominators-rational-point-on-form}, so the reader who has already solved that exercise may skip ahead.
+
+  The equation $x^2+y^2=1$ can be rearranged to the equation
+  \begin{equation*}
+    a^2d^2+b^2c^2=c^2d^2.
+  \end{equation*}
+  It follows that $c^2\mid a^2d^2$ and $d^2\mid b^2c^2$. However, since $\gcd(a,c)=1$ and $\gcd(b,d)=1$, we conclude that $c^2\mid d^2$ and $d^2\mid c^2$, which implies the claim.
+
+  To finish the proof, observe that if $(x,y)$ is a rational point on the unit circle with $x=\frac{a}{c}$ and $y=\frac{b}{d}$, so that $c=d$ by the claim, then if follows that $(a,b,c)$ is a primitive Pythagorean triple.
+\end{proof}
+
 \begin{figure}[t]
   \begin{center}
     \begin{tikzpicture}[scale=4]
@@ -438,7 +458,8 @@ which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see 
       \node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1ex,yshift=-2ex] at (P3) {$\textstyle{y=m(x+1)}$};
     \end{tikzpicture}
   \end{center}
-  \caption[Rational points on the unit circle]{\label{figure:rational-points-unit-circle}A point $(x,y)$ on the unit circle is rational if and only if the line through $(-1,0)$ and $(x,y)$ has a rational slope.}
+  \caption[Rational points on the unit circle]{A point $(x,y)$ on the unit circle is rational if and only if the line through $(-1,0)$ and $(x,y)$ has a rational slope.}
+  \label{figure:rational-points-unit-circle}
 \end{figure}
 
 In order to prove that all rational points on the unit circle are determined by primitive Pythagorean triples, we need a systematic way of studying the rational points on the unit circle. A standard way to classify all (rational) points on the unit circle is to parametrize them using a single parameter. We will use a parametrization called the \emph{stereographic projection}. This starts with a single rational point on the unit circle, in our case we start with the point $(-1,0)$. Then we consider all the lines through this point with a rational slope. Surely, if $(x,y)$ is a rational point on the circle, then the line through $(-1,0)$ and $(x,y)$ will have a rational slope. The question that thus arises is: Does every line through $(-1,0)$ with a rational slope intersect the unit circle in a rational point?
@@ -489,34 +510,6 @@ A corollary of the previous theorem is that if $B$ and $C$ are rational numbers 
   \end{equation*}
 
   For the final claim, it is clear that if $m \in \mathbb{Q}$, then both $x$ and $y$ are rational numbers. Conversely, if $(x,y)$ is a rational point on the unit circle distinct from $(-1,0)$, then we have $-1<x\leq 1$ and $m = \frac{y}{x+1}$, which is a quotient of rational numbers and thus rational.
-\end{proof}
-
-\begin{theorem}\label{theorem:correspondence-rational-points-unit-circle}
-  The map
-  \begin{equation*}
-    (a,b,c)\mapsto \left(\frac{a}{c},\frac{b}{c}\right)
-  \end{equation*}
-  from primitive Pythagorean triples $(a,b,c)$, where $a,b\in\mathbb{Z}$ are allowed to be negative and $c>0$, to the rational points on the unit circle is a bijection.
-\end{theorem}
-
-\begin{proof}
-  Since we require $c>0$, the assumption that $\gcd(a,b,c)=1$ implies that if $(\frac{a}{c},\frac{b}{c})=(\frac{a'}{c'},\frac{b'}{c'})$, then we must have $c=c'$ and consequently $a=a'$ and $b=b'$, so it follows immediately that the map $(a,b,c)\mapsto(\frac{a}{c},\frac{b}{c})$ is injective. Therefore, it it suffices to show that it is surjective.
-  
-  Consider a rational point $(x,y)$ on the unit circle. If $(x,y)=(-1,0)$, then the unique primitive Pythagorean triple corresponding to $(x,y)$ is $(-1,0,1)$. It remains to show that if $(x,y)\neq (-1,0)$, then there exists a primitive Pythagorean triple $(a,b,c)$ such that $x=\frac{a}{c}$ and $y=\frac{b}{c}$.
-
-  By the previous theorem, it follows that $(x,y)$ is of the form
-  \begin{equation*}
-    \left(\frac{1-m^2}{1+m^2},\frac{2m}{1+m^2}\right),
-  \end{equation*}
-  where $m$ is a rational number. Writing $m$ as the integer fraction $\frac{s}{t}$, which we assume to be in lowest terms, we have
-  \begin{equation*}
-    x=\frac{t^2-s^2}{t^2+s^2}\qquad\text{and}\qquad y = \frac{2st}{t^2+s^2}.
-  \end{equation*}
-  The triple $(a,b,c)$ given by $a:=t^2-s^2$, $b:=2st$, and $c:=t^2+s^2$ describes a Pythagorean triple, since the equation
-  \begin{equation*}
-    (t^2-s^2)^2+(2st)^2 = (t^2+s^2)^2
-  \end{equation*}
-  holds. Note that this Pythagorean triple is not necessarily primitive. For instance, when both $s$ and $t$ are odd, then $a$, $b$, and $c$ are all divisible by $2$. Nevertheless, by reducing this triple to a primitive triple if necessary, we obtain a primitive Pythagorean triple whose corresponding point on the unit circle is $(x,y)$.
 \end{proof}
 
 \section{The Tree of Primitive Pythagorean Triples}\label{section:tree-of-pythagorean-triples}
@@ -577,7 +570,7 @@ To rediscover Berggren's matrices and his ternary tree, we will use the techniqu
   \begin{equation*}
     t^2 + \frac{2vm - 2um^2}{1+m^2}t + \frac{(mu-v)^2 -1}{1+m^2}=0.
   \end{equation*}
-  We have thus reached a quadratic equation of the form $t^2+Bt+C$, which has by assumption one rational solution at $t=x$. Thus we obtain from \cref{theorem:vieta-formulas-quadratic} a second rational solution $x'$ satisfying the relation
+  We have thus reached a quadratic equation of the form $t^2+Bt+C$, which has by assumption one rational solution at $t=x$. It follows from \cref{theorem:vieta-formulas-quadratic} that the second solution $x'$ satisfies the Vieta relation
   \begin{equation*}
     xx' = \frac{(mu-v)^2 -1}{1+m^2}.\qedhere
   \end{equation*}
@@ -625,7 +618,8 @@ To rediscover Berggren's matrices and his ternary tree, we will use the techniqu
       
     \end{tikzpicture}
   \end{center}
-  \caption[Vieta jumps between rational points on the unit circle]{\label{figure:vieta-jumps-pythagorean-triples}For any rational point $(x,y)$ on the unit circle apart from $(0,\pm1)$ and $(\pm1,0)$, draw a straight line through it from the outer corner of its quadrant to find a new rational point $(x',y')$ on the unit circle. The common denominator of the fractions $x'$ and $y'$, when brought to lowest terms, is strictly smaller than that of $x$ and $y$, so that this process eventually terminates at $(0,\pm1)$ or $(\pm1,0)$.}
+  \caption[Vieta jumps between rational points on the unit circle]{For any rational point $(x,y)$ on the unit circle apart from $(0,\pm1)$ and $(\pm1,0)$, draw a straight line through it from the outer corner of its quadrant to find a new rational point $(x',y')$ on the unit circle. The common denominator of the fractions $x'$ and $y'$, when brought to lowest terms, is strictly smaller than that of $x$ and $y$, so that this process eventually terminates at $(0,\pm1)$ or $(\pm1,0)$.}
+  \label{figure:vieta-jumps-pythagorean-triples}
 \end{figure}
 
 By making a suitable choice for the rational point $(u,v)$, the previous theorem can be used to find, for each rational point $(x,y)$ on the unit circle corresponding to a primitive Pythagorean triple $(a,b,c)$ with $0<c$, which we assume to be nontrivial in the sense that $ab\neq 0$, a new rational point $(x',y')$ on the unit circle corresponding to a primitive Pythagorean triple $(a',b',c')$ satisfying $0<c'<c$. Intuitively, we will find a procedure to step from a primitive Pythagorean triple to a new Pythagorean triple with a smaller hypotenuse.
@@ -800,7 +794,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \end{tikzpicture}
 
   \endgroup
-  \caption{A forest.}
+  \caption[A forest]{A forest.}
   \label{figure:forest}
 \end{figure}
 
@@ -862,7 +856,8 @@ Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of h
       
     \end{tikzpicture}
   \end{center}
-  \caption[The forest of rational points on the unit circle]{\label{figure:forest-rational-points-unit-circle}Each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$ is the target of a Vieta jump from three rational points on the unit circle with larger common denominator, one for each quadrant other than its own. Here, the purple, green, and orange jumps are drawn exactly as in \cref{figure:vieta-jumps-pythagorean-triples}. The point $(\frac{45}{53},\frac{-28}{53})$ is the target of three jumps, each drawn in blue. Since each rational point is the target of three Vieta jumps that decrease the common denominator, we see that the rational points on the unit circle can be organized in a forest consisting of four trees, where the four nodes at height $0$ are the points $(\pm 1,0)$ and $(0,\pm 1)$.}
+  \caption[The forest of rational points on the unit circle]{Each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$ is the target of a Vieta jump from three rational points on the unit circle with larger common denominator, one for each quadrant other than its own. Here, the purple, green, and orange jumps are drawn exactly as in \cref{figure:vieta-jumps-pythagorean-triples}. The point $(\frac{45}{53},\frac{-28}{53})$ is the target of three jumps, each drawn in blue. Since each rational point is the target of three Vieta jumps that decrease the common denominator, we see that the rational points on the unit circle can be organized in a forest consisting of four trees, where the four nodes at height $0$ are the points $(\pm 1,0)$ and $(0,\pm 1)$.}
+  \label{figure:forest-rational-points-unit-circle}
 \end{figure}
 
 \begin{example}[The forest of rational points on the unit circle]
@@ -1180,8 +1175,8 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
       \end{scope}
     \end{tikzpicture}
   }
-  \caption[Differences of squares congruent to $1$ modulo $24$]{\label{figure:quotients-of-differences-of-squares}The numbers in squares at the base of the grid are the numbers of the form $6m\pm 1$, which correspond exactly to all the numbers $n$ such that $n^2-1$ is divisible by $24$. If $x$ and $y$ are two numbers in squares at the base of the grid, then the number $k$ at the apex of the triangle spanned by $x$ and $y$ satisfies $y^2-x^2=k\cdot 24$. For each primitive arithmetic triple $(x^2,y^2,z^2)$ of squares, the apex of the triangle spanned by $x$ and $y$ is marked in blue, and the apex of the triangle spanned by $y$ and $z$ is marked in orange.
-  }
+  \caption[Differences of squares congruent to $1$ modulo $24$]{The numbers in squares at the base of the grid are the numbers of the form $6m\pm 1$, which correspond exactly to all the numbers $n$ such that $n^2-1$ is divisible by $24$. If $x$ and $y$ are two numbers in squares at the base of the grid, then the number $k$ at the apex of the triangle spanned by $x$ and $y$ satisfies $y^2-x^2=k\cdot 24$. For each primitive arithmetic triple $(x^2,y^2,z^2)$ of squares, the apex of the triangle spanned by $x$ and $y$ is marked in blue, and the apex of the triangle spanned by $y$ and $z$ is marked in orange.}
+  \label{figure:quotients-of-differences-of-squares}
 \end{figure}
 
 The fact that the congruum in an arithmetic triple of squares is always a multiple of $24$ implies that primitive arithmetic triples of squares consist entirely of integers of the form $(6m\pm 1)^2$. Any such square exceeds a multiple of $24$ by one. This significantly reduces the search space for arithmetic triples of squares. If $a_n$ is the $n$th positive integer of the form $(6k\pm 1)^2$, then

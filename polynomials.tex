@@ -525,6 +525,14 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
 
 \exercises
 
+\begin{starter}
+  \exercise Find two integers $a$ and $b$ such that
+  \begin{equation*}
+    a+b=150\qquad\text{and}\qquad ab=2025.
+  \end{equation*}
+  Hint: To avoid guessing, use that $a$ and $b$ are roots of the polynomial $x^2-(a+b)x+ab$ by Vieta's relations.
+\end{starter}
+
 \begin{routine}
   \exercise Show that $x^{13}-x$ has fixed divisor
   \begin{equation*}
@@ -535,6 +543,23 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
     a_nx^n+\cdots a_1x+a_0=0
   \end{equation*}
   with integer coefficients has a rational solution $x_0=\frac{s}{t}$ with $\gcd(s,t)=1$, then $s\mid a_0$ and $t\mid a_n$. Conclude that if the polynomial is monic, meaning that $a_n=1$, then any rational root is an integer. Also conclude that $\sqrt[3]{7}$ is irrational.
+  \exercise
+  \begin{subexenum}
+  \item (Sophie Germain's identity) Write
+    \begin{equation*}
+      x^4+4y^4
+    \end{equation*}
+    as a difference of two squares.
+  \item Compute the fixed divisor of the polynomial $f(x)=x^4+4$.
+  \item Compute the polynomial $g(x)=\gcd(x^4+4,(x+2)^4+4)$, and show that $g(x)>1$ for every integer $x$.
+  \end{subexenum}
+  \exercise (Gauss's Gem) Write
+  \begin{equation*}
+    f(x,y,z):=x^3+y^3+z^3-3xyz
+  \end{equation*}
+  in the form $\frac{1}{2}d(a^2+b^2+c^2)$ for some quadruple of integers $a,b,c,d$ depending on $x$, $y$, and $z$. Hint: For $x+y+z=0$, evaluate $f(x,y,z)$.
+  % x^3+y^3+z^3-3xyz = \frac{1}{2}(x+y+z)((x-y)^2+(x-z)^2+(y-z)^2)
+  % (x-1)^3+x^3+(x+1)^3-3(x-1)x(x+1) = 9x
 \end{routine}
 
 %%% Local Variables:

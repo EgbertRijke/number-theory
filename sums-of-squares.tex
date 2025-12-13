@@ -204,8 +204,9 @@ We have thus reduced the Two-Squares Theorem to the following statement: Every p
       (\angle-6:\radius)
       arc[start angle=\angle-6, delta angle=-360/\n+12, radius=\radius];
     }
-\end{tikzpicture}  
-  \caption[Thue's Lemma]{\label{figure:multiples-of-7}By Thue's lemma, in any set of $m$ multiples $\{a,2a,\ldots,ma\}$ modulo any prime $p$, there is one multiple whose cyclic distance to $0$ does not exceed $\frac{p}{m+1}$. Here we see that there is a number of the form $k\cdot 7$, for $1\leq k\leq 4$, whose cyclic distance to $0$ is $3$, which is indeed below $\frac{17}{5}$.}
+  \end{tikzpicture}  
+  \caption[Thue's Lemma]{By Thue's lemma, in any set of $m$ multiples $\{a,2a,\ldots,ma\}$ modulo any prime $p$, there is one multiple whose cyclic distance to $0$ does not exceed $\frac{p}{m+1}$. Here we see that there is a number of the form $k\cdot 7$, for $1\leq k\leq 4$, whose cyclic distance to $0$ is $3$, which is indeed below $\frac{17}{5}$.}
+  \label{figure:multiples-of-7}
 \end{figure}
 
 In order to prove this claim, suppose that $a^2\equiv -1\pmod{p}$. Such a solution indeed exists, since $p\equiv 1\pmod{4}$. We will now analyze the multiples of $a$
@@ -286,6 +287,26 @@ Euler proved that every prime $p\equiv 1\pmod{4}$ can be written as a sum of two
 
 \begin{noteblock}
 \section{Zagier's Proof Using Fixed Points of Involutions}
+
+\section{Aubry's Theorem}
+
+\begin{theorem}
+  For any natural number $n$, the following are equivalent:
+  \begin{enumerate}
+  \item There are rational numbers $x$ and $y$ such that
+    \begin{equation*}
+      x^2+y^2=n.
+    \end{equation*}
+  \item There are integers $a$ and $b$ such that
+    \begin{equation*}
+      a^2+b^2=n.
+    \end{equation*}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Consider two rational numbers $x=\frac{a}{c}$ and $y=\frac{b}{d}$ written in lowest terms, such that $x^2+y^2=n$, which 
+\end{proof}
 
 \section{The Method of Brillhart--Hermite--Serret}
 

@@ -97,8 +97,8 @@
   every picture/.append style={line cap=round, line join=round}
 }
 
-% \title{Foundational Studies in Arithmetic}
-\title{Lectures on Elementary Number Theory}
+% \title{Number Theory: A Narrative}
+\title{Elementary Number Theory}
 \author{Egbert Rijke}
 \date{\today}
 
@@ -112,7 +112,7 @@
   filecolor=grayblue,
   urlcolor=grayblue,
   citecolor=grayblue,
-  pdftitle={Lecture notes on Number Theory},
+  pdftitle={Elementary Number Theory},
   pdfpagemode=FullScreen,
 }
 
@@ -313,8 +313,8 @@
 }
 
 \newif\ifshownotes
-% \shownotestrue     % => show notes
-\shownotesfalse      % => ignore notes
+\shownotestrue     % => show notes
+% \shownotesfalse      % => ignore notes
 
 \usepackage{environ}
 \NewEnviron{noteblock}{%
@@ -369,6 +369,41 @@
     {\LARGE\textit{Fall 2025}}
   \end{center}
 \end{titlepage}
+
+% \begin{titlepage}
+%   \begin{center}
+%     {\Huge\textbf{Number Theory}} \\[1cm]
+%     {\LARGE A Narrative}\\[1cm]
+
+%     \begin{tikzpicture}[scale=5]
+%       \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
+%       \draw[ultra thick] (0,0) circle (1);
+%       \coordinate (P1) at ({117/125},{44/125});
+%       \coordinate (P2) at ({45/53},{-28/53});
+%       \coordinate (P3) at ({5/13},{12/13});
+%       \coordinate (P4) at ({-3/5},{4/5});
+
+%       \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
+%       \draw[CornflowerBlue,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
+%       \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
+%       \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
+%       \draw[Green,ultra thick,dashed] (1,1) -- (P3);
+%       \draw[Green,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
+%       \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
+%       \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
+%       \draw[fill=white,very thick] (P1) circle (.5pt);
+%       \draw[fill=white,very thick] (P2) circle (.5pt);
+%       \draw[fill=white,very thick] (P3) circle (.5pt); 
+%       \draw[fill=white,very thick] (P4) circle (.5pt);
+%       \draw[fill=black,very thick] (1,0) circle (.5pt);
+%     \end{tikzpicture}
+    
+%     \vspace{1cm}
+
+%     {\Huge \textbf{Egbert Rijke}} \\[1cm]
+%     {\Large\textit{Based on a course taught at Johns Hopkins University}}
+%   \end{center}
+% \end{titlepage}
 \endgroup
 
 \cleardoublepage
@@ -389,8 +424,6 @@
 
 \note{\listoftables}
 
-\input{course-information}
-
 \input{introduction}
 
 \mainmatter
@@ -403,9 +436,9 @@
 
 \input{integers}
 
-\part{From the Ancients to Fermat}
-
 \input{euclidean-division}
+
+\part{The Geometry of Numbers}
 
 \input{linear-diophantine-equations}
 
@@ -415,9 +448,11 @@
 
 \input{infinite-descent}
 
-\part{Congruences}
+\note{\input{geometric-number-theory}}
 
-\input{modular-arithmetic}
+\part{Modular Arithmetic}
+
+\input{congruences}
 
 \input{systems-of-linear-congruences}
 
@@ -429,19 +464,25 @@
 
 \note{\input{strong-divisibility-sequences}}
 
-\part{Fermat's Discoveries Regarding the Primes}
-
 \input{fermats-little-theorem}
 
 \input{sums-of-squares}
 
 \note{\input{gaussian-integers}}
 
-\part{The Law of Quadratic Reciprocity}
+\part{Polynomials}
+
+\note{\input{real-numbers}}
 
 \input{polynomials}
 
 \input{polynomial-congruences}
+
+\note{\input{cyclotomic-polynomials}}
+
+\note{\input{aurifeuillean-factorizations}}
+
+\part{The Law of Quadratic Reciprocity}
 
 \input{primitive-roots}
 
@@ -457,29 +498,31 @@
 
 \note{\input{primality-testing}}
 
-\note{\part{Topics}}
-
-\note{\input{conics}}
+\part{Quadratic Fields}
 
 \note{\input{pells-equation}}
 
+\note{\input{binary-quadratic-forms}}
+
+\note{\input{quadratic-fields}}
+
+\note{\input{conics}}
+
 \note{\input{polygonal-numbers}}
 
-\note{\input{fermats-last-theorem}}
-
-\note{\input{real-numbers}}
+\note{\part{The Distribution of the Primes}}
 
 \note{\input{dirichlet-series}}
 
 \note{\input{distribution-of-primes}}
 
-\note{\input{cyclotomic-polynomials}}
-
 \note{\input{prime-partition-function}}
 
-\note{\input{bernoulli-numbers}}
+\note{\part{Topics}}
 
-\note{\input{geometric-number-theory}}
+\note{\input{fermats-last-theorem}}
+
+\note{\input{bernoulli-numbers}}
 
 \note{\input{miscellaneous}}
 

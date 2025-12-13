@@ -1,0 +1,64 @@
+\chapter{Binary Quadratic Forms}
+
+\section{The Quadratic Form Associated to a Lucas Sequence}
+
+In this section, we consider a Lucas sequence $(u_n)$ given by
+\begin{equation*}
+  u_0:=0,\qquad u_1:=1,\qquad\text{and}\qquad u_{n+2}:=a u_{n+1} -b u_n,
+\end{equation*}
+where $a$ and $b$ are integers.
+
+\begin{definition}
+  The \emph{characteristic form} of a Lucas sequence $(u_n)$ is defined by
+  \begin{equation*}
+    f_u(x,y):=x^2-axy+by^2.
+  \end{equation*}
+  The discriminant $\Delta_u=a^2-4b$ of the characteristic form $f_u(x,y)$ is called the discriminant of the Lucas sequence $(u_n)$.
+\end{definition}
+
+We saw in \cref{theorem:binets-formula}, that the entries in the sequence $(u_n)$ satisfy Binet's formula
+\begin{equation*}
+  u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta},
+\end{equation*}
+where $\alpha=\frac{a+\sqrt{\Delta_u}}{2}$ and $\beta=\frac{a-\sqrt{\Delta_u}}{2}$. In the following theorem, we prove a further relation between the Lucas sequence $(u_n)$ and its characteristic form.
+
+\begin{example}
+  The Fibonacci sequence is the Lucas sequence defined by $a=1$ and $b=-1$. Its recurrence is given by
+  \begin{equation*}
+    F_{n+2} = 1 F_{n+1} - (-1)F_{n}.
+  \end{equation*}
+  Thus, the characteristic form of the Fibonacci sequence is
+  \begin{equation*}
+    x^2 - xy -y^2,
+  \end{equation*}
+  which has discriminant $\Delta=1^2 -4(-1)=5$.
+\end{example}
+
+\begin{theorem}
+  Let $f_u(x,y)$ be the characteristic form of the Lucas sequence $(u_n)$. Then the entries in $(u_n)$ satisfy the equation
+  \begin{equation*}
+    f_u(u_{n+1},u_n)= b^n.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  The proof is by induction on $n$. In the base case, we have
+  \begin{equation*}
+    f_u(u_{1},u_0)=u_{1}^2 - au_{1}u_0 + bu_0^2=1=b^0.
+  \end{equation*}
+  For the inductive step, assume that the identity $f_u(u_{n+1},u_n)= b^n$ holds. Then we calculate:
+  \begin{align*}
+    f_u(u_{n+2},u_{n+1})
+    & = u_{n+2}^2 - au_{n+2}u_{n+1} + bu_{n+1}^2 \\
+    & = (a u_{n+1} -b u_n)^2 - a(a u_{n+1} -b u_n)u_{n+1} + b u_{n+1}^2 \\
+    & = -ab u_{n+1}u_n + b^2 u_n^2 + bu_{n+1}^2 \\
+    & = b(u_{n+1}^2 - au_{n+1}u_n + b u_n^2) \\
+    & = b^{n+1}.\qedhere
+  \end{align*}
+\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
+%%% End:

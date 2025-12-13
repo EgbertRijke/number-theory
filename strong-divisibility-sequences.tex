@@ -47,6 +47,30 @@ The French mathematician \'Edouard Lucas observed that the familiar Fibonacci se
         $P_n\pmod{7}$ & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2
       \end{tabular}
     \end{equation*}
+  \item In \cref{exercise:mersenne-lucas-sequence} we saw that the sequence $(M_n)$ of Mersenne numbers satisfies the recurrence
+    \begin{equation*}
+      M_{n+2}=3M_{n+1}-2M_n.
+    \end{equation*}
+    Thus, the Mersenne numbers also form an example of a Lucas sequence. When we look at the Mersenne numbers modulo a prime $p$, we obtain the following:
+    \begin{equation*}
+      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      \renewcommand{\arraystretch}{1.25}
+      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+        $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
+        $M_n\pmod{2}$ & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+        $M_n\pmod{3}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+        $M_n\pmod{5}$ & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 \\
+        $M_n\pmod{7}$ & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0
+      \end{tabular}
+    \end{equation*}
+  \item More generally, for any two distinct integers $a$ and $b$, the sequence defined by
+    \begin{equation*}
+      u_n := \frac{a^n-b^b}{a-b}
+    \end{equation*}
+    is a Lucas sequence satisfying
+    \begin{equation*}
+      u_0=0,\qquad u_1=1,\qquad\text{and}\qquad u_{n+2}=(a+b)u_{n+1}+abu_n. 
+    \end{equation*}
   \end{enumerate}
 \end{example}
 

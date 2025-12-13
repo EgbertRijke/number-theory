@@ -1,0 +1,53 @@
+\chapter{Quadratic Fields}
+
+% \section{Algebraic Fields}
+
+% \begin{definition}
+%   An \emph{algebraic number} is a solution $\xi$ to a polynomial equation
+%   \begin{equation*}
+%     a_n\xi^n+\cdots+a_1\xi+a_0=0
+%   \end{equation*}
+%   with integer coefficients. An algebraic number $\xi$ is said to be of \emph{degree $n$} if $\xi$ is the root of a polynomial of degree $k$ if and only if $n\leq k$.
+% \end{definition}
+
+% \begin{definition}
+%   Consider an algebraic number $\xi$. The \emph{algebraic field} $\mathbb{Q}(\xi)$ consists of all numbers of the form
+%   \begin{equation*}
+%     \frac{P(\xi)}{Q(\xi)}
+%   \end{equation*}
+%   where $P$ and $Q$ are polynomials with integer coefficients, and $Q(\xi)$ is nonzero.
+% \end{definition}
+
+\section{Quadratic Fields}
+
+In this section, we assume that $m$ is a square-free integer.
+
+\begin{definition}
+  We define $\mathbb{Z}[\sqrt{m}]$ to be the set of numbers of the form
+  \begin{equation*}
+    a+b\sqrt{m}.
+  \end{equation*}
+  Addition and multiplication are defined on $\mathbb{Z}[\sqrt{m}]$ by
+  \begin{align*}
+    (a+b\sqrt{m})+(c+d\sqrt{m}) & := (a+c)+(b+d)\sqrt{m}, \\
+    (a+b\sqrt{m})(c+d\sqrt{m}) & := (ac + mbd) + (ad + bc)\sqrt{m}.
+  \end{align*}
+\end{definition}
+
+\begin{definition}
+  Consider a square-free integer $m$. We define the \emph{quadratic field} $\mathbb{Q}(\sqrt{m})$ to consist of numbers of the fractions in $\mathbb{Z}[\sqrt{m}]$; that is, it consists of numbers of the form
+  \begin{equation*}
+    \frac{a+b\sqrt{m}}{c+d\sqrt{m}},
+  \end{equation*}
+  where $c+d\sqrt{m}\neq 0$. Numbers in $\mathbb{Q}(\sqrt{m})$ can be added and multiplied by the following rules:
+  \begin{align*}
+    \frac{a+b\sqrt{m}}{c+d\sqrt{m}}+\frac{e+f\sqrt{m}}{g+h\sqrt{m}} & := \frac{(a+b\sqrt{m})(g+h\sqrt{m})+(e+f\sqrt{m})(c+d\sqrt{m})}{(c+d\sqrt{m})(g+h\sqrt{m})}, \\
+    \frac{a+b\sqrt{m}}{c+d\sqrt{m}} \frac{e+f\sqrt{m}}{g+h\sqrt{m}} & := \frac{(a+b\sqrt{m})(e+f\sqrt{m})}{(c+d\sqrt{m})(g+h\sqrt{m})}
+  \end{align*}
+\end{definition}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
+%%% End:

@@ -51,7 +51,8 @@ Natural numbers have been around for at least as long as humans count. But what 
     \draw[arrow] (a2) to[out=340,in=280,looseness=5] (a2);
 
   \end{tikzpicture}  
-  \caption{\label{figure:bijection-12-element-set}A bijection on a $12$-element set.}
+  \caption[A bijection on a $12$-element set]{A bijection on a $12$-element set.}
+  \label{figure:bijection-12-element-set}
 \end{figure}
 
 When we map out a bijection $f:A\to A$ from a finite set $A$ to itself by displaying an arrow between each element and its value under $f$, as we did in \cref{figure:bijection-12-element-set}, we discover that the finite set $A$ gets partitioned into cycles. The iterated action of $f$ on an element $a$ is mapped out by tracing along the arrows, which eventually loops back to itself. An intuitive reason for this phenomenon is that by iterating $f$ often enough, we obtain a sequence
@@ -91,7 +92,7 @@ The bijection on the 12-element set in \cref{figure:bijection-12-element-set}, f
       arc[start angle=\angle-10, delta angle=-360/\n+20, radius=\radius];
     }
 \end{tikzpicture}  
-  \caption[A cyclic set with 12 elements]{\label{figure:cyclically-ordered-set}A cyclic set with 12 elements.}
+  \caption[A cyclic set with $12$ elements]{\label{figure:cyclically-ordered-set}A cyclic set with 12 elements.}
 \end{figure}
 
 \begin{definition}
@@ -163,7 +164,8 @@ The bijection on the 12-element set in \cref{figure:bijection-12-element-set}, f
     \draw[-,line width=3pt,white,shorten >=3pt,shorten <=3pt] (N26) to[out= 360/7-96,in=95] (N30);
     \draw[->,thick,shorten >=2pt,shorten <=2pt] (N26) to[out= 360/7-96,in=95] (N30);
   \end{tikzpicture}
-  \caption{\label{figure:example-cyclic-structure-map}A cyclic-structure map from a 14-element set to a 7-element set.}
+  \caption[A cyclic-structure map from a $14$-element set to a $7$-element set]{A cyclic-structure map from a $14$-element set to a $7$-element set.}
+  \label{figure:example-cyclic-structure-map}
 \end{figure}
 
 An important organizational principle of structural mathematics is that when we define a certain kind of structured sets, such as cyclic sets in our case, then it is good practice to also define the \emph{structure-preserving maps} between them. Doing so allows us to learn more about how such structured sets relate to each other. Thus, we will now introduce cyclic-structure maps. As we will see shortly, maps preserving the cyclic structure on a set have some interesting properties, and they feature prominently in our structural definition of the set of integers.
@@ -205,7 +207,8 @@ holds trivially. In \cref{figure:example-cyclic-structure-map} we displayed an e
     \draw[thick] (0,-2) arc(-90:270:1cm and 0.2cm);
     \draw[thick,->]  (0,-0.4) -- (0,-1.4);
   \end{tikzpicture}  
-  \caption[Cyclic-structure maps]{\label{figure:cyclic-structure-maps}Cyclic-structure maps are defined by ``winding'' the source cyclic set around the target cyclic set.}
+  \caption[Cyclic-structure maps]{Cyclic-structure maps are defined by ``winding'' the source cyclic set around the target cyclic set.}
+  \label{figure:cyclic-structure-maps}
 \end{figure}
 
 \begin{theorem}
@@ -284,7 +287,8 @@ The organizational principle of defining structured sets along with their struct
     \draw[->, thick, dashed, shorten >=4mm, shorten <=1mm]
     (N\n) -- ++(\xsep,0);
   \end{tikzpicture}
-  \caption[The infinite cyclic set of integers]{\label{figure:integers}The infinite cyclic set of integers.}
+  \caption[The infinite cyclic set of integers]{The infinite cyclic set of integers.}
+  \label{figure:integers}
 \end{figure}
 
 Although the examples we have discussed so far are finite, the definition of cyclic sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \cref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
@@ -407,7 +411,8 @@ We have given a structural definition of the set of integers as the universal cy
     }    
     
   \end{tikzpicture}
-  \caption[The set of integers along the axis of the positive quadrant]{\label{figure:implementation-integers}The set $Z$ consists of the lattice points on the axes with natural number coordinates. Along the $a$-axis we find the nonnegative integers in their usual spots, while along the $b$-axis we find the nonpositive integers.}
+  \caption[The set of integers along the axis of the positive quadrant]{The set $Z$ consists of the lattice points on the axes with natural number coordinates. Along the $a$-axis we find the nonnegative integers in their usual spots, while along the $b$-axis we find the nonpositive integers.}
+  \label{figure:implementation-integers}
 \end{figure}
   
 \begin{definition}
@@ -626,14 +631,6 @@ Next, we define multiplication of integers.
   \end{equation*}
   \exercise Prove that for any two integers $a$ and $b$, either $b\leq a$ or $a\leq b$.
   \exercise Suppose that $X$ is a set equipped with an element $x_0\in X$ and a bijection $h:X\cong X$. Show that the image of the unique map $f:\mathbb{Z}\to X$ determined by $x_0$ and $h$ is a cyclic set.
-  \exercise Prove the identity
-  \begin{equation*}
-    a^3+b^3+c^3-3abc = \frac{1}{2}(a+b+c)((a-b)^2+(a-c)^2+(b-c)^2)
-  \end{equation*}
-  and conclude that if $a+b+c=0$, then we have
-  \begin{equation*}
-    a^3+b^3+c^3=3abc.
-  \end{equation*}
 \end{routine}
 
 %%% Local Variables:

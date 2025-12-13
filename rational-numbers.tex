@@ -24,8 +24,16 @@ While it is common to think of rational numbers as integer fractions, there is a
   \begin{equation*}
     ad-bc=0.
   \end{equation*}
-  We will write $\frac{a}{b}=\frac{c}{d}$ to mean that $\frac{a}{b}$ and $\frac{c}{d}$ are the same in this sense.
+  The set $\mathbb{Q}$ of \emph{rational numbers} is defined according to the following rules:
+  \begin{enumerate}
+  \item To construct a rational number, one has to construct an integer fraction.
+  \item To prove that two rational numbers $\frac{a}{b}$ and $\frac{c}{d}$ are equal, one has to prove that $ad-bc=0$.
+  \end{enumerate}
 \end{definition}
+
+\begin{remark}
+  The second rule can be read as a definition of what it means for two rational numbers to be equal. If two rational numbers are constructed via their integer fractions $\frac{a}{b}$ and $\frac{c}{d}$, then the expression $\frac{a}{b}=\frac{c}{d}$ means that $\frac{a}{b}$ and $\frac{c}{d}$ are the same in the sense that $ad-bc=0$.
+\end{remark}
 
 More generally, the quantity $|bc-ad|$ is a measure for how far apart the fractions $\frac{a}{b}$ and $\frac{c}{d}$ are. Assuming that the inequality $\frac{a}{b}\leq \frac{c}{d}$ holds so that $bc-ad\geq 0$, we will show in \cref{theorem:meaning-explanation-determinant-fractions} that the number
 \begin{equation*}
@@ -72,7 +80,8 @@ counts the number of fractions $\frac{a}{b}<\frac{s}{t}<\frac{c}{d}$ such that t
     \draw[CornflowerBlue,fill,thick] (8,7) circle (2pt);
 
   \end{tikzpicture}
-  \caption[Lattice points in a parallelogram]{\label{figure:lattice-points-parallelogram}There are 11 lattice points in the parallelogram spanned by $(3,4)$ and $(5,3)$, not including the points $(0,0)$, $(3,4)$, and $(5,3)$. This number is equal to the quantity $4\cdot 5-3\cdot 3$, and it is also equal to the number of reduced integer fractions between $\frac{3}{4}$ and $\frac{5}{3}$ with denominators not exceeding $7$.}
+  \caption[Lattice points in a parallelogram]{There are 11 lattice points in the parallelogram spanned by $(3,4)$ and $(5,3)$, not including the points $(0,0)$, $(3,4)$, and $(5,3)$. This number is equal to the quantity $4\cdot 5-3\cdot 3$, and it is also equal to the number of reduced integer fractions between $\frac{3}{4}$ and $\frac{5}{3}$ with denominators not exceeding $7$.}
+  \label{figure:lattice-points-parallelogram}
 \end{figure}
 
 The quantity $|bc-ad|$ is also the area of the parallelogram spanned by $(a,b)$ and $(c,d)$. Moreover, there are exactly $k$ lattice points in this parallelogram, excluding multiples of $(a,b)$ and $(c,d)$.
@@ -478,7 +487,7 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
     \draw[thick,shorten <=2pt,shorten >=2pt] (N23) -- (N34);
     \draw[thick,shorten <=2pt,shorten >=2pt] (N34) -- (N11);
   \end{tikzpicture}
-  \caption{The Farey fractions with their adjacency relation}
+  \caption[The Farey fractions with their adjacency relation]{The Farey fractions with their adjacency relation.}
   \label{figure:farey-fractions}
 \end{figure}
 
@@ -575,6 +584,19 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
       D\Big(\frac{a}{b},\frac{e}{f}\Big)\leq D\Big(\frac{a}{b},\frac{c}{d}\Big)+D\Big(\frac{c}{d},\frac{e}{f}\Big).
     \end{equation*}
   \end{enumerate}
+  \exercise \label{exercise:equal-denominators-rational-point-on-form}
+  \begin{subexenum}
+  \item Consider two square-free integers $a$ and $c$, both dividing an integer $b$. Show that if $x=\frac{u}{s}$ and $y=\frac{v}{t}$ are rational numbers in lowest terms with $s,t>0$ such that
+    \begin{equation*}
+      ax^2+bxy+cy^2\in\mathbb{Z},
+    \end{equation*}
+    then $s=t$.
+  \item Consider a form $f(x,y)$ of degree $n$ given by
+    \begin{equation*}
+      f(x,y)=\sum_{i=0}^n a_i x^{n-i}y^i,
+    \end{equation*}
+    where we assume that $a_0$ and $a_n$ are square-free and $a_0\mid a_1$ and $a_n\mid a_{n-1}$. Show that if $f(x,y)\in\mathbb{Z}$ for two rational numbers $x=\frac{u}{s}$ and $y=\frac{v}{t}$ in lowest terms with $s,t>0$, then $s=t$.
+  \end{subexenum}
 \end{routine}
 
 %%% Local Variables:
