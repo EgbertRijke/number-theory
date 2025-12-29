@@ -46,6 +46,116 @@ In this section, we assume that $m$ is a square-free integer.
   \end{align*}
 \end{definition}
 
+\section{Lucas Sequences}
+
+Consider a Lucas sequence $(u_n)$ given by
+\begin{equation*}
+  u_0=0,\qquad u_1=1,\qquad\text{and}\qquad u_{n+2}=au_{n+1}-bu_n,
+\end{equation*}
+with characteristic polynomial $x^2-ax+b$ and characteristic roots
+\begin{equation*}
+  \alpha = \frac{a+\sqrt{a^2-4b}}{2}\qquad\text{and}\qquad \beta=\frac{a-\sqrt{a^2-4b}}{2}.
+\end{equation*}
+By Vietas relations we have $\alpha+\beta=a$ and $\alpha\beta=b$. Consider the quadratic field $K:=\mathbb{Q}(\sqrt{a^2-4b})$ and consider the element
+\begin{equation*}
+  v_n := u_{n+1}-\alpha u_n.
+\end{equation*}
+Then we have
+\begin{equation*}
+  v_{n+1}=u_{n+2}-\alpha u_{n+1}=au_{n+1}-b u_n-\alpha u_{n+1}=\beta u_{n+1}- \alpha\beta u_n=\beta(u_{n+1}-\alpha u_n)=\beta v_n.
+\end{equation*}
+This implies that $v_n=\beta^n$. Similarly, if we set
+\begin{equation*}
+  w_n := u_{n+1}-\beta u_n,
+\end{equation*}
+we obtain that $w_n=\alpha^n$. Now observe that
+\begin{equation*}
+  w_n-v_n=(u_{n+1}-\beta u_n)-(u_{n+1}-\alpha u_n)= (\alpha-\beta)u_n,
+\end{equation*}
+so we recover Binet's formula
+\begin{equation*}
+  u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}.
+\end{equation*}
+The norm in $K$ is given by $N(x-\alpha y)= (x-\alpha y)(x-\beta y)= x^2- axy + by^2$. Then we have
+\begin{equation*}
+  (-b)^n = N(\alpha^n)=N(v_n)=N(u_{n+1}-\alpha u_n)=u_{n+1}^2-a u_{n+1}u_n + b u_n^2.
+\end{equation*}
+
+\begin{definition}
+  Consider a Lucas sequence $(u_n)$ and let $\mu$ be the M\"obius function. We define the \emph{Lucas atom}
+  \begin{equation*}
+    \Psi_n:=\prod_{d\mid n}u_d^{\mu(n/d)}.
+  \end{equation*}
+\end{definition}
+
+\begin{lemma}
+  If $(u_n)$ is a Lucas sequence with characteristic roots $\alpha$ and $\beta$, then its Lucas atoms satisfy
+  \begin{equation*}
+    \Psi_n=\Phi_n(\alpha,\beta).
+  \end{equation*}
+\end{lemma}
+
+\begin{proposition}
+  Let $(u_n)$ be the Lucas sequence with recurrence $u_{n+2}=Pu_{n+1}-Qu_n$.
+  Consider an odd prime $p$ such that $p \nmid Q$ and $p\mid \Psi_n(P,Q)$, where $n>2$, and consider the Legendre symbol $\epsilon=\legendre{\Delta}{p}$, where $\Delta=P^2-4Q$. Then there are two mutually exclusive possibilities:
+  \begin{enumerate}
+  \item Either $p\equiv \epsilon \pmod{n}$, in which case $p$ is a primitive divisor of $u_n$, or
+  \item $p\mid n$, in which case $p$ is the largest prime factor of $n$, and we have furthermore $\nu_p(\Psi_n(P,Q))=1$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Let $\alpha$ and $\beta$ be the characteristic roots of $(u_n)$; that is, they are roots of the polynomial $x^2-Px+Q$. Since
+  \begin{equation*}
+    u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}=\prod_{d\mid n}\Psi_d(P,Q),
+  \end{equation*}
+  it follows that if $p\mid \Psi_n(P,Q)$, then $p\mid u_n$.
+
+  Working in the ring of integers of $\mathbb{Q}(\sqrt{\Delta})$, the condition $p\mid u_n$ implies that $\alpha^n\equiv \beta^n \pmod{\mathfrak{p}}$ for any prime ideal $\mathfrak{p}$ containing $p$. Since $\gcd(P,Q)=1$ and $p\nmid Q$, $\beta$ is invertible modulo $\mathfrak{p}$. We define $\gamma:=\alpha/\beta$ and find that
+  \begin{equation*}
+    \gamma^n \equiv 1 \pmod{\mathfrak{p}}.
+  \end{equation*}
+  Let $k$ be the rank of apparition of $\gamma$ modulo $\mathfrak{p}$. By the order properties, $k$ must divide $n$. There are two cases to consider: Either $k=n$ or $k$ is a proper divisor of $n$.
+  
+  For the first case, assume that $k=n$. The Frobenius automorphism generally implies that $\gamma^p\equiv \gamma\pmod{\mathfrak{p}}$ if $p$ splits in $\mathbb{\sqrt{D}}$, or that $\gamma^p\equiv \bar{\gamma}$ if $p$ is inert. In terms of the Legendre symbol $\epsilon=\legendre{\Delta}{p}$, we have the generalized Fermat relation:
+  \begin{equation*}
+    \gamma^{p - \epsilon} \equiv 1 \pmod{\mathfrak{p}}.
+  \end{equation*}
+  Since $k=n$ is the order of $\gamma$, it follows that $n\mid p-\epsilon$, which is equivalent to $p\equiv \epsilon\pmod{n}$.
+  Furthermore, since $k$ is the rank of apparition of $p$ in $(u_n)$, it follows that $p$ does not divide $u_m$ for any $0<m<k$. Thus, $p$ is a primitive divisor of $u_n$.
+  
+  For the second case, we assume that $k$ is a proper divisor of $n$.
+  Since $p\mid \Psi_k$, the polynomial congruence
+  \begin{equation*}
+    x^n - 1 \equiv 0 \pmod{\mathfrak{p}}
+  \end{equation*}
+  has a root of multiplicity $>1$. Differentiation shows that $\gamma$ must also be a root of the derivative $nx^{n-1}$. Since $\gamma$ is invertible modulo $p$,
+  \begin{equation*}
+    nx^{n-1} \equiv 0 \implies n \equiv 0 \pmod p,
+  \end{equation*}
+  from which we conclude that $p\mid n$.
+  
+  To show that $p$ is the largest prime factor of $n$, write $n=p^jm$, where $p\nmid m$. By the implication
+  \begin{equation*}
+    p \mid \Psi_n(P,Q) \implies p \mid \Psi_m(P,Q) \quad (\text{via Lucas LTE properties; to do})
+  \end{equation*}
+  we reduce to the first case with exponent $m$. Thus $m\mid p-\epsilon$, which implies that prime factor of $m$ must be much smaller than $p$. Thus, $p$ is the largest prime divisor of $n$.
+  
+  Finally, we prove that $\nu_p(\Psi_n(P,Q))=1$. There are two cases to consider: Either $p=2$ or $p$ is odd.
+
+  If $p=2$, then ...
+  
+  If $p$ is odd, we use the Lifting The Exponent lemma for Lucas sequences:
+  \begin{equation*}
+    \nu_p(u_n) = \nu_p(u_m) + \nu_p(n/m) = \nu_p(u_m) + \alpha.
+  \end{equation*}
+  Using the product formula $u_n=\prod_{d\mid n}\Psi_d(P,Q)$, and isolating the terms where $p$ appears (indices of the form $p^im$), we obtain:
+  \begin{equation*}
+    \sum_{i=1}^j \nu_p(\Psi_{p^i m}(P,Q)) = \alpha.
+  \end{equation*}
+  Since $p\mid \Psi_{p^im}$ for all $1\leq i\leq j$, we find that $\nu_p(\Psi_{p^im})=1$ for each $i$. Thus we conclude that $\nu_p(\Psi_n)=1$.
+\end{proof}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "elementary-number-theory"

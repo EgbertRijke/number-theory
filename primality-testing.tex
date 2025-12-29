@@ -43,7 +43,7 @@ Théophile Pépin used the theory of quadratic residues to develop a determinist
 
 \section{The Carmichael Numbers}
 
-\crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} asserts that if $p$ is a prime number, then the congruence
+\crefnamed{theorem:fermats-little-theorem} asserts that if $p$ is a prime number, then the congruence
 \begin{equation*}
   x^p\equiv x\pmod{p}
 \end{equation*}
@@ -73,7 +73,7 @@ Recall from \cref{definition:fixed-divisor} that the fixed divisor of a polynomi
 \begin{equation*}
   f(2),\ldots,f(\lfloor{\textstyle\frac{n+1}{2}}\rfloor).
 \end{equation*}
-While this theorem is useful to compute the fixed divisor of any specific polynomial, such as $x^7-x$, we shall compute the fixed divisor of $x^n-x$ using \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} and \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem}.
+While this theorem is useful to compute the fixed divisor of any specific polynomial, such as $x^7-x$, we shall compute the fixed divisor of $x^n-x$ using \crefnamed{theorem:fermats-little-theorem} and \crefnamed{theorem:lagranges-theorem}.
 
 \begin{theorem}\label{theorem:fixed-divisors-fermat-polynomials}
   Consider the polynomial $x^n-x$, for some natural number $n> 1$. Its fixed divisor is the square-free number
@@ -87,11 +87,11 @@ While this theorem is useful to compute the fixed divisor of any specific polyno
   \begin{equation*}
     p-1\mid n-1.
   \end{equation*}
-  For the forward direction of this claim, suppose that $p$ divides every integer of the form $x^n-x$ and write $n-1=k(p-1)+r$ where $0\leq r<p-1$. Since $x^n-x=x(x^{n-1}-1)$ and $p$ is prime, it follows from \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} that
+  For the forward direction of this claim, suppose that $p$ divides every integer of the form $x^n-x$ and write $n-1=k(p-1)+r$ where $0\leq r<p-1$. Since $x^n-x=x(x^{n-1}-1)$ and $p$ is prime, it follows from \crefnamed{theorem:fermats-little-theorem} that
   \begin{equation*}
     x^r-1\equiv x^{k(p-1)+r}-1\equiv x^{n-1}-1\equiv 0\pmod{p},
   \end{equation*}
-  when $x$ is not divisible by $p$. However, \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem} tells us that the polynomial $x^r-1$ has at most $r<p-1$ roots modulo $p$ when $r\neq 0$. Therefore we conclude that $r=0$; that is, $p-1\mid n-1$.
+  when $x$ is not divisible by $p$. However, \crefnamed{theorem:lagranges-theorem} tells us that the polynomial $x^r-1$ has at most $r<p-1$ roots modulo $p$ when $r\neq 0$. Therefore we conclude that $r=0$; that is, $p-1\mid n-1$.
 
   Conversely, if $p-1\mid n-1$, then it follows by Fermat's Little Theorem that
   \begin{equation*}

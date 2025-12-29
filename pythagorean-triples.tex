@@ -8,7 +8,7 @@ with the rational points on an algebraic curve, a topic which is important in mo
 
 \section{The Pythagorean Theorem}
 
-Recall that a right triangle is a triangle in which one of the angles is a right angle; that is, it is exactly $90^\circ$. The \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem} relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as high school students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
+Recall that a right triangle is a triangle in which one of the angles is a right angle; that is, it is exactly $90^\circ$. \crefnamed{theorem:pythagorean-theorem} relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as high school students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
 
 \begin{theorem}[Pythagorean Theorem]\label{theorem:pythagorean-theorem}
   Consider a right triangle with side lengths $a$ and $b$, and a hypotenuse of length $c$. Then
@@ -119,7 +119,7 @@ Recall that the sine and cosine functions are defined to be the lengths of the v
 \begin{equation*}
   \sin(\theta) = \frac{a}{c}\qquad\text{and}\qquad \cos(\theta)=\frac{b}{c}.
 \end{equation*}
-In the proof of the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}, we will make use of the addition formulas for sine and cosine:
+In the proof of \crefnamed{theorem:pythagorean-theorem}, we will make use of the addition formulas for sine and cosine:
 \begin{align*}
   \sin(\theta + \phi) & = \sin(\theta)\cos(\phi) + \cos(\theta)\sin(\phi) \\
   \cos(\theta + \phi) & = \sin(\theta)\sin(\phi) - \cos(\theta)\cos(\phi).
@@ -243,7 +243,7 @@ Our goal in this section is to describe all the solutions of the quadratic Dioph
 \begin{equation*}
   a^2 + b^2 = c^2,
 \end{equation*}
-where $c$ is a nonzero integer. By the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}, any such triple $(a,b,c)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(a,b,c)$ is a Pythagorean triple, then so is $(ka,kb,kc)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
+where $c$ is a nonzero integer. By \crefnamed{theorem:pythagorean-theorem}, any such triple $(a,b,c)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(a,b,c)$ is a Pythagorean triple, then so is $(ka,kb,kc)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
 
 \begin{wrapfigure}{r}{.4\textwidth}
   \centering
@@ -373,7 +373,7 @@ By the previous lemma we may assume, without loss of generality, that in a primi
   Furthermore, observe that since $c$ and $a$ are both odd, it follows that one of $c-a$ and $c+a$ is divisible by $4$ and the other is of the form $4k+2$. This implies that one of $s$ and $t$ is even and the other is odd.
 \end{proof}
 
-\begin{theorem}[Euclid’s Parametrization of the Pythagorean Triples]\label{theorem:euclids-parametrization}
+\begin{theorem}[Euclid’s Parametrization of the Primitive Pythagorean Triples]\label{theorem:euclids-parametrization}
   For every primitive Pythagorean triple $(a,b,c)$ with $b$ even, we can uniquely determine two relatively prime positive integers $s<t$ of opposite parity such that
   \begin{equation*}
     a=t^2-s^2,\qquad b=2st,\qquad\text{and}\qquad c=t^2+s^2.
@@ -410,7 +410,7 @@ When both coordinates $x$ and $y$ are rational numbers, we say that $(x,y)$ is a
 which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)$ is a primitive Pythagorean triple, then $(\frac{a}{c},\frac{b}{c})$ is a rational point on the unit circle. We will show that \emph{every} rational point on the unit circle arises in this way.
 
 \begin{theorem}\label{theorem:correspondence-rational-points-unit-circle}
-  There is a bijection between the set of primitive Pythagorean triples $(a,b,c)$, where we allow $a$ and $b$ to be negative, and rational points on the unit circle.
+  There is a bijection between the set of primitive Pythagorean triples $(a,b,c)$, where we allow $a$ and $b$ to be any integer but we maintain the requirement that $c$ is positive, and rational points on the unit circle.
 \end{theorem}
 
 \begin{proof}
@@ -798,7 +798,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \label{figure:forest}
 \end{figure}
 
-The \crefnamed{theorem:pythagorean-descent}{Pythagorean Descent Theorem} can be used to determine a ternary tree structure on the set of primitive Pythagorean triples. We will define trees to be forests consisting of a single tree. Mathematically, a \emph{forest} is defined as a set $F$ equipped with a \emph{height function} $h:F\to \mathbb{N}$, and for each height $n$ a \emph{parent function}
+\crefnamed{theorem:pythagorean-descent} can be used to determine a ternary tree structure on the set of primitive Pythagorean triples. We will define trees to be forests consisting of a single tree. Mathematically, a \emph{forest} is defined as a set $F$ equipped with a \emph{height function} $h:F\to \mathbb{N}$, and for each height $n$ a \emph{parent function}
 \begin{equation*}
   p : \{x\in F\mid h(x)=n+1\}\to \{x\in F\mid h(x)=n\}.
 \end{equation*}
@@ -861,7 +861,7 @@ Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of h
 \end{figure}
 
 \begin{example}[The forest of rational points on the unit circle]
-  In \crefnamed{theorem:pythagorean-descent}{Pythagorean Descent Theorem}, we showed that for each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$, we can jump to another rational point whose positive common denominator is strictly smaller than that of the original point. If the new point is not one of the points $(\pm 1,0)$ or $(0,\pm 1)$, we can jump again to yet another rational point whose common denominator is still smaller. Starting at $(x_0,y_0):=(x,y)$, repeating this process results in a sequence of rational points $(x_n,y_n)$ on the unit circle, whose common denominators strictly decrease as the sequence progresses. Since a sequence of positive integers cannot be infinitely long, we see that this sequence must terminate. That is, in a finite number of jumps we must reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$.
+  In \crefnamed{theorem:pythagorean-descent}, we showed that for each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$, we can jump to another rational point whose positive common denominator is strictly smaller than that of the original point. If the new point is not one of the points $(\pm 1,0)$ or $(0,\pm 1)$, we can jump again to yet another rational point whose common denominator is still smaller. Starting at $(x_0,y_0):=(x,y)$, repeating this process results in a sequence of rational points $(x_n,y_n)$ on the unit circle, whose common denominators strictly decrease as the sequence progresses. Since a sequence of positive integers cannot be infinitely long, we see that this sequence must terminate. That is, in a finite number of jumps we must reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$.
 
   For any rational point $(x,y)$ on the unit circle, let $h(x,y)$ be the least number of jumps required to reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$. Furthermore, if $(x,y)$ is of height $n+1$, so that it is neither $(\pm 1,0)$ nor $(0,\pm 1)$, let $p(x,y):=(x',y')$ be the target of the jump from $(x,y)$. This height and parent function gives the set of rational points on the unit circle the structure of a forest with four roots, the points $(\pm 1,0)$ and $(0,\pm 1)$. In \cref{figure:forest-rational-points-unit-circle} we displayed one branching point in this forest, along with the path to its root.
 
@@ -873,7 +873,7 @@ Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of h
 \begin{example}[The tree of primitive Pythagorean triples]
   We will now use the forest of rational points on the unit circle to construct the tree of primitive Pythagorean triples, and derive Berggren's matrices.
 
-  The matrix we used in the \crefnamed{theorem:pythagorean-descent}{Pythagorean Descent Theorem} to jump from a primitive Pythagorean triple $(a,b,c)$ with $1<c$ to a new primitive Pythagorean triple $(a',b',c')$ was defined as
+  The matrix we used in \crefnamed{theorem:pythagorean-descent} to jump from a primitive Pythagorean triple $(a,b,c)$ with $1<c$ to a new primitive Pythagorean triple $(a',b',c')$ was defined as
 \begin{equation*}
   M_{u,v}
   :=
@@ -932,7 +932,7 @@ Instantiating these matrices at $(u,v)=(-1,1)$, $(1,-1)$, and $(-1,-1)$ gives th
     \end{matrix}
   \right)
 \end{equation*}
-By the \crefnamed{theorem:pythagorean-descent}{Pythagorean Descent Theorem} it follows that all primitive Pythagorean triples can be obtained by iteratively applying the matrices $A$, $B$, and $C$ given above. This tree is displayed in \cref{figure:tree-of-pythagorean-triples}.
+By \crefnamed{theorem:pythagorean-descent} it follows that all primitive Pythagorean triples can be obtained by iteratively applying the matrices $A$, $B$, and $C$ given above. This tree is displayed in \cref{figure:tree-of-pythagorean-triples}.
 \end{example}
 
 \clearpage
@@ -1298,7 +1298,7 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
 \exercises
 
 \begin{starter}
-  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of the \crefnamed{theorem:pythagorean-theorem}{Pythagorean Theorem}:
+  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of \crefnamed{theorem:pythagorean-theorem}:
   \begin{equation*}
     \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
       \pgfmathsetmacro{\myangle}{atan(28/45)}

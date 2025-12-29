@@ -9,3 +9,117 @@
 \section{Aurifeuillean Factorizations}
 
 \section{Obstructions to the Infinitude of Primes in Lucas Sequences}
+
+In this section, we consider two relatively prime integers $a$ and $b$, and the associated Lucas sequence $(u_n)$ defined by
+\begin{equation*}
+  u_0=0,\qquad u_1=1,\qquad\text{and}\qquad u_{n+2}=au_{n+1}-bu_n.
+\end{equation*}
+The central question we are concerned with here, is to determine some conditions on $a$ and $b$ for which all but finitely many numbers $u_n$ are composite. That is, we wish to determine a list of conditions that rule out the possibility of having infinitely many primes of the form $u_n$, with the goal to better understand restrictions a Lucas sequence must satisfy in order for it to contain infinitely many primes. Some famous conjectures state that there are infinitely many Mersenne primes and infinitely many Fibonacci primes.
+
+\begin{theorem}[First obstruction]
+  Consider two relatively prime integers $a$ and $b$. Furthermore, assume that $b=k^2$ for some positive integer $k$, and that $a\geq 3$ as well as $a\geq 2k$. Let $(u_n)$ be the Lucas sequence given by
+  \begin{equation*}
+    u_0=0,\qquad u_1=1,\qquad\text{and}\qquad u_{n+2}=a u_{n+1}-b u_n.
+  \end{equation*}
+  Then $u_n$ is composite for every $n\ge 3$.
+\end{theorem}
+
+\begin{proof}
+  Recall from \cref{corollary:addition-formula-lucas-sequence} that the Lucas sequence $(u_n)$ satisfies the following identities:
+  \begin{equation*}
+    u_{2n+1}=u_{n+1}^2-bu_n^2\qquad\text{and}\qquad u_{2n+2}=u_{n+1}(u_{n+2}-bu_n).
+  \end{equation*}
+  By the assumption that $b=k^2$, the first identity shows that any odd idexed entry satisfies the identity
+  \begin{equation*}
+    u_{2n+1}=(u_{n+1}-ku_n)(u_{n+1}+ku_n).
+  \end{equation*}
+  We claim that both factors are $\geq 2$, for $n\geq 1$. To see this, it suffices to prove that $u_{n+1}>ku_n+1$ for $n\geq 1$. This claim is proven by induction. In the base case, there are two cases to consider: Either $k=1$ or $k>1$. If $k=1$, then $u_2=a\geq 3>ku_1+1$. If $k>1$, then $u_2=a\geq 2k>k+1$. For the inductive step, note that
+  \begin{equation*}
+    u_{n+2}=au_{n+1}-k^2u_n>2ku_{n+1}-ku_{n+1}-ku_{n+1}.
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}[Second obstruction]
+  Let $\alpha$ and $\beta$ be the two roots of the polynomial $x^2-ax+b$. If $\frac{\alpha}{\beta}$ is a root of unity, then all but finitely many numbers of the form $u_n$ are composite.
+\end{theorem}
+
+\begin{example}
+  The first and second obstructions do not cover all Lucas sequences that are known to have only finitely many primes. To construct a Lucas sequence that is composite for all but finitely many entries outside of the domain of the two obstructions we have so far, we will use Sophie Germain's identity
+  \begin{equation*}
+    x^4+4y^4=(x^2-2xy+2y^2)(x^2+2xy+2y^2).
+  \end{equation*}
+  The only pair of positive integers $x$ and $y$ for which $x^4+4y^4$ is prime consists of $x=1$ and $y=1$, where we have $1^4+4\cdot 1^4=5$. It follows from Sophie Germain's identity that
+  \begin{equation*}
+    4^{2n+1}+1=2^{4n+2}+1=(1-2^{n+1}+2^{2n+1})(1+2^{n+1}+2^{2n+1})
+  \end{equation*}
+  is composite except when $n=0$. Now consider the sequence
+  \begin{equation*}
+    u_n=\frac{4^n-(-1)^n}{5},
+  \end{equation*}
+  which is the Lucas sequence satisfying the recurrence $u_{n+2}=3u_{n+1}+4u_n$. The first few values of $u_n$ are $0,1,3,13,51,205,819,\ldots$.
+
+  At even exponents, we find the factorization
+  \begin{equation*}
+    u_{2n}=\frac{4^{2n}-1}{5}=\frac{(4^n-1)(4^n+1)}{5},
+  \end{equation*}
+  which shows that $u_{2n}$ is not prime for $n\geq 2$. At odd exponents, we find
+  \begin{equation*}
+    u_{2n+1}=\frac{4^{2n+1}+1}{5}=\frac{(1-2^{n+1}+2^{2n+1})(1+2^{n+1}+2^{2n+1})}{5}.
+  \end{equation*}
+  Both factors in the numerator are strictly greater than $5$ when $n\geq 2$, implying that the denominator $5$ is at best a proper divisor of either factor. This shows that $u_{2n+1}$ is composite for $n\geq 2$. Combined with the previous observation about the compositeness of $u_{2n}$, we find that $u_n$ is composite for all $n\geq 4$. The Lucas sequence $(u_n)$ constructed in this example was discovered in \cite{IJKKL2025}.
+\end{example}
+
+\begin{theorem}[Aurifeuillian obstruction]
+  Consider a squarefree integer $t>1$, and set
+  \begin{equation*}
+    \mu(t) :=
+    \begin{cases}
+      t & \text{if $t\equiv 1\pmod{4}$,} \\
+      2t & \text{if $t\equiv 2,3\pmod{4}$.}
+    \end{cases}
+  \end{equation*}
+  Consider an integer $B$ of the form $B=s^2t$, and let $(u_n)$ be the Lucas sequence with characteristic roots
+  \begin{equation*}
+    \alpha = B^r\qquad\text{and}\qquad \beta=\varepsilon,
+  \end{equation*}
+  where $r\geq 1$ is an integer such that $\mu(t)\mid 2r$, and where $\varepsilon=\pm 1$ is chosen such that $\alpha^n-\beta^n$ contains the cyclotomic factor $\Phi_{\mu(t)}(B^n)$ for all odd $n$. Then the sequence $(u_n)$ contains only finitely many primes.
+\end{theorem}
+
+\begin{definition}
+  A Lucas sequence $(u_n)$ with recurrence relation $u_{n+2}=au_{n+1}-bu_n$ is said to be \emph{regular} if $\gcd(a,b)=1$.
+\end{definition}
+
+\begin{definition}
+  A Lucas sequence $(u_n)$ with recurrence relation $u_{n+2}=au_{n+1}-bu_n$ and characteristic roots $\alpha$ and $\beta$ is said to be \emph{degenerate} if $\alpha/\beta$ is a root of unity, meaning that there exists an exponent $k$ such that
+  \begin{equation*}
+    (\alpha/\beta)^k=1.
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+  A Lucas sequence $(u_n)$ with distinct characteristic roots is degenerate if and only if there exists an $n>0$ such that $u_n=0$.
+\end{theorem}
+
+In the following theorem, we give a characterization of the condition that a Lucas sequence \emph{reflects} divisibility. The usual condition for divisibility sequences is that if $m\mid n$, then $u_m\mid u_n$. The property that $(u_n)$ reflects divisibility is the reverse: If $u_m\mid u_n$, then it must be the case that $m\mid n$. A special instance of this condition is that if $u_m=0$, then $m=0$.
+
+\begin{theorem}
+  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$ and characteristic roots $\alpha$ and $\beta$. Assume that $(u_n)$ is regular and nondegenerate. Then the following are equivalent:
+  \begin{enumerate}
+  \item The Lucas sequence $(u_n)$ reflects divisibility, in the sense that
+    \begin{equation*}
+      u_m\mid u_n\qquad\Rightarrow\qquad m\mid n.
+    \end{equation*}
+  \item We have $|u_n|>1$ for all $n\geq 2$.
+  \end{enumerate}
+  A Lucas sequence which reflects divisibility will be called a \emph{reflecting Lucas sequence}.
+\end{theorem}
+
+\begin{proof}
+  Suppose that $m$ and $n$ are natural numbers such that $u_m\mid u_n$. 
+\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
+%%% End:

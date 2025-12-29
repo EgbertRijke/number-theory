@@ -1,0 +1,316 @@
+\chapter{Divisibility and Irreducebility of Polynomials}\label{chapter:applications-polynomials}
+
+\section{Primitive Polynomials and Gauss's Lemma}
+
+In \cref{theorem:irrational-sqrt} we showed that unless $n$ is a perfect square, the square root of $n$ is irrational. In other words, the roots of the polynomial
+\begin{equation*}
+  x^2-n
+\end{equation*}
+are either integers or irrational numbers. \crefnamed{theorem:gausss-lemma-polynomials} is a generalization of this observation, with the consequence that the roots of a polynomial such as
+\begin{equation*}
+  f(x)=x^3-3x^2+3x-2
+\end{equation*}
+are either integers or irrational. The crucial property, besides $f$ having integer coefficients, is that the leading coefficient is $1$. Such polynomials are called \emph{monic}. Note that the polynomial $x^2-n$ of our previous example is also monic.
+
+Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's concept of primitive polynomials and prove a key property about them.
+
+\begin{definition}
+  A polynomial $f(x)$ with integer coefficients is said to be \emph{primitive} if the greatest common divisor of its coefficients is $1$.
+\end{definition}
+
+\begin{theorem}
+  The product of two primitive polynomials is primitive.
+\end{theorem}
+
+\begin{proof}
+  Consider two primitive polynomials
+  \begin{equation*}
+    g(x):=\sum_{i=0}^m b_i x^i\qquad\text{and}\qquad h(x):=\sum_{j=0}^n c_jx^j,
+  \end{equation*}
+  and let $f(x):= g(x)h(x)$ be their product. The coefficients for $f(x)$ are given by
+  \begin{equation*}
+    a_n := \sum_{k=0}^n b_{n-k}c_k.
+  \end{equation*}
+  If $f$ is not primitive, then there is a prime $p$ such that $p\mid a_n$ for each coefficient $a_n$. However, since $g(x)$ and $h(x)$ are primitive, there are least indices $i_0$ and $j_0$ such that $p\nmid b_{i_0}$ and $p\nmid c_{j_0}$. Now observe that
+  \begin{equation*}
+    a_{i_0+j_0}= \sum_{k=0}^{i_0+j_0} b_{i_0+j_0-k}c_k \equiv b_{i_0}c_{j_0}\nequiv 0 \pmod p,
+  \end{equation*}
+  where the first congruence holds because $p\mid c_k$ for $k<j_0$ and $p\mid b_{i_0+j_0-k}$ for $k>j_0$.
+  This is a contradiction, since we have assumed that $p\mid a_{i_0+j_0}$. We conclude that $f$ is primitive.
+\end{proof}
+
+\begin{theorem}[Gauss's Lemma for Polynomials]\label{theorem:gausss-lemma-polynomials}
+  Consider a monic polynomial $f(x)$ with integer coefficients, and let $g(x)$ and $h(x)$ be two polynomials with rational coefficients satisfying the polynomial identity
+  \begin{equation*}
+    f(x)=g(x)h(x).
+  \end{equation*}
+  Then the coefficients of both $g(x)$ and $h(x)$ are integers.
+\end{theorem}
+
+\begin{proof}
+  Since $g(x)$ and $h(x)$ are polynomials with rational coefficients, there are least positive integers $c$ and $d$ such that $cg(x)$ and $dh(x)$ are polynomials with integer coefficients. Note that $cg(x)$ and $dh(x)$ are primitive polynomials, hence their product
+  \begin{equation*}
+    cdf(x)=(cg(x))(dh(x))
+  \end{equation*}
+  is again primitive. Since the integer $cd$ divides each coefficient of $cdf(x)$, it follows that $cd=1$. We conclude that $c=d=1$. In other words, $g(x)$ and $h(x)$ had integer coefficients to start with.
+\end{proof}
+
+\begin{corollary}
+  Suppose $f(x)$ is a monic polynomial with integer coefficients. Then any rational root $r$ is an integer.
+\end{corollary}
+
+\begin{proof}
+  If $r$ is a rational root, then it follows from \crefnamed{theorem:factor-theorem} that $f(x)$ factors as
+  \begin{equation*}
+    f(x)=(x-r)g(x),
+  \end{equation*}
+  where $g(x)$ is a polynomial with rational coefficients. By \crefnamed{theorem:gausss-lemma-polynomials} it follows that $x-r$ is a polynomial with integer coefficients; that is, $r$ is an integer.
+\end{proof}
+  
+\section{Euclid's Algorithm for Polynomials}
+
+\begin{example}
+  Consider the polynomials $f(x)=x^4+x^2+1$ and $g(x)=x^2+x+1$. We can apply the ideas behind \crefnamed{theorem:euclidean-division} to divide out $g(x)$ from $f(x)$ as best we can. To do this, we first write
+  \begin{align*}
+    x^4+x^2+1 & =x^2(x^2+x+1)-x^3+1. \\
+    \intertext{In the same manner, we can divide out $x^2+x+1$ from $-x^3+1$:}
+    -x^3+1 & =-x(x^2+x+1)+x^2+x+1. \\
+    \intertext{Finally, we note that the remainder $x^2+x+1$ is equal to $g(x)$. For completeness sake, we write the final step:}
+    x^2+x+1 & =1(x^2+x+1)+0.
+  \end{align*}
+  Having reached $0$, the process terminates here. As a parenthetical remark, we note that the process could also have terminated by reaching in the remainder a polynomial of strictly smaller degree than the degree of $g(x)$. Combining the previous calculations, we obtain the polynomial identity
+  \begin{equation*}
+    x^4+x^2+1=(x^2-x+1)(x^2+x+1).
+  \end{equation*}
+  The process we have exhibited here is called \emph{Euclidean division} or \emph{long division} for polynomials.
+\end{example}
+
+\begin{definition}
+  We say that a polynomial $g(x)$ \emph{divides} a polynomial $f(x)$ if there is a polynomial $h(x)$ such that
+  \begin{equation*}
+    f(x)=g(x)h(x).
+  \end{equation*}
+\end{definition}
+
+% \begin{example}
+%   Consider the polynomial $f(x)=3x^3+2x^2+x$ and $g(x)=x^2-x+1$. Then we can apply the ideas behind \crefnamed{theorem:euclidean-division} to divide out $g(x)$ from $f(x)$ as best we can. To do this, we first write
+%   \begin{equation*}
+%     3x^3+2x^2+x = 3x(x^2-x+1) + (5x^2-2).
+%   \end{equation*}
+%   Notice that we can go further by one step, in order to get the degree of the remainder strictly below $2$: Writing $5x^2-2=5(x^2-x+1) +5x-7$ we obtain:
+%   \begin{equation*}
+%     3x^2+2x^2+x = (3x+5)(x^2-x+1)+5x-7.
+%   \end{equation*}
+%   Thus, we have written $f(x)$ in the form $q(x)g(x)+r(x)$, where the degree of $r(x)$ is strictly smaller than the degree of $g(x)$.
+
+%   In order to run the full Euclidean algorithm, we need to consider all polynomials to be with rational coefficients. Note that $5x-7 = 5(x-\frac{7}{5})$, and we continue with the polynomial $x-\frac{7}{5}$.
+%   \begin{equation*}
+%     x^2-x+1=(x+\tfrac{2}{5})(x-\tfrac{7}{5}) + \tfrac{39}{25}
+%   \end{equation*}
+%   These computations show that any common divisor of $f(x)$ and $g(x)$ must be an constant integer polynomial dividing $\frac{39}{25}$. The only such integer constant is $1$, so we conclude that $\gcd(f(x),g(x))=1$.
+% \end{example}
+
+\begin{theorem}[Euclidean Division for Polynomials]\label{theorem:euclidean-division-polynomials}
+  Consider two polynomials $f(x)$ and $g(x)$ with coefficients in an integral domain, and assume that $g(x)$ is a monic polynomial of degree $m$. Then we can determine unique polynomials $q(x)$ and $r(x)$ satisfying the polynomial identity
+  \begin{equation*}
+    f(x)=q(x)g(x)+r(x),
+  \end{equation*}
+  such that $\deg(r(x))<m$.
+\end{theorem}
+
+\begin{proof}
+  The proof is by induction on the degree of $f(x)$. If $\deg(f(x))< m$, then we simply choose $q(x)=0$ and $r(x)=f(x)$. These choices are forced, since the degree of any nonzero multiple of $g(x)$ is at least the degree of $g(x)$.
+
+  Now suppose that the claim holds for any polynomial of degree $<m+n$, and let $f(x)$ be of degree $m+n$ with leading coefficient $a$. Then
+  \begin{equation*}
+    h(x)=f(x)-ax^n g(x)
+  \end{equation*}
+  has degree $<m+n$. Consequently, there are unique polynomials $q(x)$ and $r(x)$ of degree $<m$ satisfying the polynomial identity
+  \begin{equation*}
+    h(x)=q(x)g(x)+r(x).
+  \end{equation*}
+  It follows that
+  \begin{equation*}
+    f(x)=(ax^n+q(x))g(x)+r(x).
+  \end{equation*}
+  It remains to show that this choice of polynomials is uniquely determined. Let $p(x)$ and $s(x)$ be polynomials with $\deg(s(x))<m$ satisfying the polynomial identity $f(x)=p(x)g(x)+s(x)$. Let $b$ be the leading coefficient of $p(x)$. Since $g(x)$ was assumed to be monic, it follows that $b$ is then the leading coefficient of $p(x)g(x)$. Moreover, since $\deg(s(x))<m$ we see that the leading coefficient of $p(x)g(x)+s(x)$ is $b$, so we conclude that $a=b$. It also follows by these same considerations that $\deg(p(x))=n$. Now we see that
+  \begin{equation*}
+    (p(x)-ax^n)g(x)+s(x)=f(x)-ax^ng(x)=h(x)=q(x)g(x)+r(x).
+  \end{equation*}
+  This shows that $s(x)=r(x)$ and $ax^n+q(x)=p(x)$, completing the proof of uniqueness.
+\end{proof}
+
+\section{Irreducible Polynomials}
+
+\begin{definition}
+  A polynomial $f(x)$ with coefficients in $R$ is said to be \emph{irreducible} if it cannot be written in the form
+  \begin{equation*}
+    f(x)=g(x)h(x)
+  \end{equation*}
+  where neither $g(x)$ nor $h(x)$ are constant at an invertible element of $R$.
+\end{definition}
+
+\crefnamed{theorem:gausss-lemma-polynomials} can be stated in the form of an irreducibility criterion:
+
+\begin{corollary}\label{corollary:gausss-lemma-polynomials}
+  Consider a monic polynomial $f(x)\in\mathbb{Z}[x]$. If $f(x)$ is irreducible as a polynomial with integer coefficients, then it is also irreducible as a polynomial with rational coefficients.
+\end{corollary}
+
+\begin{corollary}
+  Consider a primitive polynomial $f(x)$ with integer coefficients, and consider a prime $p$ such that the leading coefficient of $f(x)$ is not divisible by $p$. Let $\bar{f}(x)\in (\mathbb{Z}/p)[x]$ be the reduction of $f(x)$ to $\mathbb{Z}/p$. If $\bar{f}(x)$ is irreducible in $(\mathbb{Z}/p)[x]$, then $f(x)$ is irreducible in $\mathbb{Q}[x]$.
+\end{corollary}
+
+\begin{example}
+  Consider the polynomial $f(x)=x^2-x+1$. This is a quadratic polynomial, so it is only reducible in $\mathbb{Q}[x]$ if it has rational roots. Note that any root would have to be a root modulo $5$ as well. However, a quick calculation shows that $f(a)\nequiv 0 \pmod{5}$ for each integer $0\leq a<5$. Therefore, it follows that $f(x)$ is irreducible modulo $5$, and this is sufficient to conclude that $f(x)$ is irreducible in $\mathbb{Q}[x]$.
+\end{example}
+
+\begin{example}
+  Our next example is due to Georg P\'{o}lya, who showed that the polynomial
+  \begin{equation*}
+    P_n(x):=(x+1)\cdots (x+n)+1
+  \end{equation*}
+  is irreducible in $\mathbb{Z}[x]$ for all $n\neq 4$ \cite{polya1919}. In the case $n=4$ we have the factorization
+  \begin{equation*}
+    (x+1)(x+2)(x+3)(x+4)+1=(x^2+5x+5)^2.
+  \end{equation*}
+  
+  Knowing that the polynomial $P_n(x)$ is irreducible for $n\neq 4$ is consistent with the conjecture that infinitely many numbers of the form $n!+1$ are prime. Primes of the form $n!\pm 1$ are called \emph{factorial primes}. Even though it is still a long way to proving the conjecture, P\'{o}lya’s observation rules out the simplest algebraic obstruction: The number $P_n(0)=n!+1$ is not automatically composite for purely polynomial reasons.
+
+  Note that a polynomial $f(x)$ is irreducible in $\mathbb{Z}[x]$ if and only if every translation $f(x+a)$ is also irreducible. In other words, translations have no effect on the irreducibility of a polynomial. We use this to bring P\'{o}lya's polynomial to slightly more convenient form. We define
+  \begin{equation*}
+    H_n(x):=(x-1)\cdots (x-n)+1,
+  \end{equation*}
+  so that $P_n(x)=H_n(x+n+1)$.
+
+  Suppose that $H_n(x)=f(x)g(x)$ for two integer polynomials $f(x)$ and $g(x)$ of degree $\geq 1$. Since $H_n(k)=1$ for every $1\leq k\leq n$, it follows that
+  \begin{equation*}
+    f(k)g(k)=1
+  \end{equation*}
+  for every $1\leq k\leq n$. This implies that either $f(k)=1$ and $g(k)=1$, or $f(k)=-1$ and $g(k)=-1$. In particular, we find that $f(k)=g(k)$ for each $1\leq k\leq n$. Since $\deg(f),\deg(g)<n$, we conclude by \crefnamed{theorem:lagranges-interpolation-theorem} that the polynomial identity $f(x)=g(x)$ holds. Therefore, it follows that
+  \begin{equation*}
+    H_n(x)=f(x)^2,
+  \end{equation*}
+  and $n=2m$, where $m$ is the degree of $f$.
+
+  Now define the sets
+  \begin{equation*}
+    I:=\{1\leq k\leq 2m\mid f(k)=1\}\qquad\text{and}\qquad J:= \{1\leq k\leq 2m\mid f(k)=-1\}.
+  \end{equation*}
+  Note that $I$ consists of the integer roots of $f(x)-1$, and $J$ consists of the integer roots of $f(x)+1$. In particular, since the degree of $f(x)$ is $m$, it follows that $|I|\leq m$ and $|J|\leq m$. On the other hand, the union $I\cup J$ consists of all the numbers $1,\ldots,2m$, so that $|I|+|J|=2m$. This allows us to conclude that both $I$ and $J$ consist of exactly $m$ elements, that $I$ consists of all the roots of $f(x)-1$, and that $J$ consists of all the roots of $f(x)+1$. Consequently, we have the polynomial identities
+  \begin{equation*}
+    f(x)-1=\prod_{i\in I}(x-i)\qquad\text{and}\qquad f(x)+1=\prod_{j\in J}(x-j).
+  \end{equation*}
+
+  It follows that for each $i_0\in I$, we have
+  \begin{equation*}
+    \prod_{j\in J}(i_0-j)=\prod_{j\in J}(i_0-j)-\prod_{i\in I}(i_0-i) = 2.
+  \end{equation*}
+  This integer factorization of $2$ shows that the distance $|i_0-j|\leq 2$ for every integer $j\in J$. Now observe that when $J$ contains at least three integers, then there is at most one integer distinct from all the integers in $J$ such that $|x-j|\leq 2$ for all $j\in J$. However, since $I$ and $J$ contain the same number of elements, this shows that $J$ cannot contain $3$ or more integers. We conclude that $m\leq 2$.
+  
+  We have shown so far that if $P_n(x)$ factors as a product of two polynomials, then $n=2m$ for $1\leq m\leq 2$. To finish the proof of P\'{o}lya's claim, it remains to show that $P_2(x)$ is irreducible. Reducing P\'{o}lya's polynomial $P_2(x)$ modulo $2$ gives
+  \begin{equation*}
+    (x+1)(x+2)+1\equiv x^2+x+1\pmod{2}.
+  \end{equation*}
+  Since quadratic polynomials are only reducible if they have roots, and this polynomial has no roots modulo $2$, this immediately implies that $P_2(x)$ cannot have roots and is therefore irreducible.
+\end{example}
+
+\section{Eisenstein's Criterion}
+
+\begin{theorem}[Eisenstein's Criterion]
+  Consider a polynomial $f(x)=a_nx^n+\cdots+a_0$ with integer coefficients. Suppose that there is a prime number $p$ such that:
+  \begin{enumerate}
+  \item The prime $p$ is a prime divisor of $a_i$ for every $0\leq i<n$,
+  \item The coefficient $a_n$ is not divisible by $p$,
+  \item The coefficient $a_0$ is not divisible by $p^2$.
+  \end{enumerate}
+  Then the polynomial $f$ is irreducible.
+\end{theorem}
+
+\begin{example}
+  Consider two distinct integers $a$ and $b$. We claim that the polynomial
+  \begin{equation*}
+    f(x)=(x+a)^n-(x+b)^n
+  \end{equation*}
+  is irreducible if and only if $n$ is prime.
+
+  If $n$ is composite, say $n=km$, then we can factor $f(x)$ using the formula for the difference of $m$th powers:
+  \begin{equation*}
+    f(x)=((x+a)^k-(x+b)^k)\sum_{i=0}^{m-1}(x+a)^i(x+b)^{m-1-i}.
+  \end{equation*}
+  This shows that for composite $n$, the polynomial $f(x)$ is reducible.
+
+  It remains to show that $f(x)$ is irreducible if $n=p$, where $p$ is prime. To see this, consider $c=a-b$ and the polynomial
+  \begin{equation*}
+    g(x)=(x+c)^p-x^p.
+  \end{equation*}
+  Then we have $f(x)=g(x+b)$, so it follows that $f(x)$ is irreducible if and only if $g(x)$ is. Furthermore, we observe that rescaling also doesn't affect irreducibility in $\mathbb{Q}[x]$: A polynomial $F(x)$ is irreducible in $\mathbb{Q}[x]$ if and only if the polynomial $F(qx)$ is irreducible, where $q$ is a nonzero rational number. Note that
+  \begin{equation*}
+    g(x)=c^p((x/c)+1)^p-(x/c)^p.
+  \end{equation*}
+  It follows that $g(x)$ is irreducible if and only if the polynomial
+  \begin{equation*}
+    h(x)=(x+1)^p-x^p
+  \end{equation*}
+  is irreducible. Thus, it remains to show that the polynomial $h(x)$ is irreducible.
+\end{example}
+
+\begin{example}
+  For every prime $p$, the polynomial
+    \begin{equation*}
+      f(x):=1+x+x^2+\cdots x^{p-1}
+    \end{equation*}
+    is irreducible. Indeed, if we substitute $x=y+1$ in
+    \begin{equation*}
+      f(x)=\frac{x^p-1}{x-1},
+    \end{equation*}
+    we obtain
+    \begin{equation*}
+      f(y+1)=\frac{(y+1)^p-1}{y}=\sum_{i=0}^{p-1}\binom{p}{i+1}y^{i}.
+    \end{equation*}
+    This polynomial has coefficients $a_i=\binom{p}{i+1}$. Thus we see that
+    \begin{enumerate}
+    \item The binomial coefficient $\binom{p}{i+1}$ is divisible by $p$ for every $0\leq i<p-1$.
+    \item The binomial coefficient $\binom{p}{p}=1$ is not divisible by $p$.
+    \item The binomial coefficient $\binom{p}{1}=p$ is not divisible by $p^2$.
+    \end{enumerate}
+    Thus it follows from Eisenstein's criterion that $f(y+1)$ is irreducible, which implies that $f(x)$ is irreducible.
+\end{example}
+
+\begin{example}
+  \begin{enumerate}
+  \item Consider a prime $p$ and an even integer $2\leq n<p-1$ such that $p\nmid B_n$. Then the polynomial
+    \begin{equation*}
+      (x+1)^n+\cdots+(x+p-1)^n
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      x^6+3x^5+6x^4+9x^3+6x^2+3x^1+1
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \item Show that the polynomial
+    \begin{equation*}
+      \frac{(x+2)^n-x^n-2^n}{x}
+    \end{equation*}
+    is irreducible over $\mathbb{Q}$.
+  \end{enumerate}
+\end{example}
+
+\exercises
+
+\begin{starter}
+  \exercise Show that the following polynomials are irreducible in $\mathbb{Q}[x]$:
+  \begin{subexenum}
+  \item $x^2-x+3$,
+  \item $x^2+2x+3$,
+  \item $x^3-x+1$,
+  \item $x^3+2x+2$,
+  \item $x^4+3x+3$.
+  \end{subexenum}
+\end{starter}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
+%%% End:

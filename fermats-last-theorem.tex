@@ -1,6 +1,88 @@
 \chapter{Fermat's Last Theorem}
 
-\section{A Parity Analysis of the Solutions}
+\section{Barlow's Relations}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth,height=.9\textheight,keepaspectratio]{Diophantus-II-8-Fermat}
+  \caption[Samuel de Fermat’s edition of Diophantus’ \emph{Arithmeticae}]{Samuel de Fermat, son of Pierre de Fermat, published an edition of Diophantus’ \emph{Arithmeticae} containing his father's marginal notes. This page shows the famous claim that is now known as Fermat's Last Theorem.}
+\end{figure}
+
+\begin{proposition}
+  Consider three integers $a$, $b$, and $c$ satisfying the equation
+  \begin{equation*}
+    a^n+b^n=c^n,
+  \end{equation*}
+  where $n\geq 1$. If one of the following three properties holds, then so do the other two:
+  \begin{enumerate}
+  \item $\gcd(a,b)=1$.
+  \item $\gcd(a,c)=1$.
+  \item $\gcd(b,c)=1$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{lemma}\label{lemma:binary-fermat-quotient}
+  Consider a primitive triple of positive integers $a$, $b$, and $c$ and an odd prime $p$ such that $a^p+b^p=c^p$. Define the \emph{binary Fermat quotient}
+  \begin{equation*}
+    q_p(a,b):=\sum_{k=0}^{p-1} (-1)^k a^{p-1-k}b^k,
+  \end{equation*}
+  so that $a^p+b^p=(a+b)\cdot q_p(a,b)$. Then we have
+  \begin{equation*}
+    \gcd(a+b,q_p(a,b))=
+    \begin{cases}
+      1 & \text{if $p\nmid a+b$,}\\
+      p & \text{if $p\mid a+b$.}
+    \end{cases}
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  Consider the modulus $m:=a+b$ so that $a\equiv -b\pmod{m}$. Then we have
+  \begin{equation*}
+    q_p(a,b)=\sum_{k=0}^{p-1}(-1)^ka^{p-1-k}b^k \equiv \sum_{k=0}^{p-1} (-1)^ka^{p-1-k}(-a)^k= pa^{p-1} \pmod{m}.
+  \end{equation*}
+  It follows that $\gcd(a+b,q_p(a,b))$ divides $\gcd(a+b,pa^{p-1})$. However, since $a$ is relatively prime to $a+b$, we find that the latter greatest common divisor divides $p$.
+\end{proof}
+
+\begin{theorem}[Barlow's relations]
+  Consider three nonzero integers $a$, $b$, and $c$ and an odd prime $p$ such that
+  \begin{equation*}
+    a^p+b^p=c^p.
+  \end{equation*}
+  There are two cases to consider:
+  \begin{enumerate}
+  \item \emph{Case I.} If $p\nmid abc$, the factors $a+b$ and the Fermat quotient $q_p(a,b)$ are relatively prime and consequently both are perfect $p$th powers.
+  \item \emph{Case II.} If $p\mid c$, 
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  For 
+\end{proof}
+
+\section{A Prime Valuation Analysis of the Solutions}
+
+\begin{remark}
+  Consider an odd prime $q$, and suppose that
+  \begin{equation*}
+    c^q =a^q-b^q,
+  \end{equation*}
+  where $b<a$ and $a$ and $b$ are relatively prime. Recall that $a^q-b^q$ is divisible by $a-b$, so that
+  \begin{equation*}
+    u_q=\frac{a^q-b^q}{a-b},
+  \end{equation*}
+  where $(u_n)$ is the Lucas sequence defined by $u_{n+2}=au_{n+1}-bu_n$. In \cref{example:rank-of-apparition-square-discriminant-lucas-sequence} we established the following facts about the rank of apparition of $p$ in $(u_n)$:
+  \begin{enumerate}
+  \item If $p\nmid ab(a-b)$, then $\rho(p)=\ord_p(a/b)$.
+  \item If $p\mid a-b$, then $\rho(p)=p$. Furthermore, we established using \crefnamed{theorem:lte} that $\rho(p^k)=p^k$.
+  \item If $p\mid a$ or $p\mid b$, then $\rho(p)=0$.
+  \end{enumerate}
+  Thus, if $p$ is a prime divisor of $c$, where $c$ satisfies the equation $c^q=a^q-b^q$, then we obtain the following:
+  \begin{enumerate}
+  \item If $p\nmid ab(a-b)$, then $\ord_p(a/b)\mid q$.
+  \item If $p\mid a-b$, then $\rho(p^k)=p^k\mid q$. This means that..
+  \end{enumerate}
+\end{remark}
 
 \section{The Unsolvability of \texorpdfstring{$x^3+y^3=z^3$}{x³+y³=z³}}
 

@@ -17,7 +17,7 @@ After working through this chapter, you will be able to:
   An integer $a$ is said to be \emph{prime} if it has exactly one positive proper divisor. Any integer $a\neq \pm 1$ that is not prime is said to be a \emph{composite number}.
 \end{definition}
 
-The numbers $0$ and $1$ are not prime. To see that $0$ isn't prime, simply note that any positive integer is a proper divisor of $0$. To see that $1$ isn't prime, note that $1$ doesn't have any proper divisors. Indeed, it has exactly one positive divisor, namely $1$ itself, but this divisor isn't proper. We also note that if $a>1$ is prime, then the number $1$ is always a positive proper divisor. Thus we see that $a>1$ is prime if and only if the number $1$ is its unique positive proper divisor.
+The numbers $0$ and $1$ are not prime. To see that $0$ isn't prime, simply note that any positive integer is a proper divisor of $0$. To see that $1$ isn't prime, note that $1$ doesn't have any proper divisors. Indeed, it has exactly one positive divisor, namely $1$ itself, but this divisor isn't proper. We also note that if $a>1$ is prime, then the number $1$ is always a positive proper divisor. Thus we see that $a>1$ is prime if and only if the number $1$ is its unique positive proper divisor. We note that older literature often uses the name \emph{aliquot divisors} for what we have called proper divisors.
 
 To see that the number $2$ is prime, note that its positive divisors are a subset of the set $\{1,2\}$ consisting of all the positive integers below $2$. Its proper divisors are therefore a subset of $\{1\}$. The integer $1$ is indeed a positive divisor, so we see that $2$ has exactly one positive proper divisor.
 
@@ -132,7 +132,7 @@ The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which 
 \end{theorem}
 
 \begin{proof}
-  Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by the \crefnamed{theorem:well-ordering-natural-numbers}{Well-Ordering Principle} of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
+  Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by \crefnamed{theorem:well-ordering-natural-numbers} of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
 \end{proof}
 
 The following proposition is due to Euclid, who included it as proposition 30 of book VII of the \emph{Elements}.
@@ -296,7 +296,7 @@ for all $k\in\mathbb{Z}$. In particular, all inhabited periodic subsets of $\mat
   for every natural number $k$.
 \end{definition}
 
-By the \crefnamed{theorem:fundamental-theorem-of-arithmetic}{Fundamental Theorem of Arithmetic} it follows that square-free numbers are those numbers of which the prime decomposition
+By \crefnamed{theorem:fundamental-theorem-of-arithmetic} it follows that square-free numbers are those numbers of which the prime decomposition
 \begin{equation*}
   n=p_1\cdots p_n
 \end{equation*}
@@ -315,7 +315,7 @@ is a product of distinct primes. In particular, if $n$ is square free then the e
   \begin{equation*}
     S := \{d\in\mathbb{N}\mid\text{There exists a $k\in\mathbb{N}$ such that $k^2d=n$}\}.
   \end{equation*}
-  Clearly, this set contains the element $n$ itself, since $n/n=1$ is a perfect square. By the \crefnamed{theorem:well-ordering-natural-numbers}{Well-Ordering Principle}, it follows that $S$ has a least element, which we call $m$. By definition, $n/m$ is a perfect square, so there is a natural number $k$ such that
+  Clearly, this set contains the element $n$ itself, since $n/n=1$ is a perfect square. By \crefnamed{theorem:well-ordering-natural-numbers}, it follows that $S$ has a least element, which we call $m$. By definition, $n/m$ is a perfect square, so there is a natural number $k$ such that
   \begin{equation*}
     n=k^2m.
   \end{equation*}
@@ -377,7 +377,7 @@ The stars-and-bars problem asks in how many ways it is possible to place $n-1$ b
   \label{figure:stars-and-bars}
 \end{figure}
 
-The stars-and-bars problem admits several equivalent formulations. For example, the stars-and-bars problem is equivalently posed by asking in how many ways one can place $k$ indistinguishable balls in $n$ distinguishable boxes. It is also equivalent to the problem of writing $k$ as an ordered sum of $n$ natural numbers. The four example configurations of \cref{figure:stars-and-bars} correspond to writing $5=0+3+2+0$, $5=1+3+1+0$, $5=2+0+2+1$, and $5=0+2+2+1$. Making use of the \crefnamed{theorem:fundamental-theorem-of-arithmetic}{Fundamental Theorem of Arithmetic}, we find yet another equivalent way of formulating the stars-and-bars problem: Given a set $p_1,\ldots,p_{n}$ primes, how many natural numbers are there of the form
+The stars-and-bars problem admits several equivalent formulations. For example, the stars-and-bars problem is equivalently posed by asking in how many ways one can place $k$ indistinguishable balls in $n$ distinguishable boxes. It is also equivalent to the problem of writing $k$ as an ordered sum of $n$ natural numbers. The four example configurations of \cref{figure:stars-and-bars} correspond to writing $5=0+3+2+0$, $5=1+3+1+0$, $5=2+0+2+1$, and $5=0+2+2+1$. Making use of \crefnamed{theorem:fundamental-theorem-of-arithmetic}, we find yet another equivalent way of formulating the stars-and-bars problem: Given a set $p_1,\ldots,p_{n}$ primes, how many natural numbers are there of the form
 \begin{equation*}
   p_1^{m_1}\cdots p_{n}^{m_{n}},
 \end{equation*}
@@ -507,7 +507,7 @@ Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the
 \end{theorem}
 
 \begin{proof}
-  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Using the \crefnamed{theorem:product-formula-fermat-numbers}{Product formula of the Fermat numbers}, we see that $F_m \mid F_n - 2$. It follows that any common divisor $d$ of $F_m$ and $F_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $F_m$ and $F_n$ is $1$. In other words, $F_m$ and $F_n$ are relatively prime.
+  Consider two distinct natural numbers $m$ and $n$, and assume that $m<n$. Using \crefnamed{theorem:product-formula-fermat-numbers}, we see that $F_m \mid F_n - 2$. It follows that any common divisor $d$ of $F_m$ and $F_n$ is also a divisor of $2$, i.e., $d=1$ or $d=2$. However, all Fermat numbers are clearly odd, and this implies that any common divisor of $F_m$ and $F_n$ is $1$. In other words, $F_m$ and $F_n$ are relatively prime.
 \end{proof}
 
 \begin{proof}[Goldbach's proof of \cref{theorem:infinitude-of-primes}]

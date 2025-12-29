@@ -33,14 +33,14 @@ However, it is not quite true that $2$ is a primitive root modulo $p$ whenever i
   In other words, $2$ is a quadratic residue if and only if $p\equiv \pm1\pmod{8}$, and it is a quadratic nonresidue if and only if $p\equiv \pm 3\pmod{8}$.
 \end{theorem}
 
-  Before we start the proof, recall that one of the proofs of \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} was obtained by multiplying all the numbers $1,\ldots,p-1$ with an integer $a$ to obtain the congruence
+  Before we start the proof, recall that one of the proofs of \crefnamed{theorem:fermats-little-theorem} was obtained by multiplying all the numbers $1,\ldots,p-1$ with an integer $a$ to obtain the congruence
   \begin{equation*}
     a^{p-1}(p-1)!\equiv (p-1)!\pmod{p}.
   \end{equation*}
   Since $(p-1)!$ isn't divisible by $p$, it is invertible modulo $p$ and thus we found that $a^{p-1}\equiv 1\pmod{p}$.
 
 \begin{proof}
-  In this proof, we will write $P:=\frac{p-1}{2}$ so that $2P=p-1$. By \crefnamed{theorem:eulers-criterion}{Euler's Criterion} we have $\legendre{2}{p}\equiv 2^P\pmod{p}$, which gives us the congruences
+  In this proof, we will write $P:=\frac{p-1}{2}$ so that $2P=p-1$. By \crefnamed{theorem:eulers-criterion} we have $\legendre{2}{p}\equiv 2^P\pmod{p}$, which gives us the congruences
   \begin{equation*}
     {\textstyle \legendre{2}{p}P!}\equiv 2^{P}P! \equiv 2\cdot 4 \cdot \cdots \cdot (2P) \pmod{p}
   \end{equation*}
@@ -424,7 +424,7 @@ The following lemma shows that every $1\leq x\leq\frac{p-1}{2}$ occurs exactly o
   \begin{equation*}
     \legendre{a}{p}P!\equiv (-1)^\mu P!\pmod{p}.
   \end{equation*}
-  By \crefnamed{theorem:eulers-criterion}{Euler's Criterion} we have $\legendre{a}{p}\equiv a^{P}\pmod{p}$, so we obtain that
+  By \crefnamed{theorem:eulers-criterion} we have $\legendre{a}{p}\equiv a^{P}\pmod{p}$, so we obtain that
   \begin{equation*}
     \legendre{a}{p}P!\equiv a^P P! \pmod{p}.
   \end{equation*}
@@ -453,8 +453,8 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   \left\lfloor\frac{3}{2}\right\rfloor=1,\qquad \left\lfloor\frac{29}{31}\right\rfloor=0,\qquad\text{and}\qquad\left\lfloor-\frac{1}{4}\right\rfloor=-1.
 \end{equation*}
 
-\begin{proof}[Eisenstein's Proof of \crefnamed{theorem:quadratic-reciprocity}{The Law of Quadratic Reciprocity}]
-  By \crefnamed{lemma:gausss-lemma}{Gauss's Lemma} it suffices to show that
+\begin{proof}[Eisenstein's Proof of \crefnamed{theorem:quadratic-reciprocity}]
+  By \crefnamed{lemma:gausss-lemma} it suffices to show that
   \begin{equation*}
     (-1)^{\mu(q,p)}(-1)^{\mu(p,q)}=(-1)^{\frac{p-1}{2}\frac{q-1}{2}}.
   \end{equation*}
@@ -524,7 +524,7 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
 \end{proof}
 
 \begin{lemma}
-  Consider an odd prime $p$ and an odd integer $a$ not divisible by $p$, and let $\mu(a,p)$ be the quantity defined in \crefnamed{lemma:gausss-lemma}{Gauss's Lemma}. Then
+  Consider an odd prime $p$ and an odd integer $a$ not divisible by $p$, and let $\mu(a,p)$ be the quantity defined in \crefnamed{lemma:gausss-lemma}. Then
   \begin{equation*}
     \sum_{k=1}^{\frac{p-1}{2}}\left\lfloor\frac{ka}{p}\right\rfloor \equiv \mu(a,p)\pmod{2}.
   \end{equation*}
@@ -586,6 +586,24 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   \begin{equation*}
     \legendre{337}{373}, \quad \legendre{373}{733}, \quad\text{and}\quad \legendre{733}{337}.
   \end{equation*}
+  \exercise Show that the system of congruences
+  \begin{align*}
+    x-y\equiv 1\pmod{p},\\
+    xy\equiv 1\pmod{p}
+  \end{align*}
+  has a solution if and only if $p\equiv \pm 1\pmod{10}$.
+  % \exercise Determine whether the following quadratic congruences have solutions:
+  % \begin{subexenum}
+  % \item $x^2+x+1\equiv 0\pmod{15}$.
+  % \item $x^2 + x +4\equiv 0\pmod{15}$.
+  % \item $3x^2+2x+5\equiv 0\pmod{24}$.
+  % \item $3x^2 + 7x + 2\equiv 0\pmod{24}$.
+  % \item $x^2 - 2x -8 \equiv 0 \pmod{35}$.
+  % \item $x^2 + x -6\equiv 0\pmod{77}$.
+  % \end{subexenum}
+\end{starter}
+
+\begin{routine}
   \exercise Consider a prime $p>3$. Show that
   \begin{equation*}
     \legendre{6}{p}=
@@ -602,18 +620,6 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
       -1 & \text{if }p\equiv \pm 7, \pm 11, \pm 17, \pm 19 \pmod{40}.
     \end{cases}
   \end{equation*}
-  % \exercise Determine whether the following quadratic congruences have solutions:
-  % \begin{subexenum}
-  % \item $x^2+x+1\equiv 0\pmod{15}$.
-  % \item $x^2 + x +4\equiv 0\pmod{15}$.
-  % \item $3x^2+2x+5\equiv 0\pmod{24}$.
-  % \item $3x^2 + 7x + 2\equiv 0\pmod{24}$.
-  % \item $x^2 - 2x -8 \equiv 0 \pmod{35}$.
-  % \item $x^2 + x -6\equiv 0\pmod{77}$.
-  % \end{subexenum}
-\end{starter}
-
-\begin{routine}
   \exercise Determine whether the following quadratic congruences have solutions:
   \begin{subexenum}
   \item $x^2+x+1\equiv 0\pmod{13}$.

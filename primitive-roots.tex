@@ -42,11 +42,11 @@
   \label{figure:doubling-modulo-13}
 \end{figure}
 
-\crefnamed{theorem:eulers-theorem}{Euler's Theorem} tells us that
+\crefnamed{theorem:eulers-theorem} tells us that
 \begin{equation*}
   a^{\totient(n)}\equiv 1\pmod{n}
 \end{equation*}
-for every integer $a$ such that $\gcd(a,n)=1$. By the \crefnamed{theorem:order-theorem}{Order Theorem}, this implies that
+for every integer $a$ such that $\gcd(a,n)=1$. By \crefnamed{theorem:order-theorem}, this implies that
 \begin{equation*}
   \ord_n(a)\mid \totient(n).
 \end{equation*}
@@ -152,7 +152,7 @@ has at most $d$ solutions. This was established in \cref{theorem:maximal-number-
       0 & \text{otherwise.}
     \end{cases}
   \end{equation*}
-  The fact that if $k\nmid \totient(n)$ then $\psi(k)=0$ follows immediately from the \crefnamed{theorem:order-theorem}{Order Theorem} and \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem}. Thus, it remains to show that $\psi(k)=\totient(k)$ for any $k\mid \totient(n)$.
+  The fact that if $k\nmid \totient(n)$ then $\psi(k)=0$ follows immediately from \crefnamed{theorem:order-theorem} and \crefnamed{theorem:fermats-little-theorem}. Thus, it remains to show that $\psi(k)=\totient(k)$ for any $k\mid \totient(n)$.
 
   Consider an integer $a$ of order $k$ modulo $n$. By definition, every integer of order $k$ modulo $n$ is a solution to the polynomial congruence
   \begin{equation*}
@@ -209,7 +209,7 @@ form a reduced residue system modulo $p$. That is, there is an integer $g$ such 
   \begin{equation*}
     x^d\equiv 1\pmod{n}.
   \end{equation*}
-  An integer $a\equiv g^m\pmod{n}$ is a solution if and only if $g^{dm}\equiv 1\pmod{n}$. Since we assumed that $\ord_n(g)=\totient(n)$, it follows from the \crefnamed{theorem:order-theorem}{Order Theorem} that the congruence $g^{dm}\equiv 1\pmod{n}$ holds if and only if $\totient(n)\mid dm$. The number of $0\leq m<\totient(n)$ such that $\totient(n)\mid dm$ is exactly $\gcd(d,\totient(n))$, which is at most $d$. Therefore, it follows that there are at most $d$ solutions to the congruence $x^d\equiv 1\pmod{n}$.
+  An integer $a\equiv g^m\pmod{n}$ is a solution if and only if $g^{dm}\equiv 1\pmod{n}$. Since we assumed that $\ord_n(g)=\totient(n)$, it follows from \crefnamed{theorem:order-theorem} that the congruence $g^{dm}\equiv 1\pmod{n}$ holds if and only if $\totient(n)\mid dm$. The number of $0\leq m<\totient(n)$ such that $\totient(n)\mid dm$ is exactly $\gcd(d,\totient(n))$, which is at most $d$. Therefore, it follows that there are at most $d$ solutions to the congruence $x^d\equiv 1\pmod{n}$.
 \end{proof}
 
 \begin{corollary}\label{corollary:primitive-roots-primes}
@@ -289,145 +289,6 @@ form a reduced residue system modulo $n$. This means that every number relativel
 %   Suppose $n$ is a natural number that admits a primitive root and write $n=2^{\alpha}p^k$. Consider a polynomial $f(x)=a_dx^d+\cdots+a_0$ with integer coefficients so that the leading coefficient $a_d$ is relatively prime to $n$. Furthermore, assume that for every prime divisor $q\mid n$, the polynomials $f(x)$ and $f'(x)$ are relatively prime as polynomials. Then the number of roots of $f(x)$ modulo $n$ is at most $d$.
 % \end{theorem}
 
-\section{The Moduli with Primitive Roots}
-
-We have established the existence of primitive roots modulo any prime. In this section, we will give a complete characterization of those moduli for which a primitive root exists.
-
-\subsection{Primitive Roots Modulo Odd Prime Powers}
-Our first target is to show that any odd prime power $p^k$ has a primitive root. Our approach to this problem is of an arithmetic nature, based on an analysis of the $p$-valuations of differences of powers.
-
-For the following lemma, recall that $\nu_p(a-b)=m$ if and only if $a\equiv b\pmod{p^m}$ but $a\nequiv b\pmod{p^{m+1}}$. We also recall that for any prime $p$ and any $0<i<p$, the binomial coefficient $\binom{p}{i}$ is divisible by $p$. 
-
-\begin{lemma}\label{lemma:lte-step}
-  Consider an odd prime $p$, and two integers $a\equiv b\pmod{p}$ such that neither $a$ nor $b$ is divisible by $p$. Then
-  \begin{equation*}
-    \nu_p(a^p-b^p)=\nu_p(a-b)+1.
-  \end{equation*}
-\end{lemma}
-
-\begin{proof}
-  Write $s:=\nu_p(a-b)$, so that $s\geq 1$ by the assumption that $a\equiv b\pmod{p}$. Then we have $a\equiv b\pmod{p^s}$, so we can write $b=a+tp^s$, where $p\nmid t$. The value of $b^p$ can therefore be computed using the \crefnamed{theorem:binomial-theorem}{Binomial Theorem} by
-  \begin{equation*}
-    b^p=(a+tp^s)^p=\sum_{i=0}^p\binom{p}{i}a^i(tp^s)^{p-i} \equiv a^p+a^{p-1}tp^{s+1}\pmod{p^{s+2}}.
-  \end{equation*}
-  Since neither $a$ nor $t$ is divisible by $p$, it follows that $a^p\nequiv b^p\pmod{p^{s+2}}$. On the other hand, we see from the binomial expansion of $b^p$ that $a^p\equiv b^p\pmod{p^{s+1}}$. Therefore we conclude that
-  \begin{equation*}
-    \nu_p(a^p-b^p)=s+1.\qedhere
-  \end{equation*}
-\end{proof}
-
-The previous lemma can be iterated to obtain a general lemma called the \emph{Lifting the Exponent Lemma}. This lemma was popularized by the Romanian mathematician Mihai Manea \cite{manea2006}.
-
-\begin{lemma}[Lifting the Exponent]\label{lemma:lte}
-  Consider an odd prime $p$, and let $x\equiv y\pmod{p}$, where neither $x$ nor $y$ is divisible by $p$. Then for any natural number $n\geq 1$, we have
-  \begin{equation*}
-    \nu_p(x^n-y^n)=\nu_p(x-y)+\nu_p(n).
-  \end{equation*}
-\end{lemma}
-
-\begin{proof}
-  Write $n=p^km$ with $p\nmid m$, so that $\nu_p(n)=k$, and write $s=\nu_p(x-y)$. Since we have assumed that $x\equiv y\pmod{p}$, we have $s\geq 1$. We will prove the claim by induction on $k$.
-
-  In the base case, where $k=0$, the claim is simply that
-  \begin{equation*}
-    \nu_p(x^m-y^m)=s.
-  \end{equation*}
-  To see this, write $y=x+tp^s$, where $p\nmid t$. Then we have
-  \begin{equation*}
-    y^m=(x+tp^s)^m\equiv x^m+mx^{m-1}tp^s \pmod{p^{s+1}}.
-  \end{equation*}
-  Now observe that $m$, $x$, and $t$ are not divisible by $p$ by assumption, so it follows that $mx^{m-1}t$ is not divisible by $p$. This implies that $y^m\nequiv x^m\pmod{p^{s+1}}$. On the other hand, the congruence $x\equiv y\pmod{p^s}$ clearly implies that $x^m\equiv y^m\pmod{p^s}$, so we conclude that
-  \begin{equation*}
-    \nu_p(x^m-y^m)=s.
-  \end{equation*}
-  The inductive step is a direct consequence of \cref{lemma:lte-step}.
-\end{proof}
-
-Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is divisible by $p$ by \cref{theorem:fermats-little-theorem}. Therefore, its $p$-adic valuation $\alpha:=\nu_p(a^{p-1}-1)$ is at least $1$. In the following lemma we will establish that the order of $a$ modulo $p^k$ can be determined in terms of $\alpha$.
-
-\begin{lemma}\label{lemma:order-modulo-prime-power-primitive-root}
-  Consider an odd prime $p$ and a primitive root $g$ modulo $p$. Furthermore, let
-  \begin{equation*}
-    m:=\nu_p(g^{p-1}-1).
-  \end{equation*}
-  Then the order of $g$ modulo $p^k$ is $p^{\max(0,k-m)}(p-1)$. 
-\end{lemma}
-
-\begin{proof}
-  First, we observe that $\ord_p(g)\mid \ord_{p^k}(g)$, so the order of $g$ modulo $p^k$ must be a multiple of $p-1$. Write $g^{p-1}=kp^{m}+1$, so that $p\nmid k$. By the \crefnamed{lemma:lte}{Lifting the Exponent Lemma} it follows that
-  \begin{equation*}
-    \nu_p(g^{p^t(p-1)}-1)=m+t.
-  \end{equation*}
-  Consequently, for any integer $s$ not divisible by $p$ we have
-  \begin{equation*}
-    g^{p^ts(p-1)}=(kp^{m+t}+1)^s\equiv 1+skp^{m+t}\pmod{p^{m+t+1}}.
-  \end{equation*}
-  This shows that $\nu_p(g^{p^ts(p-1)}-1)=m+t$ for such $s$. The first exponent $r$ such that $g^r\equiv 1\pmod{p^k}$ is therefore $r=p^{\max(0,k-m)}(p-1)$.
-\end{proof}
-
-\begin{theorem}\label{theorem:primitive-roots-odd-prime-powers}
-  Any prime power $p^k$ with $k\geq 1$ admits a primitive root.
-\end{theorem}
-
-\begin{proof}
-  By \cref{lemma:order-modulo-prime-power-primitive-root} it suffices to construct a primitive root $h$ modulo $p$ such that $\nu_p(h^{p-1}-1)=1$.
-
-  Consider a primitive root $g$ modulo $p$. Write $g^{p-1}=kp+1$, and define $h_t:=g+tp$. Then we have
-  \begin{equation*}
-    h_t^{p-1}=(g+tp)^{p-1}\equiv g^{p-1}+(p-1)g^{p-2}tp\equiv 1+p(k-g^{p-2}t) \pmod{p^2}.
-  \end{equation*}
-  Thus we see that $h_t^{p-1}\equiv 1\pmod{p^2}$ if and only if
-  \begin{equation*}
-    k \equiv g^{p-2}t \pmod{p}.
-  \end{equation*}
-  This linear congruence has the unique solution $t\equiv kg\pmod{p}$. Thus we see that for any $t\nequiv kg\pmod{p}$, we have $h_t^{p-1}\nequiv 1\pmod{p^2}$ and hence
-  \begin{equation*}
-    \nu_p(h_t^{p-1}-1)=1.\qedhere
-  \end{equation*}
-\end{proof}
-
-\subsection{The Complete Characterization of Moduli with Primitive Roots}
-
-\begin{theorem}\label{theorem:moduli-with-primitive-roots}
-  Consider a positive integer $n$. The following are equivalent:
-  \begin{enumerate}
-  \item \label{itemi:classification-primitive-roots}The number $n$ admits a primitive root.
-  \item \label{itemii:classification-primitive-roots}Either $n=2$, or there is a unique element of order $2$ modulo $n$.
-  \item \label{itemiii:classification-primitive-roots}We have
-  \begin{equation*}
-    n=2,~4,~p^k,~\text{or }~2p^k,
-  \end{equation*}
-  where $p$ is an odd prime.
-  \end{enumerate}
-\end{theorem}
-
-\begin{proof}
-  We saw in \cref{theorem:primitive-roots} that if $n$ admits a primitive root, then the congruence
-  \begin{equation*}
-    x^d\equiv 1\pmod{n}
-  \end{equation*}
-  had at most $d$ solutions, for any $d\geq 0$. In particular, there are at most two solutions to the congruence $x^2\equiv 1\pmod{n}$. One of them is the number $1$, which is of order $1$. The other is $-1$, which is of order $2$. Since any element of order $2$ is a solution to the congruence $x^2\equiv 1\pmod{n}$, we see that \ref{itemi:classification-primitive-roots} implies \ref{itemii:classification-primitive-roots}.
-
-  Next, assume that there is a unique element of order $2$ modulo $n$. The case $n=4$ is swiftly dealt with, since $-1$ is the unique integer of order $2$ modulo $4$. If $n=2^k$ for some $k\geq 3$, then there are three integers of order $2$ modulo $2^k$:
-  \begin{equation*}
-    x=- 1\qquad\text{and}\qquad x=2^{k-1}\pm 1.
-  \end{equation*}
-  Thus we see that if $n=2^k$ for some $k\geq 3$, then $n$ does not satisfy the hypothesis in \ref{itemii:classification-primitive-roots}.
-
-  Now suppose that $n=km$, where $\gcd(k,m)=1$ and $m$ is odd and strictly greater than $1$. By the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem}, it follows that any pair of solutions
-  \begin{align*}
-    x^2 & \equiv 1\pmod{k}, \\
-    y^2 & \equiv 1\pmod{m},
-  \end{align*}
-  determines a unique solution to the congruence $z^2\equiv 1\pmod{km}$. It follows that one of them can have only one nontrivial solution. Since we assumed that $m>1$ is odd, and thus has two distinct solutions, it follows that there is only one solution to the congruence $x^2\equiv 1\pmod{k}$. Observe that there is only one such solution if and only if $k=1$ or $k=2$. Furthermore, the previous observation implies that $m$ cannot have distinct prime factors, so we conclude that $m$ must be of the form $m=p^k$ for some odd prime $p$. Thus we have proven that \ref{itemii:classification-primitive-roots} implies \ref{itemiii:classification-primitive-roots}.
-
-  Finally, we have to show that any number of the form $n=2,4,p^k$, or $2p^k$, where $p$ is an odd prime, admits a primitive root. The number $1$ is a primitive root modulo $2$, and the number $-1$ is a primitive root modulo $4$. The fact that any odd prime power $p^k$ admits primitive roots was established in \cref{theorem:primitive-roots-odd-prime-powers}. To finish the proof that \ref{itemiii:classification-primitive-roots} implies \ref{itemi:classification-primitive-roots}, it therefore remains to show that each number of the form $n=2p^k$, where $p$ is an odd prime, has a primitive root. To see this, observe that the integers relatively prime to $2p^k$ are exactly the odd integers $1\leq x<2p^k$ relatively prime to $p^k$. Among those odd integers is a primitive root $g$ modulo $p^k$. Its order modulo $2p^k$ is
-  \begin{equation*}
-    \ord_{2p^k}(g)=\ord_{p^k}(g)=p^{k-1}(p-1)=\phi(2p^k),
-  \end{equation*}
-  so we see that $g$ is also a primitive root of $2p^k$.
-\end{proof}
-
 \section{A Criterion for Congruences of Degree \texorpdfstring{$n$}{n}}
 
 While we are primarily interested in the quadratic congruence
@@ -438,7 +299,7 @@ in this introductory course on elementary number theory, the techniques that we 
 \begin{equation*}
   x^n\equiv a\pmod{p}.
 \end{equation*}
-The following theorem is a significant generalization of \crefnamed{theorem:eulers-criterion}{Euler's Criterion}.
+The following theorem is a significant generalization of \crefnamed{theorem:eulers-criterion}.
 
 \begin{theorem}
   Consider an integer $a$ and a prime $p$ so that $p\nmid a$. The following are equivalent:
@@ -494,7 +355,7 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
     ku+lv=1.
   \end{equation*}
   
-  To prove the forward implication, assume that $x$ is an integer such that $x^n\equiv a\pmod{p}$. Then we have by \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem}
+  To prove the forward implication, assume that $x$ is an integer such that $x^n\equiv a\pmod{p}$. Then we have by \crefnamed{theorem:fermats-little-theorem}
   \begin{equation*}
     a^k\equiv x^{kn}=x^{kld}=(x^{p-1})^l\equiv 1^l = 1\pmod{p}.
   \end{equation*}
@@ -592,7 +453,7 @@ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$.
     p-1=q_1^{\alpha_1}\cdots q_n^{\alpha_n}.
   \end{equation*}
   \begin{subexenum}
-  \item By \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem} it follows that for each prime $q_i$, the congruence
+  \item By \crefnamed{theorem:lagranges-theorem} it follows that for each prime $q_i$, the congruence
     \begin{equation*}
       x^{\frac{p-1}{q_i}}\equiv 1\pmod{p}
     \end{equation*}
@@ -654,7 +515,7 @@ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$.
       1\pmod{n} & \text{otherwise.}
     \end{cases}
   \end{equation*}
-  Hint: Use the \crefnamed{theorem:chinese-remainder-theorem}{Chinese Remainder Theorem} to show that the number of integers $0\leq x<n$ such that $x^2\equiv 1\pmod{n}$ is a power of $2$.
+  Hint: Use \crefnamed{theorem:chinese-remainder-theorem} to show that the number of integers $0\leq x<n$ such that $x^2\equiv 1\pmod{n}$ is a power of $2$.
 \end{challenge}
 
 %%% Local Variables:

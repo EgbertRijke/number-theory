@@ -36,7 +36,7 @@ Since the square root $\sqrt{k}$ of an integer $k$ is an integer if and only if 
   where $a\neq 0$. This equation has a rational solution if and only if the discriminant $\Delta=b^2-4ac$ is a perfect square.
 \end{theorem}
 
-Now consider an odd prime $p$. Recall from \crefnamed{theorem:lagranges-theorem}{Lagrange's Theorem} that a polynomial congruence
+Now consider an odd prime $p$. Recall from \crefnamed{theorem:lagranges-theorem} that a polynomial congruence
 \begin{equation*}
   f(x)\equiv 0\pmod{p}
 \end{equation*}
@@ -233,7 +233,7 @@ Euler had a deep understanding of numbers that are congruent to a square modulo 
 \end{theorem}
 
 \begin{proof}
-  First note that \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} gives that if $b:=a^{\frac{p-1}{2}}$, then
+  First note that \crefnamed{theorem:fermats-little-theorem} gives that if $b:=a^{\frac{p-1}{2}}$, then
   \begin{equation*}
     b^2\equiv 1\pmod{p}.
   \end{equation*}
@@ -261,7 +261,7 @@ Using Euler's Criterion, we can give a new proof of \cref{theorem:quadratic-char
 This description of the quadratic character of $-1$ is also called the \emph{first supplement} of the law of quadratic reciprocity.
 
 \begin{proof}[Proof of \cref{theorem:quadratic-character-neg-1} using Euler's Criterion.]
-  By \crefnamed{theorem:eulers-criterion}{Euler's Criterion}, it follows that $-1$ is a quadratic residue modulo $p$ if and only if
+  By \crefnamed{theorem:eulers-criterion}, it follows that $-1$ is a quadratic residue modulo $p$ if and only if
   \begin{equation*}
     (-1)^{\frac{p-1}{2}}\equiv 1\pmod{p}.
   \end{equation*}
@@ -297,7 +297,7 @@ As a reasonable starting point for our search, we take three consecutive primes 
 \begin{equation*}
   q,~q+2,~\text{and}~q+6.
 \end{equation*}
-By \crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem}, there is only one polynomial $f$ such that $f(n)$ assumes those values for $n=0,1,2$:
+By \crefnamed{theorem:lagranges-interpolation-theorem}, there is only one polynomial $f$ such that $f(n)$ assumes those values for $n=0,1,2$:
 \begin{equation*}
   f(n)=n^2+n+q.
 \end{equation*}
@@ -309,7 +309,7 @@ is composite for some $0\leq n\leq q-2$, then it must have a prime factor below 
 \begin{equation*}
   n^2+n+q\nequiv 0\pmod{p}
 \end{equation*}
-for any odd prime $p<q$. Recall from \cref{theorem:quadratic-congruence-mod-prime} that such an incongruence holds if and only if the discriminant $\Delta=1-4q$ is a quadratic nonresidue modulo $p$ for any odd prime $p<q$. By \crefnamed{theorem:eulers-criterion}{Euler's Criterion}, this observation finally narrows our search: We are looking for a prime $q$ such that
+for any odd prime $p<q$. Recall from \cref{theorem:quadratic-congruence-mod-prime} that such an incongruence holds if and only if the discriminant $\Delta=1-4q$ is a quadratic nonresidue modulo $p$ for any odd prime $p<q$. By \crefnamed{theorem:eulers-criterion}, this observation finally narrows our search: We are looking for a prime $q$ such that
 \begin{equation*}
   (1-4q)^{\frac{p-1}{2}} \equiv -1 \pmod{p}
 \end{equation*}
@@ -374,6 +374,12 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
   \item $5$ is a quadratic residue,
   \item $7$ is a quadratic residue.
   \end{subexenum}
+  \exercise Show that the system of congruences
+  \begin{align*}
+    x+y & \equiv 0 \pmod{p}, \\
+     xy & \equiv 1 \pmod{p}
+  \end{align*}
+  is solvable if and only if $p\equiv 1\pmod{4}$.
 \end{starter}
 
 \begin{routine}

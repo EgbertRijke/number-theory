@@ -21,7 +21,7 @@ The method of infinite descent was invented by Fermat. He used this method effec
   \begin{equation*}
     A:=\{a_0,a_1,a_2,\ldots\}
   \end{equation*}
-  is a nonempty subset of the natural numbers, and by the \crefnamed{theorem:well-ordering-natural-numbers}{well-ordering principle} of the natural numbers it follows that this set has a least element. However, all the elements in $A$ are of the form $a_n$ for some natural number $\mathbb{N}$, and none of these elements are minimal, since we have assumed that $a_n>a_{n+1}$. This contradiction shows that our assumption that there exists an infinite descending sequence must be false, and thus there is no such sequence.
+  is a nonempty subset of the natural numbers, and by \crefnamed{theorem:well-ordering-natural-numbers} it follows that this set has a least element. However, all the elements in $A$ are of the form $a_n$ for some natural number $\mathbb{N}$, and none of these elements are minimal, since we have assumed that $a_n>a_{n+1}$. This contradiction shows that our assumption that there exists an infinite descending sequence must be false, and thus there is no such sequence.
 \end{proof}
 
 The previous proposition leads to Fermat's method of infinite descent. Fermat observed that if an assumption $H$ leads to an infinite descending sequence, then the assumption $H$ must be false. 
@@ -51,7 +51,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
 \end{theorem}
 
 \begin{proof}
-  It suffices to prove the statement for primitive Pythagorean triangles; that is, a triangle whose sides $(a,b,c)$ form a primitive Pythagorean triple. By \crefnamed{theorem:euclids-parametrization}{Euclid's parametrization of the Pythagorean triples}, we can find two relatively prime integers $s<t$ of opposite parity, such that
+  It suffices to prove the statement for primitive Pythagorean triangles; that is, a triangle whose sides $(a,b,c)$ form a primitive Pythagorean triple. By \crefnamed{theorem:euclids-parametrization}, we can find two relatively prime integers $s<t$ of opposite parity, such that
   \begin{equation*}
     a=t^2-s^2,\qquad b=2st,\qquad\text{and}\qquad c=t^2+s^2.
   \end{equation*}
@@ -122,7 +122,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   \begin{equation*}
     a^4 + b^4 = c^2.
   \end{equation*}
-  This finishes the construction of the function $f:A\to A$. Furthermore, the strict inequality $c^2=s<s^2+t^2=z^2$ shows that $h(f(x,y,z))<h(x,y,z)$, so we conclude by the \crefnamed{theorem:method-of-descent}{method of infinite descent} that the set $A$ must be empty.
+  This finishes the construction of the function $f:A\to A$. Furthermore, the strict inequality $c^2=s<s^2+t^2=z^2$ shows that $h(f(x,y,z))<h(x,y,z)$, so we conclude by \crefnamed{theorem:method-of-descent} that the set $A$ must be empty.
 \end{proof}
 
 \begin{corollary}
@@ -211,7 +211,7 @@ The following lemma is an observation of Euler.
   \begin{equation*}
     4w^2+v^2=\alpha^2\qquad\text{and}\qquad 16w^2+v^2=\beta^2.
   \end{equation*}
-  Under these assumptions, both $(2w,v,\alpha)$ and $(4w,v,\beta)$ are primitive Pythagorean triples. By \crefnamed{theorem:euclids-parametrization}{Euclid's Parametrization}, there exist positive integers $s<t$ and $q<r$ such that
+  Under these assumptions, both $(2w,v,\alpha)$ and $(4w,v,\beta)$ are primitive Pythagorean triples. By \crefnamed{theorem:euclids-parametrization}, there exist positive integers $s<t$ and $q<r$ such that
   \begin{align*}
     v & = t^2-s^2, & v & = r^2-q^2, \\
     2w & = 2st, & 4w & = 2qr.
@@ -306,7 +306,7 @@ We will show in the following theorem that the number $2$ is not congruent. The 
   \begin{equation*}
     \frac{1}{2}ab=2d^2.
   \end{equation*}
-  Using \crefnamed{theorem:eucids-parametrization}{Euclid's Parametrization} of the primitive Pythagorean triples, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
+  Using \crefnamed{theorem:eucids-parametrization}, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
   \begin{equation*}
     st(t^2-s^2)=2d^2.
   \end{equation*}
@@ -338,7 +338,7 @@ Using a very similar argument, we will also show that $3$ is not congruent.
   \begin{equation*}
     \frac{1}{2}ab=3d^2.
   \end{equation*}
-  Using \crefnamed{theorem:eucids-parametrization}{Euclid's Parametrization} of the primitive Pythagorean triples, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
+  Using \crefnamed{theorem:eucids-parametrization}, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
   \begin{equation*}
     st(t^2-s^2)=3d^2.
   \end{equation*}

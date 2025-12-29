@@ -1,33 +1,74 @@
 \chapter{Polynomials}\label{chapter:polynomials}
 
-\section{Polynomials with Integer Coefficients}
+\section{Polynomials with Abstract Coefficients}
 
 \begin{definition}
   An \emph{polynomial} in one variable $x$ is an expression of the form
   \begin{equation*}
     f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0,
   \end{equation*}
-  in which we require that the \emph{leading coefficient} $a_n$ is nonzero, unless $n=0$. A polynomial $f(x)$ as above with leading coeffcient $a_n$ is said to be of \emph{degree} $n$. The integers $a_k$ are called the \emph{coefficients} of $f(x)$. The \emph{zero polynomial} is the constant polynomial $f(x)=0$ and the \emph{unit polynomial} is the constant polynomial $f(x)=1$.
+  in which we require that the \emph{leading coefficient} $a_n$ is nonzero, unless $n=0$. A polynomial $f(x)$ as above with leading coefficient $a_n$ is said to be of \emph{degree} $n$. The numbers $a_k$ are called the \emph{coefficients} of $f(x)$. The \emph{zero polynomial} is the constant polynomial $f(x)=0$.
 \end{definition}
 
-  The coefficients of a polynomial may be taken from any number system. When we wish to specify that the coefficients are integers or rational numbers. In such cases we speak of \emph{polynomials with integer coefficients} or \emph{polynomials with rational coefficients}.
+The coefficients of a polynomial may be taken from any number system. When we wish to specify that the coefficients are integers, rational, or real numbers, we speak of \emph{polynomials with integer coefficients}, \emph{polynomials with rational coefficients}, or \emph{polynomials with real coefficients}. Other number systems from which we will occasionally take coefficients include the rings $\mathbb{Z}/n$ of modular arithmetic. Since there is such a large variety of number systems which will eventually play a role one way or another in number theory, it will be useful to us to develop methods general enough so as to cover all these cases at once.
 
-There is a subtle, yet important distinction between polynomials and the functions they describe, which has to do with equality of polynomials. Two polynomials
+\begin{definition}
+  A \emph{commutative ring} is a set $R$ equipped with constants $0$ and $1$ and operations $+$ for addition, $-$ for subtraction, and $\cdot$ for multiplication, satisfying the following laws of arithmetic:
+  \begin{align*}
+    (x+y)+z & = x + (y+ z), & (xy)z & = x(yz), \\
+    x + y & = y + x, & xy & = yx, \\
+    0+x & = x, & 1x & = x, \\
+    x+(-x) & = 0, & x(y+z) & = xy+xz.
+  \end{align*}
+  The adjective \emph{commutative} refers to the law asserting that $xy=yx$. A commutative ring with $0\neq 1$ is said to be a \emph{integral domain} if it satisfies the following condition:
+  \begin{equation*}
+    xy=0 \Rightarrow x=0\lor y=0.
+  \end{equation*}
+  A commutative ring with $0\neq 1$ is said to be a \emph{field} if it comes equipped with a further operation $({-})^{-1}$ defined on all nonzero elements, such that
+  \begin{equation*}
+    xx^{-1}=1.
+  \end{equation*}
+\end{definition}
+
+Examples of commutative rings include most number systems we have encountered so far: $\mathbb{Z}$, $\mathbb{Q}$, and $\mathbb{Z}/n$ for any $n$. The Gaussian integers $\mathbb{Z}[i]$ are another important example of a ring. There is one important omission: The set of natural numbers with the usual operations of addition and multiplication is not a ring because it lacks subtraction.
+
+The sharp reader may have observed that some laws of arithmetic, such as $0x=0$, are not stated in the definition of a (commutative) ring. Indeed, this law can be proven:
+\begin{equation*}
+  0x=0x+0=0x+(0x-0x)=(0x+0x)-0x=(0+0)x-0x=0x-0x=0.
+\end{equation*}
+Most rings satisfy the condition that $0\neq 1$. Indeed, if $0=1$ in a ring $R$, then any element equals $0$ because
+\begin{equation*}
+  x=1x=0x=0.
+\end{equation*}
+Thus, only the ring $\mathbb{Z}/1$ satisfies $0=1$. This ring is called the \emph{trivial ring} for understandable reasons.
+
+The condition of being an integral domain is quite innocent-looking: It guarantees that the product of any two nonzero numbers is nonzero. This condition is true in familiar number systems such as $\mathbb{Z}$, $\mathbb{Z}[i]$, $\mathbb{Q}$, and $\mathbb{R}$, which are therefore integral domains. However, the ring $\mathbb{Z}/n$ is only an integral domain when $n$ is prime. For composite $n$, we can find examples of nonzero numbers that multiply to $0$. For instance, we have $2\cdot 2\equiv 0\pmod{4}$ in $\mathbb{Z}/4$, and we have $2\cdot 3\equiv 0\pmod{6}$ in $\mathbb{Z}/6$. Having such examples shows that the condition of being an integral domain is not provable from the laws of arithmetic stated in the definition of a ring.
+
+Of the examples we have seen so far, only $\mathbb{Q}$ and $\mathbb{Z}/p$ are fields. Other familiar fields include the field $\mathbb{R}$ of real numbers and the field $\mathbb{C}$ of complex numbers. We note that any field is an integral domain: If $xy=0$ and $x\neq 0$, then $x$ has a multiplicative inverse. This allows us to calculate as follows and find that
+\begin{equation*}
+  y=1y=(x^{-1}x)y=x^{-1}(xy)=x^{-1}0=0.
+\end{equation*}
+
+The previous definitions of rings, integral domains, and fields are extremely general. There are many examples of rings that have little to do with numbers, except that they satisfy the laws of arithmetic. We stress here that our goal is not to develop the general theory of rings, where we would have to be concerned with the vast scope of the subject. Instead, our goal is simply to avoid having to reprove essentially the same theorems about polynomials separately for polynomials with integer coefficients, rational coefficients, real coefficients, and so on. By stating them in terms of polynomials with coefficients in a ring or integral domain, we cover all those cases at once.
+
+\begin{remark}
+  There is another subtle, yet important aspect of polynomials which needs to be emphasized: The distinction between polynomials and the functions they describe. This distinction comes to light when considering equality of polynomials. Two polynomials
   \begin{equation*}
     a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0\qquad\text{and}\qquad b_nx^n+ b_{n-1}x^{n-1} +\cdots + b_0
   \end{equation*}
-  are said to be equal if their coefficients are equal, meaning that $a_i=b_i$ for all $0\leq i\leq n$, while functions are considered equal if their values are equal. This is an important distinction, because for some number systems such as the integers modulo $n$, polynomials aren't necessarily equal as polynomials when they are equal as functions. For instance, by \crefnamed{theorem:fermats-little-theorem}{Fermat's Little Theorem} we have that
+  are said to be equal if their coefficients are equal, meaning that $a_i=b_i$ for all $0\leq i\leq n$, while functions are considered equal if their values are equal. This is an important distinction, because for some number systems such as the integers modulo $n$, polynomials aren't necessarily equal as polynomials when they are equal as functions. For instance, by \crefnamed{theorem:fermats-little-theorem} we have that
   \begin{equation*}
     x^p \equiv x\pmod{p},
   \end{equation*}
   while the polynomials $x^p$ and $x$ clearly can be distinguished by their coefficients. Nevertheless, we will show in \cref{corollary:extensionality-integer-polynomials} that two polynomials with integer coefficients have equal coefficients if and only if they define equal functions.
+\end{remark}
 
 \begin{definition}
-  A function $f:\mathbb{Z}\to\mathbb{Z}$ is said to be \emph{polynomial in the integers} if there is a polynomial with integer coefficients such as the above, such that
+  Consider a ring $R$. A function $f:R\to R$ is said to be \emph{polynomial in $R$} if there exists a polynomial with coefficients in $R$ such as the above, such that
   \begin{equation*}
     f(x)=a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
   \end{equation*}
-  for all $x\in \mathbb{Z}$.
+  for all $x\in R$.
 \end{definition}
 
 \begin{remark}
@@ -37,37 +78,36 @@ There is a subtle, yet important distinction between polynomials and the functio
     & = \sum_{i=0}^n\sum_{j=0}^ma_ib_jx^{i+j} \\
     & = \sum_{k=0}^{n+m}\sum_{i=0}^n a_i b_{k-i}x^{k}.    
   \end{align*}
-  These operations of addition, subtraction, and multiplication, polynomials satisfy the laws of arithmetic. More precisely, the polynomials with integer coefficients form a commutative ring. We say that a polynomial $g(x)$ \emph{divides} a polynomial $f(x)$ if there is a polynomial $h(x)$ such that
-  \begin{equation*}
-    f(x)=g(x)h(x).
-  \end{equation*}
+  These operations of addition, subtraction, and multiplication of polynomials satisfy the laws of arithmetic. More precisely, the polynomials with coefficients in a commutative ring form itself a commutative ring.
 \end{remark}
 
+\section{The Factor Theorem}
+
 \begin{definition}
-  A \emph{root} of a polynomial $f(x)$ is a number $r$ such that
+  Consider a polynomial $f(x)$ with coefficients in a ring $R$. A \emph{root} of $f(x)$ is an element $r\in R$ such that
   \begin{equation*}
     f(r)=0.
   \end{equation*}
   Sometimes we will write $N(f)$ for the set of roots of $f$.
 \end{definition}
 
-In the following theorem we will prove that if $r$ is a root of the polynomial $f(x)$, then we can factor $f(x)$ as $(x-r)g(x)$. This theorem applies for polynomials in any number system. However, to keep the statement concrete we will state the factor theorem only for polynomials with integer coefficients.
+In the following theorem we will prove that if $r$ is a root of the polynomial $f(x)$, then we can factor $f(x)$ as $(x-r)g(x)$. This theorem applies for polynomials in any commutative ring.
 
 \begin{theorem}[Factor Theorem]\label{theorem:factor-theorem}
-  Consider a nonzero polynomial $f(x)$ of degree $n$ with integer coefficients.
-  An integer $r$ is a root of $f(x)$ if and only if there is a polynomial $g(x)$ of degree $n-1$ with integer coefficients such that $f(x)=(x-r)g(x)$.
+  Consider a ring $R$, and a nonzero polynomial $f(x)$ of degree $n$ with coefficients in $R$.
+  An element $r\in R$ is a root of $f(x)$ if and only if there is a polynomial $g(x)$ of degree $n-1$ with coefficients in $R$ such that $f(x)=(x-r)g(x)$.
 \end{theorem}
 
 \begin{proof}
-  We will prove the claim by induction on $n$. In the base case $f(x)$ is a nonzero constant polynomial, so it has no roots and there is no polynomial $g(x)$ of degree $-1$ such that $f(x)=(x-r)g(x)$.
+  We will prove the claim by induction on $n$. In the base case $f(x)$ is a nonzero constant polynomial, so it has no roots and there is nothing to prove.
 
   For the inductive step, it is clear that if there is a polynomial $g(x)$ such that $f(x)=(x-r)g(x)$, then $r$ is a root of the polynomial $f(x)$. For the converse, suppose that $r$ is a root of $f(x)$. Then
   \begin{equation*}
     f(x) = f(x)-f(r) = a_n(x^n-r^n)+\cdots + a_1(x-r).
   \end{equation*}
-  By the formula for the difference of $k$th powers, which was stated in \cref{exercise:difference-of-powers}, we can factor $x^k-r^k$ as
+  By the formula for the difference of $k$th powers, which was stated in \cref{exercise:difference-of-powers} and which holds in any ring, we can factor $x^k-r^k$ as
   \begin{equation*}
-    x^k-r^k=(x-r)q_k(x),\qquad\text{where}\qquad q_k(x)=\sum_{i=0}^{k-1}x^iy^{k-1-i}
+    x^k-r^k=(x-r)q_k(x),\qquad\text{where}\qquad q_k(x)=\sum_{i=0}^{k-1}x^ir^{k-1-i}
   \end{equation*}
   is a polynomial of degree $k-1$. Now define $g(x) := \sum_{k=1}^{n}a_k q_k(x)$. Then we compute
   \begin{equation*}
@@ -75,10 +115,10 @@ In the following theorem we will prove that if $r$ is a root of the polynomial $
   \end{equation*}
 \end{proof}
 
-The \crefnamed{theorem:factor-theorem}{Factor Theorem} has some important corollaries. One of them states that a polynomial of degree $n$ has at most $n$ roots, and the second is a factor theorem for modular arithmetic, which we will establish in \cref{theorem:factor-theorem-modular-arithmetic}.
+\crefnamed{theorem:factor-theorem} has some important corollaries. One of them states that in an integral domain, where the product of any two nonzero numbers is guaranteed to be nonzero, any polynomial of degree $n$ has at most $n$ roots.
 
 \begin{corollary}\label{corollary:number-of-roots-polynomial}
-  A polynomial of degree $n$ with integer coefficients has at most $n$ roots.
+  Consider an integral domain $R$. A polynomial of degree $n$ with coefficients in $R$ has at most $n$ roots.
 \end{corollary}
 
 \begin{proof}
@@ -88,94 +128,134 @@ The \crefnamed{theorem:factor-theorem}{Factor Theorem} has some important coroll
   \begin{equation*}
     f(x)=(x-r)g(x)
   \end{equation*}
-  by the \crefnamed{theorem:factor-theorem}{Factor Theorem}, where $g(x)$ is a polynomial of degree $n$. Then the product $(x-r)g(x)=0$ if and only if $x-r=0$ or $g(x)=0$. Thus we see that $x$ is a root of $f(x)$ if and only if $x=r$ or $x$ is a root of $g(x)$, so there are at most $n+1$ roots of the polynomial $f(x)$.
+  by \crefnamed{theorem:factor-theorem}, where $g(x)$ is a polynomial of degree $n$. Since we assumed that $R$ is an integral domain, it follows that for any element $x\in R$, the identity $(x-r)g(x)=0$ holds in $R$ if and only if one of the identities $x-r=0$ or $g(x)=0$ holds in $R$. Thus we see that $x$ is a root of the polynomial $f(x)$ if and only if $x=r$ or $x$ is a root of the polynomial $g(x)$. We conclude that the polynomial $f(x)$ has at most $n+1$ roots.
 \end{proof}
 
-\section{Derivatives of Polynomials}
-
-The derivative of a function $f$ at a point $x$, if it exists, measures the rate of change of $f$ in close vicinity of $x$. It is formally defined as the limit
+The Factor Theorem also raises an immediate question of uniqueness. If $f(x)$ and $g(x)$ are two polynomials, is there always at most one way in which we can write
 \begin{equation*}
-  f'(x):=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}
+  f(x)=g(x)h(x)?
 \end{equation*}
-Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There is an important theorem in number theory that require knowledge of the derivatives of polynomials: In our proof of \crefnamed{theorem:hensels-lemma}{Hensel's Lemma} we will make use of the \crefnamed{theorem:taylor-expansion-theorem}{Taylor Expansion Theorem} proven below.
 
-The following theorem is not only useful when $h$ approaches $0$. For example, in the case where $h$ is a prime $p$ it tells us that $f(x+p)-f(x)$ is always a multiple of $p$.
+\begin{proposition}[Cancellation Law for Polynomials]\label{proposition:cancellation-law-polynomials}
+  Let $f(x)$ be a nonzero polynomial with coefficients in an integral domain. Consider two polynomials $h(x)$ and $k(x)$ satisfying the identity of polynomials
+  \begin{equation*}
+    f(x)h(x)=f(x)k(x).
+  \end{equation*}
+  Then $h(x)=k(x)$. 
+\end{proposition}
 
-\begin{theorem}
-  Consider the polynomial
+\begin{proof}
+  By the assumption that $f(x)h(x)=f(x)k(x)$, it follows that
   \begin{equation*}
-    f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0.
+    f(x)(h(x)-k(x))=0.
   \end{equation*}
-  Then the polynomial $f(x+h)-f(x)$ is divisible by $h$, with quotient
+  Write $g(x):=h(x)-k(x)$. Note that all the coefficients of the polynomial $f(x)g(x)$ are $0$. However $f(x)$ is a nonzero polynomial, so it has a leading coefficient $a_n$. Now, suppose for a contradiction that $g(x)$ is nonzero, with leading coefficient $b_m$. Their product $f(x)g(x)$ has leading coefficient $a_nb_m$, which is nonzero since it is a product of nonzero elements of an integral domain. Hence $f(x)g(x)$ is nonzero, which is a contradiction.
+\end{proof}
+
+\section{Polynomial Congruences of Prime Moduli}
+
+Even though a polynomial
+\begin{equation*}
+  f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
+\end{equation*}
+has at most $n$ roots in the integers, the same is not true in modular arithmetic. A fairly easy example, the quadratic congruence
+\begin{equation*}
+  x^2 \equiv 1\pmod{8}
+\end{equation*}
+has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we will prove in this section that the number of solutions of a polynomial congruence modulo a prime is, just as in the integer case, at most the degree of the polynomial.
+
+\begin{theorem}[Factor Theorem in Modular Arithmetic]\label{theorem:factor-theorem-modular-arithmetic}
+  An integer $r$ is a solution to the polynomial congruence
   \begin{equation*}
-    \frac{f(x+h)-f(x)}{h} = \sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^i(x+h)^{k-1-i}.
+    f(x) \equiv 0\pmod{n},
   \end{equation*}
+  if and only if
+  \begin{equation*}
+    f(x) \equiv (x-r)g(x) \pmod{n}
+  \end{equation*}
+  for some polynomial $g(x)$.
 \end{theorem}
 
 \begin{proof}
-  By the formula for the difference of $k$th powers, which was stated in \cref{exercise:difference-of-powers}, we can write
+  The proof is very similar to the proof of \cref{theorem:factor-theorem}. First, we note that the converse direction is trivial, so we focus on the forward direction. Suppose that
   \begin{equation*}
-    (x+h)^k-x^k= h\sum_{i=0}^{k-1}x^i(x+h)^{k-1-i}
+    f(r) \equiv 0 \pmod{n}
   \end{equation*}
-  In particular, since each of these differences of $k$th powers is divisible by $h$, we see that the polynomial $f(x+h)-f(x)$ is divisible by $h$. It follows that
+  and consider the polynomial $f(x)-f(r)$. Then we have
   \begin{equation*}
-    f(x+h)-f(x) = \sum_{k=0}^na_k((x+h)^k-x^k) = h\sum_{k=1}^na_k\sum_{i=0}^{k-1}x^i(x+h)^{k-1-i}. \qedhere
+    f(x)\equiv f(x)-f(r) \pmod{n},
   \end{equation*}
+  and the factorization of $f(x)-f(r)$ as $(x-r)g(x)$ follows in the same way as for \cref{theorem:factor-theorem}.
 \end{proof}
 
-\begin{theorem}
-  Consider the polynomial $f(x)=a_nx^n+\cdots+a_0$. Then $f$ is differentiable at every $x$, and the derivative can be computed by the formula
+\begin{theorem}[Lagrange's Theorem]\label{theorem:lagranges-theorem}
+  Consider a polynomial
   \begin{equation*}
-    f'(x) = \sum_{k=1}^n ka_kx^{k-1}.
+    f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0,
   \end{equation*}
+  and a prime $p$ such that $p\nmid a_n$. Then the polynomial congruence
+  \begin{equation*}
+    f(x)\equiv 0 \pmod{p}
+  \end{equation*}
+  has at most $n$ solutions.
 \end{theorem}
 
 \begin{proof}
-  Since polynomials are continuous functions, we can compute the limit as $h\to 0$ simply by evaluating the quotient of $f(x+h)-f(x)$ divided by $h$ at $0$:
+  We prove the claim by induction on the degree $n$ of the polynomial $f$. If $f$ has degree zero, then $f(x)=a_0$, and since the leading term of $f$ is assumed to be not divisible by $p$, it follows that $a_0\nequiv 0\pmod{p}$. Thus, the polynomial $f$ has no solutions modulo $p$.
+
+  Now suppose that any polynomial congruence modulo $p$ of degree $n$ has at most $n$ solutions, and consider a polynomial congruence $f(x)\equiv 0\pmod{p}$ of degree $n+1$. If this congruence has no roots, then the number of solutions is certainly below $n+1$.
+
+  On the other hand, if $f(r)\equiv 0\pmod{p}$ is a solution, then by \crefnamed{theorem:factor-theorem-modular-arithmetic} we can find a polynomial $g(x)$ of degree $n$ such that
   \begin{equation*}
-    f'(x)=\sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^i(x+0)^{k-1-i}=\sum_{k=1}^n\sum_{i=0}^{k-1}a_kx^{k-1}=\sum_{k=1}^n ka_kx^{k-1}
+    f(x)\equiv (x-r)g(x) \pmod{p}.
   \end{equation*}
-  In the last equality we used that the summands in the inner summation do not depend on the summation index $i$.
+  It follows that the polynomial congruences $f(x)\equiv 0\pmod{p}$ and
+  \begin{equation*}
+    (x-r)g(x)\equiv 0 \pmod{p}
+  \end{equation*}
+  have the same sets of solutions. Since $p$ is prime, we have by \cref{proposition:euclid-divisibility-primes} that $ab\equiv 0\pmod{p}$ if and only if $a\equiv 0\pmod{p}$ or $b\equiv 0\pmod{p}$. Any solution $x$ of the congruence $(x-r)g(x)\equiv 0\pmod{p}$ must therefore satisfy $x-r\equiv 0\pmod{p}$ or $g(x)\equiv 0\pmod{p}$. There are at most $d$ solutions of the polynomial congruence $g(x)\equiv 0\pmod{p}$, so we conclude that there are at most $d+1$ solutions to the polynomial congruence $f(x)\equiv 0\pmod{p}$.
 \end{proof}
 
-The derivative of any polynomial $f(x)$ is again a polynomial. An immediate consequence of the previous theorem is that if $h(x)=af(x)+bg(x)$ is a linear combination of the polynomials $f(x)$ and $g(x)$, then the derivative of $h$ can be written as the linear combination
-\begin{equation*}
-  h'(x)=af'(x)+bg'(x).
-\end{equation*}
-It also follows that, since the derivative is again a polynomial, it is again differentiable. Thus we have iterated derivatives of polynomials. We will write $\frac{d^k}{dx^k}f(x)$ or $f^{(k)}(x)$ for the $k$th deriviative of $f(x)$. A straightforward induction argument shows that
-\begin{equation*}
-  \frac{d^k}{dx^k}x^n = n(n-1)\cdots (n-k+1)x^{n-k}.
-\end{equation*}
-We can phrase this identity equivalently as:
-\begin{equation*}
-  \frac{1}{k!}\frac{d^k}{dx^k}x^n = \binom{n}{k}x^{n-k}.
-\end{equation*}
-This leads to the following theorem by Brook Taylor, who stated the result more generally in terms of \emph{fluent quantities} in his work \emph{Methodus incrementorum directa et inversa} \cite{taylor1715}. Although Taylor was the first to prove the series expansion that now bears his name, the method was discovered first without proof by James Gregory, who shared his insight in a letter to John Collins in 1671 \cite{gregory1671}. More on the history of Taylor series can be found in \cite{feigenbaum1985}.
+The previous theorem is due to Joseph-Louis Lagrange, published in 1770 in \emph{Réflexions sur la résolution algébrique des équations} \cite{lagrange1770}. Lagrange demonstrated that the roots of polynomials can be studied by their permutations. His ideas would eventually lead to the emergence of group theory (the study of symmetry), and Galois theory.
 
-\begin{theorem}[Taylor Expansion Theorem for Polynomials]\label{theorem:taylor-expansion-theorem}
-  Consider the polynomial
+While \crefnamed{theorem:lagranges-theorem} establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use \crefnamed{theorem:fermats-little-theorem} to find examples of polynomial congruences that have the maximum allowable number of solutions.
+
+\begin{theorem}\label{theorem:maximal-number-of-roots-pow-minus-id}
+  Consider a prime $p$ and a positive integer $n$ such that $n\mid p-1$. Then the polynomial congruence
   \begin{equation*}
-    f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0.
+    x^n\equiv 1\pmod{p}
   \end{equation*}
-  Then we have for each $y$, the identity
-  \begin{equation*}
-    f(x+y)=\sum_{k=0}^n \frac{f^{(k)}(x)}{k!}y^{k}.
-  \end{equation*}
-  In particular, there is a polynomial $g(x,y)$ in the variables $x$ and $y$, such that
-  \begin{equation*}
-    f(x+y)=f(x)+yf'(x)+y^2g(x,y).
-  \end{equation*}
+  has exactly $n$ incongruent solutions.
 \end{theorem}
 
 \begin{proof}
-  We will first prove the theorem for $f(x):=x^n$. By the \crefnamed{theorem:binomial-theorem}{Binomial Theorem} and our earlier observation that $\frac{1}{k!}\frac{d^k}{dx^k}x^n=\binom{n}{k}x^{n-k}$, it follows that
+  Note that the polynomial congruence $x^{p-1}-1\equiv 0\pmod{p}$ has exactly $p-1$ solutions. By the formula for the difference of powers, we have
   \begin{equation*}
-    (x+y)^n = \sum_{k=0}^{n}\binom{n}{k} x^{n-k}y^{k}=\sum_{k=0}^n\frac{1}{k!}\frac{d^kx^n}{dx^k} y^k.
+    (x^{p-1}-1)\equiv (x^n-1)q(x) \pmod{p}
   \end{equation*}
-  This shows that the Taylor expansion formula holds for $f(x)=x^n$. The general claim follows, since every polynomial is a linear combination of polynomials of the form $x^i$ and differentiation preserves linear combinations. Finally, the polynomial $g(x,y)$ is given by the tail of the series:
+  for some polynomial $q$ of degree $p-1-n$. Now we observe that the polynomial congruences
   \begin{equation*}
-    g(x,y)=\sum_{k=2}^n\frac{f^{(k)}(x)}{k!}y^{k-2}.\qedhere
+    x^n-1\equiv 0\pmod{p}\qquad\text{and}\qquad q(x)\equiv 0\pmod{p}
   \end{equation*}
+  have at most $n$ and $p-1-n$ solutions, respectively. Since their product has $p-1$ solutions, it follows that the polynomial congruence $x^n-1\equiv 0\pmod{p}$ must have exactly $n$ solutions.
+\end{proof}
+
+\crefnamed{theorem:lagranges-theorem} can also be used to give another proof of \cref{theorem:quadratic-character-neg-1}, which states that for an odd prime $p$, the quadratic congruence $x^2\equiv -1\pmod{p}$ has a solution if and only if $p\equiv 1\pmod{4}$.
+
+\begin{proof}[Proof of \cref{theorem:quadratic-character-neg-1}]
+  We prove that if $p\equiv 1\pmod{4}$, then there is a square root of $-1$ modulo $p$. Consider a prime $p$ of the form $4k+1$. Then \crefnamed{theorem:fermats-little-theorem} implies that
+  \begin{equation*}
+    (x^{2k}+1)(x^{2k}-1)=x^{4k}-1\equiv 0\pmod{p}.
+  \end{equation*}
+  Since $p$ is prime, this implies that $x^{2k}+1\equiv 0\pmod{p}$ or $x^{2k}-1\equiv 0\pmod{p}$ for every integer $x$. However, the polynomial congruence
+  \begin{equation*}
+    x^{2k}-1\equiv 0\pmod{p}
+  \end{equation*}
+  has at most $2k$ solutions modulo $p$, which is strictly fewer than $p$. Thus, there must exist an integer $x$ such that
+  \begin{equation*}
+    x^{2k}+1\equiv 0\pmod{p}.
+  \end{equation*}
+  Given such an integer $x$, we see that $y:=x^k$ is a square root of $-1$ modulo $p$.
 \end{proof}
 
 \section{Lagrange's Interpolation Theorem}
@@ -346,7 +426,7 @@ Equipped with this change of perspective, we can prove that a polynomial of degr
   \begin{equation*}
     g_i(x)=\prod_{j=0}^{i-1}\frac{x-j}{i-j}\prod_{j=i+1}^{n}\frac{x-j}{i-j}=(-1)^{n-i}\binom{x}{i}\binom{x-i-1}{n-i},
   \end{equation*}
-  which is an integer for every integer $x$. Therefore it follows by \crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem} that every value $f(x)$ can be written as an integer linear combination of the integers $f(0),\ldots,f(n)$, which proves the theorem.
+  which is an integer for every integer $x$. Therefore it follows by \crefnamed{theorem:lagranges-interpolation-theorem} that every value $f(x)$ can be written as an integer linear combination of the integers $f(0),\ldots,f(n)$, which proves the theorem.
 \end{proof}
 
 \section{Fixed Divisors of Integer Polynomials}\label{section:fixed-divisors}
@@ -360,7 +440,7 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
   \end{equation*}
 \end{definition}
 
-\crefnamed{theorem:lagranges-interpolation-theorem}{Lagrange's Interpolation Theorem} can be used to determine the greatest common divisor of all the values of a polynomial, by examining only one more value than its degree. This observation is due to Kurt Hensel, who was a student of Leopold Kronecker.
+\crefnamed{theorem:lagranges-interpolation-theorem} can be used to determine the greatest common divisor of all the values of a polynomial, by examining only one more value than its degree. This observation is due to Kurt Hensel, who was a student of Leopold Kronecker.
 
 \begin{theorem}[Hensel's Fixed Divisor Theorem \cite{hensel1896}]\label{theorem:hensels-fixed-divisor-theorem}
   Consider a polynomial $f(x)$ of degree $n$, with integer coefficients. Then the fixed divisor of $f$ is the greatest common divisor
@@ -425,104 +505,6 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
 
 %%%%%
 
-\begin{noteblock}
-\section{Euclid's Algorithm for Polynomials}
-
-\section{Irreducible Polynomials}
-
-\begin{definition}
-  A polynomial $f(x)=a_nx^n+\cdots +a_0$ with integer coefficients is said to be \emph{primitive} if
-  \begin{equation*}
-    \gcd(a_0,\ldots,a_n)=1.
-  \end{equation*}
-\end{definition}
-
-\begin{proposition}
-  Consider a polynomial $f$ in one variable, with rational coefficients, and let $c$ be the unique positive rational number such that
-  \begin{equation*}
-    \frac{1}{c}f(x)
-  \end{equation*}
-  is a primitive polynomial with integer coefficients. The positive rational number $c$ is called the \emph{content} of the polynomial, and is denoted by $\content(f)$.
-\end{proposition}
-
-\begin{remark}
-  The content of a polynomial $f(x)=a_nx^n+\cdots+a_n$ with integer coefficients is given by
-  \begin{equation*}
-    \content(f)=\gcd(a_0,\ldots,a_n).
-  \end{equation*}
-  The content 
-\end{remark}
-
-\begin{lemma}[Gauss's Lemma for Polynomials]
-  Consider two polynomials $f$ and $g$ in one variable $x$, with rational coefficients. Then
-  \begin{equation*}
-    \content(fg)=\content(f)\content(g).
-  \end{equation*}
-\end{lemma}
-
-\begin{corollary}
-  Consider two polynomials $f$ and $g$ with integer coefficients. Then the following are equivalent:
-  \begin{enumerate}
-  \item Both $f$ and $g$ are primitive.
-  \item The product polynomial $fg$ is primitive.
-  \end{enumerate}
-\end{corollary}
-
-\begin{theorem}[Eisenstein's Criterion]
-  Consider a polynomial $f(x)=a_nx^n+\cdots+a_0$ with integer coefficients. Suppose that there is a prime number $p$ such that:
-  \begin{enumerate}
-  \item The prime $p$ is a prime divisor of $a_i$ for every $0\leq i<n$,
-  \item The coefficient $a_n$ is not divisible by $p$,
-  \item The coefficient $a_0$ is not divisible by $p^2$.
-  \end{enumerate}
-  Then the polynomial $f$ is irreducible.
-\end{theorem}
-
-\begin{example}
-  \begin{enumerate}
-  \item For every prime $p$, the polynomial
-    \begin{equation*}
-      f(x):=1+x+x^2+\cdots x^{p-1}
-    \end{equation*}
-    is irreducible. Indeed, if we substitute $x=y+1$ in
-    \begin{equation*}
-      f(x)=\frac{x^p-1}{x-1},
-    \end{equation*}
-    we obtain
-    \begin{equation*}
-      f(y+1)=\frac{(y+1)^p-1}{y}=\sum_{i=0}^{p-1}\binom{p}{i+1}y^{i}.
-    \end{equation*}
-    This polynomial has coefficients $a_i=\binom{p}{i+1}$. Thus we see that
-    \begin{enumerate}
-    \item The binomial coefficient $\binom{p}{i+1}$ is divisible by $p$ for every $0\leq i<p-1$.
-    \item The binomial coefficient $\binom{p}{p}=1$ is not divisible by $p$.
-    \item The binomial coefficient $\binom{p}{1}=p$ is not divisible by $p^2$.
-    \end{enumerate}
-    Thus it follows from Eisenstein's criterion that $f(y+1)$ is irreducible, which implies that $f(x)$ is irreducible.
-  \item Consider a prime $p$ and a positive integer $n$ such that $p-1\nmid n$. Show that the polynomial
-    \begin{equation*}
-      (x+1)^n+\cdots+(x+p-1)^n
-    \end{equation*}
-    is irreducible over $\mathbb{Q}$.
-  \item Show that the polynomial
-    \begin{equation*}
-      x^6+3x^5+6x^4+9x^3+6x^2+3x^1+1
-    \end{equation*}
-    is irreducible over $\mathbb{Q}$.
-  \item Show that the polynomial
-    \begin{equation*}
-      (x+2)^n-x^n-2^n
-    \end{equation*}
-    is irreducible over $\mathbb{Q}$.
-  \item Show that the polynomial
-    \begin{equation*}
-      (x+1)(x+2)\cdots(x+p)+1
-    \end{equation*}
-    is irreducible over $\mathbb{Q}$.
-  \end{enumerate}
-\end{example}
-\end{noteblock}
-
 \exercises
 
 \begin{starter}
@@ -531,6 +513,11 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
     a+b=150\qquad\text{and}\qquad ab=2025.
   \end{equation*}
   Hint: To avoid guessing, use that $a$ and $b$ are roots of the polynomial $x^2-(a+b)x+ab$ by Vieta's relations.
+  \exercise Find a polynomial $f(x)$ such that
+  \begin{equation*}
+    (x+1)(x+2)(x+3)(x+4)+1=f(x)^2.
+  \end{equation*}
+  
 \end{starter}
 
 \begin{routine}
@@ -552,6 +539,7 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
     as a difference of two squares.
   \item Compute the fixed divisor of the polynomial $f(x)=x^4+4$.
   \item Compute the polynomial $g(x)=\gcd(x^4+4,(x+2)^4+4)$, and show that $g(x)>1$ for every integer $x$.
+  \item Find all positive integers $x$ and $y$ for which $x^4+4y^4$ is prime.
   \end{subexenum}
   \exercise (Gauss's Gem) Write
   \begin{equation*}
@@ -560,7 +548,48 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
   in the form $\frac{1}{2}d(a^2+b^2+c^2)$ for some quadruple of integers $a,b,c,d$ depending on $x$, $y$, and $z$. Hint: For $x+y+z=0$, evaluate $f(x,y,z)$.
   % x^3+y^3+z^3-3xyz = \frac{1}{2}(x+y+z)((x-y)^2+(x-z)^2+(y-z)^2)
   % (x-1)^3+x^3+(x+1)^3-3(x-1)x(x+1) = 9x
+  \exercise Show that a number $n$ is square-free if and only if the only integer $x$ satisfying the congruence $x^2\equiv 0\pmod{n}$ is $x=0$.
+  \exercise Show that there are only two polynomials $f$ such that any two values $f(x)$ and $f(y)$ are relatively prime for distinct inputs $x$ and $y$.
+  \exercise Consider a prime number $p$. Construct for every integer $0\leq a < p$ a polynomial $f(x)$ of degree $<p$ with coefficients in $\mathbb{Z}/p\mathbb{Z}$ such that
+  \begin{equation*}
+    f(x)=
+    \begin{cases}
+      1 & \text{if }x=a\\
+      0 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+  Use these polynomials similarly to the basis polynomials in \crefnamed{theorem:lagranges-interpolation-theorem} to show that every function $\mathbb{Z}/p\mathbb{Z}\to \mathbb{Z}/p\mathbb{Z}$ is polynomial.
+  \exercise Define the $k$th \emph{power sum}
+  \begin{equation*}
+    p_k(a_1,\ldots,a_n) := a_1^k + \cdots + a_n^k.
+  \end{equation*}
+  We will simply write $p_k$ for $p_k(a_1,\ldots,a_n)$ and $e_k$ for $e_k(a_1,\ldots,a_n)$.
+  \begin{subexenum}
+  \item \emph{The Newton-Girard identities.} Show that for all $k$ we have
+    \begin{equation*}
+      p_k = e_1p_{k-1}-e_2p_{k-2}+\cdots +(-1)^{k-1}e_{k-1}p_1 + (-1)^{k-1}ke_k.
+    \end{equation*}
+    Hint: This looks more complicated than it is.
+  \item Prove that the congruence
+    \begin{equation*}
+      1^k+\cdots + (p-1)^k \equiv 0 \pmod{p}
+    \end{equation*}
+    holds for every $0< k <p-1$, and every prime number $p$.
+  \end{subexenum}
+  % \exercise \emph{Wolstenholme's congruence.} Consider a prime $p$. Show that
+  % \begin{equation*}
+  %   e_{p-2}(1,\ldots,p-1)\equiv 0 \pmod{p^2}.
+  % \end{equation*}
 \end{routine}
+
+\begin{challenge}
+  \exercise (P\'{o}lya \cite{polya1919}) Consider a polynomial $f(x)$ of degree $n$ with rational coefficients. Show that if there exists $n+1$ distinct integers $x_0,\ldots,x_n$ such that
+  \begin{equation*}
+    \sum_{i=0}^n |f(x_i)|<\frac{n!}{2^n},
+  \end{equation*}
+  then $f(x)$ cannot be a polynomial with integer coefficients.
+\end{challenge}
+
 
 %%% Local Variables:
 %%% mode: latex

@@ -191,7 +191,7 @@ In the following lemma we establish that $a$ and $b$ are congruent modulo $n$ if
   \begin{equation*}
     n = \sum_{i=0}^{l-1} d_i b^{i}
   \end{equation*}
-  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
+  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using \crefnamed{theorem:euclidean-division} as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
 \end{example}
 
 An important property of the congruence relations, which makes them so useful in the study of the integers, is that they are compatible with the arithmetic operations of addition and multiplication.
@@ -323,7 +323,7 @@ This relation is also called the \emph{kernel} of $f$.
 \end{proof}
 
 \begin{example}
-  Consider the function $r:\mathbb{Z}\to\{0,\ldots,n-1\}$, defined via the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} so that $r(x)$ is the unique integer $0\leq r(x)<n$ such that $x-r(x)$ is divisible by $n$. Then the equivalence relation $\sim_{r}$ is such that $x\sim_r y$ if and only if $x$ and $y$ have the same remainder after division by $n$. In other words,
+  Consider the function $r:\mathbb{Z}\to\{0,\ldots,n-1\}$, defined via \crefnamed{theorem:euclidean-division} so that $r(x)$ is the unique integer $0\leq r(x)<n$ such that $x-r(x)$ is divisible by $n$. Then the equivalence relation $\sim_{r}$ is such that $x\sim_r y$ if and only if $x$ and $y$ have the same remainder after division by $n$. In other words,
   \begin{equation*}
     x\sim_r y \Leftrightarrow x\equiv y\pmod{n}.
   \end{equation*}
@@ -647,7 +647,7 @@ In the following theorem, which is also known as the \emph{Order Theorem}, we wi
   \begin{equation*}
     a^m\equiv 1 \pmod{n}.
   \end{equation*}
-  It is immediate from this condition that if $m\mid k$, then it follows that $a^k\equiv 1\pmod{n}$. Conversely, if $a^k\equiv 1\pmod{n}$, then we can write $k=qm+r$ by the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem}, where $0\leq r<m$. It follows that
+  It is immediate from this condition that if $m\mid k$, then it follows that $a^k\equiv 1\pmod{n}$. Conversely, if $a^k\equiv 1\pmod{n}$, then we can write $k=qm+r$ by \crefnamed{theorem:euclidean-division}, where $0\leq r<m$. It follows that
   \begin{equation*}
     a^r \equiv a^{qm}a^r \equiv a^{qm+r} \equiv a^k \equiv 1\pmod{n}. 
   \end{equation*}
@@ -677,10 +677,10 @@ The Order Theorem can be used to show that the digits in the fractional part of 
   \begin{equation*}
     10^k \equiv 1 \pmod{b}.
   \end{equation*}
-  By the \crefnamed{theorem:order-theorem}{Order Theorem} it follows that this congruence holds if and only if $\ord_b(10)\mid k$.
+  By \crefnamed{theorem:order-theorem} it follows that this congruence holds if and only if $\ord_b(10)\mid k$.
 \end{proof}
 
-The logical equivalence in the \crefnamed{theorem:order-theorem}{Order Theorem} can also be used effectively to compute the order of a power of an element in terms of the order of that element.
+The logical equivalence in \crefnamed{theorem:order-theorem} can also be used effectively to compute the order of a power of an element in terms of the order of that element.
 
 \begin{theorem}\label{theorem:order-power}
   For any integer $a$ of order $k=\ord_n(a)$, we have

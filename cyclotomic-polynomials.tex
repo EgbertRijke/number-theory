@@ -2,9 +2,7 @@
 
 \section{The Primitive Factors of \texorpdfstring{$x^n-1$}{xⁿ − 1}}
 
-Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. The order of any integer $a$ not divisible by $p$ is a divisor of $p-1$, so that $p-1\mid n$.
-
-If there was a way to ensure that $\ord_p(a)=p-1$ for all prime factors $p$ of $a^n-1$, we could use the polynomial $a^n-1$ to generate infinitely many primes congruent to $1$ modulo $n$. However, that is too much to ask for, since there are $\phi(d)$ integers whose order is $d$, for every divisor $d$ of $p-1$. 
+Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. By the \crefnamed{theorem:order-theorem} it follows that $\ord_p(a)\mid n$. By \crefnamed{theorem:fermats-little-theorem} it follows that the order of $a$ modulo $p$ is itself a divisor of $p-1$.
 
 \begin{definition}
   The $n$th \emph{cyclotomic polynomial} $\Phi_n$ is defined by
@@ -41,6 +39,68 @@ In the following theorem we will establish that the coefficients of the cyclotom
   Furthermore, if $\Phi_n(x)\equiv 0\pmod{p}$ is solvable, then $\Phi_n(x)$ has exactly $\phi(n)$ roots modulo $p$.
 \end{theorem}
 
+\begin{definition}
+  We define
+  \begin{equation*}
+    \Phi_n(x,y):= y^{\totient(n)}\Phi_n\left(\tfrac{x}{y}\right).
+  \end{equation*}
+\end{definition}
+
+\begin{proposition}
+  For any $x$, $y$, and $n$, we have:
+  \begin{equation*}
+    x^n-y^n=\prod_{d\mid n}\Phi_d(x,y).
+  \end{equation*}
+\end{proposition}
+
+\begin{lemma}
+  Consider integers $a$, $b$, and $c$, and a prime $p$ such that $p\nmid ab$ and $c\equiv a/b\pmod{p}$. If $\ord_p(c)=k$, then
+  \begin{equation*}
+    \Phi_k(c)\equiv 0\pmod{p} \Leftrightarrow p\mid \Phi_k(a,b)
+  \end{equation*}
+\end{lemma}
+
+\begin{lemma}
+  If $p\nmid m$, then $\Phi_m(x^p)=\Phi_{mp}(x)\Phi_m(x)$.
+\end{lemma}
+
+\begin{lemma}
+  Consider a prime $p$, and let $n=p^\alpha m$, where $\alpha\geq 1$ and $p\nmid m$. Then we have
+  \begin{equation*}
+    \Phi_n(x)\equiv \Phi_m(x)^{\phi(p^\alpha)}\pmod{p}.
+  \end{equation*}
+  Consequently, if $p\mid\Phi_n(a,b)$ then $p\mid \Phi_m(a,b)$.
+\end{lemma}
+
+\begin{proposition}
+  Consider a prime $p\nmid n$. Then 
+  \begin{equation*}
+    \ord_p(a)= n \Leftrightarrow p\mid \Phi_n(a)
+  \end{equation*}
+\end{proposition}
+
+Recall from \crefnamed{theorem:lte} that for any odd prime $p$ and any $n=p^\alpha m$ with $p\nmid m$, we have
+\begin{equation*}
+  \nu_p(a^n-b^n)-\nu_p(a^m-b^m)=\alpha.
+\end{equation*}
+Since we have expressed $a^n-b^n$ as a product in terms of the homogenized cyclotomic polynomials $\Phi_n(a,b)$, we can thus compute the $p$-adic valuation of $\Phi_n(a,b)$.
+
+\begin{proposition}\label{proposition:valuation-homogenized-cyclotomics}
+  Consider an odd prime $p$ such that $p\nmid ab$. Let $k=\rho(p)$ be the rank of apparition of $p$ in $(a^n-b^n)$. Then we have
+  \begin{equation*}
+    \nu_p(\Phi_n(a,b)) =
+    \begin{cases}
+      \nu_p(a^k-b^k) & \text{if $n=k$,} \\
+      1 & \text{if $n=p^\alpha k$ for some $\alpha\geq 1$,} \\
+      0 & \text{otherwise.}
+    \end{cases}
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  
+\end{proof}
+
 \section{The M\"obius Inversion Formula for the Cyclotomic Polynomials}
 
 \begin{theorem}\label{theorem:mobius-inversion-cyclotomic-polynomials}
@@ -63,6 +123,121 @@ In the following theorem we will establish that the coefficients of the cyclotom
 
 \section{The Infinitude of Primes Congruent to \texorpdfstring{$1$}{1} Modulo \texorpdfstring{$n$}{n}}
 
+\section{Zsigmondy's Theorem}
+
+\begin{definition}
+  Consider a sequence $(a_n)$ of integers. A prime $p$ is said to be a \emph{primitive prime divisor} of $a_n$ if the rank of apparition of $p$ satisfies $\rho(p)=n$.
+\end{definition}
+
+\begin{proposition}\label{proposition:zsigmondy}
+  Consider two relatively prime integers $a$ and $b$, and a prime $p$ such that $p\mid \Phi_n(a,b)$, where $n\geq 1$. Then there are two mutually exclusive possibilities:
+  \begin{enumerate}
+  \item Either $p\equiv 1\pmod{n}$, in which case $p$ is a primitive prime divisor of $a^n-b^n$, or
+  \item $p\mid n$, in which case $p$ is the largest prime factor of $n$, and provided that $n>2$ we have furthermore $p^2\nmid \Phi_n(a,b)$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Since $a^n-b^n=\prod_{d\mid n}\Phi_d(a,b)$, it follows that $a^n\equiv b^n\pmod{p}$. Furthermore $a$ and $b$ are assumed to be relatively prime, the congruence $a^n\equiv b^n\pmod{p}$ implies that neither $a$ nor $b$ is divisible by $p$. We find that
+  \begin{equation*}
+    (a/b)^n\equiv 1\pmod{p},
+  \end{equation*}
+  and hence $k:=\ord_p(a/b)$ is a divisor of $n$ by \crefnamed{theorem:order-theorem}. There are two cases to consider: Either $k=n$ or $k$ is a proper divisor of $n$.
+
+  If $k=n$, then it follows by \crefnamed{theorem:fermats-little-theorem} that $n\mid p-1$, which is another way of saying that $p\equiv 1\pmod{n}$. Since $k\mid m$ for any $m$ such that $p\mid a^m-b^m$, it follows that $p$ is a primitive divisor of $a^n-b^n$.
+  
+  For the second case, suppose that $k$ is a proper divisor of $n$. Since $p\mid \Phi_k(a,b)$ and $p\mid \Phi_n(a,b)$ both hold, it follows that the polynomial congruence
+  \begin{equation*}
+    x^n-1\pmod{p}
+  \end{equation*}
+  has roots of multiplicity $>1$. It follows that
+  \begin{equation*}
+    \gcd(x^n-1,nx^{n-1})\neq 1,
+  \end{equation*}
+  from which we conclude that $p\mid n$.
+
+  To show that $p$ is the largest prime factor of $n$, write $n=p^\alpha m$, where $p\nmid m$. By the implication
+  \begin{equation*}
+    p\mid \Phi_n(a,b)\Rightarrow p\mid \Phi_m(a,b)
+  \end{equation*}
+  it follows that $p\mid \Phi_m(a,b)$. However, since $p\nmid m$ this brings us back to the first case with the exponent $m$, so we conclude that $m\mid p-1$. In particular, any prime divisor of $m$ is a prime divisor of $p-1$, which implies that $p$ must have been the largest prime divisor of $n$.
+
+  Finally, we have to show that $\nu_p(\Phi_n(a,b))=1$. We consider two cases: Either $p=2$ or $p$ is odd. If $p=2$, write $n=2^\alpha m$. As before, it follows that $m\mid p-1$, so we have $m=1$ and $n=2^\alpha$. By the assumption that $n>2$ it follows that $\alpha\geq 2$. Since $a$ and $b$ are both odd, it follows that
+  \begin{equation*}
+    \Phi_n(a,b)=a^{2^{\alpha-1}}+b^{2^{\alpha-1}}\equiv 2\pmod{4},
+  \end{equation*}
+  from which we conclude that $\nu_2(\Phi_n(a,b))=1$.
+
+  For the case where $p$ is odd, write $n=p^\alpha m$ as before. Then we obtain from \crefnamed{theorem:lte} that
+  \begin{equation*}
+    \nu_p(a^n-b^n)-\nu_p(a^m-b^m)=\alpha.
+  \end{equation*}
+  The right-hand side can be evaluated using the formula $a^n-b^n=\prod_{d\mid n}\Phi_d(a,b)$. Note that for any divisor $d$ of $n$, we have $p\mid\Phi_d(a,b)$ if and only if $d=p^im$ for some $0\leq i\leq \alpha$. Thus we obtain:
+  \begin{equation*}
+    \sum_{i=1}^\alpha \nu_p(\Phi_{p^im}(a,b))=\alpha.
+  \end{equation*}
+  Since $p\mid \Phi_{p^im}(a,b)$, this implies that
+  \begin{equation*}
+    \nu_p(\Phi_{p^im}(a,b))=1
+  \end{equation*}
+  for every $1\leq i\leq \alpha$. The case $i=\alpha$ proves the claim. 
+\end{proof}
+
+\begin{theorem}[Zsigmondy's Theorem]\label{theorem:zsigmondy}
+  Consider two integers $1\leq b<a$ with $\gcd(a,b)=1$ and let $n\geq 1$. Then the number $a^n-b^n$ has a primitive prime divisor, except in the following three cases:
+  \begin{enumerate}
+  \item $n=1$ and $a-b=1$,
+  \item $n=2$ and $a+b$ is a power of $2$,
+  \item $n=6$, $a=2$, and $b=1$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  In order to dispose of the first case, note that if $n=1$, then any prime divisor of $a-b$ is primitive. Thus, the only case where $a-b$ does not have primitive prime divisors is when $a-b=1$.
+
+  Next, we deal with the case $n=2$. Suppose that $a^2-b^2$ does not have primitive prime divisors. An equivalent way of saying this is that any prime divisor $p\mid \Phi_2(a,b)=a+b$ is also a prime divisor of $a-b$. However, we observe that $\gcd(a+b,a-b)$ divides both $2a$ and $2b$, which implies that the only prime possible prime divisor of $a+b$ is $2$. In other words, $a+b$ is a power of $2$.
+  
+  For the remainder of the proof we suppose that $n>2$. We will show that if $a^n-b^n$ has no primitive prime divisors, then $n=6$, $a=2$, and $b=1$. By \cref{proposition:zsigmondy} it follows that if $a^n-b^n$ has no primitive prime divisors, then
+  \begin{equation*}
+    \Phi_n(a,b)=p,
+  \end{equation*}
+  where $p$ is the largest prime divisor of $n$ and moreover $p$ is odd. Write $n=p^\alpha m$, where $p\nmid m$. 
+
+  We claim that $m=1$ is impossible. To see this, note that
+  \begin{equation*}
+    \Phi_{p^\alpha}(a,b)=\frac{a^{p^\alpha}-b^{p^\alpha}}{a^{p^{\alpha-1}}-b^{p^{\alpha-1}}}=a^{p^{\alpha-1}(p-1)}+\cdots + b^{p^{\alpha-1}(p-1)}.
+  \end{equation*}
+  It follows immediately from this description that $\Phi_{p^\alpha}(a,b)>p$, which contradicts the fact that $\Phi_n(a,b)=p$.
+
+  Next, we claim that $m\geq 3$ is impossible, so that only the case $m=2$ remains. Suppose to the contrary that $m\geq 3$, and define $A:=a^{p^{\alpha-1}}$ and $B:=b^{p^{\alpha-1}}$, so that $\Phi_n(a,b)=\Phi_{pm}(A,B)$. Since $p\nmid m$, we have the identity
+  \begin{equation*}
+    \Phi_{pm}(A,B) = \frac{\Phi_m(A^p, B^p)}{\Phi_m(A, B)}.
+  \end{equation*}
+  We estimate the magnitude of the numerator and denominator separately. Recall that $\Phi_m(x,y)=\prod (x-\zeta y)$ where the product runs over the numbers of the form $\zeta=e^{2\pi ik/n}$ where $\gcd(k,m)=1$. Since $m\geq 3$, we note that $\zeta\neq 1$ for every such $k$. Thus, for every such $\zeta$, we have the strict inequalities $|A^p-\zeta B^p| > A^p-B^p$ and $|A-\zeta B| < A+B$. It follows that
+  \begin{equation*}
+    \Phi_{pm}(A,B) > \frac{(A^p-B^p)^{\totient(m)}}{(A+B)^{\totient(m)}} = \left( \frac{A^p-B^p}{A+B} \right)^{\totient(m)}.
+  \end{equation*}
+  Since $a>b\geq 1$, we have $A\geq 2$ and $B\geq 1$. Furthermore, $p$ is the largest prime factor of $n$, so $p$ is odd, implying $p\geq 3$. The function $f(x) = (x^p-1)/(x+1)$ is increasing for $x\geq 2$, so the term in the parentheses is at least $(2^p-1)/3$. Combining this with the fact that $\totient(m)\geq 2$ for $m\geq 3$, we obtain
+  \begin{equation*}
+    \Phi_{pm}(A,B) > \left( \frac{2^p-1}{3} \right)^2.
+  \end{equation*}
+  For $p=3$, the right-hand side is $(7/3)^2 > 5 > p$. For $p\geq 5$, the inequality holds even more strongly. In all cases we have $\Phi_n(a,b) > p$, which is a contradiction.
+
+  By the previous eliminations, we conclude that $m=2$; that is, $n=2p^\alpha$. It follows that
+  \begin{equation*}
+    p=\Phi_{2p^\alpha}(a,b)=\frac{A^p+B^p}{A+B}.
+  \end{equation*}
+  Note that $p(A+B)=A^p+B^p\geq 2(\frac{A+B}{2})^p=\frac{(A+B)^p}{2^{p-1}}$, from which we obtain
+  \begin{equation*}
+    \left(\frac{3}{2}\right)^{p-1}\leq \left(\frac{A+B}{2}\right)^{p-1}\leq p.
+  \end{equation*}
+  Since this inequality fails for $p\geq 4$, it follows that $p=3$. We find that
+  \begin{equation*}
+    \left(\frac{A+B}{2}\right)^{2}\leq 3,
+  \end{equation*}
+  which implies that $(A+B)^2\leq 12$, and consequently $A+B\leq 3$. It follows that $a^{p^{\alpha-1}}=A=2$ and $B=1$, which gives us that $\alpha=1$, so that $n=6$, $a=2$, and $b=1$.
+\end{proof}
+
 \section{Vantieghem's Theorem}
 
 Recall that the $n$th Mersenne number $M_n$ is defined by
@@ -77,8 +252,6 @@ The following theorem is due to Emmanuel Vantieghem \cite{vantieghem1991}.
     \prod_{k=1}^{n-1}M_k \equiv n\pmod{M_n}
   \end{equation*}
 \end{theorem}
-
-\section{Zsigmondy's Theorem}
 
 \exercises
 
@@ -108,6 +281,10 @@ The following theorem is due to Emmanuel Vantieghem \cite{vantieghem1991}.
   \exercise Let $\sigma(n)$ be the sum of the divisors of a natural number $n$. Show that
   \begin{equation*}
     \sigma(p^m)=\prod_{\substack{d\mid m+1\\d>1}}\Phi_d(p).
+  \end{equation*}
+  \exercise Suppose that $a$ and $b$ are relatively prime. Show that
+  \begin{equation*}
+    \frac{2^{ab}-1}{(2^a-1)(2^b-1)}=\prod_{\substack{c\mid a\\ c>1}}\prod_{\substack{d\mid b\\ d>1}} \Phi_{cd}(2).
   \end{equation*}
 \end{routine}
 

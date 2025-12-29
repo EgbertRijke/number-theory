@@ -10,6 +10,19 @@ The French mathematician \'Edouard Lucas observed that the familiar Fibonacci se
     u_0:= 0, \qquad u_1:=1,\qquad\text{and}\qquad u_{n+2}:= au_{n+1}- bu_n.
   \end{equation*}
   If the parameters $a$ and $b$ are not clear from the context, we will write $u(a,b)_n$ for $u_n$. When $a$ and $b$ are relatively prime, we say that the Lucas sequence $(u_n)$ is \emph{reduced}.
+
+  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$. The \emph{characteristic polynomial} of this Lucas sequence is the polynomial
+  \begin{equation*}
+    x^2-ax+b,
+  \end{equation*}
+  and its \emph{characteristic form} is the binary quadratic form
+  \begin{equation*}
+    x^2-axy+y^2.
+  \end{equation*}
+  The roots $\alpha:=\frac{a+\sqrt{a^2-4b}}{2}$ and $\beta:=\frac{a-\sqrt{a^2-4b}}{2}$ of the characteristic polynomial are called the \emph{characteristic roots}. By the Vieta relations, the characteristic roots satisfy the identites
+  \begin{equation*}
+    \alpha+\beta = a\qquad\text{and}\qquad \alpha\beta=b.
+  \end{equation*}
 \end{definition}
 
 \begin{example}
@@ -19,80 +32,69 @@ The French mathematician \'Edouard Lucas observed that the familiar Fibonacci se
     \begin{equation*}
       0,1,1,2,3,5,8,13,21,34,55,89,\ldots
     \end{equation*}
-    When we look at the Fibonacci sequence modulo a prime $p$, we see clear patterns emerging:
+    The characteristic polynomial of the Fibonacci sequence is $x^2-x-1$ and its characteristic roots are
     \begin{equation*}
-      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
-      \renewcommand{\arraystretch}{1.25}
-      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
-        $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
-        $F_n\pmod{2}$ & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
-        $F_n\pmod{3}$ & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 \\
-        $F_n\pmod{5}$ & 0 & 1 & 1 & 2 & -2 & 0 & -2 & -2 & 1 & -1 & 0 & -1 & -1 & -2 & 2 & 0 \\
-        $F_n\pmod{7}$ & 0 & 1 & 1 & 2 & 3 & -2 & 1 & -1 & 0 & -1 & -1 & -2 & -3 & 2 & -1 & 1
-      \end{tabular}
+      \alpha=\frac{1+\sqrt{5}}{2}\qquad\text{and}\qquad \beta=\frac{1-\sqrt{5}}{2}.
     \end{equation*}
   \item When $a=2$ and $b=-1$, then the sequence $(u_n)$ is the \emph{Pell sequence}
     \begin{equation*}
       0,1,2,5,12,29,70,169,408,985,\ldots
     \end{equation*}
-    When we look at the Pell sequence modulo a prime $p$, we again see clear patterns emerging:
+    The characteristic polynomial of the Pell sequence is $x^2-2x-1$ and its characteristic roots are
     \begin{equation*}
-      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
-      \renewcommand{\arraystretch}{1.25}
-      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
-        $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
-        $P_n\pmod{2}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-        $P_n\pmod{3}$ & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 \\
-        $P_n\pmod{5}$ & 0 & 1 & 2 & 0 & 2 & -1 & 0 & -1 & -2 & 0 & -2 & 1 & 0 & 1 & 2 & 0 \\
-        $P_n\pmod{7}$ & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2
-      \end{tabular}
+      \alpha=1+\sqrt{2}\qquad\text{and}\qquad \beta=1-\sqrt{2}.
     \end{equation*}
   \item In \cref{exercise:mersenne-lucas-sequence} we saw that the sequence $(M_n)$ of Mersenne numbers satisfies the recurrence
     \begin{equation*}
       M_{n+2}=3M_{n+1}-2M_n.
     \end{equation*}
-    Thus, the Mersenne numbers also form an example of a Lucas sequence. When we look at the Mersenne numbers modulo a prime $p$, we obtain the following:
+    Thus, the Mersenne numbers also form an example of a Lucas sequence. The characteristic polynomial of the Mersenne numbers is $x^2-3x+4$ and its characteristic roots are
     \begin{equation*}
-      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
-      \renewcommand{\arraystretch}{1.25}
-      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
-        $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
-        $M_n\pmod{2}$ & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-        $M_n\pmod{3}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-        $M_n\pmod{5}$ & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 \\
-        $M_n\pmod{7}$ & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0
-      \end{tabular}
+      \alpha=4 \qquad\text{and}\qquad \beta=-1.
     \end{equation*}
   \item More generally, for any two distinct integers $a$ and $b$, the sequence defined by
     \begin{equation*}
-      u_n := \frac{a^n-b^b}{a-b}
+      u_n := \frac{a^n-b^n}{a-b}
     \end{equation*}
     is a Lucas sequence satisfying
     \begin{equation*}
       u_0=0,\qquad u_1=1,\qquad\text{and}\qquad u_{n+2}=(a+b)u_{n+1}+abu_n. 
     \end{equation*}
+  \item The Lucas sequence $(u_n)$ given by
+    \begin{equation*}
+      u_0=0,\qquad u_1=1,\qquad\text{and}\qquad u_{n+2}=2u_{n+1}-u_n
+    \end{equation*}
+    is the sequence of nonnegative integers: For each $n\geq 0$ we have $u_n=n$.
   \end{enumerate}
 \end{example}
 
-\begin{theorem}[Binet's Formula]\label{theorem:binets-formula}
-  Consider two $a$ and $b$ such that $a^2-4b\neq 0$. Suppose $\alpha$ and $\beta$ are roots of the polynomial
+In the following theorem we establish two fundamental identities for a Lucas sequence.
+
+\begin{theorem}\label{theorem:fundamental-identities-lucas-sequence}
+  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$ and characteristic roots $\alpha$ and $\beta$. Then we have the identities
   \begin{equation*}
-    x^2-ax+b=0.
+    u_{n+1}-\alpha u_n=\beta^n\qquad\text{and}\qquad u_{n+1}-\beta u_n=\alpha^n.
   \end{equation*}
-  Then we have $\alpha\neq \beta$, and the Lucas sequence $(u_n)$ at $a$ and $b$ satisfies
+\end{theorem}
+
+\begin{proof}
+  We prove the first identity by induction on $n$. The second identity can be proven similarly. For the base case, we note that $u_1-\alpha u_0=1=\beta^0$. For the inductive step, we use that $a=\alpha+\beta$ and $b=\alpha\beta$ to compute
+  \begin{equation*}
+    u_{n+2}-\alpha u_{n+1}=au_{n+1}-bu_n=(\alpha+\beta)u_{n+1}-\alpha\beta u_n-\alpha u_{n+1}=\beta(u_{n+1}-\alpha u_n)=\beta^{n+1}.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}[Binet's Formula]\label{theorem:binets-formula}
+  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$ and characteristic roots $\alpha$ and $\beta$. Then $\alpha$ and $\beta$ are distinct, and
   \begin{equation*}
     u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}.
   \end{equation*}
 \end{theorem}
 
 \begin{proof}
-  Given that $\alpha$ and $\beta$ are roots of the polynomial $x^2-ax+b$, we have $\alpha^2=a\alpha-b$ and $\beta^2=a\beta-b$. This implies the identities
+  By the identities $u_{n+1}-\alpha u_n=\beta^n$ and $u_{n+1}-\beta u_n=\alpha^n$ established in \cref{theorem:fundamental-identities-lucas-sequence}, it follows that
   \begin{equation*}
-    \alpha^{n+2}=a\alpha^{n+1}-b\alpha^n\qquad\text{and}\qquad \beta^{n+2}=a\beta^{n+1}-b\beta^n.
-  \end{equation*}
-  We will now prove Binet's formula by induction on $n$. There are two base cases, which are both immediate, since $\alpha^0-\beta^0=0$ and $\alpha^1-\beta^1=\alpha-\beta$. For the inductive step, we have
-  \begin{equation*}
-    \frac{\alpha^{n+2}-\beta^{n+2}}{\alpha-\beta}=\frac{a(\alpha^{n+1}-\beta^{n+1})-b(\alpha^n-\beta^n)}{\alpha-\beta}=au_{n+1}-bu_n=u_{n+2}.\qedhere
+    (\alpha-\beta)u_n = (u_{n+1}-\beta u_n) - (u_{n+1}-\alpha u_n) = \alpha^n-\beta^n.\qedhere
   \end{equation*}
 \end{proof}
 
@@ -106,27 +108,204 @@ Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Seque
   for all $m$ and $n$.
 \end{definition}
 
-\begin{corollary}
+\begin{theorem}
   Consider two integers $a$ and $b$ such that $a^2-4b\neq 0$. Then the Lucas sequence $(u_n)$ at $a$ and $b$ is a divisibility sequence.
-\end{corollary}
+\end{theorem}
 
 \begin{proof}
   Suppose that $n=km$. Then we have
   \begin{equation*}
-    u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}=\frac{(\alpha^m-\beta^m)\sum_{i=0}^k \alpha^i\beta^{k-i}}{\alpha-\beta}=u_m\sum_{i=0}^k \alpha^i\beta^{k-i}
+    u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}=\frac{(\alpha^m-\beta^m)\sum_{i=0}^k (\alpha^m)^i(\beta^m)^{k-i}}{\alpha-\beta}=u_m\sum_{i=0}^k (\alpha^m)^i(\beta^m)^{k-i}
   \end{equation*}
   by the formula for the difference of $m$th powers. This shows that if $m\mid n$, then $u_m\mid u_n$.
 \end{proof}
 
+When the parameters $a$ and $b$ in the recursive law of a Lucas sequence $(u_n)$ are relatively prime, the Lucas sequence has the further property of preserving greatest common divisors. Divisibility sequences that preserve greatest common divisors are called \emph{strong divisibility sequences}.
+
 \begin{definition}
-  A divisibility sequence is said to be a \emph{strong divisibility sequence} if $f$ preserves greatest common divisors, meaning that it satisfies the equation
+  A divisibility sequence $(a_n)$ is said to be a \emph{strong divisibility sequence} if $(a_n)$ preserves greatest common divisors, meaning that it satisfies the equation
   \begin{equation*}
-    f(\gcd(m,n))=\gcd(f(m),f(n))
+    a_{\gcd(m,n)}=\gcd(a_m,a_n)
   \end{equation*}
   for all $m$ and $n$.
 \end{definition}
 
+Our first target is to prove an addition formula for Lucas sequences. This law generalizes the addition formula for the Fibonacci numbers, which we stated in \cref{exercise:addition-formula-fibonacci}.
+
+\begin{proposition}[Addition formula for Lucas sequences]\label{proposition:addition-formula-lucas-sequence}
+  For any two natural numbers $m$ and $n$, we have
+  \begin{equation*}
+    u_{m+n+1}=u_{m+1} u_{n+1}-b u_{m}u_n
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}[Inductive proof]
+  The proof is by induction on $n$. In the base case, we calculate
+  \begin{equation*}
+    u_{m+1}= u_{m+1}\cdot 1 - 0 = u_{m+1} u_{1}-b u_{m}u_0.
+  \end{equation*}
+  For the inductive step, assume that the identity $u_{m+n+1}=u_{m+1} u_{n+1}-b u_{m}u_n$ holds for all $m$. Then we calculate
+  \begin{align*}
+    u_{m+1} u_{n+2}-b u_{m}u_{n+1} & = u_{m+1}(au_{n+1}-bu_n)- bu_mu_{n+1} \\
+                                   & = (au_{m+1}-bu_m)u_{n+1}-bu_{m+1}u_n \\
+                                   & = u_{m+2}u_{n+1}-bu_{m+1}u_n \\
+                                   & = u_{(m+1)+n+1} \\
+                                   & = u_{m+n+2}.\qedhere
+  \end{align*}
+\end{proof}
+
+We give a second proof of the addition law, making use of the fundamental identities stated in \cref{theorem:fundamental-identities-lucas-sequence}. Even though our previous inductive proof is perfectly legitimate, our second proof illustrates something important: Numbers of the form $x+\alpha y$ form their own domain of arithmetic. We will address this point more fully when we study quadratic fields.
+
+\begin{proof}[Proof by the fundamental identities]
+  In this proof, we will assume that $\alpha$ and $\beta$ are distinct, or equivalently, that $a^2-4b\neq 0$.
+
+  Given the identity $u_{n+1}-\beta u_n=\alpha^n$ established in \cref{theorem:fundamental-identities-lucas-sequence}, it follows that
+  \begin{equation*}
+    \alpha^{m+n}=\alpha^m\alpha^n=(u_{m+1}-\beta u_m)(u_{n+1}-\beta u_n)= u_{m+1}u_{n+1} - \beta(u_mu_{n+1}+u_{m+1}u_n)+\beta^2u_mu_n.
+  \end{equation*}
+  Since $\beta$ is a root of the equation $x^2-ax+b$, it follows that $\beta^2=a\beta-b$. This implies that
+  \begin{equation*}
+    \alpha^{m+n}=u_{m+1}u_{n+1}-bu_mu_n - \beta(u_mu_{n+1}+u_{m+1}u_n-au_mu_n).
+  \end{equation*}  
+  Similarly, using the identity $u_{n+1}-\alpha u_n=\beta^n$, we find that
+  \begin{equation*}
+    \beta^{m+n}=u_{m+1}u_{n+1}-bu_mu_n - \alpha(u_mu_{n+1}+u_{m+1}u_n-au_mu_n).
+  \end{equation*}
+  Combining these equations, it follows that
+  \begin{equation*}
+    u_{m+n}=\frac{\alpha^{m+n}-\beta^{m+n}}{\alpha-\beta} = u_mu_{n+1}+u_{m+1}u_n-au_mu_n.
+  \end{equation*}
+  Using this expression for $u_{m+n}$ in our earlier identity for $\alpha^{m+n}$, we find that
+  \begin{equation*}
+    \alpha^{m+n}=u_{m+1}u_{n+1}-bu_mu_n - \beta u_{m+n}.
+  \end{equation*}
+  On the other hand, we have $\alpha^{m+n}=u_{m+n+1}-\beta u_{m+n}$. Combining these identities gives us
+  \begin{equation*}
+    u_{m+n+1}=u_{m+1}u_{n+1}-bu_mu_n.\qedhere
+  \end{equation*}
+\end{proof}
+
+
+\begin{corollary}\label{corollary:addition-formula-lucas-sequence}
+  For any Lucas sequence $(u_n)$ with recurrence relation $u_{n+2}=au_{n+1}-bu_n$ we have the identities
+  \begin{equation*}
+    u_{2n+1}=u_{n+1}^2-bu_n^2\qquad\text{and}\qquad u_{2n+2}=u_{n+1}(u_{n+2}-bu_n).
+  \end{equation*}
+\end{corollary}
+
+\begin{proposition}[Cassini's identity]\label{lemma:cassinis-identity}
+  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$. Then we have
+  \begin{equation*}
+    u_{n+2}u_n-u_{n+1}^2=-b^{n}.
+  \end{equation*}
+\end{proposition}
+
+\begin{proof}
+  The proof is by induction on $n$. In the base case, we have
+  \begin{equation*}
+    u_{2}u_0-u_{1}^2=-1.
+  \end{equation*}
+  For the inductive step, we have
+  \begin{align*}
+    u_{n+3}u_{n+1}-u_{n+2}^2
+    & = (au_{n+2}-bu_{n+1})u_{n+1}-(au_{n+1}-bu_n)u_{n+2} \\
+    & = bu_{n+2}u_n-bu_{n+1}^2 \\
+    & = b(u_{n+2}u_n-u_{n+1}^2) \\
+    & = -b^{n+1}.\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$. Then any two consecutive terms $u_n$ and $u_{n+1}$ are relatively prime.
+\end{corollary}
+
+\begin{proof}
+  By \crefnamed{lemma:cassinis-identity} it follows that $\gcd(u_n,u_{n+1})$ divides $b^n$. However, modulo $b$ we see that $(u_n)$ satisfies the recurrence
+  \begin{equation*}
+    u_{n+2}\equiv a u_{n+1}\pmod{b}.
+  \end{equation*}
+  Since $u_1=1$ and $a$ is invertible modulo $b$, it follows that $u_n$ is relatively prime to $b$ for every $n$. Thus we conclude that $\gcd(u_n,u_{n+1})=1$.
+\end{proof}
+
+\begin{theorem}
+  Consider the Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$. If $a$ and $b$ are relatively prime, then $(u_n)$ is a strong divisibility sequence.
+\end{theorem}
+
+\begin{proof}
+  First, we show that if $n=qm+r$ with $0\leq r<m$, then
+  \begin{equation*}
+    \gcd(u_n,u_m)=\gcd(u_m,u_r). 
+  \end{equation*}
+  The identity $n=qm+r$ implies that
+  \begin{equation*}
+    u_{n}=u_{qm+1} u_{r}-b u_{qm}u_{r-1}
+  \end{equation*}
+  Since $u_m\mid u_{qm}$, it follows that $u_n\equiv u_{qm+1}u_r\pmod{u_m}$. However, $u_{qm+1}$ is relatively prime to $u_{qm}$ and hence to $u_m$. Thus, any common divisor $d$ of $u_n$ and $u_m$ must also be a divisor of $u_r$. This shows that
+  \begin{equation*}
+    \gcd(u_n,u_m) \mid \gcd(u_m,u_r).
+  \end{equation*}
+  On the other hand, we see that $u_n$ can be written as a linear combination of $u_m$ and $u_r$, so that $\gcd(u_n,u_m)\mid u_n$. This implies that
+  \begin{equation*}
+    \gcd(u_m,u_r)\mid \gcd(u_n,u_m).
+  \end{equation*}
+\end{proof}
+
+\begin{example}
+  There are many examples of strong divisibility sequences beyond the class of Lucas sequences. A particularly self-evident example is the sequence
+  \begin{equation*}
+    u_n:=n^2.
+  \end{equation*}
+  To see that this is not a Lucas sequence, we show that the equations
+  \begin{align*}
+    4 & = a\cdot 1 - b\cdot 0 \\
+    9 & = a\cdot 4 - b\cdot 1 \\
+    16 & = a \cdot 9 - b\cdot 4
+  \end{align*}
+  has no solutions. The first equation implies that $a=4$. Given this constraint, the second equation gives that $b=7$. However, $4\cdot 9-7\cdot 4= 8\neq 16$. Thus we conclude that the sequence $(n^2)$ is not a Lucas sequence for any choice of integers $a$ and $b$.
+
+  An important further class of strong divisibility sequences is the class of \emph{elliptic divisibility sequences} of Morgan Ward \cite{ward1948}.
+\end{example}
+
 \section{The Rank of Apparition}
+
+\begin{example}
+\item When we look at the Fibonacci sequence modulo a prime $p$, we see clear patterns emerging:
+  \begin{equation*}
+    \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+      $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
+      $F_n\pmod{2}$ & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
+      $F_n\pmod{3}$ & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 \\
+      $F_n\pmod{5}$ & 0 & 1 & 1 & 2 & -2 & 0 & -2 & -2 & 1 & -1 & 0 & -1 & -1 & -2 & 2 & 0 \\
+      $F_n\pmod{7}$ & 0 & 1 & 1 & 2 & 3 & -2 & 1 & -1 & 0 & -1 & -1 & -2 & -3 & 2 & -1 & 1
+    \end{tabular}
+  \end{equation*}
+\item When we look at the Pell sequence modulo a prime $p$, we again see clear patterns emerging:
+  \begin{equation*}
+    \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+      $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
+      $P_n\pmod{2}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+      $P_n\pmod{3}$ & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 \\
+      $P_n\pmod{5}$ & 0 & 1 & 2 & 0 & 2 & -1 & 0 & -1 & -2 & 0 & -2 & 1 & 0 & 1 & 2 & 0 \\
+      $P_n\pmod{7}$ & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2 & -2 & 1 & 0 & 1 & 2 & -2
+    \end{tabular}
+  \end{equation*}
+\item When we look at the Mersenne numbers modulo a prime $p$, we obtain the following:
+  \begin{equation*}
+    \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+      $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
+      $M_n\pmod{2}$ & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+      $M_n\pmod{3}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+      $M_n\pmod{5}$ & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 & 0 & 1 & -2 & 2 \\
+      $M_n\pmod{7}$ & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0 & 1 & 3 & 0
+    \end{tabular}
+  \end{equation*}
+\end{example}
 
 \begin{definition}
   Consider an integer sequence $(a_n)$ and a positive integer $m$. The \emph{rank of apparition} $\rho_a(m)$ of $m$ is the least positive integer $n$ such that $m\mid a_n$.
@@ -190,7 +369,7 @@ Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Seque
   \end{equation*}
 \end{proof}
 
-By the \crefnamed{theorem:order-theorem}{Order Theorem}, it follows that the function $g$ defined by $g(m):=\ord_m(a)$ satisfies the logical equivalence in the first condition of the \crefnamed{theorem:rank-of-apparition-theorem}{Rank of Apparition Theorem}. Thus we obtain the following corollary:
+By \crefnamed{theorem:order-theorem}, it follows that the function $g$ defined by $g(m):=\ord_m(a)$ satisfies the logical equivalence in the first condition of \crefnamed{theorem:rank-of-apparition-theorem}. Thus we obtain the following corollary:
 
 \begin{corollary}
   The function $n\mapsto a^n-1$ is a strong divisibility sequence. Thus, for any integer $a>1$ and any two natural numbers $m$ and $n$ we have
@@ -204,8 +383,54 @@ By the \crefnamed{theorem:order-theorem}{Order Theorem}, it follows that the fun
   \begin{equation*}
     a^n-1=(a^m)^q-1^q=(a^m-1)\sum_{k=0}^{q-1}a^{km}
   \end{equation*}
-  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \cref{theorem:galois-connections-divisibility} and the \crefnamed{theorem:order-theorem}{Order Theorem}.
+  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \cref{theorem:galois-connections-divisibility} and \crefnamed{theorem:order-theorem}.
 \end{proof}
+
+\begin{example}\label{example:rank-of-apparition-square-discriminant-lucas-sequence}
+  Consider two relatively prime integers $a$ and $b$ with $b<a$, and consider the Lucas sequence $(u_n)$ with recurrence $u_{n+2}=(a+b)u_{n+1}-abu_n$. By Binet's formula, we have
+  \begin{equation*}
+    u_n=\frac{a^n-b^n}{a-b}.
+  \end{equation*}
+  By the assumption that $a$ and $b$ are relatively prime it follows that the sequence $u_n$ is a strong divisiblity sequence. Thus, the rank-of-apparition function $\rho$ satisfies
+  \begin{equation*}
+    \rho(m)\mid n\Leftrightarrow m\mid u_n.
+  \end{equation*}
+  We make a more detailed analysis of the rank of apparition of a prime, depending on whether it divides $a-b$, $a$, $b$, or none of these numbers.
+
+  First, we will assume that $p\nmid ab(a-b)$. In this case, we have
+  \begin{equation*}
+    p\mid u_n\Leftrightarrow p\mid a^n-b^n\Leftrightarrow a^n\equiv b^n\pmod{p}.
+  \end{equation*}
+  Since $a$ and $b$ are invertible modulo $p$, it follows that $(a/b)^n\equiv 1\pmod{p}$, which is equivalent to the condition that $\ord_p(a/b)\mid n$. Thus, we conclude that
+  \begin{equation*}
+    \ord_p(a/b)\mid n \Leftrightarrow p\mid u_n.
+  \end{equation*}
+  It follows that $\rho(p)=\ord_p(a/b)$. We can extend these observation to moduli $m$ with $\gcd(m,ab(a-b))=1$. Here again, $a$ and $b$ are invertible modulo $m$, from which it follows that
+  \begin{equation*}
+    p\mid u_n\Leftrightarrow a^n\equiv b^n\pmod{p}\Leftrightarrow \ord_m(a/b)\mid n.
+  \end{equation*}
+  Thus we find that $\rho(m)=\ord_m(a/b)$. Moreover, one can show that
+  \begin{equation*}
+    \rho(m_1m_2)=\lcm(\rho(m_1),\rho(m_2))
+  \end{equation*}
+  when $m_1$ and $m_2$ are relatively prime integers, both relatively prime to $ab(a-b)$.
+
+  Next, we will assume that $p\mid a-b$. Since $a-b$ is relatively prime to both $a$ and $b$, it follows again that both $a$ and $b$ are invertible modulo $p$. Then we can rewrite $u_n$ using the formula for the difference of $n$th powers, and subsequently use the congruence $a\equiv b\pmod{p}$ to obtain:
+  \begin{equation*}
+    u_n=\frac{a^n-b^n}{a-b}=\sum_{k=0}^{n-1} a^{n-1-k}b^k \equiv \sum_{k=0}^{n-1} a^{n-1-k}a^k = na^{n-1}\pmod{p}.
+  \end{equation*}
+  Given that $p\nmid a$, it follows that
+  \begin{equation*}
+    p\mid n\Leftrightarrow p\mid u_n.
+  \end{equation*}
+  In other words, the rank of apparition of $p$ is $\rho(p)=p$.
+
+  Finally, we show that $\rho(p)=0$ when $p\mid a$ and $p\nmid b(a-b)$, from which we also obtain that $\rho(p)=0$ in the symmetric case where $p\mid b$ and $p\nmid a(a-b)$. Recall that $\rho(p)=0$ means that $p\nmid u_n$ for all $n>1$. Note that if $p\mid a$, then we have
+  \begin{equation*}
+    u_n\equiv b^{n-1}\pmod{p}
+  \end{equation*}
+  whenever $n\geq 1$. Since we assumed that $p\nmid b$, this shows that $p\nmid u_n$.
+\end{example}
 
 \begin{remark}
   More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \emph{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
@@ -279,7 +504,7 @@ The following corollary, due to Morgan Ward \cite{ward1936}, is a generalization
 
 For the following lemma, recall that $\nu_p(a-b)=m$ if and only if $a\equiv b\pmod{p^m}$ but $a\nequiv b\pmod{p^{m+1}}$. We also recall that for any prime $p$ and any $0<i<p$, the binomial coefficient $\binom{p}{i}$ is divisible by $p$. 
 
-\begin{lemma}\label{lemma:lte-step}
+\begin{lemma}\label{theorem:lte-step}
   Consider an odd prime $p$, and two integers $a\equiv b\pmod{p}$ such that neither $a$ nor $b$ is divisible by $p$. Then
   \begin{equation*}
     \nu_p(a^p-b^p)=\nu_p(a-b)+1.
@@ -287,7 +512,7 @@ For the following lemma, recall that $\nu_p(a-b)=m$ if and only if $a\equiv b\pm
 \end{lemma}
 
 \begin{proof}
-  Write $s:=\nu_p(a-b)$, so that $s\geq 1$ by the assumption that $a\equiv b\pmod{p}$. Then we have $a\equiv b\pmod{p^s}$, so we can write $b=a+tp^s$, where $p\nmid t$. The value of $b^p$ can therefore be computed using the \crefnamed{theorem:binomial-theorem}{Binomial Theorem} by
+  Write $s:=\nu_p(a-b)$, so that $s\geq 1$ by the assumption that $a\equiv b\pmod{p}$. Then we have $a\equiv b\pmod{p^s}$, so we can write $b=a+tp^s$, where $p\nmid t$. The value of $b^p$ can therefore be computed using \crefnamed{theorem:binomial-theorem} by
   \begin{equation*}
     b^p=(a+tp^s)^p=\sum_{i=0}^p\binom{p}{i}a^i(tp^s)^{p-i} \equiv a^p+a^{p-1}tp^{s+1}\pmod{p^{s+2}}.
   \end{equation*}
@@ -299,12 +524,12 @@ For the following lemma, recall that $\nu_p(a-b)=m$ if and only if $a\equiv b\pm
 
 The previous lemma can be iterated to obtain a general lemma called the \emph{Lifting the Exponent Lemma}. This lemma was popularized by the Romanian mathematician Mihai Manea \cite{manea2006}.
 
-\begin{lemma}[Lifting the Exponent]\label{lemma:lte}
+\begin{theorem}[Lifting the Exponent]\label{theorem:lte}
   Consider an odd prime $p$, and let $x\equiv y\pmod{p}$, where neither $x$ nor $y$ is divisible by $p$. Then for any natural number $n\geq 1$, we have
   \begin{equation*}
     \nu_p(x^n-y^n)=\nu_p(x-y)+\nu_p(n).
   \end{equation*}
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
   Write $n=p^km$ with $p\nmid m$, so that $\nu_p(n)=k$, and write $s=\nu_p(x-y)$. Since we have assumed that $x\equiv y\pmod{p}$, we have $s\geq 1$. We will prove the claim by induction on $k$.
@@ -321,8 +546,20 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
   \begin{equation*}
     \nu_p(x^m-y^m)=s.
   \end{equation*}
-  The inductive step is a direct consequence of \cref{lemma:lte-step}.
+  The inductive step is a direct consequence of \cref{theorem:lte-step}.
 \end{proof}
+
+\begin{example}
+  In \cref{example:rank-of-apparition-square-discriminant-lucas-sequence} we saw that for $p\mid a-b$ with $a$ and $b$ relatively prime, the rank of apparition of $p$ in the Lucas sequence given by
+  \begin{equation*}
+    u_n=\frac{a^n-b^n}{a-b}
+  \end{equation*}
+  is $\rho(p)=p$. Now we claim that $\rho(p^k)=p^k$. Using \crefnamed{theorem:lte}, we see that
+  \begin{equation*}
+    \nu_p(u_n)=\nu_p(a^n-b^n)-\nu_p(a-b)=\nu_p(n). 
+  \end{equation*}
+  This shows that $p^k\mid u_n$ if and only if $p^k\mid n$, and the claim follows.
+\end{example}
 
 \begin{definition}
   A strong divisibility sequence is said to satisfy the \emph{law of repetition} if for any prime $p$, we have
@@ -353,6 +590,13 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
 
 \exercises
 
+\begin{starter}
+  \exercise Show that consecutive terms of a Lucas sequence $(u_n)$ with characteristic form $x^2-axy+by^2$ satisfy
+  \begin{equation*}
+    u_{n+1}^2-au_{n+1}u_n+bu_n^2=(-b)^n.
+  \end{equation*}
+\end{starter}
+
 \begin{routine}
     \exercise Show that
   \begin{equation*}
@@ -361,6 +605,10 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
   \exercise Consider a positive integer $a$, and write $S_m:=\sum_{k=0}^m a^k$. Prove that
   \begin{equation*}
     \gcd(S_m,S_n)=S_{\gcd(m+1,n+1)-1}.
+  \end{equation*}
+  \exercise Consider a Lucas sequence $(u_n)$ with recursion $u_{n+2}=au_{n+1}-bu_n$. Show that
+  \begin{equation*}
+    u_{n+1}^2\equiv b^n\pmod{u_n}.
   \end{equation*}
 \end{routine}
 
@@ -385,6 +633,19 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
     P_0:=0,\qquad P_1:=1,\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
   \end{equation*}
   forms a strong divisibility sequence.
+  \exercise Consider a Lucas sequence $(u_n)$ and let $m$ be such that $u_m\neq 0$. Define the \emph{cofactor sequence} $(\tilde{u}_k)$ by
+  \begin{equation*}
+    \tilde{u}_k:=u_{km}/u_m.
+  \end{equation*}
+  Show that $(\tilde{u}_k)$ is again a Lucas sequence.
+  \exercise (The Dickson--Lucas polynomial) Consider a Lucas sequence $(u_n)$ with associated sequence $(v_n)$ given by
+  \begin{equation*}
+    v_0 := 2, \qquad v_1 := a,\qquad\text{and}\qquad v_{n+2}=av_{n+1}-bv_n.
+  \end{equation*}
+  Show that
+  \begin{equation*}
+    v_m = \sum_{j=0}^{\lfloor m/2 \rfloor} (-1)^j\frac{m}{m-j}\binom{m-j}{j} a^{m-2j}b^j.
+  \end{equation*}
 \end{challenge}
 
 %%% Local Variables:

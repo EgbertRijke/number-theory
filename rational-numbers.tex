@@ -1,6 +1,6 @@
 \chapter{The Rational Numbers}
 
-On the integers we have the arithmetic operations of addition, subtraction, and multiplication, but we generally can't divide integers and expect the result to be another integer. Instead, we have the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} which establishes division with remainder, and in the previous chapter we introduced the basics of the theory of integer divisibility. Nevertheless, there is a clear sense of ratios of integers, even if such ratios are not necessarily integers. It is thus natural to introduce the concepts of \emph{integer fractions} and the \emph{rational numbers}.
+On the integers we have the arithmetic operations of addition, subtraction, and multiplication, but we generally can't divide integers and expect the result to be another integer. Instead, we have \crefnamed{theorem:euclidean-division} which establishes division with remainder, and in the previous chapter we introduced the basics of the theory of integer divisibility. Nevertheless, there is a clear sense of ratios of integers, even if such ratios are not necessarily integers. It is thus natural to introduce the concepts of \emph{integer fractions} and the \emph{rational numbers}.
 
 \section{Integer Fractions}
 
@@ -229,7 +229,7 @@ Here, the letter K stands for \emph{Kettenbruch}, the German word for continued 
 \begin{proof}
   Consider two relatively prime integers $a$ and $b$ with $b>0$. The proof is by strong induction on $b$. In the base case, where $b=1$, the unique finite continued fraction representing $\frac{a}{b}$ is the continued fraction $[a]$, which has no fractional part. 
 
-  By the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} there is a uniqe pair $(q,r)$ of integers with $0\leq r<b$ such that $a=qb+r$. In the case where $r=0$, we obtain that $\frac{a}{b}=q$, from which it follows that $[q]$ is the unique finite continued fraction representing $\frac{a}{b}$. In case $r>0$ we write
+  By \crefnamed{theorem:euclidean-division} there is a uniqe pair $(q,r)$ of integers with $0\leq r<b$ such that $a=qb+r$. In the case where $r=0$, we obtain that $\frac{a}{b}=q$, from which it follows that $[q]$ is the unique finite continued fraction representing $\frac{a}{b}$. In case $r>0$ we write
   \begin{equation*}
     \frac{a}{b} = q + \cfrac{1}{\frac{b}{r}}.
   \end{equation*}

@@ -36,7 +36,7 @@ The earliest surviving stone inscription of the number $0$ was found in the ruin
 
 Another famous early inscription of the number $0$ can be found in the Chaturbhuj temple in Gwalior, India, from 876 CE. The numerals were written in an early Nāgarī script, in which the number $0$ already had its modern, circular form. The inscription tells of the temple built on a piece of land $270$ hastas in length and 187 hastas in breadth. Since the $0$ is used at the last digit of a number, as opposed to a placeholder in the middle of a number, this is considered to be the earliest occurrence of $0$ as a numeral.
 
-We saw that throughout the history of human civilization, we have seen numerical systems with various bases. The decimal system is most common nowadays, a sexagesimal system was used by the Sumerians and Babylonians, a vigesimal system was used by the Mayans, and other systems such as the binary and hexadecimal systems are used by computers. The following mathematical theorem may not come as a surprise anymore: Any number $k>1$ can serve as the basis of a numerical system. We will prove this theorem using the \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem}, which itself rests on the \crefnamed{theorem:well-ordering-natural-numbers}{Well-Ordering Principle of the Natural Numbers}.
+We saw that throughout the history of human civilization, we have seen numerical systems with various bases. The decimal system is most common nowadays, a sexagesimal system was used by the Sumerians and Babylonians, a vigesimal system was used by the Mayans, and other systems such as the binary and hexadecimal systems are used by computers. The following mathematical theorem may not come as a surprise anymore: Any number $k>1$ can serve as the basis of a numerical system. We will prove this theorem using \crefnamed{theorem:euclidean-division}, which itself rests on \crefnamed{theorem:well-ordering-natural-numbers}.
 
 \section{The Well-Ordering Principle of the Natural Numbers}
 
@@ -216,13 +216,13 @@ Our earlier idea to prove the representability theorem can finally be made into 
 
 \section[Combinatorial Applications]{Some Combinatorial Applications of the Euclidean Division Theorem}
 
-The \crefnamed{theorem:euclidean-division}{Euclidean Division Theorem} can be used to obtain some elementary combinatorial application. We will make use of the pigeonhole principle, which is commonly attributed to Gustav Lejeune Dirichlet, who used this principle brilliantly in his \crefnamed{theorem:dirichlets-approximation-theorem}{approximation theorem}. The idea of the pigeonhole principle is that  if we place $n$ objects in $m$ boxes, and $m$ is strictly smaller than $n$, then there is a box containing more than one object. The pigeonhole principle underlies a remarkable array of existence results across number theory and combinatorics. Among classical number-theoretic applications, one finds the aforementioned approximation theorem of Dirichlet, the Erd\H{o}s--Ginzburg--Ziv zero-sum theorem, and the Chevalley--Warning theorem on solutions of systems of polynomial congruences. The pigeonhole principle is stated formally as follows:
+\crefnamed{theorem:euclidean-division} can be used to obtain some elementary combinatorial application. We will make use of the pigeonhole principle, which is commonly attributed to Gustav Lejeune Dirichlet, who used this principle brilliantly in \crefnamed{theorem:dirichlets-approximation-theorem}. The idea of the pigeonhole principle is that  if we place $n$ objects in $m$ boxes, and $m$ is strictly smaller than $n$, then there is a box containing more than one object. The pigeonhole principle underlies a remarkable array of existence results across number theory and combinatorics. Among classical number-theoretic applications, one finds the aforementioned approximation theorem of Dirichlet, the Erd\H{o}s--Ginzburg--Ziv zero-sum theorem, and the Chevalley--Warning theorem on solutions of systems of polynomial congruences. The pigeonhole principle is stated formally as follows:
 
 \begin{theorem}[The Pigeonhole Principle]
   Consider two natural numbers $m<n$, and a function $f:X\to Y$ from a set $X$ with $n$ elements into a set $Y$ with $m$ elements. Then there exists an element $y$ such that $f(x)=y$ for more than one element $x$.
 \end{theorem}
 
-In the present chapter, we will be content with some very elementary applications of the pigeonhole principle in combination with the \crefnamed{Euclidean Division Theorem}.
+In the present chapter, we will be content with some very elementary applications of the pigeonhole principle in combination with \crefnamed{theorem:euclidean-division-theorem}.
 
 \begin{theorem}\label{theorem:existence-difference-divisible}
   Consider two positive integers $m<n$. In any set of $n$ integers, there is a pair of distinct integers such that their difference is divisible by $m$.
