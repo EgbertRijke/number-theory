@@ -767,7 +767,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
         child { node {} }
       }
       child { node {} }
-    };
+    }
     
     % Tree 2 (center)
     \DrawRootedTree{%
@@ -777,7 +777,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
           child { node {} }
         }
       }
-    };
+    }
     
     % Tree 3 (right)
     \DrawRootedTree[xshift=4cm]{%
@@ -789,7 +789,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
         child { node {} }
         child { node {} }
       }
-    };
+    }
     
   \end{tikzpicture}
 
@@ -937,7 +937,7 @@ By \crefnamed{theorem:pythagorean-descent} it follows that all primitive Pythago
 
 \clearpage
 
-\begin{figure}[h]
+\begin{figure}[p]
   \centering
   \begin{tikzpicture}[
    font=\small,
@@ -1066,6 +1066,7 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
 
       \pgfmathtruncatemacro{\rmax}{9}
       \pgfmathtruncatemacro{\cwidth}{2*\rmax-1}
+
       % Loop over rows
       \foreach \row in {1,...,\rmax} {%
         
@@ -1074,21 +1075,22 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
         
         % Columns shrink by one each row up
         \pgfmathtruncatemacro\maxc{\cwidth-(\row-1)}%
-        
+
         \foreach \col in {1,...,\maxc} {%
-          \pgfmathtruncatemacro\S{0}%
-          \pgfmathtruncatemacro\J{0}%
-          \pgfmathtruncatemacro\limit{\row}%
-          \pgfmathloop
-          \ifnum\J<\limit
-            \pgfmathtruncatemacro\term{dn(\col+\J)}%
-            \pgfmathtruncatemacro\S{\S+\term}%
-            \pgfmathtruncatemacro\J{\J+1}%
-            \repeatpgfmathloop
-            \node[draw,thick,circle,minimum size=6mm,inner sep=0pt,align=center,font=\small]
-              (nC\col R\row) at ({(\col-1)+(\row-1)/2},\y) {\S};%
-            }%
+          \pgfmathtruncatemacro\nodeSum{0}%
+          \pgfmathtruncatemacro\limit{\row-1}%
           
+          \foreach \J in {0,...,\limit} {%
+            \pgfmathtruncatemacro\term{dn(\col+\J)}%
+            \pgfmathtruncatemacro\nodeSum{\nodeSum+\term}%
+            \global\let\nodeSum=\nodeSum %
+          }%
+          
+          \node[draw,thick,circle,minimum size=6mm,inner sep=0pt,align=center,font=\small]
+            (nC\col R\row) at ({(\col-1)+(\row-1)/2},\y) {\nodeSum};%
+        }%
+          
+        % Edges connecting to the previous row
         \foreach \col in {1,...,\maxc} {
           \pgfmathtruncatemacro{\ncol}{\col+1}
           \pgfmathtruncatemacro{\prow}{\row-1}
@@ -1102,61 +1104,22 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
       
       \foreach \base in {0,...,\cwidth} {%
         \pgfmathsetmacro\y{(-1)*sqrt(3)/2}
-        \pgfmathtruncatemacro\pmone{\ifodd\base -1\else 1\fi}
+        \pgfmathtruncatemacro\pmone{isodd(\base) ? -1 : 1}
         \pgfmathtruncatemacro\half{int((\base+1)/2)}
         \pgfmathtruncatemacro\rootval{6*\half + \pmone}
         
         \node[draw,thick,rectangle,minimum size=5.5mm,inner sep=0pt,align=center,font=\small] (b\base) at ({\base-1/2},\y) {\rootval};
         \pgfmathtruncatemacro{\leftcol}{\base}
         \pgfmathtruncatemacro{\rightcol}{\base+1}
-        \ifnum\base<\cwidth
+        \ifnum\base<\cwidth\relax
           \draw[thick] (b\base) -- (nC\rightcol R1);
         \fi
-        \ifnum\base>0
+        \ifnum\base>0\relax
           \draw[thick] (b\base) -- (nC\leftcol R1);
         \fi
       }
-
-      % \begin{scope}[on background layer]
-      %   \foreach \rowone in {1,...,\rmax}
-      %   {
-      %     \pgfmathtruncatemacro\maxc{\cwidth-(\rowone-1)}
-      %     \foreach \colone in {1,...,\maxc}
-      %     {
-      %       \foreach \rowtwo in {1,...,\colone}
-      %       {
-      %         \pgfmathtruncatemacro\Sone{0}%
-      %         \pgfmathtruncatemacro\Jone{0}%
-      %         \pgfmathtruncatemacro\limitone{\rowone}%
-      %         \pgfmathloop
-      %         \ifnum\Jone<\limitone
-      %           \pgfmathtruncatemacro\termone{dn(\colone+\Jone)}%
-      %           \pgfmathtruncatemacro\Sone{\Sone+\termone}%
-      %           \pgfmathtruncatemacro\Jone{\Jone+1}%
-      %           \repeatpgfmathloop
-                
-      %         \pgfmathtruncatemacro\coltwo{\colone-\rowtwo}
-      %         \pgfmathtruncatemacro\maxctwo{\cwidth-(\rowtwo-1)}
-      %         \pgfmathtruncatemacro\Stwo{0}%
-      %         \pgfmathtruncatemacro\Jtwo{0}%
-      %         \pgfmathtruncatemacro\limittwo{\rowtwo}%
-      %         \pgfmathloop
-      %         \ifnum\Jtwo<\limittwo
-      %           \pgfmathtruncatemacro\termtwo{dn(\coltwo+\Jtwo)}%
-      %           \pgfmathtruncatemacro\Stwo{\Stwo+\termtwo}%
-      %           \pgfmathtruncatemacro\Jtwo{\Jtwo+1}%
-      %           \repeatpgfmathloop
-                
-      %         \ifnum\Sone=\Stwo\relax
-      %           % fill both nodes
-      %           \fill[YellowOrange] (nC\colone R\rowone) circle (3mm);
-      %           \fill[CornflowerBlue] (nC\coltwo R\rowtwo) circle (3mm);
-      %         \fi
-      %       }
-      %     }
-      %   }
-      % \end{scope}
       
+      % Background coloring
       \begin{scope}[on background layer]
         \fill[CornflowerBlue] (nC1R1) circle (3mm);
         \fill[YellowOrange] (nC2R1) circle (3mm);
@@ -1178,6 +1141,89 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
   \caption[Differences of squares congruent to $1$ modulo $24$]{The numbers in squares at the base of the grid are the numbers of the form $6m\pm 1$, which correspond exactly to all the numbers $n$ such that $n^2-1$ is divisible by $24$. If $x$ and $y$ are two numbers in squares at the base of the grid, then the number $k$ at the apex of the triangle spanned by $x$ and $y$ satisfies $y^2-x^2=k\cdot 24$. For each primitive arithmetic triple $(x^2,y^2,z^2)$ of squares, the apex of the triangle spanned by $x$ and $y$ is marked in blue, and the apex of the triangle spanned by $y$ and $z$ is marked in orange.}
   \label{figure:quotients-of-differences-of-squares}
 \end{figure}
+
+% \begin{figure}[t]
+%   \centering
+%   \resizebox{\textwidth}{!}{
+%     \begin{tikzpicture}
+%       \pgfmathdeclarefunction{dn}{1}{%
+%         \pgfmathparse{mod(#1,2)==1 ? #1 : int(#1/2)}%
+%       }
+
+%       \pgfmathtruncatemacro{\rmax}{9}
+%       \pgfmathtruncatemacro{\cwidth}{2*\rmax-1}
+%       % Loop over rows
+%       \foreach \row in {1,...,\rmax} {%
+        
+%         % Vertical position
+%         \pgfmathsetmacro\y{(\row-1)*sqrt(3)/2}%
+        
+%         % Columns shrink by one each row up
+%         \pgfmathtruncatemacro\maxc{\cwidth-(\row-1)}%
+
+%         \foreach \col in {1,...,\maxc} {%
+%           \pgfmathtruncatemacro\S{0}%
+%           \pgfmathtruncatemacro\J{0}%
+%           \pgfmathtruncatemacro\limit{\row}%
+%           \pgfmathloop
+%           \ifnum\J<\limit\relax
+%             \pgfmathtruncatemacro\term{dn(\col+\J)}%
+%             \pgfmathtruncatemacro\S{\S+\term}%
+%             \pgfmathtruncatemacro\J{\J+1}%
+%             \repeatpgfmathloop
+%             \node[draw,thick,circle,minimum size=6mm,inner sep=0pt,align=center,font=\small]
+%               (nC\col R\row) at ({(\col-1)+(\row-1)/2},\y) {\S};%
+%             }%
+          
+%         \foreach \col in {1,...,\maxc} {
+%           \pgfmathtruncatemacro{\ncol}{\col+1}
+%           \pgfmathtruncatemacro{\prow}{\row-1}
+          
+%           \ifnum\row>1\relax
+%             \draw[thick] (nC\col R\row) -- (nC\col R\prow);%
+%             \draw[thick] (nC\col R\row) -- (nC\ncol R\prow);%
+%           \fi
+%         }%
+%       }%
+      
+%       \foreach \base in {0,...,\cwidth} {%
+%         \pgfmathsetmacro\y{(-1)*sqrt(3)/2}
+%         \pgfmathtruncatemacro\pmone{\ifodd\base -1\else 1\fi}
+%         \pgfmathtruncatemacro\half{int((\base+1)/2)}
+%         \pgfmathtruncatemacro\rootval{6*\half + \pmone}
+        
+%         \node[draw,thick,rectangle,minimum size=5.5mm,inner sep=0pt,align=center,font=\small] (b\base) at ({\base-1/2},\y) {\rootval};
+%         \pgfmathtruncatemacro{\leftcol}{\base}
+%         \pgfmathtruncatemacro{\rightcol}{\base+1}
+%         \ifnum\base<\cwidth
+%           \draw[thick] (b\base) -- (nC\rightcol R1);
+%         \fi
+%         \ifnum\base>0
+%           \draw[thick] (b\base) -- (nC\leftcol R1);
+%         \fi
+%       }
+      
+%       \begin{scope}[on background layer]
+%         \fill[CornflowerBlue] (nC1R1) circle (3mm);
+%         \fill[YellowOrange] (nC2R1) circle (3mm);
+%         \fill[CornflowerBlue] (nC3R2) circle (3mm);
+%         \fill[YellowOrange] (nC5R1) circle (3mm);
+%         \fill[CornflowerBlue] (nC3R3) circle (3mm);
+%         \fill[YellowOrange] (nC6R2) circle (3mm);
+%         \fill[CornflowerBlue] (nC6R3) circle (3mm);
+%         \fill[YellowOrange] (nC9R2) circle (3mm);
+%         \fill[CornflowerBlue] (nC1R9) circle (3mm);
+%         \fill[YellowOrange] (nC10R4) circle (3mm);
+%         \fill[CornflowerBlue] (nC8R5) circle (3mm);
+%         \fill[YellowOrange] (nC13R3) circle (3mm);
+%         \fill[CornflowerBlue] (nC11R3) circle (3mm);
+%         \fill[YellowOrange] (nC14R3) circle (3mm);
+%       \end{scope}
+%     \end{tikzpicture}
+%   }
+%   \caption[Differences of squares congruent to $1$ modulo $24$]{The numbers in squares at the base of the grid are the numbers of the form $6m\pm 1$, which correspond exactly to all the numbers $n$ such that $n^2-1$ is divisible by $24$. If $x$ and $y$ are two numbers in squares at the base of the grid, then the number $k$ at the apex of the triangle spanned by $x$ and $y$ satisfies $y^2-x^2=k\cdot 24$. For each primitive arithmetic triple $(x^2,y^2,z^2)$ of squares, the apex of the triangle spanned by $x$ and $y$ is marked in blue, and the apex of the triangle spanned by $y$ and $z$ is marked in orange.}
+%   \label{figure:quotients-of-differences-of-squares}
+% \end{figure}
 
 The fact that the congruum in an arithmetic triple of squares is always a multiple of $24$ implies that primitive arithmetic triples of squares consist entirely of integers of the form $(6m\pm 1)^2$. Any such square exceeds a multiple of $24$ by one. This significantly reduces the search space for arithmetic triples of squares. If $a_n$ is the $n$th positive integer of the form $(6k\pm 1)^2$, then
 \begin{equation*}

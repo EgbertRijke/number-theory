@@ -311,7 +311,7 @@ We give a second proof of the addition law, making use of the fundamental identi
   Consider an integer sequence $(a_n)$ and a positive integer $m$. The \emph{rank of apparition} $\rho_a(m)$ of $m$ is the least positive integer $n$ such that $m\mid a_n$.
 \end{definition}
 
-\begin{theorem}[Rank of Apparition Theorem]\label{theorem:galois-connections-divisibility}
+\begin{theorem}[Rank of Apparition Theorem]\label{theorem:rank-of-apparition}
   Suppose that $f:\mathbb{N}\to\mathbb{N}$ is a divisibility sequence. Then the following are equivalent:
   \begin{enumerate}
   \item There is a function $g:\mathbb{N}\to\mathbb{N}$ satisfying the logical equivalence
@@ -369,7 +369,7 @@ We give a second proof of the addition law, making use of the fundamental identi
   \end{equation*}
 \end{proof}
 
-By \crefnamed{theorem:order-theorem}, it follows that the function $g$ defined by $g(m):=\ord_m(a)$ satisfies the logical equivalence in the first condition of \crefnamed{theorem:rank-of-apparition-theorem}. Thus we obtain the following corollary:
+By \crefnamed{theorem:order-theorem}, it follows that the function $g$ defined by $g(m):=\ord_m(a)$ satisfies the logical equivalence in the first condition of \crefnamed{theorem:rank-of-apparition}. Thus we obtain the following corollary:
 
 \begin{corollary}
   The function $n\mapsto a^n-1$ is a strong divisibility sequence. Thus, for any integer $a>1$ and any two natural numbers $m$ and $n$ we have
@@ -383,7 +383,7 @@ By \crefnamed{theorem:order-theorem}, it follows that the function $g$ defined b
   \begin{equation*}
     a^n-1=(a^m)^q-1^q=(a^m-1)\sum_{k=0}^{q-1}a^{km}
   \end{equation*}
-  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \cref{theorem:galois-connections-divisibility} and \crefnamed{theorem:order-theorem}.
+  by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \cref{theorem:rank-of-apparition} and \crefnamed{theorem:order-theorem}.
 \end{proof}
 
 \begin{example}\label{example:rank-of-apparition-square-discriminant-lucas-sequence}
@@ -437,7 +437,7 @@ By \crefnamed{theorem:order-theorem}, it follows that the function $g$ defined b
   \begin{equation*}
     g(x)\leq_P y \Leftrightarrow x\leq_Q f(y)
   \end{equation*}
-  for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \emph{upper adjoint}, and the map $g$ is said to be the \emph{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \cref{theorem:galois-connections-divisibility} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
+  for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \emph{upper adjoint}, and the map $g$ is said to be the \emph{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \cref{theorem:rank-of-apparition} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
 
   Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
 \end{remark}

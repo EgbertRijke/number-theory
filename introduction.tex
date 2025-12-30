@@ -26,7 +26,7 @@ Concretely, we set out the following learning objectives for this course:
     };
   \end{tikzpicture}
   \caption[Euclid of Alexandria]{\sloppy{Euclid of Alexandria. Line engraving by S. Beyssent after Mlle. C. Reydell.}}
-  \label{fig:euclid}
+  \label{figure:euclid}
 \end{wrapfigure}
 Number theory has a long history that dates back to antiquity. One of the earliest and most influential systematic treatments of mathematics is Euclid's \emph{Elements} \cite{euclid2015}, written around 300 BCE in Alexandria. In this work, Euclid established several key results in number theory, including the infinitude of primes and the algorithm for finding the greatest common divisor, which bears his name.
 
@@ -46,7 +46,7 @@ After the invention of the printing press, Erhard Ratdolt, a German printer base
     };
     \end{tikzpicture}
     \caption[Pierre de Fermat]{Pierre de Fermat. Engraving in Oeuvres Mathématiques Diverses.}
-  \label{fig:fermat}
+  \label{figure:fermat}
 \end{wrapfigure}
 
 Pierre de Fermat (1607–1665) is often considered the founder of modern number theory \cite{mahoney1994,weil1984}. He was a contemporary of Blaise Pascal and Marin Mersenne, both of whom he corresponded with, and also of Galileo Galilei. He wrote a manuscript titled \emph{Éléments de Géométrie}, which served as an extension and commentary on Euclid’s \emph{Elements}. In this work, he sought to modernize Euclid’s geometry by applying the emerging methods of algebra and analytic geometry to classical geometric problems.
@@ -65,7 +65,7 @@ Finally, Fermat famously asserted that there could be no three positive integers
 \end{equation*}
 holds, when $n\geq 3$. This statement is now known as \emph{Fermat's Last Theorem}. He claimed to have a "truly marvelous proof", but that the margin of his copy of \emph{Arithmetica} was too small to contain it. His assertion, known as \emph{Fermat’s Last Theorem}, captivated mathematicians for centuries. It was finally proven in 1995 by Andrew Wiles, about 350 years after Fermat made his famous note in the margin, using advanced techniques from algebraic geometry and modular forms. Wiles’s achievement is considered one of the most remarkable milestones in the history of mathematics.
 
-\begin{wrapfigure}[20]{r}{0.35\textwidth}
+\begin{wrapfigure}[22]{r}{0.35\textwidth}
   \centering
   \begin{tikzpicture}
     \node[inner sep=0pt, rounded corners=0.2em, clip] {%
@@ -73,7 +73,7 @@ holds, when $n\geq 3$. This statement is now known as \emph{Fermat's Last Theore
     };
   \end{tikzpicture}
   \caption[Leonhard Euler]{Leonhard Euler. Engraving by Friedrich Weber.}
-  \label{fig:euler}
+  \label{figure:euler}
 \end{wrapfigure}
 While Fermat laid the groundwork for modern number theory, we should mention that the concept of \emph{function} hasn't been crystallized until Leibniz coined the term in 1673, using it to describe quantities related to curves, such as slopes, tangents, and areas. Bernoulli played a significant role in expanding the idea of functions.
 He used the term explicitly in 1718, describing it as a quantity dependent on another variable. Euler provided the first modern definition of a function in his \emph{Introductio in Analysin Infinitorum} (1748) \cite{euler1988}.
@@ -106,7 +106,7 @@ was first proven here, which was one of Euler's most celebrated achievements. Eu
     };
   \end{tikzpicture}
   \caption[Carl Friedrich Gauss]{\sloppy{Carl Friedrich Gauss. Painting by Christian Albrecht Jensen.}}
-  \label{fig:gauss}
+  \label{figure:gauss}
 \end{wrapfigure}
 Building on the work of Euler, Gauss began using the properties of the zeta function and other analytic methods to investigate the distribution of the primes. His seminal work \emph{Disquisitiones Arithmeticae} \cite{gauss1986} is often considered the starting point of the study of the distribution of primes, ultimately leading up to the \emph{Prime Number Theorem}. Gauss conjectured that the number $\pi(n)$ of primes below a number $n$ satisfies the asymptotic law
 \begin{equation*}
@@ -114,9 +114,9 @@ Building on the work of Euler, Gauss began using the properties of the zeta func
 \end{equation*}
 This conjecture was proved independently by Jacques Hadamard and Charles Jean de la Vallée Poussin. Furthermore, Gauss laid the foundation for modular arithmetic, and proved the celebrated law of quadratic reciprocity, which tells us when a quadratic equation modulo a prime number is solvable. More precisely, it states that if $q\equiv 1\pmod{4}$ then the congruence $x^2\equiv p \pmod{q}$ is solvable if and only if the congruence $x^2\equiv q\pmod{p}$ is solvable.
 
-A brief remark on the interesting etymology of the word theorem is in order. The English word \emph{theorem} ultimately derives from the Ancient Greek \emph{θεώρημα (the\={o}r\={e}ma)}, literally “that which is seen”, and by usage in classical philosophy as an “object of contemplation”. The verb \emph{θεωρεῖν} (\emph{theōreîn}, “to observe, examine”) and the agent noun \emph{θεωρός} (\emph{theōrós}, “spectator”) are close relatives, and ultimately give us both \emph{theorem} and \emph{theory (θεωρία)}.
+A brief remark on the interesting etymology of the word theorem is in order. The English word \emph{theorem} ultimately derives from the Ancient Greek {\greekfont θεώρημα} (the\={o}r\={e}ma), literally “that which is seen”, and by usage in classical philosophy as an “object of contemplation”. The verb {\greekfont θεωρεῖν} (\emph{theōreîn}, “to observe, examine”) and the agent noun {\greekfont θεωρός} (\emph{theōrós}, “spectator”) are close relatives, and ultimately give us both `theorem' and `theory'.
 
-In Euclid's \emph{Elements}, specifically through the careful editorial work and commentaries of the Byzantine scribes, we start seeing the label \emph{theōrēma} for statements that require deductive proof, in contrast to the “givens” (\emph{ὑπόθεσις}, hypóthesis) and “proof” (\emph{ἀπόδειξις}, apódeixis). However, the fixed label \emph{Theōrēma} for such statements emerges more clearly in Medieval translations into Late Latin and Middle French of the \emph{Elements}, through the editorial adjustments made by his copyists. The Late Latin word \emph{theorema} and the Middle French word \emph{théorème} both retained the meaning “proposition that is to be proved”.
+In Euclid's \emph{Elements}, specifically through the careful editorial work and commentaries of the Byzantine scribes, we start seeing the label \emph{theōrēma} for statements that require deductive proof, in contrast to the “givens” ({\greekfont ὑπόθεσις}, hypóthesis) and “proof” ({\greekfont ἀπόδειξις}, apódeixis). However, the fixed label \emph{Theōrēma} for such statements emerges more clearly in Medieval translations into Late Latin and Middle French of the \emph{Elements}, through the editorial adjustments made by his copyists. The Late Latin word \emph{theorema} and the Middle French word \emph{théorème} both retained the meaning “proposition that is to be proved”.
 
 Euclid's \emph{Elements} was first translated into English by Sir Henry Billingsley in 1570, who was mayor of London at the time, with a preface written by John Dee. This Billingsley--Dee edition of Euclid’s \emph{Elements} established \emph{theorem} in the English language as a word meaning “proposition that is to be proved”. Over the ensuing centuries, the word theorem came to mean exclusively a mathematical assertion proven from axioms, definitions, and previously established theorems.
 
