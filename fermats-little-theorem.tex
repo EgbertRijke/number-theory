@@ -305,6 +305,8 @@ In the European mathematical tradition, it was first published by Edward Waring,
   This implies that any $0<a<n$ is invertible modulo $n$, so it follows that $\gcd(a,n)=1$ for all $0<a<n$. We conclude that the only proper divisor of $n$ is $1$, and therefore $n$ is prime.
 \end{proof}
 
+\begin{proof}[Second proof of the forward direction of \crefnamed{theorem:wilson}] Consider a prime $p$, and consider the monic polynomial \begin{equation*} f(x)=\prod_{k=0}^{p-1}(x-k). \end{equation*} Since every element is a root of $f(x)$ modulo $p$, it follows by \crefnamed{theorem:fermats-little-theorem} that $f(x)\equiv x^p-x\pmod{p}$. Since $f(x)=x g(x)$, where $g(x):=\prod_{k=1}^{p-1}(x-k)$, it follows by the product rule for differentiation that \begin{equation*} f'(x)=xg'(x)+g(x). \end{equation*} This shows that $f'(0)=g(0)$. On the other hand the derivative of $x^p-x$ is $p x^{p-1}-1$. Thus, we conclude that \begin{equation*} k!=\prod_{k=1}^{p-1}(0-k)\equiv -1\pmod{p}.\qedhere \end{equation*} \end{proof}
+
 \section{Lucas's Theorem}
 
 \crefnamed{theorem:kummers-theorem} gave a complete description of the prime factorization of binomial coefficients. In principle, this is sufficient to know the congruence class of $\binom{n}{m}$ modulo a prime $p$. In the following theorem, which is due to \'Edouard Lucas, we establish a way of determining the congruence class of the binomial coefficient modulo $p$. If this congruence class is shown to be $0$, the $p$-valuation can be computed precisely with Kummer's Theorem.
