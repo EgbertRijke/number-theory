@@ -223,8 +223,28 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
   \item The coefficient $a_n$ is not divisible by $p$,
   \item The coefficient $a_0$ is not divisible by $p^2$.
   \end{enumerate}
-  Then the polynomial $f$ is irreducible.
+  Then the polynomial $f$ is irreducible in $\mathbb{Q}[x]$.
 \end{theorem}
+
+\begin{proof}
+  First, we note that $f(x)$ is irreducible in $\mathbb{Q}[x]$ if and only if $\lambda f(x)$ is irreducible in $\mathbb{Q}[x]$, for any nonzero rational number $\lambda$. Taking $d:=\gcd(a_0,\ldots,a_n)$ and $\lambda:=1/d$, then the polynomial $\lambda f(x)$ is primitive. Moreover, $\lambda f(x)$ still satisfies the conditions of Eisenstein's criterion, since $p\nmid d$. Thus, we may assume that $f(x)$ is primitive. By \crefnamed{theorem:gausss-lemma} it suffices to show that $f(x)$ is irreducible in $\mathbb{Z}[x]$.
+  
+  Suppose that $f(x)$ is reducible in $\mathbb{Z}[x]$, so that $f(x)=g(x)h(x)$ for two polynomials
+  \begin{equation*}
+    g(x)=b_rx^r+\cdots +b_0\qquad\text{and}\qquad h(x)=c_sx^s+\cdots + c_0
+  \end{equation*}
+  with integer coefficients, where $r$ and $s$ are positive integers such that $r+s=n$. Then we have
+  \begin{equation*}
+    a_i = \sum_{\substack{j,k\\i=j+k}}b_jc_k.
+  \end{equation*}
+  Since $a_0=b_0c_0$ is divisible by $p$ but not by $p^2$, it follows that exactly one of $b_0$ and $c_0$ is divisible by $p$. We will assume without loss of generality that $p$ divides $b_0$. We claim that every coefficient of $g(x)$ is divisible by $p$. Using the identity
+  \begin{equation*}
+    a_i=\sum_{\substack{j,k\\i=j+k}}b_jc_k = (b_0c_j+\cdots +b_{i-1}c_1)+ b_ic_0,
+  \end{equation*}
+  this claim follows by induction. Indeed, if $p\mid b_j$ for each $j<i$ and $p\mid a_i$, then we must have $p\mid b_ic_0$. Since we assumed that $p\nmid c_0$, we must have $p\mid b_i$.
+
+  However, it follows that $a_n=b_rc_s$ is divisible by $p$, which is in contradiction with the assumption that $p\nmid a_n$.
+\end{proof}
 
 \begin{example}
   Consider two distinct integers $a$ and $b$. We claim that the polynomial

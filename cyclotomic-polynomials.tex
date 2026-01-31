@@ -11,6 +11,48 @@ Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^
   \end{equation*}
 \end{definition}
 
+
+\begin{example}
+  Another way of expressing the defining identity of the cyclotomic polynomial $\Phi_{pq}(x)$ is
+  \begin{equation*}
+    x^{pq}-1=\frac{(x^p-1)(x^q-1)}{x-1}\Phi_{pq}(x).
+  \end{equation*}
+  In other words, $\Phi_{pq}(x)$ can be expressed as the following fraction of polynomials:
+  \begin{equation*}
+    \frac{(x^{pq}-1)(x-1)}{(x^p-1)(x^q-1)}=\Phi_{pq}(x).
+  \end{equation*}
+  The idea is now to write $(x^{pq}-1)(x-1)$ as a combination of polynomials of the form $(x^{up}-1)(x^{vq}-1)$.
+  Note first that $p$ is invertible modulo $q$ and $q$ is invertible modulo $p$. Thus, there are integers $0\leq s<q$ and $0\leq t<p$ such that $sp\equiv 1\pmod{q}$ and $tq\equiv 1\pmod{p}$. Combining these congruences, we obtain
+  \begin{equation*}
+    sp+tq\equiv 1\pmod{pq}.
+  \end{equation*}
+  Moreover, we have $0\leq sp+tq<pq+pq$, so that in fact the identity
+  \begin{equation*}
+    sp+tq=pq+1
+  \end{equation*}
+  holds. With this choice of $s$ and $t$, we calculate
+  \begin{align*}
+    (x^{pq}-1)(x-1)-(x^{sp}-1)(x^{tq}-1)
+    & =x^{pq+1}-x^{pq}-x+1-x^{sp+tq}+x^{sp}+x^{tq}-1 \\
+    & = -x(x^{pq-1}-x^{sp-1}-x^{tq-1}+1) \\
+    & = -x(x^{sp-1}-1)(x^{tq-1}-1) \\
+    & = -x(x^{(q-s)p}-1)(x^{(p-t)q}-1).
+  \end{align*}
+  This shows that
+  \begin{equation*}
+    (x^{pq}-1)(x-1)=(x^{sp}-1)(x^{tq}-1)-x(x^{(q-s)p}-1)(x^{(p-t)q}-1).
+  \end{equation*}
+  This shows that
+  \begin{equation*}
+    \Phi_{pq}(x)=\frac{(x^{sp}-1)(x^{tq}-1)}{(x^p-1)(x^q-1)}-x\frac{(x^{(q-s)p}-1)(x^{(p-t)q}-1)}{(x^p-1)(x^q-1)}.
+  \end{equation*}
+  In other words, we find that
+  \begin{equation*}
+    \Phi_{pq}(x)=\left(\sum_{i=0}^{s-1}x^{ip}\right)\left(\sum_{j=0}^{t-1}x^{jq}\right)-x\left(\sum_{i=0}^{q-s-1}x^{ip}\right)\left(\sum_{j=0}^{p-t-1}x^{jq}\right).
+  \end{equation*}
+\end{example}
+
+
 \begin{theorem}
   For any natural number $n$ we have the identity
   \begin{equation*}
