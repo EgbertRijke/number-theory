@@ -36,7 +36,7 @@ The earliest surviving stone inscription of the number $0$ was found in the ruin
 
 Another famous early inscription of the number $0$ can be found in the Chaturbhuj temple in Gwalior, India, from 876 CE. The numerals were written in an early Nāgarī script, in which the number $0$ already had its modern, circular form. The inscription tells of the temple built on a piece of land $270$ hastas in length and 187 hastas in breadth. Since the $0$ is used at the last digit of a number, as opposed to a placeholder in the middle of a number, this is considered to be the earliest occurrence of $0$ as a numeral.
 
-We saw that throughout the history of human civilization, we have seen numerical systems with various bases. The decimal system is most common nowadays, a sexagesimal system was used by the Sumerians and Babylonians, a vigesimal system was used by the Mayans, and other systems such as the binary and hexadecimal systems are used by computers. The following mathematical theorem may not come as a surprise anymore: Any number $k>1$ can serve as the basis of a numerical system. We will prove this theorem using \crefnamed{theorem:euclidean-division}, which itself rests on \crefnamed{theorem:well-ordering-natural-numbers}.
+We saw that throughout the history of human civilization, we have seen numerical systems with various bases. The decimal system is most common nowadays, a sexagesimal system was used by the Sumerians and Babylonians, a vigesimal system was used by the Mayans, and other systems such as the binary and hexadecimal systems are used by computers. The following mathematical theorem may not come as a surprise anymore: Any number $k>1$ can serve as the basis of a numerical system. We will prove this theorem using \zcrefnamed{theorem:euclidean-division}, which itself rests on \zcrefnamed{theorem:well-ordering-natural-numbers}.
 
 \section{The Well-Ordering Principle of the Natural Numbers}
 
@@ -75,7 +75,7 @@ We also have some variations of the well-ordering principle that apply to subset
   \begin{equation*}
     B := \{x\in \mathbb{Z}\mid x+b \in A\}.
   \end{equation*}
-  The subset $B$ is inhabited and it is bounded from below by $0$. This means that $B$ is in fact a subset of the natural numbers, and so it has a least element by the well-ordering principle, \cref{theorem:well-ordering-natural-numbers}. Observe that $x\in B$ if and only if $x+b\in A$, so if $x$ is the least element of $B$ then $x+b$ is the least element of $A$. This proves the first claim.
+  The subset $B$ is inhabited and it is bounded from below by $0$. This means that $B$ is in fact a subset of the natural numbers, and so it has a least element by the well-ordering principle, \zcref{theorem:well-ordering-natural-numbers}. Observe that $x\in B$ if and only if $x+b\in A$, so if $x$ is the least element of $B$ then $x+b$ is the least element of $A$. This proves the first claim.
 
   The second claim follows from the first, because if $A$ is inhabited and bounded from above, then the set
   \begin{equation*}
@@ -120,7 +120,7 @@ The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it capt
   \begin{equation*}
     A:=\{x\in\mathbb{Z} \mid xd\leq a\}
   \end{equation*}
-  of integers $x$ whose product with $d$ is at most $a$. We will show that $A$ is bounded from above and that $A$ is inhabited. Together, this will imply by \cref{theorem:well-ordering-integers} that $A$ has a largest element, which will be our quotient $q$.
+  of integers $x$ whose product with $d$ is at most $a$. We will show that $A$ is bounded from above and that $A$ is inhabited. Together, this will imply by \zcref{theorem:well-ordering-integers} that $A$ has a largest element, which will be our quotient $q$.
 
   First, we show that the set $A$ has an upper bound. There are two cases to consider: either $a\geq 0$ or $a<0$. If $a\geq 0$, the integer $a$ is an upper bound because for any $x\in A$ we have $x \leq \max(0,xd)\leq a$. If $a<0$ then the integer $0$ is an upper bound because $xd\leq a<0$ implies that $x$ must be negative.
 
@@ -148,7 +148,7 @@ The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it capt
   \end{equation*}
 \end{theorem}
 
-Before proving the theorem, let's first discuss the main idea behind the proof. Since we assumed that $k>0$, it follows from the Euclidean division theorem, \cref{theorem:euclidean-division}, that there is a unique pair $(q,r)$ of numbers such that $n=qk+r$ and $0\leq r<k$. This gives us the first digit in the representation theorem\footnote{It should be noted that this digit appears last in the actual representation. It is the "ones digit" of the representation.}: the number $d_0:=r$.
+Before proving the theorem, let's first discuss the main idea behind the proof. Since we assumed that $k>0$, it follows from the Euclidean division theorem, \zcref{theorem:euclidean-division}, that there is a unique pair $(q,r)$ of numbers such that $n=qk+r$ and $0\leq r<k$. This gives us the first digit in the representation theorem\footnote{It should be noted that this digit appears last in the actual representation. It is the "ones digit" of the representation.}: the number $d_0:=r$.
 
 The representability theorem would now follow if we already knew that $q$ has a unique representation. If $d_0=r$ and if $d_1,\ldots,d_{l-1}$ is the unique representation of $q$, then the list $d_0,\ldots,d_{l-1}$ is a unique representation of $n$. However, the usual induction principle doesn't allow us to make this step, because $n$ is not necessarily the successor of $q$. Therefore we need something stronger: the \emph{strong induction principle}.
 
@@ -188,7 +188,7 @@ The strong induction principle can be formulated more succinctly using the \emph
 
 Our earlier idea to prove the representability theorem can finally be made into a proof.
 
-\begin{proof}[Proof of \cref{theorem:representability}]
+\begin{proof}[Proof of \zcref{theorem:representability}]
   We prove the theorem by strong induction. For the base case, note that the empty list satisfies the requirements vacuously since there are no digits in the empty list and empty sums are set to be $0$. Thus the empty list is a representation of $0$. Now suppose that $\ell=(d_0,\ldots,d_{l-1})$ is a representation of $0$ and $\ell$ is a list of nonzero length $l$. By the requirement that the leading digit $d_{l-1}$ is nonzero it follows that the sum
   \begin{equation*}
     \sum_{i=0}^{l-1}d_ik^i
@@ -216,13 +216,13 @@ Our earlier idea to prove the representability theorem can finally be made into 
 
 \section[Combinatorial Applications]{Some Combinatorial Applications of the Euclidean Division Theorem}
 
-\crefnamed{theorem:euclidean-division} can be used to obtain some elementary combinatorial application. We will make use of the pigeonhole principle, which is commonly attributed to Gustav Lejeune Dirichlet, who used this principle brilliantly in his approximation theorem. The idea of the pigeonhole principle is that  if we place $n$ objects in $m$ boxes, and $m$ is strictly smaller than $n$, then there is a box containing more than one object. The pigeonhole principle underlies a remarkable array of existence results across number theory and combinatorics. Among classical number-theoretic applications, one finds the aforementioned approximation theorem of Dirichlet, the Erd\H{o}s--Ginzburg--Ziv zero-sum theorem, and the Chevalley--Warning theorem on solutions of systems of polynomial congruences. The pigeonhole principle is stated formally as follows:
+\zcrefnamed{theorem:euclidean-division} can be used to obtain some elementary combinatorial application. We will make use of the pigeonhole principle, which is commonly attributed to Gustav Lejeune Dirichlet, who used this principle brilliantly in his approximation theorem. The idea of the pigeonhole principle is that  if we place $n$ objects in $m$ boxes, and $m$ is strictly smaller than $n$, then there is a box containing more than one object. The pigeonhole principle underlies a remarkable array of existence results across number theory and combinatorics. Among classical number-theoretic applications, one finds the aforementioned approximation theorem of Dirichlet, the Erd\H{o}s--Ginzburg--Ziv zero-sum theorem, and the Chevalley--Warning theorem on solutions of systems of polynomial congruences. The pigeonhole principle is stated formally as follows:
 
 \begin{theorem}[The Pigeonhole Principle]
   Consider two natural numbers $m<n$, and a function $f:X\to Y$ from a set $X$ with $n$ elements into a set $Y$ with $m$ elements. Then there exists an element $y$ such that $f(x)=y$ for more than one element $x$.
 \end{theorem}
 
-In the present chapter, we will be content with some very elementary applications of the pigeonhole principle in combination with \crefnamed{theorem:euclidean-division}.
+In the present chapter, we will be content with some very elementary applications of the pigeonhole principle in combination with \zcrefnamed{theorem:euclidean-division}.
 
 \begin{theorem}\label{theorem:existence-difference-divisible}
   Consider two positive integers $m<n$. In any set of $n$ integers, there is a pair of distinct integers such that their difference is divisible by $m$.
@@ -241,7 +241,7 @@ In the present chapter, we will be content with some very elementary application
   \begin{equation*}
     0,~a_1,~a_1+a_2,~\ldots,~a_1+\cdots+a_n.
   \end{equation*}
-  By \cref{theorem:existence-difference-divisible} it follows that at there are at least two of these sums that differ by a multiple of $m$. Notice that the difference of two such sums is of the form $a_k+\cdots+a_l$, so the theorem is proven.
+  By \zcref{theorem:existence-difference-divisible} it follows that at there are at least two of these sums that differ by a multiple of $m$. Notice that the difference of two such sums is of the form $a_k+\cdots+a_l$, so the theorem is proven.
 \end{proof}
 
 \begin{theorem}
@@ -249,7 +249,7 @@ In the present chapter, we will be content with some very elementary application
 \end{theorem}
 
 \begin{proof}
-  There are $2^k$ subsets of $S$, of which $2^k-1$ are nonempty. By \cref{theorem:existence-difference-divisible} it follows that there are two distinct nonempty subsets of $S$ such that the difference of their sums is divisible by $m$.
+  There are $2^k$ subsets of $S$, of which $2^k-1$ are nonempty. By \zcref{theorem:existence-difference-divisible} it follows that there are two distinct nonempty subsets of $S$ such that the difference of their sums is divisible by $m$.
 \end{proof}
 
 \exercises

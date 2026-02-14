@@ -2,11 +2,11 @@
 
 \section{Primitive Polynomials and Gauss's Lemma}
 
-In \cref{theorem:irrational-sqrt} we showed that unless $n$ is a perfect square, the square root of $n$ is irrational. In other words, the roots of the polynomial
+In \zcref{theorem:irrational-sqrt} we showed that unless $n$ is a perfect square, the square root of $n$ is irrational. In other words, the roots of the polynomial
 \begin{equation*}
   x^2-n
 \end{equation*}
-are either integers or irrational numbers. \crefnamed{theorem:gausss-lemma-polynomials} is a generalization of this observation, with the consequence that the roots of a polynomial such as
+are either integers or irrational numbers. \zcrefnamed{theorem:gausss-lemma-polynomials} is a generalization of this observation, with the consequence that the roots of a polynomial such as
 \begin{equation*}
   f(x)=x^3-3x^2+3x-2
 \end{equation*}
@@ -60,17 +60,17 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
 \end{corollary}
 
 \begin{proof}
-  If $r$ is a rational root, then it follows from \crefnamed{theorem:factor-theorem} that $f(x)$ factors as
+  If $r$ is a rational root, then it follows from \zcrefnamed{theorem:factor-theorem} that $f(x)$ factors as
   \begin{equation*}
     f(x)=(x-r)g(x),
   \end{equation*}
-  where $g(x)$ is a polynomial with rational coefficients. By \crefnamed{theorem:gausss-lemma-polynomials} it follows that $x-r$ is a polynomial with integer coefficients; that is, $r$ is an integer.
+  where $g(x)$ is a polynomial with rational coefficients. By \zcrefnamed{theorem:gausss-lemma-polynomials} it follows that $x-r$ is a polynomial with integer coefficients; that is, $r$ is an integer.
 \end{proof}
   
 \section{Euclid's Algorithm for Polynomials}
 
 \begin{example}
-  Consider the polynomials $f(x)=x^4+x^2+1$ and $g(x)=x^2+x+1$. We can apply the ideas behind \crefnamed{theorem:euclidean-division} to divide out $g(x)$ from $f(x)$ as best we can. To do this, we first write
+  Consider the polynomials $f(x)=x^4+x^2+1$ and $g(x)=x^2+x+1$. We can apply the ideas behind \zcrefnamed{theorem:euclidean-division} to divide out $g(x)$ from $f(x)$ as best we can. To do this, we first write
   \begin{align*}
     x^4+x^2+1 & =x^2(x^2+x+1)-x^3+1. \\
     \intertext{In the same manner, we can divide out $x^2+x+1$ from $-x^3+1$:}
@@ -93,7 +93,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
 \end{definition}
 
 % \begin{example}
-%   Consider the polynomial $f(x)=3x^3+2x^2+x$ and $g(x)=x^2-x+1$. Then we can apply the ideas behind \crefnamed{theorem:euclidean-division} to divide out $g(x)$ from $f(x)$ as best we can. To do this, we first write
+%   Consider the polynomial $f(x)=3x^3+2x^2+x$ and $g(x)=x^2-x+1$. Then we can apply the ideas behind \zcrefnamed{theorem:euclidean-division} to divide out $g(x)$ from $f(x)$ as best we can. To do this, we first write
 %   \begin{equation*}
 %     3x^3+2x^2+x = 3x(x^2-x+1) + (5x^2-2).
 %   \end{equation*}
@@ -150,7 +150,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
   where neither $g(x)$ nor $h(x)$ are constant at an invertible element of $R$.
 \end{definition}
 
-\crefnamed{theorem:gausss-lemma-polynomials} can be stated in the form of an irreducibility criterion:
+\zcrefnamed{theorem:gausss-lemma-polynomials} can be stated in the form of an irreducibility criterion:
 
 \begin{corollary}\label{corollary:gausss-lemma-polynomials}
   Consider a monic polynomial $f(x)\in\mathbb{Z}[x]$. If $f(x)$ is irreducible as a polynomial with integer coefficients, then it is also irreducible as a polynomial with rational coefficients.
@@ -186,7 +186,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
   \begin{equation*}
     f(k)g(k)=1
   \end{equation*}
-  for every $1\leq k\leq n$. This implies that either $f(k)=1$ and $g(k)=1$, or $f(k)=-1$ and $g(k)=-1$. In particular, we find that $f(k)=g(k)$ for each $1\leq k\leq n$. Since $\deg(f),\deg(g)<n$, we conclude by \crefnamed{theorem:lagranges-interpolation-theorem} that the polynomial identity $f(x)=g(x)$ holds. Therefore, it follows that
+  for every $1\leq k\leq n$. This implies that either $f(k)=1$ and $g(k)=1$, or $f(k)=-1$ and $g(k)=-1$. In particular, we find that $f(k)=g(k)$ for each $1\leq k\leq n$. Since $\deg(f),\deg(g)<n$, we conclude by \zcrefnamed{theorem:lagranges-interpolation-theorem} that the polynomial identity $f(x)=g(x)$ holds. Therefore, it follows that
   \begin{equation*}
     H_n(x)=f(x)^2,
   \end{equation*}
@@ -227,7 +227,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
 \end{theorem}
 
 \begin{proof}
-  First, we note that $f(x)$ is irreducible in $\mathbb{Q}[x]$ if and only if $\lambda f(x)$ is irreducible in $\mathbb{Q}[x]$, for any nonzero rational number $\lambda$. Taking $d:=\gcd(a_0,\ldots,a_n)$ and $\lambda:=1/d$, then the polynomial $\lambda f(x)$ is primitive. Furthermore, $\lambda f(x)$ still satisfies the conditions of Eisenstein's criterion, since $p\nmid d$. Thus, we may assume that $f(x)$ is primitive. By \crefnamed{theorem:gausss-lemma-polynomials} it suffices to show that $f(x)$ is irreducible in $\mathbb{Z}[x]$.
+  First, we note that $f(x)$ is irreducible in $\mathbb{Q}[x]$ if and only if $\lambda f(x)$ is irreducible in $\mathbb{Q}[x]$, for any nonzero rational number $\lambda$. Taking $d:=\gcd(a_0,\ldots,a_n)$ and $\lambda:=1/d$, then the polynomial $\lambda f(x)$ is primitive. Furthermore, $\lambda f(x)$ still satisfies the conditions of Eisenstein's criterion, since $p\nmid d$. Thus, we may assume that $f(x)$ is primitive. By \zcrefnamed{theorem:gausss-lemma-polynomials} it suffices to show that $f(x)$ is irreducible in $\mathbb{Z}[x]$.
   
   Suppose that $f(x)$ is reducible in $\mathbb{Z}[x]$, so that $f(x)=g(x)h(x)$ for two polynomials
   \begin{equation*}

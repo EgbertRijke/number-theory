@@ -1,44 +1,79 @@
+\DocumentMetadata{
+  lang        = en-US,
+  pdfversion  = 2.0,
+  pdfstandard = ua-2,
+  testphase   = {tagpdf},
+}
+
 \documentclass[12pt]{book}
 
-% Encoding & language
+\tagpdfsetup{math/mathml/luamml/load=false}
+
 \usepackage{fontspec}
 \newfontfamily\cuneifont[
-  Path = fonts/,      % relative path to the folder
-  Extension = .ttf,   % file extension
+  Path = fonts/,
+  Extension = .ttf,
   UprightFont = *-Regular
   ]{NotoSansCuneiform}
+\newfontfamily\greekfont{GFS Artemisia}[
+  Scale=MatchLowercase,
+  Script=Greek
+]
   
 \usepackage{textgreek}
 \usepackage{alphabeta}
-\usepackage[english]{babel}
+\usepackage[ngerman,american]{babel}
 \usepackage{csquotes}
 \usepackage{caption}
 
 \usepackage{geometry}
 \geometry{
-  letterpaper,                 % default for the document
-  margin=0.12\paperwidth,  % margins = 10% of paper width
-  vmargin=0.10\paperheight, % vertical margins = 8% of paper height
+  letterpaper,
+  margin=0.12\paperwidth,
+  vmargin=0.10\paperheight,
   includehead,
 }
 
+\setlength{\headheight}{15pt}
+
 \usepackage{fancyhdr}
 
-% Graphics and layout
 \usepackage{graphicx}
-\usepackage{wrapfig}
+\usepackage{array}
 \usepackage{booktabs}
 \usepackage{caption}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{afterpage}
 \usepackage{tocbibind}
+\usepackage{subcaption}
+\usepackage{float}
 
-\usepackage{titlesec}
-\titleformat{\chapter}[display]
-  {\normalfont\huge\bfseries} % Format of the text
-  {Chapter \thechapter}       % Label (e.g., "Lecture 1")
-  {0.5em}                     % Spacing between label and title
-  {\Huge}                     % Format of the title
+% \usepackage{titlesec}
+% \titleformat{\chapter}[display]
+%   {\normalfont\huge\bfseries}
+%   {Chapter \thechapter}
+%   {0.5em}
+%   {\Huge}
+
+\makeatletter
+% Adjust the spacing above the chapter
+\renewcommand*{\chapterheadstartvskip}{\vspace*{10pt}} 
+
+% Redefine the 'display' look without breaking the tagging structure
+\def\@makechapterhead#1{%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \huge\bfseries Chapter \thechapter
+        \par\nobreak
+        \vskip 0.5em
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
 
 % Counters
 \usepackage{totcount}
@@ -73,6 +108,7 @@
 \newtheorem{corollary}[corollary]{Corollary}
 
 \newtheorem{conjecture}{Conjecture}
+\newtheorem{problem}[conjecture]{Problem}
 
 \theoremstyle{definition}
 \newaliascnt{definition}{theorem}
@@ -85,23 +121,25 @@
 \newaliascnt{remark}{theorem}
 \newtheorem{remark}[remark]{Remark}
 
-\newcommand{\crefnamed}[2]{\hyperref[#1]{#2}}
+\newcommand{\crefnamed}[1]{\hyperref[#1]{\cref*{#1} (\nameref*{#1})}}
 
 % TikZ and plotting
 \usepackage{tikz}
-\usetikzlibrary{angles,arrows.meta,backgrounds,calc,decorations.pathreplacing,decorations.pathmorphing,hobby,intersections,quotes,shapes.geometric}
+\usetikzlibrary{angles,arrows.meta,babel,backgrounds,calc,decorations.pathreplacing,decorations.pathmorphing,hobby,intersections,quotes,shapes.geometric,trees}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \tikzset{
   every picture/.append style={line cap=round, line join=round}
 }
 
-% \title{Foundational Studies in Arithmetic}
-\title{Lectures on Elementary Number Theory}
+% \title{Number Theory: A Narrative}
+\title{Elementary Number Theory}
 \author{Egbert Rijke}
 \date{\today}
 
 \definecolor{grayblue}{HTML}{0047AB}
+
+\usepackage{xurl}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -111,11 +149,27 @@
   filecolor=grayblue,
   urlcolor=grayblue,
   citecolor=grayblue,
-  pdftitle={Lecture notes on Number Theory},
-  pdfpagemode=FullScreen,
+  pdftitle={Elementary Number Theory},
+  pdfauthor  = {Egbert Rijke},
+  pdfsubject = {Course Notes},
+  pdfkeywords= {number theory,introduction to number theory,introduction to proof,history of number theory,Euclid,Fibonacci,Fermat,Euler,Gauss,mathematical induction,Euclidean algorithm,modular arithmetic,Pythagorean triples,infinite descent,prime numbers,Bertrand's postulate,multiplicative functions,strong divisibility sequences,Fermat's Little Theorem,Fermat's Two-Squares Theorem,polynomials,irreducible polynomials,cyclotomic polynomials,quadratic residues,quadratic reciprocity},
+  hypertexnames=false,
 }
 
-\usepackage[backend=biber, style=numeric, sorting=nyt]{biblatex}
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+
+\DeclareLabelalphaTemplate{%
+  \labelelement{%
+    \field[final]{shorthand}%
+    \field{label}%
+    \field[strwidth=3,strside=left,ifnames=1]{labelname}%
+    \field[strwidth=1,strside=left]{labelname}%
+  }%
+  \labelelement{%
+    \field{year}%
+  }%
+}
+
 \addbibresource{references.bib}
 
 \usepackage[capitalize,english,noabbrev,nameinlink]{cleveref}
@@ -152,13 +206,13 @@
 \pgfplotsset{
   lectureplot/.style={
     width=12cm, height=8cm,
-    axis lines=middle,                         % draw only the middle axes
-    axis line style={-stealth},                % put arrow heads on them
-    tick style={draw=none},                    % no ticks
+    axis lines=middle,
+    axis line style={-stealth},
+    tick style={draw=none},
     xlabel={$x$}, ylabel={$y$},
     xmin=0, xmax=1e6,
-    ymin=0, ymax=8.5e4,                        % a bit above π(10^6)=78498
-    clip=false,                                % allow legend to stick out
+    ymin=0, ymax=8.5e4,
+    clip=false,
     legend style={
       draw=none,                               
       fill=none,
@@ -167,37 +221,89 @@
       anchor=north west,
       /tikz/every even column/.append style={column sep=1em}
     },
-    legend cell align=left                     % left‑align text in legend
+    legend cell align=left
   }
 }
 
 \newcommand{\define}{\emph}
 
-  % We set up the exercise environment, which produces list environment in a new
-% unnumbered subsection that also gets mentioned in the table of contents.
-
 \newtotcounter{exercisecounter}
-\newcommand{\exercise}{\item\stepcounter{exercisecounter}}
+\newcommand{\exercise}{\stepcounter{exercisecounter}\item}
+
+\AtEndDocument{%
+  \typeout{Total number of exercises: \number\value{exercisecounter}}%
+}
 
 \newlist{exenum}{enumerate}{1}
-\setlist[exenum]{noitemsep,label=\thechapter.\arabic*}
-  %,ref=\thechapter.\arabic*}
+\setlist[exenum]{label=\thechapter.\arabic*,noitemsep}
 
 \crefname{exenumi}{Exercise}{Exercises}
-  
+
 \newlist{subexenum}{enumerate}{1}
 \setlist[subexenum]{noitemsep,label=(\alph*),ref=\theexenumi.\alph*}
 \crefname{subexenumi}{Exercise}{Exercises}
 
-\newenvironment{exercises}
-{%
-\subsection*{Exercises}%
+\newif\ifthischapex
+\global\thischapexfalse
+  
+\newcommand{\exercises}{%
+\par\clearpage%
+\section*{Exercises}%
 \addcontentsline{toc}{section}{Exercises}%
-\markboth{\leftmark}{\MakeUppercase{Exercises}}
-\begin{exenum}}
+\markboth{\leftmark}{\MakeUppercase{Exercises}}%
+\setcounter{exenumi}{0}%
+\restartlist{exenum}
+\global\thischapexfalse
+}
+
+\newcommand{\italicsubsection}[1]{%
+  \subsection*{\itshape #1}%
+}
+
+\newenvironment{starter}
 {%
-%\addtocounter{exercisecounter}{\theexenumi}%
-\end{exenum}}
+  \italicsubsection{Starter Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+  \end{exenum}
+  \global\thischapextrue
+}
+
+% Dutch: Routinevormende opgaven
+\newenvironment{routine}
+{%
+  \italicsubsection{Routine-Building Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+\end{exenum}
+\global\thischapextrue
+}
+
+\newenvironment{challenge}
+{%
+  \italicsubsection{Challenge Exercises}%
+  \ifthischapex
+    \begin{exenum}[resume=chapex]
+  \else
+    \begin{exenum}[series=chapex]
+  \fi
+}
+{%
+\end{exenum}
+\global\thischapextrue
+}
+
+\newcommand\objectives{\italicsubsection{Learning Objectives}}
 
 \setcounter{tocdepth}{2}
 
@@ -208,6 +314,7 @@
 \DeclareMathOperator{\ind}{ind}
 \DeclareMathOperator*{\lcm}{lcm}
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\rad}{rad}
 \newcommand{\legendre}[2]{%
   \mathchoice
     {\left(\frac{#1}{#2}\right)}% display style
@@ -227,6 +334,8 @@
 \newcommand{\mediant}{\mathbin{\triangledown}}
 \newcommand{\bimapsto}{\mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}}
 \newcommand{\content}{\mathrm{cont}}
+\newcommand{\floorfrac}[2]{\left\lfloor\frac{#1}{#2}\right\rfloor}
+\newcommand{\totient}{\phi}
 
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -238,146 +347,25 @@
 \fancyfoot{}
 
 \fancypagestyle{noheader}{
-  \fancyhf{}                     % clear header & footer
+  \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
   \setlength{\headheight}{0pt}
   \setlength{\headsep}{0pt}
 }
 
-\begin{document}
+\newif\ifshownotes
+\shownotestrue     % => show notes
+% \shownotesfalse      % => ignore notes
 
-\pagestyle{empty}
+\usepackage{environ}
+\NewEnviron{noteblock}{%
+  \ifshownotes
+    \begingroup\color{black!60}\BODY\endgroup
+  \fi
+}
 
-\begingroup
-\begin{titlepage}
-  \begin{center}
-    {\Huge\textbf{Johns Hopkins University}} \\[1cm]
-    {\LARGE\textsc{Math 304}} \\[1cm]
-    {\LARGE Egbert Rijke}\\[1cm]
-
-    \begin{tikzpicture}[scale=5]
-      \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
-      \draw[ultra thick] (0,0) circle (1);
-      \coordinate (P1) at ({117/125},{44/125});
-      \coordinate (P2) at ({45/53},{-28/53});
-      \coordinate (P3) at ({5/13},{12/13});
-      \coordinate (P4) at ({-3/5},{4/5});
-
-      \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
-      \draw[CornflowerBlue,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
-      \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
-      \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
-      \draw[Green,ultra thick,dashed] (1,1) -- (P3);
-      \draw[Green,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
-      \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
-      \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
-      \draw[fill=white,very thick] (P1) circle (.5pt);
-      \draw[fill=white,very thick] (P2) circle (.5pt);
-      \draw[fill=white,very thick] (P3) circle (.5pt); 
-      \draw[fill=white,very thick] (P4) circle (.5pt);
-      \draw[fill=black,very thick] (1,0) circle (.5pt);
-    \end{tikzpicture}
-    
-    \vspace{1cm}
-
-    {\Huge \textbf{Elementary Number Theory}} \\[1cm]
-    {\LARGE\textit{Fall 2025}}
-  \end{center}
-\end{titlepage}
-\endgroup
-
-\cleardoublepage
-
-\vspace*{\fill}
-\noindent
-\textit{Cover image:} Vieta jumps between the rational points on the unit circle eventually reach one of the points $(1,0)$, $(0,1)$, $(-1,0)$, or $(0,-1)$.
-
-\cleardoublepage
-
-\frontmatter
-
-\pagestyle{fancy}
-
-\tableofcontents
-
- \listoffigures
-
-\input{course-information}
-
-\input{introduction}
-
-\mainmatter
-
-\input{nature-of-numbers}
-
-\input{counting}
-
-\input{integers}
-
-\input{euclidean-division}
-
-\input{linear-diophantine-equations}
-
-\input{rational-numbers}
-
-\input{pythagorean-triples}
-
-\input{infinite-descent}
-
-\input{congruences}
-
-\input{systems-of-linear-congruences}
-
-\input{prime-numbers}
-
-\input{arithmetic-functions}
-
-\input{modular-arithmetic}
-
-\input{sums-of-squares}
-
-\input{gaussian-integers}
-
-\input{polynomials}
-
-\input{polynomial-congruences}
-
-\input{primitive-roots}
-
-\input{quadratic-residues}
-
-\input{quadratic-reciprocity}
-
-\input{primality-testing}
-
-\input{conics}
-
-\input{pells-equation}
-
-\input{polygonal-numbers}
-
-\input{fermats-last-theorem}
-
-\input{real-numbers}
-
-\input{dirichlet-series}
-
-\input{distribution-of-primes}
-
-\input{cyclotomic-polynomials}
-
-\input{prime-partition-function}
-
-\input{bernoulli-numbers}
-
-\input{miscellaneous}
-
-\input{open-problems}
-
-\printbibliography[heading=bibintoc,title=References]
-
-\end{document}
-
-%%% Local Variables:
-%%% TeX-engine: luatex
-%%% End:
+\newcommand{\note}[1]{%
+  \ifshownotes
+    \begingroup\color{black!60}#1\endgroup
+  \fi
+}

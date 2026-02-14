@@ -294,7 +294,7 @@ Thus, a greatest common divisor of $a$ and $b$ is an integer $d$ that divides bo
   \end{equation*}
   which is the sum of an element in $I$ and an element in $J$. Thus, it follows that $I+J$ is an ideal.
 
-  Now let $d$ be the unique natural number such that $I+J=(d)$, which exists by \cref{theorem:integers-principal-ideal-domain}. We claim that $d$ is the greatest common divisor of $a$ and $b$. Notice that $a=a+0\in I+J$, so $a$ must be a multiple of $d$. Similarly, we have $b=0+b\in I+J$, so $b$ must be a multiple of $d$. In other words, $d$ is a common divisor of $a$ and $b$. Furthermore, if $e$ is any common divisor of $a$ and $b$, then $e$ is a divisor of any element in $I+J$. In particular, we must have $e\mid d$, allowing us to conclude that $d$ is the greatest common divisor.
+  Now let $d$ be the unique natural number such that $I+J=(d)$, which exists by \zcref{theorem:integers-principal-ideal-domain}. We claim that $d$ is the greatest common divisor of $a$ and $b$. Notice that $a=a+0\in I+J$, so $a$ must be a multiple of $d$. Similarly, we have $b=0+b\in I+J$, so $b$ must be a multiple of $d$. In other words, $d$ is a common divisor of $a$ and $b$. Furthermore, if $e$ is any common divisor of $a$ and $b$, then $e$ is a divisor of any element in $I+J$. In particular, we must have $e\mid d$, allowing us to conclude that $d$ is the greatest common divisor.
 
   The last claim follows, because $d$ is an element of $I+J$, which consists elements of the form $ax+by$.
 \end{proof}
@@ -329,7 +329,7 @@ The following proposition is a must-know fact about the integers.
 
 \section{Euclid's Algorithm}
 
-\cref{theorem:definition-gcd} shows that any two integers $a$ and $b$ have a greatest common divisor $\gcd(a,b)$, and that there are integers $k$ and $l$ such that
+\zcref{theorem:definition-gcd} shows that any two integers $a$ and $b$ have a greatest common divisor $\gcd(a,b)$, and that there are integers $k$ and $l$ such that
 \begin{equation*}
   ka+lb=\gcd(a,b),
 \end{equation*}
@@ -356,7 +356,7 @@ As an immediate corollary, we obtain:
   If $b$ is of the form $ka+1$, then $a$ and $b$ are always relatively prime.
 \end{corollary}
 
-Euclid's algorithm works by repeatedly using \cref{proposition:gcd-euclidean-division}. For any pair $(a,b)$ of integers, if $b\neq 0$ then there is a unique pair $(q,r)$ such that $0\leq r<|b_0|$ and such that the equality
+Euclid's algorithm works by repeatedly using \zcref{proposition:gcd-euclidean-division}. For any pair $(a,b)$ of integers, if $b\neq 0$ then there is a unique pair $(q,r)$ such that $0\leq r<|b_0|$ and such that the equality
 \begin{equation*}
   a=qb+r
 \end{equation*}
@@ -367,7 +367,7 @@ holds. This determines a new pair $(a',b'):=(b,r)$ and $\gcd(a,b)=\gcd(b,r)$. No
       & ~\,\vdots \\
   a_N & = q_Nb_N+r_N,
 \end{align*}
-in which $a_1=a$, $b_1=b$, $a_{i+1}=b_i$, $b_{i+1}=r_i$, and $0\leq r_i<|b_i|$. This procedure results in a decreasing sequence $r_1>r_2>\cdots>r_N$ of nonnegative integers, so it terminates when $r_N=0$. Indeed, the Euclidean division theorem cannot be applied to the pair $(b_N,r_N)$ any further when $r_N=0$. Since \cref{proposition:gcd-euclidean-division} implies that
+in which $a_1=a$, $b_1=b$, $a_{i+1}=b_i$, $b_{i+1}=r_i$, and $0\leq r_i<|b_i|$. This procedure results in a decreasing sequence $r_1>r_2>\cdots>r_N$ of nonnegative integers, so it terminates when $r_N=0$. Indeed, the Euclidean division theorem cannot be applied to the pair $(b_N,r_N)$ any further when $r_N=0$. Since \zcref{proposition:gcd-euclidean-division} implies that
 \begin{equation*}
   \gcd(a,b)=\gcd(b_1,r_1)=\gcd(b_2,r_2)=\cdots=\gcd(b_N,r_N),
 \end{equation*}
@@ -378,7 +378,7 @@ we see that $b_N$ is the greatest common divisor of $a$ and $b$.
   \begin{equation*}
     732 = 1 \cdot 578 + 154.
   \end{equation*}
-  By \cref{proposition:gcd-euclidean-division}, it follows that $\gcd(732,578)=\gcd(578,154)$. We now proceed in the same manner, by writing
+  By \zcref{proposition:gcd-euclidean-division}, it follows that $\gcd(732,578)=\gcd(578,154)$. We now proceed in the same manner, by writing
   \begin{equation*}
     578 = 3\cdot 154 + 116, 
   \end{equation*}
@@ -472,7 +472,7 @@ We begin by applying the theory of ideals to establish that this equation has a 
   \end{equation*}
   We recall that the ideal $I+J$ consists of sums $x+y$ of $x\in I$ and $y\in J$. Furthermore, the ideals $(a)$ and $(b)$ consist of multiples of $a$ and $b$, respectively. Thus the ideal $(a)+(b)$ consists of all the linear combinations of $a$ and $b$; in other words, all the possible integers $c$ for which there is a solution to the equation $ax+by=c$.
 
-  In \cref{theorem:definition-gcd} we defined $\gcd(a,b)$ to be the unique natural number $d$ such that $(a)+(b)=(d)$. Such a natural number exists by \cref{theorem:integers-principal-ideal-domain}. Now we observe that the equality
+  In \zcref{theorem:definition-gcd} we defined $\gcd(a,b)$ to be the unique natural number $d$ such that $(a)+(b)=(d)$. Such a natural number exists by \zcref{theorem:integers-principal-ideal-domain}. Now we observe that the equality
   \begin{equation*}
     (a)+(b)=(\gcd(a,b))
   \end{equation*}

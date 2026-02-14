@@ -5,7 +5,7 @@ We have established the existence of primitive roots modulo any prime. In this s
 \section{Primitive Roots Modulo Odd Prime Powers}
 Our first target is to show that any odd prime power $p^k$ has a primitive root. Our approach to this problem is of an arithmetic nature, based on an analysis of the $p$-valuations of differences of powers.
 
-Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is divisible by $p$ by \cref{theorem:fermats-little-theorem}. Therefore, its $p$-adic valuation $\alpha:=\nu_p(a^{p-1}-1)$ is at least $1$. In the following lemma we will establish that the order of $a$ modulo $p^k$ can be determined in terms of $\alpha$.
+Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is divisible by $p$ by \zcref{theorem:fermats-little-theorem}. Therefore, its $p$-adic valuation $\alpha:=\nu_p(a^{p-1}-1)$ is at least $1$. In the following lemma we will establish that the order of $a$ modulo $p^k$ can be determined in terms of $\alpha$.
 
 \begin{lemma}\label{lemma:order-modulo-prime-power-primitive-root}
   Consider an odd prime $p$ and a primitive root $g$ modulo $p$. Furthermore, let
@@ -16,7 +16,7 @@ Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is
 \end{lemma}
 
 \begin{proof}
-  First, we observe that $\ord_p(g)\mid \ord_{p^k}(g)$, so the order of $g$ modulo $p^k$ must be a multiple of $p-1$. Write $g^{p-1}=kp^{m}+1$, so that $p\nmid k$. By \crefnamed{theorem:lte} it follows that
+  First, we observe that $\ord_p(g)\mid \ord_{p^k}(g)$, so the order of $g$ modulo $p^k$ must be a multiple of $p-1$. Write $g^{p-1}=kp^{m}+1$, so that $p\nmid k$. By \zcrefnamed{theorem:lte} it follows that
   \begin{equation*}
     \nu_p(g^{p^t(p-1)}-1)=m+t.
   \end{equation*}
@@ -32,7 +32,7 @@ Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is
 \end{theorem}
 
 \begin{proof}
-  By \cref{lemma:order-modulo-prime-power-primitive-root} it suffices to construct a primitive root $h$ modulo $p$ such that $\nu_p(h^{p-1}-1)=1$.
+  By \zcref{lemma:order-modulo-prime-power-primitive-root} it suffices to construct a primitive root $h$ modulo $p$ such that $\nu_p(h^{p-1}-1)=1$.
 
   Consider a primitive root $g$ modulo $p$. Write $g^{p-1}=kp+1$, and define $h_t:=g+tp$. Then we have
   \begin{equation*}
@@ -64,7 +64,7 @@ Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is
 \end{theorem}
 
 \begin{proof}
-  We saw in \cref{theorem:primitive-roots} that if $n$ admits a primitive root, then the congruence
+  We saw in \zcref{theorem:primitive-roots} that if $n$ admits a primitive root, then the congruence
   \begin{equation*}
     x^d\equiv 1\pmod{n}
   \end{equation*}
@@ -76,14 +76,14 @@ Recall that for any integer $a$ not divisible by $p$, the integer $a^{p-1}-1$ is
   \end{equation*}
   Thus we see that if $n=2^k$ for some $k\geq 3$, then $n$ does not satisfy the hypothesis in \ref{itemii:classification-primitive-roots}.
 
-  Now suppose that $n=km$, where $\gcd(k,m)=1$ and $m$ is odd and strictly greater than $1$. By \crefnamed{theorem:chinese-remainder-theorem}, it follows that any pair of solutions
+  Now suppose that $n=km$, where $\gcd(k,m)=1$ and $m$ is odd and strictly greater than $1$. By \zcrefnamed{theorem:chinese-remainder-theorem}, it follows that any pair of solutions
   \begin{align*}
     x^2 & \equiv 1\pmod{k}, \\
     y^2 & \equiv 1\pmod{m},
   \end{align*}
   determines a unique solution to the congruence $z^2\equiv 1\pmod{km}$. It follows that one of them can have only one nontrivial solution. Since we assumed that $m>1$ is odd, and thus has two distinct solutions, it follows that there is only one solution to the congruence $x^2\equiv 1\pmod{k}$. Observe that there is only one such solution if and only if $k=1$ or $k=2$. Furthermore, the previous observation implies that $m$ cannot have distinct prime factors, so we conclude that $m$ must be of the form $m=p^k$ for some odd prime $p$. Thus we have proven that \ref{itemii:classification-primitive-roots} implies \ref{itemiii:classification-primitive-roots}.
 
-  Finally, we have to show that any number of the form $n=2,4,p^k$, or $2p^k$, where $p$ is an odd prime, admits a primitive root. The number $1$ is a primitive root modulo $2$, and the number $-1$ is a primitive root modulo $4$. The fact that any odd prime power $p^k$ admits primitive roots was established in \cref{theorem:primitive-roots-odd-prime-powers}. To finish the proof that \ref{itemiii:classification-primitive-roots} implies \ref{itemi:classification-primitive-roots}, it therefore remains to show that each number of the form $n=2p^k$, where $p$ is an odd prime, has a primitive root. To see this, observe that the integers relatively prime to $2p^k$ are exactly the odd integers $1\leq x<2p^k$ relatively prime to $p^k$. Among those odd integers is a primitive root $g$ modulo $p^k$. Its order modulo $2p^k$ is
+  Finally, we have to show that any number of the form $n=2,4,p^k$, or $2p^k$, where $p$ is an odd prime, admits a primitive root. The number $1$ is a primitive root modulo $2$, and the number $-1$ is a primitive root modulo $4$. The fact that any odd prime power $p^k$ admits primitive roots was established in \zcref{theorem:primitive-roots-odd-prime-powers}. To finish the proof that \ref{itemiii:classification-primitive-roots} implies \ref{itemi:classification-primitive-roots}, it therefore remains to show that each number of the form $n=2p^k$, where $p$ is an odd prime, has a primitive root. To see this, observe that the integers relatively prime to $2p^k$ are exactly the odd integers $1\leq x<2p^k$ relatively prime to $p^k$. Among those odd integers is a primitive root $g$ modulo $p^k$. Its order modulo $2p^k$ is
   \begin{equation*}
     \ord_{2p^k}(g)=\ord_{p^k}(g)=p^{k-1}(p-1)=\phi(2p^k),
   \end{equation*}

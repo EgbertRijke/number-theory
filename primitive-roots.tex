@@ -42,11 +42,11 @@
   \label{figure:doubling-modulo-13}
 \end{figure}
 
-\crefnamed{theorem:eulers-theorem} tells us that
+\zcrefnamed{theorem:eulers-theorem} tells us that
 \begin{equation*}
   a^{\totient(n)}\equiv 1\pmod{n}
 \end{equation*}
-for every integer $a$ such that $\gcd(a,n)=1$. By \crefnamed{theorem:order-theorem}, this implies that
+for every integer $a$ such that $\gcd(a,n)=1$. By \zcrefnamed{theorem:order-theorem}, this implies that
 \begin{equation*}
   \ord_n(a)\mid \totient(n).
 \end{equation*}
@@ -58,7 +58,7 @@ Euler's theorem therefore gives an upper bound for the order of any element modu
     $2^m \pmod{13}$ & 1 & 2 & 4 & 8 & 3 & 6 & 12 & 11 & 9 & 5 & 10 & 7.
   \end{tabular}
 \end{equation*}
-The process of doubling integers modulo $13$ is illustrated in \cref{figure:doubling-modulo-13}. Using \cref{theorem:order-power}, we can use this table to compute the orders of all the nonzero integers modulo $13$. Recall that \cref{theorem:order-power} states that
+The process of doubling integers modulo $13$ is illustrated in \zcref{figure:doubling-modulo-13}. Using \zcref{theorem:order-power}, we can use this table to compute the orders of all the nonzero integers modulo $13$. Recall that \zcref{theorem:order-power} states that
 \begin{equation*}
   \ord_n(a^m)=\frac{\ord_n(a)}{\gcd(m,\ord_n(a))}.
 \end{equation*}
@@ -75,7 +75,7 @@ Computing the orders of all the elements from $1$ to $12$ modulo $13$ this way, 
   \end{tabular}
 \end{equation*}
 
-While the orders of the integers modulo $13$ might at first glance appear to be somewhat unwieldy, \cref{theorem:order-power} is the key to some important patterns. For example, given an integer $a\pmod{p}$ with $\ord_p(a)=p-1$ such as $2\pmod{13}$, \cref{theorem:order-power} tells us that
+While the orders of the integers modulo $13$ might at first glance appear to be somewhat unwieldy, \zcref{theorem:order-power} is the key to some important patterns. For example, given an integer $a\pmod{p}$ with $\ord_p(a)=p-1$ such as $2\pmod{13}$, \zcref{theorem:order-power} tells us that
 \begin{equation*}
   \ord_p(a^m)=k \Leftrightarrow \frac{p-1}{\gcd(m,p-1)}=k
 \end{equation*}
@@ -91,7 +91,7 @@ However, we can go further: There are two integers that have order $6$ modulo $1
   where the sum ranges over the positive integers $d$ dividing $n$.
 \end{theorem}
 
-In terms of Dirichlet convolution, the identity in \cref{theorem:dirichlet-convolution-phi} can be stated as follows:
+In terms of Dirichlet convolution, the identity in \zcref{theorem:dirichlet-convolution-phi} can be stated as follows:
 \begin{equation*}
   \totient\ast 1=\mathrm{id}.
 \end{equation*}
@@ -111,7 +111,7 @@ We will give a combinatorial and an arithmetic proof.
 \end{proof}
 
 \begin{proof}[Arithmetic proof]
-  Recall from \cref{theorem:multiplicative-totient} that $\totient$ is a multiplicative function, which implies by \cref{theorem:multiplicative-functions} that the function
+  Recall from \zcref{theorem:multiplicative-totient} that $\totient$ is a multiplicative function, which implies by \zcref{theorem:multiplicative-functions} that the function
   \begin{equation*}
     n\mapsto \sum_{d\mid n}\totient(d)
   \end{equation*}
@@ -133,7 +133,7 @@ The proof of this theorem makes essential use of the fact that any polynomial co
 \begin{equation*}
   x^d\equiv 1\pmod{p}
 \end{equation*}
-has at most $d$ solutions. This was established in \cref{theorem:maximal-number-of-roots-pow-minus-id}. To emphasize this observation, we will prove \cref{theorem:count-integers-of-order-mod-prime} as a consequence of the following more general theorem.
+has at most $d$ solutions. This was established in \zcref{theorem:maximal-number-of-roots-pow-minus-id}. To emphasize this observation, we will prove \zcref{theorem:count-integers-of-order-mod-prime} as a consequence of the following more general theorem.
 
 \begin{theorem}\label{theorem:count-integers-of-order}
   Consider a number $n$ with the property that every polynomial congruence of the form
@@ -152,7 +152,7 @@ has at most $d$ solutions. This was established in \cref{theorem:maximal-number-
       0 & \text{otherwise.}
     \end{cases}
   \end{equation*}
-  The fact that if $k\nmid \totient(n)$ then $\psi(k)=0$ follows immediately from \crefnamed{theorem:order-theorem} and \crefnamed{theorem:fermats-little-theorem}. Thus, it remains to show that $\psi(k)=\totient(k)$ for any $k\mid \totient(n)$.
+  The fact that if $k\nmid \totient(n)$ then $\psi(k)=0$ follows immediately from \zcrefnamed{theorem:order-theorem} and \zcrefnamed{theorem:fermats-little-theorem}. Thus, it remains to show that $\psi(k)=\totient(k)$ for any $k\mid \totient(n)$.
 
   Consider an integer $a$ of order $k$ modulo $n$. By definition, every integer of order $k$ modulo $n$ is a solution to the polynomial congruence
   \begin{equation*}
@@ -162,7 +162,7 @@ has at most $d$ solutions. This was established in \cref{theorem:maximal-number-
   \begin{equation*}
     1,~a,~\ldots,~a^{k-1}.
   \end{equation*}
-  Thus, we see that every solution is congruent to a power of $a$. In particular, it follows that every integer of order $k$ modulo $n$ is itself a power of $a$. Recall from \cref{theorem:order-power} that an integer of the form $a^m$ has order $k$ if and only if $\gcd(m,k)=1$. Thus we conclude that, given an element of order $k$, there are exactly $\totient(k)$ integers of order $k$. In other words, $\psi(k)$ is either $0$ or $\totient(k)$, and certainly we have that $\psi(k)\leq \totient(k)$.
+  Thus, we see that every solution is congruent to a power of $a$. In particular, it follows that every integer of order $k$ modulo $n$ is itself a power of $a$. Recall from \zcref{theorem:order-power} that an integer of the form $a^m$ has order $k$ if and only if $\gcd(m,k)=1$. Thus we conclude that, given an element of order $k$, there are exactly $\totient(k)$ integers of order $k$. In other words, $\psi(k)$ is either $0$ or $\totient(k)$, and certainly we have that $\psi(k)\leq \totient(k)$.
 
   To finish the proof, observe that, since every element $1\leq x<n$ relatively prime to $n$ has an order modulo $n$, we have
   \begin{equation*}
@@ -205,11 +205,11 @@ form a reduced residue system modulo $p$. That is, there is an integer $g$ such 
 \end{theorem}
 
 \begin{proof}
-  We have already proven that \ref{itemii:primitive-roots} implies \ref{itemi:primitive-roots} in \cref{theorem:count-integers-of-order}. To prove that \ref{itemi:primitive-roots} implies \ref{itemii:primitive-roots}, consider a primitive root $g$ modulo $n$, and consider the polynomial congruence
+  We have already proven that \ref{itemii:primitive-roots} implies \ref{itemi:primitive-roots} in \zcref{theorem:count-integers-of-order}. To prove that \ref{itemi:primitive-roots} implies \ref{itemii:primitive-roots}, consider a primitive root $g$ modulo $n$, and consider the polynomial congruence
   \begin{equation*}
     x^d\equiv 1\pmod{n}.
   \end{equation*}
-  An integer $a\equiv g^m\pmod{n}$ is a solution if and only if $g^{dm}\equiv 1\pmod{n}$. Since we assumed that $\ord_n(g)=\totient(n)$, it follows from \crefnamed{theorem:order-theorem} that the congruence $g^{dm}\equiv 1\pmod{n}$ holds if and only if $\totient(n)\mid dm$. The number of $0\leq m<\totient(n)$ such that $\totient(n)\mid dm$ is exactly $\gcd(d,\totient(n))$, which is at most $d$. Therefore, it follows that there are at most $d$ solutions to the congruence $x^d\equiv 1\pmod{n}$.
+  An integer $a\equiv g^m\pmod{n}$ is a solution if and only if $g^{dm}\equiv 1\pmod{n}$. Since we assumed that $\ord_n(g)=\totient(n)$, it follows from \zcrefnamed{theorem:order-theorem} that the congruence $g^{dm}\equiv 1\pmod{n}$ holds if and only if $\totient(n)\mid dm$. The number of $0\leq m<\totient(n)$ such that $\totient(n)\mid dm$ is exactly $\gcd(d,\totient(n))$, which is at most $d$. Therefore, it follows that there are at most $d$ solutions to the congruence $x^d\equiv 1\pmod{n}$.
 \end{proof}
 
 \begin{corollary}\label{corollary:primitive-roots-primes}
@@ -227,7 +227,7 @@ form a reduced residue system modulo $p$. That is, there is an integer $g$ such 
 
   Some further composite numbers with primitive roots include $4$ and $6$: The number $3$ is a primitive root of $4$, and $5$ is a primitive root of $6$.
 
-  The number $8$, on the other hand, does not have primitive roots because $\totient(8)=4$ while the odd integers $3$, $5$, and $7$ all have order $2$. In fact, it is possible to precisely classify all the natural numbers that have primitive roots. We will do so in \cref{theorem:moduli-with-primitive-roots}.
+  The number $8$, on the other hand, does not have primitive roots because $\totient(8)=4$ while the odd integers $3$, $5$, and $7$ all have order $2$. In fact, it is possible to precisely classify all the natural numbers that have primitive roots. We will do so in \zcref{theorem:moduli-with-primitive-roots}.
 \end{example}
 
 \section{The Discrete Logarithm}
@@ -299,7 +299,7 @@ in this introductory course on elementary number theory, the techniques that we 
 \begin{equation*}
   x^n\equiv a\pmod{p}.
 \end{equation*}
-The following theorem is a significant generalization of \crefnamed{theorem:eulers-criterion}.
+The following theorem is a significant generalization of \zcrefnamed{theorem:eulers-criterion}.
 
 \begin{theorem}
   Consider an integer $a$ and a prime $p$ so that $p\nmid a$. The following are equivalent:
@@ -340,9 +340,9 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
   \begin{equation*}
     tn \equiv m\pmod{p-1}
   \end{equation*}
-  is solvable. It follows from \cref{theorem:linear-congruence-one-variable} that this congruence is solvable if and only if $d:=\gcd(n,p-1)\mid m$, and in this case there are exactly $d$ solutions. Thus we have shown that {\it 1.}~is equivalent to {\it 2.}
+  is solvable. It follows from \zcref{theorem:linear-congruence-one-variable} that this congruence is solvable if and only if $d:=\gcd(n,p-1)\mid m$, and in this case there are exactly $d$ solutions. Thus we have shown that {\itshape 1.}~is equivalent to {\itshape 2.}
 
-  To show that {\it 3.}~is equivalent to {\it 2.}, consider the condition that
+  To show that {\itshape 3.}~is equivalent to {\itshape 2.}, consider the condition that
   \begin{equation*}
     a^{\frac{p-1}{\gcd(n,p-1)}}\equiv 1\pmod{p}.
   \end{equation*}
@@ -355,7 +355,7 @@ The following theorem is a significant generalization of \crefnamed{theorem:eule
     ku+lv=1.
   \end{equation*}
   
-  To prove the forward implication, assume that $x$ is an integer such that $x^n\equiv a\pmod{p}$. Then we have by \crefnamed{theorem:fermats-little-theorem}
+  To prove the forward implication, assume that $x$ is an integer such that $x^n\equiv a\pmod{p}$. Then we have by \zcrefnamed{theorem:fermats-little-theorem}
   \begin{equation*}
     a^k\equiv x^{kn}=x^{kld}=(x^{p-1})^l\equiv 1^l = 1\pmod{p}.
   \end{equation*}
@@ -453,7 +453,7 @@ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$.
     p-1=q_1^{\alpha_1}\cdots q_n^{\alpha_n}.
   \end{equation*}
   \begin{subexenum}
-  \item By \crefnamed{theorem:lagranges-theorem} it follows that for each prime $q_i$, the congruence
+  \item By \zcrefnamed{theorem:lagranges-theorem} it follows that for each prime $q_i$, the congruence
     \begin{equation*}
       x^{\frac{p-1}{q_i}}\equiv 1\pmod{p}
     \end{equation*}
@@ -515,7 +515,7 @@ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$.
       1\pmod{n} & \text{otherwise.}
     \end{cases}
   \end{equation*}
-  Hint: Use \crefnamed{theorem:chinese-remainder-theorem} to show that the number of integers $0\leq x<n$ such that $x^2\equiv 1\pmod{n}$ is a power of $2$.
+  Hint: Use \zcrefnamed{theorem:chinese-remainder-theorem} to show that the number of integers $0\leq x<n$ such that $x^2\equiv 1\pmod{n}$ is a power of $2$.
 \end{challenge}
 
 %%% Local Variables:

@@ -187,11 +187,11 @@ In the following lemma we establish that $a$ and $b$ are congruent modulo $n$ if
 \end{proof}
 
 \begin{example}
-  Recall from \cref{theorem:representability} that any number $n$ can be written as
+  Recall from \zcref{theorem:representability} that any number $n$ can be written as
   \begin{equation*}
     n = \sum_{i=0}^{l-1} d_i b^{i}
   \end{equation*}
-  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using \crefnamed{theorem:euclidean-division} as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
+  in base $b>1$. Given that $n$ is written in this way, we have $n \equiv d_0\pmod b$. Indeed, the digit $d_0$ was constructed using \zcrefnamed{theorem:euclidean-division} as the remainder of $n$ after division by $b$. For example, the congruence $37 \equiv 7\pmod{10}$ holds.
 \end{example}
 
 An important property of the congruence relations, which makes them so useful in the study of the integers, is that they are compatible with the arithmetic operations of addition and multiplication.
@@ -323,7 +323,7 @@ This relation is also called the \emph{kernel} of $f$.
 \end{proof}
 
 \begin{example}
-  Consider the function $r:\mathbb{Z}\to\{0,\ldots,n-1\}$, defined via \crefnamed{theorem:euclidean-division} so that $r(x)$ is the unique integer $0\leq r(x)<n$ such that $x-r(x)$ is divisible by $n$. Then the equivalence relation $\sim_{r}$ is such that $x\sim_r y$ if and only if $x$ and $y$ have the same remainder after division by $n$. In other words,
+  Consider the function $r:\mathbb{Z}\to\{0,\ldots,n-1\}$, defined via \zcrefnamed{theorem:euclidean-division} so that $r(x)$ is the unique integer $0\leq r(x)<n$ such that $x-r(x)$ is divisible by $n$. Then the equivalence relation $\sim_{r}$ is such that $x\sim_r y$ if and only if $x$ and $y$ have the same remainder after division by $n$. In other words,
   \begin{equation*}
     x\sim_r y \Leftrightarrow x\equiv y\pmod{n}.
   \end{equation*}
@@ -332,7 +332,7 @@ This relation is also called the \emph{kernel} of $f$.
 Another way in which equivalence relations come about is by looking at iterations of an operation $T:X\to X$. We illustrate this by an example first.
 
 \begin{example}
-  Recall from \cref{exercise:zeckendorf} that Zeckendorf's representation theorem established that any natural number $n$ can be written uniquely as a sum
+  Recall from \zcref{exercise:zeckendorf} that Zeckendorf's representation theorem established that any natural number $n$ can be written uniquely as a sum
   \begin{equation*}
     n= \sum_{k=0}^{l_n-1} d_{n,k}F_{k+2}
   \end{equation*}
@@ -489,7 +489,7 @@ The set of integers modulo $n$ can be equipped with addition and multiplication 
   [a] + [b] & := [a+b] \\
   [a][b] & := [ab]
 \end{align*}
-Notice that the result of these operations depends only on the equivalence classes, not on the particular integers $a$ and $b$ chosen to represent the equivalence classes $[a]$ and $[b]$. Recall from \cref{proposition:quotient-map} that we have $[a]=[a']$ if and only if $a\equiv a'\pmod{n}$, and similarly we have $[b]=[b']$ if and only if $b\equiv b'\pmod{n}$. Thus, for any $a\equiv a'\pmod{n}$ and $b\equiv b'\pmod{n}$, it follows from \cref{proposition:addition-and-multiplication-congruence} that $a+b\equiv a'+b'\pmod{n}$ and $ab\equiv a'b'\pmod{n}$. In other words, if $[a]=[a']$ and $[b]=[b']$, then we have
+Notice that the result of these operations depends only on the equivalence classes, not on the particular integers $a$ and $b$ chosen to represent the equivalence classes $[a]$ and $[b]$. Recall from \zcref{proposition:quotient-map} that we have $[a]=[a']$ if and only if $a\equiv a'\pmod{n}$, and similarly we have $[b]=[b']$ if and only if $b\equiv b'\pmod{n}$. Thus, for any $a\equiv a'\pmod{n}$ and $b\equiv b'\pmod{n}$, it follows from \zcref{proposition:addition-and-multiplication-congruence} that $a+b\equiv a'+b'\pmod{n}$ and $ab\equiv a'b'\pmod{n}$. In other words, if $[a]=[a']$ and $[b]=[b']$, then we have
 \begin{align*}
   [a]+[b] & = [a']+[b'] \\
   [a][b] & = [a'][b'].
@@ -614,7 +614,7 @@ Since $6$ is the first positive integer for which $10^k\equiv 1\pmod{7}$, we say
 %   \begin{equation*}
 %     a^n-1 = (a^m)^{q} -1^q = (a^m-1)\sum_{k=0}^{q-1}a^{km}
 %   \end{equation*}
-%   by the formula for the difference of $q$th powers (\cref{exercise:difference-of-powers}).
+%   by the formula for the difference of $q$th powers (\zcref{exercise:difference-of-powers}).
 % \end{proof}
 
 For the general definition of the multiplicative order of an element $a$ modulo $n$, note that if $\gcd(a,n)=1$, then we can simply define the multiplicative order of $a$ to be the least positive integer $k$ such that
@@ -647,7 +647,7 @@ In the following theorem, which is also known as the \emph{Order Theorem}, we wi
   \begin{equation*}
     a^m\equiv 1 \pmod{n}.
   \end{equation*}
-  It is immediate from this condition that if $m\mid k$, then it follows that $a^k\equiv 1\pmod{n}$. Conversely, if $a^k\equiv 1\pmod{n}$, then we can write $k=qm+r$ by \crefnamed{theorem:euclidean-division}, where $0\leq r<m$. It follows that
+  It is immediate from this condition that if $m\mid k$, then it follows that $a^k\equiv 1\pmod{n}$. Conversely, if $a^k\equiv 1\pmod{n}$, then we can write $k=qm+r$ by \zcrefnamed{theorem:euclidean-division}, where $0\leq r<m$. It follows that
   \begin{equation*}
     a^r \equiv a^{qm}a^r \equiv a^{qm+r} \equiv a^k \equiv 1\pmod{n}. 
   \end{equation*}
@@ -677,10 +677,10 @@ The Order Theorem can be used to show that the digits in the fractional part of 
   \begin{equation*}
     10^k \equiv 1 \pmod{b}.
   \end{equation*}
-  By \crefnamed{theorem:order-theorem} it follows that this congruence holds if and only if $\ord_b(10)\mid k$.
+  By \zcrefnamed{theorem:order-theorem} it follows that this congruence holds if and only if $\ord_b(10)\mid k$.
 \end{proof}
 
-The logical equivalence in \crefnamed{theorem:order-theorem} can also be used effectively to compute the order of a power of an element in terms of the order of that element.
+The logical equivalence in \zcrefnamed{theorem:order-theorem} can also be used effectively to compute the order of a power of an element in terms of the order of that element.
 
 \begin{theorem}\label{theorem:order-power}
   For any integer $a$ of order $k=\ord_n(a)$, we have

@@ -91,9 +91,9 @@ While this estimate is not the strongest known estimate for the prime-counting f
 \begin{equation*}
   \pi(x)\sim\frac{x}{\log x},
 \end{equation*}
-it can be proven by fairly elementary means and it will be quite useful in our future investigations in the distribution of the primes. In \cref{figure:prime-counting-data} we have plotted the values of $\pi(x)$, $x/\log x$ and $x/\log\log x$ for comparison.
+it can be proven by fairly elementary means and it will be quite useful in our future investigations in the distribution of the primes. In \zcref{figure:prime-counting-data} we have plotted the values of $\pi(x)$, $x/\log x$ and $x/\log\log x$ for comparison.
 
-First, we will use the sieve of Eratosthenes and \crefnamed{theorem:inclusion-exclusion-principle} to obtain an exact expression for $\pi(x)$, which will serve as the starting point of our estimates of $\pi(x)$. Recall that if $n\leq x$ is not divisible by any prime less than $\sqrt{x}$, then $n$ is prime. Thus, if we eliminate all the multiples of the primes less than $\sqrt{x}$ from the set of integers $\{2,\ldots,\lfloor x\rfloor\}$, then the set of primes $\leq x$ remains. The inclusion-exclusion principle allows us to compute the number of integers that are a multiple of a prime below $\sqrt{x}$ by the formula
+First, we will use the sieve of Eratosthenes and \zcrefnamed{theorem:inclusion-exclusion-principle} to obtain an exact expression for $\pi(x)$, which will serve as the starting point of our estimates of $\pi(x)$. Recall that if $n\leq x$ is not divisible by any prime less than $\sqrt{x}$, then $n$ is prime. Thus, if we eliminate all the multiples of the primes less than $\sqrt{x}$ from the set of integers $\{2,\ldots,\lfloor x\rfloor\}$, then the set of primes $\leq x$ remains. The inclusion-exclusion principle allows us to compute the number of integers that are a multiple of a prime below $\sqrt{x}$ by the formula
 \begin{equation*}
   \sum_{k=1}^{\lfloor\sqrt{x}\rfloor}(-1)^{k+1}\left(\sum_{2\leq p_1<\cdots <p_k\leq \sqrt{x}}\left\lfloor\frac{x}{p_1\cdots p_k}\right\rfloor\right)
 \end{equation*}
@@ -187,7 +187,7 @@ In order to make further progress in estimating the prime-counting function, we 
   \begin{equation*}
     \sum_{m=1}^{n} \frac{1}{m}<\prod_{p\leq n}\frac{1}{1-p^{-1}}.
   \end{equation*}
-  In order to establish a lower bound for the sum of the unit fractions $\frac{1}{m}$ over $1\leq m\leq n$, we will use that the inequality $\frac{1}{x}\leq \frac{1}{\lfloor x\rfloor}$ holds for all $x\geq 1$. Thus we see that we can estimate the sum of the unit fractions $\frac{1}{n}$ from below by computing the area under the graph of the function $x\mapsto \frac{1}{x}$, as indicated in \cref{figure:sum-of-unit-fractions-by-integration} by integrating the function $x\mapsto \frac{1}{x}$. Doing so, we obtain:
+  In order to establish a lower bound for the sum of the unit fractions $\frac{1}{m}$ over $1\leq m\leq n$, we will use that the inequality $\frac{1}{x}\leq \frac{1}{\lfloor x\rfloor}$ holds for all $x\geq 1$. Thus we see that we can estimate the sum of the unit fractions $\frac{1}{n}$ from below by computing the area under the graph of the function $x\mapsto \frac{1}{x}$, as indicated in \zcref{figure:sum-of-unit-fractions-by-integration} by integrating the function $x\mapsto \frac{1}{x}$. Doing so, we obtain:
   \begin{equation*}
     \log n<\int_1^{n+1}\frac{1}{x}\,\mathrm{d}x<\sum_{m=1}^n\frac{1}{m}.
   \end{equation*}
@@ -235,7 +235,7 @@ We are now ready to prove the estimate for the prime-counting function stated at
 \end{theorem}
 
 \begin{proof}
-  From \cref{corollary:kummers-theorem} it follows that the central binomial coefficient $\binom{2n}{n}$ divides the least common multiple of the digits $1,\ldots,2n$, and therefore we have
+  From \zcref{corollary:kummers-theorem} it follows that the central binomial coefficient $\binom{2n}{n}$ divides the least common multiple of the digits $1,\ldots,2n$, and therefore we have
   \begin{equation*}
     \binom{2n}{n}\leq \lcm(1,\ldots,2n).
   \end{equation*}
@@ -339,7 +339,7 @@ We are now ready to prove the estimate for the prime-counting function stated at
   \end{figure}
 
 \begin{proof}
-  First, we observe that $2x<\log(1+x)$ for each $-\frac{1}{2}\leq x< 0$, as indicated in \cref{figure:plot-of-log-1+x}. Since the inequalities $0<\frac{1}{p}\leq \frac{1}{2}$ hold for every prime $p$, it follows that
+  First, we observe that $2x<\log(1+x)$ for each $-\frac{1}{2}\leq x< 0$, as indicated in \zcref{figure:plot-of-log-1+x}. Since the inequalities $0<\frac{1}{p}\leq \frac{1}{2}$ hold for every prime $p$, it follows that
   \begin{equation*}
     -\frac{2}{p}<\log\left(1-\frac{1}{p}\right).
   \end{equation*}

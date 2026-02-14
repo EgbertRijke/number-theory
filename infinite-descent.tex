@@ -21,7 +21,7 @@ The method of infinite descent was invented by Fermat. He used this method effec
   \begin{equation*}
     A:=\{a_0,a_1,a_2,\ldots\}
   \end{equation*}
-  is a nonempty subset of the natural numbers, and by \crefnamed{theorem:well-ordering-natural-numbers} it follows that this set has a least element. However, all the elements in $A$ are of the form $a_n$ for some natural number $\mathbb{N}$, and none of these elements are minimal, since we have assumed that $a_n>a_{n+1}$. This contradiction shows that our assumption that there exists an infinite descending sequence must be false, and thus there is no such sequence.
+  is a nonempty subset of the natural numbers, and by \zcrefnamed{theorem:well-ordering-natural-numbers} it follows that this set has a least element. However, all the elements in $A$ are of the form $a_n$ for some natural number $\mathbb{N}$, and none of these elements are minimal, since we have assumed that $a_n>a_{n+1}$. This contradiction shows that our assumption that there exists an infinite descending sequence must be false, and thus there is no such sequence.
 \end{proof}
 
 The previous proposition leads to Fermat's method of infinite descent. Fermat observed that if an assumption $H$ leads to an infinite descending sequence, then the assumption $H$ must be false. 
@@ -51,7 +51,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
 \end{theorem}
 
 \begin{proof}
-  It suffices to prove the statement for primitive Pythagorean triangles; that is, a triangle whose sides $(a,b,c)$ form a primitive Pythagorean triple. By \crefnamed{theorem:euclids-parametrization}, we can find two relatively prime integers $s<t$ of opposite parity, such that
+  It suffices to prove the statement for primitive Pythagorean triangles; that is, a triangle whose sides $(a,b,c)$ form a primitive Pythagorean triple. By \zcrefnamed{theorem:euclids-parametrization}, we can find two relatively prime integers $s<t$ of opposite parity, such that
   \begin{equation*}
     a=t^2-s^2,\qquad b=2st,\qquad\text{and}\qquad c=t^2+s^2.
   \end{equation*}
@@ -59,7 +59,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   \begin{equation*}
     st(t^2-s^2)=st(t-s)(t+s).
   \end{equation*}
-  Now observe that all of these factors are relatively prime to one another; indeed, given that $s$ and $t$ are relatively prime, it follows at once from \cref{proposition:gcd-euclidean-division} that both $s$ and $t$ are relatively prime to both $s-t$ and $s+t$. Furthermore, any common divisor of $s-t$ and $s+t$ must be a common divisor of $2s$ and $2t$, which implies that it must divide $2$. However, $s-t$ and $s+t$ are odd since $s$ and $t$ are of opposite parity, so that $s-t$ and $s+t$ are seen to be relatively prime. Thus we conclude that if the area of the Pythagorean triangle is a square, then each of these factors must also be a square. This allows us to write
+  Now observe that all of these factors are relatively prime to one another; indeed, given that $s$ and $t$ are relatively prime, it follows at once from \zcref{proposition:gcd-euclidean-division} that both $s$ and $t$ are relatively prime to both $s-t$ and $s+t$. Furthermore, any common divisor of $s-t$ and $s+t$ must be a common divisor of $2s$ and $2t$, which implies that it must divide $2$. However, $s-t$ and $s+t$ are odd since $s$ and $t$ are of opposite parity, so that $s-t$ and $s+t$ are seen to be relatively prime. Thus we conclude that if the area of the Pythagorean triangle is a square, then each of these factors must also be a square. This allows us to write
   \begin{equation*}
     s=u^2,\quad t=v^2,\quad t-s=x^2,\quad\text{and}\quad t+s=y^2.
   \end{equation*}
@@ -122,7 +122,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   \begin{equation*}
     a^4 + b^4 = c^2.
   \end{equation*}
-  This finishes the construction of the function $f:A\to A$. Furthermore, the strict inequality $c^2=s<s^2+t^2=z^2$ shows that $h(f(x,y,z))<h(x,y,z)$, so we conclude by \crefnamed{theorem:method-of-descent} that the set $A$ must be empty.
+  This finishes the construction of the function $f:A\to A$. Furthermore, the strict inequality $c^2=s<s^2+t^2=z^2$ shows that $h(f(x,y,z))<h(x,y,z)$, so we conclude by \zcrefnamed{theorem:method-of-descent} that the set $A$ must be empty.
 \end{proof}
 
 \begin{corollary}
@@ -143,7 +143,7 @@ A classic application of Fermat's infinite descent gives us that the area of a P
 
 \section{The Nonexistence of Four Squares in an Arithmetic Progression}
 
-We have shown in \cref{theorem:correspondence-arithmetic-triples-squares} that there is a bijective correspondence between arithmetic triples of squares and Pythagorean triples. It is natural to wonder whether there are any longer arithmetic progressions of squares. Fermat posed this problem in his correspondence with Bernard Frénicle de Bessy in 1640, and noted that it was impossible to find four such squares. The first publicly known proof is due to Euler. Here we will follow a proof of Alf van der Poorten \cite{vanderpoorten2007}, who observed that any four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression determine, besides the Pythagorean triples corresponding to $(a^2,b^2,c^2)$ and $(b^2,c^2,d^2)$, a third Pythagorean triple. To see this, assume the step size is a number of the form $2n$, where it follows from \cref{exercise:div-increment-a-p-squares} that $n$ is divisible by $12$, and let $x$ be the average of $b^2$ and $c^2$ so that $b^2=x-n$ and $c^2=x+n$. Then the number $y:=abcd$ satisfies
+We have shown in \zcref{theorem:correspondence-arithmetic-triples-squares} that there is a bijective correspondence between arithmetic triples of squares and Pythagorean triples. It is natural to wonder whether there are any longer arithmetic progressions of squares. Fermat posed this problem in his correspondence with Bernard Frénicle de Bessy in 1640, and noted that it was impossible to find four such squares. The first publicly known proof is due to Euler. Here we will follow a proof of Alf van der Poorten \cite{vanderpoorten2007}, who observed that any four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression determine, besides the Pythagorean triples corresponding to $(a^2,b^2,c^2)$ and $(b^2,c^2,d^2)$, a third Pythagorean triple. To see this, assume the step size is a number of the form $2n$, where it follows from \zcref{exercise:div-increment-a-p-squares} that $n$ is divisible by $12$, and let $x$ be the average of $b^2$ and $c^2$ so that $b^2=x-n$ and $c^2=x+n$. Then the number $y:=abcd$ satisfies
 \begin{equation*}
   y^2=a^2b^2c^2d^2=(x-3n)(x-n)(x+n)(x+3n)=(x^2-n^2)(x^2-9n^2).
 \end{equation*}
@@ -211,7 +211,7 @@ The following lemma is an observation of Euler.
   \begin{equation*}
     4w^2+v^2=\alpha^2\qquad\text{and}\qquad 16w^2+v^2=\beta^2.
   \end{equation*}
-  Under these assumptions, both $(2w,v,\alpha)$ and $(4w,v,\beta)$ are primitive Pythagorean triples. By \crefnamed{theorem:euclids-parametrization}, there exist positive integers $s<t$ and $q<r$ such that
+  Under these assumptions, both $(2w,v,\alpha)$ and $(4w,v,\beta)$ are primitive Pythagorean triples. By \zcrefnamed{theorem:euclids-parametrization}, there exist positive integers $s<t$ and $q<r$ such that
   \begin{align*}
     v & = t^2-s^2, & v & = r^2-q^2, \\
     2w & = 2st, & 4w & = 2qr.
@@ -239,12 +239,12 @@ The following lemma is an observation of Euler.
 \end{theorem}
 
 \begin{proof}
-  We saw in \cref{lemma:vanderpoorten} that if $(a^2,b^2,c^2,d^2)$ is an arithmetic progression of integer squares with step size $2n$, then we can find relatively prime integers $u$ and $v$ such that $n=uv$ and both $4u^2+v^2$ and $u^2+v^2$ are perfect squares. However, we saw in \cref{lemma:fermat-euler} that there does not exist a pair of positive integers $(u,v)$ such that both $4u^2+v^2$ and $u^2+v^2$ are perfect squares. Hence we conclude that any arithmetic progression of length four of integer squares must be constant.
+  We saw in \zcref{lemma:vanderpoorten} that if $(a^2,b^2,c^2,d^2)$ is an arithmetic progression of integer squares with step size $2n$, then we can find relatively prime integers $u$ and $v$ such that $n=uv$ and both $4u^2+v^2$ and $u^2+v^2$ are perfect squares. However, we saw in \zcref{lemma:fermat-euler} that there does not exist a pair of positive integers $(u,v)$ such that both $4u^2+v^2$ and $u^2+v^2$ are perfect squares. Hence we conclude that any arithmetic progression of length four of integer squares must be constant.
 \end{proof}
 
 \section{The Congruent Number Problem}\label{section:congruent-number-problem}
 
-Recall from \cref{sec:squares-in-aps} the challenge that Master John posed in the early 13th century to Leonardo Fibonacci: To find a rational number $q$ such that both
+Recall from \zcref{sec:squares-in-aps} the challenge that Master John posed in the early 13th century to Leonardo Fibonacci: To find a rational number $q$ such that both
 \begin{equation*}
   q^2-5,\qquad\text{and}\qquad q^2+5
 \end{equation*}
@@ -286,10 +286,10 @@ is $5$. The number $6$ is also congruent since it is the area of the $(3,4,5)$-t
   \begin{equation*}
     A^2+B^2=C^2,\qquad\text{and}\qquad \frac{AB}{2}=nm^2
   \end{equation*}
-  so that $(A,B,C)$ constitutes a Pythagorean triple whose area is $n$ times a square. By dividing out any common divisors, we obtain a primitive such Pythagorean triangle. Since this process is clearly reversible, this proves that \ref{itemi:congruent-numbers} is logically equivalent to \ref{itemii:congruent-numbers}. The fact that \ref{itemii:congruent-numbers} is logically equivalent to \ref{itemiii:congruent-numbers} follows from \cref{theorem:correspondence-arithmetic-triples-squares}.
+  so that $(A,B,C)$ constitutes a Pythagorean triple whose area is $n$ times a square. By dividing out any common divisors, we obtain a primitive such Pythagorean triangle. Since this process is clearly reversible, this proves that \ref{itemi:congruent-numbers} is logically equivalent to \ref{itemii:congruent-numbers}. The fact that \ref{itemii:congruent-numbers} is logically equivalent to \ref{itemiii:congruent-numbers} follows from \zcref{theorem:correspondence-arithmetic-triples-squares}.
 \end{proof}
 
-The previous theorem can be used to show that some numbers are not congruent. For example, the following theorem is merely a rephrasing of Fermat's \cref{theorem:is-not-square-area-pythagorean-triangle}, which states that the area of a Pythagorean theorem cannot be a square.
+The previous theorem can be used to show that some numbers are not congruent. For example, the following theorem is merely a rephrasing of Fermat's \zcref{theorem:is-not-square-area-pythagorean-triangle}, which states that the area of a Pythagorean theorem cannot be a square.
 
 \begin{theorem}\label{theorem:not-congruent-square}
   No positive square integer is a congruent number.\qed
@@ -306,7 +306,7 @@ We will show in the following theorem that the number $2$ is not congruent. The 
   \begin{equation*}
     \frac{1}{2}ab=2d^2.
   \end{equation*}
-  Using \crefnamed{theorem:euclids-parametrization}, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
+  Using \zcrefnamed{theorem:euclids-parametrization}, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
   \begin{equation*}
     st(t^2-s^2)=2d^2.
   \end{equation*}
@@ -338,7 +338,7 @@ Using a very similar argument, we will also show that $3$ is not congruent.
   \begin{equation*}
     \frac{1}{2}ab=3d^2.
   \end{equation*}
-  Using \crefnamed{theorem:euclids-parametrization}, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
+  Using \zcrefnamed{theorem:euclids-parametrization}, we suppose that there are relatively prime positive integers $s<t$ of opposite parity, such that
   \begin{equation*}
     st(t^2-s^2)=3d^2.
   \end{equation*}
@@ -362,7 +362,7 @@ Using a very similar argument, we will also show that $3$ is not congruent.
 
 Having shown that the numbers $1$, $2$, $3$, and $4$ are not congruent, while the numbers $5$ and $6$ are congruent, we now focus on proving that $7$ is congruent. Before we do so, we will reformulate the condition of $n$ being congruent to an equivalent condition.
 
-Suppose we are given the task of showing that a positive integer $n$ is a congruent number. In order to construct a Pythagorean triangle with rational sides and hypotenuse, we observe that any such Pythagorean triangle can be obtained by scaling with a rational factor a Pythagorean triangle described by a rational point on the unit circle. Using the stereographic projection of \cref{theorem:stereographic-projection-unit-circle}, we see that all rational Pythagorean triangles are described by pairs
+Suppose we are given the task of showing that a positive integer $n$ is a congruent number. In order to construct a Pythagorean triangle with rational sides and hypotenuse, we observe that any such Pythagorean triangle can be obtained by scaling with a rational factor a Pythagorean triangle described by a rational point on the unit circle. Using the stereographic projection of \zcref{theorem:stereographic-projection-unit-circle}, we see that all rational Pythagorean triangles are described by pairs
 \begin{equation*}
   \left(\frac{r(1-m^2)}{1+m^2},\frac{2rm}{1+m^2}\right),
 \end{equation*}
@@ -487,14 +487,14 @@ Vieta jumping is a problem-solving technique that builds on the observation that
 \begin{equation*}
   (x-r)(x-s)=x^2-(r+s)x+rs.
 \end{equation*}
-We saw in \cref{theorem:vieta-formulas-quadratic} that if $r$ is a root of a monic polynomial $x^2-Bx+C$, then the other root $s$ satisfies
+We saw in \zcref{theorem:vieta-formulas-quadratic} that if $r$ is a root of a monic polynomial $x^2-Bx+C$, then the other root $s$ satisfies
 \begin{equation*}
   s=B-r=\frac{C}{s}.
 \end{equation*}
 Thus, if we know one root of a quadratic polynomial then we can easily `jump' to the other root using one the above formulas. Vieta jumping became a popular problem-solving technique for international contests such as the International Mathematics Olympiad.
 
 \begin{example}
-  In \cref{exercise:div-product-sum-of-squares} you were asked to show that for any two positive integers $x$ and $y$ such that $xy\mid x^2+y^2$, we must have $x=y$. The expected solution was to observe that the discriminant of the quadratic equation $x^2-kxy+y^2=0$ seen as an equation in one variable $x$ and a parameter $y$ is $(ky)^2-4y^2$, which is a square if and only if $k=2$. Although this problem can readily be solved directly, we will use it here to illustrate Vieta jumping.
+  In \zcref{exercise:div-product-sum-of-squares} you were asked to show that for any two positive integers $x$ and $y$ such that $xy\mid x^2+y^2$, we must have $x=y$. The expected solution was to observe that the discriminant of the quadratic equation $x^2-kxy+y^2=0$ seen as an equation in one variable $x$ and a parameter $y$ is $(ky)^2-4y^2$, which is a square if and only if $k=2$. Although this problem can readily be solved directly, we will use it here to illustrate Vieta jumping.
 
   We first observe that the quadratic equation
   \begin{equation*}

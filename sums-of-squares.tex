@@ -6,7 +6,7 @@ In this chapter we are concerned with the question which numbers are representab
 \begin{equation*}
   n=a^2+b^2.
 \end{equation*}
-Here, we permit ourselves to pick $a=0$ or $b=0$, so that any perfect square is trivially representable as a sum of two squares. The problem of finding those numbers $n$ that can be written as the sum of two squares is equivalent to the problem of finding integer lattice points on the circle of radius $\sqrt{n}$, as illustrated in \cref{figure:sums-of-two-squares}.
+Here, we permit ourselves to pick $a=0$ or $b=0$, so that any perfect square is trivially representable as a sum of two squares. The problem of finding those numbers $n$ that can be written as the sum of two squares is equivalent to the problem of finding integer lattice points on the circle of radius $\sqrt{n}$, as illustrated in \zcref{figure:sums-of-two-squares}.
 
 \begin{figure}[t]
   \centering
@@ -84,14 +84,14 @@ The previous lemma can be used to find an obstruction to numbers being represent
 \end{corollary}
 
 \begin{proof}
-  By \cref{lemma:div-3-mod-4-sum-of-squares} it follows that if $n$ is divisible by a prime $p\equiv 3\pmod{4}$, then we also have $p^2\mid n$. Writing $n=p^2n'$, $a=pa'$ and $b=pb'$, we find that
+  By \zcref{lemma:div-3-mod-4-sum-of-squares} it follows that if $n$ is divisible by a prime $p\equiv 3\pmod{4}$, then we also have $p^2\mid n$. Writing $n=p^2n'$, $a=pa'$ and $b=pb'$, we find that
   \begin{equation*}
     n' = a'^2+b'^2.
   \end{equation*}
   By iterating this process, we see that the $p$-adic valuation of $n$ is even. Thus, if the $p$-adic valuation of $n$ is odd, which is equivalent to the condition that the square-free part of $n$ is divisible by $p$, then $n$ is not representable as a sum of two squares.
 \end{proof}
 
-One of Fermat's most remarkable discoveries was that the statement in \cref{corollary:obstruction-sum-of-two-squares} is sharp: A number is representable as a sum of two squares if and only if its square-free part is not divisible by any primes congruent to $3\pmod{4}$. The first published proof of this claim was due to Euler. Fermat's discovery is now known as \emph{Fermat's Two-Squares Theorem}. We will give Euler's proof in the next section. Another classic proof is Don Zagier's, who famously wrote it up in a single---rather complicated---sentence.
+One of Fermat's most remarkable discoveries was that the statement in \zcref{corollary:obstruction-sum-of-two-squares} is sharp: A number is representable as a sum of two squares if and only if its square-free part is not divisible by any primes congruent to $3\pmod{4}$. The first published proof of this claim was due to Euler. Fermat's discovery is now known as \emph{Fermat's Two-Squares Theorem}. We will give Euler's proof in the next section. Another classic proof is Don Zagier's, who famously wrote it up in a single---rather complicated---sentence.
 
 A commonality between all these proofs is a reduction to the primes, which we will also perform here. Just as we did for the Pythagorean triples, we will consider numbers that are representable as a sum of two squares, which are relatively prime to each other. Such representations will be called \emph{primitive}.
 
@@ -102,7 +102,7 @@ A commonality between all these proofs is a reduction to the primes, which we wi
   \end{equation*}
 \end{definition}
 
-By \cref{corollary:obstruction-sum-of-two-squares} it follows immediately that numbers divisible by a prime $p\equiv 3\pmod{4}$ are never primitively representable as a sum of two squares: Either they are not representable at all, or they are representable as the sum of two squares of numbers, each of which is divisible by $p$. Likewise, any number divisible by $4$ is not primitively representable, since two squares only sum to a number divisible by $4$ if they are both even. Thus, we obtain the following corollary.
+By \zcref{corollary:obstruction-sum-of-two-squares} it follows immediately that numbers divisible by a prime $p\equiv 3\pmod{4}$ are never primitively representable as a sum of two squares: Either they are not representable at all, or they are representable as the sum of two squares of numbers, each of which is divisible by $p$. Likewise, any number divisible by $4$ is not primitively representable, since two squares only sum to a number divisible by $4$ if they are both even. Thus, we obtain the following corollary.
 
 \begin{corollary}\label{corollary:obstruction-primitive-sum-of-two-squares}
   Any number divisible by $4$ or by any prime $p\equiv 3\pmod{4}$ is not primitively representable as a sum of two squares.
@@ -110,7 +110,7 @@ By \cref{corollary:obstruction-sum-of-two-squares} it follows immediately that n
 
 We can thus formulate the Two-Squares Theorem for primitive representations as sums of two squares as follows: A number $n$ has a primitive representation as a sum of two squares if and only if $n$ is a product of primes congruent to $1\pmod{4}$ or $n$ is twice such a product.
 
-In order to reduce the Two-Squares Theorem to the primes $p\equiv 1\pmod{4}$, we first recall the \emph{Brahmagupta--Fibonacci identity}, from which it follows that products of numbers representable as sums of two squares are again so representable. While this identity might appear to come out of thin air, it has a natural interpretation in the Gaussian integers, which we will discuss in \cref{chapter:gaussian-integers}.
+In order to reduce the Two-Squares Theorem to the primes $p\equiv 1\pmod{4}$, we first recall the \emph{Brahmagupta--Fibonacci identity}, from which it follows that products of numbers representable as sums of two squares are again so representable. While this identity might appear to come out of thin air, it has a natural interpretation in the Gaussian integers, which we will discuss in \zcref{chapter:gaussian-integers}.
 
 \begin{lemma}[The Brahmagupta--Fibonacci Identity]
   For an integers $a$, $b$, $c$, and $d$, we have
@@ -242,7 +242,7 @@ In order to analyze them further, write $|x|_p$ for the least distance to a mult
 \begin{proof}
   Consider a prime $p\equiv 1\pmod{4}$. We have already seen that there is at most one way to represent $p$ as a sum of two squares, so it remains to prove existence.
 
-  Consider an integer $0\leq a<p$ such that $a^2\equiv -1\pmod{p}$. Such an integer exists, since $p\equiv 1\pmod{4}$. By \crefnamed{lemma:thues-lemma} with $m:=\lfloor\sqrt{p}\rfloor$, we find that there is some $1\leq k<\sqrt{p}$ such that
+  Consider an integer $0\leq a<p$ such that $a^2\equiv -1\pmod{p}$. Such an integer exists, since $p\equiv 1\pmod{4}$. By \zcrefnamed{lemma:thues-lemma} with $m:=\lfloor\sqrt{p}\rfloor$, we find that there is some $1\leq k<\sqrt{p}$ such that
   \begin{equation*}
     |ka|_p\leq \frac{p}{\sqrt{p}+1}<\sqrt{p}.
   \end{equation*}
@@ -259,12 +259,12 @@ We will give three more proofs of Fermat's Two-Squares Theorem in remainder of t
 
 Euler proved that every prime $p\equiv 1\pmod{4}$ can be written as a sum of two squares by using the Brahmagupta--Fibonacci identity in a clever descent argument.
 
-\begin{proof}[Proof of \cref{theorem:two-squares-primes}]
+\begin{proof}[Proof of \zcref{theorem:two-squares-primes}]
   Consider a prime $p\equiv 1\pmod{4}$. First we observe that there are integers $a$ and $b$ such that
   \begin{equation*}
     p\mid a^2+b^2.
   \end{equation*}
-  Indeed, it follows from \cref{theorem:quadratic-character-neg-1} that $-1$ is congruent to a square modulo $p$, which shows that $p\mid a^2+1^2$ for some integer $a$.
+  Indeed, it follows from \zcref{theorem:quadratic-character-neg-1} that $-1$ is congruent to a square modulo $p$, which shows that $p\mid a^2+1^2$ for some integer $a$.
 
   Now assume that $a$ and $b$ are integers such that $p\mid a^2+b^2$. We claim that if $a^2+b^2=rp$ for some $r>1$, then we can find integers $x$ and $y$ such that $x^2+y^2=sp$ for some $s<r$. The theorem then follows at once, since we can keep writing smaller multiples of $p$ as sums of two squares until we have written $p$ itself as a sum of two squares.
 
@@ -312,11 +312,11 @@ Euler proved that every prime $p\equiv 1\pmod{4}$ can be written as a sum of two
 
 Charles Hermite and Joseph-Alfred Serret observed independently in the same year \cite{hermite1848,serret1848}, that there is a remarkable connection between Fermat's problem of expressing a prime $p$ congruent to $1$ modulo $4$ and Euclid's algorithm for finding the greatest common divisor. Their method was later improved by John Brillhart in \cite{brillhart1972}, which we will follow here.
 
-The method of Brillhart--Hermite--Serret starts by making the following observation. Consider first a pair $(a,b)$ of relatively prime integers with $a>b>0$, and use Euclid's algorithm to find a corresponding sequence $(q_0,\ldots,q_N)$ of positive integers, as described in \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, and form the sequence
+The method of Brillhart--Hermite--Serret starts by making the following observation. Consider first a pair $(a,b)$ of relatively prime integers with $a>b>0$, and use Euclid's algorithm to find a corresponding sequence $(q_0,\ldots,q_N)$ of positive integers, as described in \zcref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, and form the sequence
 \begin{equation*}
   (q_N,\ldots,q_0,q_0,\ldots,q_N).
 \end{equation*}
-This sequence of quotients determines, again via \cref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, a pair $(c,d)$ of relatively prime integers with $c>d>0$.
+This sequence of quotients determines, again via \zcref{theorem:correspondence-theorem-quotients-euclidean-algorithm}, a pair $(c,d)$ of relatively prime integers with $c>d>0$.
 
 \begin{theorem}
   Let $(a,b)$ and $(c,d)$ be defined as in the preceeding paragraph. Then we have the identities
@@ -365,7 +365,7 @@ Exclam! We have expressed $521$ as a sum of squares!
   \begin{equation*}
     b_{\mathbf{q},r}a_{\mathbf{q}}-a_{\mathbf{q},r}b_{\mathbf{q}}=(-1)^n
   \end{equation*}
-  of \cref{theorem:determinant-formula-convergents} implies at once that $a_{\mathbf{q},r}$ and $a_{\mathbf{q}}$ are relatively prime, so that the fraction $\frac{a_\mathbf{q},r}{a_{\mathbf{q}}}$ is indeed in lowest terms.
+  of \zcref{theorem:determinant-formula-convergents} implies at once that $a_{\mathbf{q},r}$ and $a_{\mathbf{q}}$ are relatively prime, so that the fraction $\frac{a_\mathbf{q},r}{a_{\mathbf{q}}}$ is indeed in lowest terms.
 \end{proof}
 
 \begin{theorem}[Palindromic Continued Fractions of Even Length]
@@ -445,7 +445,7 @@ Exclam! We have expressed $521$ as a sum of squares!
 \end{starter}
 
 \begin{routine}
-  \exercise Show that a natural number $n$ can be written as the sum of two triangular numbers if and only if $8n+2$ can be written as the sum of two squares. Hint: Use one of the identities stated in \cref{exercise:identities-triangular-numbers}.
+  \exercise Show that a natural number $n$ can be written as the sum of two triangular numbers if and only if $8n+2$ can be written as the sum of two squares. Hint: Use one of the identities stated in \zcref{exercise:identities-triangular-numbers}.
 \end{routine}
 
 %%% Local Variables:

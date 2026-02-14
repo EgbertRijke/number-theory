@@ -29,7 +29,8 @@ Thus we see that the derivative of the function $x\mapsto \log(x)$ is $\frac{1}{
 
 \begin{proof}[Proof by an integral test]
   Since the inequality $\frac{1}{x}\leq \frac{1}{\lfloor x\rfloor}$ holds for all $x\geq 1$, we can estimate the sum of the unit fractions $\frac{1}{n}$ from below by computing the area under the graph of the function $x\mapsto \frac{1}{x}$
-  \begin{equation*}
+  \begin{figure}[h]
+    \centering
     \begin{tikzpicture}[scale=1.2]
       
       % For each integer n, plot the step function and shade the area between the horizontal bar and the curve.
@@ -71,7 +72,7 @@ Thus we see that the derivative of the function $x\mapsto \log(x)$ is $\frac{1}{
       \draw[->] (0,-.2) -- (0,2.2) node[above] {$y$};
       
     \end{tikzpicture}
-  \end{equation*}
+  \end{figure}
   The shaded area is computed by integrating the function $x\mapsto \frac{1}{x}$, so we find that
   \begin{equation*}
     \log N<\int_1^{N+1}\frac{1}{x}\,\mathrm{d}x<\sum_{n=1}^N\frac{1}{n}.

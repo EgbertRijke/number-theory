@@ -56,11 +56,11 @@ The previous definitions of rings, integral domains, and fields are extremely ge
   \begin{equation*}
     a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0\qquad\text{and}\qquad b_nx^n+ b_{n-1}x^{n-1} +\cdots + b_0
   \end{equation*}
-  are said to be equal if their coefficients are equal, meaning that $a_i=b_i$ for all $0\leq i\leq n$, while functions are considered equal if their values are equal. This is an important distinction, because for some number systems such as the integers modulo $n$, polynomials aren't necessarily equal as polynomials when they are equal as functions. For instance, by \crefnamed{theorem:fermats-little-theorem} we have that
+  are said to be equal if their coefficients are equal, meaning that $a_i=b_i$ for all $0\leq i\leq n$, while functions are considered equal if their values are equal. This is an important distinction, because for some number systems such as the integers modulo $n$, polynomials aren't necessarily equal as polynomials when they are equal as functions. For instance, by \zcrefnamed{theorem:fermats-little-theorem} we have that
   \begin{equation*}
     x^p \equiv x\pmod{p},
   \end{equation*}
-  while the polynomials $x^p$ and $x$ clearly can be distinguished by their coefficients. Nevertheless, we will show in \cref{corollary:extensionality-integer-polynomials} that two polynomials with integer coefficients have equal coefficients if and only if they define equal functions.
+  while the polynomials $x^p$ and $x$ clearly can be distinguished by their coefficients. Nevertheless, we will show in \zcref{corollary:extensionality-integer-polynomials} that two polynomials with integer coefficients have equal coefficients if and only if they define equal functions.
 \end{remark}
 
 \begin{definition}
@@ -105,7 +105,7 @@ In the following theorem we will prove that if $r$ is a root of the polynomial $
   \begin{equation*}
     f(x) = f(x)-f(r) = a_n(x^n-r^n)+\cdots + a_1(x-r).
   \end{equation*}
-  By the formula for the difference of $k$th powers, which was stated in \cref{exercise:difference-of-powers} and which holds in any ring, we can factor $x^k-r^k$ as
+  By the formula for the difference of $k$th powers, which was stated in \zcref{exercise:difference-of-powers} and which holds in any ring, we can factor $x^k-r^k$ as
   \begin{equation*}
     x^k-r^k=(x-r)q_k(x),\qquad\text{where}\qquad q_k(x)=\sum_{i=0}^{k-1}x^ir^{k-1-i}
   \end{equation*}
@@ -115,7 +115,7 @@ In the following theorem we will prove that if $r$ is a root of the polynomial $
   \end{equation*}
 \end{proof}
 
-\crefnamed{theorem:factor-theorem} has some important corollaries. One of them states that in an integral domain, where the product of any two nonzero numbers is guaranteed to be nonzero, any polynomial of degree $n$ has at most $n$ roots.
+\zcrefnamed{theorem:factor-theorem} has some important corollaries. One of them states that in an integral domain, where the product of any two nonzero numbers is guaranteed to be nonzero, any polynomial of degree $n$ has at most $n$ roots.
 
 \begin{corollary}\label{corollary:number-of-roots-polynomial}
   Consider an integral domain $R$. A polynomial of degree $n$ with coefficients in $R$ has at most $n$ roots.
@@ -128,7 +128,7 @@ In the following theorem we will prove that if $r$ is a root of the polynomial $
   \begin{equation*}
     f(x)=(x-r)g(x)
   \end{equation*}
-  by \crefnamed{theorem:factor-theorem}, where $g(x)$ is a polynomial of degree $n$. Since we assumed that $R$ is an integral domain, it follows that for any element $x\in R$, the identity $(x-r)g(x)=0$ holds in $R$ if and only if one of the identities $x-r=0$ or $g(x)=0$ holds in $R$. Thus we see that $x$ is a root of the polynomial $f(x)$ if and only if $x=r$ or $x$ is a root of the polynomial $g(x)$. We conclude that the polynomial $f(x)$ has at most $n+1$ roots.
+  by \zcrefnamed{theorem:factor-theorem}, where $g(x)$ is a polynomial of degree $n$. Since we assumed that $R$ is an integral domain, it follows that for any element $x\in R$, the identity $(x-r)g(x)=0$ holds in $R$ if and only if one of the identities $x-r=0$ or $g(x)=0$ holds in $R$. Thus we see that $x$ is a root of the polynomial $f(x)$ if and only if $x=r$ or $x$ is a root of the polynomial $g(x)$. We conclude that the polynomial $f(x)$ has at most $n+1$ roots.
 \end{proof}
 
 The Factor Theorem also raises an immediate question of uniqueness. If $f(x)$ and $g(x)$ are two polynomials, is there always at most one way in which we can write
@@ -177,7 +177,7 @@ has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we wi
 \end{theorem}
 
 \begin{proof}
-  The proof is very similar to the proof of \cref{theorem:factor-theorem}. First, we note that the converse direction is trivial, so we focus on the forward direction. Suppose that
+  The proof is very similar to the proof of \zcref{theorem:factor-theorem}. First, we note that the converse direction is trivial, so we focus on the forward direction. Suppose that
   \begin{equation*}
     f(r) \equiv 0 \pmod{n}
   \end{equation*}
@@ -185,7 +185,7 @@ has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we wi
   \begin{equation*}
     f(x)\equiv f(x)-f(r) \pmod{n},
   \end{equation*}
-  and the factorization of $f(x)-f(r)$ as $(x-r)g(x)$ follows in the same way as for \cref{theorem:factor-theorem}.
+  and the factorization of $f(x)-f(r)$ as $(x-r)g(x)$ follows in the same way as for \zcref{theorem:factor-theorem}.
 \end{proof}
 
 \begin{theorem}[Lagrange's Theorem]\label{theorem:lagranges-theorem}
@@ -205,7 +205,7 @@ has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we wi
 
   Now suppose that any polynomial congruence modulo $p$ of degree $n$ has at most $n$ solutions, and consider a polynomial congruence $f(x)\equiv 0\pmod{p}$ of degree $n+1$. If this congruence has no roots, then the number of solutions is certainly below $n+1$.
 
-  On the other hand, if $f(r)\equiv 0\pmod{p}$ is a solution, then by \crefnamed{theorem:factor-theorem-modular-arithmetic} we can find a polynomial $g(x)$ of degree $n$ such that
+  On the other hand, if $f(r)\equiv 0\pmod{p}$ is a solution, then by \zcrefnamed{theorem:factor-theorem-modular-arithmetic} we can find a polynomial $g(x)$ of degree $n$ such that
   \begin{equation*}
     f(x)\equiv (x-r)g(x) \pmod{p}.
   \end{equation*}
@@ -213,12 +213,12 @@ has four solutions, the numbers $1$, $3$, $5$, and $7$. On the other hand, we wi
   \begin{equation*}
     (x-r)g(x)\equiv 0 \pmod{p}
   \end{equation*}
-  have the same sets of solutions. Since $p$ is prime, we have by \cref{proposition:euclid-divisibility-primes} that $ab\equiv 0\pmod{p}$ if and only if $a\equiv 0\pmod{p}$ or $b\equiv 0\pmod{p}$. Any solution $x$ of the congruence $(x-r)g(x)\equiv 0\pmod{p}$ must therefore satisfy $x-r\equiv 0\pmod{p}$ or $g(x)\equiv 0\pmod{p}$. There are at most $d$ solutions of the polynomial congruence $g(x)\equiv 0\pmod{p}$, so we conclude that there are at most $d+1$ solutions to the polynomial congruence $f(x)\equiv 0\pmod{p}$.
+  have the same sets of solutions. Since $p$ is prime, we have by \zcref{proposition:euclid-divisibility-primes} that $ab\equiv 0\pmod{p}$ if and only if $a\equiv 0\pmod{p}$ or $b\equiv 0\pmod{p}$. Any solution $x$ of the congruence $(x-r)g(x)\equiv 0\pmod{p}$ must therefore satisfy $x-r\equiv 0\pmod{p}$ or $g(x)\equiv 0\pmod{p}$. There are at most $d$ solutions of the polynomial congruence $g(x)\equiv 0\pmod{p}$, so we conclude that there are at most $d+1$ solutions to the polynomial congruence $f(x)\equiv 0\pmod{p}$.
 \end{proof}
 
 The previous theorem is due to Joseph-Louis Lagrange, published in 1770 in \emph{Réflexions sur la résolution algébrique des équations} \cite{lagrange1770}. Lagrange demonstrated that the roots of polynomials can be studied by their permutations. His ideas would eventually lead to the emergence of group theory (the study of symmetry), and Galois theory.
 
-While \crefnamed{theorem:lagranges-theorem} establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use \crefnamed{theorem:fermats-little-theorem} to find examples of polynomial congruences that have the maximum allowable number of solutions.
+While \zcrefnamed{theorem:lagranges-theorem} establishes an upper bound for the number of incongruent solutions of a polynomial congruence modulo a prime, we can use \zcrefnamed{theorem:fermats-little-theorem} to find examples of polynomial congruences that have the maximum allowable number of solutions.
 
 \begin{theorem}\label{theorem:maximal-number-of-roots-pow-minus-id}
   Consider a prime $p$ and a positive integer $n$ such that $n\mid p-1$. Then the polynomial congruence
@@ -240,10 +240,10 @@ While \crefnamed{theorem:lagranges-theorem} establishes an upper bound for the n
   have at most $n$ and $p-1-n$ solutions, respectively. Since their product has $p-1$ solutions, it follows that the polynomial congruence $x^n-1\equiv 0\pmod{p}$ must have exactly $n$ solutions.
 \end{proof}
 
-\crefnamed{theorem:lagranges-theorem} can also be used to give another proof of \cref{theorem:quadratic-character-neg-1}, which states that for an odd prime $p$, the quadratic congruence $x^2\equiv -1\pmod{p}$ has a solution if and only if $p\equiv 1\pmod{4}$.
+\zcrefnamed{theorem:lagranges-theorem} can also be used to give another proof of \zcref{theorem:quadratic-character-neg-1}, which states that for an odd prime $p$, the quadratic congruence $x^2\equiv -1\pmod{p}$ has a solution if and only if $p\equiv 1\pmod{4}$.
 
-\begin{proof}[Proof of \cref{theorem:quadratic-character-neg-1}]
-  We prove that if $p\equiv 1\pmod{4}$, then there is a square root of $-1$ modulo $p$. Consider a prime $p$ of the form $4k+1$. Then \crefnamed{theorem:fermats-little-theorem} implies that
+\begin{proof}[Proof of \zcref{theorem:quadratic-character-neg-1}]
+  We prove that if $p\equiv 1\pmod{4}$, then there is a square root of $-1$ modulo $p$. Consider a prime $p$ of the form $4k+1$. Then \zcrefnamed{theorem:fermats-little-theorem} implies that
   \begin{equation*}
     (x^{2k}+1)(x^{2k}-1)=x^{4k}-1\equiv 0\pmod{p}.
   \end{equation*}
@@ -260,7 +260,7 @@ While \crefnamed{theorem:lagranges-theorem} establishes an upper bound for the n
 
 \section{Lagrange's Interpolation Theorem}
 
-Lagrange's Interpolation Theorem establishes that for any set of data points, as illustrated in \cref{figure:lagrange-interpolation}, there is always a way of defining a polynomial that exactly matches the data. Moreover, it gives the unique way of defining such a polynomial in the lowest degree. Interpolation theorems such as Lagrange's or Newton's addressed a practical need for geometers of the $17th$ and $18th$ centuries: It allowed them to estimate intermediate values of a function from a finite amount of data such as tables of planetary positions or values of trigonometric functions.
+Lagrange's Interpolation Theorem establishes that for any set of data points, as illustrated in \zcref{figure:lagrange-interpolation}, there is always a way of defining a polynomial that exactly matches the data. Moreover, it gives the unique way of defining such a polynomial in the lowest degree. Interpolation theorems such as Lagrange's or Newton's addressed a practical need for geometers of the $17th$ and $18th$ centuries: It allowed them to estimate intermediate values of a function from a finite amount of data such as tables of planetary positions or values of trigonometric functions.
 
 Lagrange's Interpolation Theorem has the important consequence that any polynomial of degree $n$ is uniquely determined by any $n+1$ of its values. We will also use Lagrange's Interpolation Theorem in the next section to derive a divisibility property of polynomials due to Kurt Hensel.
 
@@ -305,7 +305,7 @@ The idea underlying Lagrange's Interpolation Theorem is to break the problem int
 Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus there is some constant $c_i$ such that $c_ig_i(x_i)=y_i$. Adding them all up gives the Lagrange Interpolation Theorem.
 
 \begin{example}
-  In \cref{figure:lagrange-interpolation}, we started with the set of points
+  In \zcref{figure:lagrange-interpolation}, we started with the set of points
   \begin{equation*}
     (0,1),\ (1,-2),\ (2,0),\ (3,1).
   \end{equation*}
@@ -346,7 +346,7 @@ Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus ther
   \begin{equation*}
     f(x)-g(x)
   \end{equation*}
-  is a polynomial of degree at most $n$ with $n+1$ roots. By virtue of \cref{corollary:number-of-roots-polynomial} this is only possible if $f(x)-g(x)$ is the zero polynomial, that is, if $f(x)=g(x)$.
+  is a polynomial of degree at most $n$ with $n+1$ roots. By virtue of \zcref{corollary:number-of-roots-polynomial} this is only possible if $f(x)-g(x)$ is the zero polynomial, that is, if $f(x)=g(x)$.
 \end{proof}
 
 \begin{corollary}\label{corollary:extensionality-integer-polynomials}
@@ -363,7 +363,7 @@ Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus ther
 \end{corollary}
 
 % \begin{proof}
-%   The forward direction, which asserts that if $f(x)$ and $g(x)$ have equal coefficients then they define the same function, is immediate. For the converse, assume that $f(x)=g(x)$ for every $x$. Then the polynomial $f(x)-g(x)$ must be the zero polynomial, since any other polynomial has a degree and a polynomial of degree $n$ has at most $n$ roots by \cref{corollary:number-of-roots-polynomial}.
+%   The forward direction, which asserts that if $f(x)$ and $g(x)$ have equal coefficients then they define the same function, is immediate. For the converse, assume that $f(x)=g(x)$ for every $x$. Then the polynomial $f(x)-g(x)$ must be the zero polynomial, since any other polynomial has a degree and a polynomial of degree $n$ has at most $n$ roots by \zcref{corollary:number-of-roots-polynomial}.
   
 %   On the other hand, the polynomial $f(x)-g(x)$ is defined as
 %   \begin{equation*}
@@ -426,12 +426,12 @@ Equipped with this change of perspective, we can prove that a polynomial of degr
   \begin{equation*}
     g_i(x)=\prod_{j=0}^{i-1}\frac{x-j}{i-j}\prod_{j=i+1}^{n}\frac{x-j}{i-j}=(-1)^{n-i}\binom{x}{i}\binom{x-i-1}{n-i},
   \end{equation*}
-  which is an integer for every integer $x$. Therefore it follows by \crefnamed{theorem:lagranges-interpolation-theorem} that every value $f(x)$ can be written as an integer linear combination of the integers $f(0),\ldots,f(n)$, which proves the theorem.
+  which is an integer for every integer $x$. Therefore it follows by \zcrefnamed{theorem:lagranges-interpolation-theorem} that every value $f(x)$ can be written as an integer linear combination of the integers $f(0),\ldots,f(n)$, which proves the theorem.
 \end{proof}
 
 \section{Fixed Divisors of Integer Polynomials}\label{section:fixed-divisors}
 
-In \cref{chapter:linear-diophantine-equations}, we have done a few exercises which asked us to show that integers in certain polynomial forms satisfy a divisibility property. For example, we showed that $a^3-a$ is always divisible by $6$, and that $a^5-a$ is always divisible by $30$. We also showed that the product of any $n$ consecutive integers is always divisible by $n!$. In this section we will establish a vast generalization of these facts.
+In \zcref{chapter:linear-diophantine-equations}, we have done a few exercises which asked us to show that integers in certain polynomial forms satisfy a divisibility property. For example, we showed that $a^3-a$ is always divisible by $6$, and that $a^5-a$ is always divisible by $30$. We also showed that the product of any $n$ consecutive integers is always divisible by $n!$. In this section we will establish a vast generalization of these facts.
 
 \begin{definition}\label{definition:fixed-divisor}
   The \emph{fixed divisor} of a function $f:X\to \mathbb{Z}$ into the integers is the greatest common divisor of all values of $f$, i.e.,
@@ -440,7 +440,7 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
   \end{equation*}
 \end{definition}
 
-\crefnamed{theorem:lagranges-interpolation-theorem} can be used to determine the greatest common divisor of all the values of a polynomial, by examining only one more value than its degree. This observation is due to Kurt Hensel, who was a student of Leopold Kronecker.
+\zcrefnamed{theorem:lagranges-interpolation-theorem} can be used to determine the greatest common divisor of all the values of a polynomial, by examining only one more value than its degree. This observation is due to Kurt Hensel, who was a student of Leopold Kronecker.
 
 \begin{theorem}[Hensel's Fixed Divisor Theorem \cite{hensel1896}]\label{theorem:hensels-fixed-divisor-theorem}
   Consider a polynomial $f(x)$ of degree $n$, with integer coefficients. Then the fixed divisor of $f$ is the greatest common divisor
@@ -455,7 +455,7 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
   \begin{equation*}
     f(0),\ldots,f(n).
   \end{equation*}
-  Now recall from \cref{theorem:integer-valued-polynomials} that the values $f(x)$ are integer linear combinations of the values $f(0),\ldots,f(n)$:
+  Now recall from \zcref{theorem:integer-valued-polynomials} that the values $f(x)$ are integer linear combinations of the values $f(0),\ldots,f(n)$:
   \begin{equation*}
     f(x)=\sum_{i=0}^nf(i)g_i(x).
   \end{equation*}
@@ -481,12 +481,12 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
     \gcd(\{f(k)\mid 2\leq k \leq (n+1)/2\}).
   \end{equation*}
   \begin{enumerate}
-  \item For $n=3$, the only number $2\leq k\leq (n+1)/2$ is the number $2$. The polynomial $f(x)=x^3-x$ from \cref{exercise:div-third-power-minus-first-power} has the value
+  \item For $n=3$, the only number $2\leq k\leq (n+1)/2$ is the number $2$. The polynomial $f(x)=x^3-x$ from \zcref{exercise:div-third-power-minus-first-power} has the value
     \begin{equation*}
       f(2)=6,
     \end{equation*}
     so the fixed divisor of $x^3-x$ is $6$, which is $2\cdot 3$.
-  \item For $n=5$, the only two numbers $2\leq k \leq (n+1)/2$ are the numbers $2$ and $3$. The polynomial $f(x)=x^5-x$ from \cref{exercise:div-fifth-power-minus-first-power} has the values
+  \item For $n=5$, the only two numbers $2\leq k \leq (n+1)/2$ are the numbers $2$ and $3$. The polynomial $f(x)=x^5-x$ from \zcref{exercise:div-fifth-power-minus-first-power} has the values
     \begin{equation*}
       f(2)=30 \qquad\text{and}\qquad f(3)=240.
     \end{equation*}
@@ -500,7 +500,7 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
       \gcd(126,2184)=42=2\cdot 3\cdot 7.
     \end{equation*}
   \end{enumerate}
-  We will generalize these examples in \cref{theorem:fixed-divisors-fermat-polynomials}.
+  We will generalize these examples in \zcref{theorem:fixed-divisors-fermat-polynomials}.
 \end{example}
 
 %%%%%
@@ -558,7 +558,7 @@ In \cref{chapter:linear-diophantine-equations}, we have done a few exercises whi
       0 & \text{otherwise.}
     \end{cases}
   \end{equation*}
-  Use these polynomials similarly to the basis polynomials in \crefnamed{theorem:lagranges-interpolation-theorem} to show that every function $\mathbb{Z}/p\mathbb{Z}\to \mathbb{Z}/p\mathbb{Z}$ is polynomial.
+  Use these polynomials similarly to the basis polynomials in \zcrefnamed{theorem:lagranges-interpolation-theorem} to show that every function $\mathbb{Z}/p\mathbb{Z}\to \mathbb{Z}/p\mathbb{Z}$ is polynomial.
   \exercise Define the $k$th \emph{power sum}
   \begin{equation*}
     p_k(a_1,\ldots,a_n) := a_1^k + \cdots + a_n^k.

@@ -30,7 +30,7 @@ now implies that $m=k+1$. Thus we have proven the following proposition, which E
   If the number $2^m-1$ is prime, then the number $2^{m-1}(2^m-1)$, which is indeed the $(2^m-1)$th triangular number, is perfect.
 \end{proposition}
 
-Using Euclid's method, we can find the first few perfect numbers. \cref{tab:mersenne-numbers} displays the prime factorization of the \emph{Mersenne number} $2^m-1$ for $2\leq m\leq 11$.
+Using Euclid's method, we can find the first few perfect numbers. \zcref{tab:mersenne-numbers} displays the prime factorization of the \emph{Mersenne number} $2^m-1$ for $2\leq m\leq 11$.
 
 \begin{table}[H]
   \centering
@@ -112,7 +112,7 @@ The multiplicative property of the sum-of-divisors function along with the expre
 \end{corollary}
 
 \begin{example}
-  We saw in \cref{example:15!} that $15!=2^{11}\cdot 3^6\cdot 5^3\cdot 7^2 \cdot 11\cdot 13$. It follows that
+  We saw in \zcref{example:15!} that $15!=2^{11}\cdot 3^6\cdot 5^3\cdot 7^2 \cdot 11\cdot 13$. It follows that
   \begin{equation*}
     \sigma(15!)=(2^{12}-1)\cdot \frac{3^7-1}{2}\cdot \frac{5^4-1}{4}\cdot \frac{7^3-1}{6}\cdot 12\cdot 14=2^5\cdot 3^5\cdot 5\cdot 7^2 \cdot 13^2\cdot 19\cdot 1093.
   \end{equation*}
@@ -196,7 +196,7 @@ By the previous lemma, we can test whether an integer is relatively prime to $n$
 \end{theorem}
 
 \begin{proof}
-  We prove the claim by a counting argument: We claim that the bijection of \crefnamed{theorem:chinese-remainder-theorem}
+  We prove the claim by a counting argument: We claim that the bijection of \zcrefnamed{theorem:chinese-remainder-theorem}
   \begin{equation*}
     \{0\leq x<mn\}\cong
     \{0\leq a<m\}\times
@@ -260,7 +260,7 @@ Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient
     \end{tabular}
     \caption{\label{table:totient-power-of-two}Lists of numbers $n$ for which $\totient(n)=2^k$}
   \end{table}
-  We will use \cref{theorem:product-formula-totient} to determine all $n$ for which $\totient(n)=2^k$ for some $k$.
+  We will use \zcref{theorem:product-formula-totient} to determine all $n$ for which $\totient(n)=2^k$ for some $k$.
 
   If $p$ is an odd prime so that $p^a-p^{a-1}=p^{a-1}(p-1)$ is a power of $2$, then it follows that $a-1=0$. In other words, in order for $p^a-p^{a-1}$ to be a power of $2$, we must have $a=1$. This shows that if $\totient(n)$ is a power of $2$, then $n$ must be of the form
   \begin{equation*}
@@ -270,7 +270,7 @@ Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient
   \begin{equation*}
     3,~5,~17,~257,~\text{and}~65537.
   \end{equation*}
-  We conclude that the only numbers $n$ for which $\totient(n)=4$ are $5$, $8$, $10$, and $12$, and the only numbers $n$ for which $\totient(n)=8$ are $15$, $16$, $20$, $24$, and $30$. \cref{table:totient-power-of-two} lists the numbers $n$ for which $\totient(n)=2^k$ up to $2^k=128$.
+  We conclude that the only numbers $n$ for which $\totient(n)=4$ are $5$, $8$, $10$, and $12$, and the only numbers $n$ for which $\totient(n)=8$ are $15$, $16$, $20$, $24$, and $30$. \zcref{table:totient-power-of-two} lists the numbers $n$ for which $\totient(n)=2^k$ up to $2^k=128$.
 \end{example}
 
 % \begin{proposition}
@@ -375,7 +375,7 @@ The following theorem provides a useful way of proving that a function is multip
   \begin{equation*}
     \tau(n):= \sum_{d\mid n}1,\qquad\text{and}\qquad\sigma(n):=\sum_{d\mid n}d.
   \end{equation*}
-  Clearly the constant function $n\mapsto 1$ and the identity function $n\mapsto n$ are multiplicative, so it follows from \cref{theorem:multiplicative-functions} that $\tau$ and $\sigma$ are multiplicative.
+  Clearly the constant function $n\mapsto 1$ and the identity function $n\mapsto n$ are multiplicative, so it follows from \zcref{theorem:multiplicative-functions} that $\tau$ and $\sigma$ are multiplicative.
 \end{proof}
 
 The previous theorem implies that if $n=p_1^{m_1}\cdots p_k^{m_k}$ is a product of distinct primes, then
@@ -388,7 +388,7 @@ Indeed, for any prime power $p^m$, the divisors of $p^m$ are the prime powers $p
 \end{equation*}
 
 \begin{remark}
-  Many identities of arithmetic functions involve reindexing double sums such as in the proof of \cref{theorem:multiplicative-functions}. Another reindexing identity that is occasionally helpful is:
+  Many identities of arithmetic functions involve reindexing double sums such as in the proof of \zcref{theorem:multiplicative-functions}. Another reindexing identity that is occasionally helpful is:
   \begin{equation*}
     \sum_{c\mid n}\sum_{d\mid c}f(c,d)=\sum_{d\mid n}\sum_{e\mid \frac{n}{d}}f(de,d).
   \end{equation*}
@@ -452,7 +452,7 @@ It is immediate from the definition that the M\"obius function is multiplicative
   \begin{equation*}
     F(n) := \sum_{d\mid n}\mu(d)
   \end{equation*}
-  is multiplicative by \cref{theorem:multiplicative-functions}. Since multiplicative functions are completely determined by their values on prime powers, and $\varepsilon$ is the multiplicative function given by
+  is multiplicative by \zcref{theorem:multiplicative-functions}. Since multiplicative functions are completely determined by their values on prime powers, and $\varepsilon$ is the multiplicative function given by
   \begin{equation*}
     \varepsilon(n) =
     \begin{cases}
@@ -565,7 +565,7 @@ The set of arithmetic functions with values taken in a fixed, chosen number syst
 \end{proof}
 
 \begin{example}
-  The Dirichlet inverse of the constant function $1$ is the M\"obius function $\mu$. Indeed, we saw in \cref{theorem:inverse-mobius-function} that $\mu\ast 1=\varepsilon$.
+  The Dirichlet inverse of the constant function $1$ is the M\"obius function $\mu$. Indeed, we saw in \zcref{theorem:inverse-mobius-function} that $\mu\ast 1=\varepsilon$.
 \end{example}
 
 \begin{remark}
@@ -610,17 +610,17 @@ The set of arithmetic functions with values taken in a fixed, chosen number syst
 \end{corollary}
 
 \begin{proof}
-  By \cref{theorem:dirichlet-convolution-phi} we have $\mathrm{id}=1\ast \totient$, so we have $\totient=\mu\ast\mathrm{id}$ by the M\"obius inversion formula.
+  By \zcref{theorem:dirichlet-convolution-phi} we have $\mathrm{id}=1\ast \totient$, so we have $\totient=\mu\ast\mathrm{id}$ by the M\"obius inversion formula.
 \end{proof}
 
-We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offering a second perspective on the totient function.
+We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offering a second perspective on the totient function.
 
-\begin{proof}[Direct proof of \cref{corollary:mobius-inversion-totient}]
+\begin{proof}[Direct proof of \zcref{corollary:mobius-inversion-totient}]
   Note that Euler's totient function $\totient$ can be written in the form
   \begin{equation*}
     \totient(n) = \sum_{k=1}^n\left\lfloor\frac{1}{\gcd(k,n)}\right\rfloor.
   \end{equation*}
-  Then it follows from \cref{theorem:inverse-mobius-function} that
+  Then it follows from \zcref{theorem:inverse-mobius-function} that
   \begin{equation*}
     \totient(n) = \sum_{k=1}^n\sum_{d\mid \gcd(k,n)}\mu(d)
     = \sum_{k=1}^n\sum_{\substack{d\mid n \\ d\mid k}}\mu(d)
@@ -658,7 +658,7 @@ We also give a direct proof of \cref{corollary:mobius-inversion-totient}, offeri
   \begin{equation*}
     q\equiv 1\pmod{2p}.
   \end{equation*}
-  Hint: Apply \crefnamed{theorem:order-theorem}.
+  Hint: Apply \zcrefnamed{theorem:order-theorem}.
   % This exercise uses Fermat's little theorem
   \exercise
   \begin{subexenum}

@@ -17,7 +17,7 @@
 \begin{proof}[Fermat's additive proof]
   This proof is by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds.
 
-  For the inductive step, assume that $a^p\equiv a\pmod{p}$. \crefnamed{theorem:binomial-theorem} then gives us that
+  For the inductive step, assume that $a^p\equiv a\pmod{p}$. \zcrefnamed{theorem:binomial-theorem} then gives us that
   \begin{equation*}
     (a+1)^p=\sum_{k=0}^p \binom{p}{k}a^k
   \end{equation*}
@@ -78,7 +78,7 @@
 \begin{proof}[Golomb's combinatorial proof \cite{golomb1956}]
   Consider a set $A$ with $a$ elements, and a cyclic set $C$ with $p$ elements. There are $a^p$ functions from $C$ to $A$. Each such function $f:C\to A$ can be viewed as a labelling of each of the elements of $C$ by an element of $A$.
 
-  Since the set $C$ is cyclically ordered, it is natural to consider two such labellings equivalent if one can be obtained from the other by rotating the cyclic set $C$. We indicated this equivalence in \cref{figure:golombs-proof-FLT}. We claim that the number of functions that are equivalent to a labelling $f$ is always a divisor of the number of elements of $C$, which is $p$. Indeed, if $s:C\to C$ is the one-step rotation, then the number of functions equivalent to $f$ is equal to the least positive integer $k$ such that
+  Since the set $C$ is cyclically ordered, it is natural to consider two such labellings equivalent if one can be obtained from the other by rotating the cyclic set $C$. We indicated this equivalence in \zcref{figure:golombs-proof-FLT}. We claim that the number of functions that are equivalent to a labelling $f$ is always a divisor of the number of elements of $C$, which is $p$. Indeed, if $s:C\to C$ is the one-step rotation, then the number of functions equivalent to $f$ is equal to the least positive integer $k$ such that
   \begin{equation*}
     f\circ s^k=f.
   \end{equation*}
@@ -119,11 +119,11 @@ Fermat's Little Theorem can be used to analyze the prime divisors of special num
   \begin{equation*}
     2^{2^n}\equiv -1\pmod{p}.
   \end{equation*}
-  This implies via \crefnamed{theorem:order-theorem} that $\ord_p(2)\mid 2^{n+1}$. In particular, $\ord_p(2)=2^k$ for some number $k\leq n+1$. However, note that
+  This implies via \zcrefnamed{theorem:order-theorem} that $\ord_p(2)\mid 2^{n+1}$. In particular, $\ord_p(2)=2^k$ for some number $k\leq n+1$. However, note that
   \begin{equation*}
     2^{2^k}\equiv 1\pmod{p}\qquad\text{implies}\qquad 2^{2^{k+1}}= (2^{2^k})^2\equiv 1 \pmod{p}.
   \end{equation*}
-  Since $2^{2^{n}}\equiv -1\pmod{p}$, it follows that the order of $2$ modulo $p$ cannot divide $2^n$. Thus, it follows that $\ord_p(2)=2^{n+1}$. By \crefnamed{theorem:fermats-little-theorem}, we conclude that
+  Since $2^{2^{n}}\equiv -1\pmod{p}$, it follows that the order of $2$ modulo $p$ cannot divide $2^n$. Thus, it follows that $\ord_p(2)=2^{n+1}$. By \zcrefnamed{theorem:fermats-little-theorem}, we conclude that
   \begin{equation*}
     2^{n+1}\mid p-1.\qedhere
   \end{equation*}
@@ -134,7 +134,7 @@ Fermat's Little Theorem can be used to analyze the prime divisors of special num
 \end{corollary}
 
 \begin{proof}
-  Any prime divisor of $F_4=2^{2^4}+1$ must satisfy the congruence $p\equiv 1\pmod{33}$. If $F_4$ is composite, then it must have a prime divisor below $\sqrt{F_4}$, and thus below $2^8=256$. The sieve of Eratosthenes displayed in \cref{figure:sieve-of-eratosthenes} reveals that the only two primes $p\equiv 1\pmod{33}$ below $256$ are $97$ and $193$. A quick computation gives that
+  Any prime divisor of $F_4=2^{2^4}+1$ must satisfy the congruence $p\equiv 1\pmod{33}$. If $F_4$ is composite, then it must have a prime divisor below $\sqrt{F_4}$, and thus below $2^8=256$. The sieve of Eratosthenes displayed in \zcref{figure:sieve-of-eratosthenes} reveals that the only two primes $p\equiv 1\pmod{33}$ below $256$ are $97$ and $193$. A quick computation gives that
   \begin{equation*}
     F_4\equiv 62\pmod{97}\qquad\text{and}\qquad F_4\equiv 110\pmod{193},
   \end{equation*}
@@ -146,11 +146,11 @@ Fermat's Little Theorem can be used to analyze the prime divisors of special num
 \end{corollary}
 
 \begin{proof}
-  By \cref{theorem:prime-divisors-fermat-numbers} it follows that any prime divisor of $2^{2^5}+1$ must satisfy
+  By \zcref{theorem:prime-divisors-fermat-numbers} it follows that any prime divisor of $2^{2^5}+1$ must satisfy
   \begin{equation*}
     p\equiv 1\pmod{2^6}.
   \end{equation*}
-  The prime numbers of the form $64k+1$ below one thousand are $193$, $257$, $449$, $577$, and $641$, as can be read off of \cref{figure:sieve-of-eratosthenes}. We will prove that $193$, $257$, $449$, and $577$ do not divide $F_5$, and that $641$ does.
+  The prime numbers of the form $64k+1$ below one thousand are $193$, $257$, $449$, $577$, and $641$, as can be read off of \zcref{figure:sieve-of-eratosthenes}. We will prove that $193$, $257$, $449$, and $577$ do not divide $F_5$, and that $641$ does.
   \begin{enumerate}
   \item First, we note that $3\cdot 2^6\equiv -1\pmod{193}$, which implies that
     \begin{equation*}
@@ -165,7 +165,7 @@ Fermat's Little Theorem can be used to analyze the prime divisors of special num
       1\equiv 3^{16}\equiv (-2)^{6\cdot 16}\equiv 2^{96}\pmod{193},
     \end{equation*}
     which allows us to conclude that $\ord_{193}(2)\mid 96$. Now observe that if $193\mid F_5$ so that $2^{32}\equiv -1\pmod{193}$, then we'd have $\ord_{193}(2)=64\nmid 96$, a contradiction.
-  \item Note that $257$ is itself a Fermat number. In \crefnamed{theorem:goldbachs-theorem} we showed that any two distinct Fermat numbers are relatively prime, so that $257\nmid F_5$.
+  \item Note that $257$ is itself a Fermat number. In \zcrefnamed{theorem:goldbachs-theorem} we showed that any two distinct Fermat numbers are relatively prime, so that $257\nmid F_5$.
   \item To show that $449\nmid 2^{32}+1$, we will simply compute $2^{32}\pmod{449}$. Note that $2^9\equiv 2^6-1\pmod{449}$. This allows us to compute
     \begin{align*}
       2^{16}
@@ -252,10 +252,10 @@ We present two proofs of Euler's Theorem. The first is the standard proof, and t
   One can show that the set of integers modulo $n$ relatively prime to $n$ forms a group, where the binary operation is multiplication, the unit element is the integer $1$, and the inverse $x^{-1}$ of an integer $x$ modulo $n$ is the unique solution to the equation $xy\equiv 1\pmod{n}$. The number of elements in this group is $\phi(n)$. For any integer $a$ modulo $n$ relatively prime to $n$ such that $a^k\equiv 1\pmod{n}$, the set $\{1,a,a^2,\ldots,a^{k-1}\}$ is a subgroup, which means that it is closed under the group operations. The argument where we introduced an equivalence relation $\sim$ to partition the set of all integers modulo $n$ relatively prime to $n$ into equivalence classes of size $k$ is an instance of a much more general result, Lagrange's Theorem, which asserts that the size of any subgroup of a finite group divides the size of the entire group.
 \end{remark}
 
-Since $\phi(p)=p-1$, it follows that \crefnamed{theorem:fermats-little-theorem} is also a direct corollary of \crefnamed{theorem:eulers-theorem}.
+Since $\phi(p)=p-1$, it follows that \zcrefnamed{theorem:fermats-little-theorem} is also a direct corollary of \zcrefnamed{theorem:eulers-theorem}.
 
 \begin{remark}
-  We saw the multiplicative order featuring in the second proof of \crefnamed{theorem:eulers-theorem}. Thus, using the second proof of Euler's theorem we immediately observe that
+  We saw the multiplicative order featuring in the second proof of \zcrefnamed{theorem:eulers-theorem}. Thus, using the second proof of Euler's theorem we immediately observe that
   \begin{equation*}
     \ord_n(a)\mid \phi(n),
   \end{equation*}
@@ -293,7 +293,7 @@ In the European mathematical tradition, it was first published by Edward Waring,
     aa^{-1}\equiv 1.
   \end{equation*}
   Now we group the integers $1\leq a < n$ into pairs with their inverses. 
-  By \cref{exercise:self-inverse-modulo-prime} and the assumption that $n\neq 2$, there are exactly two integers that would pair up with themselves because they are their own inverses: The integers $1$ and $-1$ are the only two integers $a$ modulo $n$ for which the congruence $a^2\equiv 1\pmod{n}$ holds. The other integers come in proper pairs $(a,a^{-1})$. Therefore, we have
+  By \zcref{exercise:self-inverse-modulo-prime} and the assumption that $n\neq 2$, there are exactly two integers that would pair up with themselves because they are their own inverses: The integers $1$ and $-1$ are the only two integers $a$ modulo $n$ for which the congruence $a^2\equiv 1\pmod{n}$ holds. The other integers come in proper pairs $(a,a^{-1})$. Therefore, we have
   \begin{equation*}
     (n-1)!\equiv 1(n-1)\equiv -1\pmod{n}.
   \end{equation*}
@@ -305,11 +305,11 @@ In the European mathematical tradition, it was first published by Edward Waring,
   This implies that any $0<a<n$ is invertible modulo $n$, so it follows that $\gcd(a,n)=1$ for all $0<a<n$. We conclude that the only proper divisor of $n$ is $1$, and therefore $n$ is prime.
 \end{proof}
 
-\begin{proof}[Second proof of the forward direction of \crefnamed{theorem:wilson}] Consider a prime $p$, and consider the monic polynomial \begin{equation*} f(x)=\prod_{k=0}^{p-1}(x-k). \end{equation*} Since every element is a root of $f(x)$ modulo $p$, it follows by \crefnamed{theorem:fermats-little-theorem} that $f(x)\equiv x^p-x\pmod{p}$. Since $f(x)=x g(x)$, where $g(x):=\prod_{k=1}^{p-1}(x-k)$, it follows by the product rule for differentiation that \begin{equation*} f'(x)=xg'(x)+g(x). \end{equation*} This shows that $f'(0)=g(0)$. On the other hand the derivative of $x^p-x$ is $p x^{p-1}-1$. Thus, we conclude that \begin{equation*} k!=\prod_{k=1}^{p-1}(0-k)\equiv -1\pmod{p}.\qedhere \end{equation*} \end{proof}
+\begin{proof}[Second proof of the forward direction of \zcrefnamed{theorem:wilson}] Consider a prime $p$, and consider the monic polynomial \begin{equation*} f(x)=\prod_{k=0}^{p-1}(x-k). \end{equation*} Since every element is a root of $f(x)$ modulo $p$, it follows by \zcrefnamed{theorem:fermats-little-theorem} that $f(x)\equiv x^p-x\pmod{p}$. Since $f(x)=x g(x)$, where $g(x):=\prod_{k=1}^{p-1}(x-k)$, it follows by the product rule for differentiation that \begin{equation*} f'(x)=xg'(x)+g(x). \end{equation*} This shows that $f'(0)=g(0)$. On the other hand the derivative of $x^p-x$ is $p x^{p-1}-1$. Thus, we conclude that \begin{equation*} k!=\prod_{k=1}^{p-1}(0-k)\equiv -1\pmod{p}.\qedhere \end{equation*} \end{proof}
 
 \section{Lucas's Theorem}
 
-\crefnamed{theorem:kummers-theorem} gave a complete description of the prime factorization of binomial coefficients. In principle, this is sufficient to know the congruence class of $\binom{n}{m}$ modulo a prime $p$. In the following theorem, which is due to \'Edouard Lucas, we establish a way of determining the congruence class of the binomial coefficient modulo $p$. If this congruence class is shown to be $0$, the $p$-valuation can be computed precisely with Kummer's Theorem.
+\zcrefnamed{theorem:kummers-theorem} gave a complete description of the prime factorization of binomial coefficients. In principle, this is sufficient to know the congruence class of $\binom{n}{m}$ modulo a prime $p$. In the following theorem, which is due to \'Edouard Lucas, we establish a way of determining the congruence class of the binomial coefficient modulo $p$. If this congruence class is shown to be $0$, the $p$-valuation can be computed precisely with Kummer's Theorem.
 
 \begin{theorem}
   Consider a prime number $p$, and natural numbers $m$ and $n$ written in base $p$ as
@@ -324,9 +324,9 @@ In the European mathematical tradition, it was first published by Edward Waring,
 \end{theorem}
 
 \begin{proof}
-  Recall from \crefnamed{theorem:binomial-theorem} that $\binom{n}{m}$ is the coefficient of the $x^m$-term in $(x+1)^n$. We will prove the asserted congruence by computing this coefficient in another way.
+  Recall from \zcrefnamed{theorem:binomial-theorem} that $\binom{n}{m}$ is the coefficient of the $x^m$-term in $(x+1)^n$. We will prove the asserted congruence by computing this coefficient in another way.
   
-  By \crefnamed{theorem:fermats-little-theorem} it follows that $a^{p^k}\equiv a\pmod{p}$. This implies that
+  By \zcrefnamed{theorem:fermats-little-theorem} it follows that $a^{p^k}\equiv a\pmod{p}$. This implies that
   \begin{equation*}
     (a+b)^{p^k}\equiv a+b \equiv a^{p^k}+b^{p^k}\pmod{p}.
   \end{equation*}
@@ -348,7 +348,7 @@ In the European mathematical tradition, it was first published by Edward Waring,
 
 \section{The Quadratic Character of \texorpdfstring{$-1$}{-1}}
 
-\begin{wrapfigure}[19]{r}{0.4\textwidth}
+\begin{figure}[t]
   \centering
   \begin{tikzpicture}
     \node[inner sep=0pt, rounded corners=0.2em, clip] {%
@@ -357,12 +357,12 @@ In the European mathematical tradition, it was first published by Edward Waring,
   \end{tikzpicture}
   \caption[Carl Friedrich Gauss]{\sloppy{Carl Friedrich Gauss. Pastel painting by Johann Christian August Schwartz, 1803.}}
   \label{figure:gauss-1803}
-\end{wrapfigure}
-\crefnamed{theorem:wilsons-theorem} can be used to prove a historically important result in the development of modular arithmetic: that $-1$ is congruent to a square modulo an odd prime $p$ if and only if $p\equiv 1\pmod{4}$.
+\end{figure}
+\zcrefnamed{theorem:wilsons-theorem} can be used to prove a historically important result in the development of modular arithmetic: that $-1$ is congruent to a square modulo an odd prime $p$ if and only if $p\equiv 1\pmod{4}$.
 In his \emph{Disquisitiones Arithmeticae} \cite{gauss1986}, Gauss writes of this result that when he encountered it in 1795---he was 19 at the time---he considered it to be a result of rare beauty and suspected deep connections with even
-more profound results, that he concentrated all his efforts into understanding its underlying principles. He became so attracted by the questions of this nature, that he could not let them be. Ultimately, Gauss's investigations into higher arithmetic, as he preferred to call it, led him to prove the celebrated \crefnamed{theorem:quadratic-reciprocity}.
+more profound results, that he concentrated all his efforts into understanding its underlying principles. He became so attracted by the questions of this nature, that he could not let them be. Ultimately, Gauss's investigations into higher arithmetic, as he preferred to call it, led him to prove the celebrated \zcrefnamed{theorem:quadratic-reciprocity}.
 
-While the law of quadratic reciprocity is certainly the central theorem of our subject, the quadratic character of $-1$ modulo a prime is a key result on its own. In this section we will show that it can be used to show that there are infinitely many primes congruent to $1$ modulo $4$. Furthermore, we will use the fact that $-1$ is congruent to a square modulo $p$ when $p\equiv 1\pmod{4}$ in the next chapter to prove Fermat's \emph{Two-Square Theorem}, which asserts that every such prime is the sum of two squares. Questions similar to the quadratic character of $-1$ modulo a prime will be investigated more fully in \cref{chapter:quadratic-residues,chapter:quadratic-reciprocity}.
+While the law of quadratic reciprocity is certainly the central theorem of our subject, the quadratic character of $-1$ modulo a prime is a key result on its own. In this section we will show that it can be used to show that there are infinitely many primes congruent to $1$ modulo $4$. Furthermore, we will use the fact that $-1$ is congruent to a square modulo $p$ when $p\equiv 1\pmod{4}$ in the next chapter to prove Fermat's \emph{Two-Square Theorem}, which asserts that every such prime is the sum of two squares. Questions similar to the quadratic character of $-1$ modulo a prime will be investigated more fully in \zcref{chapter:quadratic-residues,chapter:quadratic-reciprocity}.
 
 \begin{theorem}[The Quadratic Character of $-1$]\label{theorem:quadratic-character-neg-1}
   Consider an odd prime $p$. Then there exists an integer $a$ such that
@@ -373,13 +373,13 @@ While the law of quadratic reciprocity is certainly the central theorem of our s
 \end{theorem}
 
 \begin{proof}
-  First, we show that if there is an integer $a$ such that $a^2\equiv-1\pmod{p}$, then we must have $p\equiv 1\pmod{4}$. By \crefnamed{theorem:fermats-little-theorem} it follows that
+  First, we show that if there is an integer $a$ such that $a^2\equiv-1\pmod{p}$, then we must have $p\equiv 1\pmod{4}$. By \zcrefnamed{theorem:fermats-little-theorem} it follows that
   \begin{equation*}
     (-1)^{\frac{p-1}{2}}\equiv (a^2)^{\frac{p-1}{2}} \equiv a^{p-1}\equiv 1\pmod{p}
   \end{equation*}
   This shows that $\frac{p-1}{2}$ must be even, which is equivalent to the congruence $p\equiv 1\pmod{4}$.
   
-  For the converse, assume that $p\equiv 1\pmod{4}$. By \crefnamed{theorem:wilsons-theorem} we know that $(p-1)!\equiv -1\pmod{p}$. Now, observe that the integers $1,\ldots,p-1$ can be arranged in pairs, where each $i$ is paired with $p-i$, which is always distinct from $i$ because $p-1$ is even. Since $i(p-i)\equiv -i^2\pmod{p}$, we obtain the congruences
+  For the converse, assume that $p\equiv 1\pmod{4}$. By \zcrefnamed{theorem:wilsons-theorem} we know that $(p-1)!\equiv -1\pmod{p}$. Now, observe that the integers $1,\ldots,p-1$ can be arranged in pairs, where each $i$ is paired with $p-i$, which is always distinct from $i$ because $p-1$ is even. Since $i(p-i)\equiv -i^2\pmod{p}$, we obtain the congruences
   \begin{equation*}
     -1\equiv(p-1)!\equiv (-1)^{\frac{p-1}{2}}\left(\left(\frac{p-1}{2}\right)!\right)^2\equiv\left(\left(\frac{p-1}{2}\right)!\right)^2\pmod{p}.
   \end{equation*}
@@ -407,7 +407,7 @@ The previous theorem describing the quadratic character of $-1$ modulo an odd pr
   showing that $-1$ is a quadratic residue modulo $q$. Since $-1$ is a quadratic residue modulo $q$ if and only if $q\equiv 1\pmod{4}$, it follows that any prime divisor $q$ of $n$ is congruent to $1$ modulo $4$. Since none of the prime divisors of $n$ are among the primes $p_i$ we started out with, the primes $p_i$ could not have listed all the primes congruent to $1$ modulo $4$.
 \end{proof}
 
-\cref{theorem:quadratic-character-neg-1} and its proof can be generalized to arbitrary exponents. For example, the following theorem implies that the congruence $x^4\equiv -1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{8}$, that the congruence $x^8\equiv -1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{16}$, and so on.
+\zcref{theorem:quadratic-character-neg-1} and its proof can be generalized to arbitrary exponents. For example, the following theorem implies that the congruence $x^4\equiv -1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{8}$, that the congruence $x^8\equiv -1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{16}$, and so on.
 
 \begin{theorem}
   Consider an odd prime $p$ and consider a natural number $n$ with $2$-adic decomposition $n=2^km$. Then the congruence
@@ -418,7 +418,7 @@ The previous theorem describing the quadratic character of $-1$ modulo an odd pr
 \end{theorem}
 
 \begin{proof}
-  The proof is by induction on $k$. For $k=0$, the statement is trivial, and for $k=1$, the proof was given in \cref{theorem:quadratic-character-neg-1}. For the inductive step, assume that for any number $n$ with $2$-adic decomposition $n=2^km$, the congruence $x^n\equiv-1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$, and consider a number $n$ with $2$-adic decomposition $n=2^{k+1}m$.
+  The proof is by induction on $k$. For $k=0$, the statement is trivial, and for $k=1$, the proof was given in \zcref{theorem:quadratic-character-neg-1}. For the inductive step, assume that for any number $n$ with $2$-adic decomposition $n=2^km$, the congruence $x^n\equiv-1\pmod{p}$ is solvable if and only if $p\equiv 1\pmod{2^{k+1}}$, and consider a number $n$ with $2$-adic decomposition $n=2^{k+1}m$.
 
   For the forward direction, assume that $a$ is an integer such that $a^n\equiv -1\pmod{p}$. Then $b:=a^{2m}$ is an integer such that
   \begin{equation*}
@@ -428,7 +428,7 @@ The previous theorem describing the quadratic character of $-1$ modulo an odd pr
   \begin{equation*}
     \frac{p-1}{2^{k+1}}
   \end{equation*}
-  is an integer. By \crefnamed{theorem:fermats-little-theorem} it follows that
+  is an integer. By \zcrefnamed{theorem:fermats-little-theorem} it follows that
   \begin{equation*}
     (-1)^{\frac{p-1}{2^{k+1}}}\equiv(a^{2^{k+1}m})^{\frac{p-1}{2^{k+1}}}\equiv (a^m)^{p-1}\equiv 1\pmod{p}.
   \end{equation*}
@@ -436,7 +436,7 @@ The previous theorem describing the quadratic character of $-1$ modulo an odd pr
 
   For the converse, suppose that $p\equiv 1\pmod{2^{k+2}}$ and consider an integer $a$ such that $a^{2^k}\equiv -1\pmod{p}$. Such an integer exists by the inductive hypothesis. Now partition the set of numbers $\{1,\ldots,p-1\}$ into classes of $2^{k+1}$ numbers of the form $\{x,ax,\ldots,a^{2^{k+1}-1}x\}$. We will write $c$ for the number of such classes. Then we have $p=2^{k+1}c+1$, so we see that $c$ is even.
 
-  Since the number of classes is $c$, we can label them by $C_i$ for each $1\leq i\leq c$, and we can pick a representative $x_i\in C_i$ for each $i$. Now it follows by \crefnamed{theorem:wilsons-theorem} that
+  Since the number of classes is $c$, we can label them by $C_i$ for each $1\leq i\leq c$, and we can pick a representative $x_i\in C_i$ for each $i$. Now it follows by \zcrefnamed{theorem:wilsons-theorem} that
   \begin{equation*}
     -1\equiv (p-1)!\equiv \prod_{i=1}^c \prod_{j=0}^{2^{k+1}-1} a^jx_i \equiv \prod_{i=1}^c (-1)x_i^{2^{k+1}} \equiv (-1)^c\prod_{i=1}^c x_i^{2^{k+1}} \equiv \left(\prod_{i=1}^c x_i\right)^{2^{k+1}}\pmod{p}.\qedhere
   \end{equation*}
@@ -448,7 +448,7 @@ One way to show that a prime $p$ is congruent to $1$ modulo $n$ is by finding an
 \begin{equation*}
   \ord_p(a)=n.
 \end{equation*}
-By \crefnamed{theorem:order-theorem} and \crefnamed{theorem:fermats-little-theorem}, this implies that $n\mid p-1$. We will use this idea to show that there are infinitely many primes congruent to $1$ modulo any power of $2$. In particular, there are infinitely many primes congruent to $1$ modulo $4$, modulo $8$, modulo $16$, and so on.
+By \zcrefnamed{theorem:order-theorem} and \zcrefnamed{theorem:fermats-little-theorem}, this implies that $n\mid p-1$. We will use this idea to show that there are infinitely many primes congruent to $1$ modulo any power of $2$. In particular, there are infinitely many primes congruent to $1$ modulo $4$, modulo $8$, modulo $16$, and so on.
 
 \begin{theorem}\label{theorem:infinitude-of-primes-1-mod-power-of-2}
   For any positive natural number $n$, there are infinitely many primes congruent to $1$ modulo $2^n$.

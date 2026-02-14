@@ -2,7 +2,7 @@
 
 \section{The Primitive Factors of \texorpdfstring{$x^n-1$}{xⁿ − 1}}
 
-Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. By the \crefnamed{theorem:order-theorem} it follows that $\ord_p(a)\mid n$. By \crefnamed{theorem:fermats-little-theorem} it follows that the order of $a$ modulo $p$ is itself a divisor of $p-1$.
+Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. By the \zcrefnamed{theorem:order-theorem} it follows that $\ord_p(a)\mid n$. By \zcrefnamed{theorem:fermats-little-theorem} it follows that the order of $a$ modulo $p$ is itself a divisor of $p-1$.
 
 \begin{definition}
   The $n$th \emph{cyclotomic polynomial} $\Phi_n$ is defined by
@@ -121,7 +121,7 @@ In the following theorem we will establish that the coefficients of the cyclotom
   \end{equation*}
 \end{proposition}
 
-Recall from \crefnamed{theorem:lte} that for any odd prime $p$ and any $n=p^\alpha m$ with $p\nmid m$, we have
+Recall from \zcrefnamed{theorem:lte} that for any odd prime $p$ and any $n=p^\alpha m$ with $p\nmid m$, we have
 \begin{equation*}
   \nu_p(a^n-b^n)-\nu_p(a^m-b^m)=\alpha.
 \end{equation*}
@@ -153,7 +153,7 @@ Since we have expressed $a^n-b^n$ as a product in terms of the homogenized cyclo
 \end{theorem}
 
 \begin{example}
-  \cref{theorem:mobius-inversion-cyclotomic-polynomials} can be used effectively to compute the coefficients of a cyclotomic polynomial. For example, in order to compute $\Phi_{12}(x)$, we note that the values $\mu(12/d)$ of the M\"obius function are as follows:
+  \zcref{theorem:mobius-inversion-cyclotomic-polynomials} can be used effectively to compute the coefficients of a cyclotomic polynomial. For example, in order to compute $\Phi_{12}(x)$, we note that the values $\mu(12/d)$ of the M\"obius function are as follows:
   \begin{equation*}
     \mu(12/1)=0,~\mu(12/2)=1,~\mu(12/3)=0,~\mu(12/4)=-1,~\mu(12/6)=-1,~\mu(12/12)=1.
   \end{equation*}
@@ -182,9 +182,9 @@ Since we have expressed $a^n-b^n$ as a product in terms of the homogenized cyclo
   \begin{equation*}
     (a/b)^n\equiv 1\pmod{p},
   \end{equation*}
-  and hence $k:=\ord_p(a/b)$ is a divisor of $n$ by \crefnamed{theorem:order-theorem}. There are two cases to consider: Either $k=n$ or $k$ is a proper divisor of $n$.
+  and hence $k:=\ord_p(a/b)$ is a divisor of $n$ by \zcrefnamed{theorem:order-theorem}. There are two cases to consider: Either $k=n$ or $k$ is a proper divisor of $n$.
 
-  If $k=n$, then it follows by \crefnamed{theorem:fermats-little-theorem} that $n\mid p-1$, which is another way of saying that $p\equiv 1\pmod{n}$. Since $k\mid m$ for any $m$ such that $p\mid a^m-b^m$, it follows that $p$ is a primitive divisor of $a^n-b^n$.
+  If $k=n$, then it follows by \zcrefnamed{theorem:fermats-little-theorem} that $n\mid p-1$, which is another way of saying that $p\equiv 1\pmod{n}$. Since $k\mid m$ for any $m$ such that $p\mid a^m-b^m$, it follows that $p$ is a primitive divisor of $a^n-b^n$.
   
   For the second case, suppose that $k$ is a proper divisor of $n$. Since $p\mid \Phi_k(a,b)$ and $p\mid \Phi_n(a,b)$ both hold, it follows that the polynomial congruence
   \begin{equation*}
@@ -208,7 +208,7 @@ Since we have expressed $a^n-b^n$ as a product in terms of the homogenized cyclo
   \end{equation*}
   from which we conclude that $\nu_2(\Phi_n(a,b))=1$.
 
-  For the case where $p$ is odd, write $n=p^\alpha m$ as before. Then we obtain from \crefnamed{theorem:lte} that
+  For the case where $p$ is odd, write $n=p^\alpha m$ as before. Then we obtain from \zcrefnamed{theorem:lte} that
   \begin{equation*}
     \nu_p(a^n-b^n)-\nu_p(a^m-b^m)=\alpha.
   \end{equation*}
@@ -237,7 +237,7 @@ Since we have expressed $a^n-b^n$ as a product in terms of the homogenized cyclo
 
   Next, we deal with the case $n=2$. Suppose that $a^2-b^2$ does not have primitive prime divisors. An equivalent way of saying this is that any prime divisor $p\mid \Phi_2(a,b)=a+b$ is also a prime divisor of $a-b$. However, we observe that $\gcd(a+b,a-b)$ divides both $2a$ and $2b$, which implies that the only prime possible prime divisor of $a+b$ is $2$. In other words, $a+b$ is a power of $2$.
   
-  For the remainder of the proof we suppose that $n>2$. We will show that if $a^n-b^n$ has no primitive prime divisors, then $n=6$, $a=2$, and $b=1$. By \cref{proposition:zsigmondy} it follows that if $a^n-b^n$ has no primitive prime divisors, then
+  For the remainder of the proof we suppose that $n>2$. We will show that if $a^n-b^n$ has no primitive prime divisors, then $n=6$, $a=2$, and $b=1$. By \zcref{proposition:zsigmondy} it follows that if $a^n-b^n$ has no primitive prime divisors, then
   \begin{equation*}
     \Phi_n(a,b)=p,
   \end{equation*}
@@ -293,9 +293,9 @@ Since we have expressed $a^n-b^n$ as a product in terms of the homogenized cyclo
   \begin{equation*}
     N:=\Phi_n(a).
   \end{equation*}
-  Observe that the number $N$ has at least one prime factor. Indeed, this follows directly from \crefnamed{theorem:zsigmondy}, since $n,a\geq 3$.
+  Observe that the number $N$ has at least one prime factor. Indeed, this follows directly from \zcrefnamed{theorem:zsigmondy}, since $n,a\geq 3$.
 
-We claim that any prime factor $q\mid N$ satisfies $q\equiv 1\pmod{n}$ and is distinct from the primes $p_i$. Since the constant term of $\Phi_n(x)$ is $1$, it follows that $N\equiv 1\pmod{p_i}$. This immediately implies that $q\neq p_i$ for each $1\leq i\leq k$. We also observe that the congruence $N\equiv 1\pmod{n}$ holds, for the same reason. This shows that any prime factor $q\mid N$ is of the first kind in \cref{proposition:zsigmondy}, which shows that $q\equiv 1\pmod{n}$.
+We claim that any prime factor $q\mid N$ satisfies $q\equiv 1\pmod{n}$ and is distinct from the primes $p_i$. Since the constant term of $\Phi_n(x)$ is $1$, it follows that $N\equiv 1\pmod{p_i}$. This immediately implies that $q\neq p_i$ for each $1\leq i\leq k$. We also observe that the congruence $N\equiv 1\pmod{n}$ holds, for the same reason. This shows that any prime factor $q\mid N$ is of the first kind in \zcref{proposition:zsigmondy}, which shows that $q\equiv 1\pmod{n}$.
 \end{proof}
 
 \section{Vantieghem's Theorem}
@@ -304,11 +304,11 @@ Emmanuel Vantieghem provided a characterization of the prime numbers in terms of
 \begin{equation*}
   \prod_{k=1}^{n-1}M_k \equiv n\pmod{M_n}.
 \end{equation*}
-Recall that the $n$th Mersenne number is given by $M_n:=2^n-1$. The sequence $(M_n)$ of Mersenne numbers is a strong divisibility sequence. There are some analogies between Vantieghem's theorem and \crefnamed{theorem:wilsons-theorem}. In Wilson's theorem, we make use of the congruence
+Recall that the $n$th Mersenne number is given by $M_n:=2^n-1$. The sequence $(M_n)$ of Mersenne numbers is a strong divisibility sequence. There are some analogies between Vantieghem's theorem and \zcrefnamed{theorem:wilsons-theorem}. In Wilson's theorem, we make use of the congruence
 \begin{equation*}
   x^p\equiv x\pmod{p},
 \end{equation*}
-which holds by \crefnamed{theorem:fermats-little-theorem}. For instance, in the second proof of Wilson's theorem, this congruence was used to observe that
+which holds by \zcrefnamed{theorem:fermats-little-theorem}. For instance, in the second proof of Wilson's theorem, this congruence was used to observe that
 \begin{equation*}
   \prod_{k=0}^{p-1}(x-k)\equiv x^p-x\pmod{p}.
 \end{equation*}
@@ -344,7 +344,7 @@ We will prove this congruence in the following proposition.
   Since $2^k\equiv 1\pmod{M_p}$ implies $p\mid k$, it follows that $a_k\equiv 0\pmod{M_p}$ for $0<k<p$, which completes the proof.
 \end{proof}
 
-Recall from the second proof of \crefnamed{theorem:wilsons-theorem}, that after having established that $\prod_k(x-k)\equiv x^p-x\pmod{p}$, we proceeded by taking derivatives on both sides. This strategy again works in the proof of the forward direction of Vantieghem's theorem. For the converse direction, we will make use of \crefnamed{theorem:zsigmondy}.
+Recall from the second proof of \zcrefnamed{theorem:wilsons-theorem}, that after having established that $\prod_k(x-k)\equiv x^p-x\pmod{p}$, we proceeded by taking derivatives on both sides. This strategy again works in the proof of the forward direction of Vantieghem's theorem. For the converse direction, we will make use of \zcrefnamed{theorem:zsigmondy}.
 
 \begin{theorem}[Vantieghem's Theorem]\label{theorem:vantieghem}
   A natural number $n\geq 3$ is prime if and only if
@@ -358,7 +358,7 @@ Recall from the second proof of \crefnamed{theorem:wilsons-theorem}, that after 
   \begin{equation*}
     f(x)=\prod_{k=0}^{p-1}(x-2^k)
   \end{equation*}
-  which satisfies the congruence $f(x)\equiv x^p-1\pmod{M_p}$ by \cref{proposition:vantieghem}. It follows that $f'(1)\equiv p\pmod{M_p}$. On the other hand, writing $f(x)=(x-1)g(x)$, where $g(x)=\prod_{k=1}^{p-1}(x-2^k)$, we find that $f'(x)=(x-1)g'(x)+g(x)$. Evaluating at $1$ gives taht
+  which satisfies the congruence $f(x)\equiv x^p-1\pmod{M_p}$ by \zcref{proposition:vantieghem}. It follows that $f'(1)\equiv p\pmod{M_p}$. On the other hand, writing $f(x)=(x-1)g(x)$, where $g(x)=\prod_{k=1}^{p-1}(x-2^k)$, we find that $f'(x)=(x-1)g'(x)+g(x)$. Evaluating at $1$ gives taht
   \begin{equation*}
     \prod_{k=1}^{p-1}(1-2^k)=g(1)=f'(1)\equiv p\pmod{M_p}.
   \end{equation*}
@@ -370,7 +370,7 @@ Recall from the second proof of \crefnamed{theorem:wilsons-theorem}, that after 
   \end{equation*}
   We will use this congruence to show that if $p$ is a proper divisor of $n$, then there is a prime divisor $q>p$ of $n$. Clearly, such $q$ is again a proper divisor, so there would be by the same argument another prime divisor $r>q$ of $n$, and so on. Since any natural number has only finitely many prime divisors, this shows that $p=n$.
   
-  Suppose, as we announced, that $p$ is a proper divisor of $n$. Then $M_p$ is among the factors on the left-hand side, which shows that $0\equiv n\pmod{M_p}$. Thus, we find that $M_p\mid n$. By \crefnamed{theorem:zsigmondy} it follows that the Mersenne number $M_p$ has a primitive prime divisor $q\mid M_p$. Indeed, $p$ is an odd prime, so we are not in any of the exceptional cases of Zsigmondy's theorem. Since $q\nmid p$, it follows from \cref{proposition:zsigmondy} that $q\equiv 1\pmod{p}$. In particular, we must have $q>p$.
+  Suppose, as we announced, that $p$ is a proper divisor of $n$. Then $M_p$ is among the factors on the left-hand side, which shows that $0\equiv n\pmod{M_p}$. Thus, we find that $M_p\mid n$. By \zcrefnamed{theorem:zsigmondy} it follows that the Mersenne number $M_p$ has a primitive prime divisor $q\mid M_p$. Indeed, $p$ is an odd prime, so we are not in any of the exceptional cases of Zsigmondy's theorem. Since $q\nmid p$, it follows from \zcref{proposition:zsigmondy} that $q\equiv 1\pmod{p}$. In particular, we must have $q>p$.
 \end{proof}
 
 \exercises

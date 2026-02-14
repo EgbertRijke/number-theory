@@ -25,13 +25,13 @@ By the definition of congruence relations, the congruence $ax\equiv b\pmod{n}$ h
 \begin{equation*}
   ax+ny=b
 \end{equation*}
-holds. By \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} we have an exact description of the set of solutions of this equation: Given a solution $ax_0+ny_0=b$, every solution is of the form
+holds. By \zcref{theorem:set-of-solutions-binary-linear-diophantine-equation} we have an exact description of the set of solutions of this equation: Given a solution $ax_0+ny_0=b$, every solution is of the form
 \begin{equation*}
   x = x_0 + k\frac{n}{d},\qquad\text{and}\qquad y=y_0-k\frac{a}{d},
 \end{equation*}
 where $d=\gcd(a,n)$. Furthermore, a solution can be found if and only if $d\mid b$, and in this case we can find $x_0$ and $y_0$ through Euclid's algorithm for finding the greatest common divisor.
 
-Now, observe that there are exactly $d$ incongruent solutions of the equation $ax+ny=b$ modulo $n$. Thus, we can reformulate \cref{theorem:set-of-solutions-binary-linear-diophantine-equation} in modular arithmetic as follows.
+Now, observe that there are exactly $d$ incongruent solutions of the equation $ax+ny=b$ modulo $n$. Thus, we can reformulate \zcref{theorem:set-of-solutions-binary-linear-diophantine-equation} in modular arithmetic as follows.
 
 \begin{theorem}\label{theorem:linear-congruence-one-variable}
   Consider two integers $a$ and $b$, and a natural number $n$ with $d=\gcd(a,n)$. The linear congruence
@@ -99,7 +99,7 @@ Consider the linear congruences
   10x & \equiv 4 \pmod{12} \\
   15x & \equiv 6 \pmod{21},
 \end{align*}
-and suppose our goal is to find a single solution $x$ that simultaneously solves both of them. To start off, we observe that if we can find such a solution, then each individual congruence must be solvable in its own right. By \cref{theorem:linear-congruence-one-variable}, this is the case if and only if $\gcd(10,12)\mid 4$ and $\gcd(15,21)\mid 6$. Indeed, $\gcd(10,12)=2$ and $\gcd(15,21)=3$, so the divisibility requirements are satisfied.
+and suppose our goal is to find a single solution $x$ that simultaneously solves both of them. To start off, we observe that if we can find such a solution, then each individual congruence must be solvable in its own right. By \zcref{theorem:linear-congruence-one-variable}, this is the case if and only if $\gcd(10,12)\mid 4$ and $\gcd(15,21)\mid 6$. Indeed, $\gcd(10,12)=2$ and $\gcd(15,21)=3$, so the divisibility requirements are satisfied.
 
 By dividing through with $\gcd(10,12)$, we see that the linear congruence $10x\equiv 4\pmod{12}$ has the same set of solutions as the linear congruence $5x\equiv 2\pmod{6}$, which we can work out to be $x\equiv 4\pmod{6}$. Similarly the linear congruence $15x\equiv 6\pmod{21}$ has the same set of solutions as the linear congruence $5x\equiv 2\pmod{7}$, which we can work out to be $x\equiv 6\pmod{7}$. Thus, the original system of linear congruences has the same set of solutions as the system of linear congruences
 \begin{align*}
@@ -110,13 +110,13 @@ In other words, $x$ is simultaneously of the form $6y + 4$ and of the form $7z+6
 \begin{equation*}
   6y+4=7z+6,
 \end{equation*}
-which reduces to $6y-7z=2$. By \cref{theorem:solve-linear-diophantine-equation}, it follows that this equation solves if and only if $\gcd(6,7)\mid 2$, which is indeed the case since $6$ and $7$ are relatively prime. Using the extended Euclid's algorithm, we find that $y=5$ and $z=4$ gives a solution. In this case, we have $x=34$. Note that any integer in the congruence class of $34$ modulo $42$ is also a solution, so we see that
+which reduces to $6y-7z=2$. By \zcref{theorem:solve-linear-diophantine-equation}, it follows that this equation solves if and only if $\gcd(6,7)\mid 2$, which is indeed the case since $6$ and $7$ are relatively prime. Using the extended Euclid's algorithm, we find that $y=5$ and $z=4$ gives a solution. In this case, we have $x=34$. Note that any integer in the congruence class of $34$ modulo $42$ is also a solution, so we see that
 \begin{equation*}
   x\equiv 34\pmod{42}
 \end{equation*}
 is a solution to our original system of linear congruences. Indeed, we can check that $10\cdot 34 = 28\cdot 12 + 4$ and $15\cdot 34 = 24\cdot 21+6$.
 
-To summarize the method by which we found this solution, we first reduced each individual linear congruence by dividing through by the greatest common divisor of the scalar and the modulus. This way we obtained a system of linear congruences that were individually uniquely solvable. Their solutions gave two expressions for the variable $x$, which combined into a single linear Diophantine equation, which we solved by \cref{theorem:solve-linear-diophantine-equation} and Euclid's algorithm. As the saying goes, any good method in mathematics begs to become a theorem. The essential theorem to solve systems of linear congruences is \crefnamed{theorem:chinese-remainder-theorem}, which we will state and prove in the next section.
+To summarize the method by which we found this solution, we first reduced each individual linear congruence by dividing through by the greatest common divisor of the scalar and the modulus. This way we obtained a system of linear congruences that were individually uniquely solvable. Their solutions gave two expressions for the variable $x$, which combined into a single linear Diophantine equation, which we solved by \zcref{theorem:solve-linear-diophantine-equation} and Euclid's algorithm. As the saying goes, any good method in mathematics begs to become a theorem. The essential theorem to solve systems of linear congruences is \zcrefnamed{theorem:chinese-remainder-theorem}, which we will state and prove in the next section.
 
 We also note that the methods we used to solve two linear congruences simultaneously can be used to solve three or more linear congruences simultaneously. Suppose our original problem included a third linear congruence
 \begin{align*}
@@ -196,7 +196,7 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
   \begin{equation*}
     x\equiv 7\pmod{15},\qquad x\equiv 9\pmod{14},\qquad\text{and}\qquad x\equiv 5\pmod{11}.
   \end{equation*}
-  In order to find $e_i$ as specified in \cref{equation:gauss-method-crt}, we need to separately solve the linear congruences
+  In order to find $e_i$ as specified in \zcref{equation:gauss-method-crt}, we need to separately solve the linear congruences
   \begin{equation*}
     154u_1\equiv 1\pmod{15},\qquad 165u_2\equiv 1\pmod{14},\qquad\text{and}\qquad 210x\equiv 1\pmod{11}.
   \end{equation*}
@@ -204,7 +204,7 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
   \begin{equation*}
     4u_1\equiv 1\pmod{15},\qquad 11 u_2\equiv 1\pmod{14},\qquad\text{and}\qquad u_3 \equiv 1\pmod{11}.
   \end{equation*}
-  Using the methods described in \cref{section:solving-linear-congruences}, we find the following solutions:
+  Using the methods described in \zcref{section:solving-linear-congruences}, we find the following solutions:
   \begin{equation*}
     u_1 \equiv 4\pmod{15},\qquad u_2\equiv 9\pmod{14},\qquad\text{and}\qquad u_3\equiv 1\pmod{11}.
   \end{equation*}
@@ -237,7 +237,7 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
 % \end{align*}
 % in a single variable $x$. In this section we will study solutions $x$ that simultaneously solve both linear congruences.
 
-% To solve both linear congruences at once, we must clearly be able to solve them separately. We have already seen in \cref{theorem:linear-congruence-one-variable} that in order to solve them separately, we must have $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$. Assuming this is the case, the sets of solutions $x$ simultaneously solving both linear congruences, is the same as the set of solutions for the two linear congruences obtained by dividing through by $\gcd(a,m)$ and $\gcd(c,n)$. In other words, to solve the system of linear congruences as above, we must first learn to solve the system of linear congruences
+% To solve both linear congruences at once, we must clearly be able to solve them separately. We have already seen in \zcref{theorem:linear-congruence-one-variable} that in order to solve them separately, we must have $\gcd(a,m)\mid b$ and $\gcd(c,n)\mid d$. Assuming this is the case, the sets of solutions $x$ simultaneously solving both linear congruences, is the same as the set of solutions for the two linear congruences obtained by dividing through by $\gcd(a,m)$ and $\gcd(c,n)$. In other words, to solve the system of linear congruences as above, we must first learn to solve the system of linear congruences
 % \begin{align*}
 %   ax & \equiv b \pmod{m} \\
 %   cx & \equiv d \pmod{n}

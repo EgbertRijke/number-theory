@@ -1,6 +1,6 @@
 \chapter{The Rational Numbers}
 
-On the integers we have the arithmetic operations of addition, subtraction, and multiplication, but we generally can't divide integers and expect the result to be another integer. Instead, we have \crefnamed{theorem:euclidean-division} which establishes division with remainder, and in the previous chapter we introduced the basics of the theory of integer divisibility. Nevertheless, there is a clear sense of ratios of integers, even if such ratios are not necessarily integers. It is thus natural to introduce the concepts of \emph{integer fractions} and the \emph{rational numbers}.
+On the integers we have the arithmetic operations of addition, subtraction, and multiplication, but we generally can't divide integers and expect the result to be another integer. Instead, we have \zcrefnamed{theorem:euclidean-division} which establishes division with remainder, and in the previous chapter we introduced the basics of the theory of integer divisibility. Nevertheless, there is a clear sense of ratios of integers, even if such ratios are not necessarily integers. It is thus natural to introduce the concepts of \emph{integer fractions} and the \emph{rational numbers}.
 
 \section{Integer Fractions}
 
@@ -35,7 +35,7 @@ While it is common to think of rational numbers as integer fractions, there is a
   The second rule can be read as a definition of what it means for two rational numbers to be equal. If two rational numbers are constructed via their integer fractions $\frac{a}{b}$ and $\frac{c}{d}$, then the expression $\frac{a}{b}=\frac{c}{d}$ means that $\frac{a}{b}$ and $\frac{c}{d}$ are the same in the sense that $ad-bc=0$.
 \end{remark}
 
-More generally, the quantity $|bc-ad|$ is a measure for how far apart the fractions $\frac{a}{b}$ and $\frac{c}{d}$ are. Assuming that the inequality $\frac{a}{b}\leq \frac{c}{d}$ holds so that $bc-ad\geq 0$, we will show in \cref{theorem:meaning-explanation-determinant-fractions} that the number
+More generally, the quantity $|bc-ad|$ is a measure for how far apart the fractions $\frac{a}{b}$ and $\frac{c}{d}$ are. Assuming that the inequality $\frac{a}{b}\leq \frac{c}{d}$ holds so that $bc-ad\geq 0$, we will show in \zcref{theorem:meaning-explanation-determinant-fractions} that the number
 \begin{equation*}
   bc-ad
 \end{equation*}
@@ -103,7 +103,7 @@ The quantity $|bc-ad|$ is also the area of the parallelogram spanned by $(a,b)$ 
   \begin{equation*}
     ad-bc=0,
   \end{equation*}
-  so that the equation $ad=bc$ holds. Then we have $d\mid bc$, from which it follows that $d\mid b$ by \cref{proposition:coprime-divides-product}. Conversely, we have $b\mid ad$ so that $b\mid d$. Since $b$ and $d$ are positive integers mutually dividing each other, it follows that $b=d$. Consequently, we obtain that $ab=bc$, which gives that $a=c$.
+  so that the equation $ad=bc$ holds. Then we have $d\mid bc$, from which it follows that $d\mid b$ by \zcref{proposition:coprime-divides-product}. Conversely, we have $b\mid ad$ so that $b\mid d$. Since $b$ and $d$ are positive integers mutually dividing each other, it follows that $b=d$. Consequently, we obtain that $ab=bc$, which gives that $a=c$.
 \end{proof}
 
 By the remarks preceeding the previous theorem, we should expect there to be exactly one reduced integer fraction in the interval strictly between $\frac{a}{b}$ and $\frac{c}{d}$, provided that
@@ -229,7 +229,7 @@ Here, the letter K stands for \emph{Kettenbruch}, the German word for continued 
 \begin{proof}
   Consider two relatively prime integers $a$ and $b$ with $b>0$. The proof is by strong induction on $b$. In the base case, where $b=1$, the unique finite continued fraction representing $\frac{a}{b}$ is the continued fraction $[a]$, which has no fractional part. 
 
-  By \crefnamed{theorem:euclidean-division} there is a uniqe pair $(q,r)$ of integers with $0\leq r<b$ such that $a=qb+r$. In the case where $r=0$, we obtain that $\frac{a}{b}=q$, from which it follows that $[q]$ is the unique finite continued fraction representing $\frac{a}{b}$. In case $r>0$ we write
+  By \zcrefnamed{theorem:euclidean-division} there is a uniqe pair $(q,r)$ of integers with $0\leq r<b$ such that $a=qb+r$. In the case where $r=0$, we obtain that $\frac{a}{b}=q$, from which it follows that $[q]$ is the unique finite continued fraction representing $\frac{a}{b}$. In case $r>0$ we write
   \begin{equation*}
     \frac{a}{b} = q + \cfrac{1}{\frac{b}{r}}.
   \end{equation*}

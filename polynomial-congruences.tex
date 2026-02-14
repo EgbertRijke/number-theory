@@ -2,7 +2,7 @@
 
 \section{Polynomial Congruences of Composite Moduli}
 
-In the following theorem we generalize \crefnamed{theorem:chinese-remainder-theorem} to polynomial congruences.
+In the following theorem we generalize \zcrefnamed{theorem:chinese-remainder-theorem} to polynomial congruences.
 
 \begin{theorem}
   Consider an integer polynomial $f$ and consider two relatively prime integers $m$ and $n$. Then any solution of the system
@@ -27,7 +27,7 @@ In the following theorem we generalize \crefnamed{theorem:chinese-remainder-theo
     f(y) & \equiv 0 \pmod{m} \\
     f(z) & \equiv 0 \pmod{n}.
   \end{align*}
-  By the assumption that $\gcd(m,n)=1$, we obtain from \crefnamed{theorem:chinese-remainder-theorem} there a unique $0\leq x < mn$ such that
+  By the assumption that $\gcd(m,n)=1$, we obtain from \zcrefnamed{theorem:chinese-remainder-theorem} there a unique $0\leq x < mn$ such that
   \begin{align*}
     x \equiv y \pmod {m} \\
     x \equiv z \pmod {n}.
@@ -58,7 +58,7 @@ The derivative of a function $f$ at a point $x$, if it exists, measures the rate
 \begin{equation*}
   f'(x):=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}
 \end{equation*}
-Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There is an important theorem in number theory that require knowledge of the derivatives of polynomials: In our proof of \crefnamed{theorem:hensels-lemma} we will make use of \crefnamed{theorem:taylor-expansion-theorem} proven below.
+Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There is an important theorem in number theory that require knowledge of the derivatives of polynomials: In our proof of \zcrefnamed{theorem:hensels-lemma} we will make use of \zcrefnamed{theorem:taylor-expansion-theorem} proven below.
 
 The following theorem is not only useful when $h$ approaches $0$. For example, in the case where $h$ is a prime $p$ it tells us that $f(x+p)-f(x)$ is always a multiple of $p$.
 
@@ -74,7 +74,7 @@ The following theorem is not only useful when $h$ approaches $0$. For example, i
 \end{theorem}
 
 \begin{proof}
-  By the formula for the difference of $k$th powers, which was stated in \cref{exercise:difference-of-powers}, we can write
+  By the formula for the difference of $k$th powers, which was stated in \zcref{exercise:difference-of-powers}, we can write
   \begin{equation*}
     (x+h)^k-x^k= h\sum_{i=0}^{k-1}x^i(x+h)^{k-1-i}
   \end{equation*}
@@ -129,7 +129,7 @@ This leads to the following theorem by Brook Taylor, who stated the result more 
 \end{theorem}
 
 \begin{proof}
-  We will first prove the theorem for $f(x):=x^n$. By \crefnamed{theorem:binomial-theorem} and our earlier observation that $\frac{1}{k!}\frac{d^k}{dx^k}x^n=\binom{n}{k}x^{n-k}$, it follows that
+  We will first prove the theorem for $f(x):=x^n$. By \zcrefnamed{theorem:binomial-theorem} and our earlier observation that $\frac{1}{k!}\frac{d^k}{dx^k}x^n=\binom{n}{k}x^{n-k}$, it follows that
   \begin{equation*}
     (x+y)^n = \sum_{k=0}^{n}\binom{n}{k} x^{n-k}y^{k}=\sum_{k=0}^n\frac{1}{k!}\frac{d^kx^n}{dx^k} y^k.
   \end{equation*}
@@ -162,7 +162,7 @@ This leads to the following theorem by Brook Taylor, who stated the result more 
   \begin{equation*}
     f(a_{k+1})\equiv 0\pmod{p^{k+1}}\qquad\text{and}\qquad f'(a_{k+1})\nequiv 0\pmod{p^{k+1}}.
   \end{equation*}
-  Our goal is to obtain an integer $a_{k+1}=a_k+tp^k$ for some $0\leq t<p$. Observe that by \crefnamed{theorem:taylor-expansion-theorem}, we have the congruence
+  Our goal is to obtain an integer $a_{k+1}=a_k+tp^k$ for some $0\leq t<p$. Observe that by \zcrefnamed{theorem:taylor-expansion-theorem}, we have the congruence
   \begin{equation*}
     f(a_k+tp^k)\equiv f(a_k)+ tp^k f'(a_k) \pmod{p^{k+1}}.
   \end{equation*}
@@ -189,13 +189,13 @@ Using the fact that equivalent reduced polynomials must be congruent, we obtain 
   Both polynomials are equivalent and reduced, so they must be congruent.
 \end{proof}
 
-The previous theorem provides another way of proving \crefnamed{theorem:wilsons-theorem}. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
+The previous theorem provides another way of proving \zcrefnamed{theorem:wilsons-theorem}. This proof is due to Lagrange, who was the first to publish a proof of Wilson's theorem.
 
-\begin{proof}[Proof of \crefnamed{theorem:wilsons-theorem}]
+\begin{proof}[Proof of \zcrefnamed{theorem:wilsons-theorem}]
   The integer $(p-1)!$ is the constant coefficient of the polynomial $(x-1)\cdots(x-p+1)$, which is congruent to the polynomial $x^{p-1}-1$ with constant coefficient $-1$.
 \end{proof}
 
-Using the elementary symmetric polynomials, we find another way of stating \cref{theorem:factorization-fermats-polynomial}:
+Using the elementary symmetric polynomials, we find another way of stating \zcref{theorem:factorization-fermats-polynomial}:
 
 \begin{theorem}
   For each prime $p$ and each $1\leq k < p-1$ we have

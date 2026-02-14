@@ -179,12 +179,12 @@ we have to create what is called a \emph{bijective correspondence} between the e
     \label{figure:not-bijection-2}
   \end{minipage}
 \end{figure}
-In \cref{figure:bijection} we displayed an example of a bijection between two $3$-element sets.
+In \zcref{figure:bijection} we displayed an example of a bijection between two $3$-element sets.
 Note that such a bijection would not exist between $A$ and $B$ if the number of elements in $B$ was different from three.
-If $B$ had fewer than $3$ elements, as shown in \cref{figure:not-bijection-1},
+If $B$ had fewer than $3$ elements, as shown in \zcref{figure:not-bijection-1},
 then any function $f:A\to B$ would necessarily repeat a value,
 while if $B$ had more than $3$ elements,
-as shown in \cref{figure:not-bijection-2},
+as shown in \zcref{figure:not-bijection-2},
 then no function $f:A\to B$ could have all the elements of $B$ in its range.
 
 This is precisely the reason why we are interested in bijections:
@@ -335,13 +335,13 @@ We have defined bijections to be functions $f:X\to Y$ such that for every $y\in 
   A function $f:X\to Y$ is said to be \emph{injective} if for every $y\in Y$ there is at most one element $x\in X$ such that $f(x)=y$.
 \end{definition}
 
-Thus, a function $f:X\to Y$ is surjective if every element of $Y$ is a value of $f$. The function shown in \cref{figure:not-bijection-1} is an example of a surjective function.
+Thus, a function $f:X\to Y$ is surjective if every element of $Y$ is a value of $f$. The function shown in \zcref{figure:not-bijection-1} is an example of a surjective function.
 
 Likewise, a function $f:X\to Y$ is injective if the function $f$ does not repeat values. Another way of stating the condition that $f$ is injective is by the condition
 \begin{equation*}
   (f(x)=f(y))\Rightarrow (x=y),
 \end{equation*}
-which states that if two elements $x$ and $y$ have the same value under $f$, then they must be the same. The function shown in \cref{figure:not-bijection-2} is an example of an injective function.
+which states that if two elements $x$ and $y$ have the same value under $f$, then they must be the same. The function shown in \zcref{figure:not-bijection-2} is an example of an injective function.
 
 An immediate corollary of these definitions is that a function is a bijection if and only if it is both surjective and injective. Indeed, many authors take this as the definition of bijections. The concept of bijection is also closely related to the concept of \emph{invertible function}.
 
@@ -458,7 +458,7 @@ The terms from $1/0!$ to $1/5!$ add up to $2+\frac{86}{120}\approx 2.71\cdots$, 
 \end{proof}
 
 \begin{remark}
-  The strict lower bound for $n!$ given in \cref{theorem:elementary-estimate-factorial} is not the best known estimate of the factorial function. Nevertheless, its proof is elementary, and it can be used in basic number-theoretic estimates. The best approximation to the factorial function is given by Stirling's approximation formula:
+  The strict lower bound for $n!$ given in \zcref{theorem:elementary-estimate-factorial} is not the best known estimate of the factorial function. Nevertheless, its proof is elementary, and it can be used in basic number-theoretic estimates. The best approximation to the factorial function is given by Stirling's approximation formula:
   \begin{equation*}
     n!\sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n.
   \end{equation*}
@@ -640,7 +640,7 @@ We will prove that the falling factorial $n_{k}$ is divisible by the factorial $
 \end{proposition}
 
 \begin{proof}
-  By \cref{proposition:characterize-k-permutations} there is a bijection between the set of $k$-permutations of the set $S:=[n]$, and the set
+  By \zcref{proposition:characterize-k-permutations} there is a bijection between the set of $k$-permutations of the set $S:=[n]$, and the set
   \begin{equation*}
     \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
   \end{equation*}

@@ -152,13 +152,11 @@ are still true, but require a short proof.
   \begin{equation*}
     f^{m+(n+1)}(x)=f^m(f^{n+1}(x)).
   \end{equation*}
-  Here, we use that the equalities $m+(n+1)=(m+n)+1$ and $f^{n+1}(x)=f(f^n(x))$ hold by definition, and that the equality $f^m(f(x))=f(f^m(x))$ holds by \cref{proposition:iterate-successor}. Together, these identities give:
-  \begin{equation*}
-    \begin{split}
-      f^{m+(n+1)}(x)=f^{(m+n)+1}(x) & =f(f^{m+n}(x))=f(f^m(f^n(x))) \\
-                                    & =f^m(f(f^n(x)))=f^m(f^{n+1}(x)).\qedhere
-    \end{split}
-  \end{equation*}
+  Here, we use that the equalities $m+(n+1)=(m+n)+1$ and $f^{n+1}(x)=f(f^n(x))$ hold by definition, and that the equality $f^m(f(x))=f(f^m(x))$ holds by \zcref{proposition:iterate-successor}. Together, these identities give:
+  \begin{align*}
+    f^{m+(n+1)}(x)=f^{(m+n)+1}(x) & =f(f^{m+n}(x))=f(f^m(f^n(x))) \\
+                                  & =f^m(f(f^n(x)))=f^m(f^{n+1}(x)).\qedhere
+  \end{align*}
 \end{proof}
 
 \begin{corollary}
@@ -169,7 +167,7 @@ are still true, but require a short proof.
 \end{corollary}
 
 \begin{proof}
-  By definition, we have $(l+m)+n=S^n(S^m(l))$ and $l+(m+n)=S^{m+n}(l)$. Combining these identities with \cref{proposition:iterate-add}, we obtain
+  By definition, we have $(l+m)+n=S^n(S^m(l))$ and $l+(m+n)=S^{m+n}(l)$. Combining these identities with \zcref{proposition:iterate-add}, we obtain
   \begin{equation*}
     (l+m)+n=S^n(S^m(l))=S^{m+n}(l)=l+(m+n).\qedhere
   \end{equation*}
@@ -183,11 +181,11 @@ are still true, but require a short proof.
 \end{proposition}
 
 \begin{proof}
-  The proof is by induction on $n$. In the base case, we use \cref{proposition:unit-law-addition-nat}
+  The proof is by induction on $n$. In the base case, we use \zcref{proposition:unit-law-addition-nat}
   \begin{equation*}
     m+0=m=0+m.
   \end{equation*}
-  For the inductive step, assume that $m+n=n+m$. Then we use \cref{proposition:unit-law-addition-nat} again to obtain:
+  For the inductive step, assume that $m+n=n+m$. Then we use \zcref{proposition:unit-law-addition-nat} again to obtain:
   \begin{align*}
     m+(n+1) & = (m+n)+1 \\
             & = (n+m)+1 \\
@@ -223,7 +221,7 @@ The last identification is called the \define{interchange law} for addition. The
   \begin{align*}
     0n & = 0, & m0 & = 0, \\
     (m+1)n & = mn+n, & m(n+1) & = mn+m, \\
-    1m & = m & m1, & = m, \\
+    1m & = m, & m1 & = m, \\
     l(m+n) & = lm+ln, & (l+m)n & = ln+mn, \\
     (lm)n & = l(mn), & mn & = nm.
   \end{align*}
@@ -338,7 +336,7 @@ We illustrate induction with another example, the \define{formula for the geomet
 
 \section{Hemachandra's Counting Problem}
 
-\begin{figure}[b]
+\begin{figure}[t]
   \centering
   \begin{tikzpicture}[scale=0.6]
     % --- first tiling (a) at y=0 ---
@@ -394,9 +392,9 @@ We illustrate induction with another example, the \define{formula for the geomet
 
 In the 12th century, the Indian scholars Gopāla and Hemachandra studied the number of rhythmic patterns formed by combining short and long syllables in Sanskrit prosody. Hemachandra, around the year 1150, found a systematic way of counting the number of rhythmic patterns that can occur for any number of beats.
 
-In order to rediscover Hemachandra's method, it might be helpful to think of the patterns of short and long syllables in terms of tilings one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). We have displayed some arbitrary examples of such tilings in \cref{figure:fibonacci-tilings}. The question is thus: How many such patterns are there?
+In order to rediscover Hemachandra's method, it might be helpful to think of the patterns of short and long syllables in terms of tilings one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). We have displayed some arbitrary examples of such tilings in \zcref{figure:fibonacci-tilings}. The question is thus: How many such patterns are there?
 
-In order to count them, let $H_n$ be the number of such tilings. One way of finding the number $H_n$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \cref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
+In order to count them, let $H_n$ be the number of such tilings. One way of finding the number $H_n$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \zcref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[scale=0.6]
@@ -437,7 +435,7 @@ In order to count them, let $H_n$ be the number of such tilings. One way of find
 
 For the first few numbers it is easy to determine the value of $H_n$. For example, the number $H_1$ is just $1$, since the only way of tiling a 1-by-1 grid using monominoes and dominoes is to use a single monomino. Likewise, the number $H_2$ is $2$, since we can either use two monominoes or one domino as a tiling of a 1-by-2 grid. However, listing all such tilings gets elaborate for larger $n$ quite quickly, and furthermore doing so by hand is quite error-prone. The problem is therefore to find a clever way of counting all possible patterns for all $n$.
 
-Notice that the last tile is either a monomino or a domino, so there are two cases to consider. The number of tilings ending in a monomino is exactly the number $H_{n-1}$, and the number of tilings ending in a domino is exactly the number $H_{n-2}$. This can be seen in \cref{figure:complete-fifth-fibonacci-tiling}, where we listed all the tilings of the 1-by-5 grid. There are five tilings ending in a monomino, corresponding to each of the five different tilings of the 1-by-4 grid. Similarly, there are three tilings ending in a domino, corresponding to the three different tilings of the 1-by-3 grid. Thus, the total number of tilings of a 1-by-$n$ grid is the sum of these two numbers:
+Notice that the last tile is either a monomino or a domino, so there are two cases to consider. The number of tilings ending in a monomino is exactly the number $H_{n-1}$, and the number of tilings ending in a domino is exactly the number $H_{n-2}$. This can be seen in \zcref{figure:complete-fifth-fibonacci-tiling}, where we listed all the tilings of the 1-by-5 grid. There are five tilings ending in a monomino, corresponding to each of the five different tilings of the 1-by-4 grid. Similarly, there are three tilings ending in a domino, corresponding to the three different tilings of the 1-by-3 grid. Thus, the total number of tilings of a 1-by-$n$ grid is the sum of these two numbers:
 \begin{equation*}
   H_n = H_{n-1} + H_{n-2}.
 \end{equation*}
@@ -458,7 +456,12 @@ Hemachandra applied this recurrence to list the initial values of the sequence $
 
 The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham1996}. The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
 
-\exercises
+\clearpage%
+
+\section*{Exercises}%
+\addcontentsline{toc}{section}{Exercises}%
+\markboth{\leftmark}{\MakeUppercase{Exercises}}%
+\setcounter{exenumi}{0}%
 
 \begin{starter}
   \exercise \label{exercise:sum-of-odd-numbers}Prove that the sum of the first $n$ odd numbers is a perfect square. That is, prove that
@@ -486,7 +489,8 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
 \end{starter}
 
 \begin{routine}
-  \exercise \label{exercise:difference-of-powers}Prove the \define{formula for the difference of $n$th powers}
+  \exercise \label{exercise:difference-of-powers}
+  Prove the \define{formula for the difference of $n$th powers}
   \begin{equation*}
     x^n-y^n=(x-y)\sum_{k=0}^{n-1}x^ky^{n-1-k}.
   \end{equation*}
@@ -496,12 +500,8 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \end{equation*}
   as well as the formula for the geometric series
   \begin{equation*}
-    x^n-1=(x-1)\sum_{k=0}^{n-1}x^k.
+    x^n-1=(x-1)\sum_{k=0}^{n-1} x^k.
   \end{equation*}
-  % \exercise \emph{Sophie Germain's identity.} Show that
-  % \begin{equation*}
-  %   a^4+4b^4=(a^2-2ab+2b^2)(a^2+2ab+2b^2).
-  % \end{equation*}
   \exercise \label{exercise:identities-triangular-numbers}Write $T_n$ for the $n$th triangular number.
   \begin{subexenum}
   \item For $0\leq m<n$, show that
@@ -516,14 +516,6 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
     \begin{equation*}
       T_{2n}=4T_n-n.
     \end{equation*}
-  % \item Show that
-  %   \begin{equation*}
-  %     T_{2n}=2T_n+n^2.
-  %   \end{equation*}
-  % \item Show that
-  %   \begin{equation*}
-  %     T_{kn}=k^2T_n-nT_{k-1}.
-  %   \end{equation*}
   \item Show that
     \begin{equation*}
       8T_n+1=(2n+1)^2.

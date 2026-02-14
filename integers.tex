@@ -4,7 +4,7 @@
 
 Natural numbers count elements of finite sets. The empty set has zero elements, the set of solutions to the equation $3x-3=0$ has exactly one element, the booleans have exactly two elements, true and false, and so on.
 
-Natural numbers have been around for at least as long as humans count. But what do negative numbers count? Surely, there are no sets with $-5$ elements! One explanation of negative numbers is that they represent deficits. In other words, integers can be thought of as \emph{differences} between natural numbers. This point of view is completely valid, and we will come back to it. There is, however, a more structural and conceptually compelling way of thinking about integers, using cyclic sets. Cyclic sets are an often recurring structure in mathematics. Some of the prettiest proofs of \crefnamed{theorem:fermats-little-theorem} and \crefnamed{theorem:wilsons-theorem} use them.
+Natural numbers have been around for at least as long as humans count. But what do negative numbers count? Surely, there are no sets with $-5$ elements! One explanation of negative numbers is that they represent deficits. In other words, integers can be thought of as \emph{differences} between natural numbers. This point of view is completely valid, and we will come back to it. There is, however, a more structural and conceptually compelling way of thinking about integers, using cyclic sets. Cyclic sets are an often recurring structure in mathematics. Some of the prettiest proofs of \zcrefnamed{theorem:fermats-little-theorem} and \zcrefnamed{theorem:wilsons-theorem} use them.
 
 \begin{figure}[b]
   \centering
@@ -55,7 +55,7 @@ Natural numbers have been around for at least as long as humans count. But what 
   \label{figure:bijection-12-element-set}
 \end{figure}
 
-When we map out a bijection $f:A\to A$ from a finite set $A$ to itself by displaying an arrow between each element and its value under $f$, as we did in \cref{figure:bijection-12-element-set}, we discover that the finite set $A$ gets partitioned into cycles. The iterated action of $f$ on an element $a$ is mapped out by tracing along the arrows, which eventually loops back to itself. An intuitive reason for this phenomenon is that by iterating $f$ often enough, we obtain a sequence
+When we map out a bijection $f:A\to A$ from a finite set $A$ to itself by displaying an arrow between each element and its value under $f$, as we did in \zcref{figure:bijection-12-element-set}, we discover that the finite set $A$ gets partitioned into cycles. The iterated action of $f$ on an element $a$ is mapped out by tracing along the arrows, which eventually loops back to itself. An intuitive reason for this phenomenon is that by iterating $f$ often enough, we obtain a sequence
 \begin{equation*}
   a,~f(a),~f^2(a),~\ldots
 \end{equation*}
@@ -71,7 +71,7 @@ which implies by the assumption that $f$ is a bijection that $f^{n-1}(a)=f^{m-1}
   An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
 \end{definition}
 
-The bijection on the 12-element set in \cref{figure:bijection-12-element-set}, for example, has three such orbits. Since bijections on a set partition the set into cyclic orbits, we can now define a \emph{cyclic set} to be a set equipped with a bijection that has exactly one orbit, so that all the elements of the set fit in the same cycle. In \cref{figure:cyclically-ordered-set} we displayed an example of a cyclic set.
+The bijection on the 12-element set in \zcref{figure:bijection-12-element-set}, for example, has three such orbits. Since bijections on a set partition the set into cyclic orbits, we can now define a \emph{cyclic set} to be a set equipped with a bijection that has exactly one orbit, so that all the elements of the set fit in the same cycle. In \zcref{figure:cyclically-ordered-set} we displayed an example of a cyclic set.
 
 \begin{figure}[t]
   \centering
@@ -108,7 +108,7 @@ The bijection on the 12-element set in \cref{figure:bijection-12-element-set}, f
   \begin{equation*}
     0\mapsto 1 \mapsto 2 \mapsto \cdots \mapsto n \mapsto 0.
   \end{equation*}
-  This cyclic structure can be defined precisely without much trouble. However, to avoid cluttering these pages, we will postpone the definition until \crefnamed{theorem:euclidean-division}.
+  This cyclic structure can be defined precisely without much trouble. However, to avoid cluttering these pages, we will postpone the definition until \zcrefnamed{theorem:euclidean-division}.
 \end{example}
 
 \section{Maps Preserving Cyclic Structure}
@@ -182,7 +182,7 @@ For example, if $(X,s)$ is a cyclic set, then $s$ is always a cyclic-structure m
 \begin{equation*}
   s(s(x))=s(s(x))
 \end{equation*}
-holds trivially. In \cref{figure:example-cyclic-structure-map} we displayed an example of a cyclic-structure map from a 14-element set to a 7-element set. More generally, the idea of a cyclic-structure map is that we can overlay the elements of a cyclic set $X$ onto the elements of a cyclic set $Y$ so that the cyclic structure of the overlay matches the cyclic structure of $Y$. This means that in a cyclic-structure map, we can't skip any elements.
+holds trivially. In \zcref{figure:example-cyclic-structure-map} we displayed an example of a cyclic-structure map from a 14-element set to a 7-element set. More generally, the idea of a cyclic-structure map is that we can overlay the elements of a cyclic set $X$ onto the elements of a cyclic set $Y$ so that the cyclic structure of the overlay matches the cyclic structure of $Y$. This means that in a cyclic-structure map, we can't skip any elements.
 
 \begin{figure}[t]
   \centering
@@ -291,7 +291,7 @@ The organizational principle of defining structured sets along with their struct
   \label{figure:integers}
 \end{figure}
 
-Although the examples we have discussed so far are finite, the definition of cyclic sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \cref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
+Although the examples we have discussed so far are finite, the definition of cyclic sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \zcref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
 
 \begin{definition}\label{definition:integers}
   The set of integers is specified to be a set $\mathbb{Z}$ equipped with an element $0\in \mathbb{Z}$ and a bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
@@ -344,7 +344,7 @@ Note the similarity with the induction principle of the natural numbers: We have
   P(a) \Rightarrow P(a+1)\qquad\text{and}\qquad P(a+1)\Rightarrow P(a).
 \end{equation*}
 In other words, there are two steps in the inductive step: the \emph{forward step} and the \emph{backward step}. In the forward step, you will assume $P(a)$ as the inductive hypothesis as usual, and the task is to prove that $P(a+1)$ holds. In the backward step, you will assume $P(a+1)$ is true, and the task is to prove that $P(a)$ holds.
-In \cref{section:integer-arithmetic} we will use the integer induction principle to prove the laws for integer arithmetic.
+In \zcref{section:integer-arithmetic} we will use the integer induction principle to prove the laws for integer arithmetic.
 
 \begin{proof}
   Consider a property $P(a)$ of the integers, such that $P(0)$ is true and for which the logical equivalence
@@ -451,7 +451,7 @@ We have given a structural definition of the set of integers as the universal cy
 \end{proof}
 
 \begin{theorem}
-  The set $\mathbb{Z}_C$ equipped with the zero element $(0,0)$ and the successor function $s$ satisfies the specification of the integers in \cref{definition:integers}.
+  The set $\mathbb{Z}_C$ equipped with the zero element $(0,0)$ and the successor function $s$ satisfies the specification of the integers in \zcref{definition:integers}.
 \end{theorem}
 
 \begin{proof}
@@ -476,7 +476,7 @@ We have given a structural definition of the set of integers as the universal cy
   It remains to show that this function $f$ is unique.
 \end{proof}
 
-Knowing that there is a set that meets the specification in \cref{definition:integers}, we shall now abandon the set $\mathbb{Z}_C$ again, and we will consider $\mathbb{Z}$ to be an arbitrary set as specified in \cref{definition:integers}.
+Knowing that there is a set that meets the specification in \zcref{definition:integers}, we shall now abandon the set $\mathbb{Z}_C$ again, and we will consider $\mathbb{Z}$ to be an arbitrary set as specified in \zcref{definition:integers}.
 
 \section{Integer Arithmetic}\label{section:integer-arithmetic}
 
@@ -509,7 +509,7 @@ Before we start proving the laws of addition and the additive inverse of the int
 \end{theorem}
 
 \begin{proof}
-  For the first identity, we will use \crefnamed{theorem:integer-induction} on $b$. It is clear that
+  For the first identity, we will use \zcrefnamed{theorem:integer-induction} on $b$. It is clear that
   \begin{equation*}
     f^{a+0}(x)=f^a(x)=f^0(f^a(x)),
   \end{equation*}

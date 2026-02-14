@@ -36,7 +36,7 @@ Since the square root $\sqrt{k}$ of an integer $k$ is an integer if and only if 
   where $a\neq 0$. This equation has a rational solution if and only if the discriminant $\Delta=b^2-4ac$ is a perfect square.
 \end{theorem}
 
-Now consider an odd prime $p$. Recall from \crefnamed{theorem:lagranges-theorem} that a polynomial congruence
+Now consider an odd prime $p$. Recall from \zcrefnamed{theorem:lagranges-theorem} that a polynomial congruence
 \begin{equation*}
   f(x)\equiv 0\pmod{p}
 \end{equation*}
@@ -172,11 +172,11 @@ The previous proposition was also observed by Adrien-Marie Legendre, who publish
   \end{equation*}
 \end{definition}
 
-An immediate consequence of \cref{proposition:quadratic-residue-pairity-exponent-primitive-root} is that
+An immediate consequence of \zcref{proposition:quadratic-residue-pairity-exponent-primitive-root} is that
 \begin{equation*}
   \legendre{a}{p}=(-1)^{\ind_g(a)}
 \end{equation*}
-for any primitive root $g$ modulo $p$. Using Legendre symbols, we can reformulate \cref{proposition:multiplicativity-quadratic-residues} succinctly as the \emph{multiplicative law of Legendre symbols}: For any two integers $a$ and $b$, both not multiples of $p$, the equality
+for any primitive root $g$ modulo $p$. Using Legendre symbols, we can reformulate \zcref{proposition:multiplicativity-quadratic-residues} succinctly as the \emph{multiplicative law of Legendre symbols}: For any two integers $a$ and $b$, both not multiples of $p$, the equality
 \begin{equation*}
   \legendre{ab}{p}=\legendre{a}{p}\legendre{b}{p}
 \end{equation*}
@@ -233,7 +233,7 @@ Euler had a deep understanding of numbers that are congruent to a square modulo 
 \end{theorem}
 
 \begin{proof}
-  First note that \crefnamed{theorem:fermats-little-theorem} gives that if $b:=a^{\frac{p-1}{2}}$, then
+  First note that \zcrefnamed{theorem:fermats-little-theorem} gives that if $b:=a^{\frac{p-1}{2}}$, then
   \begin{equation*}
     b^2\equiv 1\pmod{p}.
   \end{equation*}
@@ -250,7 +250,7 @@ Euler had a deep understanding of numbers that are congruent to a square modulo 
   if and only if $a$ is a quadratic residue, and it is congruent to $-1$ otherwise.
 \end{proof}
 
-Using Euler's Criterion, we can give a new proof of \cref{theorem:quadratic-character-neg-1}. In the language of quadratic residues, \cref{theorem:quadratic-character-neg-1} states that $-1$ is a quadratic residue modulo an odd prime $p$ if and only if $p\equiv 1\pmod{4}$. In other words,
+Using Euler's Criterion, we can give a new proof of \zcref{theorem:quadratic-character-neg-1}. In the language of quadratic residues, \zcref{theorem:quadratic-character-neg-1} states that $-1$ is a quadratic residue modulo an odd prime $p$ if and only if $p\equiv 1\pmod{4}$. In other words,
 \begin{equation*}
   \legendre{-1}{p}= 
   \begin{cases}
@@ -260,8 +260,8 @@ Using Euler's Criterion, we can give a new proof of \cref{theorem:quadratic-char
 \end{equation*}
 This description of the quadratic character of $-1$ is also called the \emph{first supplement} of the law of quadratic reciprocity.
 
-\begin{proof}[Proof of \cref{theorem:quadratic-character-neg-1} using Euler's Criterion.]
-  By \crefnamed{theorem:eulers-criterion}, it follows that $-1$ is a quadratic residue modulo $p$ if and only if
+\begin{proof}[Proof of \zcref{theorem:quadratic-character-neg-1} using Euler's Criterion.]
+  By \zcrefnamed{theorem:eulers-criterion}, it follows that $-1$ is a quadratic residue modulo $p$ if and only if
   \begin{equation*}
     (-1)^{\frac{p-1}{2}}\equiv 1\pmod{p}.
   \end{equation*}
@@ -297,7 +297,7 @@ As a reasonable starting point for our search, we take three consecutive primes 
 \begin{equation*}
   q,~q+2,~\text{and}~q+6.
 \end{equation*}
-By \crefnamed{theorem:lagranges-interpolation-theorem}, there is only one polynomial $f$ such that $f(n)$ assumes those values for $n=0,1,2$:
+By \zcrefnamed{theorem:lagranges-interpolation-theorem}, there is only one polynomial $f$ such that $f(n)$ assumes those values for $n=0,1,2$:
 \begin{equation*}
   f(n)=n^2+n+q.
 \end{equation*}
@@ -309,7 +309,7 @@ is composite for some $0\leq n\leq q-2$, then it must have a prime factor below 
 \begin{equation*}
   n^2+n+q\nequiv 0\pmod{p}
 \end{equation*}
-for any odd prime $p<q$. Recall from \cref{theorem:quadratic-congruence-mod-prime} that such an incongruence holds if and only if the discriminant $\Delta=1-4q$ is a quadratic nonresidue modulo $p$ for any odd prime $p<q$. By \crefnamed{theorem:eulers-criterion}, this observation finally narrows our search: We are looking for a prime $q$ such that
+for any odd prime $p<q$. Recall from \zcref{theorem:quadratic-congruence-mod-prime} that such an incongruence holds if and only if the discriminant $\Delta=1-4q$ is a quadratic nonresidue modulo $p$ for any odd prime $p<q$. By \zcrefnamed{theorem:eulers-criterion}, this observation finally narrows our search: We are looking for a prime $q$ such that
 \begin{equation*}
   (1-4q)^{\frac{p-1}{2}} \equiv -1 \pmod{p}
 \end{equation*}
@@ -336,7 +336,7 @@ for any odd prime $p<q$.
   \caption{Residues of the discriminant $\Delta=1-4q$ modulo an odd prime $p<q$, for the polynomial $n^2+n+q$.\\ Computations of residues for $q\leq p$ are omitted. A dash indicates that it was not necessary to compute this residue, because a quadratic residue has been encountered earlier.}
   \label{table:discriminants-prime-generating-polynomials}
 \end{table}
-We can now discover prime-generating polynomials of the form $n^2 + n + q$ by computing the integer $1-4q\pmod{p}$ for all odd primes $3<p<q$. If we can find a prime $p$ such that $1-4q$ is a quadratic residue mod $p$, we may discard that prime from the remainder of the search. This process resulted in \cref{table:discriminants-prime-generating-polynomials}, which reveals that the following polynomials are prime-generating polynomials, in the sense that they yield prime numbers for all inputs $0\leq n \leq q-2$:
+We can now discover prime-generating polynomials of the form $n^2 + n + q$ by computing the integer $1-4q\pmod{p}$ for all odd primes $3<p<q$. If we can find a prime $p$ such that $1-4q$ is a quadratic residue mod $p$, we may discard that prime from the remainder of the search. This process resulted in \zcref{table:discriminants-prime-generating-polynomials}, which reveals that the following polynomials are prime-generating polynomials, in the sense that they yield prime numbers for all inputs $0\leq n \leq q-2$:
 \begin{align*}
   & n^2 + n + 2 & & n^2 + n + 11 \\
   & n^2 + n + 3 & & n^2 + n + 17 \\
@@ -425,8 +425,8 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
     \begin{equation*}
       \legendre{a}{p}=(-1)^{\frac{p-1}{\ord_p(a)}}.
     \end{equation*}
-    \cref{table:universal-exponents} lists the values of $\frac{p-1}{\ord_p(a)}$, where $p$ and $q$ range over the first ten primes.
-  \item Using \cref{exercise:primitive-root-with-universal-exponent}, give a direct proof of the identity
+    \zcref{table:universal-exponents} lists the values of $\frac{p-1}{\ord_p(a)}$, where $p$ and $q$ range over the first ten primes.
+  \item Using \zcref{exercise:primitive-root-with-universal-exponent}, give a direct proof of the identity
     \begin{equation*}
       \legendre{a}{p}=(-1)^{\frac{p-1}{\ord_p(a)}}.
     \end{equation*}

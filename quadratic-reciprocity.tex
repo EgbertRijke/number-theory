@@ -2,7 +2,7 @@
 
 \section{The Quadratic Character of 2}
 
-In this section we consider the question for which odd primes $p$ we have that $2$ is a quadratic residue. By \cref{exercise:uniform-legendre-exponent}, this is equivalent to the question for which primes $p$ we have
+In this section we consider the question for which odd primes $p$ we have that $2$ is a quadratic residue. By \zcref{exercise:uniform-legendre-exponent}, this is equivalent to the question for which primes $p$ we have
 \begin{equation*}
   \frac{p-1}{\ord_p(2)}\equiv 0\pmod{2}.
 \end{equation*}
@@ -33,14 +33,14 @@ However, it is not quite true that $2$ is a primitive root modulo $p$ whenever i
   In other words, $2$ is a quadratic residue if and only if $p\equiv \pm1\pmod{8}$, and it is a quadratic nonresidue if and only if $p\equiv \pm 3\pmod{8}$.
 \end{theorem}
 
-  Before we start the proof, recall that one of the proofs of \crefnamed{theorem:fermats-little-theorem} was obtained by multiplying all the numbers $1,\ldots,p-1$ with an integer $a$ to obtain the congruence
+  Before we start the proof, recall that one of the proofs of \zcrefnamed{theorem:fermats-little-theorem} was obtained by multiplying all the numbers $1,\ldots,p-1$ with an integer $a$ to obtain the congruence
   \begin{equation*}
     a^{p-1}(p-1)!\equiv (p-1)!\pmod{p}.
   \end{equation*}
   Since $(p-1)!$ isn't divisible by $p$, it is invertible modulo $p$ and thus we found that $a^{p-1}\equiv 1\pmod{p}$.
 
 \begin{proof}
-  In this proof, we will write $P:=\frac{p-1}{2}$ so that $2P=p-1$. By \crefnamed{theorem:eulers-criterion} we have $\legendre{2}{p}\equiv 2^P\pmod{p}$, which gives us the congruences
+  In this proof, we will write $P:=\frac{p-1}{2}$ so that $2P=p-1$. By \zcrefnamed{theorem:eulers-criterion} we have $\legendre{2}{p}\equiv 2^P\pmod{p}$, which gives us the congruences
   \begin{equation*}
     {\textstyle \legendre{2}{p}P!}\equiv 2^{P}P! \equiv 2\cdot 4 \cdot \cdots \cdot (2P) \pmod{p}
   \end{equation*}
@@ -100,7 +100,7 @@ Since primitive roots are always quadratic nonresidues, we obtain the following 
   \caption[The first ten primes in each residue class modulo $8$]{\label{table:primes-congruent-to-r-mod-8}The first ten primes congruent to $r$ modulo $8$, for $r=1,3,5,7$.}
 \end{table}
 
-The second supplement can be used to show that there are infinitely many primes of the form $8k+r$ for any odd number $0<r<8$. We have already seen in \cref{theorem:infinitude-of-primes-1-mod-power-of-2} that there are infinitely many primes congruent to $1$ modulo $2^n$. In particular, there are infinitely many primes of the form $8k+1$. It remains prove the analogous claims for the residue classes $3$, $5$, and $7$ modulo $8$. We will be following \Sierpinski{} \cite{sierpinski1988}. The first ten primes congruent to $r$ moduo $8$ for each odd residue class $r$ are given in \cref{table:primes-congruent-to-r-mod-8}.
+The second supplement can be used to show that there are infinitely many primes of the form $8k+r$ for any odd number $0<r<8$. We have already seen in \zcref{theorem:infinitude-of-primes-1-mod-power-of-2} that there are infinitely many primes congruent to $1$ modulo $2^n$. In particular, there are infinitely many primes of the form $8k+1$. It remains prove the analogous claims for the residue classes $3$, $5$, and $7$ modulo $8$. We will be following \Sierpinski{} \cite{sierpinski1988}. The first ten primes congruent to $r$ moduo $8$ for each odd residue class $r$ are given in \zcref{table:primes-congruent-to-r-mod-8}.
 
 \begin{theorem}
   There are infinitely many primes congruent to $3$ modulo $8$.
@@ -188,7 +188,7 @@ The Legendre symbol $\legendre{2}{p}$ can likewise be computed according to whet
 \end{equation*}
 We need one final piece to effectively compute Legendre symbols: a way to determine the Legendre symbol $\legendre{q}{p}$ when $q$ is an odd prime. The recipe for determining $\legendre{q}{p}$ is given by the law of quadratic reciprocity.
 
-To build some intuition for what the law of quadratic reciprocity should assert, we recall from \cref{exercise:uniform-legendre-exponent} that the Legendre symbol of $a$ modulo $p$ can be computed by
+To build some intuition for what the law of quadratic reciprocity should assert, we recall from \zcref{exercise:uniform-legendre-exponent} that the Legendre symbol of $a$ modulo $p$ can be computed by
 \begin{equation*}
   \legendre{a}{p}=(-1)^{\frac{p-1}{\ord_p(a)}}.
 \end{equation*}
@@ -196,7 +196,7 @@ Thus, the Legendre symbol of $a$ modulo $p$ depends only of the parity of the qu
 \begin{equation*}
   \frac{p-1}{\ord_p(a)},
 \end{equation*}
-which gives us a fairly quick way of determining the Legendre symbol $\legendre{q}{p}$ for small odd primes $p$ and $q$. We listed signs of the Legendre symbols of $q$ modulo $p$ in \cref{table:legendre-symbols-distinct-odd-primes}.
+which gives us a fairly quick way of determining the Legendre symbol $\legendre{q}{p}$ for small odd primes $p$ and $q$. We listed signs of the Legendre symbols of $q$ modulo $p$ in \zcref{table:legendre-symbols-distinct-odd-primes}.
 
 \begin{table}[t]
   \begin{center}
@@ -220,7 +220,7 @@ which gives us a fairly quick way of determining the Legendre symbol $\legendre{
   \end{center}
 \end{table}
 
-The patterns in this table might not be immediately apparent. However, those who did \cref{exercise:legendre-5} might spot that column $5$ is identical to row $5$. Looking for more identical columns and rows, we create a new table by comparing the entry in row $i$ and column $j$ in \cref{table:legendre-symbols-distinct-odd-primes} with the entry in row $j$ and column $i$. When these two entries are equal, we mark it with a solid black circle (\tikz[baseline=-.58ex] \fill (0,0) circle (0.9ex);), and if they are different we mark it with an open circle (\tikz[baseline=-.58ex] \draw (0,0) circle (0.9ex);). This results in the following table:
+The patterns in this table might not be immediately apparent. However, those who did \zcref{exercise:legendre-5} might spot that column $5$ is identical to row $5$. Looking for more identical columns and rows, we create a new table by comparing the entry in row $i$ and column $j$ in \zcref{table:legendre-symbols-distinct-odd-primes} with the entry in row $j$ and column $i$. When these two entries are equal, we mark it with a solid black circle (\tikz[baseline=-.58ex] \fill (0,0) circle (0.9ex);), and if they are different we mark it with an open circle (\tikz[baseline=-.58ex] \draw (0,0) circle (0.9ex);). This results in the following table:
 
 \begingroup
 \newcommand{\yes}{\tikz[baseline=-.58ex] \fill (0,0) circle (0.9ex);}
@@ -248,7 +248,7 @@ The patterns in this table might not be immediately apparent. However, those who
 \end{table}
 \endgroup
 
-Using this table, we quickly spot that columns $5$, $13$, $17$, and $29$ are identical to rows $5$, $13$, $17$, and $29$, respectively, which means that these columns were also identical to their respective rows in \cref{table:legendre-symbols-distinct-odd-primes}. Something special is going on with the primes
+Using this table, we quickly spot that columns $5$, $13$, $17$, and $29$ are identical to rows $5$, $13$, $17$, and $29$, respectively, which means that these columns were also identical to their respective rows in \zcref{table:legendre-symbols-distinct-odd-primes}. Something special is going on with the primes
 \begin{equation*}
   5,~13,~17,~29,
 \end{equation*}
@@ -378,7 +378,7 @@ such that $x\equiv a\pmod{p}$. For example, the least absolute residue of $4$ mo
 \begin{center}
   \begin{tabular}{c|ccccccccccc}
     $a$ & $0$ & $1$ & $2$ & $3$ &  $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ \\ \midrule
-    \lres{a}{11} & $0$ & $1$ & $2$ & $3$ &  $4$ & $5$ & $-5$ & $-4$ & $-3$ & $-2$ & $-1$.
+    $\lres{a}{11}$ & $0$ & $1$ & $2$ & $3$ &  $4$ & $5$ & $-5$ & $-4$ & $-3$ & $-2$ & $-1$.
   \end{tabular}
 \end{center}
 
@@ -424,11 +424,11 @@ The following lemma shows that every $1\leq x\leq\frac{p-1}{2}$ occurs exactly o
   \begin{equation*}
     \legendre{a}{p}P!\equiv (-1)^\mu P!\pmod{p}.
   \end{equation*}
-  By \crefnamed{theorem:eulers-criterion} we have $\legendre{a}{p}\equiv a^{P}\pmod{p}$, so we obtain that
+  By \zcrefnamed{theorem:eulers-criterion} we have $\legendre{a}{p}\equiv a^{P}\pmod{p}$, so we obtain that
   \begin{equation*}
     \legendre{a}{p}P!\equiv a^P P! \pmod{p}.
   \end{equation*}
-  Redistributing the $P$ factors of $a$ of the exponent $a^P$ over $P!$, and using \cref{lemma:gausss-lemma}, we obtain:
+  Redistributing the $P$ factors of $a$ of the exponent $a^P$ over $P!$, and using \zcref{lemma:gausss-lemma}, we obtain:
   \begin{equation*}
     a^P P! = (1a)(2a)\cdots(Pa) \equiv (-1)^\mu P! \pmod{p}.\qedhere
   \end{equation*}
@@ -453,8 +453,8 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   \left\lfloor\frac{3}{2}\right\rfloor=1,\qquad \left\lfloor\frac{29}{31}\right\rfloor=0,\qquad\text{and}\qquad\left\lfloor-\frac{1}{4}\right\rfloor=-1.
 \end{equation*}
 
-\begin{proof}[Eisenstein's Proof of \crefnamed{theorem:quadratic-reciprocity}]
-  By \crefnamed{lemma:gausss-lemma} it suffices to show that
+\begin{proof}[Eisenstein's Proof of \zcrefnamed{theorem:quadratic-reciprocity}]
+  By \zcrefnamed{lemma:gausss-lemma} it suffices to show that
   \begin{equation*}
     (-1)^{\mu(q,p)}(-1)^{\mu(p,q)}=(-1)^{\frac{p-1}{2}\frac{q-1}{2}}.
   \end{equation*}
@@ -462,7 +462,7 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
   \begin{equation*}
     \mu(q,p)+\mu(p,q)\equiv \frac{p-1}{2}\frac{q-1}{2}\pmod{2}.
   \end{equation*}
-  This suggests that there should be a way of splitting a set of $\frac{p-1}{2}\frac{q-1}{2}$ points into two subsets $S$ and $T$, so that their respective number of elements have the same parities as the quantities $\mu(q,p)$ and $\mu(p,q)$. There is indeed such a way. \cref{figure:eisenstein-quadratic-reciprocity} shows Eisenstein's setup in case of the primes $p=17$ and $q=13$. 
+  This suggests that there should be a way of splitting a set of $\frac{p-1}{2}\frac{q-1}{2}$ points into two subsets $S$ and $T$, so that their respective number of elements have the same parities as the quantities $\mu(q,p)$ and $\mu(p,q)$. There is indeed such a way. \zcref{figure:eisenstein-quadratic-reciprocity} shows Eisenstein's setup in case of the primes $p=17$ and $q=13$. 
   
   \begin{figure}[t]
     \centering
@@ -524,7 +524,7 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
 \end{proof}
 
 \begin{lemma}
-  Consider an odd prime $p$ and an odd integer $a$ not divisible by $p$, and let $\mu(a,p)$ be the quantity defined in \crefnamed{lemma:gausss-lemma}. Then
+  Consider an odd prime $p$ and an odd integer $a$ not divisible by $p$, and let $\mu(a,p)$ be the quantity defined in \zcrefnamed{lemma:gausss-lemma}. Then
   \begin{equation*}
     \sum_{k=1}^{\frac{p-1}{2}}\left\lfloor\frac{ka}{p}\right\rfloor \equiv \mu(a,p)\pmod{2}.
   \end{equation*}
@@ -552,7 +552,7 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
     \sum_{k=1}^{\frac{p-1}{2}}q_k \equiv 0\pmod{2}.
   \end{equation*}
 
-  To prove this, recall from \cref{lemma:bijection-gausss-lemma} that the map $k\mapsto |r_k|$ is a permutation of the set $\{1,\ldots,\frac{p-1}{2}\}$. In other words, every integer from $1$ to $\frac{p-1}{2}$ occurs exactly once as an integer of the form $|r_k|$. Since the parity of an integer is unchanged by taking its absolute value, we have
+  To prove this, recall from \zcref{lemma:bijection-gausss-lemma} that the map $k\mapsto |r_k|$ is a permutation of the set $\{1,\ldots,\frac{p-1}{2}\}$. In other words, every integer from $1$ to $\frac{p-1}{2}$ occurs exactly once as an integer of the form $|r_k|$. Since the parity of an integer is unchanged by taking its absolute value, we have
   \begin{equation*}
     \sum_{k=1}^{\frac{p-1}{2}}r_k \equiv \sum_{k=1}^{\frac{p-1}{2}}|r_k| \equiv \sum_{k=1}^{\frac{p-1}{2}}k \pmod{2}.
   \end{equation*}

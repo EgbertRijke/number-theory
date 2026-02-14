@@ -4,11 +4,11 @@ Pythagorean triples have been studied since antiquity. While this topic is very 
 \begin{equation*}
   a^2+b^2=c^2
 \end{equation*}
-with the rational points on an algebraic curve, a topic which is important in more advanced branches of number theory. We will also show that Pythagorean triples can be equivalently described as arithmetic triples of squares. This is an elementary example of the concept of \emph{equivalence of quadratic forms}. Moreover, the correspondence between Pythagorean triples and arithmetic triples of squares leads us to an important open problem, which we will describe in more detail in \cref{section:congruent-number-problem}: the congruent number problem.
+with the rational points on an algebraic curve, a topic which is important in more advanced branches of number theory. We will also show that Pythagorean triples can be equivalently described as arithmetic triples of squares. This is an elementary example of the concept of \emph{equivalence of quadratic forms}. Moreover, the correspondence between Pythagorean triples and arithmetic triples of squares leads us to an important open problem, which we will describe in more detail in \zcref{section:congruent-number-problem}: the congruent number problem.
 
 \section{The Pythagorean Theorem}
 
-Recall that a right triangle is a triangle in which one of the angles is a right angle; that is, it is exactly $90^\circ$. \crefnamed{theorem:pythagorean-theorem} relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as high school students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
+Recall that a right triangle is a triangle in which one of the angles is a right angle; that is, it is exactly $90^\circ$. \zcrefnamed{theorem:pythagorean-theorem} relates the lengths of the sides of a right triangle to the length of its hypotenuse. There are many ways to prove this theorem. We will present the \emph{Chinese proof}, \emph{Euclid's proof}, and the proof of Ne'Kiya Jackson and Calcea Johnson, who made headlines in 2023 as high school students with their remarkable discovery of a trigonometric proof \cite{theguardian2023}.
 
 \begin{theorem}[Pythagorean Theorem]\label{theorem:pythagorean-theorem}
   Consider a right triangle with side lengths $a$ and $b$, and a hypotenuse of length $c$. Then
@@ -19,33 +19,34 @@ Recall that a right triangle is a triangle in which one of the angles is a right
 
 \begin{proof}[The Chinese proof]
   Consider a square with side lengths $a+b$, and include four right triangles with side lengths $a$ and $b$ in the square, so that their right angles coincide with the four right angles of the square.
-\begin{center}
-\begin{tikzpicture}[scale=.7,thick,line join=round]
-    % Define points of the outer square
-    \coordinate (A) at (0,0);
-    \coordinate (B) at (5,0);
-    \coordinate (C) at (5,5);
-    \coordinate (D) at (0,5);
-    
-    % Define points of the inner square
-    \coordinate (E) at (2,0);
-    \coordinate (F) at (5,2);
-    \coordinate (G) at (3,5);
-    \coordinate (H) at (0,3);
-    
-    % Draw the outer square
-    \draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
-    
-    % Draw the four right triangles
-    \draw (A) -- node[below] {$a$} (E) -- (H) -- node[left] {$b$} cycle;
-    \draw (E) -- node[below] {$b$} (B) -- node[right] {$a$} (F) -- cycle;
-    \draw (F) -- node[right] {$b$} (C) -- node[above] {$a$} (G) -- cycle;
-    \draw (G) -- node[above] {$b$} (D) -- node[left] {$a$} (H) -- cycle;
-    
-    % Draw the inner square
-    \draw[line join=bevel] (E) -- node[midway,above] {$c$} (F) -- node[midway,left] {$c$} (G) -- node[midway,below] {$c$} (H) -- node[midway,right] {$c$} cycle;
-\end{tikzpicture}
-\end{center}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=.7,thick,line join=round]
+      % Define points of the outer square
+      \coordinate (A) at (0,0);
+      \coordinate (B) at (5,0);
+      \coordinate (C) at (5,5);
+      \coordinate (D) at (0,5);
+      
+      % Define points of the inner square
+      \coordinate (E) at (2,0);
+      \coordinate (F) at (5,2);
+      \coordinate (G) at (3,5);
+      \coordinate (H) at (0,3);
+      
+      % Draw the outer square
+      \draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
+      
+      % Draw the four right triangles
+      \draw (A) -- node[below] {$a$} (E) -- (H) -- node[left] {$b$} cycle;
+      \draw (E) -- node[below] {$b$} (B) -- node[right] {$a$} (F) -- cycle;
+      \draw (F) -- node[right] {$b$} (C) -- node[above] {$a$} (G) -- cycle;
+      \draw (G) -- node[above] {$b$} (D) -- node[left] {$a$} (H) -- cycle;
+      
+      % Draw the inner square
+      \draw[line join=bevel] (E) -- node[midway,above] {$c$} (F) -- node[midway,left] {$c$} (G) -- node[midway,below] {$c$} (H) -- node[midway,right] {$c$} cycle;
+    \end{tikzpicture}
+  \end{figure}
   The area of the square is $(a+b)^2$. On the other hand, the area of each triangle is $ab/2$. Combined with the area of the inner square, whose sides are the hypotenuses of the four triangles, we obtain that
   \begin{equation*}
     (a+b)^2 = c^2 + 4\frac{ab}{2} = c^2 + 2ab.
@@ -55,7 +56,8 @@ Recall that a right triangle is a triangle in which one of the angles is a right
 
 \begin{proof}[Euclid's proof]
   Consider a right triangle $ACB$ with hypotenuse $AB$, and draw a line from $C$ through $AB$ at a right angle. The intersection point is called $M$.
-  \begin{equation*}
+  \begin{figure}[H]
+    \centering
     \begin{tikzpicture}[scale=.1,line join=round,line cap=round]
       \pgfmathsetmacro{\myangle}{atan(28/45)}
       \pgfmathsetmacro{\CM}{28*45/53}
@@ -85,7 +87,7 @@ Recall that a right triangle is a triangle in which one of the angles is a right
       \draw[decorate, decoration={brace, amplitude=3pt, mirror}]
       ($(A)+(0,-5)$) -- ($(B)+(0,-5)$) node[midway, yshift=-3mm] {$c$};
     \end{tikzpicture}
-  \end{equation*}
+  \end{figure}
   Let $x$ be the length of the line segment $AM$, and let $y$ be the length of the line segment $BM$, so that $x+y=c$. The line $CM$ divides the triangle $ACB$ into two triangles $CMA$ and $CMB$, both of which are similar to the original triangle $ACB$. Thus, the ratio $a:c$ is the same as the ratio $y:a$, and the ratio $b:c$ is the same as the ratio $x:b$. This gives us the equalities
   \begin{equation*}
     a^2 = cy\qquad\text{and}\qquad b^2 = cx.
@@ -95,7 +97,7 @@ Recall that a right triangle is a triangle in which one of the angles is a right
 
 Our third proof and final proof in this section, which is due to Ne'Kiya Jackson and Calcea Johnson, is remarkable because it makes essential use of trigonometric functions sine and cosine and the addition law, which can be derived trigonometrically, rather than on calculations involving areas of shapes. Besides its use of trigonometry, it is also remarkable because Ne'Kiya Jackson and Calcea Johnson were still in high school when they found their proof, and it stands out for its inventive creativity.
 
-\begin{wrapfigure}{r}{.4\textwidth}
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
     % Draw the triangle
@@ -114,12 +116,13 @@ Our third proof and final proof in this section, which is due to Ne'Kiya Jackson
     \node[below left] at (A) {$A$};
     \node[below right] at (C) {$C$};
   \end{tikzpicture}
-\end{wrapfigure}
+\end{figure}
+
 Recall that the sine and cosine functions are defined to be the lengths of the vertical and horizontal sides of a right triangle, as indicated in the diagram on the side. This means that if $ACB$ is a right triangle with side $BC$ of length $a$, side $AC$ of length $b$, hypotenuse $AB$ of length $c$, and angle $\theta:=\angle CAB$, then we have
 \begin{equation*}
   \sin(\theta) = \frac{a}{c}\qquad\text{and}\qquad \cos(\theta)=\frac{b}{c}.
 \end{equation*}
-In the proof of \crefnamed{theorem:pythagorean-theorem}, we will make use of the addition formulas for sine and cosine:
+In the proof of \zcrefnamed{theorem:pythagorean-theorem}, we will make use of the addition formulas for sine and cosine:
 \begin{align*}
   \sin(\theta + \phi) & = \sin(\theta)\cos(\phi) + \cos(\theta)\sin(\phi) \\
   \cos(\theta + \phi) & = \sin(\theta)\sin(\phi) - \cos(\theta)\cos(\phi).
@@ -132,7 +135,8 @@ In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\si
   In the special case where $ACB$ is isosceles, meaning that $a=b$, the hypotenuse is the diagonal of an $a$-by-$a$ square, which gives us that $c^2=2a^2$. Hence, we may assume that $ACB$ is nonisosceles.
 
   Without loss of generality, we will assume that $a<b$, so that $BC$ is the shorter side. We reflect the triangle along the longer side $AC$, as indicated in the diagram below:
-  \begin{equation*}
+  \begin{figure}[H]
+    \centering
     \begin{tikzpicture}[scale=.2,line join=round,line cap=round]
       \pgfmathsetmacro{\length}{((2 * (64 / 225)) / (1 - (64 / 225)))}
 
@@ -159,11 +163,11 @@ In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\si
       \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=3,yshift=-13}] {angle=C--A--B'};
 
     \end{tikzpicture}
-  \end{equation*}
+  \end{figure}
 
   Observe that the angle $\theta := \angle BAC$ is strictly less than $45^\circ$, so that the angle $2\theta = \angle BAB'$ is still an acute angle.
 
-  Using this combined triangle, we draw a line from $B$ perpendicular to the line $AB$, and we extend the line $AB'$ until they meet in an intersection point, which we call $D$. This construction yields a new right triangle $ABD$ with the right angle at $B$, as in \cref{figure:jackson-johnson-pythagorean-theorem}.
+  Using this combined triangle, we draw a line from $B$ perpendicular to the line $AB$, and we extend the line $AB'$ until they meet in an intersection point, which we call $D$. This construction yields a new right triangle $ABD$ with the right angle at $B$, as in \zcref{figure:jackson-johnson-pythagorean-theorem}.
   \begin{figure}[t]
     \centering
     \begin{tikzpicture}[scale=.2,line join=round,line cap=round]
@@ -219,7 +223,7 @@ In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\si
   \begin{equation*}
     2c\left(\frac{a}{b}\right)^n
   \end{equation*}
-  This allows us to calculate the length of the side $B'D$ via the formula for the geometric series, which we proved in \cref{theorem:formula-geometric-series}:
+  This allows us to calculate the length of the side $B'D$ via the formula for the geometric series, which we proved in \zcref{theorem:formula-geometric-series}:
   \begin{equation*}
     |B'D| = \sum_{k=0}^\infty 2c\left(\frac{a}{b}\right)^{2k+2} = 2c\left(\frac{a}{b}\right)^2\sum_{k=0}^\infty \left(\frac{a}{b}\right)^{2k} = \frac{2c\left(\frac{a}{b}\right)^2}{1-\left(\frac{a}{b}\right)^2}=\frac{2ca^2}{b^2-a^2}.
   \end{equation*}
@@ -243,9 +247,9 @@ Our goal in this section is to describe all the solutions of the quadratic Dioph
 \begin{equation*}
   a^2 + b^2 = c^2,
 \end{equation*}
-where $c$ is a nonzero integer. By \crefnamed{theorem:pythagorean-theorem}, any such triple $(a,b,c)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(a,b,c)$ is a Pythagorean triple, then so is $(ka,kb,kc)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
+where $c$ is a nonzero integer. By \zcrefnamed{theorem:pythagorean-theorem}, any such triple $(a,b,c)$ describes the lengths of the sides and hypotenuse of a right triangle. Such a triple is therefore called a \emph{Pythagorean triple}. Notice that if $(a,b,c)$ is a Pythagorean triple, then so is $(ka,kb,kc)$, and their corresponding triangles are of the same shape. Such Pythagorean triples are therefore called \emph{similar}, and we are interested in the Pythagorean triples up to similarity.
 
-\begin{wrapfigure}{r}{.4\textwidth}
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
     % Draw the triangle
@@ -256,7 +260,7 @@ where $c$ is a nonzero integer. By \crefnamed{theorem:pythagorean-theorem}, any 
     % Mark right angle
     \draw (4,0) -- ++(-0.4,0) -- ++(0,0.4) -- ++(0.4,0);
   \end{tikzpicture}
-\end{wrapfigure}
+\end{figure}
 The trivial solutions are $(0,1,1)$ and $(1,0,1)$. The simplest nontrivial solution is the famous equation
 \begin{equation*}
   3^2 + 4^2 = 5^2.
@@ -274,7 +278,7 @@ The triangle with side lengths $3$ and $4$ and a hypotenuse of length $5$ is som
 \end{equation*}
 The oldest surviving table of Pythagorean triples was created by the Babylonians, in what is now known as the tablet \emph{Plimpton 322}. This clay tablet, which is estimated to date from 1800 BCE, contains a mathematical table written in cuneiform script, where each row describes a Pythagorean triple in sexagesimal notation; that is, in base 60.
 
-Fibonacci devised in his book \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, so that $a^2=2n+1$, then by \cref{exercise:sum-of-odd-numbers} there are positive integers $b$ and $c$ such that
+Fibonacci devised in his book \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987} a clever way to quickly show that there are infinitely many Pythagorean triples. If an odd square $a^2$ is the $n$th odd number, so that $a^2=2n+1$, then by \zcref{exercise:sum-of-odd-numbers} there are positive integers $b$ and $c$ such that
 \begin{equation*}
   b^2 = \sum_{i=0}^{n-1}(2i+1),\qquad\text{and}\qquad c^2=\sum_{i=0}^{n}(2i+1)
 \end{equation*}
@@ -336,7 +340,7 @@ In the remainder of this section we will derive the classic formula that describ
   Furthermore, since at least one of $a$ or $b$ is nonzero, it follows both $k$ and $l$ are nonzero. Thus we get $a'=a''$ from the equation $ka'=ka''$, and we get $b'=b''$ from the equation $kb'=kb''$. We conclude that $(a',b',c')=(a'',b'',c'')$.
 \end{proof}
 
-By the previous lemma we can restrict our attention to primitive Pythagorean triples. Next, we do a parity analysis of the components of a primitive Pythagorean triple to show that exactly one of the components of $(a,b,c)$ in a Pythagorean triple is divisible by $4$. In \cref{exercise:divisibility-legs-pythagorean-triples} we make the similar claims that exactly one of the components of a Pythagorean triple is divisible by $3$, and exactly one divisible by $5$.
+By the previous lemma we can restrict our attention to primitive Pythagorean triples. Next, we do a parity analysis of the components of a primitive Pythagorean triple to show that exactly one of the components of $(a,b,c)$ in a Pythagorean triple is divisible by $4$. In \zcref{exercise:divisibility-legs-pythagorean-triples} we make the similar claims that exactly one of the components of a Pythagorean triple is divisible by $3$, and exactly one divisible by $5$.
 
 \begin{lemma}\label{lemma:div-4-pythagorean-triple}
   Consider a primitive Pythagorean triple $(a,b,c)$. Then $c$ is odd, exactly one of $a$ and $b$ is divisible by $4$, and the other is odd.
@@ -381,7 +385,7 @@ By the previous lemma we may assume, without loss of generality, that in a primi
 \end{theorem}
 
 \begin{proof}
-  To prove that two relatively prime integers $0<s<t$ exist as specified, we will use $s$ and $t$ as determined in \cref{lemma:euclids-parametrization}, where
+  To prove that two relatively prime integers $0<s<t$ exist as specified, we will use $s$ and $t$ as determined in \zcref{lemma:euclids-parametrization}, where
   \begin{equation*}
     \frac{c-a}{2}=s^2,\qquad\text{and}\qquad\frac{c+a}{2}=t^2.
   \end{equation*}
@@ -418,7 +422,7 @@ which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see 
   \begin{equation*}
     (a,b,c)\mapsto \left(\frac{a}{c},\frac{b}{c}\right)
   \end{equation*}
-  is injective, so it suffices to show that it is surjective, meaning that every rational point on the unit circle is of this form. We first claim that if $(x,y)$ is a rational point on the unit circle with $x=\frac{a}{c}$ and $y=\frac{b}{d}$ in lowest terms, then we must have $c=d$. This is a special case of \cref{exercise:equal-denominators-rational-point-on-form}, so the reader who has already solved that exercise may skip ahead.
+  is injective, so it suffices to show that it is surjective, meaning that every rational point on the unit circle is of this form. We first claim that if $(x,y)$ is a rational point on the unit circle with $x=\frac{a}{c}$ and $y=\frac{b}{d}$ in lowest terms, then we must have $c=d$. This is a special case of \zcref{exercise:equal-denominators-rational-point-on-form}, so the reader who has already solved that exercise may skip ahead.
 
   The equation $x^2+y^2=1$ can be rearranged to the equation
   \begin{equation*}
@@ -464,7 +468,7 @@ which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see 
 
 In order to prove that all rational points on the unit circle are determined by primitive Pythagorean triples, we need a systematic way of studying the rational points on the unit circle. A standard way to classify all (rational) points on the unit circle is to parametrize them using a single parameter. We will use a parametrization called the \emph{stereographic projection}. This starts with a single rational point on the unit circle, in our case we start with the point $(-1,0)$. Then we consider all the lines through this point with a rational slope. Surely, if $(x,y)$ is a rational point on the circle, then the line through $(-1,0)$ and $(x,y)$ will have a rational slope. The question that thus arises is: Does every line through $(-1,0)$ with a rational slope intersect the unit circle in a rational point?
 
-At first consideration, it might not be so clear that this should indeed be the case. The key insights are obtained through Vieta's formulas for the roots of a (quadratic) polynomial, named after the 16th century French mathematician Fran\c{c}ois Vi\`{e}te. He was one of the first to use letters as parameters in his study of algebraic equations. Vieta's formulas are the essential ingredient in a problem-solving technique called \emph{Vieta jumping}, which is the topic of \cref{section:vieta-jumping}.
+At first consideration, it might not be so clear that this should indeed be the case. The key insights are obtained through Vieta's formulas for the roots of a (quadratic) polynomial, named after the 16th century French mathematician Fran\c{c}ois Vi\`{e}te. He was one of the first to use letters as parameters in his study of algebraic equations. Vieta's formulas are the essential ingredient in a problem-solving technique called \emph{Vieta jumping}, which is the topic of \zcref{section:vieta-jumping}.
 
 \begin{theorem}[Vieta's Formulas for the Roots of a Quadratic Polynomial]\label{theorem:vieta-formulas-quadratic}
   Consider a polynomial of the form $t^2-Bt+C$ and suppose that $r$ is a root of this polynomial. Then the other root $s$ satisfies the relations
@@ -504,7 +508,7 @@ A corollary of the previous theorem is that if $B$ and $C$ are rational numbers 
   \begin{equation*}
     x^2 + \frac{2m^2}{1+m^2}x + \frac{m^2-1}{1+m^2} = 0.
   \end{equation*}
-  Since we already know that there is one root at $-1$, we can find the other root by Vieta's formulas given in \cref{theorem:vieta-formulas-quadratic}: The other intersection point is at $(x,y)$, where
+  Since we already know that there is one root at $-1$, we can find the other root by Vieta's formulas given in \zcref{theorem:vieta-formulas-quadratic}: The other intersection point is at $(x,y)$, where
   \begin{equation*}
     x=\frac{1-m^2}{1+m^2}\qquad\text{and}\qquad y=\frac{2m}{1+m^2}.\qedhere
   \end{equation*}
@@ -542,7 +546,7 @@ In 1934, the Swedish senior high school teacher B.~Berggren discovered that the 
   \right).
 \end{equation*}
 
-To rediscover Berggren's matrices and his ternary tree, we will use the technique of Vieta jumping, which we have already used in the previous section to establish a correspondence between primitive Pythagorean triples and rational points on the unit circle. We begin with a generalization of \cref{theorem:stereographic-projection-unit-circle}, where we established the stereographic projection of the (rational) points on the unit circle.
+To rediscover Berggren's matrices and his ternary tree, we will use the technique of Vieta jumping, which we have already used in the previous section to establish a correspondence between primitive Pythagorean triples and rational points on the unit circle. We begin with a generalization of \zcref{theorem:stereographic-projection-unit-circle}, where we established the stereographic projection of the (rational) points on the unit circle.
 
 \begin{theorem}[Vieta Jumping for Rational Points on the Unit Circle]\label{theorem:vieta-jumping-rational-points-unit-circle}
   Consider a rational point $(x,y)$ on the unit circle. For any point $(u,v)$ with rational coordinates such that $u\neq x$, consider the line through $(u,v)$ and $(x,y)$, whose slope is
@@ -570,7 +574,7 @@ To rediscover Berggren's matrices and his ternary tree, we will use the techniqu
   \begin{equation*}
     t^2 + \frac{2vm - 2um^2}{1+m^2}t + \frac{(mu-v)^2 -1}{1+m^2}=0.
   \end{equation*}
-  We have thus reached a quadratic equation of the form $t^2+Bt+C$, which has by assumption one rational solution at $t=x$. It follows from \cref{theorem:vieta-formulas-quadratic} that the second solution $x'$ satisfies the Vieta relation
+  We have thus reached a quadratic equation of the form $t^2+Bt+C$, which has by assumption one rational solution at $t=x$. It follows from \zcref{theorem:vieta-formulas-quadratic} that the second solution $x'$ satisfies the Vieta relation
   \begin{equation*}
     xx' = \frac{(mu-v)^2 -1}{1+m^2}.\qedhere
   \end{equation*}
@@ -629,7 +633,7 @@ The suitable choice of $(u,v)$ that we alluded to previously is given by
   u:= \sgn(a)\qquad\text{and}\qquad v:=\sgn(b).
 \end{equation*}
 In other words, the point $(u,v)$ is the nearest corner of the $2$-by-$2$ square centered at the origin to the rational point $(x,y)$ on the unit circle.
-The procedure $(a,b,c)\mapsto (a',b',c')$ of stepping from one Pythagorean triple to a new one with a smaller hypotenuse is illustrated in the following example, which is accompanied by \cref{figure:vieta-jumps-pythagorean-triples}.
+The procedure $(a,b,c)\mapsto (a',b',c')$ of stepping from one Pythagorean triple to a new one with a smaller hypotenuse is illustrated in the following example, which is accompanied by \zcref{figure:vieta-jumps-pythagorean-triples}.
 
 \begin{example}
   Consider the Pythagorean triple $(a,b,c):=(117,44,125)$, which corresponds to the rational point $(x,y):=(\frac{117}{125},\frac{44}{125})$ on the unit circle. Since both $a$ and $b$ are positive, we have $u=v=1$, and the new point $(x',y')$ on the line through $(u,v)$ and $(x,y)$ and the unit circle satisfies
@@ -643,7 +647,7 @@ The procedure $(a,b,c)\mapsto (a',b',c')$ of stepping from one Pythagorean tripl
   From these calculations, we obtain that $x'=\frac{45}{53}$ and $y'=\frac{-28}{53}$, which corresponds to the primitive Pythagorean triple $(45,-28,53)$, which indeed has a hypotenuse satisfying $53<125$.
 \end{example}
 
-Recall that for each rational point $(x,y)$ on the unit circle, we can write $x=\frac{a}{c}$ and $y=\frac{b}{c}$ in lowest terms with identical denominators, which we always take to be positive. This observation is a direct consequence of \cref{theorem:correspondence-rational-points-unit-circle}. Thus, we can unambiguously refer to the \emph{common denominator} of any rational point on the unit circle. We also recall that for any two positive integers $a$ and $b$, we have
+Recall that for each rational point $(x,y)$ on the unit circle, we can write $x=\frac{a}{c}$ and $y=\frac{b}{c}$ in lowest terms with identical denominators, which we always take to be positive. This observation is a direct consequence of \zcref{theorem:correspondence-rational-points-unit-circle}. Thus, we can unambiguously refer to the \emph{common denominator} of any rational point on the unit circle. We also recall that for any two positive integers $a$ and $b$, we have
 \begin{equation*}\label{equation:instance-am-gm}
   2ab\leq a^2+b^2. \tag{\ast}
 \end{equation*}
@@ -654,7 +658,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \begin{equation*}
     x=\frac{a}{c}\qquad\text{and}\qquad y=\frac{b}{c}.
   \end{equation*}
-  Furthermore, consider one of the corner points $(u,v)=(\pm 1,\pm 1)$ of the $2$-by-$2$ square centered at the origin. Then the second intersection point $(x',y')$ of the line through $(u,v)$ and $(x,y)$ and the unit circle, as determined by \cref{theorem:vieta-jumping-rational-points-unit-circle}, corresponds to the primitive Pythagorean triple $(a',b',c')$ given by
+  Furthermore, consider one of the corner points $(u,v)=(\pm 1,\pm 1)$ of the $2$-by-$2$ square centered at the origin. Then the second intersection point $(x',y')$ of the line through $(u,v)$ and $(x,y)$ and the unit circle, as determined by \zcref{theorem:vieta-jumping-rational-points-unit-circle}, corresponds to the primitive Pythagorean triple $(a',b',c')$ given by
   \begin{equation*}
     \begin{pmatrix}
       a' \\
@@ -677,7 +681,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
 \end{theorem}
 
 \begin{proof}
-  The rational point $(x',y')$ obtained from \cref{theorem:vieta-jumping-rational-points-unit-circle} satisfies the relation
+  The rational point $(x',y')$ obtained from \zcref{theorem:vieta-jumping-rational-points-unit-circle} satisfies the relation
   \begin{equation*}
     xx' = \frac{(mu-v)^2 -1}{1+m^2},
   \end{equation*}
@@ -732,7 +736,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \begin{equation*}
     4c^2<4(|a|+|b|)^2<9c^2.
   \end{equation*}
-  To see this, we note that $(|a|+|b|)^2=a^2+2|a||b| + b^2= c^2+2|a||b|$. This immediately implies that $c^2\leq (|a|+|b|)^2$. Furthermore, we have the inequality $2|a||b|\leq a^2+b^2=c^2$ by the inequality stated in \cref{equation:instance-am-gm}. Thus we obtain that
+  To see this, we note that $(|a|+|b|)^2=a^2+2|a||b| + b^2= c^2+2|a||b|$. This immediately implies that $c^2\leq (|a|+|b|)^2$. Furthermore, we have the inequality $2|a||b|\leq a^2+b^2=c^2$ by the inequality stated in \zcref{equation:instance-am-gm}. Thus we obtain that
   \begin{equation*}
     4c^2< 4(|a|+|b|)^2 = 4c^2+8|a||b| \leq 4c^2 + 4c^2<9c^2.\qedhere
   \end{equation*}
@@ -798,11 +802,11 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \label{figure:forest}
 \end{figure}
 
-\crefnamed{theorem:pythagorean-descent} can be used to determine a ternary tree structure on the set of primitive Pythagorean triples. We will define trees to be forests consisting of a single tree. Mathematically, a \emph{forest} is defined as a set $F$ equipped with a \emph{height function} $h:F\to \mathbb{N}$, and for each height $n$ a \emph{parent function}
+\zcrefnamed{theorem:pythagorean-descent} can be used to determine a ternary tree structure on the set of primitive Pythagorean triples. We will define trees to be forests consisting of a single tree. Mathematically, a \emph{forest} is defined as a set $F$ equipped with a \emph{height function} $h:F\to \mathbb{N}$, and for each height $n$ a \emph{parent function}
 \begin{equation*}
   p : \{x\in F\mid h(x)=n+1\}\to \{x\in F\mid h(x)=n\}.
 \end{equation*}
-Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of height $0$ is called a \emph{root}; the node $p(x)$ is called the \emph{parent} of $x$; and for any node $y$, all the nodes $x$ whose parent is $y$ are called the \emph{children} of $y$. A forest is said to be a \emph{tree} if it contains exactly one root. We note that a forest can contain nodes of arbitrary height; that is, mathematical trees can be infinitely tall. In \cref{figure:forest} we have drawn an example of a forest.
+Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of height $0$ is called a \emph{root}; the node $p(x)$ is called the \emph{parent} of $x$; and for any node $y$, all the nodes $x$ whose parent is $y$ are called the \emph{children} of $y$. A forest is said to be a \emph{tree} if it contains exactly one root. We note that a forest can contain nodes of arbitrary height; that is, mathematical trees can be infinitely tall. In \zcref{figure:forest} we have drawn an example of a forest.
 
 
 \begin{figure}[t]
@@ -856,14 +860,14 @@ Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of h
       
     \end{tikzpicture}
   \end{center}
-  \caption[The forest of rational points on the unit circle]{Each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$ is the target of a Vieta jump from three rational points on the unit circle with larger common denominator, one for each quadrant other than its own. Here, the purple, green, and orange jumps are drawn exactly as in \cref{figure:vieta-jumps-pythagorean-triples}. The point $(\frac{45}{53},\frac{-28}{53})$ is the target of three jumps, each drawn in blue. Since each rational point is the target of three Vieta jumps that decrease the common denominator, we see that the rational points on the unit circle can be organized in a forest consisting of four trees, where the four nodes at height $0$ are the points $(\pm 1,0)$ and $(0,\pm 1)$.}
+  \caption[The forest of rational points on the unit circle]{Each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$ is the target of a Vieta jump from three rational points on the unit circle with larger common denominator, one for each quadrant other than its own. Here, the purple, green, and orange jumps are drawn exactly as in \zcref{figure:vieta-jumps-pythagorean-triples}. The point $(\frac{45}{53},\frac{-28}{53})$ is the target of three jumps, each drawn in blue. Since each rational point is the target of three Vieta jumps that decrease the common denominator, we see that the rational points on the unit circle can be organized in a forest consisting of four trees, where the four nodes at height $0$ are the points $(\pm 1,0)$ and $(0,\pm 1)$.}
   \label{figure:forest-rational-points-unit-circle}
 \end{figure}
 
 \begin{example}[The forest of rational points on the unit circle]
-  In \crefnamed{theorem:pythagorean-descent}, we showed that for each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$, we can jump to another rational point whose positive common denominator is strictly smaller than that of the original point. If the new point is not one of the points $(\pm 1,0)$ or $(0,\pm 1)$, we can jump again to yet another rational point whose common denominator is still smaller. Starting at $(x_0,y_0):=(x,y)$, repeating this process results in a sequence of rational points $(x_n,y_n)$ on the unit circle, whose common denominators strictly decrease as the sequence progresses. Since a sequence of positive integers cannot be infinitely long, we see that this sequence must terminate. That is, in a finite number of jumps we must reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$.
+  In \zcrefnamed{theorem:pythagorean-descent}, we showed that for each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$, we can jump to another rational point whose positive common denominator is strictly smaller than that of the original point. If the new point is not one of the points $(\pm 1,0)$ or $(0,\pm 1)$, we can jump again to yet another rational point whose common denominator is still smaller. Starting at $(x_0,y_0):=(x,y)$, repeating this process results in a sequence of rational points $(x_n,y_n)$ on the unit circle, whose common denominators strictly decrease as the sequence progresses. Since a sequence of positive integers cannot be infinitely long, we see that this sequence must terminate. That is, in a finite number of jumps we must reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$.
 
-  For any rational point $(x,y)$ on the unit circle, let $h(x,y)$ be the least number of jumps required to reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$. Furthermore, if $(x,y)$ is of height $n+1$, so that it is neither $(\pm 1,0)$ nor $(0,\pm 1)$, let $p(x,y):=(x',y')$ be the target of the jump from $(x,y)$. This height and parent function gives the set of rational points on the unit circle the structure of a forest with four roots, the points $(\pm 1,0)$ and $(0,\pm 1)$. In \cref{figure:forest-rational-points-unit-circle} we displayed one branching point in this forest, along with the path to its root.
+  For any rational point $(x,y)$ on the unit circle, let $h(x,y)$ be the least number of jumps required to reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$. Furthermore, if $(x,y)$ is of height $n+1$, so that it is neither $(\pm 1,0)$ nor $(0,\pm 1)$, let $p(x,y):=(x',y')$ be the target of the jump from $(x,y)$. This height and parent function gives the set of rational points on the unit circle the structure of a forest with four roots, the points $(\pm 1,0)$ and $(0,\pm 1)$. In \zcref{figure:forest-rational-points-unit-circle} we displayed one branching point in this forest, along with the path to its root.
 
   We observe that in this forest, each root $(\pm 1,0)$ or $(0,\pm 1)$ has two children. These are the eight points $(\frac{\pm 3}{5},\frac{\pm 4}{5})$ and $(\frac{\pm 4}{5},\frac{\pm 3}{5})$. Any rational point on the unit circle other than a root has exactly three children, one in each quadrant other than its own.
 
@@ -873,7 +877,7 @@ Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of h
 \begin{example}[The tree of primitive Pythagorean triples]
   We will now use the forest of rational points on the unit circle to construct the tree of primitive Pythagorean triples, and derive Berggren's matrices.
 
-  The matrix we used in \crefnamed{theorem:pythagorean-descent} to jump from a primitive Pythagorean triple $(a,b,c)$ with $1<c$ to a new primitive Pythagorean triple $(a',b',c')$ was defined as
+  The matrix we used in \zcrefnamed{theorem:pythagorean-descent} to jump from a primitive Pythagorean triple $(a,b,c)$ with $1<c$ to a new primitive Pythagorean triple $(a',b',c')$ was defined as
 \begin{equation*}
   M_{u,v}
   :=
@@ -932,7 +936,7 @@ Instantiating these matrices at $(u,v)=(-1,1)$, $(1,-1)$, and $(-1,-1)$ gives th
     \end{matrix}
   \right)
 \end{equation*}
-By \crefnamed{theorem:pythagorean-descent} it follows that all primitive Pythagorean triples can be obtained by iteratively applying the matrices $A$, $B$, and $C$ given above. This tree is displayed in \cref{figure:tree-of-pythagorean-triples}.
+By \zcrefnamed{theorem:pythagorean-descent} it follows that all primitive Pythagorean triples can be obtained by iteratively applying the matrices $A$, $B$, and $C$ given above. This tree is displayed in \zcref{figure:tree-of-pythagorean-triples}.
 \end{example}
 
 \clearpage
@@ -1012,7 +1016,7 @@ By \crefnamed{theorem:pythagorean-descent} it follows that all primitive Pythago
       }
     };
   \end{tikzpicture}
-  \caption[The tree of primitive Pythagorean triples]{The tree of primitive Pythagorean triples. The edges that were drawn in green, orange, or blue in \cref{figure:forest-rational-points-unit-circle} have been drawn here in the same color.}
+  \caption[The tree of primitive Pythagorean triples]{The tree of primitive Pythagorean triples. The edges that were drawn in green, orange, or blue in \zcref{figure:forest-rational-points-unit-circle} have been drawn here in the same color.}
   \label{figure:tree-of-pythagorean-triples}
 \end{figure}
 
@@ -1020,7 +1024,7 @@ By \crefnamed{theorem:pythagorean-descent} it follows that all primitive Pythago
 
 \section{Squares in Arithmetic Progressions}\label{sec:squares-in-aps}
 
-\begin{wrapfigure}[16]{r}{0.4\textwidth}
+\begin{figure}[t]
   \centering
   \begin{tikzpicture}
     \node[inner sep=0pt, rounded corners=0.2em, clip] {%
@@ -1029,7 +1033,7 @@ By \crefnamed{theorem:pythagorean-descent} it follows that all primitive Pythago
   \end{tikzpicture}
   \caption[Leonardo Pisano]{\sloppy{Leonardo Pisano.}}
   \label{fig:frederick}
-\end{wrapfigure}
+\end{figure}
 The Euclidean parametrization of the Pythagorean triples has some further applications, but in order to get there we must make a short excursion to the city of Pisa in the 13th century, where Frederick~II reigned as the Holy Roman Emperor, and King of Sicily, Jerusalem, and Apulia. When Leonardo Pisano, more commonly known as Fibonacci, was summoned to the court of Frederick~II, he met with Master John of Palermo who challenged him with mathematical problems.
 
 One of the challenges of Master John is stated as follows: Find a rational number $q$ such that the numbers
@@ -1054,7 +1058,7 @@ Thus, we are looking for three squares $a^2$, $b^2$, and $c^2$ increasing in inc
 
 It follows immediately from the definition that if $(a^2,b^2,c^2)$ is a primitive arithmetic triple of squares, then $a$, $b$, and $c$ are also pairwise relatively prime.
 
-We are thus looking for an arithmetic triple of squares, with a congruum of the form $\Delta:=5t^2$. In \cref{exercise:div-increment-a-p-squares} you were asked to show that the congruum $\Delta$ of an arithmetic triple of squares is always divisible by $24$, which Fibonacci also reported on in Liber Quadratorum. We conclude from this observation that if $\Delta$ is of the form $5t^2$ then $\Delta$ must be a multiple of $2\cdot3\cdot 5 \cdot 24=720$.
+We are thus looking for an arithmetic triple of squares, with a congruum of the form $\Delta:=5t^2$. In \zcref{exercise:div-increment-a-p-squares} you were asked to show that the congruum $\Delta$ of an arithmetic triple of squares is always divisible by $24$, which Fibonacci also reported on in Liber Quadratorum. We conclude from this observation that if $\Delta$ is of the form $5t^2$ then $\Delta$ must be a multiple of $2\cdot3\cdot 5 \cdot 24=720$.
 
 \begin{figure}[t]
   \centering
@@ -1238,7 +1242,7 @@ In order to determine the number of units of $24$ in the difference between two 
   s_{n,m}:=\sum_{i=0}^md_{n+i}=\frac{a_{n+m+1}-a_n}{24}.
 \end{equation*}
 Alternatively, the numbers $s_{n,m}$ are determined by the recursive rule $s_{n,m}=s_{n+1,m-1}+s_{n,m-1}-s_{n+1,m-2}$.
-The numbers $s_{n,m}$ are displayed in \cref{figure:quotients-of-differences-of-squares}, from which we determine that:
+The numbers $s_{n,m}$ are displayed in \zcref{figure:quotients-of-differences-of-squares}, from which we determine that:
     \begin{align*}
       5^2-1^2 & = 7^2-5^2 & & = 1\cdot 24, \\
       13^2 - 7^2 & = 17^2 - 13^2 & & = 5\cdot 24, \\
@@ -1344,15 +1348,16 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
 \exercises
 
 \begin{starter}
-  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of \crefnamed{theorem:pythagorean-theorem}:
-  \begin{equation*}
+  \exercise \emph{Bhaskara's proof of the Pythagorean Theorem.} Use the following diagram to give a proof of \zcrefnamed{theorem:pythagorean-theorem}:
+  \begin{figure}[H]
+    \centering
     \begin{tikzpicture}[scale=.0625,thick,line join=round,line cap=round]
       \pgfmathsetmacro{\myangle}{atan(28/45)}
       \draw (0,0) rectangle (53,53);
       \foreach \k/\x/\y in {0/0/0, 1/53/0, 2/53/53, 3/0/53}
       \draw (\x,\y) -- ++({\myangle + 90*\k}:45);
     \end{tikzpicture}
-  \end{equation*}
+  \end{figure}
   
 \end{starter}
 
@@ -1419,7 +1424,7 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
     b_n & := F_{n}^2 + F_{n+1}^2, \\
     c_n & := 3F_{n}F_{n+1}+(-1)^{n}.
   \end{align*}
-  be defined as in \cref{exercise:arithmetic-progression-fibonacci}, so that $(a_n^2,b_n^2,c_n^2)$ is an arithmetic triple of squares. Show that
+  be defined as in \zcref{exercise:arithmetic-progression-fibonacci}, so that $(a_n^2,b_n^2,c_n^2)$ is an arithmetic triple of squares. Show that
   \begin{equation*}
     \gcd(a_n,b_n,c_n)=
     \begin{cases}
