@@ -273,7 +273,7 @@ $$
 D_n \;=\;\sum_{k=0}^n\binom nk\binom{n+k}{k}
 $$
 
-counts lattice‑paths from $(0,0)$ to $(n,n)$ using steps
+counts lattice-paths from $(0,0)$ to $(n,n)$ using steps
 
 $$
 \text{East }E=(1,0),\quad
@@ -308,7 +308,7 @@ since a path with $k$ diagonals has $\binom nk\binom{n+k}{k}$ ways to choose whi
 
 ### 1.1.  The involution
 
-We will exhibit a sign–reversing involution on the set of weighted paths, pairing them up so that only “fixed points’’ survive—and these survivors contribute exactly $(-1)^n$ to the total mod $p$.
+We will exhibit a sign-reversing involution on the set of weighted paths, pairing them up so that only "fixed points" survive, and these survivors contribute exactly $(-1)^n$ to the total mod $p$.
 
 1. **Labeling the diagonals.**  Think of each diagonal step $D$ as having two *colors*, say red or blue.  Then each of the $2^k$ weightings of a path with $k$ diagonals can be seen as choosing a coloring of its $k$ diagonals.
 
@@ -320,7 +320,7 @@ We will exhibit a sign–reversing involution on the set of weighted paths, pair
 
    * **If you see a red diagonal** at position $i$, **change** it to a blue diagonal at the same place.
 
-   * **If you see an “EN” pattern** at positions $(i,i+1)$, replace those two steps by a **blue** diagonal at position $i$ followed by a **red** diagonal at position $i+1$.  (Since blue‑then‑red still counts as two diagonals, the total number of steps stays $2n$.)
+   * **If you see an “EN” pattern** at positions $(i,i+1)$, replace those two steps by a **blue** diagonal at position $i$ followed by a **red** diagonal at position $i+1$.  (Since blue-then-red still counts as two diagonals, the total number of steps stays $2n$.)
 
    This operation is clearly involutive: applying it twice returns you to where you started, and it toggles the total number of red diagonals by $\pm1$.
 
@@ -329,7 +329,7 @@ We will exhibit a sign–reversing involution on the set of weighted paths, pair
    * it contains **no** red diagonals, and
    * it never contains an $E$ immediately followed by an $N$.
 
-   The only way to get from $(0,0)$ to $(n,n)$ with no “EN” patterns is to alternate $N$ and $E$ in the other order—or else use *only* diagonals.  But if you ever use an $E$ or $N$, you eventually force an “EN” somewhere (since you start with, say, $E$ and end up at equal $x$‑ and $y$‑coordinates).  Thus the **only** fixed path is the one consisting of $n$ pure **blue** diagonals in a row.
+   The only way to get from $(0,0)$ to $(n,n)$ with no “EN” patterns is to alternate $N$ and $E$ in the other order---or else use *only* diagonals.  But if you ever use an $E$ or $N$, you eventually force an “EN” somewhere (since you start with, say, $E$ and end up at equal $x$- and $y$-coordinates).  Thus the **only** fixed path is the one consisting of $n$ pure **blue** diagonals in a row.
 
 4. **Weight and congruence.**  That single survivor contributes weight
 
@@ -339,7 +339,7 @@ We will exhibit a sign–reversing involution on the set of weighted paths, pair
      \pmod p,
    $$
 
-   since blue had been the “$–$” choice in our sign‑reversing involution.  All other paths cancel in pairs, leaving exactly $(-1)^n$ modulo $p$.
+   since blue had been the “$\blank$” choice in our sign-reversing involution.  All other paths cancel in pairs, leaving exactly $(-1)^n$ modulo $p$.
 
 Since the involution paired up everything else,
 
@@ -352,13 +352,13 @@ $$
 
 ## 2. An algebraic proof via the Frobenius action on the closed form
 
-A classic closed‑form for the *weighted* Delannoy numbers is obtained by introducing the two roots
+A classic closed form for the *weighted* Delannoy numbers is obtained by introducing the two roots
 
 $$
 \alpha = 1+\sqrt2,\quad \beta=1-\sqrt2
 $$
 
-of the quadratic $X^2-2X-1=0$.  One shows by standard generating‑function or by diagonalization that
+of the quadratic $X^2-2X-1=0$.  One shows by standard generating function or by diagonalization that
 
 $$
 f(n)
@@ -394,7 +394,7 @@ $$
 \;\equiv\;1^p + (\sqrt2)^p \pmod p
 $$
 
-since all the binomial coefficients $\binom p k$ with $0<k<p$ vanish mod $p$.  But $(\sqrt2)^p = (\sqrt2)^{p-1}\sqrt2\equiv\bigl((\sqrt2)^2\bigr)^{\frac{p-1}2}\sqrt2 = 2^{\frac{p-1}2}\sqrt2$.  By Euler’s criterion $2^{\frac{p-1}2}\equiv (\tfrac2p)=(-1)^n$, so
+since all the binomial coefficients $\binom p k$ with $0<k<p$ vanish mod $p$.  But $(\sqrt2)^p = (\sqrt2)^{p-1}\sqrt2\equiv\bigl((\sqrt2)^2\bigr)^{\frac{p-1}2}\sqrt2 = 2^{\frac{p-1}2}\sqrt2$.  By Euler's criterion $2^{\frac{p-1}2}\equiv (\tfrac2p)=(-1)^n$, so
 
 $$
 (\sqrt2)^p \;\equiv\;(-1)^n\,\sqrt2,
@@ -443,14 +443,14 @@ $$
 
 and a symmetric relation for $\alpha^{-(2n+1)}$.  Putting these into
 $\displaystyle f(n)=\tfrac12\bigl(\alpha^{2n+1}+\alpha^{-(2n+1)}\bigr)$
-one finds all dependence on $\alpha^{\pm1}$ cancels, leaving exactly $\tfrac12\bigl((-1)^n+(-1)^n\bigr)=(-1)^n$ mod $p$.
+one finds all dependence on $\alpha^{\pm1}$ cancels, leaving exactly $\tfrac12\bigl((-1)^n+(-1)^n\bigr)=(-1)^n$ mod $p$.
 
 ---
 
 ## 3.  Conclusion
 
 * The **involution** on colored lattice paths shows combinatorially that *all* contributions cancel in pairs except a single survivor of sign $(-1)^n$.
-* The **Frobenius** calculation in $\Bbb Z_p[\sqrt2]$ shows algebraically that the closed‑form expression for $f(n)$ collapses to $(-1)^n$ in characteristic $p$.
+* The **Frobenius** calculation in $\Bbb Z_p[\sqrt2]$ shows algebraically that the closed-form expression for $f(n)$ collapses to $(-1)^n$ in characteristic $p$.
 
 Either proof gives a deep conceptual reason why
 
@@ -465,7 +465,7 @@ $$
 
 On elliptic divisibility sequences.
 
-Yes — and the analogy is *surprisingly tight*, once you pick the right “replacement” for
+Yes, and the analogy is *surprisingly tight*, once you pick the right “replacement” for
 [
 u_{n+1}-\alpha u_n=\beta^n,\qquad u_{n+1}-\beta u_n=\alpha^n.
 ]
@@ -473,7 +473,7 @@ u_{n+1}-\alpha u_n=\beta^n,\qquad u_{n+1}-\beta u_n=\alpha^n.
 For elliptic divisibility sequences (EDS) in the sense of **Morgan Ward**, the role of those two linear identities is played by:
 
 1. a **uniformization / “Binet-type” formula** using the Weierstrass (\sigma)-function, and
-2. a single **addition identity** for (\sigma) (equivalently, the “elliptic net” relation), whose specializations *are* Ward’s EDS recurrences.
+2. a single **addition identity** for (\sigma) (equivalently, the “elliptic net” relation), whose specializations *are* Ward's EDS recurrences.
 
 Once you have those, you can derive the Ward recursion, and from that the divisibility/strong divisibility behavior, in much the same spirit as you did for Lucas.
 
@@ -481,11 +481,11 @@ Once you have those, you can derive the Ward recursion, and from that the divisi
 
 ## 1) The “Binet law” for EDS: (\sigma(nz)/\sigma(z)^{n^2})
 
-Over (\mathbb C), an elliptic curve (E) has a complex uniformization (\mathbb C/\Lambda \cong E(\mathbb C)). If (P\in E) corresponds to (z\in\mathbb C/\Lambda), then the *normalized division polynomial* (Ward’s (F_n), essentially) satisfies
+Over (\mathbb C), an elliptic curve (E) has a complex uniformization (\mathbb C/\Lambda \cong E(\mathbb C)). If (P\in E) corresponds to (z\in\mathbb C/\Lambda), then the *normalized division polynomial* (Ward's (F_n), essentially) satisfies
 [
 F_n(P)=\frac{\sigma(nz;\Lambda)}{\sigma(z;\Lambda)^{n^2}}.
 ]
-Silverman states this explicitly as the bridge from classical elliptic functions to Ward’s division polynomials/EDS. 
+Silverman states this explicitly as the bridge from classical elliptic functions to Ward's division polynomials/EDS. 
 
 This is the elliptic-curve analogue of “(\alpha^n)” living in a 1-dimensional algebraic group:
 
@@ -508,13 +508,13 @@ For EDS, the analogous “one identity” is the **elliptic net (Riemann/Fay-typ
 ]
 valid for elliptic nets/EDS. 
 
-A key point: this identity is *exactly* what you get by feeding the (\sigma)-function’s addition formulas into the definition (W(n)=\sigma(nz)/\sigma(z)^{n^2}). Conceptually, it is the genus-1 replacement for “exponential addition”.
+A key point: this identity is *exactly* what you get by feeding the (\sigma)-function's addition formulas into the definition (W(n)=\sigma(nz)/\sigma(z)^{n^2}). Conceptually, it is the genus-1 replacement for “exponential addition”.
 
 ---
 
-## 3) Ward’s EDS recursion as a specialization
+## 3) Ward's EDS recursion as a specialization
 
-Specialize the net relation appropriately and you obtain **Ward’s recurrence** (Stange even flags it as “Ward’s elliptic divisibility sequences recurrence relation”):
+Specialize the net relation appropriately and you obtain **Ward's recurrence** (Stange even flags it as “Ward's elliptic divisibility sequences recurrence relation”):
 [
 W(n+m)W(n-m)W(1)^2
 ==================
@@ -533,7 +533,7 @@ W(n+2)W(n-2)=W(2)^2,W(n+1)W(n-1)-W(3),W(n)^2,
 ]
 again exactly as in the standard EDS literature. 
 
-So: **yes**, there is a fundamental addition law, and it’s even more universal than the Lucas addition formula (it’s a genuine 4-term bilinear identity rather than a 2-term linear one).
+So: **yes**, there is a fundamental addition law, and it's even more universal than the Lucas addition formula (it's a genuine 4-term bilinear identity rather than a 2-term linear one).
 
 ---
 
@@ -547,7 +547,7 @@ x(nP)=x(P)-\frac{\psi_{n-1}(P)\psi_{n+1}(P)}{\psi_n(P)^2}.
 ]
 ([Wikipedia][1])
 
-That formula is very much the elliptic analogue of a Cassini-type statement: it says the ratio (\psi_{n-1}\psi_{n+1}/\psi_n^2) is not “random”, but *is exactly* the correction term needed to jump from (x(P)) to (x(nP)). In practice, it’s one of the workhorses behind valuation/gcd arguments for EDS.
+That formula is very much the elliptic analogue of a Cassini-type statement: it says the ratio (\psi_{n-1}\psi_{n+1}/\psi_n^2) is not “random”, but *is exactly* the correction term needed to jump from (x(P)) to (x(nP)). In practice, it's one of the workhorses behind valuation/gcd arguments for EDS.
 
 ---
 
@@ -555,7 +555,7 @@ That formula is very much the elliptic analogue of a Cassini-type statement: it 
 
 There are (at least) two parallel “fundamental sources” of strong divisibility here:
 
-* **Recurrence-definition EDS**: Silverman’s notes explicitly record that an EDS given by Ward’s recursion is not just a divisibility sequence but a **strong** divisibility sequence:
+* **Recurrence-definition EDS**: Silverman's notes explicitly record that an EDS given by Ward's recursion is not just a divisibility sequence but a **strong** divisibility sequence:
   [
   W_{\gcd(m,n)}=\gcd(W_m,W_n).
   ]
@@ -565,9 +565,9 @@ There are (at least) two parallel “fundamental sources” of strong divisibili
   [
   x(nP)=\frac{A_n}{D_n^2}\quad(\gcd(A_n,D_n)=1),
   ]
-  then the denominator sequence ((D_n)) is itself a **strong divisibility sequence** (and after choosing signs appropriately, it satisfies Ward’s EDS recursion). 
+  then the denominator sequence ((D_n)) is itself a **strong divisibility sequence** (and after choosing signs appropriately, it satisfies Ward's EDS recursion). 
 
-Philosophically: in Lucas-land, strong divisibility is “because we’re in a 1-dimensional algebraic group with a norm.” In elliptic-land, it’s “because we’re in a 1-dimensional *abelian variety* with a formal group and well-behaved local valuations of division polynomials / denominators.”
+Philosophically: in Lucas-land, strong divisibility is “because we're in a 1-dimensional algebraic group with a norm.” In elliptic-land, it's “because we're in a 1-dimensional *abelian variety* with a formal group and well-behaved local valuations of division polynomials / denominators.”
 
 ---
 
@@ -577,9 +577,9 @@ If you liked your Lucas organization (“two linear laws ⇒ everything”), the
 
 1. **(Binet analogue)** introduce (F_n(P)=\sigma(nz)/\sigma(z)^{n^2}). 
 2. **(Master identity)** state the elliptic net relation (Riemann/Fay form). 
-3. derive **Ward’s recurrence** as a specialization. 
+3. derive **Ward's recurrence** as a specialization. 
 4. use the division-polynomial coordinate identity as your “Cassini replacement.” ([Wikipedia][1])
-5. then prove **strong divisibility** (either from Ward’s recursion, or via the denominator interpretation and local valuations). 
+5. then prove **strong divisibility** (either from Ward's recursion, or via the denominator interpretation and local valuations). 
 
 If you want, I can write a Lucas-parallel *mini chapter skeleton* (definitions → master identity → corollaries → strong divisibility) with the exact same “feel” as your Lucas section, but in the elliptic setting.
 

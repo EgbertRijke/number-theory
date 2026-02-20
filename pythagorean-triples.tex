@@ -231,7 +231,7 @@ In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\si
   \begin{equation*}
     1+\frac{2a^2}{b^2-a^2} = \frac{1}{\cos(2\theta)}.
   \end{equation*}
-  Furthermore, the addition formula for cosines gives us that $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. Since $\sin(\theta)=\frac{b}{c}$ and $\cos(\theta)=\frac{a}{c}$, we find that
+  Furthermore, the addition formula for cosines gives us that $\cos(2\theta)=\sin^2(\theta)-\cos^2(\theta)$. Since $\sin(\theta)=\tfrac{b}{c}$ and $\cos(\theta)=\tfrac{a}{c}$, we find that
   \begin{equation*}
     1+\frac{2a^2}{b^2-a^2} = \frac{c^2}{b^2-a^2}.
   \end{equation*}
@@ -377,7 +377,7 @@ By the previous lemma we may assume, without loss of generality, that in a primi
   Furthermore, observe that since $c$ and $a$ are both odd, it follows that one of $c-a$ and $c+a$ is divisible by $4$ and the other is of the form $4k+2$. This implies that one of $s$ and $t$ is even and the other is odd.
 \end{proof}
 
-\begin{theorem}[Euclid’s Parametrization of the Primitive Pythagorean Triples]\label{theorem:euclids-parametrization}
+\begin{theorem}[Euclid's Parametrization of the Primitive Pythagorean Triples]\label{theorem:euclids-parametrization}
   For every primitive Pythagorean triple $(a,b,c)$ with $b$ even, we can uniquely determine two relatively prime positive integers $s<t$ of opposite parity such that
   \begin{equation*}
     a=t^2-s^2,\qquad b=2st,\qquad\text{and}\qquad c=t^2+s^2.
@@ -411,7 +411,7 @@ When both coordinates $x$ and $y$ are rational numbers, we say that $(x,y)$ is a
 \begin{equation*}
   \left(\frac{a}{c},\frac{b}{c}\right),
 \end{equation*}
-which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)$ is a primitive Pythagorean triple, then $(\frac{a}{c},\frac{b}{c})$ is a rational point on the unit circle. We will show that \emph{every} rational point on the unit circle arises in this way.
+which satisfies $(\tfrac{a}{c})^2+(\tfrac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)$ is a primitive Pythagorean triple, then $(\tfrac{a}{c},\tfrac{b}{c})$ is a rational point on the unit circle. We will show that \emph{every} rational point on the unit circle arises in this way.
 
 \begin{theorem}\label{theorem:correspondence-rational-points-unit-circle}
   There is a bijection between the set of primitive Pythagorean triples $(a,b,c)$, where we allow $a$ and $b$ to be any integer but we maintain the requirement that $c$ is positive, and rational points on the unit circle.
@@ -422,7 +422,7 @@ which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see 
   \begin{equation*}
     (a,b,c)\mapsto \left(\frac{a}{c},\frac{b}{c}\right)
   \end{equation*}
-  is injective, so it suffices to show that it is surjective, meaning that every rational point on the unit circle is of this form. We first claim that if $(x,y)$ is a rational point on the unit circle with $x=\frac{a}{c}$ and $y=\frac{b}{d}$ in lowest terms, then we must have $c=d$. This is a special case of \zcref{exercise:equal-denominators-rational-point-on-form}, so the reader who has already solved that exercise may skip ahead.
+  is injective, so it suffices to show that it is surjective, meaning that every rational point on the unit circle is of this form. We first claim that if $(x,y)$ is a rational point on the unit circle with $x=\tfrac{a}{c}$ and $y=\tfrac{b}{d}$ in lowest terms, then we must have $c=d$. This is a special case of \zcref{exercise:equal-denominators-rational-point-on-form}, so the reader who has already solved that exercise may skip ahead.
 
   The equation $x^2+y^2=1$ can be rearranged to the equation
   \begin{equation*}
@@ -430,7 +430,7 @@ which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see 
   \end{equation*}
   It follows that $c^2\mid a^2d^2$ and $d^2\mid b^2c^2$. However, since $\gcd(a,c)=1$ and $\gcd(b,d)=1$, we conclude that $c^2\mid d^2$ and $d^2\mid c^2$, which implies the claim.
 
-  To finish the proof, observe that if $(x,y)$ is a rational point on the unit circle with $x=\frac{a}{c}$ and $y=\frac{b}{d}$, so that $c=d$ by the claim, then if follows that $(a,b,c)$ is a primitive Pythagorean triple.
+  To finish the proof, observe that if $(x,y)$ is a rational point on the unit circle with $x=\tfrac{a}{c}$ and $y=\tfrac{b}{d}$, so that $c=d$ by the claim, then if follows that $(a,b,c)$ is a primitive Pythagorean triple.
 \end{proof}
 
 \begin{figure}[t]
@@ -457,7 +457,7 @@ which satisfies $(\frac{a}{c})^2+(\frac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we see 
       
       % Draw the node
       \draw[fill=black,thick] (P1) circle (.5pt) node[rounded corners=2pt,fill=white,below,inner sep=1pt,yshift=-1ex] {$\textstyle{(-1,0)}$};
-      \draw[fill=white,thick] (P2) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=.8ex,yshift=2ex] {\(\left(\frac{1-m^2}{1+m^2},\frac{2m}{1+m^2}\right)\)};
+      \draw[fill=white,thick] (P2) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=.8ex,yshift=2ex] {\(\left(\tfrac{1-m^2}{1+m^2},\tfrac{2m}{1+m^2}\right)\)};
 
       \node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1ex,yshift=-2ex] at (P3) {$\textstyle{y=m(x+1)}$};
     \end{tikzpicture}
@@ -513,7 +513,7 @@ A corollary of the previous theorem is that if $B$ and $C$ are rational numbers 
     x=\frac{1-m^2}{1+m^2}\qquad\text{and}\qquad y=\frac{2m}{1+m^2}.\qedhere
   \end{equation*}
 
-  For the final claim, it is clear that if $m \in \mathbb{Q}$, then both $x$ and $y$ are rational numbers. Conversely, if $(x,y)$ is a rational point on the unit circle distinct from $(-1,0)$, then we have $-1<x\leq 1$ and $m = \frac{y}{x+1}$, which is a quotient of rational numbers and thus rational.
+  For the final claim, it is clear that if $m \in \mathbb{Q}$, then both $x$ and $y$ are rational numbers. Conversely, if $(x,y)$ is a rational point on the unit circle distinct from $(-1,0)$, then we have $-1<x\leq 1$ and $m = \tfrac{y}{x+1}$, which is a quotient of rational numbers and thus rational.
 \end{proof}
 
 \section{The Tree of Primitive Pythagorean Triples}\label{section:tree-of-pythagorean-triples}
@@ -564,7 +564,7 @@ To rediscover Berggren's matrices and his ternary tree, we will use the techniqu
   \begin{equation*}
     s(t) := m(t-u)+v,
   \end{equation*}
-  where the slope $m$ is defined by $m:=\frac{y-v}{x-u}$. In order to find the intersection points of this line with the unit circle, we have to solve the equation $t^2+s(t)^2=1$. We can simplify this equation as follows:
+  where the slope $m$ is defined by $m:=\tfrac{y-v}{x-u}$. In order to find the intersection points of this line with the unit circle, we have to solve the equation $t^2+s(t)^2=1$. We can simplify this equation as follows:
   \begin{align*}
     0 & = t^2 + (v+m(t-u))^2 - 1 \\
       & = t^2 + v^2 + 2vm(t-u) +m^2(t^2-2ut + u^2) -1 \\
@@ -636,20 +636,20 @@ In other words, the point $(u,v)$ is the nearest corner of the $2$-by-$2$ square
 The procedure $(a,b,c)\mapsto (a',b',c')$ of stepping from one Pythagorean triple to a new one with a smaller hypotenuse is illustrated in the following example, which is accompanied by \zcref{figure:vieta-jumps-pythagorean-triples}.
 
 \begin{example}
-  Consider the Pythagorean triple $(a,b,c):=(117,44,125)$, which corresponds to the rational point $(x,y):=(\frac{117}{125},\frac{44}{125})$ on the unit circle. Since both $a$ and $b$ are positive, we have $u=v=1$, and the new point $(x',y')$ on the line through $(u,v)$ and $(x,y)$ and the unit circle satisfies
+  Consider the Pythagorean triple $(a,b,c):=(117,44,125)$, which corresponds to the rational point $(x,y):=(\tfrac{117}{125},\tfrac{44}{125})$ on the unit circle. Since both $a$ and $b$ are positive, we have $u=v=1$, and the new point $(x',y')$ on the line through $(u,v)$ and $(x,y)$ and the unit circle satisfies
   \begin{equation*}
     xx'=\frac{(m-1)^2-1}{1+m^2},
   \end{equation*}
-  where $m=\frac{y-1}{x-1}$. Since $x=\frac{a}{c}$ and $y=\frac{b}{c}$, we can rearrange the previous Vieta relation to obtain that
+  where $m=\tfrac{y-1}{x-1}$. Since $x=\tfrac{a}{c}$ and $y=\tfrac{b}{c}$, we can rearrange the previous Vieta relation to obtain that
   \begin{equation*}
     xx'=\frac{(b-a)^2-(a-c)^2}{(a-c)^2+(b-c)^2}=\frac{73^2-8^2}{8^2+81^2}.
   \end{equation*}
-  From these calculations, we obtain that $x'=\frac{45}{53}$ and $y'=\frac{-28}{53}$, which corresponds to the primitive Pythagorean triple $(45,-28,53)$, which indeed has a hypotenuse satisfying $53<125$.
+  From these calculations, we obtain that $x'=\tfrac{45}{53}$ and $y'=\tfrac{-28}{53}$, which corresponds to the primitive Pythagorean triple $(45,-28,53)$, which indeed has a hypotenuse satisfying $53<125$.
 \end{example}
 
-Recall that for each rational point $(x,y)$ on the unit circle, we can write $x=\frac{a}{c}$ and $y=\frac{b}{c}$ in lowest terms with identical denominators, which we always take to be positive. This observation is a direct consequence of \zcref{theorem:correspondence-rational-points-unit-circle}. Thus, we can unambiguously refer to the \emph{common denominator} of any rational point on the unit circle. We also recall that for any two positive integers $a$ and $b$, we have
+Recall that for each rational point $(x,y)$ on the unit circle, we can write $x=\tfrac{a}{c}$ and $y=\tfrac{b}{c}$ in lowest terms with identical denominators, which we always take to be positive. This observation is a direct consequence of \zcref{theorem:correspondence-rational-points-unit-circle}. Thus, we can unambiguously refer to the \emph{common denominator} of any rational point on the unit circle. We also recall that for any two positive integers $a$ and $b$, we have
 \begin{equation*}\label{equation:instance-am-gm}
-  2ab\leq a^2+b^2. \tag{\ast}
+  2ab\leq a^2+b^2. \tag{\textasteriskcentered}
 \end{equation*}
 This inequality, which is an instance of the AM--GM inequality, follows from the observation that $(a-b)^2=a^2-2ab+b^2\geq 0$.
 
@@ -685,7 +685,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \begin{equation*}
     xx' = \frac{(mu-v)^2 -1}{1+m^2},
   \end{equation*}
-  where $m:=\frac{y-v}{x-u}$ is the slope of the line through $(u,v)$ and $(x,y)$. Given that $x=\frac{a}{c}$ and $y=\frac{b}{c}$, we see that
+  where $m:=\tfrac{y-v}{x-u}$ is the slope of the line through $(u,v)$ and $(x,y)$. Given that $x=\tfrac{a}{c}$ and $y=\tfrac{b}{c}$, we see that
   \begin{equation*}
     m=\frac{b-vc}{a-uc}.
   \end{equation*}
@@ -697,7 +697,7 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \begin{equation*}
     xx'= \frac{(bu-av)^2-(a-uc)^2}{(a-uc)^2+(b-vc)^2} = \frac{b^2-c^2-2uvab+2uac}{-2uac-2vbc + a^2+b^2+2c^2}=\frac{a}{c}\frac{-a-2uvb+2uc}{-2ua-2vb + 3c}.
   \end{equation*}
-  Thus, we obtain the following expressions for $a'$ and $c'$, so that $x'=\frac{a'}{c'}$:
+  Thus, we obtain the following expressions for $a'$ and $c'$, so that $x'=\tfrac{a'}{c'}$:
   \begin{align*}
     a' & = -a-2uvb+2uc, \\
     c' & = -2ua-2vb + 3c.
@@ -860,7 +860,7 @@ Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of h
       
     \end{tikzpicture}
   \end{center}
-  \caption[The forest of rational points on the unit circle]{Each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$ is the target of a Vieta jump from three rational points on the unit circle with larger common denominator, one for each quadrant other than its own. Here, the purple, green, and orange jumps are drawn exactly as in \zcref{figure:vieta-jumps-pythagorean-triples}. The point $(\frac{45}{53},\frac{-28}{53})$ is the target of three jumps, each drawn in blue. Since each rational point is the target of three Vieta jumps that decrease the common denominator, we see that the rational points on the unit circle can be organized in a forest consisting of four trees, where the four nodes at height $0$ are the points $(\pm 1,0)$ and $(0,\pm 1)$.}
+  \caption[The forest of rational points on the unit circle]{Each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$ is the target of a Vieta jump from three rational points on the unit circle with larger common denominator, one for each quadrant other than its own. Here, the purple, green, and orange jumps are drawn exactly as in \zcref{figure:vieta-jumps-pythagorean-triples}. The point $(\tfrac{45}{53},\tfrac{-28}{53})$ is the target of three jumps, each drawn in blue. Since each rational point is the target of three Vieta jumps that decrease the common denominator, we see that the rational points on the unit circle can be organized in a forest consisting of four trees, where the four nodes at height $0$ are the points $(\pm 1,0)$ and $(0,\pm 1)$.}
   \label{figure:forest-rational-points-unit-circle}
 \end{figure}
 
@@ -869,7 +869,7 @@ Given a forest $F$, an element $x\in F$ is called a \emph{node}; a node $x$ of h
 
   For any rational point $(x,y)$ on the unit circle, let $h(x,y)$ be the least number of jumps required to reach one of the points $(\pm 1,0)$ or $(0,\pm 1)$. Furthermore, if $(x,y)$ is of height $n+1$, so that it is neither $(\pm 1,0)$ nor $(0,\pm 1)$, let $p(x,y):=(x',y')$ be the target of the jump from $(x,y)$. This height and parent function gives the set of rational points on the unit circle the structure of a forest with four roots, the points $(\pm 1,0)$ and $(0,\pm 1)$. In \zcref{figure:forest-rational-points-unit-circle} we displayed one branching point in this forest, along with the path to its root.
 
-  We observe that in this forest, each root $(\pm 1,0)$ or $(0,\pm 1)$ has two children. These are the eight points $(\frac{\pm 3}{5},\frac{\pm 4}{5})$ and $(\frac{\pm 4}{5},\frac{\pm 3}{5})$. Any rational point on the unit circle other than a root has exactly three children, one in each quadrant other than its own.
+  We observe that in this forest, each root $(\pm 1,0)$ or $(0,\pm 1)$ has two children. These are the eight points $(\tfrac{\pm 3}{5},\tfrac{\pm 4}{5})$ and $(\tfrac{\pm 4}{5},\tfrac{\pm 3}{5})$. Any rational point on the unit circle other than a root has exactly three children, one in each quadrant other than its own.
 
   We also observe that the forest of rational points on the unit circle possesses some important symmetries. Each rotation by $90^\circ$ and each reflection along the $x$-axis, the line $y=x$, the $y$-axis, and the line $y=-x$ maps rational points on the unit circle to rational points on the unit circle in such a way that the height and parent functions are preserved. To see this, observe that each of those symmetries reflects a point $(x,y)$ on the unit circle to one of the points $(\pm x,\pm y)$ or $(\pm y,\pm x)$.
 \end{example}
@@ -1455,7 +1455,7 @@ The previous theorem raises an interesting point. Since the primitive Pythagorea
     % (42,78,102),
     % (194,226,254)
   \item Find all \emph{primitive} arithmetic progressions $(a^2,b^2,c^2)$ such that $c-a=120$, where only $a$ is allowed to be negative. Hint: There are four such triples.
-    % (−49,61,71)
+    % (-49,61,71)
     % (31,109,151)
     % (161,229,281)
     % (839,901,959)

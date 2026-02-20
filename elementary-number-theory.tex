@@ -2,11 +2,15 @@
   lang        = en-US,
   pdfversion  = 2.0,
   pdfstandard = ua-2,
-  testphase   = {math,title},
+  pdfstandard = a-4f,
+  tagging     = off,
+%  testphase   = {bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem}
+%  testphase   = {phase-III,bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem},
+  uncompress
 }
 
 \documentclass[
-fontsize=12pt,
+fontsize=11pt,
 paper=letter,
 chapterprefix=true,
 headings=big,
@@ -22,8 +26,25 @@ bibliography=totoc
 \usepackage{mathtools}
 \usepackage{unicode-math}
 
-\setmainfont{STIX Two Text}
+% \setmainfont{Libertinus Serif}
+% \setmathfont{Libertinus Math}
+% \setsansfont{Libertinus Sans}
+% \setmonofont{Libertinus Mono}[Scale=MatchLowercase]
+% \setmathfont{STIX Two Math}[range={"25BF}]
+
+\setmainfont{STIX Two Text}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  SmallCapsFeatures = {LetterSpace=3, Kerning=On},
+  StylisticSet = {1, 2},
+]
 \setmathfont{STIX Two Math}
+% \setsansfont{Source Sans 3}[Scale=MatchLowercase]
+% \setmonofont{Source Code Pro}[Scale=MatchLowercase]
+
+\linespread{1.05}
 
 \usepackage[
   activate={true,nocompatibility},
@@ -33,6 +54,9 @@ bibliography=totoc
   stretch=10,
   shrink=10
 ]{microtype}
+
+\frenchspacing
+\emergencystretch=1.5em
 
 \newfontfamily\cuneifont[
   Path = fonts/,
@@ -50,10 +74,16 @@ bibliography=totoc
 
 \addtokomafont{disposition}{\rmfamily}
 \addtokomafont{chapter}{\huge\bfseries}
-\addtokomafont{chapterprefix}{\huge\bfseries}
+% \addtokomafont{chapterprefix}{\huge\bfseries}
+\addtokomafont{chapterprefix}{\Large\lsstyle\scshape\mdseries}
 
 \renewcommand*{\chapterformat}{Chapter~\thechapter\enskip}
-\renewcommand*{\chapterheadstartvskip}{\vspace*{10pt}}
+\renewcommand*{\chapterheadstartvskip}{\vspace*{.1\textheight}}
+\renewcommand*{\chapterheadendvskip}{\vspace*{.2\textheight}}
+\renewcommand*{\chaptermarkformat}{%
+  \textsc{\chaptername~\thechapter}\enskip%
+}
+
 \newcommand{\italicsubsection}[1]{%
   \subsection*{\mdseries\itshape #1}%
 }
@@ -80,6 +110,23 @@ bibliography=totoc
 \setlist[enumerate,1]{label=\textup{(\roman*)}}
 \setlist[enumerate,2]{label=\textup{(\alph*)}}
 \setlist[enumerate,3]{label=\textup{\arabic*.}}
+
+% Some nested enumerate environments that traverse a page break seem to break tagging. To address this, we make a no-breaking enumerate environment using minipages. It's a bit of a hack, but unfortunately it seems necessary for now.
+
+\newenvironment{nobreakenumerate}[1][]
+{
+    \par
+    \addvspace{\topsep}
+    \noindent
+    \begin{minipage}{\linewidth}
+    \begin{enumerate}[#1]
+}
+{
+    \end{enumerate}
+    \end{minipage}
+    \par
+    \addvspace{\topsep}
+}
 
 \usepackage{array}
 \usepackage{booktabs}
@@ -148,6 +195,8 @@ bibliography=totoc
   }%
 }
 
+\DeclareFieldFormat{labelalpha}{\textsc{\lsstyle #1}}
+
 \usepackage{amsthm}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -171,12 +220,13 @@ bibliography=totoc
 \hypersetup{
   unicode=true,
   colorlinks=true,
+  linktoc=all,
   allcolors=grayblue,
   hypertexnames=false,
   pdftitle    = {Elementary Number Theory},% Number Theory: A Narrative
   pdfauthor   = {Egbert Rijke},
   pdfsubject  = {Course Notes},
-  pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, quadratic residues, quadratic reciprocity, quadratic fields}
+  pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, Zsigmondy's theorem, Vantieghem's theorem, quadratic residues, quadratic reciprocity, quadratic fields}
 }
 
 \usepackage{zref-titleref}
@@ -194,21 +244,18 @@ bibliography=totoc
 \zcRefTypeSetup{subexenumi}{Name-sg = Exercise, Name-pl = Exercises}
 
 \newtotcounter{exercisecounter}
-%\AtEndDocument{%
-%  \typeout{Total number of exercises: \number\value{exercisecounter}}%
-%}
+\AtEndDocument{%
+  \typeout{Total number of exercises: \number\value{exercisecounter}}%
+}
 
-\newif\ifthischapex
-\global\thischapexfalse
+\newcounter{currentchaptex}
 
 \newcommand{\exercises}{%
-\par\clearpage%
-\section*{Exercises}%
-\addcontentsline{toc}{section}{Exercises}%
-\markboth{\leftmark}{\MakeUppercase{Exercises}}%
-\setcounter{exenumi}{0}%
-%\restartlist{exenum}
-\global\thischapexfalse
+  \par\clearpage%
+  \section*{Exercises}%
+  \addcontentsline{toc}{section}{Exercises}%
+  \markboth{\leftmark}{\MakeUppercase{Exercises}}%
+  \setcounter{currentchaptex}{0}
 }
 
 \newcommand{\exercise}{\stepcounter{exercisecounter}\item}
@@ -229,45 +276,111 @@ bibliography=totoc
 \newenvironment{starter}
 {%
   \italicsubsection{Starter Exercises}%
-  \ifthischapex
-    \begin{exenum}[resume=chapex]
-    \else
-      \begin{exenum}[series=chapex]
-      \fi
+  \begin{exenum}
+  \setcounter{exenumi}{\value{currentchaptex}}
 }
 {%
+  \setcounter{currentchaptex}{\value{exenumi}}
   \end{exenum}
-  \global\thischapextrue
 }
 
-% Dutch: Routinevormende Opgaven
 \newenvironment{routine}
 {%
   \italicsubsection{Routine-Building Exercises}%
-  \ifthischapex
-    \begin{exenum}[resume=chapex]
-    \else
-      \begin{exenum}[series=chapex]
-      \fi
+  \begin{exenum}
+  \setcounter{exenumi}{\value{currentchaptex}}
 }
 {%
+  \setcounter{currentchaptex}{\value{exenumi}}
   \end{exenum}
-  \global\thischapextrue
 }
 
 \newenvironment{challenge}
 {%
   \italicsubsection{Challenge Exercises}%
-  \ifthischapex
-    \begin{exenum}[resume=chapex]
-    \else
-      \begin{exenum}[series=chapex]
-      \fi
-    }
-    {%
-    \end{exenum}
-    \global\thischapextrue
-  }
+  \begin{exenum}
+  \setcounter{exenumi}{\value{currentchaptex}}
+}
+{%
+  \setcounter{currentchaptex}{\value{exenumi}}
+  \end{exenum}
+}
+
+% \newtotcounter{exercisecounter}
+% \AtEndDocument{%
+%   \typeout{Total number of exercises: \number\value{exercisecounter}}%
+% }
+
+% \newif\ifthischapex
+% \global\thischapexfalse
+
+% \newcommand{\exercises}{%
+% \par\clearpage%
+% \section*{Exercises}%
+% \addcontentsline{toc}{section}{Exercises}%
+% \markboth{\leftmark}{\MakeUppercase{Exercises}}%
+% \setcounter{exenumi}{0}%
+% %\restartlist{exenum}
+% \global\thischapexfalse
+% }
+
+% \newcommand{\exercise}{\stepcounter{exercisecounter}\item}
+
+% \newlist{exenum}{enumerate}{1}
+% \setlist[exenum]{
+%   label=\thechapter.\arabic*,
+%   noitemsep
+% }
+
+% \newlist{subexenum}{enumerate}{1}
+% \setlist[subexenum]{
+%   noitemsep,
+%   label=(\alph*),
+%   ref=\theexenumi(\alph*)
+% }
+
+% \newenvironment{starter}
+% {%
+%   \italicsubsection{Starter Exercises}%
+%   \ifthischapex
+%     \begin{exenum}[resume=chapex]
+%     \else
+%       \begin{exenum}[series=chapex]
+%       \fi
+% }
+% {%
+%   \end{exenum}
+%   \global\thischapextrue
+% }
+
+% % Dutch: Routinevormende Opgaven
+% \newenvironment{routine}
+% {%
+%   \italicsubsection{Routine-Building Exercises}%
+%   \ifthischapex
+%     \begin{exenum}[resume=chapex]
+%     \else
+%       \begin{exenum}[series=chapex]
+%       \fi
+% }
+% {%
+%   \end{exenum}
+%   \global\thischapextrue
+% }
+
+% \newenvironment{challenge}
+% {%
+%   \italicsubsection{Challenge Exercises}%
+%   \ifthischapex
+%     \begin{exenum}[resume=chapex]
+%     \else
+%       \begin{exenum}[series=chapex]
+%       \fi
+%     }
+%     {%
+%     \end{exenum}
+%     \global\thischapextrue
+%   }
   
 \newcommand\objectives{\italicsubsection{Learning Objectives}}
 
@@ -278,8 +391,7 @@ bibliography=totoc
 {
   \tag_if_active:TF
   {
-    \tagpdfsetup{para/tagging=false}
-    \tag_mc_begin:n { actualtext = #2 }
+    \tag_mc_begin:n { tag=Span, actualtext = #2 }
     #1
     \tag_mc_end:
   }
@@ -347,6 +459,9 @@ bibliography=totoc
   \fi
 }
 
+\hyphenation{Py-tha-gorean}
+\hyphenation{you-tube}
+
 \begin{document}
 
 \pagestyle{empty}
@@ -354,10 +469,12 @@ bibliography=totoc
 \begingroup
 \begin{titlepage}
   \begin{center}
-    {\Huge\textbf{Johns Hopkins University}} \\[1cm]
-    {\LARGE\textsc{Math 304}} \\[1cm]
-    {\LARGE Egbert Rijke}\\[1cm]
-
+    {\Huge\textbf{Johns Hopkins University}\par}
+    \vspace*{\stretch{1}}
+    {\LARGE\textsc{Math 304}\par}
+    \vspace*{\stretch{1}}
+    {\LARGE Egbert Rijke\par}
+    \vspace*{\stretch{2}}
     \begin{tikzpicture}[scale=5]
       \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
       \draw[ultra thick] (0,0) circle (1);
@@ -380,10 +497,9 @@ bibliography=totoc
       \draw[fill=white,very thick] (P4) circle (.5pt);
       \draw[fill=black,very thick] (1,0) circle (.5pt);
     \end{tikzpicture}
-    
-    \vspace{1cm}
-
-    {\Huge \textbf{Elementary Number Theory}} \\[1cm]
+    \vspace*{\stretch{2}}
+    {\Huge \textbf{Elementary Number Theory}\par}
+    \vspace*{\stretch{1}}
     {\LARGE\textit{Fall 2025}}
   \end{center}
 \end{titlepage}
@@ -435,7 +551,7 @@ bibliography=totoc
 
 \input{infinite-descent}
 
-\part{The Elementary Theory of the Prime Numbers}
+\part{Number Theory with the Primes}
 
 \input{prime-numbers}
 
@@ -447,7 +563,7 @@ bibliography=totoc
 
 \input{sums-of-squares}
 
-\note{\input{gaussian-integers}}
+\input{gaussian-integers}
 
 \input{polynomials}
 
@@ -455,13 +571,13 @@ bibliography=totoc
 
 \input{moduli-with-primitive-roots}
 
-\note{\input{polynomial-congruences}}
+\input{polynomial-congruences}
 
 \input{irreducible-polynomials}
 
-\note{\input{cyclotomic-polynomials}}
+\input{cyclotomic-polynomials}
 
-\note{\input{aurifeuillean-factorizations}}
+\input{aurifeuillean-factorizations}
 
 \part{The Arithmetic of Quadratic Forms}
 
@@ -487,39 +603,39 @@ bibliography=totoc
 
 \note{\input{polygonal-numbers}}
 
-\note{\part{Multiplicative Number Theory}}
+% \note{\part{Multiplicative Number Theory}}
 
-\note{\input{dirichlet-series}}
+% \note{\input{dirichlet-series}}
 
-\note{\input{distribution-of-primes}}
+% \note{\input{distribution-of-primes}}
 
-\note{\input{prime-partition-function}}
+% \note{\input{prime-partition-function}}
 
 \part{Topics}
 
-% \part{Additive Number Theory}
-% \part{Algebraic Number Theory}
-% \part{Analytic Number Theory}
-% \part{Combinatorial Number Theory}
-% \part{Diophantine Approximation}
-% \part{Diophantine Equations}
-% \part{Elliptic Curves}
-% \part{Geometric Number Theory}
-% \part{Modular Forms}
-% \part{\texorpdfstring{$p$}{p}-Adic Analysis}
-% \part{The Langlands Program}
+% % \part{Additive Number Theory}
+% % \part{Algebraic Number Theory}
+% % \part{Analytic Number Theory}
+% % \part{Combinatorial Number Theory}
+% % \part{Diophantine Approximation}
+% % \part{Diophantine Equations}
+% % \part{Elliptic Curves}
+% % \part{Geometric Number Theory}
+% % \part{Modular Forms}
+% % \part{\texorpdfstring{$p$}{p}-Adic Analysis}
+% % \part{The Langlands Program}
 
-\note{\input{real-numbers}}
+% \note{\input{real-numbers}}
 
-\note{\input{geometric-number-theory}}
+% \note{\input{geometric-number-theory}}
 
-\note{\input{fermats-last-theorem}}
+% \note{\input{fermats-last-theorem}}
 
-\note{\input{bernoulli-numbers}}
+% \note{\input{bernoulli-numbers}}
 
-\note{\input{origami}}
+% \note{\input{origami}}
 
-\note{\input{miscellaneous}}
+% \note{\input{miscellaneous}}
 
 \input{open-problems}
 

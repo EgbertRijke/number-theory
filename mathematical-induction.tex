@@ -189,8 +189,9 @@ are still true, but require a short proof.
   \begin{align*}
     m+(n+1) & = (m+n)+1 \\
             & = (n+m)+1 \\
-            & = (n+1)+m.\qedhere
+            & = (n+1)+m.
   \end{align*}
+  This completes the induction step.
 \end{proof}
 
 Some further useful identifications of addition, which follow from the associativity and commutativity laws, are:
@@ -231,9 +232,13 @@ The last identification is called the \define{interchange law} for addition. The
   We prove that $0n=0$ by induction on $n$. In the base case, we have the equality $00=0$. For the inductive step, assume that $0n=0$. Then $0(n+1)=0n+0=0n=0$, completing the proof of the first identity. The identity $m0=0$ holds by definition.
 
   The proof that $(m+1)n=mn+n$ is again by induction on $n$. In the base case, we have the equalities $(m+1)0=0=m0=m0+0$. For the inductive step, assume that $(m+1)n=mn+n$. Then we have
-  \begin{equation*}
-    (m+1)(n+1)=(m+1)n+(m+1)=(mn+n)+(m+1)=(mn+m)+(n+1)=m(n+1)+(n+1).
-  \end{equation*}
+  \begin{align*}
+    (m+1)(n+1)
+    & = (m+1)n+(m+1) \\
+    & = (mn+n)+(m+1) \\
+    & = (mn+m)+(n+1) \\
+    & = m(n+1)+(n+1).
+  \end{align*}
   The identity $m(n+1)=mn+m$ holds by definition.
 
   Next, we prove first that $mn=nm$, by induction on $n$. In the base case, we have the equalities $m0=0=0m$. For the inductive step, assume that $mn=nm$. Then we have that
@@ -251,6 +256,7 @@ The last identification is called the \define{interchange law} for addition. The
   \begin{equation*}
     (lm)(n+1)= (lm)n+lm=l(mn)+lm=l(mn+m)=l(m(n+1)).
   \end{equation*}
+  This completes the inductive step.
 \end{proof}
 
 \section{Finite Sums and Products}
@@ -452,7 +458,7 @@ Since the numbers $H_n$ start with $H_1=1$ and $H_2=2$, we find that
 \begin{equation*}
   H_n = F_{n+1}.
 \end{equation*}
-Hemachandra applied this recurrence to list the initial values of the sequence $H_n$:  $1$, $2$, $3$, $5$, $8$, $13$, $21$. His results appear in his treatise on metrics, the \emph{Chandonuśāsana} \cite{hemachandra1961}, composed several decades before Fibonacci’s \emph{Liber Abaci} (1202). Nevertheless, in most of the world this sequence of numbers is called the Fibonacci numbers, even though it might be more appropriate to call them the Hemachandra--Fibonacci numbers.
+Hemachandra applied this recurrence to list the initial values of the sequence $H_n$:  $1$, $2$, $3$, $5$, $8$, $13$, $21$. His results appear in his treatise on metrics, the \emph{Chandonuśāsana} \cite{hemachandra1961}, composed several decades before Fibonacci's \emph{Liber Abaci} (1202). Nevertheless, in most of the world this sequence of numbers is called the Fibonacci numbers, even though it might be more appropriate to call them the Hemachandra--Fibonacci numbers.
 
 The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham1996}. The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
 
@@ -521,13 +527,12 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
       8T_n+1=(2n+1)^2.
     \end{equation*}
   \end{subexenum}
-  \exercise Write $T_n$ for the $n$th triangular number.
+  \exercise Write $T_n$ for the $n$th triangular number, and define the $n$th \emph{tetrahedral number} $S_n$ by
+  \begin{equation*}
+    S_n:=\sum_{k=0}^nT_k.
+  \end{equation*}
   \begin{subexenum}
-  \item The numbers
-    \begin{equation*}
-      S_n:=\sum_{k=0}^nT_k
-    \end{equation*}
-    are called the \emph{tetrahedral numbers}. Give a geometric interpretation of these numbers justifying their name.
+  \item Give a geometric interpretation of these numbers justifying their name.
   \item Prove that
     \begin{equation*}
       S_n = \frac{n(n+1)(n+2)}{6}.

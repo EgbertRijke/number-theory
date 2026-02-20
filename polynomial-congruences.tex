@@ -133,10 +133,11 @@ This leads to the following theorem by Brook Taylor, who stated the result more 
   \begin{equation*}
     (x+y)^n = \sum_{k=0}^{n}\binom{n}{k} x^{n-k}y^{k}=\sum_{k=0}^n\frac{1}{k!}\frac{d^kx^n}{dx^k} y^k.
   \end{equation*}
-  This shows that the Taylor expansion formula holds for $f(x)=x^n$. The general claim follows, since every polynomial is a linear combination of polynomials of the form $x^i$ and differentiation preserves linear combinations. Finally, the polynomial $g(x,y)$ is given by the tail of the series:
+  This shows that the Taylor expansion formula holds for $f(x)=x^n$. The general claim follows, since every polynomial is a linear combination of polynomials of the form $x^i$ and differentiation preserves linear combinations. Finally, observe that
   \begin{equation*}
-    g(x,y)=\sum_{k=2}^n\frac{f^{(k)}(x)}{k!}y^{k-2}.\qedhere
+    f(x+y)=f(x)+yf'(x) + y^2\sum_{k=2}^n\frac{f^{(k)}(x)}{k!}y^{k-2}.
   \end{equation*}
+  This completes the proof of the final claim.
 \end{proof}
 
 \section{Hensel's Lemma}

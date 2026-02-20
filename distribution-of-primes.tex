@@ -50,14 +50,14 @@ In order to analyze the distribution of primes, we will make use of some handy n
 
     % ───────────────────────────────────────────────
     % Tick marks on the x‑axis at 1000,2000,…,10000
-    % each tick is 50 data‑units downwards (≈0.3 cm)
+    % each tick is 50 data‑units downwards (≈0.3 cm)
     \foreach \x in {1000,2000,3000,4000,5000,6000,7000,8000,9000,10000} {
       \draw (\x,0) -- (\x,-50)
             node[below,font=\footnotesize] {\x};
     }
 
     % Tick marks on the y‑axis at 250,500,…,1250
-    % each tick is 200 data‑units to the left (≈0.24 cm)
+    % each tick is 200 data‑units to the left (≈0.24 cm)
     \foreach \y in {250,500,750,1000,1250} {
       \draw (0,\y) -- (-200,\y)
             node[left,font=\footnotesize] {\y};

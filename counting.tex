@@ -23,19 +23,19 @@ he observes that equality of numbers can be determined whenever there is a one-t
   {\itshape We are possest of a precise standard, by which we can judge
     of the equality and proportion of numbers; and according as they correspond
     or not to that standard, we determine their relations, without any
-    possibility of error. When two numbers are so combin’d, as that the one has
+    possibility of error. When two numbers are so combin'd, as that the one has
     always an unite answering to every unite of the other, we pronounce them
-    equal; and ’tis for want of such a standard of equality in extension, that
-    geometry can scarce be esteem’d a perfect and infallible science.}
+    equal; and 'tis for want of such a standard of equality in extension, that
+    geometry can scarce be esteem'd a perfect and infallible science.}
 \end{quote}
 We note here that Hume relies on the Euclidean conception of number,
 where a number is a multitude of units:
 the number $n$ is the collection of $n$ units.
 By contrast,
 in modern mathematics we treat the natural numbers as an inductively generated set.
-To recover Hume’s insight in our setting,
+To recover Hume's insight in our setting,
 we introduce the notion of a standard $n$-element set,
-which is to be a fixed set with exactly $n$ elements playing the role of Euclid’s collection of $n$ units.
+which is to be a fixed set with exactly $n$ elements playing the role of Euclid's collection of $n$ units.
 
 \begin{definition}
   The \emph{standard finite set} $[n]$ with $n$ elements is defined by
@@ -513,16 +513,6 @@ Knowing that the total number of subsets of an $n$-element set is $2^n$, we now 
 \end{equation*}
 The binomial coefficients are introduced precisely to answer this question for general $n$ and $k$.
 
-\begin{definition}
-  The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
-  \begin{align*}
-    \binom{0}{0} & := 1 & \binom{0}{k+1} & := 0 \\
-    \binom{n+1}{0} & := 1 & \binom{n+1}{k+1} & := \binom{n}{k} + \binom{n}{k+1}.
-  \end{align*}
-\end{definition}
-
-The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$th row of Pascal's triangle. In the $n$th row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
-
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[every node/.style={
@@ -557,6 +547,16 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
   \caption[Pascal's triangle]{Pascal's triangle. Counting from $0$ from the top, the $k$th entry in the $n$th row is the binomial coefficient $\binom{n}{k}$.}
   \label{figure:pascals-triangle}
 \end{figure}
+
+\begin{definition}
+  The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
+  \begin{align*}
+    \binom{0}{0} & := 1 & \binom{0}{k+1} & := 0 \\
+    \binom{n+1}{0} & := 1 & \binom{n+1}{k+1} & := \binom{n}{k} + \binom{n}{k+1}.
+  \end{align*}
+\end{definition}
+
+The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$th row of Pascal's triangle. In the $n$th row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
 
 \begin{theorem}
   Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
