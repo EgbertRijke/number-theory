@@ -3,9 +3,13 @@
   \MakeUppercase{\itshape Introduction}%
 }{}
 
-Number theory is the study of numbers, particularly the natural numbers (the numbers $0,1,2,\ldots$ increasing indefinitely in increments of $1$), the integers (the numbers $\ldots, -2, -1, 0, 1, 2, \ldots$), and occasionally the rational numbers (fractions of integers). Its central themes include questions about divisibility, modular arithmetic, prime numbers, arithmetic functions, and finding integer solutions to equations. Additionally, number theory explores the question whether numbers can be represented in a certain form, such as a sum of two, three, or four squares, as a product or sum of primes, or as the area of a Pythagorean triangle. Paired with such representability questions is the combinatorial question of determining the number of ways a number can be so represented. More advanced branches of number theory are occasionally also concerned with obtaining quantitative bounds or other forms of approximation of certain aspects of numbers, which naturally leads to the use of other number systems, such as the real numbers, complex numbers, or $p$-adic numbers. However, in \emph{elementary number theory} these explorations are primarily motivated by how these number systems relate back to the integers.
+Number theory is the study of numbers, particularly the natural numbers
+\begin{equation*}
+  0,1,2,\ldots
+\end{equation*}
+increasing indefinitely in increments of $1$, the integers (the numbers $\ldots, -2, -1, 0, 1, 2, \ldots$), and occasionally the rational numbers (fractions of integers). Its central themes include questions about divisibility, modular arithmetic, prime numbers, arithmetic functions, and finding integer solutions to equations. Additionally, number theory explores the question whether numbers can be represented in a certain form, such as a sum of two, three, or four squares, as a product or sum of primes, or as the area of a Pythagorean triangle. Paired with such representability questions is the combinatorial question of determining the number of ways a number can be so represented. More advanced branches of number theory are occasionally also concerned with obtaining quantitative bounds or other forms of approximation of certain aspects of numbers, which naturally leads to the use of other number systems, such as the real numbers, complex numbers, or $p$-adic numbers. However, in \emph{elementary number theory} these explorations are primarily motivated by how these number systems relate back to the integers.
 
-The diversity of the kinds or inquiry described above has led to a wealth of mathematical techniques, methods of proof, and advanced concepts, and number theory remains a very active field of study to this day. The aim of this course is to introduce some of the most fundamental ideas upon which number theory is built. Some of these ideas you might already know or have heard about: prime numbers are the building blocks of numbers; mathematical induction is a proof technique to formally prove properties of all natural numbers; and the idea that some of the most frequently occurring numbers can be arranged geometrically such as in triangles, squares, pentagons, and so on. An important aspect of the course is to learn how to make these intuitive ideas mathematically precise. Once we have developed a solid foundation, we will start building the edifice of number theory.
+The diversity of the kinds of questions described above has led to a wealth of mathematical techniques, methods of proof, and advanced concepts, and number theory remains a very active field of study to this day. The aim of this course is to introduce some of the most fundamental ideas upon which number theory is built. Some of these ideas you might already know or have heard about: prime numbers are the building blocks of numbers; mathematical induction is a proof technique to formally prove properties of all natural numbers; and the idea that some of the most frequently occurring numbers can be arranged geometrically such as in triangles, squares, pentagons, and so on. An important aspect of the course is to learn how to make these intuitive ideas mathematically precise. Once we have developed a solid foundation, we will start building the edifice of number theory.
 
 Concretely, we set out the following learning objectives for this course:
 \begin{itemize}
@@ -17,6 +21,8 @@ Concretely, we set out the following learning objectives for this course:
 \end{itemize}
 
 \section*{A Short History of Number Theory}
+
+\subsection*{The Ancient Greek Scholars}
 
 \begin{figure}[p]
   \centering
@@ -36,7 +42,13 @@ The works of Euclid and Diophantus were preserved and studied by scholars in the
 
 During the Islamic Golden Age, scholars like Al-Khwarizmi, Ibn al-Haytham, and Omar Khayyam preserved and expanded upon the works of Euclid and Diophantus. Al-Khwarizmi's work, especially his \textsc{Kitab al-Mukhtasar fi Hisab al-Jabr wal-Muqabala} (from which the term "algebra" originates), introduced systematic methods for solving linear and quadratic equations. He used rhetorical algebra, like Diophantus, but began a transition toward symbolic representation by relying on consistent terminology for operations and equations.
 
-After the invention of the printing press, Erhard Ratdolt, a German printer based in Venice, produced the first printed edition of the \textsc{Elements} in 1482. This edition included mathematical diagrams and marked an important step in the dissemination of Euclid's work. The first printed edition of Diophantus' \textsc{Arithmetica} was published in 1575 by Wilhelm Xylander, a German mathematician. The printing was done in Basel, Switzerland, which was a major hub for academic publishing at the time. By the time of Pierre de Fermat in the 17th century, both the \textsc{Elements} and \textsc{Arithmetica} had become essential texts for mathematicians across Europe, influencing the development of number theory and inspiring Fermat’s groundbreaking contributions.
+After the invention of the printing press, Erhard Ratdolt, a German printer based in Venice, produced the first printed edition of the \textsc{Elements} in 1482. This edition included mathematical diagrams and marked an important step in the dissemination of Euclid's work. The first printed edition of Diophantus' \textsc{Arithmetica} was published in 1575 by Wilhelm Xylander, a German mathematician. The printing was done in Basel, Switzerland, which was a major hub for academic publishing at the time. By the time of Pierre de Fermat in the 17th century, both the \textsc{Elements} and \textsc{Arithmetica} had become essential texts for mathematicians across Europe, influencing the development of number theory and inspiring Fermat’s pioneering discoveries.
+
+\subsection*{Mathematics, Astronomy, and Poetry in Ancient India}
+
+We could not move forward with the story of the greatest mathematical achievements without first turning our attention to the scholarly traditions of Ancient India.
+
+\subsection*{Pierre de Fermat}
 
 \begin{figure}[p]
   \centering
@@ -51,7 +63,7 @@ After the invention of the printing press, Erhard Ratdolt, a German printer base
 
 Pierre de Fermat (1607--1665) is often considered the founder of modern number theory \cite{mahoney1994,weil1984}. He was a contemporary of Blaise Pascal and Marin Mersenne, both of whom he corresponded with, and also of Galileo Galilei. He wrote a manuscript titled \textsc{Éléments de Géométrie}, which served as an extension and commentary on Euclid’s \textsc{Elements}. In this work, he sought to modernize Euclid’s geometry by applying the emerging methods of algebra and analytic geometry to classical geometric problems.
 
-Fermat made several groundbreaking contributions to number theory. Among his most influential contributions is \emph{Fermat's Little Theorem}, which states that if $p$ is a prime number, then
+Fermat made many groundbreaking discoveries in the theory of numbers. Among his most influential discoveries is \emph{Fermat's Little Theorem}, which states that if $p$ is a prime number, then
 \begin{equation*}
   a^p\equiv a\pmod{p}.  
 \end{equation*}
@@ -64,6 +76,8 @@ Finally, Fermat famously asserted that there could be no three positive integers
   x^n+y^n=z^n
 \end{equation*}
 holds, when $n\geq 3$. This statement is now known as \emph{Fermat's Last Theorem}. He claimed to have a "truly marvelous proof", but that the margin of his copy of \textsc{Arithmetica} was too small to contain it. His assertion, known as \emph{Fermat's Last Theorem}, captivated mathematicians for centuries. It was finally proven in 1995 by Andrew Wiles, about 350 years after Fermat made his famous note in the margin, using advanced techniques from algebraic geometry and modular forms. Wiles’s achievement is considered one of the most remarkable milestones in the history of mathematics.
+
+\subsection*{Leonhard Euler}
 
 \begin{figure}[p]
   \centering
@@ -98,6 +112,8 @@ More generally, Euler explored infinite series and products. The \emph{Basel sum
 \end{equation*}
 was first proven here, which was one of Euler's most celebrated achievements. Euler was keen to explore the connection between geometry and analysis, and in Introductio in Analysin Infinitorum, he advanced the idea that the study of functions and infinite series could provide new insights into geometric problems. He showed how techniques from analysis could be used to solve problems in geometry and vice versa, fostering the development of applied mathematics.
 
+\subsection*{Johannes Carl Friedrich Gauss}
+
 \begin{figure}[p]
   \centering
   \begin{tikzpicture}
@@ -119,6 +135,8 @@ A brief remark on the interesting etymology of the word theorem is in order. The
 In Euclid's \textsc{Elements}, specifically through the careful editorial work and commentaries of the Byzantine scribes, we start seeing the label \emph{theōrēma} for statements that require deductive proof, in contrast to the “givens” ({\greekfont ὑπόθεσις}, hypóthesis) and “proof” ({\greekfont ἀπόδειξις}, apódeixis). However, the fixed label \emph{Theōrēma} for such statements emerges more clearly in Medieval translations into Late Latin and Middle French of the \textsc{Elements}, through the editorial adjustments made by his copyists. The Late Latin word \emph{theorema} and the Middle French word \emph{théorème} both retained the meaning “proposition that is to be proved”.
 
 Euclid's \textsc{Elements} was first translated into English by Sir Henry Billingsley in 1570, who was mayor of London at the time, with a preface written by John Dee. This Billingsley--Dee edition of Euclid’s \textsc{Elements} established \emph{theorem} in the English language as a word meaning “proposition that is to be proved”. Over the ensuing centuries, the word theorem came to mean exclusively a mathematical assertion proven from axioms, definitions, and previously established theorems.
+
+\subsection*{Contemporary Mathematics}
 
 So far, we have covered some of the most celebrated advances in humanity's understanding of numbers up to the early 19th century. Mathematics has made rapid progress since then. Bertrand's postulate, which asserts that there is always at least one prime $p$ between $n$ and $2n$, for any $n>1$, was proven by Pafnuty Chebyshev in 1852, and Ben Green and Terence Tau proved in 2004 that the sequence of prime numbers contains arbitrarily long arithmetic progressions.
 
