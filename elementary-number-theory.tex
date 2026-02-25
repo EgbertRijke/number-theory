@@ -112,7 +112,15 @@ bibliography=totoc
 \setlist[enumerate,2]{label=\textup{(\alph*)}}
 \setlist[enumerate,3]{label=\textup{\arabic*.}}
 
-% Some nested enumerate environments that traverse a page break seem to break tagging. To address this, we make a no-breaking enumerate environment using minipages. It's a bit of a hack, but unfortunately it seems necessary for now.
+\newcommand{\TwoDigits}[1]{\ifnum#1<10 0\fi\number#1}
+
+\newcommand{\TodayYYMMDD}{%
+  \TwoDigits{\numexpr\year-2000\relax}%
+  \TwoDigits{\month}%
+  \TwoDigits{\day}%
+}
+
+\newcommand{\Version}[1]{Version #1.\TodayYYMMDD}
 
 \newenvironment{nobreakenumerate}[1][]
 {
@@ -475,7 +483,8 @@ bibliography=totoc
     {\LARGE\textsc{Math 304}\par}
     \vspace*{\stretch{1}}
     {\LARGE Egbert Rijke\par}
-    \vspace*{\stretch{2}}
+    \vspace*{\stretch{1}}
+    \begin{center}
     \begin{tikzpicture}[scale=5]
       \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
       \draw[ultra thick] (0,0) circle (1);
@@ -498,10 +507,11 @@ bibliography=totoc
       \draw[fill=white,very thick] (P4) circle (.5pt);
       \draw[fill=black,very thick] (1,0) circle (.5pt);
     \end{tikzpicture}
-    \vspace*{\stretch{2}}
-    {\Huge \textbf{Elementary Number Theory}\par}
+    \end{center}
     \vspace*{\stretch{1}}
-    {\LARGE\textit{Fall 2025}}
+    {\Huge \textbf{Elementary Number Theory}\par}
+    \vspace*{\stretch{2}}
+    {\LARGE\textit{\Version{0}}}
   \end{center}
 \end{titlepage}
 \endgroup
