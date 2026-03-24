@@ -595,7 +595,7 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
 \begin{starter}
   \exercise Show that consecutive terms of a Lucas sequence $(u_n)$ with characteristic form $x^2-axy+by^2$ satisfy
   \begin{equation*}
-    u_{n+1}^2-au_{n+1}u_n+bu_n^2=(-b)^n.
+    u_{n+1}^2-au_{n+1}u_n+bu_n^2=b^n.
   \end{equation*}
 \end{starter}
 
@@ -612,16 +612,11 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
   \begin{equation*}
     u_{n+1}^2\equiv b^n\pmod{u_n}.
   \end{equation*}
-  \exercise Define a \emph{Mersenne integer} to be any integer that can be written in the form
+  \exercise Consider a Lucas sequence $(u_n)$ and let $m$ be such that $u_m\neq 0$. Define the \emph{cofactor sequence} $(\tilde{u}_k)$ by
   \begin{equation*}
-    \frac{M_{i_1}\cdots M_{i_m}}{M_{j_1}\cdots M_{j_n}}.
+    \tilde{u}_k:=u_{km}/u_m.
   \end{equation*}
-  Show that the number $23$ is not a Mersenne integer.
-  \exercise Define a \emph{Fibonacci integer} to be any integer that can be written in the form
-  \begin{equation*}
-    \frac{F_{i_1}\cdots F_{i_m}}{F_{j_1}\cdots F_{j_n}}.
-  \end{equation*}
-  Show that the number $37$ is not a Fibonacci integer \cite{luca2003}.
+  Show that $(\tilde{u}_k)$ is again a Lucas sequence.
 \end{routine}
 
 \begin{challenge}
@@ -645,11 +640,16 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
     P_0:=0,\qquad P_1:=1,\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
   \end{equation*}
   forms a strong divisibility sequence.
-  \exercise Consider a Lucas sequence $(u_n)$ and let $m$ be such that $u_m\neq 0$. Define the \emph{cofactor sequence} $(\tilde{u}_k)$ by
+  \exercise Define a \emph{Mersenne integer} to be any integer that can be written in the form
   \begin{equation*}
-    \tilde{u}_k:=u_{km}/u_m.
+    \frac{M_{i_1}\cdots M_{i_m}}{M_{j_1}\cdots M_{j_n}}.
   \end{equation*}
-  Show that $(\tilde{u}_k)$ is again a Lucas sequence.
+  Show that the number $23$ is not a Mersenne integer.
+  \exercise Define a \emph{Fibonacci integer} to be any integer that can be written in the form
+  \begin{equation*}
+    \frac{F_{i_1}\cdots F_{i_m}}{F_{j_1}\cdots F_{j_n}}.
+  \end{equation*}
+  Show that the number $37$ is not a Fibonacci integer \cite{luca2003}.
   \exercise (The Dickson--Lucas polynomial) Consider a Lucas sequence $(u_n)$ with associated sequence $(v_n)$ given by
   \begin{equation*}
     v_0 := 2, \qquad v_1 := a,\qquad\text{and}\qquad v_{n+2}=av_{n+1}-bv_n.

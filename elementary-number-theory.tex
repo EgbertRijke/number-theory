@@ -54,6 +54,10 @@ bibliography=totoc
   stretch=10,
   shrink=10
 ]{microtype}
+\usepackage{selnolig}
+\usepackage{realscripts}
+\usepackage{impnattypo}
+\usepackage{lua-widow-control}
 
 \frenchspacing
 \emergencystretch=1.5em
@@ -478,11 +482,11 @@ bibliography=totoc
 \begingroup
 \begin{titlepage}
   \begin{center}
-    {\Huge\textbf{Johns Hopkins University}\par}
+    {\Huge\textsc{Johns Hopkins University}\par}
     \vspace*{\stretch{1}}
-    {\LARGE\textsc{Math 304}\par}
+    {\LARGE Math 304\par}
     \vspace*{\stretch{1}}
-    {\LARGE Egbert Rijke\par}
+    {\Huge\textbf{Egbert Rijke}\par}
     \vspace*{\stretch{1}}
     \begin{center}
     \begin{tikzpicture}[scale=5]
@@ -532,7 +536,7 @@ bibliography=totoc
 
 \listoffigures
 
-\note{\listoftables}
+\listoftables
 
 \input{introduction}
 
@@ -562,7 +566,7 @@ bibliography=totoc
 
 \input{infinite-descent}
 
-\part{Number Theory with the Primes}
+\part{The Multiplicative Nature of Numbers}
 
 \input{prime-numbers}
 
