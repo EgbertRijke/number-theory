@@ -232,7 +232,6 @@ bibliography=totoc
 \definecolor{grayblue}{HTML}{0047AB}
 \usepackage{hyperref}
 \hypersetup{
-  unicode=true,
   colorlinks=true,
   linktoc=all,
   allcolors=grayblue,
@@ -266,6 +265,7 @@ bibliography=totoc
 
 \newcommand{\exercises}{%
   \par\clearpage%
+  \phantomsection%
   \section*{Exercises}%
   \addcontentsline{toc}{section}{Exercises}%
   \markboth{\leftmark}{\MakeUppercase{Exercises}}%
@@ -443,7 +443,7 @@ bibliography=totoc
     \vspace*{\stretch{1}}
     {\Huge \textbf{Elementary Number Theory}\par}
     \vspace*{\stretch{2}}
-    {\LARGE\textit{\Version{0}}}
+    {\Large\textit{\Version{0}}}
   \end{center}
 \end{titlepage}
 \endgroup
