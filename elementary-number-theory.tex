@@ -41,8 +41,6 @@ bibliography=totoc
   StylisticSet = {1, 2},
 ]
 \setmathfont{STIX Two Math}
-% \setsansfont{Source Sans 3}[Scale=MatchLowercase]
-% \setmonofont{Source Code Pro}[Scale=MatchLowercase]
 
 \linespread{1.05}
 
@@ -81,7 +79,6 @@ bibliography=totoc
 
 \addtokomafont{disposition}{\rmfamily}
 \addtokomafont{chapter}{\huge\bfseries}
-% \addtokomafont{chapterprefix}{\huge\bfseries}
 \addtokomafont{chapterprefix}{\Large\lsstyle\scshape\mdseries}
 
 \renewcommand*{\chapterformat}{Chapter~\thechapter\enskip}
@@ -99,8 +96,6 @@ bibliography=totoc
 \geometry{
   hcentering,
   letterpaper,
-%  margin=0.12\paperwidth,
-%  vmargin=0.10\paperheight,
   includehead,
 }
 
@@ -113,10 +108,14 @@ bibliography=totoc
 
 \usepackage{calc}
 \usepackage{totcount}
-\usepackage{enumitem}
-\setlist[enumerate,1]{label=\textup{(\roman*)}}
-\setlist[enumerate,2]{label=\textup{(\alph*)}}
-\setlist[enumerate,3]{label=\textup{\arabic*.}}
+\usepackage{enumext}
+\renewcommand{\labelenumi}{\textup{(\roman{enumi})}}
+\renewcommand{\labelenumii}{\textup{(\alph{enumii})}}
+\renewcommand{\labelenumiii}{\textup{\arabic{enumiii}.}}
+
+\renewcommand{\theenumi}{\roman{enumi}}
+\renewcommand{\theenumii}{\alph{enumii}}
+\renewcommand{\theenumiii}{\arabic{enumiii}}
 
 \newcommand{\TwoDigits}[1]{\ifnum#1<10 0\fi\number#1}
 
@@ -128,13 +127,13 @@ bibliography=totoc
 
 \newcommand{\Version}[1]{Version #1.\TodayYYMMDD}
 
-\newenvironment{nobreakenumerate}[1][]
+\newenvironment{nobreakenumerate}
 {
     \par
     \addvspace{\topsep}
     \noindent
     \begin{minipage}{\linewidth}
-    \begin{enumerate}[#1]
+    \begin{enumerate}
 }
 {
     \end{enumerate}
@@ -142,7 +141,7 @@ bibliography=totoc
     \par
     \addvspace{\topsep}
 }
-
+  
 \usepackage{array}
 \usepackage{booktabs}
 %\usepackage{stfloats}
@@ -255,8 +254,8 @@ bibliography=totoc
 
 \newcommand{\zcrefnamed}[1]{\zcref{#1}\space(\ztitleref{#1})}
 
-\zcRefTypeSetup{exenumi}{Name-sg = Exercise, Name-pl = Exercises}
-\zcRefTypeSetup{subexenumi}{Name-sg = Exercise, Name-pl = Exercises}
+\zcRefTypeSetup{enumXi}{Name-sg = Exercise, Name-pl = Exercises}
+\zcRefTypeSetup{enumXii}{Name-sg = Exercise, Name-pl = Exercises}
 
 \newtotcounter{exercisecounter}
 \AtEndDocument{%
@@ -275,27 +274,30 @@ bibliography=totoc
 
 \newcommand{\exercise}{\stepcounter{exercisecounter}\item}
 
-\newlist{exenum}{enumerate}{1}
-\setlist[exenum]{
-  label=\thechapter.\arabic*,
-  noitemsep
-}
+\newenvironment{exenum}
+{\begin{enumext}[
+    label=\thechapter.\arabic*,
+    ref=\thechapter.\arabic*,
+    widest=99,
+    labelsep=.4em,
+    noitemsep]}
+{\end{enumext}}
 
-\newlist{subexenum}{enumerate}{1}
-\setlist[subexenum]{
-  noitemsep,
-  label=(\alph*),
-  ref=\theexenumi(\alph*)
-}
+\newenvironment{subexenum}
+{\begin{enumext}[
+    label=(\alph*),
+    ref=\thechapter.\arabic{enumXi}(\alph*),
+    noitemsep]}
+{\end{enumext}}
 
 \newenvironment{starter}
 {%
   \italicsubsection{Starter Exercises}%
   \begin{exenum}
-  \setcounter{exenumi}{\value{currentchaptex}}
+  \setcounter{enumXi}{\value{currentchaptex}}
 }
 {%
-  \setcounter{currentchaptex}{\value{exenumi}}
+  \setcounter{currentchaptex}{\value{enumXi}}
   \end{exenum}
 }
 
@@ -303,10 +305,10 @@ bibliography=totoc
 {%
   \italicsubsection{Routine-Building Exercises}%
   \begin{exenum}
-  \setcounter{exenumi}{\value{currentchaptex}}
+  \setcounter{enumXi}{\value{currentchaptex}}
 }
 {%
-  \setcounter{currentchaptex}{\value{exenumi}}
+  \setcounter{currentchaptex}{\value{enumXi}}
   \end{exenum}
 }
 
@@ -314,88 +316,12 @@ bibliography=totoc
 {%
   \italicsubsection{Challenge Exercises}%
   \begin{exenum}
-  \setcounter{exenumi}{\value{currentchaptex}}
+  \setcounter{enumXi}{\value{currentchaptex}}
 }
 {%
-  \setcounter{currentchaptex}{\value{exenumi}}
+  \setcounter{currentchaptex}{\value{enumXi}}
   \end{exenum}
 }
-
-% \newtotcounter{exercisecounter}
-% \AtEndDocument{%
-%   \typeout{Total number of exercises: \number\value{exercisecounter}}%
-% }
-
-% \newif\ifthischapex
-% \global\thischapexfalse
-
-% \newcommand{\exercises}{%
-% \par\clearpage%
-% \section*{Exercises}%
-% \addcontentsline{toc}{section}{Exercises}%
-% \markboth{\leftmark}{\MakeUppercase{Exercises}}%
-% \setcounter{exenumi}{0}%
-% %\restartlist{exenum}
-% \global\thischapexfalse
-% }
-
-% \newcommand{\exercise}{\stepcounter{exercisecounter}\item}
-
-% \newlist{exenum}{enumerate}{1}
-% \setlist[exenum]{
-%   label=\thechapter.\arabic*,
-%   noitemsep
-% }
-
-% \newlist{subexenum}{enumerate}{1}
-% \setlist[subexenum]{
-%   noitemsep,
-%   label=(\alph*),
-%   ref=\theexenumi(\alph*)
-% }
-
-% \newenvironment{starter}
-% {%
-%   \italicsubsection{Starter Exercises}%
-%   \ifthischapex
-%     \begin{exenum}[resume=chapex]
-%     \else
-%       \begin{exenum}[series=chapex]
-%       \fi
-% }
-% {%
-%   \end{exenum}
-%   \global\thischapextrue
-% }
-
-% % Dutch: Routinevormende Opgaven
-% \newenvironment{routine}
-% {%
-%   \italicsubsection{Routine-Building Exercises}%
-%   \ifthischapex
-%     \begin{exenum}[resume=chapex]
-%     \else
-%       \begin{exenum}[series=chapex]
-%       \fi
-% }
-% {%
-%   \end{exenum}
-%   \global\thischapextrue
-% }
-
-% \newenvironment{challenge}
-% {%
-%   \italicsubsection{Challenge Exercises}%
-%   \ifthischapex
-%     \begin{exenum}[resume=chapex]
-%     \else
-%       \begin{exenum}[series=chapex]
-%       \fi
-%     }
-%     {%
-%     \end{exenum}
-%     \global\thischapextrue
-%   }
   
 \newcommand\objectives{\italicsubsection{Learning Objectives}}
 
@@ -458,8 +384,8 @@ bibliography=totoc
 \newcommand{\totient}{\DeclareSemanticSymbol{\phi}{totient}}
 
 \newif\ifshownotes
-\shownotestrue     % => show notes
-% \shownotesfalse      % => ignore notes
+\shownotestrue
+% \shownotesfalse
 
 \usepackage{environ}
 \NewEnviron{noteblock}{%
