@@ -97,7 +97,7 @@ of candidates, from which we pick our next prime. We will define the sets $P_n$ 
 \begin{equation*}
   Q_{n+1}:=Q_n\setminus \{kp(n)\mid k\geq 1\}.
 \end{equation*}
-In other words, the $n$th prime $p(n)$ is the minimal element of $Q(n)$, and the set $Q_{n+1}$ of candidates is the set $Q_n$ minus all the multiples of $p(n)$. In the first five stages, these sets look as follows:
+In other words, the $n$\supth{} prime $p(n)$ is the minimal element of $Q(n)$, and the set $Q_{n+1}$ of candidates is the set $Q_n$ minus all the multiples of $p(n)$. In the first five stages, these sets look as follows:
 
 \begin{center}
   \renewcommand{\arraystretch}{1.2} % Adjust row spacing
@@ -445,7 +445,7 @@ so that $m_1+\cdots+m_{n}=k$? We establish the answer in the following theorem.
 
 \section{Fermat Primes}
 
-During the 17th century, when computational resources were limited to human cognitive capacity aided with pen and paper, it was a significant challenge to come up with large prime numbers. The hunt for large primes was focused primes of the form $2^n-1$ and $2^n+1$, since such numbers have a simple form yet grow very fast. Fermat observed that if $2^n+1$ is a prime, then $n$ cannot have any odd divisors.
+During the 17\supth{} century, when computational resources were limited to human cognitive capacity aided with pen and paper, it was a significant challenge to come up with large prime numbers. The hunt for large primes was focused primes of the form $2^n-1$ and $2^n+1$, since such numbers have a simple form yet grow very fast. Fermat observed that if $2^n+1$ is a prime, then $n$ cannot have any odd divisors.
 
 \begin{theorem}
   If a number of the form $2^n+1$ is prime, then $n=2^k$ for some natural number $k$.
@@ -463,7 +463,7 @@ During the 17th century, when computational resources were limited to human cogn
   Thus, if $2^{2^km}+1$ is prime, then we must have $m=1$.
 \end{proof}
 
-In other words, all primes of the form $2^n+1$ are in fact of the form $2^{2^{k}}+1$. Such numbers are called \emph{Fermat numbers}: The $n$th Fermat number is given by
+In other words, all primes of the form $2^n+1$ are in fact of the form $2^{2^{k}}+1$. Such numbers are called \emph{Fermat numbers}: The $n$\supth{} Fermat number is given by
 \begin{equation*}
   F_n:=2^{2^n}+1.
 \end{equation*}
@@ -473,13 +473,13 @@ The first few Fermat numbers are:
 \end{equation*}
 Of these numbers, $F_0$ through $F_3$ are easily seen to be prime. The number $F_4$ is also prime, but to prove this in a clean manner requires us to develop some more theory. Fermat famously conjectured that all Fermat numbers are prime. Goldbach brought this claim to Euler's attention in his letter, who was sceptical. A little later, Euler was able to prove that $F_5$ is indeed composite. Fermat had an extremely strong record of correct mathematical claims and conjectures, but this was one of the very few he got wrong. We will prove in \zcref{corollary:F4,corollary:F5} that $F_4$ is prime and that $F_5$ is composite, once we have developed a bit more theory to help us reduce the search for prime factors.
 
-Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18th century, it was customary among mathematicians to share their findings private correspondences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes. Recall that the Fermat numbers $F_n$ are defined by
+Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the 18\supth{} century, it was customary among mathematicians to share their findings private correspondences. In July of 1730, Goldbach wrote a letter to Euler, in which he established that all distinct Fermat numbers are relatively prime, and that hence there must be infinitely many primes. Recall that the Fermat numbers $F_n$ are defined by
 \begin{equation*}
   F_n := 2^{2^n}+1.
 \end{equation*}
 
 \begin{theorem}[Product formula for the Fermat numbers]\label{theorem:product-formula-fermat-numbers}
-  The $n$th Fermat number satisfies the identity
+  The $n$\supth{} Fermat number satisfies the identity
   \begin{equation*}
     F_n - 2 = \prod_{0\leq k<n}F_k.
   \end{equation*}
@@ -598,7 +598,7 @@ An immediate consequence of the definition of $p$-adic valuations is the followi
   \begin{equation*}
     \nu_p(n!) = \sum_{k=1}^\infty\left\lfloor\frac{n}{p^k}\right\rfloor.
   \end{equation*}
-  To see this, note that each integer $1\leq x \leq n$ divisible by $p$ contributes a factor $p$ to $n!$. Each integer $1\leq x\leq n$ divisible by $p^2$ contributes a second factor of $p$ to $n!$, and more generally, each integer $1\leq x \leq n$ divisible by $p^k$ contributes a $k$th factor of $p$.
+  To see this, note that each integer $1\leq x \leq n$ divisible by $p$ contributes a factor $p$ to $n!$. Each integer $1\leq x\leq n$ divisible by $p^2$ contributes a second factor of $p$ to $n!$, and more generally, each integer $1\leq x \leq n$ divisible by $p^k$ contributes a $k$\supth{} factor of $p$.
 
   Since there are $\bigl\lfloor\frac{n}{p^k}\bigr\rfloor$ integers from $1$ to $n$ divisible by $p^k$, it follows that the number of factors of $p$ in $n!$ is
   \begin{equation*}
@@ -687,7 +687,7 @@ In the following theorem we give a useful alternative expression for the $p$-adi
   \begin{equation*}
     \binom{64}{32}=2\cdot 3^2\cdot 7^2\cdot 11\cdot 17\cdot 19\cdot 37\cdot 41\cdot 43\cdot 47\cdot 53\cdot 59\cdot 61.
   \end{equation*}
-  Even though the binomial coefficient $\binom{64}{32}$ is a fairly large number with $19$ decimal digits, we didn't need to evaluate it in order to obtain its prime factorization. In fact, without fully evaluating it, we can now determine the last decimal digit of $\binom{64}{32}$ by the following procedure: Start with $d_0:=1$ and let $d_{i+1}$ be the remainder of the product $d_ip_i^{m_i}$ after division by $10$, where $p_i^{m_i}$ is the $i$th prime power in the prime factorization of $\binom{64}{32}$. This gives:
+  Even though the binomial coefficient $\binom{64}{32}$ is a fairly large number with $19$ decimal digits, we didn't need to evaluate it in order to obtain its prime factorization. In fact, without fully evaluating it, we can now determine the last decimal digit of $\binom{64}{32}$ by the following procedure: Start with $d_0:=1$ and let $d_{i+1}$ be the remainder of the product $d_ip_i^{m_i}$ after division by $10$, where $p_i^{m_i}$ is the $i$\supth{} prime power in the prime factorization of $\binom{64}{32}$. This gives:
   \begin{equation*}
     d_1 = 2,~d_2=8,~d_3=2,~d_4=2,~\ldots,~d_{13}=4.
   \end{equation*}
@@ -1055,7 +1055,7 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   \exercise Consider a prime $p\equiv 3\pmod{4}$, and suppose that $\nu_p(n)$ is odd. Show that there is a bijection between the set of divisors $d\equiv 1\pmod{4}$ of $n$ and the set of divisors $d\equiv 3\pmod{4}$ of $n$.
   \exercise For any $n$, let $\omega(n)$ be the number of its prime divisors. Show that the number of integers $0<x<n$ such that $x^2\equiv x\pmod{n}$ is $2^{\omega(n)}$. Hint: Use the Chinese Remainder Theorem to show that there is a bijection between the integers $x$ such that $x^2\equiv x\pmod{n}$ and the subsets of the set of prime divisors of $n$.
   \exercise Show that there is exactly one positive integer $k$ such that both $2^k-1$ and $2^k+1$ are prime.
-  \exercise In this exercise $F_n$ denotes the $n$th Fibonacci number. Show that a prime $p$ divides $F_{p-1}$ if and only if $p\equiv \pm 1\pmod{5}$ and $p$ divides $F_{p+1}$ if and only if $p\equiv \pm 2\pmod{5}$.  
+  \exercise In this exercise $F_n$ denotes the $n$\supth{} Fibonacci number. Show that a prime $p$ divides $F_{p-1}$ if and only if $p\equiv \pm 1\pmod{5}$ and $p$ divides $F_{p+1}$ if and only if $p\equiv \pm 2\pmod{5}$.  
   \exercise Prove the following identity of Bakir Farhi \cite{farhi2009}:
   \begin{equation*}
     \lcm\left(\binom{n}{0},\binom{n}{1},\ldots,\binom{n}{n}\right)=

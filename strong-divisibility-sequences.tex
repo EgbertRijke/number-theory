@@ -117,7 +117,7 @@ Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Seque
   \begin{equation*}
     u_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}=\frac{(\alpha^m-\beta^m)\sum_{i=0}^k (\alpha^m)^i(\beta^m)^{k-i}}{\alpha-\beta}=u_m\sum_{i=0}^k (\alpha^m)^i(\beta^m)^{k-i}
   \end{equation*}
-  by the formula for the difference of $m$th powers. This shows that if $m\mid n$, then $u_m\mid u_n$.
+  by the formula for the difference of $m$\supth{} powers. This shows that if $m\mid n$, then $u_m\mid u_n$.
 \end{proof}
 
 When the parameters $a$ and $b$ in the recursive law of a Lucas sequence $(u_n)$ are relatively prime, the Lucas sequence has the further property of preserving greatest common divisors. Divisibility sequences that preserve greatest common divisors are called \emph{strong divisibility sequences}.
@@ -388,7 +388,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
   \begin{equation*}
     a^n-1=(a^m)^q-1^q=(a^m-1)\sum_{k=0}^{q-1}a^{km}
   \end{equation*}
-  by the formula for the difference of $q$th powers (\zcref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \zcref{theorem:rank-of-apparition} and \zcrefnamed{theorem:order-theorem}.
+  by the formula for the difference of $q$\supth{} powers (\zcref{exercise:difference-of-powers}). The fact that it is a strong divisibility sequence now follows directly from \zcref{theorem:rank-of-apparition} and \zcrefnamed{theorem:order-theorem}.
 \end{proof}
 
 \begin{example}\label{example:rank-of-apparition-square-discriminant-lucas-sequence}
@@ -420,7 +420,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
   \end{equation*}
   when $m_1$ and $m_2$ are relatively prime integers, both relatively prime to $ab(a-b)$.
 
-  Next, we will assume that $p\mid a-b$. Since $a-b$ is relatively prime to both $a$ and $b$, it follows again that both $a$ and $b$ are invertible modulo $p$. Then we can rewrite $u_n$ using the formula for the difference of $n$th powers, and subsequently use the congruence $a\equiv b\pmod{p}$ to obtain:
+  Next, we will assume that $p\mid a-b$. Since $a-b$ is relatively prime to both $a$ and $b$, it follows again that both $a$ and $b$ are invertible modulo $p$. Then we can rewrite $u_n$ using the formula for the difference of $n$\supth{} powers, and subsequently use the congruence $a\equiv b\pmod{p}$ to obtain:
   \begin{equation*}
     u_n=\frac{a^n-b^n}{a-b}=\sum_{k=0}^{n-1} a^{n-1-k}b^k \equiv \sum_{k=0}^{n-1} a^{n-1-k}a^k = na^{n-1}\pmod{p}.
   \end{equation*}

@@ -122,7 +122,7 @@ Carl Friedrich Gauss introduced the congruence relations in his monumental work,
   \end{equation*}
   Furthermore, since we are only interested in the quantity $Y(y')$ modulo $7$, we observe that $365\equiv 1\pmod 7$ so that the factor $365$ can be dropped from the first term.
 
-  The quantity $M(m')$ returns the number of days in all full months in the given year $y'$, from March to the given month $m'$. The standard length of one month is $30$ days, so that $M(m')$ is $30(m'-3)$ and a correction term for the months having a $31$st day. The months from March to January having a $31$st day follow the following pattern:
+  The quantity $M(m')$ returns the number of days in all full months in the given year $y'$, from March to the given month $m'$. The standard length of one month is $30$ days, so that $M(m')$ is $30(m'-3)$ and a correction term for the months having a 31\supst{} day. The months from March to January having a 31\supst{} day follow the following pattern:
   \begin{equation*}
     1,0,1,0,1,1,0,1,0,1,1.
   \end{equation*}
@@ -130,7 +130,7 @@ Carl Friedrich Gauss introduced the congruence relations in his monumental work,
   \begin{equation*}
     \left\lfloor\frac{3x+2}{5}\right\rfloor.
   \end{equation*}
-  Thus, the number $M(m')$ of days in the year from March $1$st onwards is
+  Thus, the number $M(m')$ of days in the year from March 1\supst{} onwards is
   \begin{equation*}
     M(m'):= 30(m'-3) + \left\lfloor\frac{3(m'-3)+2}{5}\right\rfloor.
   \end{equation*}
@@ -149,13 +149,13 @@ Carl Friedrich Gauss introduced the congruence relations in his monumental work,
   \end{equation*}
   where $m'$ and $y'$ are determined as previously specified.
   
-  The lecture in which this example is presented was on September 23rd, 2025. For this date, we have $d:= 23$, $m':= 9$, and $y'=2025$. Then $Y(y')=2025+506-20+5=2516$, $M(m')=2\cdot 9+5=23$ and $D(d)=23+2=25$, so that the day of the week comes out to be
+  The lecture in which this example is presented was on September 23\suprd{}, 2025. For this date, we have $d:= 23$, $m':= 9$, and $y'=2025$. Then $Y(y')=2025+506-20+5=2516$, $M(m')=2\cdot 9+5=23$ and $D(d)=23+2=25$, so that the day of the week comes out to be
   \begin{equation*}
     2516+23+25 \equiv 2\pmod{7},
   \end{equation*}
   a Tuesday.
 
-  We note that our formula for the day of the week does not take into account some rare oddities, most of which have occured during the process of switching from the Julian calendar to the Gregorian calendar. Italy, Poland, Portugal, and Spain skipped 10 days between Thursday October 4th and Friday October 15th; Sweden and Finland had a February 30th in 1712; Britain and its colonies skipped 11 days from Wednesday September 2nd, 1752 to Thursday September 14, 1752; and Greece skipped 13 days between February 14th, 1923 and March 1st, 1923. In 1867, when the US bought Alaska from Russia and Alaska switched from the Julian calendar to the Gregorian calendar, Friday October 6th was followed by Friday October 18th, thus having two consecutive Fridays.
+  We note that our formula for the day of the week does not take into account some rare oddities, most of which have occured during the process of switching from the Julian calendar to the Gregorian calendar. Italy, Poland, Portugal, and Spain skipped 10 days between Thursday October 4\supth{} and Friday October 15\supth{}; Sweden and Finland had a February 30\supth{} in 1712; Britain and its colonies skipped 11 days from Wednesday September 2\supnd{}, 1752 to Thursday September 14\supth{}, 1752; and Greece skipped 13 days between February 14\supth{}, 1923 and March 1\supst{}, 1923. In 1867, when the US bought Alaska from Russia and Alaska switched from the Julian calendar to the Gregorian calendar, Friday October 6\supth{} was followed by Friday October 18\supth{}, thus having two consecutive Fridays.
 \end{example}
 
 \begin{remark}
@@ -614,7 +614,7 @@ Since $6$ is the first positive integer for which $10^k\equiv 1\pmod{7}$, we say
 %   \begin{equation*}
 %     a^n-1 = (a^m)^{q} -1^q = (a^m-1)\sum_{k=0}^{q-1}a^{km}
 %   \end{equation*}
-%   by the formula for the difference of $q$th powers (\zcref{exercise:difference-of-powers}).
+%   by the formula for the difference of $q$\supth{} powers (\zcref{exercise:difference-of-powers}).
 % \end{proof}
 
 For the general definition of the multiplicative order of an element $a$ modulo $n$, note that if $\gcd(a,n)=1$, then we can simply define the multiplicative order of $a$ to be the least positive integer $k$ such that
@@ -749,7 +749,7 @@ The logical equivalence in \zcrefnamed{theorem:order-theorem} can also be used e
 \end{routine}
 
 \begin{challenge}
-  \exercise Let $F_n=2^{2^n}+1$ be the $n$th Fermat number. Show that $F_n\equiv 17\pmod{24}$ for $n\geq 2$.
+  \exercise Let $F_n=2^{2^n}+1$ be the $n$\supth{} Fermat number. Show that $F_n\equiv 17\pmod{24}$ for $n\geq 2$.
   \exercise Prove that for any $n>1$ and any $k$, we have
   \begin{equation*}
     (n-1)^2\mid n^k-1\qquad\text{if and only if}\qquad n-1\mid k.

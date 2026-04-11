@@ -544,7 +544,7 @@ The binomial coefficients are introduced precisely to answer this question for g
       \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
     }
   \end{tikzpicture}
-  \caption[Pascal's triangle]{Pascal's triangle. Counting from $0$ from the top, the $k$th entry in the $n$th row is the binomial coefficient $\binom{n}{k}$.}
+  \caption[Pascal's triangle]{Pascal's triangle. Counting from $0$ from the top, the $k$\supth{} entry in the $n$\supth{} row is the binomial coefficient $\binom{n}{k}$.}
   \label{figure:pascals-triangle}
 \end{figure}
 
@@ -556,7 +556,7 @@ The binomial coefficients are introduced precisely to answer this question for g
   \end{align*}
 \end{definition}
 
-The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$th row of Pascal's triangle. In the $n$th row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
+The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is 0\supth{} row of Pascal's triangle. In the $n$\supth{} row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
 
 \begin{theorem}
   Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
@@ -571,7 +571,7 @@ The binomial coefficients can be arranged in \emph{Pascal's triangle}, where eac
 
   If \(S\) has \(n+1\) elements, then there is exactly one subset of \(S\) with no elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{n+1}{0}\).
 
-  If \(S\) has \(n+1\) elements, then \(S\) has at least one element \(x_0\). Now there are two classes of subsets having \((k+1)\) elements: the subsets containing \(x_0\) and the subsets not containing \(x_0\). A \((k+1)\)-element subset of \(S\) containing \(x_0\) is equivalently described as a \(k\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\), because its \((k+1)\)st element is the element \(x_0\). By the induction hypothesis, there are exactly \(\binom{n}{k}\) such subsets. Furthermore, a \((k+1)\)-element subset of \(S\) not containing \(x_0\) is equivalently described as a \((k+1)\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\). By the induction hypothesis, there are exactly \(\binom{n}{k+1}\) such subsets. Combining these two observations, we find that the number of \((k+1)\)-element subsets of \(S\) is
+  If \(S\) has \(n+1\) elements, then \(S\) has at least one element \(x_0\). Now there are two classes of subsets having \((k+1)\) elements: the subsets containing \(x_0\) and the subsets not containing \(x_0\). A \((k+1)\)-element subset of \(S\) containing \(x_0\) is equivalently described as a \(k\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\), because its \((k+1)\)\supst{} element is the element \(x_0\). By the induction hypothesis, there are exactly \(\binom{n}{k}\) such subsets. Furthermore, a \((k+1)\)-element subset of \(S\) not containing \(x_0\) is equivalently described as a \((k+1)\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\). By the induction hypothesis, there are exactly \(\binom{n}{k+1}\) such subsets. Combining these two observations, we find that the number of \((k+1)\)-element subsets of \(S\) is
   \begin{equation*}
     \binom{n}{k+1} + \binom{n}{k} = \binom{n+1}{k+1}.\qedhere
   \end{equation*}
@@ -584,13 +584,13 @@ Next, we turn to the question of proving that any product of $k$ consecutive nat
 is divisible by $k!$. Such products are called \emph{falling factorials}.
 
 \begin{definition}
-  Let $k$ and $n$ be natural numbers such that $k\leq n$. The \emph{$k$th falling factorial} of $n$ is the number
+  Let $k$ and $n$ be natural numbers such that $k\leq n$. The \emph{$k$\supth{} falling factorial} of $n$ is the number
   \begin{equation*}
     n_{k}:=n(n-1)\cdots (n-k+1).
   \end{equation*}
 \end{definition}
 
-The $0$th falling factorial requires some explanation. It is the product of $0$ consecutive integers going down from $n$. The product of no numbers is an empty product, which is $1$ by definition. Thus, we have
+The 0\supth{} falling factorial requires some explanation. It is the product of $0$ consecutive integers going down from $n$. The product of no numbers is an empty product, which is $1$ by definition. Thus, we have
 \begin{equation*}
   n_0=1.
 \end{equation*}
@@ -706,7 +706,7 @@ The binomial theorem has many proofs, including combinatorial proofs and algebra
   \end{align*}
 \end{proof}
 
-The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2nd century BCE. Around the 11th century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13th century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
+The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2\supnd{} century BCE. Around the 11\supth{} century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13\supth{} century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
 
 \section{The Inclusion-Exclusion Principle}
 
@@ -800,7 +800,7 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
 \begin{challenge}
   \exercise
   \begin{subexenum}
-  \item Show that in the $n$th row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
+  \item Show that in the $n$\supth{} row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
   \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
   \end{subexenum}
   \exercise A \emph{derangement} is a bijection $f:A\to A$ such that $f(x)\neq x$ for every $x\in A$. We define the \emph{derangement number} $!n$ to be the number of derangements on an $n$-element set.

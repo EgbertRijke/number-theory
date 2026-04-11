@@ -2,11 +2,23 @@
 
 \section{Perfect Numbers}
 
-The number $6$ satisfies the curious property that the sum of its proper divisors $1+2+3$ is equal to the number $6$ itself. This property of a number being equal to the sum of its own divisors, was deemed so special in ancient times, that these numbers were called \emph{perfect}.
+The number $6$ satisfies the curious property that the sum of its proper divisors $1+2+3$ is equal to the number $6$ itself. This property of a number being equal to the sum of its own proper divisors, which is also called the \emph{aliquot sum}, was deemed so special in ancient times, that these numbers were called \emph{perfect}.
 
 \begin{definition}
-  A number $n$ is said to be \emph{perfect} if the sum of its divisors, including $n$ itself, is $2n$.
+  Consider a positive natural number $n$. The \emph{aliquot sum} $s(n)$ of $n$ is defined by
+  \begin{equation*}
+    s(n):=\sum_{d\mid n,~d<n}d
+  \end{equation*}
+  \begin{enumerate}
+  \item The number $n$ is called \emph{perfect} if $s(n)=n$.
+  \item The number $n$ is called \emph{deficient} if $s(n)<n$.
+  \item The number $n$ is called \emph{abundant} if $s(n)>n$.
+  \end{enumerate}
 \end{definition}
+
+\begin{example}
+  The number $6$ is perfect, since $6=1+2+3$; the number $8$ is deficient, since $1+2+4=7<8$, and the number $12$ is abundant, since $1+2+3+4+6=16>12$.
+\end{example}
 
 Euclid observed that if $2^m-1$ is prime, then we can always find a number $k$ such that
 \begin{equation*}
@@ -27,7 +39,7 @@ The equation
 now implies that $m=k+1$. Thus we have proven the following proposition, which Euclid recorded as Proposition 36 in Book IX of the Elements.
 
 \begin{proposition}[Euclid]
-  If the number $2^m-1$ is prime, then the number $2^{m-1}(2^m-1)$, which is indeed the $(2^m-1)$th triangular number, is perfect.
+  If the number $2^m-1$ is prime, then the number $2^{m-1}(2^m-1)$, which is indeed the $(2^m-1)$\supth{} triangular number, is perfect.
 \end{proposition}
 
 Using Euclid's method, we can find the first few perfect numbers. \zcref{tab:mersenne-numbers} displays the prime factorization of the \emph{Mersenne number} $2^m-1$ for $2\leq m\leq 11$.
@@ -51,10 +63,10 @@ We see that $M_2$, $M_3$, $M_5$, and $M_7$ are prime, and thus we obtain the fol
   8128 & = 2^6(2^7-1).
 \end{align*}
 
-Prime numbers of the form $M_m=2^m-1$ are called Mersenne primes, after Father Marin Mersenne who studied them more deeply in the 17th century. An elementary property of Mersenne primes is that if $M_m$ is prime, then $m$ must be prime.
+Prime numbers of the form $M_m=2^m-1$ are called Mersenne primes, after Father Marin Mersenne who studied them more deeply in the 17\supth{} century. An elementary property of Mersenne primes is that if $M_m$ is prime, then $m$ must be prime.
 
 \begin{proposition}
-  If the $m$th Mersenne number $M_m=2^m-1$ is prime, then $m$ is prime.
+  If the $m$\supth{} Mersenne number $M_m=2^m-1$ is prime, then $m$ is prime.
 \end{proposition}
 
 \begin{proof}
@@ -66,7 +78,7 @@ Prime numbers of the form $M_m=2^m-1$ are called Mersenne primes, after Father M
 
 Mersenne numbers which are prime are called \emph{Mersenne primes}. They are used in the search for extremely large prime numbers. Note, however, that not every Mersenne number $M_p$ with $p$ prime is a prime number. For example, $M_{11}=23\cdot 89$.
 
-No perfect numbers other than the ones described by Euclid have been found, so it is natural to wonder whether Euclid described all of them. This leads us to Euler, who was able to prove in the 18th century that every \emph{even} perfect number is of Euclid's form. Euler did so by analyzing the function $\sigma$, which returns for each $n$ the sum of its divisors. Euler's proof marks the beginning of the theory of \emph{arithmetic functions}. 
+No perfect numbers other than the ones described by Euclid have been found, so it is natural to wonder whether Euclid described all of them. This leads us to Euler, who was able to prove in the 18\supth{} century that every \emph{even} perfect number is of Euclid's form. Euler did so by analyzing the function $\sigma$, which returns for each $n$ the sum of its divisors. Euler's proof marks the beginning of the theory of \emph{arithmetic functions}. 
 
 \begin{definition}
   We define the \emph{sum-of-divisors} function $\sigma$ by
@@ -645,7 +657,7 @@ We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offer
 \end{starter}
 
 \begin{routine}
-  \exercise Let $M_n:=2^n-1$ be the $n$th Mersenne number.
+  \exercise Let $M_n:=2^n-1$ be the $n$\supth{} Mersenne number.
   \begin{subexenum}
   \item Show that if $n$ is even, then $3\mid M_n$.
   \item Show that if $3\mid n$, then $7\mid M_n$.
@@ -756,7 +768,7 @@ We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offer
 \begin{challenge}
   \exercise Determine the number of reduced fractions $\tfrac{a}{b}$, where $0\leq a\leq b\leq n$.
   % Answer: \totient(n).
-  \exercise Consider the $n$th Fermat number $F_n=2^{2^n}+1$ and the $m$th Mersenne number $M_m=2^m-1$. Show that
+  \exercise Consider the $n$\supth{} Fermat number $F_n=2^{2^n}+1$ and the $m$\supth{} Mersenne number $M_m=2^m-1$. Show that
   \begin{equation*}
     \gcd(F_n,M_m)=
     \begin{cases}

@@ -25,19 +25,19 @@ The two equations that the function $f$ in the structural induction principle sa
   f(n+1) & := h_n(f(n)).
 \end{align*}
 
-An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to iterate any function $f$ on any set $X$. Here we pick $A_n$ to be the set $X$ (so it is not dependent on $n$), and we pick $h_n:X\to X$ to be the function $f$ (again not dependent on $n$). In the following definition we give the precise definition of the $n$th iteration of $f$.
+An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to iterate any function $f$ on any set $X$. Here we pick $A_n$ to be the set $X$ (so it is not dependent on $n$), and we pick $h_n:X\to X$ to be the function $f$ (again not dependent on $n$). In the following definition we give the precise definition of the $n$\supth{} iteration of $f$.
 
 \begin{definition}
-  We define the \emph{$n$th iteration} $f^n$ of $f$ by
+  We define the \emph{$n$\supth{} iteration} $f^n$ of $f$ by
   \begin{align*}
     f^0(x) & := x, \\
     f^{n+1}(x) & := f(f^n(x)). 
   \end{align*}  
 \end{definition}
 
-In other words, the $0$th iteration of $h$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$st iteration of $h$ is obtained by applying $f$ once more to the values of the $n$th iteration of $h$.
+In other words, the $0$\supth{} iteration of $h$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$\supst{} iteration of $h$ is obtained by applying $f$ once more to the values of the $n$\supth{} iteration of $h$.
 
-Notice that we made a choice in the definition of the $(n+1)$st iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In order to prove that the identity
+Notice that we made a choice in the definition of the $(n+1)$\supst{} iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In order to prove that the identity
 \begin{equation*}
   f^{n+1}(x)=f^n(f(x))
 \end{equation*}
@@ -93,14 +93,14 @@ After these steps the proof that $P(n)$ holds is complete. Using induction we ca
 
 \section{Addition of Natural Numbers}
 
-Iterating functions is a basic operation that we can use to define many further operations. For example, addition is defined by iteratively adding $1$ to a number $m$. In other words, addition is defined by iterating the successor function. The $n$th iteration of the successor function is denoted by $S^n$.
+Iterating functions is a basic operation that we can use to define many further operations. For example, addition is defined by iteratively adding $1$ to a number $m$. In other words, addition is defined by iterating the successor function. The $n$\supth{} iteration of the successor function is denoted by $S^n$.
 
 \begin{definition}
   The \define{addition operation} ${+}:\mathbb{N}\to\mathbb{N}\to\mathbb{N}$ is a binary operation defined by iterating the successor function $S$:
   \begin{equation*}
     m+n := S^n(m).
   \end{equation*}
-  In other words, $m+n$ is the $n$th successor of $m$.
+  In other words, $m+n$ is the $n$\supth{} successor of $m$.
 \end{definition}
 
 For example $2+3$ is defined as $S(S(S(2)))$, which is equal to $S(S(3))$, which is equal to $S(4)$, which is equal to $5$.
@@ -396,7 +396,7 @@ We illustrate induction with another example, the \define{formula for the geomet
   \caption[Some Hemachandra tilings of a 1-by-19 grid]{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
 \end{figure}
 
-In the 12th century, the Indian scholars Gopāla and Hemachandra studied the number of rhythmic patterns formed by combining short and long syllables in Sanskrit prosody. Hemachandra, around the year 1150, found a systematic way of counting the number of rhythmic patterns that can occur for any number of beats.
+In the 12\supth{} century, the Indian scholars Gopāla and Hemachandra studied the number of rhythmic patterns formed by combining short and long syllables in Sanskrit prosody. Hemachandra, around the year 1150, found a systematic way of counting the number of rhythmic patterns that can occur for any number of beats.
 
 In order to rediscover Hemachandra's method, it might be helpful to think of the patterns of short and long syllables in terms of tilings one can make on a 1-by-$n$ grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles). We have displayed some arbitrary examples of such tilings in \zcref{figure:fibonacci-tilings}. The question is thus: How many such patterns are there?
 
@@ -493,7 +493,7 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
 
 \begin{routine}
   \exercise \label{exercise:difference-of-powers}
-  Prove the \define{formula for the difference of $n$th powers}
+  Prove the \define{formula for the difference of $n$\supth{} powers}
   \begin{equation*}
     x^n-y^n=(x-y)\sum_{k=0}^{n-1}x^ky^{n-1-k}.
   \end{equation*}
@@ -505,7 +505,7 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \begin{equation*}
     x^n-1=(x-1)\sum_{k=0}^{n-1} x^k.
   \end{equation*}
-  \exercise \label{exercise:identities-triangular-numbers}Write $T_n$ for the $n$th triangular number.
+  \exercise \label{exercise:identities-triangular-numbers}Write $T_n$ for the $n$\supth{} triangular number.
   \begin{subexenum}
   \item For $0\leq m<n$, show that
     \begin{equation*}
@@ -524,7 +524,7 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
       8T_n+1=(2n+1)^2.
     \end{equation*}
   \end{subexenum}
-  \exercise Write $T_n$ for the $n$th triangular number, and define the $n$th \emph{tetrahedral number} $S_n$ by
+  \exercise Write $T_n$ for the $n$\supth{} triangular number, and define the $n$\supth{} \emph{tetrahedral number} $S_n$ by
   \begin{equation*}
     S_n:=\sum_{k=0}^nT_k.
   \end{equation*}
