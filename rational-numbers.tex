@@ -278,19 +278,19 @@ Thus, we will need to distinguish in notation for the numerators and denominator
 \begin{equation*}
   a_{q_0,\ldots,q_n}\qquad\text{and}\qquad b_{q_0,\ldots,q_n}.
 \end{equation*}
-Or, to establish a more compact notation, if we write $\mathbf{q}=q_0,\ldots,q_n$, then we can write $a_{\mathbf{q}}$ and $b_{\mathbf{q}}$ for the numerator and denominator of the continued fraction $[\mathbf{q}]=[q_0,\ldots,q_n]$.
+Or, to establish a more compact notation, if we write $\symbf{q}=q_0,\ldots,q_n$, then we can write $a_{\symbf{q}}$ and $b_{\symbf{q}}$ for the numerator and denominator of the continued fraction $[\symbf{q}]=[q_0,\ldots,q_n]$.
 
 \begin{theorem}[Recurrence Theorem for Convergents]\label{theorem:recurrence-theorem-convergents}
-  Define the numbers $a_{\mathbf{q}}$ and $b_{\mathbf{q}}$ for every finite continued fraction $[\mathbf{q}]:=[q_0,\ldots,q_n]$ by list recursion as follows:
+  Define the numbers $a_{\symbf{q}}$ and $b_{\symbf{q}}$ for every finite continued fraction $[\symbf{q}]:=[q_0,\ldots,q_n]$ by list recursion as follows:
   \begin{align*}
-    a_q & := q & a_{q,r} & := rq + 1, & a_{\mathbf{q},r,s} & := sa_{\mathbf{q},r}+a_{\mathbf{q}}, \\
-    b_{q} & := 1 & b_{q,r} & := r, & b_{\mathbf{q},r,s} & := sb_{\mathbf{q},r}+b_{\mathbf{q}}.
+    a_q & := q & a_{q,r} & := rq + 1, & a_{\symbf{q},r,s} & := sa_{\symbf{q},r}+a_{\symbf{q}}, \\
+    b_{q} & := 1 & b_{q,r} & := r, & b_{\symbf{q},r,s} & := sb_{\symbf{q},r}+b_{\symbf{q}}.
   \end{align*}
-  Then we have $\frac{a_{\mathbf{q}}}{b_{\mathbf{q}}}=[\mathbf{q}]$.
+  Then we have $\frac{a_{\symbf{q}}}{b_{\symbf{q}}}=[\symbf{q}]$.
 \end{theorem}
 
 \begin{proof}
-  Since the numbers $a_{\mathbf{q}}$ and $b_{\mathbf{q}}$ are defined by list recursion, we will prove the claim with list induction. Note that $a_q=q$ and $b_q=1$, so that
+  Since the numbers $a_{\symbf{q}}$ and $b_{\symbf{q}}$ are defined by list recursion, we will prove the claim with list induction. Note that $a_q=q$ and $b_q=1$, so that
   \begin{equation*}
     \frac{a_q}{b_q}=[q].
   \end{equation*}
@@ -302,22 +302,22 @@ Or, to establish a more compact notation, if we write $\mathbf{q}=q_0,\ldots,q_n
   \begin{equation*}
     \frac{a_{q,r,s}}{b_{q,r,s}}=\frac{srq+q+s}{sr+1}=q+\frac{s}{sr+1}=q+\cfrac{1}{r+\tfrac{1}{s}}=[q,r,s].
   \end{equation*}
-  For the inductive step, consider an arbitrary list $[\mathbf{q}]=[q_0,\ldots,q_n]$ and three more numbers $r$, $s$, and $t$. Using the recursive definition of $a$ and $b$ as well as the inductive hypothesis in the final equality, we note that
+  For the inductive step, consider an arbitrary list $[\symbf{q}]=[q_0,\ldots,q_n]$ and three more numbers $r$, $s$, and $t$. Using the recursive definition of $a$ and $b$ as well as the inductive hypothesis in the final equality, we note that
   \begin{equation*}
-    \frac{a_{\mathbf{q},r,s,t}}{b_{\mathbf{q},r,s,t}}=
-    \frac{ta_{\mathbf{q},r,s}+a_{\mathbf{q},r}}{tb_{\mathbf{q},r,s}+b_{\mathbf{q},r}} =
-    \frac{a_{\mathbf{q},r,s}+\frac{a_{\mathbf{q},r}}{t}}{b_{\mathbf{q},r,s}+\frac{b_{\mathbf{q},r}}{t}} =
-    \frac{(s+\frac{1}{t})a_{\mathbf{q},r}+a_{\mathbf{q}}}{(s+\frac{1}{t})b_{\mathbf{q},r}+b_{\mathbf{q}}} =
-    \frac{a_{\mathbf{q},r,s+\frac{1}{t}}}{b_{\mathbf{q},r,s+\frac{1}{t}}} =
-    [\mathbf{q},r,s+\tfrac{1}{t}].
+    \frac{a_{\symbf{q},r,s,t}}{b_{\symbf{q},r,s,t}}=
+    \frac{ta_{\symbf{q},r,s}+a_{\symbf{q},r}}{tb_{\symbf{q},r,s}+b_{\symbf{q},r}} =
+    \frac{a_{\symbf{q},r,s}+\frac{a_{\symbf{q},r}}{t}}{b_{\symbf{q},r,s}+\frac{b_{\symbf{q},r}}{t}} =
+    \frac{(s+\frac{1}{t})a_{\symbf{q},r}+a_{\symbf{q}}}{(s+\frac{1}{t})b_{\symbf{q},r}+b_{\symbf{q}}} =
+    \frac{a_{\symbf{q},r,s+\frac{1}{t}}}{b_{\symbf{q},r,s+\frac{1}{t}}} =
+    [\symbf{q},r,s+\tfrac{1}{t}].
   \end{equation*}
-  This completes the proof, since $[\mathbf{q},r,s+\tfrac{1}{t}] = [\mathbf{q},r,s,t]$.
+  This completes the proof, since $[\symbf{q},r,s+\tfrac{1}{t}] = [\symbf{q},r,s,t]$.
 \end{proof}
 
 \begin{theorem}[Determinant Identity for Convergents]\label{theorem:determinant-formula-convergents}
-  For any continued fraction $[\mathbf{q},r]=[q_0,\ldots,q_n,r]$ of length $n+2$, we have
+  For any continued fraction $[\symbf{q},r]=[q_0,\ldots,q_n,r]$ of length $n+2$, we have
   \begin{equation*}
-    a_{\mathbf{q},r}b_{\mathbf{q}}-b_{\mathbf{q},r}a_{\mathbf{q}}=(-1)^n.
+    a_{\symbf{q},r}b_{\symbf{q}}-b_{\symbf{q},r}a_{\symbf{q}}=(-1)^n.
   \end{equation*}
 \end{theorem}
 
@@ -326,28 +326,28 @@ Or, to establish a more compact notation, if we write $\mathbf{q}=q_0,\ldots,q_n
   \begin{equation*}
     a_{q,r}b_q-b_{q,r}a_q=(rq+1)-rq=1.
   \end{equation*}
-  For the inductive step, assume that $a_{\mathbf{q},r}b_{\mathbf{q}}-b_{\mathbf{q},r}a_{\mathbf{q}}=(-1)^n$. Then we compute:
+  For the inductive step, assume that $a_{\symbf{q},r}b_{\symbf{q}}-b_{\symbf{q},r}a_{\symbf{q}}=(-1)^n$. Then we compute:
   \begin{align*}
-    a_{\mathbf{q},r,s}b_{\mathbf{q},r}-b_{\mathbf{q},r,s}a_{\mathbf{q},r} & = (sa_{\mathbf{q},r}+a_{\mathbf{q}})b_{\mathbf{q},r}-(sb_{\mathbf{q},r}+b_{\mathbf{q}})a_{\mathbf{q},r} \\
-                                                                          & = a_{\mathbf{q}}b_{\mathbf{q},r}-b_{\mathbf{q}}a_{\mathbf{q},r} \\
+    a_{\symbf{q},r,s}b_{\symbf{q},r}-b_{\symbf{q},r,s}a_{\symbf{q},r} & = (sa_{\symbf{q},r}+a_{\symbf{q}})b_{\symbf{q},r}-(sb_{\symbf{q},r}+b_{\symbf{q}})a_{\symbf{q},r} \\
+                                                                          & = a_{\symbf{q}}b_{\symbf{q},r}-b_{\symbf{q}}a_{\symbf{q},r} \\
     & = -(-1)^n.\qedhere
   \end{align*}
 \end{proof}
 
 \begin{theorem}\label{theorem:lowest-terms-convergents}
-  Consider a continued fraction $[\mathbf{q}]=[q_0,\ldots,q_n]$ with integer partial quotients $q_i$. Then the convergent
+  Consider a continued fraction $[\symbf{q}]=[q_0,\ldots,q_n]$ with integer partial quotients $q_i$. Then the convergent
   \begin{equation*}
-    \frac{a_{\mathbf{q}}}{b_{\mathbf{q}}}=[\mathbf{q}]
+    \frac{a_{\symbf{q}}}{b_{\symbf{q}}}=[\symbf{q}]
   \end{equation*}
   is an integer fraction in lowest terms.
 \end{theorem}
 
 \begin{proof}
-  If each $q_i$ is an integer, then $a_{\mathbf{q}}$ and $b_{\mathbf{q}}$ are determined by recursively adding and multiplying integers, so they are integers. Furthermore, the determinant identity
+  If each $q_i$ is an integer, then $a_{\symbf{q}}$ and $b_{\symbf{q}}$ are determined by recursively adding and multiplying integers, so they are integers. Furthermore, the determinant identity
   \begin{equation*}
-    a_{\mathbf{q},r}b_{\mathbf{q}}-b_{\mathbf{q},r}a_{\mathbf{q}}=(-1)^n.
+    a_{\symbf{q},r}b_{\symbf{q}}-b_{\symbf{q},r}a_{\symbf{q}}=(-1)^n.
   \end{equation*}
-  shows that $\gcd(a_{\mathbf{q}},b_{\mathbf{q}})\mid (-1)^n$, so $a_{\mathbf{q}}$ and $b_{\mathbf{q}}$ are relatively prime.
+  shows that $\gcd(a_{\symbf{q}},b_{\symbf{q}})\mid (-1)^n$, so $a_{\symbf{q}}$ and $b_{\symbf{q}}$ are relatively prime.
 \end{proof}
 
 We summarize the above results for infinite continued fractions.
