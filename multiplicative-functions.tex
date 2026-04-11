@@ -101,14 +101,14 @@ Indeed, $d\mid p^m$ if and only if $d=p^k$ for some $0\leq k\leq m$, so the sum 
 \end{proposition}
 
 \begin{proof}
-  Consider a divisor $d\mid mn$. Since $m$ and $n$ are relatively prime, it follows that $d=\gcd(d,m)\gcd(d,n)$. Thus we can assign to every divisor $d\mid mn$ a pair of numbers $(u,v)$ such that $u\mid m$, $v\mid n$, and $d=uv$.
-
-  Conversely, if we start a pair $(u,v)$ of numbers such that $u\mid m$ and $v\mid n$, then $u=\gcd(uv,m)$ and $v=\gcd(uv,n)$. This shows that the operation $d\mapsto (\gcd(d,m),\gcd(d,n))$ is inverse to the operation $u,v\mapsto uv$. Thus we obtain a bijection
+  We first claim that the operation $u,v\mapsto uv$, which takes a pair of numbers $u\mid m$ and $v\mid n$ and returns their product, which is a divisor of $mn$, defines a bijection
   \begin{equation*}
     \big\{u\bigm\vert u\mid m\big\}\times\big\{v\bigm\vert v\mid n\big\}\cong
     \big\{d \bigm\vert d\mid mn\big\}
   \end{equation*}
-  given by $(u,v)\mapsto uv$. Using this bijection, we see that
+  To see this, we need to define an inverse function. That is, given a divisor $d\mid mn$ we need to construct divisors of $m$ and $n$. Observe that, since $m$ and $n$ are relatively prime, it follows that $d=\gcd(d,m)\gcd(d,n)$. Thus we define $u_d:=\gcd(d,m)$ and $v_d:=\gcd(d,n)$. Furthermore, when $u\mid m$ and $v\mid n$ are arbitrary, then we have $\gcd(uv,m)=u$ and $\gcd(uv,n)=v$. These equations show that the map $d\mapsto (u_d,v_d)$ is indeed inverse to the function $u,v\mapsto uv$.
+
+  Using the bijection we just constructed, we see that
   \begin{equation*}
     \left(\sum_{u\mid m}u\right)\left(\sum_{v\mid n}v\right)=\sum_{u\mid m}\sum_{v\mid n} uv = \sum_{d\mid mn} d.\qedhere
   \end{equation*}
@@ -161,7 +161,7 @@ The multiplicative property of the sum-of-divisors function along with the expre
   and that $2^{k+1}-1$ is prime. This last property implies that $k+1$ is prime, which completes the proof.
 \end{proof}
 
-The Euclid--Euler theorem completely characterizes even perfect numbers. However, it doesn't tell us anything about odd perfect numbers. No odd perfect numbers have ever been found, and it is conjectured that none exist. It has been shown that any odd perfect number must be greater than $10^{1500}$. 
+The Euclid--Euler theorem completely characterizes even perfect numbers. However, it doesn't tell us anything about odd perfect numbers. No odd perfect numbers have ever been found, and it is conjectured that none exist. It has been shown that any odd perfect number must be greater than $10^{1500}$ \cite{ochem2012}. 
 
 \section{Euler's Totient Function}
 
