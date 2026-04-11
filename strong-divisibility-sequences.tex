@@ -272,9 +272,10 @@ We give a second proof of the addition law, making use of the fundamental identi
   \begin{enumerate}
   \item When we look at the Fibonacci sequence modulo a prime $p$, we see clear patterns emerging:
     \begin{center}
-      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      % \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      \newcolumntype{C}{>{$}r<{$}}
       \renewcommand{\arraystretch}{1.25}
-      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+      \begin{tabular}{l|*{16}{C}}
         $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
         $F_n\pmod{2}$ & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
         $F_n\pmod{3}$ & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 & 0 & 1 & 1 & -1 & 0 & -1 & -1 & 1 \\
@@ -284,9 +285,10 @@ We give a second proof of the addition law, making use of the fundamental identi
     \end{center}
   \item When we look at the Pell sequence modulo a prime $p$, we again see clear patterns emerging:
     \begin{center}
-      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      % \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      \newcolumntype{C}{>{$}r<{$}}
       \renewcommand{\arraystretch}{1.25}
-      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+      \begin{tabular}{l|*{16}{C}}
         $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
         $P_n\pmod{2}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
         $P_n\pmod{3}$ & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 & 0 & 1 & -1 & -1 & 0 & -1 & 1 & 1 \\
@@ -296,9 +298,10 @@ We give a second proof of the addition law, making use of the fundamental identi
     \end{center}
   \item When we look at the Mersenne numbers modulo a prime $p$, we obtain the following:
     \begin{center}
-      \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      % \newcolumntype{C}{>{\raggedleft\arraybackslash$}m{.8em}<{$}}
+      \newcolumntype{C}{>{$}r<{$}}
       \renewcommand{\arraystretch}{1.25}
-      \begin{tabular}{l|CCCCCCCCCCCCCCCC}
+      \begin{tabular}{l|*{16}{C}}
         $n$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\ \midrule
         $M_n\pmod{2}$ & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
         $M_n\pmod{3}$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
