@@ -527,7 +527,7 @@ The binomial coefficients are introduced precisely to answer this question for g
     \foreach \n in {0,...,6}{
       \foreach \r in {0,...,\n}{
         \pgfmathtruncatemacro{\val}{int(factorial(\n)/(factorial(\r)*factorial(\n-\r)))}
-        \node (n\n\r) at (\r-\n/2,-\n) {\val};
+        \node (n\n\r) at (\r-\n/2,-\n) {$\val$};
       }
     }
 

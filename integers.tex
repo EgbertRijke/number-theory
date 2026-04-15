@@ -130,9 +130,9 @@ The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}
       \pgfmathsetmacro{\ang}{-360/7*\i}
       \pgfmathtruncatemacro{\highlabel}{7+\i}
       \pgfmathtruncatemacro{\targetlabel}{mod(3+\i,7)}
-      \node (N1\i) at (\ang:\radiusInner)  {\targetlabel};
-      \node (N2\i) at (\ang:\radiusMiddle) {\highlabel};
-      \node (N3\i) at (\ang:\radiusOuter)  {\i};
+      \node (N1\i) at (\ang:\radiusInner)  {$\targetlabel$};
+      \node (N2\i) at (\ang:\radiusMiddle) {$\highlabel$};
+      \node (N3\i) at (\ang:\radiusOuter)  {$\i$};
     }
 
     \foreach \i in {0,...,6} {
