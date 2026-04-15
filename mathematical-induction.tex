@@ -5,19 +5,19 @@
 When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $n\mapsto n+1$, which we also denote by $S$. As we saw in our exposition on the history of the concept of number, the definition of the natural numbers evolves around precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
 
 \begin{definition}
-  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$, satisfying the following principle of \emph{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
+  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
   \begin{enumerate}
-  \item an element $a_0\in A_0$,
-  \item for each $n$ a function $h_n:A_n\to A_{n+1}$,
+  \item an element $a_0\in A_0$, and
+  \item for each $n$, a function $h_n:A_n\to A_{n+1}$,
   \end{enumerate}
-  there is a function $f$ taking a natural number $n$ as input and returning a value $f(n)$ in the set $A_n$ satisfying the equations
+  there is a function $f$ taking a natural number $n$ as input and returning a value $f(n)$ in the set $A_n$, satisfying the following two equations:
   \begin{align*}
     f(0) & = a_0, \\
     f(n+1) & = h_n(f(n)).
   \end{align*}
 \end{definition}
 
-Thus, when defining a function by structural induction there are two subtasks: First, we have to specify the value of $f(0)$ by specifying an element of the set $A_0$, and second, we have to specify how each potential value of $f$ at $n$ can be used to obtain the value of $f$ at $n+1$. The last task is performed by defining a function $h_n$ from $A_n$ to $A_{n+1}$, so that if $f(n)$ is determined, then we can determine $f(n+1)$ by applying $h_n$ to $f(n)$.
+Thus, when defining a function by structural induction there are two subtasks: First, we have to specify the value of $f(0)$ by specifying an element of the set $A_0$, and second, we have to specify how each potential value of $f$ at $n$ can be used to obtain the value of $f$ at $n+1$. This second task is performed by defining a function $h_n$ from $A_n$ to $A_{n+1}$, so that if $f(n)$ is determined, then we can determine $f(n+1)$ by applying $h_n$ to $f(n)$.
 
 The two equations that the function $f$ in the structural induction principle satisfies are called the \emph{computation rules}. By these computation rules we can present definitions by structural induction in the following shorthand form:
 \begin{align*}
@@ -25,28 +25,28 @@ The two equations that the function $f$ in the structural induction principle sa
   f(n+1) & := h_n(f(n)).
 \end{align*}
 
-An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to iterate any function $f$ on any set $X$. Here we pick $A_n$ to be the set $X$ (so it is not dependent on $n$), and we pick $h_n:X\to X$ to be the function $f$ (again not dependent on $n$). In the following definition we give the precise definition of the $n$\supth{} iteration of $f$.
+An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to \emph{iterate} any function $f$ on any set $X$. Here, we pick $A_n:= X$ for each $n$ (so it is not dependent on $n$), and we define $h_n:X\to X$ by $h:=f$ (again, not dependent on $n$). In the following definition we give the precise definition of the $n$\supth{} iteration of $f$.
 
 \begin{definition}
-  We define the \emph{$n$\supth{} iteration} $f^n$ of $f$ by
+  Consider a function $f:X\to X$. For each natural number $n$, we define the \define{$n$\supth{} iteration} $f^n$ of $f$ by
   \begin{align*}
     f^0(x) & := x, \\
     f^{n+1}(x) & := f(f^n(x)). 
   \end{align*}  
 \end{definition}
 
-In other words, the $0$\supth{} iteration of $h$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$\supst{} iteration of $h$ is obtained by applying $f$ once more to the values of the $n$\supth{} iteration of $h$.
+In other words, the $0$\supth{} iteration of $f$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$\supst{} iteration of $f$ is obtained by applying $f$ once more to the values of the $n$\supth{} iteration of $f$.
 
 Notice that we made a choice in the definition of the $(n+1)$\supst{} iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In order to prove that the identity
 \begin{equation*}
   f^{n+1}(x)=f^n(f(x))
 \end{equation*}
-indeed holds we will need mathematical induction, which is a special case of structural induction.
+indeed holds we will need mathematical induction, which can be derived from structural induction.
 
 \begin{definition}
-  The principle of \emph{mathematical induction} asserts that for any predicate $P(n)$ (that is, for any property of numbers depending on $n$), if
+  The principle of \define{mathematical induction} asserts that for any predicate $P(n)$ (that is, for any property of numbers depending on $n$), if
   \begin{enumerate}
-  \item the proposition $P(0)$ holds,
+  \item the proposition $P(0)$ holds, and
   \item for any $n$, if the proposition $P(n)$ holds then the proposition $P(n+1)$ holds,
   \end{enumerate}
   then $P(n)$ is true for all $n$.
@@ -115,7 +115,7 @@ by definition. However, these are the only equalities given to us via the comput
   0+n & = n, \\
   (m+1)+n & = (m+n)+1
 \end{align*}
-are still true, but require a short proof.
+are also true, but require a short proof.
 
 \begin{proposition}\label{proposition:unit-law-addition-nat}
   For any two natural numbers $m$ and $n$ we have
@@ -210,7 +210,7 @@ The last identification is called the \define{interchange law} for addition. The
 \section{Arithmetic of Natural Numbers}
 
 \begin{definition}
-  The multiplication function $m,n\mapsto mn$ on the natural numbers is defined recursively by
+  The \define{multiplication function} $m,n\mapsto mn$ on the natural numbers is defined recursively by
   \begin{align*}
     m0 & := 0, \\
     m(n+1) & := mn + m.
@@ -448,7 +448,7 @@ Notice that the last tile is either a monomino or a domino, so there are two cas
 This recursive rule is very famous: It is the rule that generates the \emph{Fibonacci numbers}.
 
 \begin{definition}
-  The sequence $F_n$ of \emph{Fibonacci numbers} is defined by
+  The sequence $F_n$ of \define{Fibonacci numbers} is defined by
   \begin{equation*}
     F_0:= 0,\qquad F_1:= 1,\qquad\text{and}\qquad F_{n+2}=F_{n+1}+F_{n}.
   \end{equation*}
@@ -501,7 +501,7 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \begin{equation*}
     x^2-y^2 = (x-y)(x+y)
   \end{equation*}
-  as well as the formula for the geometric series
+  as well as the \define{formula for the geometric series}
   \begin{equation*}
     x^n-1=(x-1)\sum_{k=0}^{n-1} x^k.
   \end{equation*}

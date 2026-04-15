@@ -66,9 +66,9 @@ which must eventually have repeated values since the set $A$ was assumed to be f
 which implies by the assumption that $f$ is a bijection that $f^{n-1}(a)=f^{m-1}(a)$. This is impossible by the minimality of $n$, so we must have $n=0$. We conclude that the iterations of $f$ trace out cycles. Such cycles are called \emph{orbits}.
 
 \begin{definition}
-  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \emph{in the same orbit} of $f$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$; that is, if one can be reached from the other by iteratively applying $f$.
+  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \define{in the same orbit} of $f$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$; that is, if one can be reached from the other by iteratively applying $f$.
 
-  An \emph{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
+  An \define{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
 \end{definition}
 
 The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}, for example, has three such orbits. Since bijections on a set partition the set into cyclic orbits, we can now define a \emph{cyclic set} to be a set equipped with a bijection that has exactly one orbit, so that all the elements of the set fit in the same cycle. In \zcref{figure:cyclically-ordered-set} we displayed an example of a cyclic set.
@@ -96,7 +96,7 @@ The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}
 \end{figure}
 
 \begin{definition}
-  A \emph{cyclic set} is a pair $(X,s)$ consisting of a set $X$ and a bijection $s:X\cong X$ that has exactly one orbit.
+  A \define{cyclic set} is a pair $(X,s)$ consisting of a set $X$ and a bijection $s:X\cong X$ that has exactly one orbit.
 \end{definition}
 
 \begin{remark}
@@ -171,7 +171,7 @@ The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}
 An important organizational principle of structural mathematics is that when we define a certain kind of structured sets, such as cyclic sets in our case, then it is good practice to also define the \emph{structure-preserving maps} between them. Doing so allows us to learn more about how such structured sets relate to each other. Thus, we will now introduce cyclic-structure maps. As we will see shortly, maps preserving the cyclic structure on a set have some interesting properties, and they feature prominently in our structural definition of the set of integers.
 
 \begin{definition}
-  Consider two cyclic sets $(X,s)$ and $(Y,t)$. A map $f:X\to Y$ is said to be a \emph{cyclic-structure map} if
+  Consider two cyclic sets $(X,s)$ and $(Y,t)$. A map $f:X\to Y$ is said to be a \define{cyclic-structure map} if
   \begin{equation*}
     f(s(x))=t(f(x))
   \end{equation*}
@@ -299,7 +299,7 @@ Although the examples we have discussed so far are finite, the definition of cyc
   \item $f(0)=x_0$, and
   \item $f(S(a))=h(f(a))$ for every $a\in\mathbb{Z}$.
   \end{enumerate}
-  Such functions are said to be defined by \emph{integer recursion}.
+  Such functions are said to be defined by \define{integer recursion}.
 \end{definition}
 
 For example, integer recursion can be used to define \emph{iterated bijections} $f^k:A\cong A$ for any bijection $f:A\cong A$. The idea is entirely analogous to the idea of iterated functions, where a function $f:A\to A$ could be iterated any natural number of times. For iterated bijections, we restrict to the case of a bijection $f:A\cong A$, which allows us to also consider the \emph{negative iterations} of $f$ by using the inverse of $f$. In order to formally define iterated bijections, we need the following theorem:
@@ -321,7 +321,7 @@ For example, integer recursion can be used to define \emph{iterated bijections} 
 \end{proof}
 
 \begin{definition}
-  Consider a set $X$ equipped with a bijection $f:X\cong X$. Then we define for each integer $k$ the $k$\supth{} iteration of $f$ by
+  Consider a set $X$ equipped with a bijection $f:X\cong X$. Then we define for each integer $k$ the \define{$k$\supth{} iteration} of $f$ by
   \begin{align*}
     f^{0} & := \mathrm{id} \\
     f^{S(k)} & := f\circ f^k.
@@ -416,11 +416,11 @@ We have given a structural definition of the set of integers as the universal cy
 \end{figure}
   
 \begin{definition}
-  We define the set $\mathbb{Z}_C$ of \emph{cartesian integers} by
+  We define the set $\mathbb{Z}_C$ of \define{cartesian integers} by
   \begin{equation*}
     \mathbb{Z}_C:=\{(a,b)\in\mathbb{N}\times\mathbb{N}\mid ab=0\}.
   \end{equation*}
-  The zero-element of $\mathbb{Z}_C$ is defined to be the element $(0,0)$. We define the successor function $s:\mathbb{Z}_C\to \mathbb{Z}_C$ recursively on $b$ by
+  The \define{zero-element} of $\mathbb{Z}_C$ is defined to be the element $(0,0)$. We define the \define{successor function} $s:\mathbb{Z}_C\to \mathbb{Z}_C$ recursively on $b$ by
   \begin{align*}
     s(a,0) & := (a+1,0) \\
     s(a,b+1) & := (a,b).
@@ -483,7 +483,7 @@ Knowing that there is a set that meets the specification in \zcref{definition:in
 We can now define addition of two integers, just as we did for the natural numbers, by using the iterated successor bijection. Furthermore, since iterated bijections are again bijections, we obtain something that we didn't get for the natural numbers: For every integer $y$ there is a unique integer $x$ such that $x+a=y$. In other words, we can define differences of integers.
 
 \begin{definition}
-  We will define \emph{addition} of two integers and the \emph{additive inverse} of an integer:
+  We will define \define{addition} of two integers and the \define{additive inverse} of an integer:
   \begin{enumerate}
   \item For any two integers $a$ and $b$, we define
   \begin{equation*}
@@ -578,7 +578,7 @@ Before we start proving the laws of addition and the additive inverse of the int
 Next, we define multiplication of integers.
 
 \begin{definition}
-  We define the operation $a,b\mapsto ab$ on the integers by
+  We define the \define{multiplication operation} $a,b\mapsto ab$ on the integers by
   \begin{align*}
     a0 & := 0 \\
     a(b+1) & := ab+a

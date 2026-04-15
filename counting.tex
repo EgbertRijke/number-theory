@@ -38,7 +38,7 @@ we introduce the notion of a standard $n$-element set,
 which is to be a fixed set with exactly $n$ elements playing the role of Euclid's collection of $n$ units.
 
 \begin{definition}
-  The \emph{standard finite set} $[n]$ with $n$ elements is defined by
+  The \define{standard finite set} $[n]$ with $n$ elements is defined by
   \begin{equation*}
     [n]:=\{0,\ldots,n-1\}=\{x\in\mathbb{N}\mid x<n\}.
   \end{equation*}
@@ -100,12 +100,12 @@ we have to create what is called a \emph{bijective correspondence} between the e
 \end{figure}
 
 \begin{definition}
-  A function $f:X\to Y$ is said to be a \emph{bijection} if for every $y\in Y$ there is exactly one element $x\in X$ such that $f(x)=y$.
+  A function $f:X\to Y$ is said to be a \define{bijection} if for every $y\in Y$ there is exactly one element $x\in X$ such that $f(x)=y$.
   The set of bijections from $X$ to $Y$ is denoted by
   \begin{equation*}
     X\cong Y.
   \end{equation*}
-  Furthermore, we say that $X$ is an $n$-element set if there exists a bijection $[n]\cong X$.
+  Furthermore, we say that $X$ \define{is an $n$-element set} if there exists a bijection $[n]\cong X$.
 \end{definition}
 
 \begin{figure}[t]
@@ -330,9 +330,9 @@ which we may use if it helps us in our proof.
 We have defined bijections to be functions $f:X\to Y$ such that for every $y\in Y$ there exists exactly one element $x\in X$ such that $f(x)=y$. The unique existence of such an element $x$ can be broken down in two parts: existence and uniqueness. This suggests that also the definition of bijectivity can be broken down in two parts. This is indeed the case, and both concepts turn out to be useful.
 
 \begin{definition}
-  A function $f:X\to Y$ is said to be \emph{surjective} if for every $y\in Y$ there exists an element $x\in X$ such that $f(x)=y$.
+  A function $f:X\to Y$ is said to be \define{surjective} if for every $y\in Y$ there exists an element $x\in X$ such that $f(x)=y$.
 
-  A function $f:X\to Y$ is said to be \emph{injective} if for every $y\in Y$ there is at most one element $x\in X$ such that $f(x)=y$.
+  A function $f:X\to Y$ is said to be \define{injective} if for every $y\in Y$ there is at most one element $x\in X$ such that $f(x)=y$.
 \end{definition}
 
 Thus, a function $f:X\to Y$ is surjective if every element of $Y$ is a value of $f$. The function shown in \zcref{figure:not-bijection-1} is an example of a surjective function.
@@ -346,11 +346,11 @@ which states that if two elements $x$ and $y$ have the same value under $f$, the
 An immediate corollary of these definitions is that a function is a bijection if and only if it is both surjective and injective. Indeed, many authors take this as the definition of bijections. The concept of bijection is also closely related to the concept of \emph{invertible function}.
 
 \begin{definition}
-  A function $f:X\to Y$ is said to be \emph{invertible} if there is a function $g:Y\to X$ such that
+  A function $f:X\to Y$ is said to be \define{invertible} if there is a function $g:Y\to X$ such that
   \begin{equation*}
     f(g(y))=y \qquad\text{and}\qquad g(f(x))=x
   \end{equation*}
-  for every $x\in X$ and $y\in Y$. Such a function $g$ is called an \emph{inverse} of $f$.
+  for every $x\in X$ and $y\in Y$. Such a function $g$ is called an \define{inverse} of $f$.
 \end{definition}
 
 The idea behind the concept of invertible functions is that mapping an element via an invertible function can be undone by means of a function in the reverse direction. Thus, if $f:X\to Y$ is an invertible function with inverse $g:Y\to X$, then if we map an element $x\in X$ to $f(x)\in Y$, we can undo this by mapping it back to $g(f(x))\in X$ which is equal to $x$. Furthermore, the function $f$ is also inverse to the function $g$ so that if we map an element $y\in Y$ to $g(y)\in X$, we can undo this by mapping it back to $f(g(y))\in Y$ which is equal to $y$.
@@ -549,7 +549,7 @@ The binomial coefficients are introduced precisely to answer this question for g
 \end{figure}
 
 \begin{definition}
-  The \emph{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
+  The \define{binomial coefficients} \(\binom{n}{k}\) are defined recursively by
   \begin{align*}
     \binom{0}{0} & := 1 & \binom{0}{k+1} & := 0 \\
     \binom{n+1}{0} & := 1 & \binom{n+1}{k+1} & := \binom{n}{k} + \binom{n}{k+1}.
@@ -584,7 +584,7 @@ Next, we turn to the question of proving that any product of $k$ consecutive nat
 is divisible by $k!$. Such products are called \emph{falling factorials}.
 
 \begin{definition}
-  Let $k$ and $n$ be natural numbers such that $k\leq n$. The \emph{$k$\supth{} falling factorial} of $n$ is the number
+  Let $k$ and $n$ be natural numbers such that $k\leq n$. The \define{$k$\supth{} falling factorial} of $n$ is the number
   \begin{equation*}
     n_{k}:=n(n-1)\cdots (n-k+1).
   \end{equation*}
@@ -599,7 +599,7 @@ From here on, the falling factorials are less tricky: The first falling factoria
 We will prove that the falling factorial $n_{k}$ is divisible by the factorial $k!$ using a combinatorial argument, by first establishing that the falling factorials $n_{k}$ count something called \emph{$k$-permutations}. A $k$-permutation of $n$ is essentially a list of length $k$ of nonrepeating elements of the set $[n]$.
 
 \begin{definition}
-  We define the set $P_k(S)$ of \emph{$k$-permutations} of a set $S$ recursively by:
+  We define the set $P_k(S)$ of \define{$k$-permutations} of a set $S$ recursively by:
   \begin{enumerate}
   \item The set $P_0(S)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
   \item The set $P_{k+1}(S)$ of $(k+1)$-permutations of $S$ is the set

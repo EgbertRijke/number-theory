@@ -11,11 +11,11 @@ with integer coefficients $a_0,\ldots,a_k$. The objective of a linear Diophantin
 The simplest linear Diophantine equation is the equation $ax=b$ in one variable $x$. The condition of its solvability leads to the concept of \emph{divisibility}.
 
 \begin{definition}
-  We say that an integer $a$ \emph{divides} an integer $b$ if there exists an integer $x$ such that the equation
+  We say that an integer $a$ \define{divides} an integer $b$ if there exists an integer $x$ such that the equation
   \begin{equation*}
     ax=b
   \end{equation*}
-  holds. When $a$ divides $b$, we write $a\mid b$ and we say that $a$ is a \emph{divisor} of $b$. Sometimes we also refer to $b$ as the \emph{dividend}.
+  holds. When $a$ divides $b$, we write $a\mid b$ and we say that $a$ is a \define{divisor} of $b$. Sometimes we also refer to $b$ as the \define{dividend}.
 \end{definition}
 
 The integers $-1$, $0$, and $1$ have special properties with respect to divisibility:
@@ -138,14 +138,14 @@ The set of ideals of $\mathbb{Z}$ is ordered by inclusion: We write $I\subseteq 
 The divisibility relation equips the sets of integers and natural numbers with a useful extra structure, a \emph{partial ordering} of their elements. The set of natural numbers equipped with the divisibility relation is a poset, while the set of integers equipped with the divisibility relation is a preorder, a slightly weaker structure.
 
 \begin{definition}
-  A \emph{preorder} consists of a set $X$ and an ordering $\leq$ of the elements of $X$, such that
+  A \define{preorder} consists of a set $X$ and an ordering $\leq$ of the elements of $X$, such that
   \begin{enumerate}
-  \item The ordering is \emph{reflexive}. This means that $x\leq x$ holds for every $x$.
-  \item The ordering is \emph{transitive}. This means that if $x \leq y$ and $y \leq z$ both hold, then $x\leq z$ also holds.
+  \item The ordering is \define{reflexive}. This means that $x\leq x$ holds for every $x$.
+  \item The ordering is \define{transitive}. This means that if $x \leq y$ and $y \leq z$ both hold, then $x\leq z$ also holds.
   \end{enumerate}
-  A \emph{poset}, or \emph{partially ordered set} in full, is a preorder $(X,{\leq})$ satisfying additionally the condition:
+  A \define{poset}, or \define{partially ordered set} in full, is a preorder $(X,{\leq})$ satisfying additionally the condition:
   \begin{enumerate}[start=3]
-  \item The ordering is \emph{antisymmetric}. This means that if both $x\leq y$ and $y\leq x$ hold, then $x=y$.
+  \item The ordering is \define{antisymmetric}. This means that if both $x\leq y$ and $y\leq x$ hold, then $x=y$.
   \end{enumerate}
 \end{definition}
 
@@ -259,7 +259,7 @@ If $d$ is the meet of $a$ and $b$, then the logical equivalence gives two implic
 We wouldn't have this discussion if it didn't apply for us. Indeed, we will show that the preorder of integers with divisibility has meets. In the case of the integers, we will call such meets \emph{greatest common divisors}.
 
 \begin{definition}
-  Consider two integers $a$ and $b$. An integer $d$ is said to be a \emph{greatest common divisor} of $a$ and $b$ if it satisfies the following logical equivalence
+  Consider two integers $a$ and $b$. An integer $d$ is said to be a \define{greatest common divisor} of $a$ and $b$ if it satisfies the following logical equivalence
   \begin{equation*}
     (x\mid a)\land(x\mid b) \Leftrightarrow (x\mid d)
   \end{equation*}
@@ -302,7 +302,7 @@ Thus, a greatest common divisor of $a$ and $b$ is an integer $d$ that divides bo
 A very important condition on pairs of integers $a$ and $b$, which occurs as an assumption in many lemmas, propositions, and theorems, is the condition that $\gcd(a,b)=1$. In other words, that any common divisor of $a$ and $b$ must be $1$. Such numbers are called \emph{relatively prime} or \emph{coprime}.
 
 \begin{definition}
-  Two integers $a$ and $b$ are said to be \emph{relatively prime} or \emph{coprime} if
+  Two integers $a$ and $b$ are said to be \define{relatively prime} or \define{coprime} if
   \begin{equation*}
     \gcd(a,b)=1.
   \end{equation*}

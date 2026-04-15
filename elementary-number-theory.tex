@@ -1,8 +1,7 @@
 \DocumentMetadata{
   lang        = en-US,
   pdfversion  = 2.0,
-  pdfstandard = ua-2,
-  pdfstandard = a-4f,
+  pdfstandard = {ua-2,a-4f},
   tagging     = off,
 %  testphase   = {bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem}
 %  testphase   = {phase-III,bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem},
@@ -275,7 +274,10 @@ bibliography=totoc
   linktoc=all,
   allcolors=grayblue,
   hypertexnames=false,
-  pdftitle    = {Elementary Number Theory},% Number Theory: A Narrative
+  pdftitle    = {Number Theory For All},
+  % Elementary Number Theory
+  % Number Theory: A Narrative
+  % Number Theory For All
   pdfauthor   = {Egbert Rijke},
   pdfsubject  = {Course Notes},
   pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, Zsigmondy's theorem, Vantieghem's theorem, quadratic residues, quadratic reciprocity, quadratic fields}
@@ -364,7 +366,7 @@ bibliography=totoc
   
 \newcommand\objectives{\italicsubsection{Learning Objectives}}
 
-\newcommand{\define}{\emph}
+\newcommand{\define}[1]{\textbf{\textcolor{CornflowerBlue}{#1}}}
 
 \ExplSyntaxOn
 \NewDocumentCommand{\DeclareSemanticSymbol}{mm}
@@ -480,7 +482,7 @@ bibliography=totoc
     \end{tikzpicture}
     \end{center}
     \vspace*{\stretch{1}}
-    {\Huge \textbf{Elementary Number Theory}\par}
+    {\Huge \textbf{Number Theory For All}\par}
     \vspace*{\stretch{2}}
     {\Large\textit{\Version{0}}}
   \end{center}
@@ -593,8 +595,6 @@ bibliography=totoc
 
 % \note{\input{prime-partition-function}}
 
-\part{Topics}
-
 % % \part{Additive Number Theory}
 % % \part{Algebraic Number Theory}
 % % \part{Analytic Number Theory}
@@ -619,6 +619,10 @@ bibliography=totoc
 % \note{\input{origami}}
 
 % \note{\input{miscellaneous}}
+
+% \part{Topics}
+
+\appendix
 
 \input{open-problems}
 

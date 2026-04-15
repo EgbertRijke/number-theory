@@ -5,11 +5,11 @@
 Carl Friedrich Gauss introduced the congruence relations in his monumental work, \emph{Disquisitiones Arithmeticae} \cite{gauss1986}. The congruence relations allowed him to systematically simplify the study of the integers. Prior to Gauss's invention, number theory was pursued with a variety of ad hoc techniques that often made proofs less transparent than they could be. His key insight was that many properties of the integers depend not on their exact size, but rather on their remainder when divided by a fixed number.
 
 \begin{definition}
-  We say that $a$ is \emph{congruent to} $b$ \emph{modulo} $c$, written
+  We say that $a$ is \define{congruent to} $b$ \define{modulo} $c$, written
   \begin{equation*}
     a \equiv b \pmod{c},
   \end{equation*}
-  if $c\mid a-b$. The number $c$ is called the \emph{modulus} of the congruence.
+  if $c\mid a-b$. The number $c$ is called the \define{modulus} of the congruence.
 \end{definition}
 
 \begin{example}
@@ -253,7 +253,7 @@ and we recognize that the right-hand side is just the sum of the digits of $n$. 
 The congruence relations are examples of equivalence relations, which we will now define.
 
 \begin{definition}
-  An equivalence relation on a set $A$ is a binary relation $\sim$ satisfying the following three conditions:
+  An \define{equivalence relation} on a set $A$ is a binary relation $\sim$ satisfying the following three conditions:
   \begin{enumerate}
   \item \emph{Reflexivity.} For any element $a\in A$, we have
     \begin{equation*}
@@ -391,7 +391,7 @@ eventually reaches the value $1$. In our notation, the Collatz conjecture assert
 \section{Equivalence Classes and Residue Systems}
 
 \begin{definition}
-  Consider an equivalence relation $\sim$ on a set $A$. Then the \emph{equivalence class} of an element $a\in A$ is the set
+  Consider an equivalence relation $\sim$ on a set $A$. Then the \define{equivalence class} of an element $a\in A$ is the set
   \begin{equation*}
     [a] := \{x\in A \mid a \sim x\}.
   \end{equation*}
@@ -447,7 +447,7 @@ sending an element to its equivalence class is called the \emph{quotient map}. W
 \end{proof}
 
 \begin{definition}
-  A \emph{complete residue system} modulo $n$ is a choice of exactly one element from each congruence class modulo $n$. In other words, a complete residue system is a set
+  A \define{complete residue system} modulo $n$ is a choice of exactly one element from each congruence class modulo $n$. In other words, a complete residue system is a set
 \begin{equation*}
   \{r_1,\ldots,r_n\}
 \end{equation*}
@@ -481,7 +481,7 @@ satisfying the condition that for every integer $a$ there is a exactly one index
 We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
 
 \begin{definition}
-  We define the set $\mathbb{Z}/n\mathbb{Z}$ of integers modulo $n$ as the set of congruence classes modulo $n$.
+  We define the set $\mathbb{Z}/n\mathbb{Z}$ of \define{integers modulo $n$} as the set of congruence classes modulo $n$.
 \end{definition}
 
 The set of integers modulo $n$ can be equipped with addition and multiplication in the following way:
@@ -624,7 +624,7 @@ For the general definition of the multiplicative order of an element $a$ modulo 
 However, if $\gcd(a,n)\neq 1$ then there will not be such a positive integer. In this case we set the multiplicative order of $a$ modulo $n$ to be $0$. At first glance, this may look quite arbitrary. However, there is a natural way of looking at it.
 
 \begin{definition}
-  Consider an integer $a$ and a natural number $n$. We define the \emph{multiplicative order} of $a$ modulo $n$ to be the unique natural number $m$ such that the ideal
+  Consider an integer $a$ and a natural number $n$. We define the \define{multiplicative order} of $a$ modulo $n$ to be the unique natural number $m$ such that the ideal
   \begin{equation*}
     I_{a,n}:=\{k\in\mathbb{Z}\mid a^{|k|} \equiv 1\pmod{n}\}
   \end{equation*}
