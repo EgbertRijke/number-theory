@@ -21,67 +21,67 @@ Concretely, we set out the following learning objectives for this course:
 \end{itemize}
 
 
-\section*{Overview of the Course}
+% \section*{Overview of the Course}
 
-An integer $a$ is said to \emph{divide} an integer $b$ if there exists an integer $x$ such that $ax=b$. In other words, the number $a$ divides $b$ if the equation
-\begin{equation*}
-  ax=b  
-\end{equation*}
-has a solution in the integers. In this case we say that $a$ is a \emph{divisor} of $b$, and we write $a \mid b$. This equation is the simplest example of a Diophantine equation. Diophantine equations are equations expressed using variables, integers, and arithmetic operations. The primary goal of solving a Diophantine equation is to find integers for each of the variables for which the equation is true. The study of Diophantine equations is a cornerstone of number theory.
+% An integer $a$ is said to \emph{divide} an integer $b$ if there exists an integer $x$ such that $ax=b$. In other words, the number $a$ divides $b$ if the equation
+% \begin{equation*}
+%   ax=b  
+% \end{equation*}
+% has a solution in the integers. In this case we say that $a$ is a \emph{divisor} of $b$, and we write $a \mid b$. This equation is the simplest example of a Diophantine equation. Diophantine equations are equations expressed using variables, integers, and arithmetic operations. The primary goal of solving a Diophantine equation is to find integers for each of the variables for which the equation is true. The study of Diophantine equations is a cornerstone of number theory.
 
-For example, the equation
-\begin{equation*}
-  x^2 - 1 = 0
-\end{equation*}
-is a \emph{quadratic Diophantine equation} with two solutions: $x=\pm 1$. One of the most well-known quadratic Diophantine equations is the equation
-\begin{equation*}
-  x^2 + y^2 = z^2,
-\end{equation*}
-which is a Diophantine equation in \emph{three variables}. Its solutions are known as \emph{Pythagorean triples}. These triples, such as $(3,4,5)$ and $(5,12,13)$, corresponds to the side lengths of right-angled triangles and have been studied since antiquity. Perhaps the most famous Diophantine equation is Fermat's equation
-\begin{equation*}
-  x^n + y^n = z^n,
-\end{equation*}
-which has no solutions for nonzero integers $x$, $y$, and $z$ when $n\geq 3$.
+% For example, the equation
+% \begin{equation*}
+%   x^2 - 1 = 0
+% \end{equation*}
+% is a \emph{quadratic Diophantine equation} with two solutions: $x=\pm 1$. One of the most well-known quadratic Diophantine equations is the equation
+% \begin{equation*}
+%   x^2 + y^2 = z^2,
+% \end{equation*}
+% which is a Diophantine equation in \emph{three variables}. Its solutions are known as \emph{Pythagorean triples}. These triples, such as $(3,4,5)$ and $(5,12,13)$, corresponds to the side lengths of right-angled triangles and have been studied since antiquity. Perhaps the most famous Diophantine equation is Fermat's equation
+% \begin{equation*}
+%   x^n + y^n = z^n,
+% \end{equation*}
+% which has no solutions for nonzero integers $x$, $y$, and $z$ when $n\geq 3$.
 
-In this course, however, we will not go as far as proving Fermat's last theorem. The first target of this course is the Fundamental Theorem of Arithmetic, which establishes the prime numbers as the building blocks of all natural numbers. A number $n$ is said to be prime if it has exactly one divisor $d \mid n$ such that $d\neq n$. If this is the case, then its unique divisor that is not equal to itself is the number $1$. The Fundamental Theorem of Arithmetic asserts that any nonzero natural number $n$ can be written as a product of primes
-\begin{equation*}
-  n=p_1p_2\cdots p_k,
-\end{equation*}
-and that this decomposition of $n$ as a product of primes is unique up to the ordering of the primes.
+% In this course, however, we will not go as far as proving Fermat's last theorem. The first target of this course is the Fundamental Theorem of Arithmetic, which establishes the prime numbers as the building blocks of all natural numbers. A number $n$ is said to be prime if it has exactly one divisor $d \mid n$ such that $d\neq n$. If this is the case, then its unique divisor that is not equal to itself is the number $1$. The Fundamental Theorem of Arithmetic asserts that any nonzero natural number $n$ can be written as a product of primes
+% \begin{equation*}
+%   n=p_1p_2\cdots p_k,
+% \end{equation*}
+% and that this decomposition of $n$ as a product of primes is unique up to the ordering of the primes.
 
-In order to study divisibility properties more deeply, Gauss introduced in his \textsc{Disquisitiones Arithmeticae} the congruence relations of modular arithmetic. Following Gauss, we say that a number $a$ is congruent to $b$ modulo $n$, that is,
-\begin{equation*}
-  a \equiv b \pmod{n}
-\end{equation*}
-if $n \mid b - a$. Gauss used this new formalism to study quadratic residues, the Chinese Remainder theorem, and a variety of other problems in number theory, a thread we will also pick up on in this course.
+% In order to study divisibility properties more deeply, Gauss introduced in his \textsc{Disquisitiones Arithmeticae} the congruence relations of modular arithmetic. Following Gauss, we say that a number $a$ is congruent to $b$ modulo $n$, that is,
+% \begin{equation*}
+%   a \equiv b \pmod{n}
+% \end{equation*}
+% if $n \mid b - a$. Gauss used this new formalism to study quadratic residues, the Chinese Remainder theorem, and a variety of other problems in number theory, a thread we will also pick up on in this course.
 
-Some of the most important theorems in this context are Fermat's Little Theorem, Euler's Theorem, and Wilson's Theorem. Fermat's theorem asserts that given any prime number $p$ and any number $a$ that is not divisible by $p$ we have
-\begin{equation*}
-  a^{p-1}\equiv 1 \pmod{p}.
-\end{equation*}
-Fermat's theorem is an important ingredient in primality tests: If the congruence $a^{n-1}\equiv 1 \pmod{n}$ is false then the number $n$ cannot be prime. Testing this congruence for several values of $a$ is a simple way of discovering that $n$ is composite. This test is by itself, however, not conclusive because there are some numbers, the Carmichael numbers, that satisfy Fermat's congruence for all $a$ relatively prime to $n$.
+% Some of the most important theorems in this context are Fermat's Little Theorem, Euler's Theorem, and Wilson's Theorem. Fermat's theorem asserts that given any prime number $p$ and any number $a$ that is not divisible by $p$ we have
+% \begin{equation*}
+%   a^{p-1}\equiv 1 \pmod{p}.
+% \end{equation*}
+% Fermat's theorem is an important ingredient in primality tests: If the congruence $a^{n-1}\equiv 1 \pmod{n}$ is false then the number $n$ cannot be prime. Testing this congruence for several values of $a$ is a simple way of discovering that $n$ is composite. This test is by itself, however, not conclusive because there are some numbers, the Carmichael numbers, that satisfy Fermat's congruence for all $a$ relatively prime to $n$.
 
-Euler's theorem is a sharper version of Fermat's Little Theorem, but it involves a new function: \emph{Euler's totient function}. Euler's totient function $\phi$ counts the numbers less than $n$ that are relatively prime to $n$, which means that they share no common divisors with $n$ other than $1$. For example, if $p$ is a prime number then $\phi(p)=p-1$ since every number $0<n<p$ is relatively prime to $p$. Using the totient function, Euler's theorem asserts that the congruence relation
-\begin{equation*}
-  a^{\phi(n)}\equiv 1 \pmod{n}
-\end{equation*}
-holds for any natural number $n$ and any number $a$ relatively prime to $n$. Euler's theorem has applications in cryptography.
+% Euler's theorem is a sharper version of Fermat's Little Theorem, but it involves a new function: \emph{Euler's totient function}. Euler's totient function $\phi$ counts the numbers less than $n$ that are relatively prime to $n$, which means that they share no common divisors with $n$ other than $1$. For example, if $p$ is a prime number then $\phi(p)=p-1$ since every number $0<n<p$ is relatively prime to $p$. Using the totient function, Euler's theorem asserts that the congruence relation
+% \begin{equation*}
+%   a^{\phi(n)}\equiv 1 \pmod{n}
+% \end{equation*}
+% holds for any natural number $n$ and any number $a$ relatively prime to $n$. Euler's theorem has applications in cryptography.
 
-Wilson's Theorem states that a number $p$ is a prime number if and only if the congruence
-\begin{equation*}
-  (p-1)!\equiv -1 \pmod{p}
-\end{equation*}
-holds. Here, the exclamation mark is used for the \emph{factorial function}: The number $n!$ is the product $1\cdots n$ of all the numbers from $1$ through $n$. Wilson's Theorem therefore gives another criterion for primality testing.
+% Wilson's Theorem states that a number $p$ is a prime number if and only if the congruence
+% \begin{equation*}
+%   (p-1)!\equiv -1 \pmod{p}
+% \end{equation*}
+% holds. Here, the exclamation mark is used for the \emph{factorial function}: The number $n!$ is the product $1\cdots n$ of all the numbers from $1$ through $n$. Wilson's Theorem therefore gives another criterion for primality testing.
 
-Euler's totient function is an example of an arithmetic function. Other such functions include the function $\tau(n)$, which returns the number of divisors of a number $n$, the function $\sigma(n)$, which returns the sum of the divisors of a number $n$, and the \emph{M\"obius function} $\mu$. These and other functions have important relations between them, that we will investigate next. The M\"obius inversion formula, for instance, states that if $f$ and $g$ are two arithmetic functions, then we have
-\begin{equation*}
-  f(n)=\sum_{d\mid n} g(d)\qquad\text{if and only if}\qquad g(n)=\sum_{d\mid n}\mu(d)f\left(\frac{n}{d}\right).
-\end{equation*}
-This result allows us to "invert" summation relations involving divisors.
+% Euler's totient function is an example of an arithmetic function. Other such functions include the function $\tau(n)$, which returns the number of divisors of a number $n$, the function $\sigma(n)$, which returns the sum of the divisors of a number $n$, and the \emph{M\"obius function} $\mu$. These and other functions have important relations between them, that we will investigate next. The M\"obius inversion formula, for instance, states that if $f$ and $g$ are two arithmetic functions, then we have
+% \begin{equation*}
+%   f(n)=\sum_{d\mid n} g(d)\qquad\text{if and only if}\qquad g(n)=\sum_{d\mid n}\mu(d)f\left(\frac{n}{d}\right).
+% \end{equation*}
+% This result allows us to "invert" summation relations involving divisors.
 
-The M\"obius inversion is only one aspect of an algebraic structure that is present on the set of all arithmetic functions. Arithmetic functions can be multiplied by an operation known as \emph{Dirichlet convolution}, which gives the set of arithmetic functions the structure of a \emph{commutative ring}. Commutative rings are sets with operations of addition and multiplication satisfying the usual laws of arithmetic, and having such a structure on a set gives us a great opportunity to study them further. In our case, we get to study the primes more closely.
+% The M\"obius inversion is only one aspect of an algebraic structure that is present on the set of all arithmetic functions. Arithmetic functions can be multiplied by an operation known as \emph{Dirichlet convolution}, which gives the set of arithmetic functions the structure of a \emph{commutative ring}. Commutative rings are sets with operations of addition and multiplication satisfying the usual laws of arithmetic, and having such a structure on a set gives us a great opportunity to study them further. In our case, we get to study the primes more closely.
 
-Experimentation is essential in number theory. By making lists of primes, lists of numbers that can be written as the sum of two squares or sums of three squares, lists of square-free numbers, and so on, you will start to gather data on numbers and perhaps start seeing patterns that might otherwise feel elusive. At the end of this section, we have produced two number grids with the numbers from $1$ to $1584$. The great masters all have endlessly created such lists to organize and discover patterns in various kinds of numbers. Feel free to print it as many times as you like, and color them according to your own rules, or whenever something in the course piques your interest. Some exercises throughout the course will ask you to color this number grid in a certain way.
+% Experimentation is essential in number theory. By making lists of primes, lists of numbers that can be written as the sum of two squares or sums of three squares, lists of square-free numbers, and so on, you will start to gather data on numbers and perhaps start seeing patterns that might otherwise feel elusive. At the end of this section, we have produced two number grids with the numbers from $1$ to $1584$. The great masters all have endlessly created such lists to organize and discover patterns in various kinds of numbers. Feel free to print it as many times as you like, and color them according to your own rules, or whenever something in the course piques your interest. Some exercises throughout the course will ask you to color this number grid in a certain way.
 
 \section*{Literature}
 
@@ -93,38 +93,38 @@ There are many further excellent sources to learn number theory from. One of my 
 
 The undisputed classic textbook on number theory, which is warmly recommended for any aspiring number theorist, is Hardy and Wright's \textsc{Introduction to the Theory of Numbers} \cite{hardy2008}. This book covers all the essential topics in number theory, including elementary number theory and analytical number theory. It is more comprehensive and also provides more historical notes. The textbook of Hardy and Wright does not provide exercises, but it contains the proofs of many important facts in number theory that are stated as exercises elsewhere.
 
-\section*{Online resources}
+% \section*{Online resources}
 
-There are plenty of ways to learn number theory and engage with communities of mathematicians and students online. First and foremost, \emph{Wikipedia} has many excellent pages on topics from and related to number theory. The website \emph{math.stackexchange.com} is dedicated to answering any kind of mathematical question, although more research-oriented questions are usually posed on \emph{mathoverflow.net}. The website \emph{artofproblemsolving.com} is dedicated to contest mathematics and the problem-solving techniques necessary to do well in competitions such as the International Mathematical Olympiad.
+% There are plenty of ways to learn number theory and engage with communities of mathematicians and students online. First and foremost, \emph{Wikipedia} has many excellent pages on topics from and related to number theory. The website \emph{math.stackexchange.com} is dedicated to answering any kind of mathematical question, although more research-oriented questions are usually posed on \emph{mathoverflow.net}. The website \emph{artofproblemsolving.com} is dedicated to contest mathematics and the problem-solving techniques necessary to do well in competitions such as the International Mathematical Olympiad.
 
-Furthermore, there are some popular channels on video-sharing sites such as YouTube, Twitch, and TikTok. We mention some of the most notable:
+% Furthermore, there are some popular channels on video-sharing sites such as YouTube, Twitch, and TikTok. We mention some of the most notable:
 
-\begin{enumerate}
-\item Lectures:
-\begin{enumerate}
-\item \emph{Richard Borcherds} is a Fields Medalist who has recorded many of his Berkeley lectures and made them available on YouTube. The topics of his lectures are always well-motivated and presented with great clarity.
-\end{enumerate}
+% \begin{enumerate}
+% \item Lectures:
+% \begin{enumerate}
+% \item \emph{Richard Borcherds} is a Fields Medalist who has recorded many of his Berkeley lectures and made them available on YouTube. The topics of his lectures are always well-motivated and presented with great clarity.
+% \end{enumerate}
 
-\item Problem solving:
-\begin{enumerate}
-\item \emph{Michael Penn} has an excellent YouTube channel in which he solves mathematical problems on a blackboard, at roughly the level of this course.
-\item \emph{vEnhance} (Evan Chen) is an IMO gold medalist and the author of the wonderful book \textsc{Euclidean Geometry in Mathematical Olympiads} \cite{chen2016}. He streams live solves of Olympiad math problems on Twitch, and his videos are also available on YouTube.
-\item \emph{OmegaLearn} is Jonathan Huang's YouTube channel focused on solving IMO problems. Some of his playlists dive deeper into specific techniques, such as Fermat's method of infinite descent.
-\item \emph{Blackpenredpen} is Steve Chow's problem-solving channel, covering topics in calculus, algebra, and number theory.
-\end{enumerate}
+% \item Problem solving:
+% \begin{enumerate}
+% \item \emph{Michael Penn} has an excellent YouTube channel in which he solves mathematical problems on a blackboard, at roughly the level of this course.
+% \item \emph{vEnhance} (Evan Chen) is an IMO gold medalist and the author of the wonderful book \textsc{Euclidean Geometry in Mathematical Olympiads} \cite{chen2016}. He streams live solves of Olympiad math problems on Twitch, and his videos are also available on YouTube.
+% \item \emph{OmegaLearn} is Jonathan Huang's YouTube channel focused on solving IMO problems. Some of his playlists dive deeper into specific techniques, such as Fermat's method of infinite descent.
+% \item \emph{Blackpenredpen} is Steve Chow's problem-solving channel, covering topics in calculus, algebra, and number theory.
+% \end{enumerate}
 
-\item Mathematics for a broad audience:
-\begin{enumerate}
-\item \emph{3Blue1Brown} explores a variety of topics related to computer science and mathematics using compelling visualizations.
-\item \emph{Mathologer} is Burkard Polster's YouTube channel for recreational mathematics. Many of his videos contain elegant visual proofs; his videos on Fermat's Two-Square Theorem, the Quadratic Reciprocity Theorem, and Euler's pentagonal theorem are especially worth watching.
-\item \emph{Numberphile} is a long-running YouTube channel by Brady Haran, featuring mathematicians who explain a variety of mathematical phenomena, including topics in number theory. A closely related YouTube channel is \emph{Tom Rocks Maths}, by Tom Crawford.
-\item \emph{PeakMath} has an excellent series on the Riemann Hypothesis, called the \emph{Riemann Hypothesis Saga}, in which they topics such as the Langlands program and the Birch--Swinnerton Dyer conjecture are made accessible.
-\end{enumerate}
-\end{enumerate}
+% \item Mathematics for a broad audience:
+% \begin{enumerate}
+% \item \emph{3Blue1Brown} explores a variety of topics related to computer science and mathematics using compelling visualizations.
+% \item \emph{Mathologer} is Burkard Polster's YouTube channel for recreational mathematics. Many of his videos contain elegant visual proofs; his videos on Fermat's Two-Square Theorem, the Quadratic Reciprocity Theorem, and Euler's pentagonal theorem are especially worth watching.
+% \item \emph{Numberphile} is a long-running YouTube channel by Brady Haran, featuring mathematicians who explain a variety of mathematical phenomena, including topics in number theory. A closely related YouTube channel is \emph{Tom Rocks Maths}, by Tom Crawford.
+% \item \emph{PeakMath} has an excellent series on the Riemann Hypothesis, called the \emph{Riemann Hypothesis Saga}, in which they topics such as the Langlands program and the Birch--Swinnerton Dyer conjecture are made accessible.
+% \end{enumerate}
+% \end{enumerate}
 
-You might also enjoy joining some Discord servers, such as the Art of Problem Solving (AoPS) Community Server, the Math Stack Exchange Discord, or the OmegaLearn Server. If you are interested in formalization of mathematics, using proof assistants such as Agda, Lean, or Rocq, you'll also find thriving online communities that are focused on building large libraries of formalized mathematics. Lean's \emph{Natural Numbers Game} is especially worth trying, especially if you are new to induction and recursion. This set of lecture notes is currently being formalized in the \emph{agda-unimath} library.
+% You might also enjoy joining some Discord servers, such as the Art of Problem Solving (AoPS) Community Server, the Math Stack Exchange Discord, or the OmegaLearn Server. If you are interested in formalization of mathematics, using proof assistants such as Agda, Lean, or Rocq, you'll also find thriving online communities that are focused on building large libraries of formalized mathematics. Lean's \emph{Natural Numbers Game} is especially worth trying, especially if you are new to induction and recursion. This set of lecture notes is currently being formalized in the \emph{agda-unimath} library.
 
-Finally, you might find generative AI tools such as ChatGPT useful in exploring mathematical topics. These tools are helpful because you can ask them to explain any topic that interests you, and the quality of their answers is quickly improving with each new version. Be careful, however, to ensure you understand the answers for yourself. AI-generated reasoning is not always reliable.
+% Finally, you might find generative AI tools such as ChatGPT useful in exploring mathematical topics. These tools are helpful because you can ask them to explain any topic that interests you, and the quality of their answers is quickly improving with each new version. Be careful, however, to ensure you understand the answers for yourself. AI-generated reasoning is not always reliable.
 
 \cleardoublepage
 \tagpdfparaOff
