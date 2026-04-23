@@ -5,26 +5,26 @@ On the integers we have the arithmetic operations of addition, subtraction, and 
 \section{Integer Fractions}
 
 \begin{definition}
-  An \emph{integer fraction} is an expression of the form
+  An \define{integer fraction} is an expression of the form
   \begin{equation*}
     \frac{a}{b}
   \end{equation*}
-  in which $a$ is an integer and $b$ is a positive integer. In such an integer fraction, the integer $a$ is called the \emph{numerator} and the positive integer $b$ is called the \emph{denominator}. Furthermore:
+  in which $a$ is an integer and $b$ is a positive integer. In such an integer fraction, the integer $a$ is called the \define{numerator} and the positive integer $b$ is called the \define{denominator}. Furthermore:
   \begin{enumerate}
-  \item An integer fraction $\frac{a}{b}$ is said to be \emph{reduced} or \emph{in lowest terms} if $a$ and $b$ are relatively prime.
+  \item An integer fraction $\frac{a}{b}$ is said to be \define{reduced} or \define{in lowest terms} if $a$ and $b$ are relatively prime.
   \item An integer $a$ can be presented as an integer fraction by $\frac{a}{1}$.
-  \item An integer fraction of the form $\frac{1}{b}$ is called a \emph{unit fraction}.
+  \item An integer fraction of the form $\frac{1}{b}$ is called a \define{unit fraction}.
   \end{enumerate}
 \end{definition}
 
 While it is common to think of rational numbers as integer fractions, there is a subtle distinction between the concepts of integer fractions and rational numbers. For example, the two integer fractions $\frac{4}{3}$ and $\frac{8}{6}$ have different expressions in terms of their numerators and denominators, but we think of them as representing the \emph{same} rational number. The rational sameness relation on integer fractions is defined as follows.
 
 \begin{definition}
-  Two integer fractions $\frac{a}{b}$ and $\frac{c}{d}$ are considered the \emph{same} if
+  Two integer fractions $\frac{a}{b}$ and $\frac{c}{d}$ are considered the \define{same} if
   \begin{equation*}
     ad-bc=0.
   \end{equation*}
-  The set $\mathbb{Q}$ of \emph{rational numbers} is defined according to the following rules:
+  The set $\mathbb{Q}$ of \define{rational numbers} is defined according to the following rules:
   \begin{enumerate}
   \item To construct a rational number, one has to construct an integer fraction.
   \item To prove that two rational numbers $\frac{a}{b}$ and $\frac{c}{d}$ are equal, one has to prove that $ad-bc=0$.
@@ -117,7 +117,7 @@ This is the content of the following theorem.
   \begin{equation*}
     bc-ad=1.
   \end{equation*}
-  Then there is exactly one reduced integer fraction $\frac{a}{b}<\frac{s}{t}<\frac{c}{d}$, namely the \emph{mediant}
+  Then there is exactly one reduced integer fraction $\frac{a}{b}<\frac{s}{t}<\frac{c}{d}$, namely the \define{mediant}
   \begin{equation*}
     \frac{a+c}{b+d}.
   \end{equation*}
@@ -199,10 +199,10 @@ Continuing this way, we find that
 \begin{equation*}
   \frac{193}{71}=2+\cfrac{1}{1+\cfrac{1}{2+\cfrac{1}{1+\cfrac{1}{1+\cfrac{1}{4+\tfrac{1}{2}}}}}}.
 \end{equation*}
-Such iterated fractions are called \emph{continued fractions}. The fraction $\frac{193}{71}$ is a famously accurate approximation of Euler's number $e$, being correct to within a distance of $1/71^2$, and its continued fraction is the start of the continued fraction expansion of $e$. As we just saw, continued fractions are closely related to Euclid's algorithm, and indeed they are used for rational approximations of real numbers.
+Such iterated fractions are called \define{continued fractions}. The fraction $\frac{193}{71}$ is a famously accurate approximation of Euler's number $e$, being correct to within a distance of $1/71^2$, and its continued fraction is the start of the continued fraction expansion of $e$. As we just saw, continued fractions are closely related to Euclid's algorithm, and indeed they are used for rational approximations of real numbers.
 
 \begin{definition}
-  A \emph{finite (simple) continued fraction} is an expression of the form
+  A \define{finite (simple) continued fraction} is an expression of the form
   \begin{equation*}
     q_0+\cfrac{1}{q_1+\cfrac{1}{q_2+\cfrac{1}{\cdots + \cfrac{1}{q_n}}}},
   \end{equation*}
@@ -212,7 +212,7 @@ Such iterated fractions are called \emph{continued fractions}. The fraction $\fr
   \begin{equation*}
     q_0+\cfrac{1}{q_1+\cfrac{1}{q_2+\cfrac{1}{\cdots}}}.
   \end{equation*}
-  A more compact notation for infinite continued fractions is $[q_0,q_1,\ldots]$. The numbers $q_i$ in a continued fraction $[q_0,q_1,\ldots]$ are called the \emph{partial quotients}.
+  A more compact notation for infinite continued fractions is $[q_0,q_1,\ldots]$. The numbers $q_i$ in a continued fraction $[q_0,q_1,\ldots]$ are called the \define{partial quotients}.
 \end{definition}
 
 Carl Friedrich Gauss had the following elegant notation for continued fractions, which is not widely used anymore:
@@ -241,7 +241,7 @@ Here, the letter K stands for \emph{Kettenbruch}, the German word for continued 
   \begin{equation*}
     \frac{a_i}{b_i}:=[q_0,\ldots,q_i]
   \end{equation*}
-  are called the \emph{convergents} of the continued fraction.
+  are called the \define{convergents} of the continued fraction.
 \end{definition}
 
 The first few convergents of a continued fraction $[q_0,q_1,\ldots]$ are
@@ -386,7 +386,7 @@ We summarize the above results for infinite continued fractions.
   \begin{equation*}
     \varphi = \frac{1+\sqrt{5}}{2}. 
   \end{equation*}
-  This number is known as the \emph{golden ratio}. The continued fraction $[1,1,\ldots]$ shows that the convergents
+  This number is known as the \define{golden ratio}. The continued fraction $[1,1,\ldots]$ shows that the convergents
   \begin{equation*}
     \frac{F_{n+1}}{F_n}
   \end{equation*}
@@ -401,7 +401,7 @@ The geologist John Farey Sr.~observed in a letter to the British periodical \emp
 \end{equation*}
 
 \begin{definition}
-  The \emph{mediant} of two reduced integer fractions $\frac{a}{b}$ and $\frac{c}{d}$ is the integer fraction
+  The \define{mediant} of two reduced integer fractions $\frac{a}{b}$ and $\frac{c}{d}$ is the integer fraction
   \begin{equation*}
     \frac{a}{b}\mediant\frac{c}{d} := \frac{a+c}{b+d}.
   \end{equation*}
@@ -492,14 +492,14 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
 \end{figure}
 
 \begin{definition}
-  Consider a set $Q$ equipped with a binary relation $q,r\mapsto (q\sim r)$. A \emph{Farey structure} on the pair $(Q,{\sim})$ consist of:
+  Consider a set $Q$ equipped with a binary relation $q,r\mapsto (q\sim r)$. A \define{Farey structure} on the pair $(Q,{\sim})$ consist of:
   \begin{enumerate}
   \item a map $i:\mathbb{Z}\to Q$,
   \item a partial binary operation
     \begin{equation*}
       m:\{(x,y)\in Q\mid x\sim y\} \to Q
     \end{equation*}
-    called the \emph{mediant},
+    called the \define{mediant},
   \end{enumerate}
   such that
   \begin{enumerate}
@@ -575,11 +575,11 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
   \begin{equation*}
     D\Big(\frac{a}{b},\frac{c}{d}\Big) := |bc-ad|.
   \end{equation*}
-  Show that $D$ satisfies the axioms of a \emph{metric}:
+  Show that $D$ satisfies the axioms of a \define{metric}:
   \begin{enumerate}
-  \item $D$ is \emph{positive definite}: $D(\frac{a}{b},\frac{c}{d})=0$ if and only if $\frac{a}{b}=\frac{c}{d}$.
-  \item $D$ is \emph{symmetric}: $D(\frac{a}{b},\frac{c}{d})=D(\frac{c}{d},\frac{a}{b})$.
-  \item $D$ satisfies the \emph{triangle inequality}:
+  \item $D$ is \define{positive definite}: $D(\frac{a}{b},\frac{c}{d})=0$ if and only if $\frac{a}{b}=\frac{c}{d}$.
+  \item $D$ is \define{symmetric}: $D(\frac{a}{b},\frac{c}{d})=D(\frac{c}{d},\frac{a}{b})$.
+  \item $D$ satisfies the \define{triangle inequality}:
     \begin{equation*}
       D\Big(\frac{a}{b},\frac{e}{f}\Big)\leq D\Big(\frac{a}{b},\frac{c}{d}\Big)+D\Big(\frac{c}{d},\frac{e}{f}\Big).
     \end{equation*}

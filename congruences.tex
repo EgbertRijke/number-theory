@@ -255,15 +255,15 @@ The congruence relations are examples of equivalence relations, which we will no
 \begin{definition}
   An \define{equivalence relation} on a set $A$ is a binary relation $\sim$ satisfying the following three conditions:
   \begin{enumerate}
-  \item \emph{Reflexivity.} For any element $a\in A$, we have
+  \item \define{Reflexivity.} For any element $a\in A$, we have
     \begin{equation*}
       a\sim a.
     \end{equation*}
-  \item \emph{Symmetry.} For any two elements $a,b\in A$, we have
+  \item \define{Symmetry.} For any two elements $a,b\in A$, we have
     \begin{equation*}
       (a \sim b) \Rightarrow (b\sim a).
     \end{equation*}
-  \item \emph{Transitivity.}
+  \item \define{Transitivity.}
     For any three elements $a,b,c\in A$, we have
     \begin{equation*}
       (a \sim b)\land (b\sim c) \Rightarrow (a\sim c).
@@ -312,7 +312,7 @@ A common way in which equivalence relations come about is via a function. Given 
 \begin{equation*}
   x\sim_f y \qquad\text{if and only if}\qquad f(x)=f(y).
 \end{equation*}
-This relation is also called the \emph{kernel} of $f$.
+This relation is also called the \define{kernel} of $f$.
 
 \begin{proposition}
   For any function $f:A\to B$, the relation $\sim_f$ is an equivalence relation.
@@ -398,7 +398,7 @@ eventually reaches the value $1$. In our notation, the Collatz conjecture assert
 \end{definition}
 
 \begin{example}
-  In the case where the equivalence relation under consideration is a congruence relation with modulus $n$, then the equivalence classes are called \emph{congruence classes}. For any positive integer $n$, there are exactly $n$ distinct congruence classes modulo $n$, corresponding to the $n$ possible residues $0\leq r<n$ after division by $n$ with remainder.
+  In the case where the equivalence relation under consideration is a congruence relation with modulus $n$, then the equivalence classes are called \define{congruence classes}. For any positive integer $n$, there are exactly $n$ distinct congruence classes modulo $n$, corresponding to the $n$ possible residues $0\leq r<n$ after division by $n$ with remainder.
 
   The congruence class modulo $2$ of any even integer consists precisely of all the even integers, and the congruence class of any odd integer consists precisely of all the odd integers.
 
@@ -415,11 +415,11 @@ The equivalence classes of an equivalence relation $\sim$ on a set $A$ form a se
 \begin{equation*}
   A/{\sim} := \{U\subseteq A \mid \exists_{(a\in A)}U=[a]\}
 \end{equation*}
-In other words, the set of equivalence classes of $\sim$ is the set of subsets $U\subseteq A$ such that $U=[a]$ for some $a\in A$. The set $A/{\sim}$ is called the \emph{quotient} of $A$ by the equivalence relation $\sim$. Furthermore, the function
+In other words, the set of equivalence classes of $\sim$ is the set of subsets $U\subseteq A$ such that $U=[a]$ for some $a\in A$. The set $A/{\sim}$ is called the \define{quotient} of $A$ by the equivalence relation $\sim$. Furthermore, the function
 \begin{equation*}
   a\mapsto [a]:A\to A/{\sim}
 \end{equation*}
-sending an element to its equivalence class is called the \emph{quotient map}. We often write $q$ for the quotient map.
+sending an element to its equivalence class is called the \define{quotient map}. We often write $q$ for the quotient map.
 
 \begin{proposition}\label{proposition:quotient-map}
   For any equivalence relation $\sim$ on a set $A$, the quotient map
@@ -428,8 +428,8 @@ sending an element to its equivalence class is called the \emph{quotient map}. W
   \end{equation*}
   satisfies the following two conditions:
   \begin{enumerate}
-  \item The quotient map is \emph{surjective}. This means that for any equivalence class $U\subseteq A$ there is an element $a\in A$ such that $U=[a]$.
-  \item The quotient map is \emph{effective}. This means that for any two elements $a,b\in A$ we have
+  \item The quotient map is surjective. This means that for any equivalence class $U\subseteq A$ there is an element $a\in A$ such that $U=[a]$.
+  \item The quotient map is \define{effective}. This means that for any two elements $a,b\in A$ we have
     \begin{equation*}
       [a]=[b]\qquad\text{if and only if}\qquad a\sim b.
     \end{equation*}
@@ -478,7 +478,7 @@ satisfying the condition that for every integer $a$ there is a exactly one index
 
 \section{The Integers Modulo \texorpdfstring{$n$}{n}}
 
-We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \emph{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
+We have seen that the congruence relations modulo a natural number $n$ form equivalence relations that are compatible with the arithmetic operations of addition and multiplication. We have also seen that equivalence relations give rise to equivalence classes, and that the set of all equivalence classes for a given equivalence relation is called the \define{quotient}. Quotients are important mathematical constructions, which are used to simplify mathematical problems and constructions by treating similar or equivalent elements of a set as the same.
 
 \begin{definition}
   We define the set $\mathbb{Z}/n\mathbb{Z}$ of \define{integers modulo $n$} as the set of congruence classes modulo $n$.
@@ -497,7 +497,7 @@ Notice that the result of these operations depends only on the equivalence class
 This ensures that the definitions of addition and multiplication on the integers modulo $n$ is \emph{well-defined} on the congruence classes modulo $n$.
 
 \begin{remark}
-  The definitions of addition and multiplication on the integers modulo $n$ follow a general pattern of defining functions $f:A/{\sim}\to B$ out of quotient sets. Given a function $g:A\to B$, a function $f:A/{\sim}\to B$ is said to be \emph{defined by descent} from $g$ if $f$ is defined by
+  The definitions of addition and multiplication on the integers modulo $n$ follow a general pattern of defining functions $f:A/{\sim}\to B$ out of quotient sets. Given a function $g:A\to B$, a function $f:A/{\sim}\to B$ is said to be \define{defined by descent} from $g$ if $f$ is defined by
   \begin{equation*}
     f([a]) := g(a).
   \end{equation*}
@@ -505,7 +505,7 @@ This ensures that the definitions of addition and multiplication on the integers
   \begin{equation*}
     g(a)=g(a').
   \end{equation*}
-  By verifying that $a\sim a'$ implies $f([a])=f([a'])$, we ensure that $f$ is \emph{well-defined}. The well-definedness condition ensures that $f$ returns the same output for all elements of the same equivalence class.
+  By verifying that $a\sim a'$ implies $f([a])=f([a'])$, we ensure that $f$ is \define{well-defined}. The well-definedness condition ensures that $f$ returns the same output for all elements of the same equivalence class.
 \end{remark}
 
 \begin{example}
