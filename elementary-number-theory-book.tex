@@ -15,7 +15,7 @@
   openright
 ]{book}
 
-\tagpdfsetup{math/mathml/luamml/load=false}
+%\tagpdfsetup{math/mathml/luamml/load=false}
 
 \setcounter{tocdepth}{2}
 
@@ -72,27 +72,6 @@
 \usepackage[ngerman,american]{babel}
 \usepackage[autostyle=true,strict=true]{csquotes}
 \MakeOuterQuote{"}
-
-\makeatletter
-
-% KOMA-like heading fonts
-\newcommand{\dispositionfont}{\rmfamily}
-
-\newcommand{\chaptertitlefont}{%
-  \dispositionfont
-  \huge
-  \bfseries
-}
-
-\newcommand{\chapterprefixfont}{%
-  \dispositionfont
-  \Large
-  \addfontfeatures{LetterSpace=3}%
-  \scshape
-  \mdseries
-}
-
-\makeatother
 
 \newcommand{\italicsubsection}[1]{%
   \subsection*{\mdseries\itshape #1}%

@@ -2,10 +2,12 @@
 
 \section{Recursion and Induction}
 
-When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $n\mapsto n+1$, which we also denote by $S$. As we saw in our exposition on the history of the concept of number, the definition of the natural numbers evolves around precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
+When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $S$ given by $n\mapsto n+1$.
+
+As we saw in our exposition on the history of the concept of number, the definition of the natural numbers centers on precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
 
 \begin{definition}
-  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
+  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$ given by $n\mapsto n+1$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
   \begin{enumerate}
   \item an element $a_0\in A_0$, and
   \item for each $n$, a function $h_n:A_n\to A_{n+1}$,
@@ -37,11 +39,13 @@ An important special case of structural induction, which will serve as our first
 
 In other words, the $0$\supth{} iteration of $f$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$\supst{} iteration of $f$ is obtained by applying $f$ once more to the values of the $n$\supth{} iteration of $f$.
 
-Notice that we made a choice in the definition of the $(n+1)$\supst{} iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In order to prove that the identity
-\begin{equation*}
-  f^{n+1}(x)=f^n(f(x))
-\end{equation*}
-indeed holds we will need mathematical induction, which can be derived from structural induction.
+\begin{remark}\label{remark:alternative-iteration}
+  Notice that we made a choice in the definition of the $(n+1)$\supst{} iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In order to prove that the identity
+  \begin{equation*}
+    f^{n+1}(x)=f^n(f(x))
+  \end{equation*}
+  indeed holds we will need mathematical induction, which can be derived from structural induction.  
+\end{remark}
 
 \begin{definition}
   The principle of \define{mathematical induction} asserts that for any predicate $P(n)$ (that is, for any property of numbers depending on $n$), if
@@ -52,13 +56,17 @@ indeed holds we will need mathematical induction, which can be derived from stru
   then $P(n)$ is true for all $n$.
 \end{definition}
 
-Proofs by induction can thus be broken down into the following steps:
-\begin{enumerate}
-\item First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is always to prove that $P(n)$ is true for all $n$.
-\item Next, prove the \emph{base case}. In other words, show that $P(0)$ is a true proposition.While this step is often trivial, it is a necessary and essential part of an induction proof.
-\item Finally, for the \emph{inductive step}, write down the exact \emph{induction hypothesis}, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds.
-\end{enumerate}
-After these steps the proof that $P(n)$ holds is complete. Using induction we can prove, for example, that the identity $f^{n+1}(x)=f^n(f(x))$ holds for every $n$.
+\begin{remark}
+  Proofs by induction can thus be broken down into the following steps:
+  \begin{enumerate}
+  \item First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is always to prove that $P(n)$ is true for all $n$.
+  \item Next, prove the \emph{base case}. In other words, show that $P(0)$ is a true proposition. While this step is often trivial, it is a necessary and essential part of an induction proof.
+  \item Finally, for the \emph{inductive step}, write down the exact \emph{induction hypothesis}, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds.
+  \end{enumerate}
+  After these steps the proof that $P(n)$ holds is complete. Using induction we can prove, for example, that the identity $f^{n+1}(x)=f^n(f(x))$ holds for every $n$.  
+\end{remark}
+
+We are now in position to fully address \zcref{remark:alternative-iteration}.
 
 \begin{proposition}\label{proposition:iterate-successor}
   Consider a function $f:X\to X$ on a set $X$, and let $n$ be a natural number. Then we have
@@ -110,7 +118,7 @@ The operation $m,n\mapsto m+n$ satisfies the equalities
   m+0 & = m, \\
   m+(n+1) & = (m+n)+1
 \end{align*}
-by definition. However, these are the only equalities given to us via the computation rules of the strong induction principles. Other equalities, such as the equalities
+by definition. However, these are the only equalities given to us via the computation rules of the structural induction principle. Other equalities, such as the equalities
 \begin{align*}
   0+n & = n, \\
   (m+1)+n & = (m+n)+1
@@ -258,6 +266,78 @@ The last identification is called the \define{interchange law} for addition. The
   \end{equation*}
   This completes the inductive step.
 \end{proof}
+
+\section{Relations on the Natural Numbers}
+
+Among Peano's axioms are the axioms stating that $0$ is not a successor and that the successor function is injective. Recall that a function $f:X\to Y$ is called \define{injective} if the following implication holds:
+\begin{equation*}
+  f(x)=f(y)\quad\Rightarrow\quad x=y.
+\end{equation*}
+As the reader may have duly noted, we have neither postulated that $0$ is not a successor and that the successor function is injective. Our goal is to prove them.
+
+\begin{example}
+  We define the binary operation $E:\mathbb{N}\to(\mathbb{N}\to\mathcal{P}(\symbf{1}))$ by defining
+  \begin{align*}
+    E(0,0) & := \top, & E(0,n+1) & := \bot, \\
+    E(m+1,0) & := \bot, & E(m+1,n+1) & := E(m,n).
+  \end{align*}
+  We can prove by induction that the proposition $E(m,n)$ is true if and only if $m=n$. For the forward direction, we have to show that if $E(m,n)$ is true, then $m=n$. This is proven by double induction: the proposition $E(0,0)$ is true by definition, and indeed we have $0=0$; the propositions $E(0,n+1)$ and $E(m+1,0)$ are both false by definition; and if $E(m+1,n+1)$ is true, then $m=n$ by the inductive hypothesis, which implies that $m+1=n+1$.
+
+  For the converse, we have to show that if $m=n$, then $E(m,n)$ is true. In other words, we need to show that $E(n,n)$ is true for each natural number $n$. Indeed, the proposition $E(0,0)$ is true by definition, and the proposition $E(n+1,n+1)=E(n,n)$ is true by the inductive hypothesis.
+\end{example}
+
+This simple example allows us to prove the two properties Peano postulated as axioms.
+
+\begin{theorem}
+  The natural number $0$ is not a successor.
+\end{theorem}
+
+\begin{proof}
+  Suppose that $0=n+1$ for some natural number $n$. This equality implies that
+  \begin{equation*}
+    E(0,0)=E(0,n+1).
+  \end{equation*}
+  In other words, we have that $\symbf{1}=\varnothing$. Thus we conclude that $\top=\bot$, which is absurd.
+\end{proof}
+
+\begin{theorem}
+  The successor function is injective.
+\end{theorem}
+
+\begin{proof}
+  Suppose that $m+1=n+1$. Then the proposition $E(m+1,n+1)$ is true, and consequently we find that the proposition $E(m,n)$ is true. This shows that $m=n$.
+\end{proof}
+
+\begin{example}
+  We end with the inductive definitions of the inequality relations $\leq$ and $<$. These are defined by first defining binary operations
+  \begin{equation*}
+    R_{\leq},R_{<}:\mathbb{N}\to(\mathbb{N}\to\mathcal{P}(\symbf{1})).
+  \end{equation*}
+  Both of these operations are defined recursively:
+  \begin{align*}
+    R_{\leq}(0,0) & := \symbf{1}, & R_{\leq}(0,n+1) & := \symbf{1}, \\
+    R_{\leq}(m+1,0) & := \varnothing & R_{\leq}(m+1,n+1) & := R_{\leq}(m,n). \\
+    \intertext{and}
+    R_{<}(0,0) & := \varnothing, & R_{<}(0,n+1) & := \symbf{1}, \\
+    R_{<}(m+1,0) & := \varnothing & R_{<}(m+1,n+1) & := R_{<}(m,n).
+  \end{align*}
+  Now we define $m\leq n$ to hold if and only if $R_{\leq}(m,n)$ contains an element, and we define $m<n$ to hold if and only if $R_{<}(m,n)$ contains an element.
+\end{example}
+
+\begin{remark}
+  We have an obligation to mention why Peano postulated these two properties as axioms. Peano was working in a logical framework that was much weaker than set theory. In particular, the system in which he formulated the axioms for the natural numbers contained no powersets. The \define{powerset} $\mathcal{P}(A)$ of a set $A$ is a set whose elements are subsets $U\subseteq A$.
+  
+  For example, let $\symbf{1}:=\{\ast\}$ be the singleton set containing only the element $\ast$. Then the powerset $\mathcal{P}(\symbf{1})$ contains the empty subset $\varnothing\subseteq \symbf{1}$ and the full subset $\symbf{1}\subseteq\symbf{1}$. More generally, for every proposition $P$, we have the subset
+  \begin{equation*}
+    \{\ast\mid P\}\subseteq \{\ast\},
+  \end{equation*}
+  which contains the element $\ast$ only when the proposition $P$ holds. For example, when $P:=\bot$ is the false proposition, then the subset $\{\ast\mid\bot\}$ is empty, and when $P:=\top$ is the true proposition, then the subset $\{\ast\mid\top\}$ contains the element $\ast$.
+  
+  Our reason for considering the powerset $\mathcal{P}(\symbf{1})$ is that we can define relations on the natural numbers by recursively defining maps
+  \begin{equation*}
+    \mathbb{N}\to (\mathbb{N}\to \mathcal{P}(\symbf{1})).
+  \end{equation*}
+\end{remark}
 
 \section{Finite Sums and Products}
 
@@ -490,6 +570,13 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \exercise Just as in Hemachandra's counting problem, suppose we have a metre of $n$ beats composed of long (2 beats) and short syllables (1 beat). This time, the short syllables are distinguished between strong or soft beats. Write down the recursive formula for the number of rhythmic patterns of $n$ beats, and use it to determine the correct values for $1\leq n\leq 10$.
   \exercise Gopa the grasshopper can jump either 5 or 8 steps. Find a recursive expression for the number of ways in which he can reach a spot $n$ steps away, without jumping backwards, and determine in how many ways can he reach his favorite spot, 29 steps away.
 \end{starter}
+
+\begin{foundational}
+  \exercise Show that the function $x\mapsto x+n$ is \emph{injective}, meaning that the following implication holds:
+  \begin{equation*}
+    x+n=y+n\qquad\Rightarrow\qquad x=y.
+  \end{equation*}
+\end{foundational}
 
 \begin{routine}
   \exercise \label{exercise:difference-of-powers}

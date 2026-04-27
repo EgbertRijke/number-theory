@@ -31,13 +31,57 @@ bibliography=totoc
 % \setmonofont{Libertinus Mono}[Scale=MatchLowercase]
 % \setmathfont{STIX Two Math}[range={"25BF}]
 
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "customkerns",
+    type = "kern",
+    data = {
+      ["f"] = { ["u"] = 20, ["y"] = 50 },
+      ["g"] = { ["y"] = 50 },
+      ["n"] = { ["t"] = -20 },
+      ["r"] = { ["v"] = 50, ["y"] = 50 },
+      ["t"] = { ["y"] = 20 },
+      ["y"] = { ["m"] = 10, ["n"] = 10, ["t"] = 20 },
+      ["P"] = { ["y"] = 30 },
+      ["T"] = { ["w"] = 100 },
+    }
+  }
+}
+
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "rijkeliga",
+    type = "chainsubstitution",
+    lookups = {
+      {
+        type = "ligature",
+        data = {
+          ["ĳ"] = { "i", "j" },
+        }
+      }
+    },
+    data = {
+      rules = {
+        {
+          before  = { { "R" } },
+          current = { { "i" }, { "j" } },
+          after   = { { "k" }, { "e" } },
+          lookups = { 1 }
+        }
+      }
+    }
+  }
+}
+
 \setmainfont{STIX Two Text}[
   Numbers = OldStyle,
   Ligatures = {TeX, Common},
   ContextualAlternates = On,
   Kerning = On,
   SmallCapsFeatures = {LetterSpace=3, Kerning=On},
+  BoldFeatures = {LetterSpace=1},
   StylisticSet = {1, 2},
+  RawFeature = {+customkerns,+rijkeliga}
 ]
 \setmathfont{STIX Two Math}
 
@@ -54,12 +98,15 @@ bibliography=totoc
   tracking=true,
   factor=1100,
   stretch=10,
-  shrink=10
+  shrink=0
 ]{microtype}
-\usepackage{selnolig}
+\usepackage[english]{selnolig}
 \usepackage{realscripts}
 \usepackage{impnattypo}
 \usepackage[balanced]{lua-widow-control}
+\usepackage{fnpct}
+
+\usepackage{lua-typo}
 
 \UseMicrotypeSet[protrusion]{basicmath}
 
@@ -333,6 +380,17 @@ bibliography=totoc
 \newenvironment{starter}
 {%
   \italicsubsection{Starter Exercises}%
+  \begin{exenum}
+  \setcounter{enumXi}{\value{currentchaptex}}
+}
+{%
+  \setcounter{currentchaptex}{\value{enumXi}}
+  \end{exenum}
+}
+
+\newenvironment{foundational}
+{%
+  \italicsubsection{Foundational Exercises}%
   \begin{exenum}
   \setcounter{enumXi}{\value{currentchaptex}}
 }
