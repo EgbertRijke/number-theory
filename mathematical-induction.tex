@@ -83,20 +83,27 @@ We are now in position to fully address \zcref{remark:alternative-iteration}.
   \end{equation*}
   By our definition of $f^n(x)$, we have that $f^1(x)=f(f^0(x))$, and we have $f^0(x)=x$, so that
   \begin{equation*}
-    f^1(x)=f(f^0(x))=f(x)=f^0(f(x)).
+    f^1(x)=f(f^0(x))=f(x).
   \end{equation*}
-  This proves the base case. In the inductive step, we assume as our inductive hypothesis that
+  Likewise, we have $f^0(f(x))=f(x)$. Therefore, it follows that both $f^1(x)=f(x)$ and $f^0(f(x))=f(x)$, which proves the base case.
+
+  In the inductive step, we assume as our inductive hypothesis that the equality
   \begin{equation*}
     f^{n+1}(x)=f^n(f(x))
   \end{equation*}
-  for every $x\in X$. Our goal is then to show that
+  holds for every $x\in X$. Our goal is then to show that
   \begin{equation*}
     f^{n+2}(x)=f^{n+1}(f(x)).
   \end{equation*}
-  Recall from the definition of iteration that $f^{n+2}(y)=f(f^{n+1}(y))$ for all $y\in X$. This, together with the induction hypothesis, allows us to complete the proof:
+  Recall from the definition of iteration that $f^{n+2}(x)=f(f^{n+1}(x))$. Since we have assumed as our inductive hypothesis that the equality $f^{n+1}(x)=f^n(f(x))$ holds, we can continue our calculation as follows:
   \begin{equation*}
-    f^{n+2}(x) = f(f^{n+1}(x)) = f(f^n(f(x)))=f^{n+1}(f(x)).\qedhere
+    f^{n+2}(x) = f(f^{n+1}(x)) = f(f^n(f(x))).
   \end{equation*}
+  To finish the proof, we note that $f^{n+1}(y)=f(f^n(y))$. Choosing $y:=f(x)$, we obtain that $f^{n+1}(f(x))=f(f^n(f(x)))$. Thus we have shown the two equalities
+  \begin{equation*}
+    f^{n+2}(x) = f(f^n(f(x))) \qquad\text{and}\qquad f^{n+1}(f(x)) = f(f^n(f(x))),
+  \end{equation*}
+  so the inductive step is complete.
 \end{proof}
 
 \section{Addition of Natural Numbers}
@@ -567,16 +574,9 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
       \sum_{k=0}^{n}F_{2k}=F_{2n+1}-1.
     \end{equation*}
   \end{subexenum}  
-  \exercise Just as in Hemachandra's counting problem, suppose we have a metre of $n$ beats composed of long (2 beats) and short syllables (1 beat). This time, the short syllables are distinguished between strong or soft beats. Write down the recursive formula for the number of rhythmic patterns of $n$ beats, and use it to determine the correct values for $1\leq n\leq 10$.
-  \exercise Gopa the grasshopper can jump either 5 or 8 steps. Find a recursive expression for the number of ways in which he can reach a spot $n$ steps away, without jumping backwards, and determine in how many ways can he reach his favorite spot, 29 steps away.
+  \exercise Just as in Hemachandra's counting problem, suppose we have a metre of $n$ beats composed of long ($2$ beats) and short syllables ($1$ beat). This time, the short syllables are distinguished between strong or soft beats. Write down the recursive formula for the number of rhythmic patterns of $n$ beats, and use it to determine the correct values for $1\leq n\leq 10$.
+  \exercise Gopa the grasshopper can jump either $5$ or $8$ steps. Find a recursive expression for the number of ways in which he can reach a spot $n$ steps away, without jumping backwards, and determine in how many ways can he reach his favorite spot, $29$ steps away.
 \end{starter}
-
-\begin{foundational}
-  \exercise Show that the function $x\mapsto x+n$ is \emph{injective}, meaning that the following implication holds:
-  \begin{equation*}
-    x+n=y+n\qquad\Rightarrow\qquad x=y.
-  \end{equation*}
-\end{foundational}
 
 \begin{routine}
   \exercise \label{exercise:difference-of-powers}
@@ -611,7 +611,7 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
       8T_n+1=(2n+1)^2.
     \end{equation*}
   \end{subexenum}
-  \exercise Write $T_n$ for the $n$\supth{} triangular number, and define the $n$\supth{} \emph{tetrahedral number} $S_n$ by
+  \exercise Write $T_n$ for the $n$\supth{} triangular number, and define the \define{$n$\supth{} tetrahedral number} $S_n$ by
   \begin{equation*}
     S_n:=\sum_{k=0}^nT_k.
   \end{equation*}
@@ -660,6 +660,29 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \end{equation*}
 \end{routine}
 
+\begin{foundational}
+  \exercise Consider a function $f:X \to X$. Show that for any $x\in X$ the following equality holds:
+  \begin{equation*}
+    f^n(f^m(x))=f^m(f^n(x)).
+  \end{equation*}
+  \exercise Consider a function $f:X \to X$. Show that for any $x\in X$, the following equality holds:
+  \begin{equation*}
+    f^{mn}(x)=(f^m)^n(x).
+  \end{equation*}
+  \exercise For any natural number $m$, consider the function
+  \begin{equation*}
+    I_m : (X\to X) \to (X\to X)
+  \end{equation*}
+  defined by $I_m(f):= f^m$. We can iterate this function too! Prove that for any function $f:X\to X$ and any $x\in X$, the following equality holds:
+  \begin{equation*}
+    f^{m^n}(x) = (I_m)^n(f)(x).
+  \end{equation*}
+  \exercise Show that the function $x\mapsto x+n$ is \define{injective}, meaning that the following implication holds:
+  \begin{equation*}
+    x+n=y+n\qquad\Rightarrow\qquad x=y.
+  \end{equation*}
+\end{foundational}
+
 \begin{challenge}
   \exercise
   \begin{subexenum}
@@ -687,11 +710,11 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
     b_n & := F_{n}^2 + F_{n+1}^2, \\
     c_n & := 3F_{n}F_{n+1}+(-1)^{n}.
   \end{align*}
-  Show that $(a_n^2,b_n^2,c_n^2)$ is an arithmetic progression of squares; that is, show that
+  Show that $(a_n^2,b_n^2,c_n^2)$ is an \define{arithmetic progression of squares}; that is, show that
   \begin{equation*}
     b_n^2-a_n^2=c_n^2-b_n^2.
   \end{equation*}
-  \exercise A $3$-term arithmetic progression $(a,b,c)$ is a triple of numbers $a\leq b\leq c$ with common increment, so that $b-a=c-b$. Show that every 3-term arithmetic progression of distinct positive Fibonacci numbers is of the form
+  \exercise A \define{$3$-term arithmetic progression} $(a,b,c)$ is a triple of numbers $a\leq b\leq c$ with common increment, so that $b-a=c-b$. Show that every 3-term arithmetic progression of distinct positive Fibonacci numbers is of the form
   \begin{equation*}
     (F_n,F_{n+2},F_{n+3}).
   \end{equation*}
