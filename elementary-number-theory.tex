@@ -223,6 +223,7 @@ bibliography=totoc
 \usepackage{float}
 
 \usepackage{graphicx}
+\usepackage{svg}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{grayblue}{HTML}{0047AB}
 \usepackage{tikz}
@@ -524,6 +525,9 @@ bibliography=totoc
 
 \newcommand{\superhuge}{\fontsize{30}{36}\selectfont}
 
+\definecolor{JHUBlue}{HTML}{002D72}
+\definecolor{JHUSpiritBlue}{HTML}{68ACE5}
+
 \begin{document}
 
 \pagestyle{empty}
@@ -531,10 +535,10 @@ bibliography=totoc
 \begingroup
 \begin{titlepage}
   \begin{center}
-    {\Huge\textsc{Johns Hopkins University}\par}
-    \vspace*{\stretch{1}}
-    {\LARGE Math 304\par}
-    \vspace*{\stretch{1}}
+    \color{JHUBlue}
+    \vspace*{-2.5cm}
+    \includesvg[width=0.7\textwidth]{jhulogo.svg}\\
+    \vspace*{1cm}
     {\Huge\textbf{Egbert Rijke}\par}
     \vspace*{\stretch{1}}
     \begin{center}
@@ -558,7 +562,7 @@ bibliography=totoc
       \draw[fill=white,very thick] (P2) circle (.5pt);
       \draw[fill=white,very thick] (P3) circle (.5pt); 
       \draw[fill=white,very thick] (P4) circle (.5pt);
-      \draw[fill=black,very thick] (1,0) circle (.5pt);
+      \draw[fill=JHUBlue,very thick] (1,0) circle (.5pt);
     \end{tikzpicture}
     \end{center}
     \vspace*{\stretch{1}}
@@ -567,6 +571,47 @@ bibliography=totoc
     {\Large\textit{\Version{0}}}
   \end{center}
 \end{titlepage}
+
+%%%% No Logo Version
+%
+% \begin{titlepage}
+%   \begin{center}
+%     {\Huge\textsc{Johns Hopkins University}\par}
+%     \vspace*{\stretch{1}}
+%     {\LARGE Math 304\par}
+%     \vspace*{\stretch{1}}
+%     {\Huge\textbf{Egbert Rijke}\par}
+%     \vspace*{\stretch{1}}
+%     \begin{center}
+%     \begin{tikzpicture}[scale=4]
+%       \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
+%       \draw[ultra thick] (0,0) circle (1);
+%       \coordinate (P1) at ({117/125},{44/125});
+%       \coordinate (P2) at ({45/53},{-28/53});
+%       \coordinate (P3) at ({5/13},{12/13});
+%       \coordinate (P4) at ({-3/5},{4/5});
+
+%       \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
+%       \draw[CornflowerBlue,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
+%       \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
+%       \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
+%       \draw[Green,ultra thick,dashed] (1,1) -- (P3);
+%       \draw[Green,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
+%       \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
+%       \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
+%       \draw[fill=white,very thick] (P1) circle (.5pt);
+%       \draw[fill=white,very thick] (P2) circle (.5pt);
+%       \draw[fill=white,very thick] (P3) circle (.5pt); 
+%       \draw[fill=white,very thick] (P4) circle (.5pt);
+%       \draw[fill=black,very thick] (1,0) circle (.5pt);
+%     \end{tikzpicture}
+%     \end{center}
+%     \vspace*{\stretch{1}}
+%     {\superhuge \textbf{Number Theory For All}\par}
+%     \vspace*{\stretch{2}}
+%     {\Large\textit{\Version{0}}}
+%   \end{center}
+% \end{titlepage}
 \endgroup
 
 \cleardoublepage
@@ -719,4 +764,5 @@ bibliography=totoc
 
 %%% Local Variables:
 %%% TeX-engine: luatex
+%%% TeX-command-extra-options: "-shell-escape"
 %%% End:
