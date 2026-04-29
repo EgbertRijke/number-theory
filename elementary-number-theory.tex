@@ -97,10 +97,12 @@ bibliography=totoc
   Ligatures = {TeX, Common},
   ContextualAlternates = On,
   Kerning = On,
-  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
-  BoldFeatures = {LetterSpace=1},
   StylisticSet = {1, 2},
-  RawFeature = {+customkerns,+rijkeliga}
+  RawFeature = {+customkerns,+rijkeliga},
+  ItalicFeatures = {RawFeature={+customkerns}},
+  BoldFeatures = {LetterSpace=1,RawFeature={+customkerns}},
+  BoldItalicFeatures = {LetterSpace=1,RawFeature={+customkerns}},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
 ]
 \setmathfont{STIX Two Math}
 
