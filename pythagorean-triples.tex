@@ -22,28 +22,23 @@ Recall that a right triangle is a triangle in which one of the angles is a right
   \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale=.7,thick,line join=round]
-      % Define points of the outer square
       \coordinate (A) at (0,0);
       \coordinate (B) at (5,0);
       \coordinate (C) at (5,5);
       \coordinate (D) at (0,5);
       
-      % Define points of the inner square
       \coordinate (E) at (2,0);
       \coordinate (F) at (5,2);
       \coordinate (G) at (3,5);
       \coordinate (H) at (0,3);
       
-      % Draw the outer square
       \draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
       
-      % Draw the four right triangles
       \draw (A) -- node[below] {$a$} (E) -- (H) -- node[left] {$b$} cycle;
       \draw (E) -- node[below] {$b$} (B) -- node[right] {$a$} (F) -- cycle;
       \draw (F) -- node[right] {$b$} (C) -- node[above] {$a$} (G) -- cycle;
       \draw (G) -- node[above] {$b$} (D) -- node[left] {$a$} (H) -- cycle;
       
-      % Draw the inner square
       \draw[line join=bevel] (E) -- node[midway,above] {$c$} (F) -- node[midway,left] {$c$} (G) -- node[midway,below] {$c$} (H) -- node[midway,right] {$c$} cycle;
     \end{tikzpicture}
   \end{figure}
@@ -83,7 +78,6 @@ Recall that a right triangle is a triangle in which one of the angles is a right
       \path (B) -- (C) node[midway, above right] {$a$};
       \path (A) -- (C) node[midway, above left] {$b$};
       
-      % Add a brace for the entire segment AB
       \draw[decorate, decoration={brace, amplitude=3pt, mirror}]
       ($(A)+(0,-5)$) -- ($(B)+(0,-5)$) node[midway, yshift=-3mm] {$c$};
     \end{tikzpicture}
@@ -100,14 +94,12 @@ Our third proof and final proof in this section, which is due to Ne'Kiya Jackson
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
-    % Draw the triangle
     \coordinate (A) at (0,0);
     \coordinate (B) at (4,3);
     \coordinate (C) at (4,0);
     
     \draw[thick] (A) -- (C) node[midway, below] {$\cos(\theta)$} -- (B) node[midway, right] {$\sin(\theta)$} -- cycle node[midway, above] {$1$};
     
-    % Mark right angle
     \draw (4,0) -- ++(-0.4,0) -- ++(0,0.4) -- ++(0.4,0);
 
     \draw pic[draw=black, angle radius=15,"$\theta$" {xshift=13,yshift=4}] {angle=C--A--B};
@@ -252,12 +244,10 @@ where $c$ is a nonzero integer. By \zcrefnamed{theorem:pythagorean-theorem}, any
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[scale=.7,line join=round,line cap=round]
-    % Draw the triangle
     \draw[thick] (0,0) -- (4,0) node[midway, below] {$4$};
     \draw[thick] (4,0) -- (4,3) node[midway, right] {$3$};
     \draw[thick] (4,3) -- (0,0) node[midway, above] {$5$};
     
-    % Mark right angle
     \draw (4,0) -- ++(-0.4,0) -- ++(0,0.4) -- ++(0.4,0);
   \end{tikzpicture}
 \end{figure}
@@ -436,26 +426,19 @@ which satisfies $(\tfrac{a}{c})^2+(\tfrac{b}{c})^2=(a^2+b^2)/c^2= 1$. Thus we se
 \begin{figure}[t]
   \begin{center}
     \begin{tikzpicture}[scale=4]
-      % Draw the grid with spacing 0.2, extending 0.1 beyond the square
       \draw[gray,very thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
       
-      % Draw the thick black circle
       \draw[very thick] (0,0) circle (1);
       
-      % Draw the x and y axes as arrows
       \draw[->] (-1.2,0) -- (1.2,0) node[right] {\(x\)};
       \draw[->] (0,-1.2) -- (0,1.2) node[above] {\(y\)};
       
-      % Coordinates for the node
       \coordinate (P1) at (-1,0);
       \coordinate (P2) at ({5/13},{12/13});
       \coordinate (P3) at ({-2/5},{2/5});
     
-      
-      % Draw the line from (1,1) through the node
       \draw[CornflowerBlue,very thick,->,shorten >=.5ex] (P1) -- (P2);
       
-      % Draw the node
       \draw[fill=black,thick] (P1) circle (.5pt) node[rounded corners=2pt,fill=white,below,inner sep=1pt,yshift=-1ex] {$\textstyle{(-1,0)}$};
       \draw[fill=white,thick] (P2) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=.8ex,yshift=2ex] {\(\left(\tfrac{1-m^2}{1+m^2},\tfrac{2m}{1+m^2}\right)\)};
 
@@ -583,37 +566,29 @@ To rediscover Berggren's matrices and his ternary tree, we will use the techniqu
 \begin{figure}[t]
   \begin{center}
     \begin{tikzpicture}[scale=4]
-      % Draw the grid with spacing 0.2, extending 0.1 beyond the square
       \draw[gray,very thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
       
-      % Draw the thick black square
       \draw[thick,Gray] (-1,-1) rectangle (1,1);
       
-      % Draw the thick black circle
       \draw[very thick] (0,0) circle (1);
       
-      % Draw the x and y axes as arrows
       \draw[->] (-1.2,0) -- (1.2,0) node[right] {\(x\)};
       \draw[->] (0,-1.2) -- (0,1.2) node[above] {\(y\)};
       
-      % Coordinates for the node
       \coordinate (P1) at ({117/125},{44/125});
       \coordinate (P2) at ({45/53},{-28/53});
       \coordinate (P3) at ({5/13},{12/13});
       \coordinate (P4) at ({-3/5},{4/5});
     
+      \draw[DarkOrchid,very thick,dashed] (1,1) -- (P1);
+      \draw[DarkOrchid,very thick,->,shorten >=2ex] (P1) -- (P2);
+      \draw[Green,very thick,dashed] (1,-1) -- (P2);
+      \draw[Green,very thick,->,shorten >=0.8ex] (P2) -- (P3);
+      \draw[YellowOrange,very thick,dashed] (1,1) -- (P3);
+      \draw[YellowOrange,very thick,->,shorten >=1.5ex] (P3) -- (P4);
+      \draw[CornflowerBlue,very thick,dashed] (-1,1) -- (P4);
+      \draw[CornflowerBlue,very thick,->,shorten >=0.8ex] (P4) -- (1,0);
       
-      % Draw the line from (1,1) through the node
-      \draw[CornflowerBlue,very thick,dashed] (1,1) -- (P1);
-      \draw[CornflowerBlue,very thick,->,shorten >=2ex] (P1) -- (P2);
-      \draw[YellowOrange,very thick,dashed] (1,-1) -- (P2);
-      \draw[YellowOrange,very thick,->,shorten >=0.8ex] (P2) -- (P3);
-      \draw[Green,very thick,dashed] (1,1) -- (P3);
-      \draw[Green,very thick,->,shorten >=1.5ex] (P3) -- (P4);
-      \draw[DarkOrchid,very thick,dashed] (-1,1) -- (P4);
-      \draw[DarkOrchid,very thick,->,shorten >=0.8ex] (P4) -- (1,0);
-      
-      % Draw the node
       \draw[fill=white,thick] (P1) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1ex] {\(\left(\frac{117}{125}, \frac{44}{125}\right)\)};
       \draw[fill=white,thick] (P2) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1.2ex,yshift=-1pt] {\(\left(\frac{45}{53},\frac{-28}{53}\right)\)};
       \draw[fill=white,thick] (P3) circle (.5pt) node[rounded corners=2pt,above,fill=white, inner sep=1pt,yshift=1.4ex] {\(\left(\frac{5}{13},\frac{12}{13}\right)\)}; 
@@ -747,10 +722,10 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   \begingroup
 
   \tikzset{
-    treenode/.style={circle,draw,thick,inner sep=1.5pt}, % open circles in black
+    treenode/.style={circle,draw,thick,inner sep=1.5pt},
     tree/.style={
-      grow=up,                     % roots at bottom, grow upwards
-      level distance=10mm,         % vertical distance between heights
+      grow=up,
+      level distance=10mm,
       edge from parent/.style={draw,thick,<-,shorten <= 2pt, shorten >= 2pt},
       every node/.style={treenode}
     }
@@ -764,7 +739,6 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
 
   \begin{tikzpicture}
     
-    % Tree 1 (left)
     \DrawRootedTree[xshift=-4cm]{%
       child { node {}
         child { node {} }
@@ -773,7 +747,6 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
       child { node {} }
     }
     
-    % Tree 2 (center)
     \DrawRootedTree{%
       child { node {}
         child { node {} }
@@ -783,12 +756,11 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
       }
     }
     
-    % Tree 3 (right)
     \DrawRootedTree[xshift=4cm]{%
       child { node {}
         child { node {} }
       }
-      child[missing] % small asymmetry so the right subtree has room
+      child[missing]
       child { node {}
         child { node {} }
         child { node {} }
@@ -812,20 +784,15 @@ Given a forest $F$, an element $x\in F$ is called a \define{node}; a node $x$ of
 \begin{figure}[t]
   \begin{center}
     \begin{tikzpicture}[scale=4]
-      % Draw the grid with spacing 0.2, extending 0.1 beyond the square
       \draw[gray,very thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
       
-      % Draw the thick black square
       \draw[thick,Gray] (-1,-1) rectangle (1,1);
       
-      % Draw the thick black circle
       \draw[very thick] (0,0) circle (1);
       
-      % Draw the x and y axes as arrows
       \draw[->] (-1.2,0) -- (1.2,0) node[right] {\(x\)};
       \draw[->] (0,-1.2) -- (0,1.2) node[above] {\(y\)};
       
-      % Coordinates for the node
       \coordinate (P1) at ({117/125},{44/125});
       \coordinate (P2) at ({45/53},{-28/53});
       \coordinate (P3) at ({5/13},{12/13});
@@ -834,22 +801,19 @@ Given a forest $F$, an element $x\in F$ is called a \define{node}; a node $x$ of
       \coordinate (P12) at ({-207/305},{224/305});
       \coordinate (P13) at ({-95/193},{-168/193});
     
+      \draw[DarkOrchid,very thick,dashed] (1,1) -- (P1);
+      \draw[DarkOrchid,very thick,->,shorten >=2ex] (P1) -- (P2);
+      \draw[Green,very thick,dashed] (1,-1) -- (P2);
+      \draw[Green,very thick,->,shorten >=0.8ex] (P2) -- (P3);
+      \draw[YellowOrange,very thick,dashed] (1,1) -- (P3);
+      \draw[YellowOrange,very thick,->,shorten >=1.5ex] (P3) -- (P4);
+      \draw[CornflowerBlue,very thick,dashed] (-1,1) -- (P4);
+      \draw[CornflowerBlue,very thick,->,shorten >=0.8ex] (P4) -- (1,0);
+      \draw[DarkOrchid,very thick,dashed] (-1,1) -- (P12);
+      \draw[DarkOrchid,very thick,dashed] (-1,-1) -- (P13);
+      \draw[DarkOrchid,very thick,->,shorten >=2ex] (P12) -- (P2);
+      \draw[DarkOrchid,very thick,->,shorten >=2ex] (P13) -- (P2);
       
-      % Draw the line from (1,1) through the node
-      \draw[CornflowerBlue,very thick,dashed] (1,1) -- (P1);
-      \draw[CornflowerBlue,very thick,->,shorten >=2ex] (P1) -- (P2);
-      \draw[YellowOrange,very thick,dashed] (1,-1) -- (P2);
-      \draw[YellowOrange,very thick,->,shorten >=0.8ex] (P2) -- (P3);
-      \draw[Green,very thick,dashed] (1,1) -- (P3);
-      \draw[Green,very thick,->,shorten >=1.5ex] (P3) -- (P4);
-      \draw[DarkOrchid,very thick,dashed] (-1,1) -- (P4);
-      \draw[DarkOrchid,very thick,->,shorten >=0.8ex] (P4) -- (1,0);
-      \draw[CornflowerBlue,very thick,dashed] (-1,1) -- (P12);
-      \draw[CornflowerBlue,very thick,dashed] (-1,-1) -- (P13);
-      \draw[CornflowerBlue,very thick,->,shorten >=2ex] (P12) -- (P2);
-      \draw[CornflowerBlue,very thick,->,shorten >=2ex] (P13) -- (P2);
-      
-      % Draw the node
       \draw[fill=white,thick] (P1) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1ex] {\(\left(\frac{117}{125}, \frac{44}{125}\right)\)};
       \draw[fill=white,thick] (P2) circle (.5pt) node[rounded corners=2pt,right,fill=white, inner sep=1pt,xshift=1.2ex,yshift=-1pt] {\(\left(\frac{45}{53},\frac{-28}{53}\right)\)};
       \draw[fill=white,thick] (P3) circle (.5pt); 
@@ -857,7 +821,6 @@ Given a forest $F$, an element $x\in F$ is called a \define{node}; a node $x$ of
       \draw[fill=black,thick] (1,0) circle (.5pt);
       \draw[fill=white,thick] (P12) circle (.5pt) node[rounded corners=2pt,left,fill=white, inner sep=1pt,xshift=-1ex,yshift=-3ex] {\(\left(\frac{-207}{305}, \frac{224}{305}\right)\)};
       \draw[fill=white,thick] (P13) circle (.5pt) node[rounded corners=2pt,above,fill=white, inner sep=1pt,yshift=2ex] {\(\left(\frac{-95}{193}, \frac{-168}{193}\right)\)};
-      
     \end{tikzpicture}
   \end{center}
   \caption[The forest of rational points on the unit circle]{Each rational point on the unit circle other than $(\pm 1,0)$ or $(0,\pm 1)$ is the target of a Vieta jump from three rational points on the unit circle with larger common denominator, one for each quadrant other than its own. Here, the purple, green, and orange jumps are drawn exactly as in \zcref{figure:vieta-jumps-pythagorean-triples}. The point $(\tfrac{45}{53},\tfrac{-28}{53})$ is the target of three jumps, each drawn in blue. Since each rational point is the target of three Vieta jumps that decrease the common denominator, we see that the rational points on the unit circle can be organized in a forest consisting of four trees, where the four nodes at height $0$ are the points $(\pm 1,0)$ and $(0,\pm 1)$.}
@@ -952,7 +915,7 @@ By \zcrefnamed{theorem:pythagorean-descent} it follows that all primitive Pythag
     edge from parent/.style={draw,black}
     ]
     \node {$(3,4,5)$}
-    child[edge from parent/.style={draw,Green,very thick}] {
+    child[edge from parent/.style={draw,YellowOrange,very thick}] {
       node {$(5,12,13)$}
       child[edge from parent/.style={draw,thin,black}] {
         node {$(7,24,25)$}
@@ -966,11 +929,11 @@ By \zcrefnamed{theorem:pythagorean-descent} it follows that all primitive Pythag
         child[edge from parent/.style={draw,thin,black}] {node {$(297,304,425)$}}
         child[edge from parent/.style={draw,thin,black}] {node {$(187,84,205)$}}
       }
-      child[edge from parent/.style={draw,YellowOrange,very thick}] {
+      child[edge from parent/.style={draw,Green,very thick}] {
         node {$(45,28,53)$}
-        child[edge from parent/.style={draw,CornflowerBlue,very thick}] {node {$(95,168,193)$}}
-        child[edge from parent/.style={draw,CornflowerBlue,very thick}] {node {$(207,224,305)$}}
-        child[edge from parent/.style={draw,CornflowerBlue,very thick}] {node {$(117,44,125)$}}
+        child[edge from parent/.style={draw,DarkOrchid,very thick}] {node {$(95,168,193)$}}
+        child[edge from parent/.style={draw,DarkOrchid,very thick}] {node {$(207,224,305)$}}
+        child[edge from parent/.style={draw,DarkOrchid,very thick}] {node {$(117,44,125)$}}
       }
     }
     child {
@@ -1016,7 +979,7 @@ By \zcrefnamed{theorem:pythagorean-descent} it follows that all primitive Pythag
       }
     };
   \end{tikzpicture}
-  \caption[The tree of primitive Pythagorean triples]{The tree of primitive Pythagorean triples. The edges that were drawn in green, orange, or blue in \zcref{figure:forest-rational-points-unit-circle} have been drawn here in the same color.}
+  \caption[The tree of primitive Pythagorean triples]{The tree of primitive Pythagorean triples. The edges that were drawn in orange, green, or purple in \zcref{figure:forest-rational-points-unit-circle} have been drawn here in the same color.}
   \label{figure:tree-of-pythagorean-triples}
 \end{figure}
 
@@ -1071,13 +1034,10 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
       \pgfmathtruncatemacro{\rmax}{9}
       \pgfmathtruncatemacro{\cwidth}{2*\rmax-1}
 
-      % Loop over rows
       \foreach \row in {1,...,\rmax} {%
         
-        % Vertical position
         \pgfmathsetmacro\y{(\row-1)*sqrt(3)/2}%
         
-        % Columns shrink by one each row up
         \pgfmathtruncatemacro\maxc{\cwidth-(\row-1)}%
 
         \foreach \col in {1,...,\maxc} {%
@@ -1094,7 +1054,6 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
             (nC\col R\row) at ({(\col-1)+(\row-1)/2},\y) {\nodeSum};%
         }%
           
-        % Edges connecting to the previous row
         \foreach \col in {1,...,\maxc} {
           \pgfmathtruncatemacro{\ncol}{\col+1}
           \pgfmathtruncatemacro{\prow}{\row-1}
@@ -1123,7 +1082,6 @@ We are thus looking for an arithmetic triple of squares, with a congruum of the 
         \fi
       }
       
-      % Background coloring
       \begin{scope}[on background layer]
         \fill[CornflowerBlue] (nC1R1) circle (3mm);
         \fill[YellowOrange] (nC2R1) circle (3mm);

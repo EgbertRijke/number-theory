@@ -1,0 +1,158 @@
+\chapter{Cyclic Counting and Prime Divisibility}
+
+In many cases, our main method to prove congruences is by algebraic manipulation. Here we introduce a new source of congruences: \emph{symmetry!}
+
+\section{Hemachandra's Counting Problem on Cycles}
+
+In \zcref{section:hemachandra} we considered the problem of counting the number $H_n$ of ways we can subdivide a strip of $n$ blocks into squares and dominoes. An equivalent formulation of this problem was stated \zcref{exercise:hemachandra-variant}, where the task was to find a recursive expression for the number $C_n$ of number of ways in which we could color some squares along a strip of length $n$ blue, so that no two blue squares are adjacent, to which the solution is that $C_n=H_{n+1}$. In this section, we consider a cyclic variant of these counting problems.
+
+\section{The Prime--Fixed Point Congruence}
+
+\begin{definition}
+  Consider a map $f:X \to X$. Then we define the set of \define{fixed points} of $f$ by
+  \begin{equation*}
+    \mathrm{Fix}(f):= \{x\in X\mid f(x)=x\}.
+  \end{equation*}
+\end{definition}
+
+\begin{corollary}
+  Consider a finite set $X$ and a map $f:X\to X$ such that $f^p(x)=x$ for all $x\in X$, where $p$ is a prime number. Let $N$ be the number of orbits of $f$. Then we have
+  \begin{equation*}
+    |X| \equiv |\mathrm{Fix}(f)| \pmod{p}.
+  \end{equation*}
+  In particular, if $|X| \nequiv 0\pmod{p}$ and $f^p(x)=x$ for all $x\in X$, then $f$ has a fixed point.
+\end{corollary}
+
+\begin{proof}
+  By \zcrefnamed{theorem:orbit-counting}, it follows that
+  \begin{equation*}
+    pN= |X| + \sum_{k=1}^{p-1}|\mathrm{Fix}(f^k)|.
+  \end{equation*}
+  Now observe that if $f^k(x)=x$ for some $1\leq k\leq p-1$, then we must have $f^t(x)=x$ for $t:=\gcd(k,p)$. Since $p$ is prime, this shows that $f(x)=x$. Thus, it follows that
+  \begin{equation*}
+    pN=|X| + (p-1) |\mathrm{Fix}(f)|,
+  \end{equation*}
+  and we conclude the statement of the theorem by reducing modulo $p$.
+\end{proof}
+
+\section{The Orbit--Counting Formula}
+
+\begin{definition}
+  Consider a finite set $X$ and a bijection $f:X\to X$. We say that two elements $x$ and $y$ of $X$ lie \define{in the same orbit} of $f$ if there exist a natural number $k$ such that
+  \begin{equation*}
+    f^k(x)=y.
+  \end{equation*}
+\end{definition}
+
+\begin{proposition}
+  The relation $x\sim y$ of lying in the same orbit of a bijection $f$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+  To see that the relation $\sim$ is reflexive, note that $f^0(x)=x$. To see that the relation $\sim$ is transitive, suppose that $f^k(x)=y$ and $f^l(y)=z$. Then it follows that $f^{k+l}(x)=z$.
+
+  The proof that the relation $\sim$ is symmetric is slightly more work. Let $k$ be the least natural number such that $f^k(x)=y$, and consider the infinite sequence
+  \begin{equation*}
+    x,~f(x),~f^2(x),~\ldots
+  \end{equation*}
+  Since the set $X$ is assumed to be finite, there must exist a least positive integer $m$ such that $f^m(x)=f^i(x)$ for some $0\leq i<m$. We claim that $i=0$. Indeed, if $0<i$, then the assumption that $f$ is a bijection implies the equation $f^{m-1}(x)=f^{i-1}(x)$, which contradicts the minimality of $m$. Thus the infinite sequence $(f^i(x))_{i\in\mathbb{N}}$ is periodic with period $m$. It follows that $k\leq m$, and that
+  \begin{equation*}
+    f^{m-k}(y)=f^{m-k}(f^k(x))=f^m(x)=x.
+  \end{equation*}
+
+  Then we have $f^l(y)=f^k(x)$, showing that $y\sim x$. Finally, to see that $\sim$ is transitive, suppose that $f^k(x)=f^l(y)$ and that $f^u(y)=f^v(z)$. Then we have
+  \begin{equation*}
+    f^{k+u}(x)=f^u(f^k(x))=f^u(f^l(y))=f^l(f^u(y))=f^l(f^v(z))=f^{l+v}(z).\qedhere
+  \end{equation*}
+\end{proof}
+
+Since the relation $\sim$ is an equivalence relation, it follows that the equivalence classes of the relation $\sim$ partition the set $X$. The equivalence classes of this relation are called \define{orbits}. Recall from \zcref{exercise:orbit-order-theorem} that
+\begin{equation*}
+  f^k(x)=x\qquad\Leftrightarrow\qquad d\mid k.
+\end{equation*}
+That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ is a multiple of the number of elements in the orbit of $x$. Fixed points play an essential role in the orbit--counting formula.
+
+\begin{definition}
+  Consider a map $f:X\to X$ on a finite set $X$. We write
+  \begin{equation*}
+    \nu_f(n):=|\mathrm{Fix}(f^n)|.
+  \end{equation*}
+\end{definition}
+
+The following theorem is a special case of a more general theorem of group theory, called \emph{Burnside's Lemma}.
+
+\begin{lemma}[The Orbit--Counting Formula]\label{theorem:orbit-counting}
+  Consider a finite set $X$ and a map $f:X\to X$ such that $f^n(x)=x$ for all $x\in X$. Let $N$ be the number of orbits of $f$. Then we have
+  \begin{equation*}
+    N=\frac{1}{n}\sum_{k=0}^{n-1}|\mathrm{Fix}(f^k)|.
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  We will prove the equation
+  \begin{equation*}
+    nN=\sum_{k=0}^{n-1}|\mathrm{Fix}(f^k)|.
+  \end{equation*}
+  Note that $\sum\nolimits_{k=0}^{n-1}|\mathrm{Fix}(f^k)|$ is the number of elements in the set
+  \begin{equation*}
+    A:=\{(k,x) \mid f^k(x)=x\}\subseteq \{0,\ldots,n-1\}\times X.
+  \end{equation*}
+  Now consider an orbit $T$ of size $t$. Then it follows for each $x\in T$ that $f^k(x)=x$ if and only if $k$ is a multiple of $t$. In other words, for each $x\in T$ we have
+  \begin{equation*}
+    (k,x)\in A \Leftrightarrow t \mid k.
+  \end{equation*}
+  It follows that the set $\{(k,x)\in A\mid x\in T\}$ has size $\frac{n}{t}t=n$, and we conclude that $|A|$ is $n$ times the number of orbits of $f$.
+\end{proof}
+
+\begin{theorem}
+    Consider a finite set $X$ and a map $f:X\to X$ such that $f^n(x)=x$ for all $x\in X$. Let $N$ be the number of orbits of $f$. Then we have
+  \begin{equation*}
+    N=\frac{1}{n}(\nu_f\ast \varphi)(n).
+  \end{equation*}
+\end{theorem}
+
+\section{Cyclic Integer Partitions}
+
+\section{Cyclic Lists}
+
+\section{Cyclic Trees}
+
+\begin{enumerate}
+\item Count the number of trivalent trees with $n$ cyclically ordered leaves.
+\item Count the number of rooted trivalent trees with $n$ cyclically ordered leaves.
+\item Count the number of triangulations of the regular $n$-gon up to rotation.
+\item Count the number of trees with $n$ cyclically ordered leaves, so that each node has degree $\geq 3$.
+\item Count the number of rooted trees with $n$ cyclically ordered leaves, so that each node has degree $\geq 3$.
+\item Count the number of bijections up to rotation on a cyclically ordered set with $n$ elements.
+\item Count the number of transitive bijections up to rotation on a cyclically ordered set with $n$ elements.
+\item Count, up to rotation, the number of functions $f:X\to X$ such that for each $x\in X$ the set $f^{-1}(x)$ is empty or has at least two elements, and the set $\{x\in X\mid f^{-1}(x)=\varnothing\}$ is cyclically ordered with $n$ elements.
+\item Count the number $B_n$ of $2$-colorings of a necklace with $n$ beads up to rotation. Say that a $3$-coloring of a necklace is \define{proper} of no two adjacent beads are of the same color. Count the number $C_n$ of proper $3$-colorings of a necklace with $n$ beads up to rotation. Show that
+  \begin{equation*}
+    C_n =
+    \begin{cases}
+      B_n & \text{if $n$ is even,}\\
+      B_n-2 & \text{if $n$ is odd.}
+    \end{cases}
+  \end{equation*}
+  Answer: $C_n=\sum_{d\mid n}\varphi(n/d)(2^d+2(-1)^d)$.
+\item Count the number of families of pairwise disjoint two-element subsets of beads of an $n$-cycle
+\end{enumerate}
+
+\exercises
+
+\begin{routine}
+  \exercise Consider a finite set $X$ and a map $f:X\to X$. We say that two elements $x$ and $y$ of $X$ lie \define{in the same orbit} of $f$ if there exist natural numbers $k$ and $l$ such that
+  \begin{equation*}
+    f^k(x)=f^l(y).
+  \end{equation*}
+  \begin{subexenum}
+  \item Show that the relation $\sim$ is an equivalence relation.
+  \end{subexenum}
+\end{routine}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "elementary-number-theory"
+%%% TeX-engine: luatex
+%%% End:
+

@@ -2,9 +2,8 @@
   lang        = en-US,
   pdfversion  = 2.0,
   pdfstandard = {ua-2,a-4f},
-  tagging     = off,
-%  testphase   = {bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem}
-%  testphase   = {phase-III,bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem},
+  tagging     = on,
+%  testphase   = {phase-III,bib,title,toc,math,amsthm,graphic,table,block,firstaid},
   uncompress
 }
 
@@ -15,13 +14,74 @@
   openright
 ]{book}
 
-%\tagpdfsetup{math/mathml/luamml/load=false}
+\tagpdfsetup{math/mathml/luamml/load=false}
 
 \setcounter{tocdepth}{2}
 
 \usepackage{fontspec}
 \usepackage{mathtools}
 \usepackage{unicode-math}
+
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "customkerns",
+    type = "kern",
+    data = {
+      ["a"] = { ["c"] = 10, ["q"] = 5, ["s"] = 10, ["u"] = -10, ["v"] = 20, ["w"] = 15},
+      ["b"] = { ["a"] = 15, ["b"] = 5, ["e"] = 20, ["i"] = 15, ["o"] = 15, ["r"] = 15, ["s"] = 30, ["u"] = 10, ["y"] = 20 },
+      ["c"] = { ["a"] = 20, ["c"] = 10, ["e"] = 10, ["z"] = 15 },
+      ["d"] = { ["g"] = 10, ["o"] = 5, ["s"] = 15, ["y"] = 10 },
+      ["e"] = { ["a"] = 10, ["c"] = 15, ["d"] = 15, ["e"] = 17, ["i"] = 10, ["o"] = 20, ["s"] = 15 , ["v"] = 20, ["w"] = 20, ["x"] = 25, ["y"] = 20},
+      ["f"] = { ["a"] = 20, ["e"] = 20, ["n"] = 40, ["o"] = 30, ["t"] = 50, ["u"] = 30, ["w"] = 80, ["y"] = 60 },
+      ["g"] = { ["a"] = 20, ["e"] = 10, ["g"] = 30, ["i"] = 10, ["o"] = 15, ["r"] = 25, ["s"] = 15, ["u"] = 20, ["y"] = 50 },
+      ["h"] = { ["e"] = -10 },
+      ["i"] = { ["c"] = 20, ["s"] = 10, ["x"] = 15 },
+      ["k"] = { ["y"] = 30 },
+      ["m"] = { ["o"] = 10, ["s"] = 20 },
+      ["n"] = { ["d"] = 10, ["e"] = -20, ["k"] = -10, ["t"] = -20, ["y"] = 15 },
+      ["o"] = { ["a"] = 15, ["c"] = 10, ["d"] = 15, ["g"] = 20, ["n"] = 5, ["o"] = 15, ["s"] = 15, ["t"] = 15, ["u"] = 20, ["x"] = 20 },
+      ["p"] = { ["a"] = 15, ["e"] = 20, ["i"] = 10, ["o"] = 20, ["s"] = 20},
+      ["q"] = { ["u"] = -5 },
+      ["r"] = { ["a"] = 25, ["b"] = 10, ["d"] = 20, ["e"] = 20, ["f"] = 20, ["i"] = 20, ["k"] = 15, ["n"] = 20, ["o"] = 10, ["r"] = 10, ["s"] = 25, ["u"] = 20, ["v"] = 50, ["y"] = 50 },
+      ["s"] = { ["c"] = 30, ["e"] = 20, ["k"] = 10, ["n"] = 10, ["p"] = 20, ["s"] = 20, ["t"] = 10, ["u"] = 20, ["w"] = 20 },
+      ["t"] = { ["b"] = 35, ["c"] = 15, ["e"] = 15, ["i"] = 20, ["o"] = 15, ["s"] = 20, ["u"] = 15, ["w"] = 30, ["y"] = 40, ["z"] = 15 },
+      ["u"] = { ["g"] = 10, ["x"] = 10 },
+      ["v"] = { ["a"] = 25, ["e"] = 20, ["i"] = 20, ["o"] = 20},
+      ["w"] = { ["a"] = 15, ["e"] = 20, ["i"] = 20, ["o"] = 20},
+      ["x"] = { ["a"] = 20, ["e"] = 15, ["i"] = 15,["t"] = 40, ["u"] = 10 },
+      ["y"] = { ["a"] = 20, ["e"] = 20, ["i"] = 30, ["m"] = 10, ["n"] = 10, ["o"] = 10, ["p"] = 30, ["s"] = 20, ["t"] = 20 },
+      ["z"] = { ["e"] = 15, ["i"] = 20, ["u"] = 10, ["y"] = 30, ["z"] = 10 },
+      ["P"] = { ["a"] = 10, ["y"] = 30 },
+      ["S"] = { ["e"] = 20 },
+      ["T"] = { ["a"] = 10, ["w"] = 100, ["y"] = 100},
+    }
+  }
+}
+
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "rijkeliga",
+    type = "chainsubstitution",
+    lookups = {
+      {
+        type = "ligature",
+        data = {
+          ["ĳ"] = { "i", "j" },
+        }
+      }
+    },
+    data = {
+      rules = {
+        {
+          before  = { { "R" } },
+          current = { { "i" }, { "j" } },
+          after   = { { "k" }, { "e" } },
+          lookups = { 1 }
+        }
+      }
+    }
+  }
+}
 
 \setmainfont{STIX Two Text}[
   Numbers = OldStyle,
@@ -30,6 +90,11 @@
   Kerning = On,
   SmallCapsFeatures = {LetterSpace=3, Kerning=On},
   StylisticSet = {1, 2},
+  RawFeature = {+customkerns,+rijkeliga},
+  ItalicFeatures = {RawFeature={+customkerns}},
+  BoldFeatures = {LetterSpace=1,RawFeature={+customkerns}},
+  BoldItalicFeatures = {LetterSpace=1,RawFeature={+customkerns}},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
 ]
 \setmathfont{STIX Two Math}
 
@@ -38,7 +103,7 @@
 \newcommand{\suprd}{\textsuperscript{rd}}
 \newcommand{\supth}{\textsuperscript{th}}
 
-\linespread{1.05}
+\linespread{1.12}
 
 \usepackage[
   activate={true,nocompatibility},
@@ -54,6 +119,8 @@
 \usepackage{realscripts}
 \usepackage{impnattypo}
 \usepackage[balanced]{lua-widow-control}
+\usepackage{fnpct}
+\usepackage{lua-typo}
 
 \frenchspacing
 \emergencystretch=1.5em
@@ -73,6 +140,46 @@
 \usepackage[autostyle=true,strict=true]{csquotes}
 \MakeOuterQuote{"}
 
+% \makeatletter
+% \def\@makechapterhead#1{%
+%   \vspace*{0.1\textheight}% Space above
+%   \tagpdfparaOff
+%   \leavevmode % Start paragraph tracking safely outside the group
+%   \begingroup
+%   \parindent \z@ \raggedright \normalfont
+
+%   \ifnum \c@secnumdepth >\m@ne
+%     \if@mainmatter
+%       \Large\lsstyle\scshape\mdseries \@chapapp\space \thechapter
+%       \endgroup\par\nobreak % Close group and end paragraph 1
+%       \vskip 20\p@ % Space between "Chapter X" and the title
+%       \leavevmode\begingroup % Start paragraph 2 and reopen group
+%       \parindent \z@ \raggedright \normalfont
+%     \fi
+%   \fi
+%   \interlinepenalty\@M
+%   \Huge \bfseries #1%
+%   \endgroup
+%   \par\nobreak % End paragraph safely outside the group
+%   \tagpdfparaOn
+%   \vspace*{0.2\textheight}% Space below
+% }
+
+% \def\@makeschapterhead#1{% For unnumbered chapters (like Introduction)
+%   \vspace*{0.1\textheight}%
+%   \tagpdfparaOff
+%   \leavevmode % Start paragraph tracking safely outside the group
+%   \begingroup
+%   \parindent \z@ \raggedright \normalfont
+%   \interlinepenalty\@M
+%   \Huge \bfseries #1%
+%   \endgroup
+%   \par\nobreak % End paragraph safely outside the group
+%   \tagpdfparaOn
+%   \vspace*{0.2\textheight}%
+% }
+% \makeatother
+
 \newcommand{\italicsubsection}[1]{%
   \subsection*{\mdseries\itshape #1}%
 }
@@ -87,9 +194,9 @@
 
 \usepackage{fancyhdr}
 \fancyhf{}
-\fancyhead[LE,RO]{\itshape\thepage}
-\fancyhead[RE]{\itshape\nouppercase{\leftmark}}
-\fancyhead[LO]{\itshape\nouppercase{\rightmark}}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\itshape{\leftmark}}
+\fancyhead[LO]{\itshape{\rightmark}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \pagestyle{fancy}
@@ -103,16 +210,9 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 
-\makeatletter
-
-% Running heads: emulate KOMA's automark feel.
-% \renewcommand{\chaptermark}[1]{%
-%   \markboth{\textsc{\chaptername~\thechapter}\enskip #1}{}%
-% }
-% \renewcommand{\sectionmark}[1]{%
-%   \markright{\thesection\enskip #1}%
-% }
-\makeatother
+\renewcommand{\chaptermark}[1]{%
+  \markboth{\textsc{\chaptername~\thechapter}\enskip #1}{}%
+}
 
 \usepackage{calc}
 \usepackage{totcount}
@@ -286,7 +386,6 @@
   pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, Zsigmondy's theorem, Vantieghem's theorem, quadratic residues, quadratic reciprocity, quadratic fields}
 }
 
-\usepackage{zref-titleref}
 \usepackage{zref-clever}
 
 \zcsetup{
@@ -295,7 +394,7 @@
   nameinlink,
 }
 
-\newcommand{\zcrefnamed}[1]{\zcref{#1}\space(\ztitleref{#1})}
+\newcommand{\zcrefnamed}[1]{\zcref{#1}\space(\nameref{#1})}
 
 \zcRefTypeSetup{enumXi}{Name-sg = Exercise, Name-pl = Exercises}
 \zcRefTypeSetup{enumXii}{Name-sg = Exercise, Name-pl = Exercises}
@@ -337,6 +436,17 @@
 \newenvironment{starter}
 {%
   \italicsubsection{Starter Exercises}%
+  \begin{exenum}
+  \setcounter{enumXi}{\value{currentchaptex}}
+}
+{%
+  \setcounter{currentchaptex}{\value{enumXi}}
+  \end{exenum}
+}
+
+\newenvironment{foundational}
+{%
+  \italicsubsection{Foundational Exercises}%
   \begin{exenum}
   \setcounter{enumXi}{\value{currentchaptex}}
 }
@@ -428,19 +538,19 @@
 \newcommand{\totient}{\DeclareSemanticSymbol{\phi}{totient}}
 
 \newif\ifshownotes
-\shownotestrue
-% \shownotesfalse
+% \shownotestrue
+\shownotesfalse
 
 \usepackage{environ}
 \NewEnviron{noteblock}{%
   \ifshownotes
-    \begingroup\color{black!60}\BODY\endgroup
+    \par\color{black!60}\BODY\par\color{black}%
   \fi
 }
 
 \newcommand{\note}[1]{%
   \ifshownotes
-    \begingroup\color{black!60}#1\endgroup
+    \par\color{black!60}#1\par\color{black}%
   \fi
 }
 
@@ -453,8 +563,7 @@
 
 \pagestyle{empty}
 
-\begingroup
-\begin{titlepage}
+\tagpdfparaOff
   \begin{center}
     {\Huge\textsc{Johns Hopkins University}\par}
     \vspace*{\stretch{1}}
@@ -491,8 +600,7 @@
     \vspace*{\stretch{2}}
     {\Large\textit{\Version{0}}}
   \end{center}
-\end{titlepage}
-\endgroup
+\tagpdfparaOn
 
 \cleardoublepage
 
@@ -522,83 +630,83 @@
 
 \input{mathematical-induction}
 
-\input{counting}
+% \input{counting}
 
-\input{integers}
+% \input{integers}
 
-\input{euclidean-division}
+% \input{euclidean-division}
 
-\input{linear-diophantine-equations}
+% \input{linear-diophantine-equations}
 
-\input{congruences}
+% \input{congruences}
 
-\input{systems-of-linear-congruences}
+% \input{systems-of-linear-congruences}
 
-\input{rational-numbers}
+% \input{rational-numbers}
 
-\input{pythagorean-triples}
+% \input{pythagorean-triples}
 
-\input{infinite-descent}
+% \input{infinite-descent}
 
-\part{The Multiplicative Nature of Numbers}
+% \part{The Multiplicative Nature of Numbers}
 
-\input{prime-numbers}
+% \input{prime-numbers}
 
-\input{multiplicative-functions}
+% \input{multiplicative-functions}
 
-\input{strong-divisibility-sequences}
+% \input{strong-divisibility-sequences}
 
-\input{fermats-little-theorem}
+% \input{fermats-little-theorem}
 
-\input{sums-of-squares}
+% \input{sums-of-squares}
 
-\input{gaussian-integers}
+% \input{gaussian-integers}
 
-\input{polynomials}
+% \input{polynomials}
 
-\input{primitive-roots}
+% \input{primitive-roots}
 
-\input{moduli-with-primitive-roots}
+% \input{moduli-with-primitive-roots}
 
-\input{polynomial-congruences}
+% \input{polynomial-congruences}
 
-\input{irreducible-polynomials}
+% \input{irreducible-polynomials}
 
-\input{cyclotomic-polynomials}
+% \input{cyclotomic-polynomials}
 
-\input{aurifeuillean-factorizations}
+% \input{aurifeuillean-factorizations}
 
-\part{The Arithmetic of Quadratic Forms}
+% \part{The Arithmetic of Quadratic Forms}
 
-\input{quadratic-residues}
+% \input{quadratic-residues}
 
-\note{\input{permutations}}
+% \note{\input{permutations}}
 
-\note{\input{quadratic-characters}}
+% \note{\input{quadratic-characters}}
 
-\input{quadratic-reciprocity}
+% \input{quadratic-reciprocity}
 
-\note{\input{jacobi-symbols}}
+% \note{\input{jacobi-symbols}}
 
-\note{\input{primality-testing}}
+% \note{\input{primality-testing}}
 
-\note{\input{pells-equation}}
+% \note{\input{pells-equation}}
 
-\note{\input{binary-quadratic-forms}}
+% \note{\input{binary-quadratic-forms}}
 
-\note{\input{quadratic-fields}}
+% \note{\input{quadratic-fields}}
 
-\note{\input{conics}}
+% \note{\input{conics}}
 
-\note{\input{polygonal-numbers}}
+% \note{\input{polygonal-numbers}}
 
-% \note{\part{Multiplicative Number Theory}}
+% % \note{\part{Multiplicative Number Theory}}
 
-% \note{\input{dirichlet-series}}
+% % \note{\input{dirichlet-series}}
 
-% \note{\input{distribution-of-primes}}
+% % \note{\input{distribution-of-primes}}
 
-% \note{\input{prime-partition-function}}
+% % \note{\input{prime-partition-function}}
 
 % % \part{Additive Number Theory}
 % % \part{Algebraic Number Theory}
@@ -613,23 +721,23 @@
 % % \part{\texorpdfstring{$p$}{p}-Adic Analysis}
 % % \part{The Langlands Program}
 
-% \note{\input{real-numbers}}
+% % \note{\input{real-numbers}}
 
-% \note{\input{geometric-number-theory}}
+% % \note{\input{geometric-number-theory}}
 
-% \note{\input{fermats-last-theorem}}
+% % \note{\input{fermats-last-theorem}}
 
-% \note{\input{bernoulli-numbers}}
+% % \note{\input{bernoulli-numbers}}
 
-% \note{\input{origami}}
+% % \note{\input{origami}}
 
-% \note{\input{miscellaneous}}
+% % \note{\input{miscellaneous}}
 
 % \part{Topics}
 
-\appendix
+% \appendix
 
-\input{open-problems}
+% \input{open-problems}
 
 \backmatter
 

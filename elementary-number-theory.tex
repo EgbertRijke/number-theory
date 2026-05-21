@@ -105,13 +105,14 @@ bibliography=totoc
   SmallCapsFeatures = {LetterSpace=2, Kerning=On},
 ]
 \setmathfont{STIX Two Math}
+\newcommand{\otfrac}[2]{#1/#2}
 
 \newcommand{\supst}{\textsuperscript{st}}
 \newcommand{\supnd}{\textsuperscript{nd}}
 \newcommand{\suprd}{\textsuperscript{rd}}
 \newcommand{\supth}{\textsuperscript{th}}
 
-\linespread{1.05}
+\linespread{1.12}
 
 \usepackage[
   activate={true,nocompatibility},
@@ -220,10 +221,13 @@ bibliography=totoc
 \usepackage{caption}
 \usepackage{subcaption}
 \captionsetup{font=small}
+\captionsetup[subfigure]{
+  labelformat=parens,
+  labelsep=none,
+}
 \usepackage{float}
 
 \usepackage{graphicx}
-\usepackage{svg}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{grayblue}{HTML}{0047AB}
 \usepackage{tikz}
@@ -343,6 +347,7 @@ bibliography=totoc
   allcolors=CornflowerBlue,
   hypertexnames=false,
   pdftitle    = {Number Theory For All},
+  pageanchor=false,
   % Elementary Number Theory
   % Number Theory: A Narrative
   % Number Theory For All
@@ -532,13 +537,59 @@ bibliography=totoc
 
 \pagestyle{empty}
 
-\begingroup
+% \begingroup
+%   \centering
+%   \color{JHUBlue}
+
+%   \vspace{-1cm}
+%   \includegraphics[width=0.5\textwidth]{jhulogo-cropped.pdf}\par
+  
+%   \vspace*{.5cm}
+%   {\Huge\textbf{Egbert Rijke}\par}
+%   \vspace*{.3cm}
+  
+%   \begin{tikzpicture}[scale=4]
+%     \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
+%     \draw[ultra thick] (0,0) circle (1);
+%     \coordinate (P1) at ({117/125},{44/125});
+%     \coordinate (P2) at ({45/53},{-28/53});
+%     \coordinate (P3) at ({5/13},{12/13});
+%     \coordinate (P4) at ({-3/5},{4/5});
+    
+%     \draw[DarkOrchid,ultra thick,dashed] (1,1) -- (P1);
+%     \draw[DarkOrchid,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
+%     \draw[Green,ultra thick,dashed] (1,-1) -- (P2);
+%     \draw[Green,ultra thick,->,shorten >=1ex] (P2) -- (P3);
+%     \draw[YellowOrange,ultra thick,dashed] (1,1) -- (P3);
+%     \draw[YellowOrange,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
+%     \draw[CornflowerBlue,ultra thick,dashed] (-1,1) -- (P4);
+%     \draw[CornflowerBlue,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
+%     \draw[fill=white,very thick] (P1) circle (.5pt);
+%     \draw[fill=white,very thick] (P2) circle (.5pt);
+%     \draw[fill=white,very thick] (P3) circle (.5pt); 
+%     \draw[fill=white,very thick] (P4) circle (.5pt);
+%     \draw[fill=JHUBlue,very thick] (1,0) circle (.5pt);
+%   \end{tikzpicture}
+
+%   \vspace*{.3cm}
+
+%   {\superhuge \textbf{Number Theory For All}\par}
+
+%   \vspace*{.3cm}
+
+%   {\LARGE Math 304\par}
+
+%   \vspace*{.5cm}
+
+%   {\Large\textit{\Version{0}}\par}
+% \endgroup
+
+%%%% No Logo Version
+%
 \begin{titlepage}
   \begin{center}
-    \color{JHUBlue}
-    \vspace*{-2.5cm}
-    \includesvg[width=0.7\textwidth]{jhulogo.svg}\\
-    \vspace*{1cm}
+    {\Huge\textsc{Johns Hopkins University}\par}
+    \vspace*{\stretch{1}}
     {\Huge\textbf{Egbert Rijke}\par}
     \vspace*{\stretch{1}}
     \begin{center}
@@ -550,19 +601,19 @@ bibliography=totoc
       \coordinate (P3) at ({5/13},{12/13});
       \coordinate (P4) at ({-3/5},{4/5});
 
-      \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
-      \draw[CornflowerBlue,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
-      \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
-      \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
-      \draw[Green,ultra thick,dashed] (1,1) -- (P3);
-      \draw[Green,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
-      \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
-      \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
+      \draw[DarkOrchid,ultra thick,dashed] (1,1) -- (P1);
+      \draw[DarkOrchid,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
+      \draw[Green,ultra thick,dashed] (1,-1) -- (P2);
+      \draw[Green,ultra thick,->,shorten >=1ex] (P2) -- (P3);
+      \draw[YellowOrange,ultra thick,dashed] (1,1) -- (P3);
+      \draw[YellowOrange,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
+      \draw[CornflowerBlue,ultra thick,dashed] (-1,1) -- (P4);
+      \draw[CornflowerBlue,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
       \draw[fill=white,very thick] (P1) circle (.5pt);
       \draw[fill=white,very thick] (P2) circle (.5pt);
       \draw[fill=white,very thick] (P3) circle (.5pt); 
       \draw[fill=white,very thick] (P4) circle (.5pt);
-      \draw[fill=JHUBlue,very thick] (1,0) circle (.5pt);
+      \draw[fill=black,very thick] (1,0) circle (.5pt);
     \end{tikzpicture}
     \end{center}
     \vspace*{\stretch{1}}
@@ -572,47 +623,7 @@ bibliography=totoc
   \end{center}
 \end{titlepage}
 
-%%%% No Logo Version
-%
-% \begin{titlepage}
-%   \begin{center}
-%     {\Huge\textsc{Johns Hopkins University}\par}
-%     \vspace*{\stretch{1}}
-%     {\LARGE Math 304\par}
-%     \vspace*{\stretch{1}}
-%     {\Huge\textbf{Egbert Rijke}\par}
-%     \vspace*{\stretch{1}}
-%     \begin{center}
-%     \begin{tikzpicture}[scale=4]
-%       \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
-%       \draw[ultra thick] (0,0) circle (1);
-%       \coordinate (P1) at ({117/125},{44/125});
-%       \coordinate (P2) at ({45/53},{-28/53});
-%       \coordinate (P3) at ({5/13},{12/13});
-%       \coordinate (P4) at ({-3/5},{4/5});
-
-%       \draw[CornflowerBlue,ultra thick,dashed] (1,1) -- (P1);
-%       \draw[CornflowerBlue,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
-%       \draw[YellowOrange,ultra thick,dashed] (1,-1) -- (P2);
-%       \draw[YellowOrange,ultra thick,->,shorten >=1ex] (P2) -- (P3);
-%       \draw[Green,ultra thick,dashed] (1,1) -- (P3);
-%       \draw[Green,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
-%       \draw[DarkOrchid,ultra thick,dashed] (-1,1) -- (P4);
-%       \draw[DarkOrchid,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
-%       \draw[fill=white,very thick] (P1) circle (.5pt);
-%       \draw[fill=white,very thick] (P2) circle (.5pt);
-%       \draw[fill=white,very thick] (P3) circle (.5pt); 
-%       \draw[fill=white,very thick] (P4) circle (.5pt);
-%       \draw[fill=black,very thick] (1,0) circle (.5pt);
-%     \end{tikzpicture}
-%     \end{center}
-%     \vspace*{\stretch{1}}
-%     {\superhuge \textbf{Number Theory For All}\par}
-%     \vspace*{\stretch{2}}
-%     {\Large\textit{\Version{0}}}
-%   \end{center}
-% \end{titlepage}
-\endgroup
+\hypersetup{pageanchor=true}
 
 \cleardoublepage
 
@@ -667,6 +678,8 @@ bibliography=totoc
 \input{multiplicative-functions}
 
 \input{strong-divisibility-sequences}
+
+\input{cyclic-counting}
 
 \input{fermats-little-theorem}
 
@@ -764,5 +777,4 @@ bibliography=totoc
 
 %%% Local Variables:
 %%% TeX-engine: luatex
-%%% TeX-command-extra-options: "-shell-escape"
 %%% End:

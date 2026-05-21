@@ -141,6 +141,131 @@ A classic application of Fermat's infinite descent gives us that the area of a P
   which is impossible.
 \end{proof}
 
+\section{Aubry's Theorem}
+
+The following theorem is due the the French winemaker and amateur mathematician L\'eon Aubry \cite{Aubry1912}. The idea of the proof is illustrated in \zcref{figure:aubrys-theorem}.
+
+In the proof, it will be convenient to view pairs of rational numbers $(x_1,x_2)$ as vectors. Recall that if $x=(x_1,x_2)$ and $y=(y_1,y_2)$ are vectors, then their \emph{inner product} $x\cdot y$ is defined as
+\begin{equation*}
+  x\cdot y := x_1y_1+x_2y_2.
+\end{equation*}
+In particular, $x\cdot x=x_1^2+x_2^2$ is a sum of two squares, and the equation $x\cdot x=n$ tells us that the vector $x$ lies on the circle with radius $\sqrt{n}$.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}
+
+    \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
+
+    \draw[thick] (0,0) circle ({sqrt(10)});
+    
+    \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
+    \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
+    
+    \coordinate (P5) at (-3,-1);
+    \draw[fill=black,thick] (P5) circle (2pt);
+
+    \coordinate (R5) at ({-1401/3305},{-10357/3305});
+    \coordinate (R4) at ({1401/653},{-1517/653});
+    \coordinate (R3) at ({-13/41},{129/41});
+    \coordinate (R2) at ({13/5},{9/5});
+    \coordinate (R1) at ({-3},{-1});
+    \coordinate (Q5) at ({0},{-3});
+    \coordinate (Q4) at ({2},{-2});
+    \coordinate (Q3) at (0,3);
+    \coordinate (Q2) at (3,2);
+    \draw[DarkOrchid,very thick,->,shorten >=1.5ex] (R5) -- (R4);
+    \draw[Green,very thick,->,shorten >=1ex] (R4) -- (R3);    
+    \draw[YellowOrange,very thick,->,shorten >=1.5ex] (R3) -- (R2);
+    \draw[CornflowerBlue,very thick,->,shorten >=1ex] (Q2) -- (R1);
+    \draw[fill=white,thick] (R5) circle (2pt);
+    \draw[fill=white,thick] (R4) circle (2pt);
+    \draw[fill=white,thick] (R3) circle (2pt);
+    \draw[fill=white,thick] (R2) circle (2pt);
+    \draw[fill=DarkOrchid,draw=DarkOrchid,thick] (Q5) circle (2pt);
+    \draw[fill=Green,draw=Green,thick] (Q4) circle (2pt);
+    \draw[fill=YellowOrange,draw=YellowOrange,thick] (Q3) circle (2pt);
+    \draw[fill=CornflowerBlue,draw=CornflowerBlue,thick] (Q2) circle (2pt);
+    \draw[fill=white,thick] (R2) circle (2pt);
+  \end{tikzpicture}
+  \caption[Aubry's Theorem]{%
+    By repeated Vieta jumping between rational points on the circle of radius $\sqrt{10}$, we always reach a point with integer coordinates. The idea of the proof is that, starting from a rational point on the circle with radius $\sqrt{n}$, if we draw a line through it and the nearest point with integer coordinates, then we find a new point on the circle with smaller common denominator.
+    
+    Here, we started at the point $(-1401/3305,-10357/3305)$ on the circle with radius $\sqrt{10}$. The nearest point with integer coordinates is $(0,-3)$, and the line through it intersects the circle at $(1401/653,-1517/653)$. Its nearest point with integer coordinates is $(2,-2)$. Continuing this process leads to the sequence of points
+    \\[\abovedisplayskip]
+    \makebox[\linewidth]{$\displaystyle
+      \left(-\frac{1401}{3305},-\frac{10357}{3305}\right) \mapsto
+      \left(\frac{1401}{653},-\frac{1517}{653}\right) \mapsto
+      \left(-\frac{13}{41},\frac{129}{41}\right) \mapsto
+      \left(\frac{13}{5},\frac{9}{5}\right) \mapsto
+      (-3,-1),
+      $}
+    \\[\belowdisplayskip]
+    at which the process terminates, since we have reached an integer point on the circle with radius $\sqrt{10}$.}
+  \label{figure:aubrys-theorem}
+\end{figure}
+
+\begin{theorem}[Aubry's Theorem]\label{theorem:aubrys-theorem}
+  For any natural number $n$, the following are equivalent:
+  \begin{enumerate}
+  \item There are rational numbers $x$ and $y$ such that
+    \begin{equation*}
+      x^2+y^2=n.
+    \end{equation*}
+  \item There are integers $a$ and $b$ such that
+    \begin{equation*}
+      a^2+b^2=n.
+    \end{equation*}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Consider two rational numbers $x$ and $y$ such that $x^2+y^2=n$, and let $d$ be the least positive integer such that both $dx$ and $dy$ are integers; that is, $d$ is the least common multiple of the denominators of $x$ and $y$. If $d=1$, then both $x$ and $y$ are integers, which implies that we can choose $a=x$ and $b=y$. For the remainder of the proof, we assume that $d>1$.
+
+  We choose two integer vectors $q:=(q_1,q_2)$ and $r:=(r_1,r_2)$ such that
+  \begin{equation*}
+    dx=dq_1+r_1,\qquad dy=dq_2+r_2,\qquad\text{and}\qquad |r_i|\leq \frac{d}{2}.
+  \end{equation*}
+  In other words, we have chosen $q$ and $r$ such that
+  \begin{equation*}
+    (x,y)=q+\frac{1}{d}r.
+  \end{equation*}
+  Observe that if $r_1=0$, then the equation $dx=dq_1$ implies that $x=q_1$, so we see that the rational number $x$ is an integer if and only if $r_1=0$. Likewise, the rational number $y$ is an integer if and only if $r_2=0$. Since we have assumed that $d>1$, it follows that at least one of $r_1$ and $r_2$ is nonzero; that is, the vector $r$ is nonzero.
+  
+  Thus, $(x,y)$ is one of the intersection points of the line $q+tr$ with the circle of radius $\sqrt{n}$. Both intersection points satisfies the equation
+  \begin{equation*}
+    (r\cdot r)t^2+2(q\cdot r)t+(q\cdot q)-n=0.
+  \end{equation*}
+  Recall that the vector $r$ is nonzero, so we can divide through by $r\cdot r$:
+  \begin{equation*}
+    t^2+2\frac{q\cdot r}{r\cdot r} t+\frac{q\cdot q-n}{r\cdot r}=0.
+  \end{equation*}
+  Since we have one of the intersection points at $t=1/d$, the other intersection point can now be found by the Vieta relations:
+  \begin{equation*}
+    t= d\frac{q\cdot q-n}{r\cdot r}.
+  \end{equation*}
+  We conclude that the vector
+  \begin{equation*}
+    w:= q+ d\frac{q\cdot q-n}{r\cdot r}r
+  \end{equation*}
+  lies on the circle with radius $\sqrt{n}$. It remains to show that the least positive integer $e$ such that $ew$ is a vector with integer coordinates satisfies $e<d$. 
+
+  Here, we observe that the denominator $q\cdot q-n$ is an integer. So it suffices to show that $d\mid r\cdot r$, and that the integer
+  \begin{equation*}
+    e:= \frac{r\cdot r}{d}
+  \end{equation*}
+  satisfies $e<d$.
+
+  To see that $d\mid r\cdot r$, we observe that
+  \begin{equation*}
+    d^2n= (dx)^2+(dy)^2=(dq_1+r_1)^2+(dq_2+r_2)^2= d^2(q\cdot q)+2d(q\cdot r)+ (r\cdot r).
+  \end{equation*}
+  Since all the terms but the term $r\cdot r$ are divisible by $d$, it follows that $r\cdot r$ is divisible by $d$. Define $e$ as suggested above. Then we have that
+  \begin{equation*}
+    e=\frac{r\cdot r}{d}=\frac{r_1^2}{d}+\frac{r_2^2}{d}\leq \frac{d}{4}+\frac{d}{4}=\frac{d}{2}<d.\qedhere
+  \end{equation*}
+\end{proof}
+
 \section{The Nonexistence of Four Squares in an Arithmetic Progression}
 
 We have shown in \zcref{theorem:correspondence-arithmetic-triples-squares} that there is a bijective correspondence between arithmetic triples of squares and Pythagorean triples. It is natural to wonder whether there are any longer arithmetic progressions of squares. Fermat posed this problem in his correspondence with Bernard Frénicle de Bessy in 1640, and noted that it was impossible to find four such squares. The first publicly known proof is due to Euler. Here we will follow a proof of Alf van der Poorten \cite{vanderpoorten2007}, who observed that any four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression determine, besides the Pythagorean triples corresponding to $(a^2,b^2,c^2)$ and $(b^2,c^2,d^2)$, a third Pythagorean triple. To see this, assume the step size is a number of the form $2n$, where it follows from \zcref{exercise:div-increment-a-p-squares} that $n$ is divisible by $12$, and let $x$ be the average of $b^2$ and $c^2$ so that $b^2=x-n$ and $c^2=x+n$. Then the number $y:=abcd$ satisfies
@@ -543,6 +668,127 @@ Thus, if we know one root of a quadratic polynomial then we can easily `jump' to
   \end{equation*}
   such that $t>0$.
   \exercise Prove that the area of a Pythagorean triangle cannot be twice a square.
+  \exercise Consider a natural number $n$. Use a descent construction similar to that in \zcrefnamed{theorem:aubrys-theorem} to show that the equation
+  \begin{equation*}
+    x^2+2y^2=n
+  \end{equation*}
+  has a solution in the rational numbers if and only if it has a solution in the integers. See \zcref{figure:aubrys-theorem-x2-plus-2y2} for an illustration.
+  \begin{figure}[tbp]
+    \centering
+    \hspace*{\fill}
+    \begin{subfigure}[t]{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.75]
+        \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
+        
+        \draw[thick] (0,0) ellipse ({sqrt(11)} and {sqrt(11/2)});
+        
+        \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
+        \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
+        
+        \coordinate (R5) at ({151/771},{1805/771});
+        \coordinate (R4) at ({-453/209},{-371/209});
+        \coordinate (R3) at ({-89/27},{-7/27});
+        \coordinate (R2) at ({-1/3},{7/3});
+        \coordinate (R1) at ({3},{-1});
+        \coordinate (Q5) at ({0},{2});
+        \coordinate (Q4) at ({-2},{-2});
+        \coordinate (Q3) at ({-3},{0});
+        \coordinate (Q2) at ({0},{2});
+        \draw[DarkOrchid,very thick,->,shorten >=1ex] (R5) -- (R4);
+        \draw[Green,very thick,->,shorten >=1ex] (Q4) -- (R3);    
+        \draw[YellowOrange,very thick,->,shorten >=1ex] (R3) -- (R2);
+        \draw[CornflowerBlue,very thick,->,shorten >=1ex] (R2) -- (R1);
+        \draw[fill=white,thick] (R5) circle (2pt);
+        \draw[fill=white,thick] (R4) circle (2pt);
+        \draw[fill=white,thick] (R3) circle (2pt);
+        \draw[fill=white,thick] (R2) circle (2pt);
+        \draw[fill=DarkOrchid,draw=DarkOrchid,thick] (Q5) circle (2pt);
+        \draw[fill=Green,draw=Green,thick] (Q4) circle (2pt);
+        \draw[fill=YellowOrange,draw=YellowOrange,thick] (Q3) circle (2pt);
+        \draw[fill=CornflowerBlue,draw=CornflowerBlue,thick] (Q2) circle (2pt);
+        \draw[fill=white,thick] (R2) circle (2pt);
+        
+        \draw[fill=black,thick] (R1) circle (2pt);
+        
+      \end{tikzpicture}%
+      \subcaption{}\label{figure:aubrys-theorem-x2-plus-2y2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.75]
+        \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
+        
+        \draw[thick,variable=\theta,domain=0:360,samples=200,smooth]
+        plot ({sqrt(7)*cos(\theta)+sqrt(7/3)*sin(\theta)},
+        {2*sqrt(7/3)*sin(\theta)});
+        
+        \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
+        \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
+        
+        \coordinate (P5) at (-3,-1);
+        \draw[fill=black,thick] (P5) circle (2pt);
+        
+        \coordinate (R5) at ({-14334/5647},{-15481/5647});
+        \coordinate (R4) at ({2493/907},{199/907});
+        \coordinate (R3) at ({-3/151},{398/151});
+        \coordinate (R2) at ({-6/19},{-53/19});
+        \coordinate (R1) at ({-3},{-1});
+        \coordinate (Q5) at ({-3},{-3});
+        \coordinate (Q4) at ({3},{0});
+        \coordinate (Q3) at ({0},{3});
+        \coordinate (Q2) at ({0},{-3});
+        \draw[DarkOrchid,very thick,->,shorten >=1ex] (Q5) -- (R4);
+        \draw[Green,very thick,->,shorten >=1ex] (Q4) -- (R3);    
+        \draw[YellowOrange,very thick,->,shorten >=1ex] (Q3) -- (R2);
+        \draw[CornflowerBlue,very thick,->,shorten >=1ex] (Q2) -- (R1);
+        \draw[fill=white,thick] (R5) circle (2pt);
+        \draw[fill=white,thick] (R4) circle (2pt);
+        \draw[fill=white,thick] (R3) circle (2pt);
+        \draw[fill=white,thick] (R2) circle (2pt);
+        \draw[fill=DarkOrchid,draw=DarkOrchid,thick] (Q5) circle (2pt);
+        \draw[fill=Green,draw=Green,thick] (Q4) circle (2pt);
+        \draw[fill=YellowOrange,draw=YellowOrange,thick] (Q3) circle (2pt);
+        \draw[fill=CornflowerBlue,draw=CornflowerBlue,thick] (Q2) circle (2pt);
+        \draw[fill=white,thick] (R2) circle (2pt);
+      \end{tikzpicture}%
+      \subcaption{}\label{figure:aubrys-theorem-eisenstein-seven}
+    \end{subfigure}
+    \hspace*{\fill}
+    \caption[Aubry's theorem for the forms $x^2-xy+y^2=7$ and $x^2+2y^2=11$]{%
+      On each of the curves (\subref{figure:aubrys-theorem-x2-plus-2y2})~~\(x^2+2y^2=11\) and (\subref{figure:aubrys-theorem-eisenstein-seven})~~\(x^2-xy+y^2=7\), by repeated Vieta jumping between rational points we eventually reach a point with
+      integer coordinates.
+
+      In case (\subref{figure:aubrys-theorem-x2-plus-2y2}), we started with the point $(151/771,1805/771)$. The sequence of rational points obtained by Vieta jumping is in this case:
+      \\[\abovedisplayskip]
+      \makebox[\linewidth]{$\displaystyle
+        \left(\frac{151}{771},\frac{1805}{771}\right) \mapsto
+        \left(-\frac{453}{209},-\frac{371}{209}\right) \mapsto
+        \left(-\frac{89}{27},-\frac{7}{27}\right) \mapsto
+        \left(-\frac{1}{3},\frac{7}{3}\right) \mapsto
+        (3,-1).
+        $}
+      \\[\belowdisplayskip]
+      In case (\subref{figure:aubrys-theorem-eisenstein-seven}), we started with the point $(-14334/5647,-15481/5647)$. The sequence of rational points obtained by Vieta jumping is in this case:
+      \\[\abovedisplayskip]
+      \makebox[\linewidth]{$\displaystyle
+        \left(-\frac{14334}{5647},-\frac{15481}{5647}\right) \mapsto
+        \left(\frac{2493}{907},\frac{199}{907}\right) \mapsto
+        \left(-\frac{3}{151},\frac{398}{151}\right) \mapsto
+        \left(-\frac{6}{19},-\frac{53}{19}\right) \mapsto
+        (-3,-1).
+        $}
+      \\[\belowdisplayskip]
+      There are $8$ binary quadratic forms and a total of $70$ quadratic forms (with up to $8$ variables) to which this argument applies \cite{Nebe2003}. Such quadratic forms are called \emph{positive definite Euclidean}.
+    }
+    \label{figure:aubrys-theorem-two-euclidean-forms}
+  \end{figure}
+  \exercise Consider a natural number $n$. Use a descent construction similar to that in \zcrefnamed{theorem:aubrys-theorem} to show that the equation
+  \begin{equation*}
+    x^2-xy+y^2=n
+  \end{equation*}
+  has a solution in the rational numbers if and only if it has a solution in the integers. See \zcref{figure:aubrys-theorem-eisenstein-seven} for an illustration.
 \end{routine}
 
 \begin{challenge}

@@ -12,14 +12,11 @@ Here, we permit ourselves to pick $a=0$ or $b=0$, so that any perfect square is 
   \centering
   \begin{tikzpicture}
 
-    % Draw the grid
     \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
 
-    % Draw the thick black circle
-    \draw[thick] (0,0) circle (sqrt{10});
-    \draw[thick] (0,0) circle (sqrt{13});
+    \draw[thick] (0,0) circle ({sqrt(10)});
+    \draw[thick] (0,0) circle ({sqrt(13)});
     
-    % Draw the x and y axes as arrows
     \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
     \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
     
@@ -287,26 +284,6 @@ Euler proved that every prime $p\equiv 1\pmod{4}$ can be written as a sum of two
 
 \begin{noteblock}
 \section{Zagier's Proof Using Fixed Points of Involutions}
-
-\section{Aubry's Theorem}
-
-\begin{theorem}
-  For any natural number $n$, the following are equivalent:
-  \begin{enumerate}
-  \item There are rational numbers $x$ and $y$ such that
-    \begin{equation*}
-      x^2+y^2=n.
-    \end{equation*}
-  \item There are integers $a$ and $b$ such that
-    \begin{equation*}
-      a^2+b^2=n.
-    \end{equation*}
-  \end{enumerate}
-\end{theorem}
-
-\begin{proof}
-  Consider two rational numbers $x=\frac{a}{c}$ and $y=\frac{b}{d}$ written in lowest terms, such that $x^2+y^2=n$, which 
-\end{proof}
 
 \section{The Method of Brillhart--Hermite--Serret}
 

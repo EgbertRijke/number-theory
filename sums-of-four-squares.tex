@@ -6,6 +6,75 @@
 
 \chapter{Legendre's Three-Square Theorem}
 
+\section{Aubry's Theorem for Three Squares}
+
+\begin{theorem}[Aubry's Theorem for 3 Squares]
+  For any natural number $n$, the following are equivalent:
+  \begin{enumerate}
+  \item There are rational numbers $x, y,$ and $z$ such that
+    \begin{equation*}
+      x^2+y^2+z^2=n.
+    \end{equation*}
+  \item There are integers $a, b,$ and $c$ such that
+    \begin{equation*}
+      a^2+b^2+c^2=n.
+    \end{equation*}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Consider three rational numbers $x, y,$ and $z$ such that $x^2+y^2+z^2=n$, and let $d$ be the least positive integer such that $dx, dy,$ and $dz$ are integers; that is, $d$ is the least common multiple of the denominators of $x, y,$ and $z$. If $d=1$, then $x, y,$ and $z$ are all integers, which implies that we can choose $a=x, b=y,$ and $c=z$. For the remainder of the proof, we assume that $d>1$.
+
+  The plan of the proof is as follows: We consider the vector $q$ with integer coefficients nearest to $(x,y,z)$. Assuming that $q\neq (x,y,z)$, the line through $q$ and $(x,y,z)$ must intersect the sphere with radius $\sqrt{n}$ in a second point $w$. We then proceed by showing that the least positive integer $e$ such that the vector $ew$ has integer coefficients satisfies $e<d$. By the method of infinite descent, if we iterate this process we must eventually reach a point on the sphere with radius $\sqrt{n}$ with integer coefficients.
+
+  We choose two integer vectors $q:=(q_1,q_2,q_3)$ and $r:=(r_1,r_2,r_3)$ such that
+  \begin{equation*}
+    dx=dq_1+r_1,\qquad dy=dq_2+r_2,\qquad dz=dq_3+r_3,\qquad\text{and}\qquad |r_i|\leq \frac{d}{2}.
+  \end{equation*}
+  In other words, we have chosen $q$ and $r$ such that
+  \begin{equation*}
+    (x,y,z)=q+\frac{1}{d}r.
+  \end{equation*}
+  Observe that if $r_1=0$, then the equation $dx=dq_1$ implies that $x=q_1$, so we see that the rational number $x$ is an integer if and only if $r_1=0$. Likewise, the rational numbers $y$ and $z$ are integers if and only if $r_2=0$ and $r_3=0$, respectively. Since we have assumed that $d>1$, it follows that at least one of $r_1, r_2,$ or $r_3$ is nonzero; that is, the vector $r$ is nonzero.
+  
+  Thus, $(x,y,z)$ is one of the intersection points of the line $q+tr$ with the sphere of radius $\sqrt{n}$. Both intersection points satisfy the equation
+  \begin{equation*}
+    (r\cdot r)t^2+2(q\cdot r)t+(q\cdot q)-n=0.
+  \end{equation*}
+  Recall that the vector $r$ is nonzero, so we can divide through by $r\cdot r$:
+  \begin{equation*}
+    t^2+2\frac{q\cdot r}{r\cdot r} t+\frac{q\cdot q-n}{r\cdot r}=0.
+  \end{equation*}
+  Since we have one of the intersection points at $t=1/d$, the other intersection point can now be found by the Vieta relations:
+  \begin{equation*}
+    t= d\frac{q\cdot q-n}{r\cdot r}.
+  \end{equation*}
+  We conclude that the vector
+  \begin{equation*}
+    w:= q+ d\frac{q\cdot q-n}{r\cdot r}r
+  \end{equation*}
+  lies on the sphere with radius $\sqrt{n}$. It remains to show that the least positive integer $e$ such that $ew$ is a vector with integer coordinates satisfies $e<d$. 
+
+  Here, we observe that the denominator $q\cdot q-n$ is an integer. So it suffices to show that $d\mid r\cdot r$, and that the integer
+  \begin{equation*}
+    e:= \frac{r\cdot r}{d}
+  \end{equation*}
+  satisfies $e<d$.
+
+  To see that $d\mid r\cdot r$, we observe that
+  \begin{align*}
+    d^2n &= (dx)^2+(dy)^2+(dz)^2 \\
+         &= (dq_1+r_1)^2+(dq_2+r_2)^2+(dq_3+r_3)^2 \\
+         &= d^2(q\cdot q)+2d(q\cdot r)+ (r\cdot r).
+  \end{align*}
+  Since all the terms but the term $r\cdot r$ are divisible by $d$, it follows that $r\cdot r$ is divisible by $d$. Define $e$ as suggested above. Then we have that
+  \begin{equation*}
+    e=\frac{r\cdot r}{d}=\frac{r_1^2}{d}+\frac{r_2^2}{d}+\frac{r_3^2}{d}\leq \frac{d}{4}+\frac{d}{4}+\frac{d}{4}=\frac{3d}{4}<d.\qedhere
+  \end{equation*}
+\end{proof}
+
+\section{The Three Squares Theorem}
+
 Characterizing precisely those numbers that can be written as a sum of three squares is harder than the cases for two or four squares, since the numbers expressible as sums of three squares are not closed under multiplication. For example, $3=1^2+1^2+1^2$ and $5=2^2+1^2+0^2$, while $15$ cannot be written as a sum of three squares.
 
 \begin{theorem}[Legendre's Three-Square Theorem]
