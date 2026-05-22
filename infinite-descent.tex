@@ -280,7 +280,7 @@ Thus we obtain a Pythagorean triple
 \begin{equation*}
   y^2+(4n^2)^2=(x^2-5n^2)^2.
 \end{equation*}
-Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. This Pythagorean triple is our entry into a descent argument.
+Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ is relatively prime to $4n$ and thus to $x$ and $x^2-5n^2$. This implies that our newly obtained Pythagorean triple is primitive. Crucially, the even leg of this new Pythagorean triple is a square, which allows us to extract two further Pythagorean triples that can be used to derive a contradiction.
 
 \begin{lemma}\label{lemma:vanderpoorten}
   For every four pairwise relatively prime squares $a^2$, $b^2$, $c^2$, and $d^2$ in an arithmetic progression we can uniquely determine a pair of relatively prime positive integers $u$ and $v$ such that $4u^2+v^2$ and $u^2+v^2$ are both squares, and the step size in the arithmetic progression of squares is $2uv$.
@@ -301,12 +301,12 @@ Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ 
     y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(v^2+4u^2)(v^2+u^2).
   \end{equation*}
 
-  Finally, we prove the claim that the factors $v^2+4u^2$ and $v^2+u^2$ of $x^2$ are relatively prime, which implies that both $v^2+4u^2$ and $v^2+u^2$ must be perfect squares. To see this, note that any common divisor $k$ of $v^2+4u^2$ and $v^2+u^2$ must satisfy the following divisiblity relations:
+  Finally, we prove that the factors $v^2+4u^2$ and $v^2+u^2$ of $x^2$ are perfect squares by showing that they are relatively prime. To see this, note that any common divisor $k$ of $v^2+4u^2$ and $v^2+u^2$ must satisfy the following divisiblity relations:
   \begin{align*}
     k & \mid (v^2+4u^2) - (v^2+u^2) = 3u^2, \\
     k & \mid 4(v^2+u^2)-(v^2+4u^2) = 3v^2.
   \end{align*}
-  Since $u$ and $v$ are relatively prime, these relations imply that $k\mid 3$. However, recall that $a,b,c,d$ are of the form $6k\pm 1$. Since $x$ is defined as the average of $b^2$ and $c^2$, which are both $\equiv 1\pmod{24}$, it follows that $x\equiv 1\pmod{12}$. In particular, neither $v^2+4u^2$ nor $v^2+u^2$ is divisible by $3$, so we find that $k=1$.
+  Since $u$ and $v$ are relatively prime, these relations imply that $k\mid 3$. However, recall that $a,b,c,d$ are of the form $6k\pm 1$. Since $x$ is defined as the average of $b^2$ and $c^2$, which are both congruent to $1\pmod{24}$, it follows that $x\equiv 1\pmod{12}$. In particular, neither $v^2+4u^2$ nor $v^2+u^2$ is divisible by $3$, so we find that $k=1$.
 \end{proof}
 
 The following lemma is an observation of Euler.
