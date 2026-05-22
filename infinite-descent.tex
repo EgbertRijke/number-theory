@@ -272,11 +272,11 @@ We have shown in \zcref{theorem:correspondence-arithmetic-triples-squares} that 
 \begin{equation*}
   y^2=a^2b^2c^2d^2=(x-3n)(x-n)(x+n)(x+3n)=(x^2-n^2)(x^2-9n^2).
 \end{equation*}
-By completing the square, we see that
+Now we use the identity
 \begin{equation*}
-  y^2=x^4-10n^2x^2+9n^4=(x^2-5n^2)^2-16n^4.
+  XY+\left(\frac{X-Y}{2}\right)^2=\left(\frac{X+Y}{2}\right)^2
 \end{equation*}
-Thus we obtain a Pythagorean triple
+with $X=x^2-n^2$ and $Y=x^2-9n^2$ to obtain the Pythagorean triple
 \begin{equation*}
   y^2+(4n^2)^2=(x^2-5n^2)^2.
 \end{equation*}
@@ -298,15 +298,15 @@ Since $a$, $b$, $c$, and $d$ are assumed to be relatively prime, the number $y$ 
   \end{equation*}
   Since $n^2=st$ and $s$ and $t$ are relatively prime, it follows that $s=u^2$, $t=v^2$, and $uv=n$. We obtain that
   \begin{equation*}
-    y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(v^2+4u^2)(v^2+u^2).
+    y=|v^4-4u^4|,\qquad 4n^2=4u^2v^2,\qquad\text{and}\qquad x^2=v^4+5u^2v^2+4u^4=(4u^2+v^2)(u^2+v^2).
   \end{equation*}
 
-  Finally, we prove that the factors $v^2+4u^2$ and $v^2+u^2$ of $x^2$ are perfect squares by showing that they are relatively prime. To see this, note that any common divisor $k$ of $v^2+4u^2$ and $v^2+u^2$ must satisfy the following divisiblity relations:
+  Finally, we prove that the factors $4u^2+v^2$ and $u^2+v^2$ of $x^2$ are perfect squares by showing that $4u^2+v^2$ and $u^2+v^2$ are relatively prime for any two relatively prime integers $u$ and $v$. To see this, note that any common divisor $k$ of $4u^2+v^2$ and $u^2+v^2$ must satisfy the following divisiblity relations:
   \begin{align*}
-    k & \mid (v^2+4u^2) - (v^2+u^2) = 3u^2, \\
-    k & \mid 4(v^2+u^2)-(v^2+4u^2) = 3v^2.
+    k & \mid (4u^2+v^2) - (u^2+v^2) = 3u^2, \\
+    k & \mid 4(u^2+v^2)-(4u^2+v^2) = 3v^2.
   \end{align*}
-  Since $u$ and $v$ are relatively prime, these relations imply that $k\mid 3$. However, recall that $a,b,c,d$ are of the form $6k\pm 1$. Since $x$ is defined as the average of $b^2$ and $c^2$, which are both congruent to $1\pmod{24}$, it follows that $x\equiv 1\pmod{12}$. In particular, neither $v^2+4u^2$ nor $v^2+u^2$ is divisible by $3$, so we find that $k=1$.
+  Since $u$ and $v$ are relatively prime, these relations imply that $k\mid 3$. Moreover, observe that $u^2+v^2$ is divisible by $3$ if and only if both $u$ and $v$ are, since every perfect squares is congruent to $0$ or $1$ modulo $3$. Since $3$ does not divide both $u$ and $v$ by the assumption that $u$ and $v$ are relatively prime, we find that $k=1$.
 \end{proof}
 
 The following lemma is an observation of Euler.
@@ -324,11 +324,11 @@ The following lemma is an observation of Euler.
   
   As for the parity of $u$ and $v$, there are two cases to consider: Either $u$ is odd or $u$ is even. Assuming the first case, so that $u$ is odd and $v$ is even, we can write $v=2k$, so that
   \begin{equation*}
-    (2u)^2+(2k)^2=d^2.
+    (2u)^2+(2k)^2=\beta^2.
   \end{equation*}
-  Setting $d=2e$ and dividing this equation through by $4$, we obtain the equations
+  Setting $\beta=2\gamma$ and dividing this equation through by $4$, we obtain the equations
   \begin{equation*}
-    u^2+k^2=e^2,\qquad\text{and}\qquad u^2+(2k)^2=c^2.
+    u^2+k^2=\gamma^2,\qquad\text{and}\qquad u^2+(2k)^2=\alpha^2.
   \end{equation*}
   Observe that the first equation, with $u$ being odd, implies that $k$ is even. Thus we have reduced the first case to the second case. From now on, we assume that $u$ is even, so that $v$ is odd.
 
@@ -349,14 +349,7 @@ The following lemma is an observation of Euler.
   \begin{equation*}
     c^2d^2-a^2b^2=v=b^2d^2-4a^2c^2.
   \end{equation*}
-  Rearranging this equation, we see that $b^2(d^2+a^2)=c^2(d^2+4a^2)$. We claim that $d^2+a^2$ and $d^2+4a^2$ are relatively prime. Indeed, any common divisor $k$ satisfies
-  \begin{align*}
-    k & \mid (d^2+4a^2) - (d^2+a^2) = 3a^2, \\
-    k & \mid 4(d^2+a^2) - (d^2+4a^2) = 3d^2.
-  \end{align*}
-  Since $a$ and $d$ are relatively prime, this implies that $k\mid 3$. Now observe that $d^2+a^2$ is not divisible by $3$ since it could only be divisible by $3$ if both $d$ and $a$ were divisible by $3$. This implies that $k=1$, from which we conclude that $d^2+a^2$ and $d^2+4a^2$ are relatively prime.
-
-  Since $d^2+a^2$ and $d^2+4a^2$ are relatively prime, it follows that both $d^2+a^2$ and $d^2+4a^2$ are perfect squares. We have thus constructed a strictly smaller pair $(a,d)$ of positive integers of the type of $(u,v)$. By the method of infinite descent, we conclude that no such pair exists.
+  Rearranging this equation, we see that $b^2(d^2+a^2)=c^2(d^2+4a^2)$. Since $a$ and $d$ are relatively prime, it follows from the proof of \zcref{lemma:vanderpoorten} that $d^2+a^2$ and $d^2+4a^2$ are relatively prime, and therefore both $d^2+a^2$ and $d^2+4a^2$ are perfect squares. We have thus constructed a strictly smaller pair $(a,d)$ of positive integers of the type of $(u,v)$. By the method of infinite descent, we conclude that no such pair exists.
 \end{proof}
 
 \begin{theorem}[Fermat--Euler]
