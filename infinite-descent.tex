@@ -39,6 +39,39 @@ The previous proposition leads to Fermat's method of infinite descent. Fermat ob
   Then we have $h(a_0)>h(a_i)>h(a_2)>\cdots$, which is an infinite descending sequence of natural numbers. Thus, the assumption that $A$ is inhabited was false.
 \end{proof}
 
+In \zcref{section:vieta-jumping} we used Vieta jumping to jump between rational points on the unit circle in such a way that the common denominators formed a decreasing sequence of positive integers. Necessarily, this process terminates once an integral point on the unit circle is reached. Vieta jumping can also be used with the method of infinite descend.
+
+Recall that the basic idea of Vieta jumping is to use Vi\`ete's formulas for the roots of a quadratic formula
+\begin{equation*}
+  (x-r)(x-s)=x^2-(r+s)x+rs
+\end{equation*}
+in order to jump to the other root once one is known.
+We saw in \zcref{theorem:vieta-formulas-quadratic} that if $r$ is a root of a monic polynomial $x^2-Bx+C$, then the other root $s$ satisfies
+\begin{equation*}
+  s=B-r=\frac{C}{s}.
+\end{equation*}
+Thus, if we know one root of a quadratic polynomial then we can easily `jump' to the other root using one the above formulas. Vieta jumping became a popular problem-solving technique for international contests such as the International Mathematics Olympiad.
+
+\begin{example}
+  In \zcref{exercise:div-product-sum-of-squares} you were asked to show that for any two positive integers $x$ and $y$ such that $xy\mid x^2+y^2$, we must have $x=y$. The expected solution was to observe that the discriminant of the quadratic equation $x^2-kxy+y^2=0$ seen as an equation in one variable $x$ and a parameter $y$ is $(ky)^2-4y^2$, which is a square if and only if $k=2$. Although this problem can readily be solved directly, we will use it here to illustrate Vieta jumping.
+
+  We first observe that the quadratic equation
+  \begin{equation*}
+    x^2-kxy + y^2=0
+  \end{equation*}
+  arising from the divisibility condition $xy\mid x^2+y^2$ is \emph{homogeneous} in the sense that each of the three terms have the same degree in $x$ and $y$ combined. Thus, if $x$ an $y$ satisfy this polynomial equation, then so must
+  \begin{equation*}
+    x' :=\frac{x}{\gcd(x,y)}\qquad\text{and}\qquad y':=\frac{y}{\gcd(x,y)}.
+  \end{equation*}
+  We can therefore solve the problem by showing that the only pair of coprime positive integers $x$ and $y$ satisfying the polynomial equation must satisfy $x=y=1$.
+
+  To see this, we may assume without loss of generality that $0<y<x$. Given that $x$ is a solution of the quadratic equation $t^2-kty+y^2$ in the variable $t$, it follows that the other solution is $x':=ky-x$. Notice that $\gcd(ky-x,y)=1$, so that $x':=ky-x$ and $y$ are again relatively prime. Furthermore, since $xx'=y^2$ it follows that
+  \begin{equation*}
+    0<x'=\frac{y^2}{x}<y.
+  \end{equation*}
+  We have thus found a new solution with $x'<y$. Now we can swap the roles for $x'$ and $y$ and repeat the process, obtaining every smaller solutions in the positive integers. Since this is clearly impossible, it must have been impossible for there to be a pair of relatively prime positive integers $x$ and $y$ such that $xy\mid x^2+y^2$.
+\end{example}
+
 \section{The Area of a Pythagorean Triangle is not a Square}
 
 A classic application of Fermat's infinite descent gives us that the area of a Pythagorean triangle is never a square number. Recall that the area of a triangle is half the base times the height, so that every Pythagorean triple $(a,b,c)$ determines a Pythagorean triangle with area
@@ -362,7 +395,7 @@ The following lemma is an observation of Euler.
 
 \section{The Congruent Number Problem}\label{section:congruent-number-problem}
 
-Recall from \zcref{sec:squares-in-aps} the challenge that Master John posed in the early 13th century to Leonardo Fibonacci: To find a rational number $q$ such that both
+Recall from \zcref{sec:squares-in-aps} the challenge that Master John posed in the early $13$\supth{} century to Leonardo Fibonacci: To find a rational number $q$ such that both
 \begin{equation*}
   q^2-5,\qquad\text{and}\qquad q^2+5
 \end{equation*}
@@ -599,38 +632,6 @@ We have thus proven the following theorem:
 
 Determining which numbers are congruent turns out to be an incredibly difficult problem, which is still unsolved. This problem is called the \emph{congruent number problem}, and via Tunnell's theorem it has connections to the famous Birch and Swinnerton-Dyer conjecture.
 
-\section{Vieta Jumping}\label{section:vieta-jumping}
-
-Vieta jumping is a problem-solving technique that builds on the observation that
-\begin{equation*}
-  (x-r)(x-s)=x^2-(r+s)x+rs.
-\end{equation*}
-We saw in \zcref{theorem:vieta-formulas-quadratic} that if $r$ is a root of a monic polynomial $x^2-Bx+C$, then the other root $s$ satisfies
-\begin{equation*}
-  s=B-r=\frac{C}{s}.
-\end{equation*}
-Thus, if we know one root of a quadratic polynomial then we can easily `jump' to the other root using one the above formulas. Vieta jumping became a popular problem-solving technique for international contests such as the International Mathematics Olympiad.
-
-\begin{example}
-  In \zcref{exercise:div-product-sum-of-squares} you were asked to show that for any two positive integers $x$ and $y$ such that $xy\mid x^2+y^2$, we must have $x=y$. The expected solution was to observe that the discriminant of the quadratic equation $x^2-kxy+y^2=0$ seen as an equation in one variable $x$ and a parameter $y$ is $(ky)^2-4y^2$, which is a square if and only if $k=2$. Although this problem can readily be solved directly, we will use it here to illustrate Vieta jumping.
-
-  We first observe that the quadratic equation
-  \begin{equation*}
-    x^2-kxy + y^2=0
-  \end{equation*}
-  arising from the divisibility condition $xy\mid x^2+y^2$ is \emph{homogeneous} in the sense that each of the three terms have the same degree in $x$ and $y$ combined. Thus, if $x$ an $y$ satisfy this polynomial equation, then so must
-  \begin{equation*}
-    x' :=\frac{x}{\gcd(x,y)}\qquad\text{and}\qquad y':=\frac{y}{\gcd(x,y)}.
-  \end{equation*}
-  We can therefore solve the problem by showing that the only pair of coprime positive integers $x$ and $y$ satisfying the polynomial equation must satisfy $x=y=1$.
-
-  To see this, we may assume without loss of generality that $0<y<x$. Given that $x$ is a solution of the quadratic equation $t^2-kty+y^2$ in the variable $t$, it follows that the other solution is $x':=ky-x$. Notice that $\gcd(ky-x,y)=1$, so that $x':=ky-x$ and $y$ are again relatively prime. Furthermore, since $xx'=y^2$ it follows that
-  \begin{equation*}
-    0<x'=\frac{y^2}{x}<y.
-  \end{equation*}
-  We have thus found a new solution with $x'<y$. Now we can swap the roles for $x'$ and $y$ and repeat the process, obtaining every smaller solutions in the positive integers. Since this is clearly impossible, it must have been impossible for there to be a pair of relatively prime positive integers $x$ and $y$ such that $xy\mid x^2+y^2$.
-\end{example}
-
 \exercises
 
 \begin{starter}
@@ -749,7 +750,7 @@ Thus, if we know one root of a quadratic polynomial then we can easily `jump' to
       \subcaption{}\label{figure:aubrys-theorem-eisenstein-seven}
     \end{subfigure}
     \hspace*{\fill}
-    \caption[Aubry's theorem for the forms $x^2-xy+y^2=7$ and $x^2+2y^2=11$]{%
+    \caption[Aubry's theorem for the forms $x^2+2y^2=11$ and $x^2-xy+y^2=7$]{%
       On each of the curves (\subref{figure:aubrys-theorem-x2-plus-2y2})~~\(x^2+2y^2=11\) and (\subref{figure:aubrys-theorem-eisenstein-seven})~~\(x^2-xy+y^2=7\), by repeated Vieta jumping between rational points we eventually reach a point with
       integer coordinates.
 

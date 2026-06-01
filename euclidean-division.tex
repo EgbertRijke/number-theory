@@ -3,7 +3,7 @@
 % To do:
 % Write about the alphasyllabic (katapayadi) number system.
 
-\section{A Short History of Notation}
+\section{Some Remarks on the History of Written Numbers}
 
 \begin{table}
   \centering
@@ -25,7 +25,7 @@
   \caption[The sexagesimal notation in cuneiform script]{The sexagesimal system in cuneiform script was developed by the ancient Sumerians in Mesopotamia, around 3200 BCE, and continued to be used by the Babylonians. Note that there was no notation for the number $0$ in cuneiform script. Consequently, there was no visual distinction between the numbers $1$, $60$, and $3600$, and so on.}
 \end{table}
 
-The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number two hundred and thirty-one, which consists of two lots of hundred, three lots of ten and one unit. Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $(11100111)_2$, while the hexadecimal representation of this number is $(E7)_{16}$. In each of these representations of the number 231, the position of the digits relative to each other is significant for its value. Such ways of writing numbers are therefore called \define{positional}. Positional number systems have a long history, going back to the Sumerians in ancient Mesopotamia. The Sumerians were known for using a \emph{sexagesimal} system, which is in base $60$. They used cuneiform script, which was also the earliest form of writing.
+The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number two hundred and thirty-one, which consists of two lots of hundred, three lots of ten and one unit. Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $(11100111)_2$, while the hexadecimal representation of this number is $(E7)_{16}$. In each of these representations of the number $231$, the position of the digits relative to each other is significant for its value. Such ways of writing numbers are therefore called \define{positional}. Positional number systems have a long history, going back to the Sumerians in ancient Mesopotamia. The Sumerians were known for using a \emph{sexagesimal} system, which is in base $60$. They used cuneiform script, which was also the earliest form of writing.
 
 On the other side of the world, the Mayans developed roughly between 400 BCE and 150 CE a \emph{vigesimal} numerical system; that is, a system base $20$. Notably, there was no contact between the Mayans in Mesoamerica and civilizations in Africa, Asia, or Europe. They had thus developed their number system entirely independently, and conversely their number system did not influence the Indian and Arabic developments which would eventually make its way into the modern mathematical tradition. The Mayans were the first known civilization to have notation for the number $0$.
 
@@ -33,19 +33,19 @@ Although zero was conceived independently by the Mayans, the modern digit $0$
 has its roots in the Indian mathematical tradition. One of the earliest known
 occurrences appears in the Bakhshali manuscript, a collection of around seventy
 birch-bark leaves, many of which are fragmentary. It was discovered by a farmer in
-1881 near Bakhshali in present-day Pakistan. The text was written in an early form of the Śāradā script, and the number $0$ was denoted by a dot. Radiocarbon analysis shows that different leaves date from between the 3\suprd{} and 9\supth{} centuries CE, which suggests a long process of compilation and copying. Nevertheless, instances of the number $0$ occur on leaves dating from the 3\suprd{} or 4\supth{} century CE, making this one of the earliest surviving records of the modern number $0$ in written form.
+1881 near Bakhshali in present-day Pakistan. The text was written in an early form of the Śāradā script, and the number $0$ was denoted by a dot. Radiocarbon analysis shows that different leaves date from between the $3$\suprd{} and $9$\supth{} centuries CE, which suggests a long process of compilation and copying. Nevertheless, instances of the number $0$ occur on leaves dating from the 3\suprd{} or $4$\supth{} century CE, making this one of the earliest surviving records of the modern number $0$ in written form.
 
 The earliest surviving stone inscription of the number $0$ was found in the ruins of a temple in Mekong, Cambodia, by the French archaeologist George Cœdès. He catalogued this stone tablet as K-127. It mentions the year in which the temple was built, the year 605 of the Śāka era, which corresponds to the year 683 CE. The number $0$ again appeared as a dot.
 
-Another famous early inscription of the number $0$ can be found in the Chaturbhuj temple in Gwalior, India, from 876 CE. The numerals were written in an early Nāgarī script, in which the number $0$ already had its modern, circular form. The inscription tells of the temple built on a piece of land $270$ hastas in length and 187 hastas in breadth. Since the $0$ is used at the last digit of a number, as opposed to a placeholder in the middle of a number, this is considered to be the earliest occurrence of $0$ as a numeral.
+Another famous early inscription of the number $0$ can be found in the Chaturbhuj temple in Gwalior, India, from 876 CE. The numerals were written in an early Nāgarī script, in which the number $0$ already had its modern, circular form. The inscription tells of the temple built on a piece of land $270$ hastas in length and $187$ hastas in breadth. Since the $0$ is used at the last digit of a number, as opposed to a placeholder in the middle of a number, this is considered to be the earliest occurrence of $0$ as a numeral.
 
-We saw that throughout the history of human civilization, we have seen numerical systems with various bases. The decimal system is most common nowadays, a sexagesimal system was used by the Sumerians and Babylonians, a vigesimal system was used by the Mayans, and other systems such as the binary and hexadecimal systems are used by computers. The following mathematical theorem may not come as a surprise anymore: Any number $k>1$ can serve as the basis of a numerical system. We will prove this theorem using \zcrefnamed{theorem:euclidean-division}, which itself rests on \zcrefnamed{theorem:well-ordering-natural-numbers}.
+We saw that throughout the history of human civilization, we have seen numerical systems with various bases. The decimal system is most common nowadays, a sexagesimal system was used by the Sumerians and Babylonians, a vigesimal system was used by the Mayans, and other systems such as the binary and hexadecimal systems are used by computers. On account of these number systems with various distinct bases, it may not come as a surprise that any number $k>1$ can serve as the basis of a numerical system. We will prove this theorem using \zcrefnamed{theorem:representability}, which itself rests on \zcrefnamed{theorem:well-ordering-natural-numbers}.
 
 \section{The Well-Ordering Principle of the Natural Numbers}
 
 The induction principle of the natural numbers implies other important reasoning principles. One of them is the \define{well-ordering principle}. The well-ordering principle has many practical implications. For example, in the next section we will apply a variation of the well-ordering principle, which we will describe below, to construct division with remainder.
 
-\begin{theorem}[Well-Ordering Principle of the Natural Numbers]\label{theorem:well-ordering-natural-numbers}
+\begin{theorem}[The Well-Ordering Principle of the Natural Numbers]\label{theorem:well-ordering-natural-numbers}
   Any inhabited subset of the natural numbers has a least element.
 \end{theorem}
 
@@ -144,7 +144,7 @@ The example where we take $X:=\mathbb{N}$ and $P(x):=x=0$ is simple, but it capt
 
 \section{The Representability Theorem}
 
-\begin{theorem}\label{theorem:representability}
+\begin{theorem}[The Representability Theorem]\label{theorem:representability}
   Consider a natural number $k>1$. Then there exists for every natural number $n$ a unique list $\ell$ of digits $d_0,\ldots,d_{l-1}$ of length $l$, such that the inequalities $0\leq d_i<k$ hold for each $i<l$, such that the \define{leading digit} $d_{l-1}\neq 0$, and satisfying the equation
   \begin{equation*}
     n= \sum_{i=0}^{l-1}d_i k^i.
@@ -273,7 +273,7 @@ In the present chapter, we will be content with some very elementary application
   \begin{equation*}
     n = 2^k(2m+1).
   \end{equation*}
-  This is called the \define{$2$-adic representation} of $n$.
+  This is called the \define{$2$-adic decomposition} of $n$.
   \exercise Show that any natural number $n$ can be written uniquely in the form
   \begin{equation*}
     \sum_{k=1}^m d_k k!,

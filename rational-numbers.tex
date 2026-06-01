@@ -1,6 +1,6 @@
 \chapter{The Rational Numbers}
 
-On the integers we have the arithmetic operations of addition, subtraction, and multiplication, but we generally can't divide integers and expect the result to be another integer. Instead, we have \zcrefnamed{theorem:euclidean-division} which establishes division with remainder, and in the previous chapter we introduced the basics of the theory of integer divisibility. Nevertheless, there is a clear sense of ratios of integers, even if such ratios are not necessarily integers. It is thus natural to introduce the concepts of \emph{integer fractions} and the \emph{rational numbers}.
+On the integers we have the arithmetic operations of addition, subtraction, and multiplication, but we generally can't divide integers and expect the result to be another integer. Instead, we have \zcrefnamed{theorem:euclidean-division} which establishes division with remainder, and in the previous chapters we introduced the basics of the theory of integer divisibility and modulo arithmetic. Nevertheless, there is a clear sense of ratios of integers, even if such ratios are not necessarily integers. It is thus natural to introduce the concepts of \emph{integer fractions} and the \emph{rational numbers}.
 
 \section{Integer Fractions}
 
@@ -34,12 +34,6 @@ While it is common to think of rational numbers as integer fractions, there is a
 \begin{remark}
   The second rule can be read as a definition of what it means for two rational numbers to be equal. If two rational numbers are constructed via their integer fractions $\frac{a}{b}$ and $\frac{c}{d}$, then the expression $\frac{a}{b}=\frac{c}{d}$ means that $\frac{a}{b}$ and $\frac{c}{d}$ are the same in the sense that $ad-bc=0$.
 \end{remark}
-
-More generally, the quantity $|bc-ad|$ is a measure for how far apart the fractions $\frac{a}{b}$ and $\frac{c}{d}$ are. Assuming that the inequality $\frac{a}{b}\leq \frac{c}{d}$ holds so that $bc-ad\geq 0$, we will show in \zcref{theorem:meaning-explanation-determinant-fractions} that the number
-\begin{equation*}
-  bc-ad
-\end{equation*}
-counts the number of fractions $\frac{a}{b}<\frac{s}{t}<\frac{c}{d}$ such that the denominator $t$ does not exceed $b+d$. Indeed, if $\frac{a}{b}=\frac{c}{d}$ then there should be no fractions strictly between $\frac{a}{b}$ and $\frac{c}{d}$, as is signified by the number $bc-ad=0$.
 
 \begin{figure}[t]
   \centering
@@ -84,7 +78,15 @@ counts the number of fractions $\frac{a}{b}<\frac{s}{t}<\frac{c}{d}$ such that t
   \label{figure:lattice-points-parallelogram}
 \end{figure}
 
-The quantity $|bc-ad|$ is also the area of the parallelogram spanned by $(a,b)$ and $(c,d)$. Moreover, there are exactly $k$ lattice points in this parallelogram, excluding multiples of $(a,b)$ and $(c,d)$.
+\begin{remark}
+More generally, the quantity $|bc-ad|$ is a measure for how far apart the fractions $a/b$ and $c/d$ are. Assuming that the inequality $a/b\leq c/d$ holds so that $bc-ad\geq 0$, we will show in \zcref{theorem:meaning-explanation-determinant-fractions} that the number
+\begin{equation*}
+  bc-ad
+\end{equation*}
+counts the number of fractions $a/b<s/t<c/d$ such that the denominator $t$ does not exceed $b+d$. Indeed, if $a/b=c/d$ then there should be no fractions strictly between $a/b$ and $c/d$, as is signified by the number $bc-ad=0$.
+
+The quantity $k=|bc-ad|$ is also the area of the parallelogram spanned by $(a,b)$ and $(c,d)$. Moreover, there are exactly $k$ lattice points in this parallelogram, excluding multiples of $(a,b)$ and $(c,d)$.
+\end{remark}
 
 \begin{theorem}
   For any integer fraction $\frac{a}{b}$ there is a unique reduced integer fraction $\frac{c}{d}$ such that $\frac{a}{b}\sim\frac{c}{d}$. Consequently, two integer fractions are the same if and only if they have the same reduced integer fraction.

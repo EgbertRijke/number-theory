@@ -333,7 +333,7 @@ for any odd prime $p<q$.
       41 & 2 & 2 & 5 & 2 & 6 & 7 & 8 & 21 & 11 & 23 & 22 \\ \bottomrule
     \end{tabular}
   \end{center}
-  \caption{Residues of the discriminant $\Delta=1-4q$ modulo an odd prime $p<q$, for the polynomial $n^2+n+q$.\\ Computations of residues for $q\leq p$ are omitted. A dash indicates that it was not necessary to compute this residue, because a quadratic residue has been encountered earlier.}
+  \caption[Residues of $1-4q$ modulo $p<q$]{Residues of the discriminant $\Delta=1-4q$ modulo an odd prime $p<q$, for the polynomial $n^2+n+q$.\\ Computations of residues for $q\leq p$ are omitted. A dash indicates that it was not necessary to compute this residue, because a quadratic residue has been encountered earlier.}
   \label{table:discriminants-prime-generating-polynomials}
 \end{table}
 We can now discover prime-generating polynomials of the form $n^2 + n + q$ by computing the integer $1-4q\pmod{p}$ for all odd primes $3<p<q$. If we can find a prime $p$ such that $1-4q$ is a quadratic residue mod $p$, we may discard that prime from the remainder of the search. This process resulted in \zcref{table:discriminants-prime-generating-polynomials}, which reveals that the following polynomials are prime-generating polynomials, in the sense that they yield prime numbers for all inputs $0\leq n \leq q-2$:
@@ -420,7 +420,7 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
       $31$ & $1$ & $10$ & $2$ & $1$ & $1$ & $1$ & $2$ & $3$ & $3$ & \text{-} \\
       \bottomrule
     \end{tabular}
-    \caption{The value $(p-1)/\ord_p(q)$, with $p$ and $q$ ranging over the first ten odd primes. Note that the value $1$ indicates that $q$ is a primitive root modulo $p$.}
+    \caption[Universal exponents]{The value $(p-1)/\ord_p(q)$, with $p$ and $q$ ranging over the first ten odd primes. Note that the value $1$ indicates that $q$ is a primitive root modulo $p$.}
     \label{table:universal-exponents}
   \end{table}
   Combine the previous parts to show that for any odd prime $p$ and for any integer $a\nequiv 0\pmod{p}$, we have the identity

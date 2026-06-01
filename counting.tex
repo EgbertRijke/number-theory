@@ -708,7 +708,7 @@ The binomial theorem has many proofs, including combinatorial proofs and algebra
 
 The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2\supnd{} century BCE. Around the 11\supth{} century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13\supth{} century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
 
-\section{The Inclusion-Exclusion Principle}
+\section{The Inclusion--Exclusion Principle}
 
 Consider two subsets $A$ and $B$ of a set $X$. The \emph{union} of $A$ and $B$ is the set
 \begin{equation*}
@@ -720,7 +720,7 @@ Given that $X$ is a finite set, we may wish to determine the number of elements 
 \end{equation*}
 
 \begin{example}
-  Consider the set $X=\{1,\ldots,100\}$, and our goal is to find the number of integers in $X$ that are neither divisible by $2$ nor by $3$. This problem can be solved with the inclusion-exclusion principle.
+  Consider the set $X=\{1,\ldots,100\}$, and our goal is to find the number of integers in $X$ that are neither divisible by $2$ nor by $3$. This problem can be solved with the inclusion--exclusion principle.
 
   Let $A$ and $B$ be the subsets of $X$ consisting of numbers divisible by $2$ and by $3$, respectively. The set $A\cap B$ then consists of all the numbers divisible by both $2$ and $3$; that is, the numbers divisible by $6$.
 
@@ -730,18 +730,50 @@ Given that $X$ is a finite set, we may wish to determine the number of elements 
   \end{equation*}
 \end{example}
 
-The inclusion-exclusion principle is a generalization of the formula for the number of elements of $A\cup B$ to any finite number of subsets of a set $X$. To see the pattern, let us consider the case with three subsets $A$, $B$, and $C$ of a set $X$. Now, if we wish to determine the number of elements in $A\cup B\cup C$, we can again start by adding the numbers $|A|$, $|B|$, and $|C|$. Every element that was in exactly one of the three subsets is correctly accounted for, but we have overcounted the elements in $A\cap B$, $A\cap C$, and $B\cap C$. If we subtract the numbers $|A\cap B|$, $|A\cap C|$, and $|B\cap C|$ from our total, then we have correctly accounted for every element that was in at most two subsets. However, now we have subtracted every element in $A\cap B\cap C$ three times from our count, so we must add them again to arrive at the correct number:
+The inclusion--exclusion principle is a generalization of the formula for the number of elements of $A\cup B$ to any finite number of subsets of a set $X$. To see the pattern, let us consider the case with three subsets $A$, $B$, and $C$ of a set $X$. Now, if we wish to determine the number of elements in $A\cup B\cup C$, we can again start by adding the numbers $|A|$, $|B|$, and $|C|$. Every element that was in exactly one of the three subsets is correctly accounted for, but we have overcounted the elements in $A\cap B$, $A\cap C$, and $B\cap C$. If we subtract the numbers $|A\cap B|$, $|A\cap C|$, and $|B\cap C|$ from our total, then we have correctly accounted for every element that was in at most two subsets. However, now we have subtracted every element in $A\cap B\cap C$ three times from our count, so we must add them again to arrive at the correct number:
 \begin{equation*}
   |A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B \cap C|.
 \end{equation*}
-Thus, we see an alternating pattern emerging: Single sets are added, intersections of two sets are subtracted, triple intersections are added again, and so on. The inclusion-exclusion principle is stated with this alternating pattern.
+Thus, we see an alternating pattern emerging: Single sets are added, intersections of two sets are subtracted, triple intersections are added again, and so on. The inclusion--exclusion principle is stated with this alternating pattern.
 
-\begin{theorem}\label{theorem:inclusion-exclusion-principle}
-  Consider a set $X$ and a finite family of subsets $A_i\subset X$ indexed by $1\leq i\leq n$. Then the number of elements in the union of the subsets $A_i$ is given by
+\begin{theorem}[The Inclusion--Exclusion Principle]\label{theorem:inclusion-exclusion-principle}
+  Consider a finite set $X$ and a finite family of subsets $A_i\subset X$ indexed by $1\leq i\leq n$. Then the number of elements in the union of the subsets $A_i$ is given by
   \begin{equation*}
     |A_1\cup\cdots\cup A_n|=\sum_{k=1}^n (-1)^{k+1}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}|A_{i_1}\cap\cdots\cap A_{i_k}|\right).
   \end{equation*}
 \end{theorem}
+
+\begin{proof}
+  Without loss of generality, we may assume that $X=A_1\cup\cdots\cup A_n$. For any subset $B\subseteq X$ and any element $x\in X$, let us define the number
+  \begin{equation*}
+    [x\in B] :=
+    \begin{cases}
+      1 & \text{if $x\in B$,} \\
+      0 & \text{if $x\notin B$.}
+    \end{cases}
+  \end{equation*}
+  The numbers thus defined satisfy the identity $\sum_{x\in X}[x\in B]=|B|$, which is useful for algebraic manipulations. The inclusion--exclusion principle is then asserted equivalently as the identity
+  \begin{equation*}
+    \sum_{k=0}^n (-1)^{k}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}\sum_{x\in X}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]\right)=0
+  \end{equation*}
+  Here we assume the convention that for $k=0$ we have $A_{i_1}\cap\cdots\cap A_{i_k}=X=A_1\cup\cdots \cup A_n$. By rearranging the equation, we see that the inclusion--exclusion principle is equivalent to the identity
+  \begin{equation*}
+    \sum_{x\in X}\sum_{k=0}^n (-1)^{k}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]\right) = 0
+  \end{equation*}
+  Therefore it suffices to show that
+  \begin{equation*}
+    \sum_{k=0}^n (-1)^{k}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]\right) = 0
+  \end{equation*}
+  for each $x\in X$.
+  
+  Observe that the sum $\sum_{1\leq i_1<\cdots<i_k\leq n}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]$ is a count of the number of strictly increasing sequences $i_1<\cdots <i_k$ such that $x\in A_{i_j}$ for all $1\leq j\leq k$. If the total number of indices $i$ such that $x\in A_i$ is $m$, then the number of such strictly increasing sequences is $\binom{m}{k}$. This shows that
+  \begin{equation*}
+    \sum_{k=0}^n (-1)^{k}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]\right) =
+    \sum_{k=0}^n (-1)^{k}\binom{m}{k} =
+    \sum_{k=0}^m (-1)^{k}\binom{m}{k}.
+  \end{equation*}
+  By the binomial theorem, the latter sum equals $(1-1)^m$. Since $m\geq 1$ for each $x\in X$, we conclude that this sum is $0$. This concludes the proof.
+\end{proof}
 
 \exercises
 
@@ -811,7 +843,7 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
     \begin{equation*}
       !(n+2)=(n+1)(!(n+1)+!n).
     \end{equation*}
-  \item Use the principle of inclusion-exclusion to show that
+  \item Use the principle of inclusion--exclusion to show that
     \begin{equation*}
       !n= n!\sum_{k=0}^n \frac{(-1)^k}{k!}.
     \end{equation*}

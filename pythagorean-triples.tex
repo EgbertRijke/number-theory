@@ -450,6 +450,8 @@ which satisfies $(a/c)^2+(b/c)^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)
   and we conclude that $(a,b,c)$ is a primitive Pythagorean triple satisfying $(a/c,b/c)=(x,y)$.
 \end{proof}
 
+\section[Vieta Jumping]{Vieta Jumping Between Rational Points on the Unit Circle}\label{section:vieta-jumping}
+
 \begin{figure}[t]
   \begin{center}
     \begin{tikzpicture}[scale=4]
@@ -478,7 +480,7 @@ which satisfies $(a/c)^2+(b/c)^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)
 
 The unit circle is a $1$-dimensional curve through the plane. This suggests that there should be a way of parametrizing all the (rational) points on the unit circle using one rational number as a parameter. We will use a parametrization called the \define{stereographic projection} (see \zcref{figure:rational-points-unit-circle}). The idea of the stereographic projection is to take one particularly simple rational point on the unit circle as our base point---we take the point $(-1,0)$ as our base point---and characterize all the other rational points $(x,y)$ by the slope of the line through the base point $(-1,0)$ and $(x,y)$. Surely, if $(x,y)$ is a rational point on the circle, then the line through $(-1,0)$ and $(x,y)$ will have a rational slope. The question that thus arises is: Does every line through $(-1,0)$ with a rational slope intersect the unit circle in a rational point?
 
-At first consideration, it might not be so clear that this should indeed be the case. The key insights are obtained through Vieta's formulas for the roots of a (quadratic) polynomial, named after the 16\supth{} century French mathematician Fran\c{c}ois Vi\`{e}te. He was one of the first to use letters as parameters in his study of algebraic equations. Vieta's formulas are the essential ingredient in a problem-solving technique called \define{Vieta jumping}, which is the topic of \zcref{section:vieta-jumping}.
+At first consideration, it might not be so clear that this should indeed be the case. The key insights are obtained through Vieta's formulas for the roots of a (quadratic) polynomial, named after the 16\supth{} century French mathematician Fran\c{c}ois Vi\`{e}te. He was one of the first to use letters as parameters in his study of algebraic equations. Vieta's formulas are the essential ingredient in a problem-solving technique called \define{Vieta jumping}.
 
 \begin{theorem}[Vieta's Formulas for the Roots of a Quadratic Polynomial]\label{theorem:vieta-formulas-quadratic}
   Consider a polynomial of the form $t^2-Bt+C$ and suppose that $r$ is a root of this polynomial. Then the other root $s$ satisfies the relations
