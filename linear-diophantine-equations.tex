@@ -168,9 +168,8 @@ The divisibility relation equips the sets of integers and natural numbers with a
   To see that the natural numbers equipped with divisibility forms a poset, it remains to show that the divisibility relation is antisymmetric on the natural numbers. Suppose that $m\mid n$ and $n\mid m$; that is, that there are natural numbers $x$ and $y$ so that $mx=n$ and $ny=m$. By transitivity of divisibility it follows that $m(xy)=m$.
 \end{proof}
 
-The diagram below is the \emph{Hasse diagram} of the positive divisors of the number $120$, a fragment of the poset of the natural numbers ordered by divisibility.
-
-\begin{center}
+\begin{figure}[t]
+  \centering
   \begin{tikzpicture}
     \node (1)  at (0,0) {$1$};
     
@@ -233,7 +232,11 @@ The diagram below is the \emph{Hasse diagram} of the positive divisors of the nu
     \draw (40) -- (120);
     \draw (60) -- (120);
   \end{tikzpicture}
-\end{center}
+  \caption{The Hasse diagram of the divisors of $120$.}
+  \label{figure:hasse-diagram-120}
+\end{figure}
+
+The diagram displayed in \zcref{figure:hasse-diagram-120} is the \emph{Hasse diagram} of the positive divisors of the number $120$, a fragment of the poset of the natural numbers ordered by divisibility.
 
 Despite lacking antisymmetry, the preorder of the integers with divisibility is essentially equivalent to the poset of natural numbers with divisibility. For every integer $a$ there is a unique natural number $n$ satisfying $n\mid a$ and $a\mid n$. This unique number is of course the absolute value of $a$. The absolute value function $x\mapsto |x|$ preserves divisibility, which means that $a\mid b$ implies $|a| \mid |b|$, and it satisfies the logical equivalence
 \begin{equation*}
@@ -553,6 +556,7 @@ In other words, we can use Euclid's algorithm to find a solution to the equation
 \exercises
 
 \begin{starter}
+  \exercise Draw the Hasse diagrams for the posets of positive divisors of the following numbers: $360$, $900$, $1024$, $1296$, and $2310$.
   \exercise Show that $a^n-1$ is divisible by $a-1$ for every integer $a$.
   \exercise Show that $a^n+b^n$ is divisible by $a+b$ for any odd natural number $n$.
   \exercise Show that if $a\mid b$, then $d\mid b/a$ if and only if $ad\mid b$.
