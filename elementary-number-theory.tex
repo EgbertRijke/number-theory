@@ -389,6 +389,21 @@ bibliography=totoc
 }
 \ExplSyntaxOff
 
+\newlength{\casesleftsep}
+\newlength{\casescolsep}
+
+\setlength{\casesleftsep}{0.25em} % distance from brace to first column
+\setlength{\casescolsep}{1.2em}   % distance between the two columns
+
+\renewenvironment{cases}
+  {\left\{\,
+   \begin{array}{
+     @{\hspace{\casesleftsep}} l
+     @{\hspace{\casescolsep}} l
+     @{}
+   }}
+  {\end{array}\right.}
+
 \newcommand{\Sierpinski}{Sierpiński}
 \newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
 \renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
@@ -403,6 +418,8 @@ bibliography=totoc
     \legendredelim*{\genfrac{}{}{}{}{#1}{#2}}%
   }{the Legendre symbol of #1 over #2}%
 }
+\newcommand{\abssep}{\mkern2.5mu}
+\DeclarePairedDelimiterX{\abs}[1]{\lvert}{\rvert}{\abssep #1\abssep}
 \newcommand{\lres}[2]{%
   \DeclareSemanticSymbol{%
     \lfloor #1 \rceil_{#2}%
