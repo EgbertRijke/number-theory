@@ -217,9 +217,9 @@ In particular, $\sin(2\theta)=2\sin(\theta)\cos(\theta)$, and $\cos(2\theta)=\si
   \end{equation*}
   This allows us to calculate the length of the side $B'D$ via the formula for the geometric series, which we proved in \zcref{theorem:formula-geometric-series}:
   \begin{equation*}
-    |B'D| = \sum_{k=0}^\infty 2c\left(\frac{a}{b}\right)^{2k+2} = 2c\left(\frac{a}{b}\right)^2\sum_{k=0}^\infty \left(\frac{a}{b}\right)^{2k} = \frac{2c\left(\frac{a}{b}\right)^2}{1-\left(\frac{a}{b}\right)^2}=\frac{2ca^2}{b^2-a^2}.
+    \abs{B'D} = \sum_{k=0}^\infty 2c\left(\frac{a}{b}\right)^{2k+2} = 2c\left(\frac{a}{b}\right)^2\sum_{k=0}^\infty \left(\frac{a}{b}\right)^{2k} = \frac{2c\left(\frac{a}{b}\right)^2}{1-\left(\frac{a}{b}\right)^2}=\frac{2ca^2}{b^2-a^2}.
   \end{equation*}
-  Now we can find two expressions for the length of the line $AD$. First, it consists of the lines $AB'$ and $B'D$, so it is of length $c+|B'D|$, which we calculated above. On the other hand, by trigonometry we have that $c/|AD|=\cos(2\theta)$, which gives us that $|AD|=c/\cos(2\theta)$. Since both expressions give the length of the line $AD$, both involving a factor of $c$ which we can factor out, we obtain the following equation:
+  Now we can find two expressions for the length of the line $AD$. First, it consists of the lines $AB'$ and $B'D$, so it is of length $c+\abs{B'D}$, which we calculated above. On the other hand, by trigonometry we have that $c/\abs{AD}=\cos(2\theta)$, which gives us that $\abs{AD}=c/\cos(2\theta)$. Since both expressions give the length of the line $AD$, both involving a factor of $c$ which we can factor out, we obtain the following equation:
   \begin{equation*}
     1+\frac{2a^2}{b^2-a^2} = \frac{1}{\cos(2\theta)}.
   \end{equation*}
@@ -740,17 +740,17 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
   
   If $M$ is the matrix in the above equation, it is immediate from the construction of $M$ that $M^2=I$, the identity matrix. Indeed, jumping from $(x,y)$ to $(x',y')$ using the point $(u,v)$, and jumping again from $(x',y')$ using the same point $(u,v)$ reverses the process and lands us back at $(x,y)$. This implies that any common divisors of $(a',b',c')$ are also common divisors of $(a,b,c)$. Since $(a,b,c)$ is primitive, it follows that $(a',b',c')$ is also primitive.
   
-  The final claim is that $c':= 3c-2|a|-2|b|$ satisfies $0<c'<c$. By rearranging the terms, we see that these strict inequalities are equivalent to the strict inequalities
+  The final claim is that $c':= 3c-2\abs{a}-2\abs{b}$ satisfies $0<c'<c$. By rearranging the terms, we see that these strict inequalities are equivalent to the strict inequalities
   \begin{equation*}
-    2c<2|a|+2|b|<3c.
+    2c<2\abs{a}+2\abs{b}<3c.
   \end{equation*}
   We can prove these strict inequalities by proving that they hold for the squares:
   \begin{equation*}
-    4c^2<4(|a|+|b|)^2<9c^2.
+    4c^2<4(\abs{a}+\abs{b})^2<9c^2.
   \end{equation*}
-  To see this, we note that $(|a|+|b|)^2=a^2+2|a||b| + b^2= c^2+2|a||b|$. This immediately implies that $c^2\leq (|a|+|b|)^2$. Furthermore, we have the inequality $2|a||b|\leq a^2+b^2=c^2$ by the inequality stated in \zcref{equation:instance-am-gm}. Thus we obtain that
+  To see this, we note that $(\abs{a}+\abs{b})^2=a^2+2\abs{a}\abs{b} + b^2= c^2+2\abs{a}\abs{b}$. This immediately implies that $c^2\leq (\abs{a}+\abs{b})^2$. Furthermore, we have the inequality $2\abs{a}\abs{b}\leq a^2+b^2=c^2$ by the inequality stated in \zcref{equation:instance-am-gm}. Thus we obtain that
   \begin{equation*}
-    4c^2< 4(|a|+|b|)^2 = 4c^2+8|a||b| \leq 4c^2 + 4c^2<9c^2.\qedhere
+    4c^2< 4(\abs{a}+\abs{b})^2 = 4c^2+8\abs{a}\abs{b} \leq 4c^2 + 4c^2<9c^2.\qedhere
   \end{equation*}
 \end{proof}
 
@@ -1282,7 +1282,7 @@ Thus, if $(a^2,b^2,c^2)$ is an arithmetic progression of squares, then the integ
 \end{equation*}
 determine a Pythagorean triple $(x,y,z)$. Conversely, if $(x,y,z)$ is a Pythagorean triple, then we define
 \begin{equation*}
-  a := |y-x|, \qquad b := z,\qquad\text{and}\qquad c:= y+x,
+  a := \abs{y-x}, \qquad b := z,\qquad\text{and}\qquad c:= y+x,
 \end{equation*}
 so that $(a^2,b^2,c^2)$ is easily seen to be an arithmetic triple of squares. Here, we defined $a$ to be the \emph{distance} between $y$ and $x$ in order to ensure that $a$ is positive. The congruum of this arithmetic triple is given by
 \begin{equation*}

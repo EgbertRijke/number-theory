@@ -716,7 +716,7 @@ Consider two subsets $A$ and $B$ of a set $X$. The \emph{union} of $A$ and $B$ i
 \end{equation*}
 Given that $X$ is a finite set, we may wish to determine the number of elements in $A\cup B$. Note, however, that in general the answer is not found by simply adding up the number of elements of $A$ and the number of elements in $B$. Indeed, some elements might be contained in both subsets, and they would therefore be counted double. Since every element in the intersection $A\cap B$ is counted twice, the correct formula for the number of elements in $A\cup B$ is:
 \begin{equation*}
-  |A\cup B| = |A| + |B| - |A\cap B|.
+  \abs{A\cup B} = \abs{A} + \abs{B} - \abs{A\cap B}.
 \end{equation*}
 
 \begin{example}
@@ -730,16 +730,16 @@ Given that $X$ is a finite set, we may wish to determine the number of elements 
   \end{equation*}
 \end{example}
 
-The inclusion--exclusion principle is a generalization of the formula for the number of elements of $A\cup B$ to any finite number of subsets of a set $X$. To see the pattern, let us consider the case with three subsets $A$, $B$, and $C$ of a set $X$. Now, if we wish to determine the number of elements in $A\cup B\cup C$, we can again start by adding the numbers $|A|$, $|B|$, and $|C|$. Every element that was in exactly one of the three subsets is correctly accounted for, but we have overcounted the elements in $A\cap B$, $A\cap C$, and $B\cap C$. If we subtract the numbers $|A\cap B|$, $|A\cap C|$, and $|B\cap C|$ from our total, then we have correctly accounted for every element that was in at most two subsets. However, now we have subtracted every element in $A\cap B\cap C$ three times from our count, so we must add them again to arrive at the correct number:
+The inclusion--exclusion principle is a generalization of the formula for the number of elements of $A\cup B$ to any finite number of subsets of a set $X$. To see the pattern, let us consider the case with three subsets $A$, $B$, and $C$ of a set $X$. Now, if we wish to determine the number of elements in $A\cup B\cup C$, we can again start by adding the numbers $\abs{A}$, $\abs{B}$, and $\abs{C}$. Every element that was in exactly one of the three subsets is correctly accounted for, but we have overcounted the elements in $A\cap B$, $A\cap C$, and $B\cap C$. If we subtract the numbers $\abs{A\cap B}$, $\abs{A\cap C}$, and $\abs{B\cap C}$ from our total, then we have correctly accounted for every element that was in at most two subsets. However, now we have subtracted every element in $A\cap B\cap C$ three times from our count, so we must add them again to arrive at the correct number:
 \begin{equation*}
-  |A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B \cap C|.
+  \abs{A\cup B\cup C}=\abs{A}+\abs{B}+\abs{C}-\abs{A\cap B}-\abs{A\cap C}-\abs{B\cap C}+\abs{A\cap B \cap C}.
 \end{equation*}
 Thus, we see an alternating pattern emerging: Single sets are added, intersections of two sets are subtracted, triple intersections are added again, and so on. The inclusion--exclusion principle is stated with this alternating pattern.
 
 \begin{theorem}[The Inclusion--Exclusion Principle]\label{theorem:inclusion-exclusion-principle}
   Consider a finite set $X$ and a finite family of subsets $A_i\subset X$ indexed by $1\leq i\leq n$. Then the number of elements in the union of the subsets $A_i$ is given by
   \begin{equation*}
-    |A_1\cup\cdots\cup A_n|=\sum_{k=1}^n (-1)^{k+1}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}|A_{i_1}\cap\cdots\cap A_{i_k}|\right).
+    \abs{A_1\cup\cdots\cup A_n}=\sum_{k=1}^n (-1)^{k+1}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}\abs{A_{i_1}\cap\cdots\cap A_{i_k}}\right).
   \end{equation*}
 \end{theorem}
 
@@ -752,7 +752,7 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
       0 & \text{if $x\notin B$.}
     \end{cases}
   \end{equation*}
-  The numbers thus defined satisfy the identity $\sum_{x\in X}[x\in B]=|B|$, which is useful for algebraic manipulations. The inclusion--exclusion principle is then asserted equivalently as the identity
+  The numbers thus defined satisfy the identity $\sum_{x\in X}[x\in B]=\abs{B}$, which is useful for algebraic manipulations. The inclusion--exclusion principle is then asserted equivalently as the identity
   \begin{equation*}
     \sum_{k=0}^n (-1)^{k}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}\sum_{x\in X}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]\right)=0
   \end{equation*}

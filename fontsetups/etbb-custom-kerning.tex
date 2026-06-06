@@ -1,0 +1,84 @@
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "customkerns",
+    type = "kern",
+    data = {
+      ["a"] = { ["c"] = 10, ["q"] = 5, ["s"] = 10, ["u"] = -10, ["v"] = -20, ["w"] = 15, ["w"] = -10, ["y"] = -20},
+      ["b"] = { ["a"] = 15, ["b"] = 5, ["e"] = 20, ["i"] = 15, ["o"] = 15, ["r"] = 15, ["s"] = 30, ["u"] = 10, ["y"] = 0 },
+      ["c"] = { ["a"] = 20, ["c"] = 10, ["e"] = 10, ["z"] = 15 },
+      ["d"] = { ["g"] = 10, ["o"] = 5, ["s"] = 15, ["y"] = 10 },
+      ["e"] = { ["a"] = 10, ["c"] = 15, ["d"] = 0, ["e"] = 17, ["i"] = 10, ["o"] = 20, ["s"] = 15 , ["v"] = 20, ["w"] = 20, ["x"] = 25, ["y"] = 20},
+      ["f"] = { ["a"] = 20, ["e"] = 20, ["n"] = 40, ["o"] = 30, ["t"] = 50, ["u"] = 30, ["w"] = 80, ["y"] = 60 },
+      ["g"] = { ["a"] = 0, ["e"] = 10, ["g"] = 30, ["i"] = 10, ["o"] = 15, ["r"] = 25, ["s"] = 15, ["u"] = 20, ["y"] = 50 },
+      ["h"] = { ["e"] = -10 },
+      ["i"] = { ["c"] = 20, ["s"] = 10, ["x"] = 15 },
+      ["k"] = { ["y"] = 30 },
+      ["m"] = { ["o"] = 10, ["s"] = 20 },
+      ["n"] = { ["d"] = 10, ["e"] = -20, ["k"] = -10, ["t"] = -20, ["y"] = 15 },
+      ["o"] = { ["a"] = 15, ["c"] = 10, ["d"] = 15, ["g"] = 20, ["n"] = 5, ["o"] = 15, ["s"] = 15, ["t"] = 15, ["u"] = 20, ["x"] = 20 },
+      ["p"] = { ["a"] = 15, ["e"] = 20, ["i"] = 10, ["o"] = 20, ["s"] = 20},
+      ["q"] = { ["u"] = -5 },
+      ["r"] = { ["a"] = 5, ["b"] = 10, ["d"] = 20, ["e"] = 20, ["f"] = 20, ["i"] = 20, ["k"] = 15, ["n"] = 20, ["o"] = 10, ["r"] = 10, ["s"] = 25, ["u"] = 20, ["v"] = 50, ["y"] = 50 },
+      ["s"] = { ["c"] = 30, ["e"] = 20, ["k"] = 10, ["n"] = 10, ["p"] = 20, ["s"] = 20, ["t"] = 10, ["u"] = 20, ["w"] = 20 },
+      ["t"] = { ["b"] = 35, ["c"] = 15, ["e"] = 15, ["i"] = 20, ["o"] = 15, ["s"] = 20, ["u"] = 15, ["w"] = 30, ["y"] = 40, ["z"] = 15 },
+      ["u"] = { ["g"] = 10, ["x"] = 10 },
+      ["v"] = { ["a"] = 25, ["e"] = 20, ["i"] = 20, ["o"] = 20},
+      ["w"] = { ["a"] = 0, ["e"] = 20, ["i"] = 20, ["o"] = 20},
+      ["x"] = { ["a"] = 20, ["e"] = 15, ["i"] = 15,["t"] = 40, ["u"] = 10 },
+      ["y"] = { ["a"] = 0, ["e"] = 20, ["i"] = 30, ["m"] = 10, ["n"] = 10, ["o"] = 10, ["p"] = 30, ["s"] = 20, ["t"] = 20 },
+      ["z"] = { ["e"] = 15, ["i"] = 20, ["u"] = 10, ["y"] = 30, ["z"] = 10 },
+      ["P"] = { ["a"] = -10, ["y"] = 30 },
+      ["S"] = { ["e"] = 20 },
+      ["T"] = { ["a"] = 0, ["w"] = 100, ["y"] = 100},
+    }
+  }
+}
+
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "rijkeliga",
+    type = "chainsubstitution",
+    lookups = {
+      {
+        type = "ligature",
+        data = {
+          ["ĳ"] = { "i", "j" },
+        }
+      }
+    },
+    data = {
+      rules = {
+        {
+          before  = { { "R" } },
+          current = { { "i" }, { "j" } },
+          after   = { { "k" }, { "e" } },
+          lookups = { 1 }
+        }
+      }
+    }
+  }
+}
+
+\setmainfont{ETbb}[
+  Extension = .otf,
+  UprightFont = *-Regular,
+  ItalicFont = *-Italic,
+  BoldFont = *-Bold,
+  BoldItalicFont = *-BoldItalic,
+  Scale = 1.02,
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  RawFeature = {+customkerns,+rijkeliga},
+  ItalicFeatures = {RawFeature={+customkerns}},
+  BoldFeatures = {LetterSpace=1,RawFeature={+customkerns}},
+  BoldItalicFeatures = {LetterSpace=1,RawFeature={+customkerns}},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+]
+\setmathfont{Garamond-Math.otf}
+\setsansfont{TeX Gyre Heros}[Scale=MatchLowercase]
+\setmonofont{Inconsolatazi4}[Scale=MatchLowercase]
+\linespread{1.10}
+
+\newcommand{\VersionFontName}{ETbb}

@@ -196,7 +196,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
   \begin{equation*}
     I:=\{1\leq k\leq 2m\mid f(k)=1\}\qquad\text{and}\qquad J:= \{1\leq k\leq 2m\mid f(k)=-1\}.
   \end{equation*}
-  Note that $I$ consists of the integer roots of $f(x)-1$, and $J$ consists of the integer roots of $f(x)+1$. In particular, since the degree of $f(x)$ is $m$, it follows that $|I|\leq m$ and $|J|\leq m$. On the other hand, the union $I\cup J$ consists of all the numbers $1,\ldots,2m$, so that $|I|+|J|=2m$. This allows us to conclude that both $I$ and $J$ consist of exactly $m$ elements, that $I$ consists of all the roots of $f(x)-1$, and that $J$ consists of all the roots of $f(x)+1$. Consequently, we have the polynomial identities
+  Note that $I$ consists of the integer roots of $f(x)-1$, and $J$ consists of the integer roots of $f(x)+1$. In particular, since the degree of $f(x)$ is $m$, it follows that $\abs{I}\leq m$ and $\abs{J}\leq m$. On the other hand, the union $I\cup J$ consists of all the numbers $1,\ldots,2m$, so that $\abs{I}+\abs{J}=2m$. This allows us to conclude that both $I$ and $J$ consist of exactly $m$ elements, that $I$ consists of all the roots of $f(x)-1$, and that $J$ consists of all the roots of $f(x)+1$. Consequently, we have the polynomial identities
   \begin{equation*}
     f(x)-1=\prod_{i\in I}(x-i)\qquad\text{and}\qquad f(x)+1=\prod_{j\in J}(x-j).
   \end{equation*}
@@ -205,7 +205,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
   \begin{equation*}
     \prod_{j\in J}(i_0-j)=\prod_{j\in J}(i_0-j)-\prod_{i\in I}(i_0-i) = 2.
   \end{equation*}
-  This integer factorization of $2$ shows that the distance $|i_0-j|\leq 2$ for every integer $j\in J$. Now observe that when $J$ contains at least three integers, then there is at most one integer distinct from all the integers in $J$ such that $|x-j|\leq 2$ for all $j\in J$. However, since $I$ and $J$ contain the same number of elements, this shows that $J$ cannot contain $3$ or more integers. We conclude that $m\leq 2$.
+  This integer factorization of $2$ shows that the distance $\abs{i_0-j}\leq 2$ for every integer $j\in J$. Now observe that when $J$ contains at least three integers, then there is at most one integer distinct from all the integers in $J$ such that $\abs{x-j}\leq 2$ for all $j\in J$. However, since $I$ and $J$ contain the same number of elements, this shows that $J$ cannot contain $3$ or more integers. We conclude that $m\leq 2$.
   
   We have shown so far that if $P_n(x)$ factors as a product of two polynomials, then $n=2m$ for $1\leq m\leq 2$. To finish the proof of P\'{o}lya's claim, it remains to show that $P_2(x)$ is irreducible. Reducing P\'{o}lya's polynomial $P_2(x)$ modulo $2$ gives
   \begin{equation*}

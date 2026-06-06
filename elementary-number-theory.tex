@@ -27,7 +27,13 @@ bibliography=totoc
 
 % \setmathfont{STIX Two Math}[range={"25BF}]
 
-\input{libertinus-custom-kerning}
+\directlua{
+  local fontsetup = os.getenv("NT_FONT_SETUP")
+  if fontsetup == nil or fontsetup == "" then
+    fontsetup = "fontsetups/stix-two-custom-kerning.tex"
+  end
+  tex.sprint("\\input{" .. fontsetup .. "}")
+}
 
 \newcommand{\otfrac}[2]{#1/#2}
 
@@ -120,7 +126,7 @@ bibliography=totoc
   \TwoDigits{\day}%
 }
 
-\newcommand{\Version}[1]{Version #1.\TodayYYMMDD}
+\newcommand{\Version}[1]{Version #1.\TodayYYMMDD~~~~\VersionFontName}
 
 \newenvironment{nobreakenumerate}
 {
@@ -392,7 +398,7 @@ bibliography=totoc
 \newlength{\casesleftsep}
 \newlength{\casescolsep}
 
-\setlength{\casesleftsep}{0.25em} % distance from brace to first column
+\setlength{\casesleftsep}{0.2em} % distance from brace to first column
 \setlength{\casescolsep}{1.2em}   % distance between the two columns
 
 \renewenvironment{cases}
@@ -418,7 +424,7 @@ bibliography=totoc
     \legendredelim*{\genfrac{}{}{}{}{#1}{#2}}%
   }{the Legendre symbol of #1 over #2}%
 }
-\newcommand{\abssep}{\mkern2.5mu}
+\newcommand{\abssep}{\mkern2mu}
 \DeclarePairedDelimiterX{\abs}[1]{\lvert}{\rvert}{\abssep #1\abssep}
 \newcommand{\lres}[2]{%
   \DeclareSemanticSymbol{%
@@ -520,7 +526,7 @@ bibliography=totoc
 
 %   \vspace*{.5cm}
 
-%   {\Large\textit{\Version{0}}\par}
+%   {\Large\Version{0}\par}
 % \endgroup
 
 %%%% No Logo Version
@@ -555,10 +561,10 @@ bibliography=totoc
       \draw[fill=black,very thick] (1,0) circle (.5pt);
     \end{tikzpicture}
     \end{center}
-    \vspace*{\stretch{1}}
+    \vspace*{\stretch{.5}}
     {\superhuge \textbf{The Great Story of Numbers}\par}
     \vspace*{\stretch{2}}
-    {\Large\textit{\Version{0}}}
+    {\Large\Version{0}}
   \end{center}
 \end{titlepage}
 

@@ -31,10 +31,6 @@ While it is common to think of rational numbers as integer fractions, there is a
   \end{enumerate}
 \end{definition}
 
-\begin{remark}
-  The second rule can be read as a definition of what it means for two rational numbers to be equal. If two rational numbers are constructed via their integer fractions $\frac{a}{b}$ and $\frac{c}{d}$, then the expression $\frac{a}{b}=\frac{c}{d}$ means that $\frac{a}{b}$ and $\frac{c}{d}$ are the same in the sense that $ad-bc=0$.
-\end{remark}
-
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[scale=1,line join=round,line cap=round]
@@ -79,13 +75,13 @@ While it is common to think of rational numbers as integer fractions, there is a
 \end{figure}
 
 \begin{remark}
-More generally, the quantity $|bc-ad|$ is a measure for how far apart the fractions $a/b$ and $c/d$ are. Assuming that the inequality $a/b\leq c/d$ holds so that $bc-ad\geq 0$, we will show in \zcref{theorem:meaning-explanation-determinant-fractions} that the number
+More generally, the quantity $\abs{bc-ad}$ is a measure for how far apart the fractions $\otfrac{a}{b}$ and $\otfrac{c}{d}$ are. Assuming that the inequality $\otfrac{a}{b}\leq \otfrac{c}{d}$ holds so that $bc-ad\geq 0$, we will show in \zcref{theorem:meaning-explanation-determinant-fractions} that the number
 \begin{equation*}
   bc-ad
 \end{equation*}
-counts the number of fractions $a/b<s/t<c/d$ such that the denominator $t$ does not exceed $b+d$. Indeed, if $a/b=c/d$ then there should be no fractions strictly between $a/b$ and $c/d$, as is signified by the number $bc-ad=0$.
+counts the number of fractions $\otfrac{a}{b}<\otfrac{s}{t}<\otfrac{c}{d}$ such that the denominator $t$ does not exceed $b+d$. Indeed, if $\otfrac{a}{b}=\otfrac{c}{d}$ then there should be no fractions strictly between $\otfrac{a}{b}$ and $\otfrac{c}{d}$, as is signified by the number $bc-ad=0$.
 
-The quantity $k=|bc-ad|$ is also the area of the parallelogram spanned by $(a,b)$ and $(c,d)$. Moreover, there are exactly $k$ lattice points in this parallelogram, excluding multiples of $(a,b)$ and $(c,d)$.
+The quantity $k=\abs{bc-ad}$ is also the area of the parallelogram spanned by $(a,b)$ and $(c,d)$. Moreover, there are exactly $k$ lattice points in this parallelogram, excluding multiples of $(a,b)$ and $(c,d)$.
 \end{remark}
 
 \begin{theorem}
@@ -193,7 +189,7 @@ If we divide the top equation through by $71$, we obtain the equation
 \begin{equation*}
   \frac{193}{71}=2+\frac{51}{71}.
 \end{equation*}
-Similarly, we have $\frac{71}{51}=1+\frac{20}{51}$, and so on. Rewriting $\frac{51}{71}$ to the fraction $1/{\frac{71}{51}}$ then allows us to obtain:
+Similarly, we have $\frac{71}{51}=1+\frac{20}{51}$, and so on. Rewriting $\frac{51}{71}$ to the fraction $\otfrac{1}{\frac{71}{51}}$ then allows us to obtain:
 \begin{equation*}
   \frac{193}{71}=2+\frac{1}{1+\frac{20}{51}}.
 \end{equation*}
@@ -201,7 +197,7 @@ Continuing this way, we find that
 \begin{equation*}
   \frac{193}{71}=2+\cfrac{1}{1+\cfrac{1}{2+\cfrac{1}{1+\cfrac{1}{1+\cfrac{1}{4+\tfrac{1}{2}}}}}}.
 \end{equation*}
-Such iterated fractions are called \define{continued fractions}. The fraction $\frac{193}{71}$ is a famously accurate approximation of Euler's number $e$, being correct to within a distance of $1/71^2$, and its continued fraction is the start of the continued fraction expansion of $e$. As we just saw, continued fractions are closely related to Euclid's algorithm, and indeed they are used for rational approximations of real numbers.
+Such iterated fractions are called \define{continued fractions}. The fraction $\frac{193}{71}$ is a famously accurate approximation of Euler's number $e$, being correct to within a distance of $\otfrac{1}{71^2}$, and its continued fraction is the start of the continued fraction expansion of $e$. As we just saw, continued fractions are closely related to Euclid's algorithm, and indeed they are used for rational approximations of real numbers.
 
 \begin{definition}
   A \define{finite (simple) continued fraction} is an expression of the form
@@ -575,7 +571,7 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
   is reduced for any integer $x$.
   \exercise Consider the binary operation $D$ on the reduced integer fractions, defined by
   \begin{equation*}
-    D\Big(\frac{a}{b},\frac{c}{d}\Big) := |bc-ad|.
+    D\Big(\frac{a}{b},\frac{c}{d}\Big) := \abs{bc-ad}.
   \end{equation*}
   Show that $D$ satisfies the axioms of a \define{metric}:
   \begin{enumerate}
