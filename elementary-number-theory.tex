@@ -1,7 +1,7 @@
 \DocumentMetadata{
   lang        = en-US,
   pdfversion  = 2.0,
-  pdfstandard = {ua-2,a-4f},
+  pdfstandard = {a-4f},%ua-2
   tagging     = off,
 %  testphase   = {bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem}
 %  testphase   = {phase-III,bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem},
@@ -17,7 +17,7 @@ numbers=noenddot,
 bibliography=totoc
 ]{scrbook}
 
-\tagpdfsetup{math/mathml/luamml/load=false}
+% \tagpdfsetup{math/mathml/luamml/load=false}
 
 \setcounter{tocdepth}{2}
 
@@ -50,6 +50,9 @@ bibliography=totoc
   stretch=10,
   shrink=0
 ]{microtype}
+\usepackage[ngerman,american]{babel}
+\usepackage[autostyle=true,strict=true]{csquotes}
+\MakeOuterQuote{"}
 \usepackage[english]{selnolig}
 \usepackage{realscripts}
 \usepackage{impnattypo}
@@ -74,10 +77,6 @@ bibliography=totoc
   Script=Greek
 ]
 
-\usepackage[ngerman,american]{babel}
-\usepackage[autostyle=true,strict=true]{csquotes}
-\MakeOuterQuote{"}
-
 \addtokomafont{disposition}{\rmfamily}
 \addtokomafont{chapter}{\huge\bfseries}
 \addtokomafont{chapterprefix}{\Large\lsstyle\scshape\mdseries}
@@ -89,10 +88,13 @@ bibliography=totoc
   \textsc{\chaptername~\thechapter}\enskip%
 }
 
-\newcommand{\italicsubsection}[1]{%
-  \subsection*{\mdseries\itshape #1}%
+\NewDocumentCommand{\italicsubsection}{m}{%
+  \ParseLaTeXeHeading{subsection}
+    {\BooleanTrue}
+    {heading-decls={\normalfont\large\mdseries\itshape}}
+    {#1}%
 }
-
+  
 \usepackage{geometry}
 \geometry{
   hcentering,
@@ -250,6 +252,7 @@ bibliography=totoc
 \setlength{\bibitemsep}{0.5\baselineskip}
 \setlength{\bibhang}{1.5em}
 
+\usepackage{amsmath}
 \usepackage{amsthm}
 
 \newtheorem{theorem}{Theorem}[section]
