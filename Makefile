@@ -8,7 +8,7 @@ BASE := $(basename $(TEXFILE))
 
 OUTPUT_PREFIX := number-theory
 
-DEFAULT_FONT := alegreya
+DEFAULT_FONT := libertinus
 
 .DEFAULT_GOAL := pdf
 
@@ -46,8 +46,7 @@ FONTS := \
         fbb \
         gentium \
         charis-sil \
-        noto-serif \
-        comic-neue
+        noto-serif
 #	termes \
 #       pagella \
 #       pagella-asana \
@@ -80,7 +79,6 @@ FONTSETUP_fbb                      := $(FONTDIR)/fbb-custom-kerning.tex
 FONTSETUP_gentium                  := $(FONTDIR)/gentium-custom-kerning.tex
 FONTSETUP_charis-sil               := $(FONTDIR)/charis-sil-custom-kerning.tex
 FONTSETUP_noto-serif               := $(FONTDIR)/noto-serif-custom-kerning.tex
-FONTSETUP_comic-neue               := $(FONTDIR)/comic-neue-custom-kerning.tex
 # FONTSETUP_termes                   := $(FONTDIR)/termes-custom-kerning.tex
 # FONTSETUP_pagella                  := $(FONTDIR)/pagella-custom-kerning.tex
 # FONTSETUP_pagella-asana            := $(FONTDIR)/pagella-asana-custom-kerning.tex

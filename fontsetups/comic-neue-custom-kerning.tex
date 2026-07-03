@@ -77,3 +77,31 @@
 \linespread{1.10}
 
 \newcommand{\VersionFontName}{Comic Neue (Euler)}
+
+\RedeclareSectionCommand[
+  tocnumwidth=1.8em
+]{part}
+
+\RedeclareSectionCommand[
+  tocnumwidth=1.8em
+]{chapter}
+
+\RedeclareSectionCommand[
+  tocindent=1.8em,
+  tocnumwidth=2.5em
+]{section}
+
+\RedeclareSectionCommand[
+  tocindent=4.3em,
+  tocnumwidth=2.8em
+]{subsection}
+
+\DeclareTOCStyleEntry[
+  indent=0em,
+  numwidth=2.5em
+]{tocline}{figure}
+
+\DeclareTOCStyleEntry[
+  indent=0em,
+  numwidth=2.5em
+]{tocline}{table}
