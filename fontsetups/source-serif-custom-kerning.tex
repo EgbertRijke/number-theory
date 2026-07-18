@@ -34,37 +34,12 @@
   }
 }
 
-\directlua{
-  fonts.handlers.otf.addfeature{
-    name = "rijkeliga",
-    type = "chainsubstitution",
-    lookups = {
-      {
-        type = "ligature",
-        data = {
-          ["ĳ"] = { "i", "j" },
-        }
-      }
-    },
-    data = {
-      rules = {
-        {
-          before  = { { "R" } },
-          current = { { "i" }, { "j" } },
-          after   = { { "k" }, { "e" } },
-          lookups = { 1 }
-        }
-      }
-    }
-  }
-}
-
 \setmainfont{Source Serif 4}[
   Numbers = OldStyle,
   Ligatures = {TeX, Common},
   ContextualAlternates = On,
   Kerning = On,
-  RawFeature = {+customkerns,+rijkeliga},
+  RawFeature = {+customkerns},
   ItalicFeatures = {RawFeature={+customkerns}},
   BoldFeatures = {LetterSpace=1,RawFeature={+customkerns}},
   BoldItalicFeatures = {LetterSpace=1,RawFeature={+customkerns}},
