@@ -831,6 +831,14 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
 \end{routine}
 
 \begin{challenge}
+  \exercise Write $\langle n\rangle :=\{1,\ldots,n\}$. We say that a map $f:\langle m\rangle \to \langle n\rangle$ is \define{order-preserving} or \define{monotone} if it satisfies the condition
+  \begin{equation*}
+    i\leq j \Rightarrow f(i)\leq f(j).
+  \end{equation*}
+  Find a recursive expression for the number $A(m,n)$ of order-preserving maps $\langle m\rangle \to \langle n \rangle$, and use it to show that
+  \begin{equation*}
+    A(m,n)=\binom{m+n-1}{m}.
+  \end{equation*}
   \exercise
   \begin{subexenum}
   \item Show that in the $n$\supth{} row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
