@@ -14,7 +14,7 @@ After working through this chapter, you will be able to:
 \section{The Fundamental Theorem of Arithmetic}
 
 \begin{definition}
-  An integer $a$ is said to be \emph{prime} if it has exactly one positive proper divisor. Any integer $a\neq \pm 1$ that is not prime is said to be a \emph{composite number}.
+  An integer $a$ is said to be \define{prime} if it has exactly one positive proper divisor. Any integer $a\neq \pm 1$ that is not prime is said to be a \define{composite number}.
 \end{definition}
 
 The numbers $0$ and $1$ are not prime. To see that $0$ isn't prime, simply note that any positive integer is a proper divisor of $0$. To see that $1$ isn't prime, note that $1$ doesn't have any proper divisors. Indeed, it has exactly one positive divisor, namely $1$ itself, but this divisor isn't proper. We also note that if $a>1$ is prime, then the number $1$ is always a positive proper divisor. Thus we see that $a>1$ is prime if and only if the number $1$ is its unique positive proper divisor. We note that older literature often uses the name \emph{aliquot divisors} for what we have called proper divisors.
@@ -23,7 +23,7 @@ To see that the number $2$ is prime, note that its positive divisors are a subse
 
 To see that the number $3$ is prime, note that its positive divisors are a subset of the set $\{1,2,3\}$ consisting of all positive integers below $3$. The number $1$ is a proper divisor, the number $2$ doesn't divide $3$, and $3$ itself is a divisor but it isn't proper. Therefore we see that the number $3$ has exactly one positive proper divisor.
 
-The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \emph{sieve of Eratosthenes}, which we will now describe. \zcref{figure:sieve-of-eratosthenes} displays the sieve of Eratosthenes up to 1120.
+The number $4$ isn't prime, because the numbers $1$ and $2$ are two distinct proper divisors of $4$. This process of finding all primes up to a desired bound is formalized in the \define{sieve of Eratosthenes}, which we will now describe. \zcref{figure:sieve-of-eratosthenes} displays the sieve of Eratosthenes up to 1120.
 
 \begin{figure}[!p]
 \centering
@@ -121,7 +121,7 @@ We can use this observation to obtain the list of all primes below $100$, at sta
 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97.
 \end{equation*}
 
-The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which $Q_n$ is empty, or there are infinitely many primes. We will now show that there are infinitely many primes. In the following lemma we use the concept of \emph{nontrivial divisors}, which are divisors $d$ of a natural number $n$ such that $d\neq 1$. The concept of nontrivial divisors should not be confused with the concept of proper divisors, which are divisors $d$ of a natural number $n$ such that $d\neq n$.
+The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which $Q_n$ is empty, or there are infinitely many primes. We will now show that there are infinitely many primes. In the following lemma we use the concept of \define{nontrivial divisors}, which are divisors $d$ of a natural number $n$ such that $d\neq 1$. The concept of nontrivial divisors should not be confused with the concept of proper divisors, which are divisors $d$ of a natural number $n$ such that $d\neq n$.
 
 \begin{theorem}
   Any natural number $n>1$ has a least nontrivial divisor, and this divisor is prime.
@@ -162,7 +162,7 @@ The fundamental theorem of arithmetic asserts that every positive integer can be
   \begin{equation*}
     n=\prod_{i=0}^{l-1}p_i.
   \end{equation*}
-  This unique list of primes is called the \emph{prime decomposition of $n$}.
+  This unique list of primes is called the \define{prime decomposition of $n$}.
 \end{theorem}
 
 \begin{proof}
@@ -253,7 +253,7 @@ There are many proofs of the infinitude of primes. The following is due to Filip
 
 The following proof of the infinitude of primes is, in its essence, due to Hillel Furstenberg \cite{furstenberg1955}. In its original formulation, this proof makes clever use of a topology on $\mathbb{Z}$. Although topologies are not hard to define, motivating them is beyond the scope of this course. We will therefore present a revised version of Furstenberg's proof, following Daniel Cass and Gerald Wildenberg \cite{cass2003}.
 
-The Cass--Wildenberg approach to prove the infinitude of primes makes use of the concept of a periodic subset of $\mathbb{Z}$. A subset $A\subseteq\mathbb{Z}$ is said to be \emph{periodic with period $n$}, or simply \emph{periodic} if we merely assume such a natural number $n$ to exist, if we have
+The Cass--Wildenberg approach to prove the infinitude of primes makes use of the concept of a periodic subset of $\mathbb{Z}$. A subset $A\subseteq\mathbb{Z}$ is said to be \define{periodic with period $n$}, or simply \define{periodic} if we merely assume such a natural number $n$ to exist, if we have
 \begin{equation*}
   x\in A\qquad\Leftrightarrow\qquad x+n\in\mathbb{Z}.
 \end{equation*}
@@ -286,7 +286,7 @@ for all $k\in\mathbb{Z}$. In particular, all inhabited periodic subsets of $\mat
 \subsection{Erd\H{o}s's Proof}
 
 \begin{definition}
-  A natural number $n$ is said to be \emph{square-free} if the only square dividing $n$ is $1$. In other words, $n$ is square-free if
+  A natural number $n$ is said to be \define{square-free} if the only square dividing $n$ is $1$. In other words, $n$ is square-free if
   \begin{equation*}
     k^2\mid n\qquad\Rightarrow\qquad k=1
   \end{equation*}
@@ -304,7 +304,7 @@ is a product of distinct primes. In particular, if $n$ is square free then the e
   \begin{equation*}
     n=k^2m,
   \end{equation*}
-  where $m$ is a square-free number. This is called the \emph{square-free decomposition} of $n$, and the number $m$ is called the \emph{square-free part} of $n$.
+  where $m$ is a square-free number. This is called the \define{square-free decomposition} of $n$, and the number $m$ is called the \define{square-free part} of $n$.
 \end{theorem}
 
 \begin{proof}
@@ -464,7 +464,7 @@ During the 17\supth{} century, when computational resources were limited to huma
   Thus, if $2^{2^km}+1$ is prime, then we must have $m=1$.
 \end{proof}
 
-In other words, all primes of the form $2^n+1$ are in fact of the form $2^{2^{k}}+1$. Such numbers are called \emph{Fermat numbers}: The $n$\supth{} Fermat number is given by
+In other words, all primes of the form $2^n+1$ are in fact of the form $2^{2^{k}}+1$. Such numbers are called \define{Fermat numbers}: The $n$\supth{} Fermat number is given by
 \begin{equation*}
   F_n:=2^{2^n}+1.
 \end{equation*}
@@ -516,7 +516,7 @@ Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the
 In some cases we can give precise expressions of the prime factorization of a number. We will describe here two such cases: The prime factorization of the factorial $n!$, which is due to Adrien-Marie Legendre, and the prime factorization of the binomial coefficients $\binom{n}{m}$, which is due to Ernst Kummer. We will use a corollary to Kummer's theorem in the proof of Bertrand's Postulate.
 
 \begin{definition}
-  The \emph{$p$-adic valuation} of a positive integer $n$ is the largest exponent $m$ such that $p^m\mid n$. That is, the $p$-adic valuation $\nu_p(n)$ of $n$ satisfies the logical equivalence
+  The \define{$p$-adic valuation} of a positive integer $n$ is the largest exponent $m$ such that $p^m\mid n$. That is, the $p$-adic valuation $\nu_p(n)$ of $n$ satisfies the logical equivalence
   \begin{equation*}
     p^k\mid n\qquad\Leftrightarrow\qquad k\leq \nu_p(n)
   \end{equation*}
@@ -786,7 +786,7 @@ In 1845, Joseph Bertrand observed that for any $1\leq n \leq 3,000,000$ there is
   &318751,\ 637499,\ 1274989,\ 2549951,\ 5099893,\ \ldots.
 \end{align*}
 
-The primes in this list are sometimes called the \emph{Bertrand primes}, and they are listed as A006992 in the On-Line Encyclopedia of Integer Sequences \cite{oeis:A006992}. Bertrand's conjecture was proven five years later by Pafnuty Chebyshev, who contributed many more results about the distribution of the primes using analytical methods \cite{chebyshev1850}. We will give a proof by Paul Erd\H{o}s \cite{erdos1932}, which can be obtained through the methods of the previous section.
+The primes in this list are sometimes called the \define{Bertrand primes}, and they are listed as A006992 in the On-Line Encyclopedia of Integer Sequences \cite{oeis:A006992}. Bertrand's conjecture was proven five years later by Pafnuty Chebyshev, who contributed many more results about the distribution of the primes using analytical methods \cite{chebyshev1850}. We will give a proof by Paul Erd\H{o}s \cite{erdos1932}, which can be obtained through the methods of the previous section.
 
 % \subsection{The Sylvester--Schur Theorem}
 
@@ -949,12 +949,12 @@ The primes in this list are sometimes called the \emph{Bertrand primes}, and the
   \item $2^{48}-1$.
   \end{subexenum}
   \exercise Show that there are no primes $p$ such that $p+8$ and $p+22$ are also prime.
-  \exercise \label{exercise:modular-restrictions-twin-primes}A pair of \emph{twin primes} is a pair of primes $p$ and $q$ such that $q-p=2$. Consider a pair of twin primes $p$ and $q$ strictly greater than $3$.
+  \exercise \label{exercise:modular-restrictions-twin-primes}A pair of \define{twin primes} is a pair of primes $p$ and $q$ such that $q-p=2$. Consider a pair of twin primes $p$ and $q$ strictly greater than $3$.
   \begin{subexenum}
   \item Show that $p+q\equiv 0\pmod{12}$.
   \item Show that $pq\equiv -1\pmod{9}$.
   \end{subexenum}
-  \exercise \label{exercise:sophie-germain-primes}A \emph{Sophie Germain prime} is a prime $p$ such that $2p+1$ is also prime. Show that if $p>3$ is a Sophie Germain prime, then
+  \exercise \label{exercise:sophie-germain-primes}A \define{Sophie Germain prime} is a prime $p$ such that $2p+1$ is also prime. Show that if $p>3$ is a Sophie Germain prime, then
   \begin{equation*}
     p(2p+1)\equiv 1\pmod{18}.
   \end{equation*}

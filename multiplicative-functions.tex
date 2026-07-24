@@ -5,14 +5,14 @@
 The number $6$ satisfies the curious property that the sum of its proper divisors $1+2+3$ is equal to the number $6$ itself. This property of a number being equal to the sum of its own proper divisors, which is also called the \emph{aliquot sum}, was deemed so special in ancient times, that these numbers were called \emph{perfect}.
 
 \begin{definition}
-  Consider a positive natural number $n$. The \emph{aliquot sum} $s(n)$ of $n$ is defined by
+  Consider a positive natural number $n$. The \define{aliquot sum} $s(n)$ of $n$ is defined by
   \begin{equation*}
     s(n):=\sum_{d\mid n,~d<n}d
   \end{equation*}
   \begin{enumerate}
-  \item The number $n$ is called \emph{perfect} if $s(n)=n$.
-  \item The number $n$ is called \emph{deficient} if $s(n)<n$.
-  \item The number $n$ is called \emph{abundant} if $s(n)>n$.
+  \item The number $n$ is called \define{perfect} if $s(n)=n$.
+  \item The number $n$ is called \define{deficient} if $s(n)<n$.
+  \item The number $n$ is called \define{abundant} if $s(n)>n$.
   \end{enumerate}
 \end{definition}
 
@@ -76,12 +76,12 @@ Prime numbers of the form $M_m=2^m-1$ are called Mersenne primes, after Father M
   \end{equation*}
 \end{proof}
 
-Mersenne numbers which are prime are called \emph{Mersenne primes}. They are used in the search for extremely large prime numbers. Note, however, that not every Mersenne number $M_p$ with $p$ prime is a prime number. For example, $M_{11}=23\cdot 89$.
+Mersenne numbers which are prime are called \define{Mersenne primes}. They are used in the search for extremely large prime numbers. Note, however, that not every Mersenne number $M_p$ with $p$ prime is a prime number. For example, $M_{11}=23\cdot 89$.
 
 No perfect numbers other than the ones described by Euclid have been found, so it is natural to wonder whether Euclid described all of them. This leads us to Euler, who was able to prove in the 18\supth{} century that every \emph{even} perfect number is of Euclid's form. Euler did so by analyzing the function $\sigma$, which returns for each $n$ the sum of its divisors. Euler's proof marks the beginning of the theory of \emph{arithmetic functions}. 
 
 \begin{definition}
-  We define the \emph{sum-of-divisors} function $\sigma$ by
+  We define the \define{sum-of-divisors} function $\sigma$ by
   \begin{equation*}
     \sigma(n):=\sum_{d\mid n}d.
   \end{equation*}
@@ -182,7 +182,7 @@ Before we introduce reduced residue systems, let us prove a lemma.
 By the previous lemma, we can test whether an integer is relatively prime to $n$ by testing any element in its congruence class. This allows us to make the following definition.
 
 \begin{definition}
-  A \emph{reduced residue system} modulo $n$ is a set
+  A \define{reduced residue system} modulo $n$ is a set
   \begin{equation*}
     \{r_1,\ldots,r_k\}
   \end{equation*}
@@ -193,7 +193,7 @@ By the previous lemma, we can test whether an integer is relatively prime to $n$
 \end{definition}
 
 \begin{corollary}
-  Any two reduced residue systems modulo $n$ have the same size, for which we write $\totient(n)$. The function $\totient$ is called \emph{Euler's totient function}.
+  Any two reduced residue systems modulo $n$ have the same size, for which we write $\totient(n)$. The function $\totient$ is called \define{Euler's totient function}.
 \end{corollary}
 
 \begin{proof}
@@ -278,7 +278,7 @@ Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient
   \begin{equation*}
     n=2^a\prod_{p\in S}p,
   \end{equation*}
-  where $S$ is a subset of the \emph{Fermat primes}; that is, every prime in $S$ is the form $2^b+1$. The only known such primes are
+  where $S$ is a subset of the \define{Fermat primes}; that is, every prime in $S$ is the form $2^b+1$. The only known such primes are
   \begin{equation*}
     3,~5,~17,~257,~\text{and}~65537.
   \end{equation*}
@@ -302,16 +302,16 @@ Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient
 
 \section{Multiplicative Functions}
 
-A function $f$ defined on the positive integers with output in any number system, such as the integers, real numbers, or complex numbers, is called an \emph{arithmetic function}. For example, Euler's totient function $\totient$, which returns for each $n$ the number of elements $0<k<n$ relatively prime to $n$, is an arithmetic function. Some other important arithmetic functions include the \emph{number of divisors function} $\tau$ and the \emph{sum of divisors function} $\sigma$:
+A function $f$ defined on the positive integers with output in any number system, such as the integers, real numbers, or complex numbers, is called an \define{arithmetic function}. For example, Euler's totient function $\totient$, which returns for each $n$ the number of elements $0<k<n$ relatively prime to $n$, is an arithmetic function. Some other important arithmetic functions include the \define{number of divisors function} $\tau$ and the \define{sum of divisors function} $\sigma$:
 \begin{equation*}
   \tau(n) := \sum_{d\mid n}1\qquad\text{and}\qquad \sigma(n) := \sum_{d\mid n}d.
 \end{equation*}
 Note that the number of divisors and the sum of divisors are not defined for $n=0$. Arithmetic functions are typically only defined on the positive integers $\{1,2,3,\ldots\}$. Even for functions which are defined on $0$, such as Euler's totient function, when we consider them as arithmetic functions we will consider their domain of definition to be the positive integers.
 
-Other functions, which are worth naming are the \emph{constant function} $n\mapsto 1$, which we will simply denote by $1$, and the \emph{identity function} $n\mapsto n$, which we will denote by $\mathrm{id}$. In the pages that follow, we shall encounter two more arithmetic functions: the \emph{unit function} $\varepsilon$ and the \emph{M\"obius function} $\mu$.
+Other functions, which are worth naming are the \define{constant function} $n\mapsto 1$, which we will simply denote by $1$, and the \define{identity function} $n\mapsto n$, which we will denote by $\mathrm{id}$. In the pages that follow, we shall encounter two more arithmetic functions: the \emph{unit function} $\varepsilon$ and the \emph{M\"obius function} $\mu$.
 
 \begin{definition}
-  An arithmetic function $f$ is said to be \emph{multiplicative} if for any two relatively prime natural numbers $m$ and $n$ we have
+  An arithmetic function $f$ is said to be \define{multiplicative} if for any two relatively prime natural numbers $m$ and $n$ we have
   \begin{equation*}
     f(mn)=f(m)f(n).
   \end{equation*}
@@ -409,7 +409,7 @@ Indeed, for any prime power $p^m$, the divisors of $p^m$ are the prime powers $p
 \section{The M\"obius Function}
 
 \begin{definition}
-  The \emph{M\"obius function} $\mu$ is defined by
+  The \define{M\"obius function} $\mu$ is defined by
   \begin{equation*}
     \mu(n) :=
     \begin{cases}
@@ -488,14 +488,75 @@ It is immediate from the definition that the M\"obius function is multiplicative
 
 \section{Dirichlet Convolution}
 
-The set of arithmetic functions with values taken in a fixed, chosen number system such as the integers, the real numbers, or the complex numbers, possesses an interesting algebraic structure that can be used effectively to obtain many algebraic results and identities about numbers. The most important operation on arithmetic functions is \emph{Dirichlet convolution}, a way of combining two arithmetic functions $f$ and $g$ into a new arithmetic function $f\ast g$.
+The set of arithmetic functions with values in a fixed number system such as the integers, the real numbers, or the complex numbers, possesses algebraic structure that can be used to obtain number-theoretic properties such as identities or divisibility results. The fundamental operation on arithmetic functions is \emph{Dirichlet convolution}, a way of combining two arithmetic functions into a new one.
 
 \begin{definition}
-  Consider two arithmetic functions $f$ and $g$. We define their \emph{Dirichlet convolution} $f\ast g$ by
+  Consider two arithmetic functions $f$ and $g$. We define their \define{Dirichlet convolution} $f\ast g$ by
   \begin{equation*}
     (f\ast g)(n) := \sum_{d\mid n}f(d)g\left(\frac{n}{d}\right).
   \end{equation*}
 \end{definition}
+
+\begin{example}\label{example:1convolution1}
+  Let $1$ be the arithmetic function given by $1(n)=1$. Then we have
+  \begin{equation*}
+    (1\ast f)(n)=\sum_{d\mid n}1(d)f\left(\frac{n}{d}\right)=\sum_{d\mid n}f\left(\frac{n}{d}\right)=\sum_{d\mid n}f(d).
+  \end{equation*}
+  In particular, we have
+  \begin{equation*}
+    (1\ast 1)(n)=\sum_{d\mid n}1 =\tau(n).
+  \end{equation*}
+  Thus we have the identity of arithmetic functions $1\ast 1=\tau$.
+\end{example}
+
+\begin{example}\label{example:convolution-powers-1}
+  Define the arithmetic function $d_k$ by
+  \begin{equation*}
+    d_k(n) := \#\{(a_1,\ldots,a_k) \mid a_1\cdots a_k=n\}.
+  \end{equation*}
+  That is, $d_k(n)$ is the number of ways of writing $n$ as a product of $k$ positive integers where the order of the factors is also recorded in the data. For example, we have $d_2(n)=\tau(n)$ since every divisor $d\mid n$ uniquely determines an ordered pair $(d,e)$ such that $de=n$. Thus, it follows from \zcref{example:1convolution1} that have that $1\ast 1=d_2$.
+
+  Next, observe that we can define $1^{\ast k}$ by iteratively convoluting with the arithmetic function $1$. That is, $1^{\ast 1}$ is defined to be the arithmetic function $1$, and $1^{\ast(k+1)}$ is defined to be the arithmetic function $1\ast 1^{\ast k}$. We claim that
+  \begin{equation*}
+    1^{\ast k}=d_k.
+  \end{equation*}
+
+  The proof is by induction on $k\geq 1$. Note that $d_1(n)$ is the number of ways of writing $n$ as a single number. There is of course exactly one such way, so we have $d_1(n)=1$ for all $n$. That is, we have $d_1=1$.
+
+  We have already seen that $1\ast 1=d_2$. For the inductive step, assume that $1^{\ast k}=d_k$. Then we have
+  \begin{equation*}
+    1^{\ast(k+1)}(n) = (1\ast 1^{\ast k})(n) =
+    \sum_{d\mid n}1(d)\cdot d_k\left(\frac{n}{d}\right)=\sum_{d\mid n}\#\{(a_1,\ldots,a_k)\mid a_1\cdots a_k=\tfrac{n}{d}\}.
+  \end{equation*}
+  Note that the data of $d$ along with $(a_1,\ldots,a_k)$ such that $a_1\cdots a_k=\frac{n}{d}$ is equivalent to the data of $(d,a_1,\ldots,a_k)$ such that $da_1\cdots a_k=n$. The number of such $(k+1)$-tuples is $d_{k+1}(n)$, which completes the inductive step.
+
+  Using \zcref{theorem:multiplicative-functions} repeatedly along with the fact that $1$ is a multiplicative function, we obtain as a consequence of the identity $1^{\ast k}=d_k$ that $d_k$ is a multiplicative function for each $k$. It follows that the values of $d_k$ are determined by the values $d_k(p^a)$ at the prime powers $p^a$. We claim that the number $d_k(p^a)$ is equal to the number of order-preserving maps from $\{1,\ldots,a\}$ to $\{1,\ldots,k\}$. Thus, by \zcref{exercise:count-order-preserving-maps} we claim that
+  \begin{equation*}
+    d_k(p^a)=\binom{a+k-1}{a}.
+  \end{equation*}
+
+  To prove this claim, we will construct a bijection
+  \begin{equation*}
+    \{(q_1,\ldots,q_k)\mid q_1\cdots q_k=p^a\}\cong\{f:\{1,\ldots,a\}\to\{1,\ldots,k\}\mid i\leq j\Rightarrow f(i)\leq f(j)\}.
+  \end{equation*}
+  Note that every divisor $q\mid p^a$ is of the form $p^m$ for some $0\leq m\leq a$. Thus, a $k$-tuple $(q_1,\ldots,q_k)$ of positive integers such that $q_1\cdots q_k=p^a$ is uniquely determined by a $k$-tuple $(m_1,\ldots,m_k)$ of natural numbers such that $m_1+\cdots +m_k=a$. By the identity $m_1+\cdots +m_k=a$ we uniquely determine a partition of the set $\{1,\ldots,a\}$ into $k$ intervals $I_1,\ldots,I_k$ as follows:
+  \begin{align*}
+    I_1 & :=\{1,\ldots,m_1\},\\
+    I_2 & :=\{m_1+1,\ldots,m_1+m_2\},\\
+        & \mathrel{\ooalign{\hfil$\vdots$\hfil\cr$\phantom{:=}$\cr}} \\
+    I_k & :=\{m_1+\cdots+m_{k-1}+1,\ldots,m_1+\cdots +m_k\}.
+  \end{align*}
+  We note that the interval $I_i$ is empty if $m_i=0$, as is indeed intended. The partition of the set $\{1,\ldots,a\}$ into the intervals $I_i$ uniquely determines an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ by defining $f(x)=i$ if $x\in I_i$.
+
+ In the converse direction, an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ determines the $k$-tuple $(p^{m_1},\ldots,p^{m_k})$ satisfying $m_1+\cdots+m_k=a$, where $m_i:=\# f^{-1}(i)$ is the number of elements of the set $\{1,\ldots,a\}$ that are mapped to $i$.
+
+  We conclude with the following explicit formula for $d_k(n)$, where $n=p_1^{a_1}\cdots p_m^{a_m}$:
+  \begin{equation*}
+    d_k(n) = \prod_{1\leq i\leq m}\binom{a_i+k-1}{a_i}.
+  \end{equation*}
+\end{example}
+
+In the previous example, one might wonder whether it matters whether we define $1^{\ast k}=1\ast(1\ast(\cdots \ast 1))$ or $1^{\ast k}=((1\ast\cdots)\ast 1)\ast 1$. Indeed, this shouldn't make a difference, as we prove in the following theorem.
 
 \begin{theorem}
   Dirichlet convolution is associative and commutative, meaning that
@@ -522,6 +583,10 @@ The set of arithmetic functions with values taken in a fixed, chosen number syst
   \end{align*}
 \end{proof}
 
+\begin{example}
+  By associativity of Dirichlet convolution, it follows that $1^{\ast k}\ast 1^{\ast l}=1^{\ast(k+l)}$. Since $1^{\ast k}=d_k$ for each $k$ by \zcref{example:convolution-powers-1}, it follows that $d_k\ast d_l=d_{k+l}$.
+\end{example}
+
 \begin{theorem}
   Let $\varepsilon$ be the function given by
   \begin{equation*}
@@ -545,7 +610,7 @@ The set of arithmetic functions with values taken in a fixed, chosen number syst
 \section{Dirichlet Inverses}
 
 \begin{definition}
-  Consider an arithmetic function $f$ such that $f(1)$ is nonzero. Then we define the \emph{Dirichlet inverse} $f^{-1}$ of $f$ by
+  Consider an arithmetic function $f$ such that $f(1)$ is nonzero. Then we define the \define{Dirichlet inverse} $f^{-1}$ of $f$ by
   \begin{equation*}
     f^{-1}(1) := \frac{1}{f(1)}\qquad\text{and}\qquad f^{-1}(n)=\frac{-1}{f(1)}\sum_{\substack{d\mid n \\ d\neq n}}f^{-1}(d)f\left(\frac{n}{d}\right)\qquad \text{(for $n>1$)}.
   \end{equation*}
@@ -802,7 +867,7 @@ We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offer
   \begin{equation*}
     \sigma(2^n-1) = \prod_{\substack{p~\text{odd prime}\\d:=\ord_p(2)\mid n}}\frac{p^{\nu_p(2^d-1)+\nu_p(n/d)+1}-1}{p-1}.
   \end{equation*}
-  \exercise Define \emph{Jordan's totient function} $J_k(n)$ by
+  \exercise Define \define{Jordan's totient function} $J_k(n)$ by
   \begin{equation*}
     J_k(n) = \#\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}.
   \end{equation*}
