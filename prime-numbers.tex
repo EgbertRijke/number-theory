@@ -131,7 +131,7 @@ The sieve of Eratosthenes either terminates, i.e., it reaches a stage for which 
   Suppose that $n>1$. Then the set of nontrivial divisors $d\neq 1$ of $n$ contains the number $n$, so it has a least element $p$ by \zcrefnamed{theorem:well-ordering-natural-numbers} of the natural numbers. Then the set of divisors of $p$ itself is the set $\{1,p\}$, because any divisor of $p$ also divides $n$, and $p$ is assumed to be the least nontrivial divisor. This shows that $p$ has exactly one proper divisor, and therefore $p$ is prime.
 \end{proof}
 
-The following proposition is due to Euclid, who included it as proposition 30 of book VII of the \emph{Elements}.
+The following proposition is due to Euclid, who has included it as proposition 30 of book VII of the \emph{Elements}.
 
 \begin{lemma}\label{lemma:cases-prime-divisibility}
   Suppose that $p$ is prime, and that $a$ is an integer. Then either $p\mid a$ or $\gcd(p,a)=1$.
@@ -155,7 +155,7 @@ The following proposition is due to Euclid, who included it as proposition 30 of
   For the converse, suppose that for any two integers $b$ and $c$ such that $a\mid bc$, we have $a\mid b$ or $a\mid c$, and let $d$ be a proper divisor of $a$. Now consider any positive proper divisor $d$ of $a$, and write $a=dk$. Then it follows in particular that $a \mid dk$, so by assumption we have either $a\mid d$ or $a\mid k$. The first condition can be ruled out, because $d$ is assumed to be a proper divisor and therefore $a \nmid d$. Thus we find ourselves in the second case, where $a\mid k$ and $k\mid a$. The integer $k$ is also positive, since $a$ and $d$ are positive, so it follows that $a=k$. This implies that $d=1$, and hence we conclude that $a$ is prime.
 \end{proof}
 
-The fundamental theorem of arithmetic asserts that every positive integer can be written uniquely, up to reordering, as a product of primes. Gauss is often credited for being the first to state this fact as a theorem. He did so in Article 16 of his \emph{Disquisitiones Arithmeticae} \cite{gauss1986}, where he mentioned that prior authors often assumed it or gave inadequate reasons for its truth.
+The fundamental theorem of arithmetic asserts that every positive integer can be written uniquely, up to reordering, as a product of primes. Gauss is often credited for being the first to state this fact as a theorem. He did so in Article 16 of his \emph{Disquisitiones Arithmeticae} \cite{gauss1986}, where he has mentioned that prior authors often assumed it or gave inadequate reasons for its truth.
 
 \begin{theorem}\label{theorem:fundamental-theorem-of-arithmetic}
   For any natural number $n>0$, there is a unique list $\ell=(p_0,\ldots,p_{l-1})$ of length $l$, consisting of primes $p_0\leq p_1\leq \cdots \leq p_{l-1}$ such that
@@ -209,6 +209,8 @@ The fundamental theorem of arithmetic asserts that every positive integer can be
 
 \section{The Infinitude of Primes}
 
+\subsection{Euclid's Proof}
+
 The theorem asserting the infinitude of primes asserts that no finite set of primes is the set of all primes. Many proofs of the infinitude of primes require the following lemma:
 
 \begin{lemma}
@@ -239,7 +241,7 @@ The theorem asserting the infinitude of primes asserts that no finite set of pri
 
 \subsection{Saidak's Proof}
 
-There are many proofs of the infinitude of primes. The following is due to Filip Saidak \cite{Saidak2006}, who published his proof in 2006, based on the idea that if $n=ab$ is the product of two numbers that are relatively prime and both at least $2$, then $n$ must have two prime factors.
+There are many proofs of the infinitude of primes. The following is due to Filip Saidak \cite{Saidak2006}, who has published his proof in 2006, based on the idea that if $n=ab$ is the product of two numbers that are relatively prime and both at least $2$, then $n$ must have two prime factors.
 
 \begin{proof}[Saidak's proof of \zcref{theorem:infinitude-of-primes}]
   Let $N_0:= 1$, and define
@@ -339,109 +341,39 @@ Now that we have established that every natural number has a unique square-free 
 
 \subsection{A Proof via the Stars-and-Bars Method}
 
-The stars-and-bars problem asks in how many ways it is possible to place $n-1$ bars between $k$ stars. In \zcref{figure:stars-and-bars} we displayed some example configurations for the stars-and-bars problem.
-
-\begin{figure}[t]
-  \centering
-  \begin{tikzpicture}[xscale=.5,every node/.style={font=\large, inner sep=1pt}]
-    % Config 1
-    \foreach \j in {1,...,5} { \node at (2*\j,0) {$\bigstar$}; }
-    \foreach \slot in {1,4,6} { \node at (2*\slot-1,0) {$|$}; }
-    % box around config 1
-    \draw[thick] (0.5,0.5) rectangle (11.5,-0.5);
-    
-    % Config 2
-    \foreach \j in {1,...,5} { \node at (2*\j,-1.5) {$\bigstar$}; }
-    \foreach \slot in {2,5,6} { \node at (2*\slot-1,-1.5) {$|$}; }
-    % box around config 2
-    \draw[thick] (0.5,-1) rectangle (11.5,-2);
-    
-    % Config 3 (double bar)
-    \foreach \j in {1,...,5} { \node at (2*\j,-3) {$\bigstar$}; }
-    \node at ({2*3-1 - 0.3},-3) {$|$};
-    \node at ({2*3-1 + 0.3},-3) {$|$};
-    \node at (2*5-1,-3) {$|$};
-    % box around config 3
-    \draw[thick] (0.5,-2.5) rectangle (11.5,-3.5);
-    
-    % Config 4
-    \foreach \j in {1,...,5} { \node at (2*\j,-4.5) {$\bigstar$}; }
-    \foreach \slot in {1,3,5} { \node at (2*\slot-1,-4.5) {$|$}; }
-    % box around config 4
-    \draw[thick] (0.5,-4) rectangle (11.5,-5);
-  \end{tikzpicture}  
-  \caption[Example configurations of stars and bars]{Four example configurations with five stars and three bars.}
-  \label{figure:stars-and-bars}
-\end{figure}
-
-The stars-and-bars problem admits several equivalent formulations. For example, the stars-and-bars problem is equivalently posed by asking in how many ways one can place $k$ indistinguishable balls in $n$ distinguishable boxes. It is also equivalent to the problem of writing $k$ as an ordered sum of $n$ natural numbers. The four example configurations of \zcref{figure:stars-and-bars} correspond to writing $5=0+3+2+0$, $5=1+3+1+0$, $5=2+0+2+1$, and $5=0+2+2+1$. Making use of \zcrefnamed{theorem:fundamental-theorem-of-arithmetic}, we find yet another equivalent way of formulating the stars-and-bars problem: Given a set $p_1,\ldots,p_{n}$ primes, how many natural numbers are there of the form
+In \zcref{theorem:stars-and-bars} we have shown that the number of $n$-tuples $(m_1,\ldots,m_n)$ such that $m_1+\cdots+m_n=k$ is
 \begin{equation*}
-  p_1^{m_1}\cdots p_{n}^{m_{n}},
+  \binom{k+n-1}{n-1}.
 \end{equation*}
-so that $m_1+\cdots+m_{n}=k$? We establish the answer in the following theorem.
-
-\begin{theorem}
-  Given a set $p_1,\ldots,p_n$ of $n$ distinct primes, there are exactly $\binom{k+n-1}{n-1}$ natural numbers that can be written in the form
-  \begin{equation*}
-    p_1^{m_1}\cdots p_n^{m_n},
-  \end{equation*}
-  so that $m_1+\cdots+m_n=k$.
-\end{theorem}
-
-\begin{proof}
-  Since the primes $p_1,\ldots,p_n$ are distinct, the Fundamental Theorem of Arithmetic implies that distinct choices for $(m_1,\ldots,m_n)$ yield distinct natural numbers. Thus, we merely need to determine in how many ways we can decompose $k$ as an ordered sum of $n$ natural numbers.
-
-  In order to do so, we claim that there is a bijection between the set of $n$-tuples $(m_1,\ldots,m_n)$ satisfying $m_1+\cdots+m_n=k$, and the set of $(n-1)$-element subsets of the set $\{1,\ldots,k+n-1\}$. This bijection takes an $n$-tuple $(m_1,\ldots,m_n)$ to the subset
-  \begin{equation*}
-    \{(m_1+1)+\cdots+(m_i+1)\mid 1\leq i < n\}.
-  \end{equation*}
-  For example, the four $4$-tuples corresponding to the configurations in \zcref{figure:stars-and-bars} are mapped to $3$-element subsets of $\{1,\ldots,8\}$ as follows:
-  \begin{align*}
-    (0,3,2,0) & \mapsto \{1,5,8\}, \\
-    (1,3,1,0) & \mapsto \{2,6,8\}, \\
-    (2,0,2,1) & \mapsto \{3,4,7\}, \\
-    (0,2,2,1) & \mapsto \{1,4,7\}.    
-  \end{align*}
-  
-  Conversely, given an $(n-1)$-element subset $S=\{s_1\leq\ldots\leq s_{n-1}\}$ of $\{1,\ldots,k+n-1\}$, we define $s_0:=0$ and $s_n:=k+n$ in order to define $m_i:=(s_i-1)-s_{i-1}$ for all $1\leq i\leq n$. Then we can compute the sum of the numbers $m_i$ as a telescopic sum:
-  \begin{equation*}
-    \sum_{i=1}^n m_i = \sum_{i=1}^n (s_i-1-s_{i-1}) = (k+n)-n = k.
-  \end{equation*}
-  It is fairly immediate from these definitions that we have defined mutually inverse maps, so that we have a bijection between $n$-tuples that sum to $k$ and $(n-1)$-element subsets of a $(k+n-1)$-element set. Since the number of such subsets is
-  \begin{equation*}
-    \binom{k+n-1}{n-1},
-  \end{equation*}
-  this completes the proof.
-\end{proof}
-
-\begin{theorem}\label{theorem:stars-and-bars-primes}
-  Given a set $p_1,\ldots,p_n$ of distinct primes, the set of numbers of the form
-  \begin{equation*}
-    p_1^{m_1}\cdots p_n^{m_n}
-  \end{equation*}
-  such that $m_1+\ldots+m_n\leq k$ has exactly $\binom{k+n}{n}$ elements.
-\end{theorem}
-
-\begin{proof}
-  By the hockey-stick identity (\zcref{exercise:hockey-stick-identity}), we have
-  \begin{equation*}
-    \sum_{i=0}^k\binom{i+n-1}{n-1}=\binom{k+n}{n}.\qedhere
-  \end{equation*}
-\end{proof}
+Making use of \zcrefnamed{theorem:fundamental-theorem-of-arithmetic}, we consequently find that for any list $p_1,\ldots,p_n$ of distinct primes there are $\binom{k+n-1}{n}$ distinct natural numbers that can be written in the form
+\begin{equation*}
+  p_1^{m_1}\cdots p_n^{m_n},
+\end{equation*}
+where $m_1+\cdots+m_{n}=k$. Furthermore, there are $\binom{k+n}{n}$ distinct numbers that can be written in the form
+\begin{equation*}
+  p_1^{m_1}\cdots p_n^{m_n},
+\end{equation*}
+where $m_1+\cdots+m_{n} \leq k$. We will use this observation to obtain a bound on numbers $N$ such that the prime factors of all positive integers $\leq N$ are among the primes $p_1,\ldots,p_n$, which yields another proof of the infinitude of primes.
 
 \begin{proof}[Proof of \zcref{theorem:infinitude-of-primes}]
-  Consider a set $p_1,\ldots,p_n$ of distinct primes, and let $N$ be such that all the numbers $1\leq m\leq N$ can be written as a product of the primes $p_1,\ldots,p_n$.
+  Consider a set $p_1,\ldots,p_n$ of distinct primes, where $n\geq 5$, and let $N$ be such that all the numbers $1\leq x\leq N$ can be written as products of the primes $p_1,\ldots,p_n$.
 
-  For any $m=p_1^{m_1}\cdots p_n^{m_n}\leq N$, we have
-  \begin{align*}
-    m_1+\cdots+m_n\leq \frac{m_1\log p_1+\cdots +m_n\log p_n}{\log 2}=\frac{\log m}{\log 2}\leq \frac{\log N}{\log 2}.
-  \end{align*}
+  For any $x=p_1^{m_1}\cdots p_n^{m_n}\leq N$, we have $2^{m_1+\cdots+m_n}\leq x\leq N$, so that
+  \begin{equation*}
+    m_1+\cdots+m_n \leq \log_2 N.
+  \end{equation*}
   By \zcref{theorem:stars-and-bars-primes} it follows that
   \begin{equation*}
-    N\leq \binom{\left\lfloor\frac{\log N}{\log 2}\right\rfloor+n}{n}
-    \leq \frac{\left(\frac{\log N}{\log 2}+n\right)^n}{n!}.
+    N\leq \binom{\lfloor\log_2 N\rfloor + n}{n}
+    \leq \frac{(\log_2 N + n)^{n}}{n!}
+    \leq (\log_2 N + n)^{n}
   \end{equation*}
-  Assuming that our initial list of primes includes all the primes below $12$ so that $n\geq 5$, this inequality fails for $N\geq 2^{2^n}$. This shows that any finite set $p_1,\ldots,p_n$ of primes cannot be the set of all primes, so there must be infinitely many primes.
+
+  Note that if $p_1,\ldots,p_n$ were indeed a list of all the primes, then $N$ would always satisfy this inequality. It remains to find a number $N$ for which this inequality fails. We are permitted to pick a large number of a suitable form so as to reach a quick contradiction. Let us choose $N=2^{2^n}$. Then we have
+  \begin{equation*}
+    2^{2^n}\leq (2^n + n)^{n}<(2^n+2^n)^n=2^{n(n+1)}.
+  \end{equation*}
+  Now observe that for $n\geq 5$, as we have assumed at the start of the proof, we have $n(n+1)<2^n$, which shows that $2^{n(n+1)}<2^{2^n}$. Thus we have reached a contradiction, and we conclude that there must be infinitely many primes.
 \end{proof}
 
 \section{Fermat Primes}
@@ -508,7 +440,7 @@ Our next proof of the infinitude of primes is due to Goldbach, from 1730. In the
 \end{proof}
 
 \begin{proof}[Goldbach's proof of \zcref{theorem:infinitude-of-primes}]
-  Since any two distinct Fermat numbers are relatively prime, and since any number $n>1$ has a prime divisor, it follows that if we pick a prime divisor of each Fermat number $F_n$, then we picked infinitely many distinct prime numbers.
+  Since any two distinct Fermat numbers are relatively prime, and since any number $\geq 2$ has a prime divisor, it follows that choosing a prime divisor for each Fermat number $F_n$ yields infinitely many distinct primes.
 \end{proof}
 
 \section{Legendre's Formula and Kummer's Theorem}

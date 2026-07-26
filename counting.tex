@@ -69,7 +69,7 @@ we have to create what is called a \emph{bijective correspondence} between the e
   \begin{tikzpicture}[
     % local styles
     element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
-    set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+    set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
     arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
     underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
     ]
@@ -115,7 +115,7 @@ we have to create what is called a \emph{bijective correspondence} between the e
     \begin{tikzpicture}[
       % local styles
       element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
-      set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+      set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
       arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
       underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
       ]
@@ -148,7 +148,7 @@ we have to create what is called a \emph{bijective correspondence} between the e
     \begin{tikzpicture}[
       % local styles
       element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
-      set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+      set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
       arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
       underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
       ]
@@ -223,7 +223,7 @@ which we may use if it helps us in our proof.
   \begin{tikzpicture}[
     % local styles
     element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
-    set/.style={ellipse, draw, thick, minimum height=35mm, minimum width=20mm},
+    set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
     arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
     underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
     ]
@@ -516,7 +516,7 @@ The binomial coefficients are introduced precisely to answer this question for g
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[every node/.style={
-      draw,
+      draw=CornflowerBlue,
       thick,
       circle,
       minimum size=7mm,
@@ -535,13 +535,13 @@ The binomial coefficients are introduced precisely to answer this question for g
       \pgfmathtruncatemacro{\nn}{\n+1}
       \foreach \r in {0,...,\n}{
         \pgfmathtruncatemacro{\rp}{\r+1}
-        \draw[thick] (n\n\r) -- (n\nn\r) (n\n\r) -- (n\nn\rp);
+        \draw[thick,CornflowerBlue] (n\n\r) -- (n\nn\r) (n\n\r) -- (n\nn\rp);
       }
     }
 
     \foreach \r in {0,...,6}{
-      \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++(-0.5cm,-1cm);
-      \draw[thick,dashed,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
+      \draw[thick,dashed,CornflowerBlue,shorten >=4.5mm]   (n6\r) -- ++(-0.5cm,-1cm);
+      \draw[thick,dashed,CornflowerBlue,shorten >=4.5mm]   (n6\r) -- ++( 0.5cm,-1cm);
     }
   \end{tikzpicture}
   \caption[Pascal's triangle]{Pascal's triangle. Counting from $0$ from the top, the $k$\supth{} entry in the $n$\supth{} row is the binomial coefficient $\binom{n}{k}$.}
@@ -664,6 +664,216 @@ We will prove that the falling factorial $n_{k}$ is divisible by the factorial $
     \binom{n}{k}\cdot k!= n_k = \frac{n!}{(n-k)!}. \qedhere
   \end{equation*}
 \end{proof}
+
+\section{The Stars-and-Bars Problem}
+
+The \define{stars-and-bars problem} is a classic counting exercise which asks in how many ways it is possible to place $m$ bars between or at the ends of a linear arrangement of $n$ stars. In the stars-and-bars problem it is allowed to place multiple bars successively at any valid position. In \zcref{figure:stars-and-bars} we displayed some example configurations for the stars-and-bars problem.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[xscale=.5,every node/.style={font=\large, inner sep=1pt}]
+    \foreach \j in {1,...,5} { \node at (2*\j,0) {$\bigstar$}; }
+    \node at ({0.7},0) {$|$};
+    \node at ({1.3},0) {$|$};
+    \node at (7,0) {$|$};
+    \draw[thick,CornflowerBlue,rounded corners] (0,0.5) rectangle (12,-0.5);
+    
+    \foreach \j in {1,...,5} { \node at (2*\j,-1.5) {$\bigstar$}; }
+    \foreach \slot in {2,5,6} { \node at (2*\slot-1,-1.5) {$|$}; }
+    \draw[thick,CornflowerBlue,rounded corners] (0,-1) rectangle (12,-2);
+    
+    \foreach \j in {1,...,5} { \node at (2*\j,-3) {$\bigstar$}; }
+    \node at ({2*3-1 - 0.3},-3) {$|$};
+    \node at ({2*3-1 + 0.3},-3) {$|$};
+    \node at (2*5-1,-3) {$|$};
+    \draw[thick,CornflowerBlue,rounded corners] (0,-2.5) rectangle (12,-3.5);
+    
+    \foreach \j in {1,...,5} { \node at (2*\j,-4.5) {$\bigstar$}; }
+    \foreach \slot in {1,3,5} { \node at (2*\slot-1,-4.5) {$|$}; }
+    \draw[thick,CornflowerBlue,rounded corners] (0,-4) rectangle (12,-5);
+  \end{tikzpicture}  
+  \caption[Example configurations of stars and bars]{Four example configurations with five stars and three bars.}
+  \label{figure:stars-and-bars}
+\end{figure}
+
+The stars-and-bars problem is solved by finding an equivalent way of thinking about the stars-and-bars arrangements. For example, we can view the $m$ bars as \emph{dividers} between the stars, thus creating $m+1$ buckets which contain some number, possibly zero, of stars. By listing the number of stars in each bucket, we obtain an $(m+1)$-tuple $(c_0,\ldots,c_m)$ of natural numbers such that the total number of stars is
+\begin{equation*}
+  n=c_0+\cdots + c_m.
+\end{equation*}
+The four example configurations of \zcref{figure:stars-and-bars} correspond to writing $5=0+0+3+2$, $5=1+3+1+0$, $5=2+0+2+1$, and $5=0+2+2+1$.
+
+Alternatively, we could view a stars-and-bars configuration as a set of $m+n$ elements, of which $m$ are marked as bars. There are indeed more interpretations, and we will carefully prove their equivalence in the following theorem.
+
+\begin{theorem}\label{theorem:stars-and-bars}
+  There are bijections between the following sets:
+  \begin{enumerate}
+  \item The set of $m$-element subsets of an $(m+n)$-element set.
+  \item The set of stars-and-bars configurations with $m$ stars and $n$ bars.
+  \item The set of $(m+1)$-tuples $(a_0,\ldots,a_m)$ of natural numbers such that $a_0+\cdots+a_m=n$.
+  \item The set of order-preserving maps from $\{1,\ldots,n\}$ to $\{0,\ldots,m\}$. 
+  \end{enumerate}
+  Consequently, the number of elements in each of these sets is $\binom{m+n}{m}$.
+\end{theorem}
+
+\begin{proof}
+  To do.
+
+  In order to do so, we claim that there is a bijection between the set of $n$-tuples $(m_1,\ldots,m_n)$ satisfying $m_1+\cdots+m_n=k$, and the set of $(n-1)$-element subsets of the set $\{1,\ldots,k+n-1\}$. This bijection takes an $n$-tuple $(m_1,\ldots,m_n)$ to the subset
+  \begin{equation*}
+    \{(m_1+1)+\cdots+(m_i+1)\mid 1\leq i < n\}.
+  \end{equation*}
+  For example, the four $4$-tuples corresponding to the configurations in \zcref{figure:stars-and-bars} are mapped to $3$-element subsets of $\{1,\ldots,8\}$ as follows:
+  \begin{align*}
+    (0,3,2,0) & \mapsto \{1,5,8\}, \\
+    (1,3,1,0) & \mapsto \{2,6,8\}, \\
+    (2,0,2,1) & \mapsto \{3,4,7\}, \\
+    (0,2,2,1) & \mapsto \{1,4,7\}.    
+  \end{align*}
+  
+  Conversely, given an $(n-1)$-element subset $S=\{s_1\leq\ldots\leq s_{n-1}\}$ of $\{1,\ldots,k+n-1\}$, we define $s_0:=0$ and $s_n:=k+n$ in order to define $m_i:=(s_i-1)-s_{i-1}$ for all $1\leq i\leq n$. Then we can compute the sum of the numbers $m_i$ as a telescopic sum:
+  \begin{equation*}
+    \sum_{i=1}^n m_i = \sum_{i=1}^n (s_i-1-s_{i-1}) = (k+n)-n = k.
+  \end{equation*}
+  It is fairly immediate from these definitions that we have defined mutually inverse maps, so that we have a bijection between $n$-tuples that sum to $k$ and $(n-1)$-element subsets of a $(k+n-1)$-element set. Since the number of such subsets is
+  \begin{equation*}
+    \binom{k+n-1}{n-1},
+  \end{equation*}
+  this completes the proof.
+\end{proof}
+
+Recall that the \define{complement} of a subset $A$ of a set $X$ is the subset $\complementsubset{A}\subseteq X$ consisting of all the elements of $X$ not in the subset $A$. For any two subsets $A$ and $B$ of $X$, the complement satisfies the logical equivalence
+\begin{equation*}
+  A\subseteq \complementsubset{B}\Leftrightarrow A\cap B=\varnothing.
+\end{equation*}
+Now observe that taking complements, as an operation on the set of all subsets of $X$, is a bijection. Furthermore, if $X$ is an $(m+n)$-element set, as in \zcref{theorem:stars-and-bars}, then the operation of taking complements is a bijection
+\begin{equation*}
+  \{A\subseteq X\mid \# A=m\}\cong\{B\subseteq X\mid \#B=n\}.
+\end{equation*}
+Indeed, this bijection is reflected by the identity
+\begin{equation*}
+  \binom{m+n}{m}=\binom{m+n}{n}.
+\end{equation*}
+In light of this observation, we can reverse the roles of $m$ and $n$ in the first statement of \zcref{theorem:stars-and-bars} and retain a set with the same number of elements. Now we get to the point: We can also reverse the roles of $m$ and $n$ in any of the other statements! We obtain the following corollaries:
+
+\begin{corollary}\label{corollary:transposing-ordered-partitions}
+  There is a bijection
+  \begin{equation*}
+    \{(a_0,\ldots,a_m)\mid a_0+\cdots + a_m=n\}\cong
+    \{(b_0,\ldots,b_n)\mid b_0+\cdots + b_n=m\}.
+  \end{equation*}
+\end{corollary}
+
+\begin{figure}[t]
+  \centering
+    \begin{tikzpicture}[scale=1,line join=round,line cap=round]
+    
+    \draw[->] (-0.3,0) -- (5.5,0) node[right] {$x$};
+    \draw[->] (0,-0.3) -- (0,4.5) node[above] {$y$};
+    \draw[dashed,Gray] (-0.6,-0.6) -- (5.3,5.3);
+    
+    \foreach \x in {0,1,2,3,4,5} {
+      \foreach \y in {0,1,2,3,4} {
+        \draw[thick,CornflowerBlue,fill=white] (\x,\y) circle (2pt);
+      }
+    }
+
+    \coordinate (A1) at (0,0);
+    \coordinate (A2) at (1,0);
+    \coordinate (A3) at (1,1);
+    \coordinate (A4) at (1,2);
+    \coordinate (A5) at (2,2);
+    \coordinate (A6) at (3,2);
+    \coordinate (A7) at (3,3);
+    \coordinate (A8) at (4,3);
+
+    \draw[very thick,YellowOrange]
+      (A1) -- (A2) -- (A3) -- (A4) -- (A5) -- (A6) -- (A7) -- (A8);
+    \foreach \i in {1,2,3,4,5,6,7,8} {
+      \draw[thick,CornflowerBlue,fill=CornflowerBlue] (A\i) circle (2pt);
+    }
+
+    \begin{scope}[shift={(5,5)}]
+      \draw[->] (90:0.25) arc[start angle=90,end angle=0,radius=0.25];
+    \end{scope}
+
+    \begin{scope}[xshift=8cm]
+
+      \draw[->] (-0.3,0) -- (4.5,0) node[right] {$x$};
+      \draw[->] (0,-0.3) -- (0,5.5) node[above] {$y$};
+      \draw[dashed,Gray] (-0.6,-0.6) -- (5.3,5.3);
+      
+      \foreach \x in {0,1,2,3,4} {
+        \foreach \y in {0,1,2,3,4,5} {
+          \draw[thick,CornflowerBlue,fill=white] (\x,\y) circle (2pt);
+        }
+      }
+
+      \coordinate (B1) at (0,0);
+      \coordinate (B2) at (0,1);
+      \coordinate (B3) at (1,1);
+      \coordinate (B4) at (2,1);
+      \coordinate (B5) at (2,2);
+      \coordinate (B6) at (2,3);
+      \coordinate (B7) at (3,3);
+      \coordinate (B8) at (3,4);
+
+      \draw[very thick,YellowOrange]
+        (B1) -- (B2) -- (B3) -- (B4) -- (B5) -- (B6) -- (B7) -- (B8);
+        \foreach \i in {1,2,3,4,5,6,7,8} {
+          \draw[thick,CornflowerBlue,fill=CornflowerBlue] (B\i) circle (2pt);
+        }
+
+    \end{scope}
+
+  \end{tikzpicture}
+
+  \caption[Transposition of lattice walks]{By reflecting a lattice walk through the diagonal we obtain a bijective correspondence between lattice walks to $(m,n)$ and lattice walks to $(n,m)$.}
+  \label{figure:lattice-walks}
+\end{figure}
+\begin{remark}
+  The previous corollary has a natural interpretation in walks on the two-dimensional integer lattice. The points on this lattice are vectors $(x,y)$ in which each coordinate is an integer. A lattice walk starts at the origin $(0,0)$ and each step either increases the $x$-coordinate by exactly $1$ or increases the $y$-coordinate by exactly $1$. The question is then, in how many ways can we walk to the point $(m,n)$?
+\end{remark}
+
+\begin{corollary}\label{corollary:transposing-order-preserving-maps}
+  There is a bijection
+  \begin{equation*}
+    \{f:\{1,\ldots,n\}\to\{0,\ldots,m\}\mid f\text{ preserves order}\} \cong
+    \{g:\{1,\ldots,m\}\to\{0,\ldots,n\}\mid g\text{ preserves order}\}
+  \end{equation*}
+\end{corollary}
+
+\begin{remark}
+  While \zcref{corollary:transposing-order-preserving-maps} follows directly from the previous observations, it is worthwhile to construct the bijection $f\mapsto f^\ast$ explicitly.
+
+  Consider an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$. By the correspondence of \zcref{theorem:stars-and-bars} we obtain $c_i=\#f^{-1}(i)$ such that
+  \begin{equation*}
+    c_0+\cdots + c_m=n. 
+  \end{equation*}
+  This determines the subset $\{a_1,\ldots,a_m\}\subseteq\{1,\ldots,m+n\}$ given by $a_1:= c_0$ and $a_{i+1}=a_i+c_i+1$. The complement of this subset is a set $\{b_1,\ldots,b_n\}$
+
+  Thus, $f^\ast : \{1,\ldots,m\}\to\{0,\ldots,n\}$ is the unique order-preserving map such that for any $1\leq i\leq m$ and any $1\leq j\leq n$ we have
+  \begin{equation*}
+    f(i)\leq j \Leftrightarrow i \leq f^\ast(j).
+  \end{equation*}
+
+  The Canadian mathematician Andr\'e Joyal observed that duality between order-preserving maps $\{1,\ldots,n\}\to\{0,\ldots,m\}$ and order-preserving maps $\{1,\ldots,m\}\to\{0,\ldots,n\}$ can be generalized to a duality between planar trees and a combinatorial structure called disks.
+\end{remark}
+
+\begin{theorem}\label{theorem:stars-and-bars-primes}
+  Given a set $p_1,\ldots,p_n$ of distinct primes, the set of numbers of the form
+  \begin{equation*}
+    p_1^{m_1}\cdots p_n^{m_n}
+  \end{equation*}
+  such that $m_1+\ldots+m_n\leq k$ has exactly $\binom{k+n}{n}$ elements.
+\end{theorem}
+
+\begin{proof}
+  By the hockey-stick identity (\zcref{exercise:hockey-stick-identity}), we have
+  \begin{equation*}
+    \sum_{i=0}^k\binom{i+n-1}{n-1}=\binom{k+n}{n}.\qedhere
+  \end{equation*}
+\end{proof}
+
 
 \section{The Binomial Theorem}
 
