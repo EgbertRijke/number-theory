@@ -739,6 +739,21 @@ Alternatively, we could view a stars-and-bars configuration as a set of $m+n$ el
     \binom{k+n-1}{n-1},
   \end{equation*}
   this completes the proof.
+
+  To prove this claim, we will construct a bijection
+  \begin{equation*}
+    \{(q_1,\ldots,q_k)\mid q_1\cdots q_k=p^a\}\cong\{f:\{1,\ldots,a\}\to\{1,\ldots,k\}\mid i\leq j\Rightarrow f(i)\leq f(j)\}.
+  \end{equation*}
+  Note that every divisor $q\mid p^a$ is of the form $p^m$ for some $0\leq m\leq a$. Thus, a $k$-tuple $(q_1,\ldots,q_k)$ of positive integers such that $q_1\cdots q_k=p^a$ is uniquely determined by a $k$-tuple $(m_1,\ldots,m_k)$ of natural numbers such that $m_1+\cdots +m_k=a$. By the identity $m_1+\cdots +m_k=a$ we uniquely determine a partition of the set $\{1,\ldots,a\}$ into $k$ intervals $I_1,\ldots,I_k$ as follows:
+  \begin{align*}
+    I_1 & :=\{1,\ldots,m_1\},\\
+    I_2 & :=\{m_1+1,\ldots,m_1+m_2\},\\
+        & \mathrel{\ooalign{\hfil$\vdots$\hfil\cr$\phantom{:=}$\cr}} \\
+    I_k & :=\{m_1+\cdots+m_{k-1}+1,\ldots,m_1+\cdots +m_k\}.
+  \end{align*}
+  We note that the interval $I_i$ is empty if $m_i=0$, as is indeed intended. The partition of the set $\{1,\ldots,a\}$ into the intervals $I_i$ uniquely determines an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ by defining $f(x)=i$ if $x\in I_i$.
+
+ In the converse direction, an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ determines the $k$-tuple $(p^{m_1},\ldots,p^{m_k})$ satisfying $m_1+\cdots+m_k=a$, where $m_i:=\# f^{-1}(i)$ is the number of elements of the set $\{1,\ldots,a\}$ that are mapped to $i$.
 \end{proof}
 
 Recall that the \define{complement} of a subset $A$ of a set $X$ is the subset $\complementsubset{A}\subseteq X$ consisting of all the elements of $X$ not in the subset $A$. For any two subsets $A$ and $B$ of $X$, the complement satisfies the logical equivalence
