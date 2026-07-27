@@ -698,6 +698,8 @@ The \define{stars-and-bars problem} is a classic counting exercise which asks in
 
 While the statement of the stars-and-bars problem is intuitively clear, it is good practice to precisely define stars-and-bars configurations so that there can be no ambiguity as to what is being counted. There are of course many equivalent ways of thinking about this problem, and indeed it is fruitful to try to think of them. For, if we have found two equivalent ways of thinking about a problem there must be a bijective correspondence between their representations. Furthermore, once we have found a bijection it follows by \zcrefnamed{theorem:humes-principle} that they are equinumerous.
 
+For our definition of stars-and-bars configuration, we need to think about what it means "to place a linear arrangement of $n$ bars between or at the ends of a linear arrangement of $m$ stars".
+
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[xscale=.5,every node/.style={font=\large, inner sep=1pt}]
@@ -712,18 +714,20 @@ While the statement of the stars-and-bars problem is intuitively clear, it is go
     }
     \foreach \b in {-8,-7.5,-7,-1.75,-1.25,4.5,7.25,7.75} { \node at (\b,-3) {$|$};}
 
-    \draw[|->] (0,0) -- (-1.5,-3);
+    \draw[|->] (-3.83,-.8) -- (-6.16,-2.2); % x=+5/3 y -2.5
+    \draw[|->] (-.4,-.8) -- (-1.1,-2.2);
+    \draw[|->] (2.3,-.8) -- (3.7,-2.2); % x= -y+1.5
+    \draw[|->] ({1.5*0.8+3},-0.8) -- ({1.5*2.2+3},-2.2); % x= 1.5y +3
   \end{tikzpicture}
-  \caption{The placement of $8$ bars between $5$ stars}
+  \caption[A placement of $8$ bars between $5$ stars]{A placement of $8$ bars between $5$ stars.}
   \label{figure:5-stars-8-bars}
 \end{figure}
 
-For our definition of stars-and-bars configuration, we need to think about what it means "to place a linear arrangement of $n$ bars between or at the ends of a linear arrangement of $m$ stars".
 
 
 
 \begin{definition}
-  A \define{stars-and-bars configuration} with $m$ stars and $n$ bars is an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$, where $f$ is said tob be \define{order-preserving} if it satisfies the implication
+  A \define{stars-and-bars configuration} with $m$ stars and $n$ bars is an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$, where $f$ is said to be \define{order-preserving} if it satisfies the implication
   \begin{equation*}
     i\leq j\quad\Rightarrow\quad f(i)\leq f(j)
   \end{equation*}
@@ -737,17 +741,32 @@ In the following theorem we list three concepts equivalent to stars-and-bars con
 \begin{theorem}\label{theorem:stars-and-bars}
   There are bijections between the following sets:
   \begin{enumerate}
-  \item The set of $m$-element subsets of the set $\{1,\ldots,m+n\}$.
-  \item The set of stars-and-bars configurations with $m$ stars and $n$ bars; that is, the set of $(m+1)$-tuples $(b_0,\ldots,b_m)$ of natural numbers such that
+  \item The set of stars-and-bars configurations with $m$ stars and $n$ bars; that is, the set of order-preserving maps from $\{1,\ldots,n\}$ to $\{0,\ldots,m\}$. 
+  \item The set of $(m+1)$-tuples $(b_0,\ldots,b_m)$ of natural numbers such that
     \begin{equation*}
       b_0+\cdots+b_m=n.
     \end{equation*}
-  \item The set of order-preserving maps from $\{1,\ldots,n\}$ to $\{0,\ldots,m\}$. 
+  \item The set of $m$-element subsets of the set $\{1,\ldots,m+n\}$.
   \end{enumerate}
   Consequently, the number of elements in each of these sets is $\binom{m+n}{m}$.
 \end{theorem}
 
 \begin{proof}
+  To prove this claim, we will construct a bijection
+  \begin{equation*}
+    \{(q_1,\ldots,q_k)\mid q_1\cdots q_k=p^a\}\cong\{f:\{1,\ldots,a\}\to\{1,\ldots,k\}\mid i\leq j\Rightarrow f(i)\leq f(j)\}.
+  \end{equation*}
+  Note that every divisor $q\mid p^a$ is of the form $p^m$ for some $0\leq m\leq a$. Thus, a $k$-tuple $(q_1,\ldots,q_k)$ of positive integers such that $q_1\cdots q_k=p^a$ is uniquely determined by a $k$-tuple $(m_1,\ldots,m_k)$ of natural numbers such that $m_1+\cdots +m_k=a$. By the identity $m_1+\cdots +m_k=a$ we uniquely determine a partition of the set $\{1,\ldots,a\}$ into $k$ intervals $I_1,\ldots,I_k$ as follows:
+  \begin{align*}
+    I_1 & :=\{1,\ldots,m_1\},\\
+    I_2 & :=\{m_1+1,\ldots,m_1+m_2\},\\
+        & \mathrel{\ooalign{\hfil$\vdots$\hfil\cr$\phantom{:=}$\cr}} \\
+    I_k & :=\{m_1+\cdots+m_{k-1}+1,\ldots,m_1+\cdots +m_k\}.
+  \end{align*}
+  We note that the interval $I_i$ is empty if $m_i=0$, as is indeed intended. The partition of the set $\{1,\ldots,a\}$ into the intervals $I_i$ uniquely determines an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ by defining $f(x)=i$ if $x\in I_i$.
+
+ In the converse direction, an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ determines the $k$-tuple $(p^{m_1},\ldots,p^{m_k})$ satisfying $m_1+\cdots+m_k=a$, where $m_i:=\# f^{-1}(i)$ is the number of elements of the set $\{1,\ldots,a\}$ that are mapped to $i$.
+
   Given an $m$-elements subset $S\subseteq \{1,\ldots,m+n\}$, we call the elements in $S$ the stars and the elements not in $S$ the bars. List the stars in increasing order $s_1,\ldots,s_m$ and define
   \begin{align*}
     b_0 & := s_1-1, \\
@@ -788,21 +807,6 @@ In the following theorem we list three concepts equivalent to stars-and-bars con
     \binom{k+n-1}{n-1},
   \end{equation*}
   this completes the proof.
-
-  To prove this claim, we will construct a bijection
-  \begin{equation*}
-    \{(q_1,\ldots,q_k)\mid q_1\cdots q_k=p^a\}\cong\{f:\{1,\ldots,a\}\to\{1,\ldots,k\}\mid i\leq j\Rightarrow f(i)\leq f(j)\}.
-  \end{equation*}
-  Note that every divisor $q\mid p^a$ is of the form $p^m$ for some $0\leq m\leq a$. Thus, a $k$-tuple $(q_1,\ldots,q_k)$ of positive integers such that $q_1\cdots q_k=p^a$ is uniquely determined by a $k$-tuple $(m_1,\ldots,m_k)$ of natural numbers such that $m_1+\cdots +m_k=a$. By the identity $m_1+\cdots +m_k=a$ we uniquely determine a partition of the set $\{1,\ldots,a\}$ into $k$ intervals $I_1,\ldots,I_k$ as follows:
-  \begin{align*}
-    I_1 & :=\{1,\ldots,m_1\},\\
-    I_2 & :=\{m_1+1,\ldots,m_1+m_2\},\\
-        & \mathrel{\ooalign{\hfil$\vdots$\hfil\cr$\phantom{:=}$\cr}} \\
-    I_k & :=\{m_1+\cdots+m_{k-1}+1,\ldots,m_1+\cdots +m_k\}.
-  \end{align*}
-  We note that the interval $I_i$ is empty if $m_i=0$, as is indeed intended. The partition of the set $\{1,\ldots,a\}$ into the intervals $I_i$ uniquely determines an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ by defining $f(x)=i$ if $x\in I_i$.
-
- In the converse direction, an order-preserving map $f:\{1,\ldots,a\}\to\{1,\ldots,k\}$ determines the $k$-tuple $(p^{m_1},\ldots,p^{m_k})$ satisfying $m_1+\cdots+m_k=a$, where $m_i:=\# f^{-1}(i)$ is the number of elements of the set $\{1,\ldots,a\}$ that are mapped to $i$.
 \end{proof}
 
 Recall that the \define{complement} of a subset $A$ of a set $X$ is the subset $\complementsubset{A}\subseteq X$ consisting of all the elements of $X$ not in the subset $A$. For any two subsets $A$ and $B$ of $X$, the complement satisfies the logical equivalence
