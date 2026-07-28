@@ -167,6 +167,7 @@ bibliography=totoc
   babel,
   backgrounds,
   calc,
+  decorations.markings,
   decorations.pathreplacing,
   decorations.pathmorphing,
   hobby,
@@ -198,6 +199,77 @@ bibliography=totoc
     },
     legend cell align=left
   }
+}
+
+\newcommand{\arrowpairsep}{3pt}
+\newcommand{\arrowpairshortentip}{4mm}
+\newcommand{\arrowpairshortenbutt}{5mm}
+\newcommand{\arrowpairmaskwidth}{3pt}
+
+\newcommand{\arrowpair}[2]{%
+  \path let
+    \p1=(#1.center),
+    \p2=(#2.center),
+    \n1={atan2(\y2-\y1,\x2-\x1)}
+  in
+  \pgfextra{%
+    \foreach \shift/\direction/\shortenstart/\shortenend in {
+      90/{->}/\arrowpairshortenbutt/\arrowpairshortentip,
+      -90/{<-}/\arrowpairshortentip/\arrowpairshortenbutt
+    } {%
+      \begin{scope}[
+        transform canvas={
+          shift={({\n1+\shift}:\arrowpairsep)}
+        }
+      ]
+        \draw[
+          \direction,
+          thick,
+          bend left=10,
+          shorten <=\shortenstart,
+          shorten >=\shortenend
+        ]
+          (#1.center) to (#2.center);
+      \end{scope}
+    }%
+  };
+}
+
+\newcommand{\arrowpairover}[2]{%
+  \path let
+    \p1=(#1.center),
+    \p2=(#2.center),
+    \n1={atan2(\y2-\y1,\x2-\x1)}
+  in
+  \pgfextra{%
+    \foreach \shift/\direction/\shortenstart/\shortenend in {
+      90/{->}/4mm/4mm,
+      -90/{<-}/4mm/4.5mm
+    } {%
+      \begin{scope}[
+        transform canvas={
+          shift={({\n1+\shift}:\arrowpairsep)}
+        }
+      ]
+        \draw[
+          white,
+          line width=\arrowpairmaskwidth,
+          bend left=10,
+          shorten <=\shortenstart,
+          shorten >=\shortenend
+        ]
+          (#1.center) to (#2.center);
+        \draw[
+          \direction,
+          thick,
+          bend left=10,
+          shorten <=\shortenstart,
+          shorten >=\shortenend
+        ]
+          (#1.center) to (#2.center);
+      \end{scope}
+    }%
+  };
 }
 
 \usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}

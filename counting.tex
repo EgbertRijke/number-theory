@@ -13,12 +13,11 @@ For instance, we will use a counting argument to show that the product
 \end{equation*}
 of any $k$ consecutive natural numbers is always divisible by $k!$.
 
-We will begin by investigating more conceptually what mathematicians mean by counting,
-and work towards Hume's principle.
-David Hume stated this principle in Part III of Book I of his \emph{Treatise of Human Nature},
-a philosphical work in which he set out to found a general ``science of man'' by applying empirical methods to understanding, the passions, and morals \cite{hume1978}.
-In discussing the idea of number,
-he observes that equality of numbers can be determined whenever there is a one-to-one correspondence between their constituents:
+What do mathematicians mean by counting? How do we establish that a certain set of objects contain a certain number of objects? Or, more generally, how do we establish that two sets of objects have the same number of objects?
+
+These questions take us back to the 18\supth{} Scottish philosopher David Hume. He sheds light on this very question in his \emph{Treatise of Human Nature},
+a philosphical work in which he set out to found a general ``science of man'' by applying empirical methods to understanding, the passions, and morals \cite[Part III, Book I]{hume1978}.
+In discussing the idea of number, he observes that equality of numbers can be determined whenever there is a one-to-one correspondence between their constituents:
 \begin{quote}
   {\itshape We are possest of a precise standard, by which we can judge
     of the equality and proportion of numbers; and according as they correspond
@@ -51,18 +50,6 @@ since $0$ is the only element strictly smaller than $1$.
 The standard $2$-element set is the set $\{0,1\}$,
 since the only two elements strictly smaller than $2$ are $0$ and $1$,
 and so forth.
-
-Suppose now that we are given an arbitrary set $A$,
-and we wish to count its elements.
-What does it mean when we say that the set $A$ has $n$ elements?
-It means that we can, at least in principle,
-label each element of $A$ with a number $0\leq i<n$ in such a way that every element of $A$ is labeled by \emph{exactly one} number $0\leq i<n$.
-By making sure that every element of $A$ is labeled \emph{at least once} we make sure that every element of $A$ is accounted for,
-and by making sure that every element of $A$ is labeled \emph{at most once} we make sure to not overshoot the count.
-
-Thus,
-in order to show that the set $A$ has $n$ elements,
-we have to create what is called a \emph{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
 
 \begin{figure}[t]
   \centering
@@ -98,6 +85,18 @@ we have to create what is called a \emph{bijective correspondence} between the e
   \caption[A bijection]{A bijection between two $3$-element sets.}
   \label{figure:bijection}
 \end{figure}
+
+Suppose now that we are given an arbitrary set $A$,
+and we wish to count its elements.
+What does it mean when we say that the set $A$ has $n$ elements?
+It means that we can, at least in principle,
+label each element of $A$ with a number $0\leq i<n$ in such a way that every element of $A$ is labeled by \emph{exactly one} number $0\leq i<n$.
+By making sure that every element of $A$ is labeled \emph{at least once} we make sure that every element of $A$ is accounted for,
+and by making sure that every element of $A$ is labeled \emph{at most once} we make sure to not overshoot the count.
+
+Thus,
+in order to show that the set $A$ has $n$ elements,
+we have to create what is called a \emph{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
 
 \begin{definition}
   A function $f:X\to Y$ is said to be a \define{bijection} if for every $y\in Y$ there is exactly one element $x\in X$ such that $f(x)=y$.
@@ -218,7 +217,7 @@ Furthermore,
 for every $x'\in X$ such that $f(x')=y$ we know that the equality $x=x'$ must hold,
 which we may use if it helps us in our proof.
 
-\begin{figure}[b]
+\begin{figure}[t]
   \centering
   \begin{tikzpicture}[
     % local styles
@@ -263,7 +262,7 @@ which we may use if it helps us in our proof.
 \end{figure}
 
 \begin{lemma}
-  Consider two bijections $f:A\cong B$ and $g:B\cong C$. Then the function $g\circ f$ defined by $a\mapsto g(f(a))$ is also a bijection.
+  Consider two bijections $f:A\cong B$ and $g:B\cong C$. Then the \define{composite} function $g\circ f$ defined by $a\mapsto g(f(a))$, as illustrated in \zcref{figure:composition-of-bijections}, is also a bijection.
 \end{lemma}
 
 \begin{proof}
@@ -275,7 +274,7 @@ which we may use if it helps us in our proof.
   \end{equation*}
   Thus we have shown that there is at least one such element $x$.
 
-  To see that there is at most one, let $x'\in A$ be such that $g(f(x'))=z$. Since both $g(f(x))=z$ and $g(f(x'))=z$ it follows from the assumption that $g$ is a bijection that $f(x)=f(x')$. However, this shows that $x$ and $x'$ have the same value, which implies that $x=x'$ by the assumption that $f$ is a bijection. This completes the proof that the element $x\in A$ is the only element of $A$ mapping to $z$.
+  To see that there is at most one, let $x'\in A$ be such that $g(f(x'))=z$. Since both $g(f(x))=z$ and $g(f(x'))=z$, it follows from the assumption that $g$ is a bijection that $f(x)=f(x')$. Now, since $f$ is a bijection, it follows that $x=x'$. This completes the proof that $x$ is the unique element of $A$ mapping to $z$.
 \end{proof}
 
 \begin{lemma}
@@ -308,7 +307,7 @@ which we may use if it helps us in our proof.
 \end{theorem}
 
 \begin{proof}
-  The claim has two directions. In the forward direction, we have to show that if there is a bijection $A\cong B$, then $m=n$. In the reverse direction we have to show that if $m=n$, then there is a bijection $A\cong B$. The reverse direction is direct, so we do it first.
+  The claim has two directions. In the forward direction, we have to show that if there is a bijection $A\cong B$, then $m=n$. In the reverse direction we have to show that if $m=n$, then there is a bijection $A\cong B$. The reverse direction is most immediate, so we do it first.
 
   Suppose that $m=n$. This implies that $[m]=[n]$, which in particular implies that there is a bijection $[m]\cong[n]$. Since $A$ is an $m$-element set, there exists a bijection $[m]\cong A$, and since $B$ is an $n$-element set, there is a bijection $[n]\cong B$. Chaining these bijections gives
   \begin{equation*}
@@ -339,11 +338,68 @@ Thus, a function $f:X\to Y$ is surjective if every element of $Y$ is a value of 
 
 Likewise, a function $f:X\to Y$ is injective if the function $f$ does not repeat values. Another way of stating the condition that $f$ is injective is by the condition
 \begin{equation*}
-  (f(x)=f(y))\Rightarrow (x=y),
+  f(x)=f(y) \quad\Rightarrow\quad x=y,
 \end{equation*}
 which states that if two elements $x$ and $y$ have the same value under $f$, then they must be the same. The function shown in \zcref{figure:not-bijection-2} is an example of an injective function.
 
-An immediate corollary of these definitions is that a function is a bijection if and only if it is both surjective and injective. Indeed, many authors take this as the definition of bijections. The concept of bijection is also closely related to the concept of \emph{invertible function}.
+An immediate corollary of these definitions is that a function is a bijection if and only if it is both surjective and injective. Indeed, many authors take this as the definition of bijections.
+
+\begin{proposition}
+  A function is a bijection if and only if it is both surjective and injective.\hfill\qed
+\end{proposition}
+
+\begin{figure}[t]
+  \centering
+\begin{tikzpicture}[
+  % local styles
+  element/.style={
+    circle,
+    draw,
+    thick,
+    minimum size=6mm,
+    inner sep=0pt
+  },
+  set/.style={
+    ellipse,
+    draw=CornflowerBlue,
+    thick,
+    minimum height=35mm,
+    minimum width=20mm
+  },
+  underpass/.style={
+    draw=white,
+    line width=9pt,
+    bend left=10,
+    shorten >=5mm,
+    shorten <=5mm
+  }
+  ]
+
+  % Left set (domain)
+  \node[set,label=left:$A$] (A) at (0,0) {};
+  \node[element] (a1) at ($(A.center)+(0,1.2)$) {$a_1$};
+  \node[element] (a2) at ($(A.center)+(0,0)$) {$a_2$};
+  \node[element] (a3) at ($(A.center)+(0,-1.2)$) {$a_3$};
+
+  % Right set (codomain)
+  \node[set,label=right:$B$] (B) at (5,0) {};
+  \node[element] (b1) at ($(B.center)+(0,1.2)$) {$b_1$};
+  \node[element] (b2) at ($(B.center)+(0,0)$) {$b_2$};
+  \node[element] (b3) at ($(B.center)+(0,-1.2)$) {$b_3$};
+
+  \arrowpairover{a1}{b2}
+
+  \arrowpairover{a2}{b3}
+
+  \arrowpairover{a3}{b1}
+
+\end{tikzpicture}
+  \caption[A bijection and its inverse]
+    {A bijection between two $3$-element sets, together with its inverse.}
+  \label{figure:inverse-bijection}
+\end{figure}
+
+Suppose that $f:X\to Y$ is a bijection. Since for every $y\in Y$ there exists a unique element $x\in X$ such that $f(x)=y$, we can define a new function $g:Y\to X$ so that $g(y)$ is this unique element of $X$ such that $f(g(y))=y$, as illustrated in \zcref{figure:inverse-bijection}. The function $g$ reverses all the value-assignments of the function $f$, so we call it the \emph{inverse} of $f$. This leads us to the concept of \emph{invertible functions}.
 
 \begin{definition}
   A function $f:X\to Y$ is said to be \define{invertible} if there is a function $g:Y\to X$ such that
@@ -353,7 +409,7 @@ An immediate corollary of these definitions is that a function is a bijection if
   for every $x\in X$ and $y\in Y$. Such a function $g$ is called an \define{inverse} of $f$.
 \end{definition}
 
-The idea behind the concept of invertible functions is that mapping an element via an invertible function can be undone by means of a function in the reverse direction. Thus, if $f:X\to Y$ is an invertible function with inverse $g:Y\to X$, then if we map an element $x\in X$ to $f(x)\in Y$, we can undo this by mapping it back to $g(f(x))\in X$ which is equal to $x$. Furthermore, the function $f$ is also inverse to the function $g$ so that if we map an element $y\in Y$ to $g(y)\in X$, we can undo this by mapping it back to $f(g(y))\in Y$ which is equal to $y$.
+The idea behind the concept of invertible functions is that mapping an element via an invertible function can be undone by means of a function in the reverse direction. Thus, if $f:X\to Y$ is an invertible function with inverse $g:Y\to X$, then if we map an element $x\in X$ to $f(x)\in Y$, we can undo this by mapping it back to $g(f(x))\in X$, which is equal to $x$. Furthermore, the function $f$ is also inverse to the function $g$ so that if we map an element $y\in Y$ to $g(y)\in X$, we can undo this by mapping it back to $f(g(y))\in Y$, which is equal to $y$.
 
 \begin{theorem}
   A function $f:X\to Y$ is a bijection if and only if it is invertible.
@@ -385,7 +441,7 @@ The idea behind the concept of invertible functions is that mapping an element v
 
 Recall that the set $[n]$ consists of all natural numbers strictly smaller than $n$. That is, the set $[n]$ is the set $\{0,\ldots,n-1\}$. If $n=0$ this set is understood to be empty. Assuming that $n>0$, the largest element of $[n]$ is therefore $n-1$.
 
-Intuitively, a bijection from $[n]$ to $[n]$ is determined, at least for $n>0$, by first specifying the value of the largest element $n-1$, which may be any element $x<n$, and second by picking a bijection $[n-1]\cong[n]\setminus\{x\}$
+Intuitively, a bijection from $[n]$ to $[n]$ is determined, at least for $n>0$, by first specifying the value of the largest element $n-1$, which may be any element $x<n$, and second by picking a bijection $[n-1]\cong[n]\setminus\{x\}$. In other words, bijections between finite sets are determined recursively! This suggests that the number of bijections $[n]\cong [n]$ is also determined by a recursive function.
 
 \begin{definition}
   The \define{factorial function} $n\mapsto n!$ is defined recursively by

@@ -114,13 +114,22 @@ $(DEFAULTPDF): $(TEXFILE) $(BIBFILE) $(FONTSETUP_$(DEFAULT_FONT)) | $(BUILDDIR)
 	@cp -f "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)"
 	@echo "==> Built $(DEFAULTPDF)"
 
-.PHONY: all pdf fonts clean distclean open $(FONTS)
+.PHONY: all pdf quick fonts clean distclean open $(FONTS)
 
 all: fonts
 
 fonts: $(ROOTPDFS)
 
 pdf: $(DEFAULTPDF)
+
+quick: $(TEXFILE) $(FONTSETUP_$(DEFAULT_FONT)) | $(BUILDDIR)
+	@echo "==> Quick build of $(DEFAULTPDF)"
+	@echo "==> Font setup: $(FONTSETUP_$(DEFAULT_FONT))"
+	@echo "==> $(ENGINE) (single pass)"
+	@NT_FONT_SETUP="$(FONTSETUP_$(DEFAULT_FONT))" \
+		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)" $(TEXFILE)
+	@cp -f "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)"
+	@echo "==> Built $(DEFAULTPDF) (quick)"
 
 $(BUILDDIR):
 	@mkdir -p $(BUILDDIR)
