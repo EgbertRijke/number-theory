@@ -765,9 +765,9 @@ Yet another way of thinking about the stars-and-bars problem is that the stars m
   \begin{equation*}
     b_i:=\#\{1\leq j\leq n\mid f(j)=i\}. 
   \end{equation*}
-  Since $k\in\{1\leq j\leq n\mid f(j)=i\}$ if and only if $i=f(k)$, we see that every $1\leq k\leq n$ is accounted for by exactly one $b_i$. This implies that $b_0+\cdots+b_m=n$.
+  Since $k\in\{1\leq j\leq n\mid f(j)=i\}$ if and only if $i=f(k)$, we see that every $1\leq k\leq n$ is in exactly one of the sets $\{1\leq j\leq n\mid f(j)=i\}$. This implies that $b_0+\cdots+b_m=n$.
 
-  Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\#\{1\leq j\leq n\mid f(j)\leq i\}$. Since the map $f$ is order-preserving, it follows that $B_i=\max(\{0\}\cup \{1\leq j\leq n\mid f(j)\leq i\})$. This implies the logical equivalence
+  Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\#\{1\leq j\leq n\mid f(j)\leq i\}$. Since the map $f$ is order-preserving, the set $\{1\leq j\leq n\mid f(j)\leq i\}$ is an initial segment of the set $\{1,\ldots,n\}$. By the fact that it contains $B_i$ elements, it must be the set $\{1,\ldots,B_i\}$. This implies the logical equivalence
   \begin{equation*}
     f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i
   \end{equation*}
@@ -791,11 +791,11 @@ Yet another way of thinking about the stars-and-bars problem is that the stars m
   \end{equation*}
   Since $f(j)\leq f(j)$ holds, we obtain that $g(j)\leq f(j)$. Conversely, since $g(j)\leq g(j)$ holds, we obtain that $f(j)\leq g(j)$. Together, these imply that $f(j)=g(j)$. This completes the proof that $\Phi$ is a bijection.
 
-  For the second part of the theorem, we need to construct a bijection $\Psi$ between the set of ordered sums $b_0+\cdots+b_m=n$ and the set of $m$-element subsets of $\{1,\ldots,m+n\}$. Given an ordered sum $b_0+\cdots+b_m=n$, we define the subset $S=\{s_1,\ldots,s_m\}\subseteq\{1,\ldots,m+n\}$ by
+  For the second bijection, we need to construct a bijection $\Psi$ between the set of ordered sums $b_0+\cdots+b_m=n$ and the set of $m$-element subsets of $\{1,\ldots,m+n\}$. Given an ordered sum $b_0+\cdots+b_m=n$, we define the subset $S=\{s_1,\ldots,s_m\}\subseteq\{1,\ldots,m+n\}$ by
   \begin{equation*}
     s_i=b_0+\cdots+b_{i-1}+i.
   \end{equation*}
-  Then the $s_i$ forms a strictly increasing sequence of numbers with $s_m=b_0+\cdots+b_{m-1}+m\leq m+n$, so that indeed $S:=\{s_1,\ldots,s_m\}$ is a subset of $\{1,\ldots,m+n\}$. We define $\Psi(b_0,\ldots,b_m):=S$.
+  Then the elements $s_i$ form a strictly increasing sequence of numbers with $s_m=b_0+\cdots+b_{m-1}+m\leq m+n$, so that indeed $S:=\{s_1,\ldots,s_m\}$ is a subset of $\{1,\ldots,m+n\}$. We define $\Psi(b_0,\ldots,b_m):=S$.
 
   It remains to show that for every $m$-element subset $S=\{s_1<\ldots<s_m\}\subseteq\{1,\ldots,m+n\}$ there is a unique ordered sum $b_0+\cdots+b_m=n$ such that $\Psi(b_0,\ldots,b_m)=S$.
 
@@ -821,7 +821,7 @@ Yet another way of thinking about the stars-and-bars problem is that the stars m
   \end{equation*}
   which implies that $b_0+\cdots+b_{i-1}+i=s_i$. This shows that $\Psi(b_0,\ldots,b_m)=S$.
 
-  As for uniqueness, Suppose that $\Psi(b_0,\ldots,b_m)=S$. Then we have $s_1-1=b_0$ and $s_{i+1}-s_i-1=b_i$, so that the $(m+1)$-tuple $(b_0,\ldots,b_m)$ is uniquely determined in terms of $S$.
+  As for uniqueness, Suppose that $\Psi(b_0,\ldots,b_m)=S$. Then we have $s_1-1=b_0$, $s_{i+1}-s_i-1=b_i$, and $m+n-s_m=b_m$, so that the $(m+1)$-tuple $(b_0,\ldots,b_m)$ is uniquely determined in terms of $S$.
 \end{proof}
 
 Recall that the \define{complement} of a subset $A$ of a set $X$ is the subset $\complementsubset{A}\subseteq X$ consisting of all the elements of $X$ not in the subset $A$. For any two subsets $A$ and $B$ of $X$, the complement satisfies the logical equivalence
