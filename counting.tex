@@ -698,7 +698,7 @@ The \define{stars-and-bars problem} is a classic counting exercise which asks in
 
 While the statement of the stars-and-bars problem is intuitively clear, it is good practice to precisely define stars-and-bars configurations so that there can be no ambiguity as to what is being counted. There are of course many equivalent ways of thinking about this problem, and indeed it is fruitful to try to think of a couple of them. For, if we have found two equivalent ways of thinking about a problem there must be a bijective correspondence between their representations. Furthermore, once we have found a bijection it follows by \zcrefnamed{theorem:humes-principle} that they are equinumerous.
 
-For our definition of stars-and-bars configuration, we need to think about what it means "to place a linear arrangement of $n$ bars between or at the ends of a linear arrangement of $m$ stars". Since the stars and the bars are both supposed to be in linear arrangements, they can be numbered $1$ through $m$ and $1$ through $n$, respectively. Then we place the bars in the $m+1$ spaces that are separated by the stars, in such a way as to preserve their ordering. Note that, since the stars separate $m+1$ spaces, we can label them $0$ through $m$. The example displayed in \zcref{figure:5-stars-8-bars} clarifies this placement. We observe now that all there is to a stars-and-bars configuration is an \emph{order-preserving map} from $\{1,\ldots,n\}$ to $\{0,\ldots,m\}$. 
+For our definition of stars-and-bars configuration, we need to think about what it means "to place a linear arrangement of $n$ bars between or at the ends of a linear arrangement of $m$ stars". Since the stars and the bars are both supposed to be in linear arrangements, they can be numbered $1$ through $m$ and $1$ through $n$, respectively. The stars separate the $m+1$ spaces in which the bars can go, so we label them $0$ through $m$. Then, the bars are placed in those spaces, in such a way as to preserve their ordering. An example of such a placement is displayed in \zcref{figure:5-stars-8-bars}. We observe now that all there is to a stars-and-bars configuration is an \emph{order-preserving map} from the set $\{1,\ldots,n\}$ of bars to the set $\{0,\ldots,m\}$ of spaces separated by the stars. 
 
 \begin{figure}[t]
   \centering
@@ -735,9 +735,9 @@ Another way of thinking about the stars-and-bars problem is that a stars-and-bar
 \begin{equation*}
   b_0+\cdots+b_m=n.
 \end{equation*}
-Listing the number of bars in each of the four configurations gives us $(2,0,0,1,0,0)$ for the first example, $(0,1,0,0,1,1)$ for the second, $(0,0,2,0,1,0)$ for the third, and $(1,0,1,0,1,0)$ for the fourth.
+Listing the number of bars in each of the four configurations displayed in \zcref{figure:stars-and-bars} gives us $(2,0,0,1,0,0)$ for the first example, $(0,1,0,0,1,1)$ for the second, $(0,0,2,0,1,0)$ for the third, and $(1,0,1,0,1,0)$ for the fourth.
 
-Yet another way of thinking about the stars-and-bars problem is that the stars mark an $m$-element subset $S\subseteq \{1,\ldots,m+n\}$, and the elements not in $S$ are the bars. Now, it does not suffice to merely assert that each of these ways indeed model the stars-and-bars problem. We need to prove it!
+Yet another way of thinking about the stars-and-bars problem is that the stars mark an $m$-element subset $S\subseteq \{1,\ldots,m+n\}$, and the elements not in $S$ are the bars. Now, it does not suffice to merely appreciate that each of these ways indeed model the stars-and-bars problem. We need to prove their equivalence!
 
 \begin{theorem}\label{theorem:stars-and-bars}
   There are bijections between the following sets:
@@ -765,14 +765,13 @@ Yet another way of thinking about the stars-and-bars problem is that the stars m
   \begin{equation*}
     b_i:=\#\{1\leq j\leq n\mid f(j)=i\}. 
   \end{equation*}
-  Since $k\in\{1\leq j\leq n\mid f(j)=i\}$ if and only if $i=f(k)$, we see that every $1\leq k\leq n$ is accounted for by exactly one $b_i$. This shows that
+  Since $k\in\{1\leq j\leq n\mid f(j)=i\}$ if and only if $i=f(k)$, we see that every $1\leq k\leq n$ is accounted for by exactly one $b_i$. This implies that $b_0+\cdots+b_m=n$.
+
+  Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\#\{1\leq j\leq n\mid f(j)\leq i\}$. Since the map $f$ is order-preserving, it follows that $B_i=\max(\{0\}\cup \{1\leq j\leq n\mid f(j)\leq i\})$. This implies the logical equivalence
   \begin{equation*}
-    b_0+\cdots+b_m=n.
+    f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i
   \end{equation*}
-  Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\#\{1\leq j\leq n\mid f(j)\leq i\}$. Since the map $f$ is order-preserving, it follows that $B_i=\max\{0\}\cup \{1\leq j\leq n\mid f(j)\leq i\}$. This implies the logical equivalence
-  \begin{equation*}
-    f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i.
-  \end{equation*}
+  for every $1\leq j\leq n$ and $0\leq i\leq m$.
 
   In order to show that the map $f\mapsto \Phi(f)$ is a bijection, it suffices to show that for every ordered sum $b_0+\cdots+b_m=n$ with associated sequence $(B_0,\ldots,B_m)$ defined by $B_i=b_0+\cdots+b_i$, there is exactly one order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$ such that 
   \begin{equation*}
@@ -798,15 +797,31 @@ Yet another way of thinking about the stars-and-bars problem is that the stars m
   \end{equation*}
   Then the $s_i$ forms a strictly increasing sequence of numbers with $s_m=b_0+\cdots+b_{m-1}+m\leq m+n$, so that indeed $S:=\{s_1,\ldots,s_m\}$ is a subset of $\{1,\ldots,m+n\}$. We define $\Psi(b_0,\ldots,b_m):=S$.
 
-  Now notice that for each $m$-element subset $S\subseteq\{1,\ldots,m+n\}$ we can define a \define{rank function}
+  It remains to show that for every $m$-element subset $S=\{s_1<\ldots<s_m\}\subseteq\{1,\ldots,m+n\}$ there is a unique ordered sum $b_0+\cdots+b_m=n$ such that $\Psi(b_0,\ldots,b_m)=S$.
+
+  As for the existence, notice that we can define a \define{rank function}
   \begin{equation*}
     r : \{1,\ldots,m+n\}\to\{0,\ldots,m\},
   \end{equation*}
-  given by $r_k=\#\{1\leq i\leq m\mid s_i\leq k\}$. This function satisfies the logical equivalence
+  given by $r_k=\#\{1\leq i\leq m\mid s_i\leq k\}$. Since the elements $s_1<\cdots s_m$ are listed in strictly increasing order, it follows that this function satisfies the logical equivalence
   \begin{equation*}
-    s_i\leq k\quad\Leftrightarrow\quad i\leq r_k.
+    s_i\leq k\quad\Leftrightarrow\quad i\leq r_k
   \end{equation*}
-  Observe that if $S=\Psi(b_0,\ldots,b_m)$, then $b_i=\#\{s_i<k\leq m+n\mid r_k=i\}$. 
+  for every $1\leq i\leq m$ and $1\leq k\leq m+n$. In particular, $s_i$ is the minimal element of rank $i$. Then we define
+  \begin{equation*}
+    b_i:=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k=i\}.
+  \end{equation*}
+  Then the sum $b_0+\cdots+b_m$ accounts for all the elements not in $S$, and hence must equal $n$. Moreover, we have
+  \begin{equation*}
+    b_0+\cdots+b_{i-1}=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k<i\}
+  \end{equation*}
+  It follows that
+  \begin{equation*}
+    b_0+\cdots+b_{i-1}+i-1 =\#\{1\leq k\leq m+n\mid r_k<i\},
+  \end{equation*}
+  which implies that $b_0+\cdots+b_{i-1}+i=s_i$. This shows that $\Psi(b_0,\ldots,b_m)=S$.
+
+  As for uniqueness, Suppose that $\Psi(b_0,\ldots,b_m)=S$. Then we have $s_1-1=b_0$ and $s_{i+1}-s_i-1=b_i$, so that the $(m+1)$-tuple $(b_0,\ldots,b_m)$ is uniquely determined in terms of $S$.
 \end{proof}
 
 Recall that the \define{complement} of a subset $A$ of a set $X$ is the subset $\complementsubset{A}\subseteq X$ consisting of all the elements of $X$ not in the subset $A$. For any two subsets $A$ and $B$ of $X$, the complement satisfies the logical equivalence
@@ -957,7 +972,7 @@ If we expand the exponent $(x+y)^3$, we get
           & = x^4 + 4x^3y + 6x^2y^2 + 4xy^3 + y^4.
 \end{align*}
 
-Now we might recognize an emerging pattern in the coefficients of these polynomials: they are all binomial coefficients! The binomial theorem generalizes this result for all exponents $n$.
+Now we might recognize an emerging pattern in the coefficients of these polynomials: they are all binomial coefficients! The binomial theorem generalizes this observation to all exponents $n$.
 
 The binomial theorem has many proofs, including combinatorial proofs and algebraic proofs. All these proofs have their own merits. We will present here an algebraic proof, using induction, since it is the most easily applicable to settings other than the integers.
 
