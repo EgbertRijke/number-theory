@@ -324,6 +324,18 @@ which we may use if it helps us in our proof.
   between an $m$-element set and an $n'$-element set. By the inductive hypothesis, this implies that $m=n'$ and thus we conclude that $m+1=n'+1=n$.
 \end{proof}
 
+\begin{example}
+  We claim that the number of functions $f:[m]\to[n]$ is $n^m$. The proof is by induction on $m$. 
+
+  In the base case, we have to show that there is exactly one function $[0]\to[n]$. Indeed this is the case, as the set $[0]$ is empty, and since functions are specified by specifying the values for all its elements, the empty specification is a specification of the empty function.
+
+  For the inductive step, we observe that there is a bijection
+  \begin{equation*}
+    ([m+1]\to[n])\cong ([m]\to[n])\times [n].
+  \end{equation*}
+  Indeed, since any function is uniquely determined by its values, a function $f:[m+1]\to[n]$ is uniquely determined by its restriction $[m]\to[n]$, which determines the values of $f$ for $0\leq i<m$, and a value for $f(m)$. By the inductive hypothesis, there are $n^m$ functions in the set $[m]\to[n]$, so the number of elements of the set $([m]\to[n])\times[n]$ is $n^m\cdot n=n^{m+1}$. By \zcrefnamed{theorem:humes-principle} it follows that ther are $n^{m+1}$ functions in the set $[m+1]\to[n]$.
+\end{example}
+
 \section{Equivalent Ways of Defining Bijections}
 
 We have defined bijections to be functions $f:X\to Y$ such that for every $y\in Y$ there exists exactly one element $x\in X$ such that $f(x)=y$. The unique existence of such an element $x$ can be broken down in two parts: existence and uniqueness. This suggests that also the definition of bijectivity can be broken down in two parts. This is indeed the case, and both concepts turn out to be useful.
@@ -411,7 +423,7 @@ Suppose that $f:X\to Y$ is a bijection. Since for every $y\in Y$ there exists a 
 
 The idea behind the concept of invertible functions is that mapping an element via an invertible function can be undone by means of a function in the reverse direction. Thus, if $f:X\to Y$ is an invertible function with inverse $g:Y\to X$, then if we map an element $x\in X$ to $f(x)\in Y$, we can undo this by mapping it back to $g(f(x))\in X$, which is equal to $x$. Furthermore, the function $f$ is also inverse to the function $g$ so that if we map an element $y\in Y$ to $g(y)\in X$, we can undo this by mapping it back to $f(g(y))\in Y$, which is equal to $y$.
 
-\begin{theorem}
+\begin{theorem}\label{theorem:invertible-maps}
   A function $f:X\to Y$ is a bijection if and only if it is invertible.
 \end{theorem}
 
@@ -458,11 +470,11 @@ In the following proposition we prove the number of bijections $[n]\cong[n]$ on 
 \end{proposition}
 
 \begin{proof}
-  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exactly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction.
+  The proof is by induction on $n$. For the base case, let $n=0$. Then $[n]$ is an empty set, and there is exactly one function $[n]\to [n]$, the empty function. This function is a bijection, because assuming an element of an empty set is an inherent contradiction from which we can conclude anything.
 
   Now suppose that the number of bijections $[n]\cong[n]$ is $n!$. We claim that for each $y\in[n+1]$ there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ such that $f(n)=y$.
 
-  To see this, we first define the \emph{transposition function} $s_{y,n}$ defined by
+  To see this, we first define the \define{transposition function} $s_{y,n}$ defined by
   \begin{equation*}
     s_{y,n}(x) =
     \begin{cases}
@@ -471,7 +483,7 @@ In the following proposition we prove the number of bijections $[n]\cong[n]$ on 
       x & \text{otherwise.}
     \end{cases}
   \end{equation*}
-  In other words, the function $s_{y,n}$ swaps the elements $n$ and $y$, and leaves the other elements fixed. This function is a bijection, because we can verify that the preimage $s_{y,n}^{-1}(z)$ is a singleton set for every $z\in[n+1]$. The preimage $s_{y,n}^{-1}(n)$ is the singleton set $\{y\}$; the preimage $s_{y,n}^{-1}(y)$ is the singleton set $\{n\}$, and the preimage $s_{y,n}^{-1}(x)$ is the singleton set $\{x\}$ otherwise.
+  In other words, the function $s_{y,n}$ swaps the elements $n$ and $y$, and leaves the other elements fixed. This function is a bijection by \zcref{theorem:invertible-maps}, because $s_{y,n}(s_{y,n}(x))=x$ for all $x\in[n+1]$; that is, swapping two elements and swapping them right back is the same as doing nothing.
 
   Now we observe that the function
   \begin{equation*}
@@ -484,25 +496,23 @@ In the following proposition we prove the number of bijections $[n]\cong[n]$ on 
   Now we observe that there are exactly $n!$ bijections $f:[n+1]\cong[n+1]$ satisfying $f(n)=n$. Indeed, such bijections are uniquely determined by their restriction to the set $[n]$, and by the induction hypothesis there are $n!$ such bijections. Since there are $n+1$ possible choices of a value $y$, we conclude that there are $n!(n+1)$ bijections altogether from $[n+1]$ to $[n+1]$.
 \end{proof}
 
-To wrap up this section, we give a lower bound for the factorial $n!$. Recall that the exponential function is defined by the infinite series
-\begin{equation*}
-  e^x := \sum_{n=0}^\infty \frac{x^n}{n!}.
-\end{equation*}
-Here, the quantity $e:=\sum_{n=0}^\infty \frac{1}{n!}$ is Euler's number, of which the first few terms are
-\begin{equation*}
-  \frac{1}{0!}+\frac{1}{1!}+\frac{1}{2!}+\frac{1}{3!}+\frac{1}{4!}+\frac{1}{5!} + \cdots = 1+1+\frac{1}{2}+\frac{1}{6}+\frac{1}{24}+\frac{1}{120}+\cdots.
-\end{equation*}
-The terms from $1/0!$ to $1/5!$ add up to $2+\frac{86}{120}\approx 2.71\cdots$, which correctly estimates the value of $e$ up to two decimal digits.
-
-\begin{theorem}\label{theorem:elementary-estimate-factorial}
-  For any positive natural number $n$, we have the strict inequality
+\begin{remark}\label{theorem:elementary-estimate-factorial}
+  It is useful to have a simple lower bound for the factorial $n!$. Recall that the \define{exponential function} is defined by the infinite series
+  \begin{equation*}
+    e^x := \sum_{n=0}^\infty \frac{x^n}{n!}.
+  \end{equation*}
+  Here, the quantity $e:=\sum_{n=0}^\infty \frac{1}{n!}$ is Euler's number, of which the first few terms are
+  \begin{equation*}
+    \frac{1}{0!}+\frac{1}{1!}+\frac{1}{2!}+\frac{1}{3!}+\frac{1}{4!}+\frac{1}{5!} + \cdots = 1+1+\frac{1}{2}+\frac{1}{6}+\frac{1}{24}+\frac{1}{120}+\cdots.
+  \end{equation*}
+  The terms from $1/0!$ to $1/5!$ add up to $2+\frac{86}{120}\approx 2.71\cdots$, which correctly estimates the value of $e$ up to two decimal digits.
+  
+  We claim that for any positive natural number $n$, we have the strict inequality
   \begin{equation*}
     \left(\frac{n}{e}\right)^n<n!.
   \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  For positive $x$, every term $\frac{x^n}{n!}$ contributes a positive amount to the exponential function. This gives the strict inequality
+  
+  To see this, observe that when $x$ is positive, then every term $\frac{x^n}{n!}$ contributes a positive amount to the exponential function. This gives the strict inequality
   \begin{equation*}
     \frac{x^n}{n!}<e^x.
   \end{equation*}
@@ -510,11 +520,9 @@ The terms from $1/0!$ to $1/5!$ add up to $2+\frac{86}{120}\approx 2.71\cdots$, 
   \begin{equation*}
     \frac{n^n}{n!}<e^n,
   \end{equation*}
-  and the theorem is obtained by rearranging.
-\end{proof}
-
-\begin{remark}
-  The strict lower bound for $n!$ given in \zcref{theorem:elementary-estimate-factorial} is not the best known estimate of the factorial function. Nevertheless, its proof is elementary, and it can be used in basic number-theoretic estimates. The best approximation to the factorial function is given by Stirling's approximation formula:
+  and the claim is proven by rearranging.
+  
+  The strict lower bound for $n!$ given here is not the best known estimate of the factorial function. Nevertheless, its proof is elementary, and it can be used in basic number-theoretic estimates. The best approximation to the factorial function is given by \define{Stirling's approximation formula}:
   \begin{equation*}
     n!\sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n.
   \end{equation*}
@@ -523,21 +531,21 @@ The terms from $1/0!$ to $1/5!$ add up to $2+\frac{86}{120}\approx 2.71\cdots$, 
 
 \section{Counting Subsets}
 
-A subset $A$ of a set $X$ is a set consisting entirely of elements of $X$. Subsets may be empty, they may contain some elements of $X$, or they may also contain all elements of $X$. When $A$ is a subset of $X$, we write
+A \define{subset} $A$ of a set $X$ is a set consisting entirely of elements of $X$. Subsets may be empty, they may contain some elements of $X$, or they may also contain all elements of $X$. When $A$ is a subset of $X$, we write
 \begin{equation*}
   A\subseteq X.
 \end{equation*}
-Subsets of $X$ can be formed using \emph{predicates} over the elements of $X$. Predicates are propositions or conditions about indeterminate elements. For example, the assertion that $n$ is an even natural number is a predicate with the indeterminate natural number $n$. This predicate determines the subset of all even natural numbers
+Subsets of $X$ can be formed using \emph{predicates} over the elements of $X$. A \define{predicate} is a proposition about or condition on indeterminate elements. For example, the condition that $n$ is an even natural number is a predicate with the indeterminate natural number $n$. This predicate determines the subset of all even natural numbers
 \begin{equation*}
-  0,2,4,6,\ldots.
+  \{0,2,4,6,\ldots\}\subseteq\mathbb{N}.
 \end{equation*}
-Often, we write $P(x)$ for a predicate on the indeterminate element $x$. The subset determined by this predicate is the set of all the elements $x$ that satisfy the condition $P(x)$. Such sets are conveniently defined by \emph{set-builder notation}:
+Often, we write $P(x)$ for a predicate on the indeterminate element $x$. The subset determined by this predicate is the set of all the elements $x$ that satisfy the condition $P(x)$. Such subsets are conveniently defined by \define{set-builder notation}:
 \begin{equation*}
-  \{x\in X\mid P(x)\}.
+  \{x\in X\mid P(x)\}\subseteq X.
 \end{equation*}
-For example, the set of even natural numbers can be written in set-builder notation as follows:
+For example, the subset of even natural numbers can be written in set-builder notation as follows:
 \begin{equation*}
-  \{n\in\mathbb{N}\mid \text{$n$ is even}\}.
+  \{n\in\mathbb{N}\mid \text{$n$ is even}\}\subseteq\mathbb{N}.
 \end{equation*}
 Here, the condition that $n$ is even could also be expressed through the logical formula
 \begin{equation*}
@@ -545,9 +553,9 @@ Here, the condition that $n$ is even could also be expressed through the logical
 \end{equation*}
 asserting that there exists a natural number $k$ such that the number $2k$ is equal to the number $n$. Nevertheless, we often find ourself preferring expressions in natural language that convey the intended meaning more easily.
 
-To avoid any complications of constructive logic, we shall assume that all predicates are decidable, meaning that for every predicate $P(x)$ on the indeterminate element $x$ and for any element $a$, we can decide whether or not the property $P(a)$ holds. The typical predicates of concern in elementary number theory, until the real and complex numbers are considered, are indeed provably decidable.
+%To avoid any complications of constructive logic, we shall assume that all predicates are decidable, meaning that for every predicate $P(x)$ on the indeterminate element $x$ and for any element $a$, we can decide whether or not the property $P(a)$ holds. The typical predicates of concern in elementary number theory, until the real and complex numbers are considered, are indeed provably decidable.
 
-Subsets of a finite set $X$ are determined by a function $X\to \{0,1\}$. Indeed, given a subset $A$ of $X$, we define its \emph{characteristic function} $\chi_A$ by
+Subsets of a set $X$ are determined by a function $X\to \{0,1\}$. Indeed, given a subset $A$ of $X$, we define its \define{characteristic function} $\chi_A$ by
 \begin{equation*}
   \chi_A(x):=
   \begin{cases}
@@ -561,13 +569,21 @@ Conversely, any function $f:X\to \{0,1\}$ determines the subset
 \end{equation*}
 Thus, we can go back and forth between (1) subsets of a set, (2) predicates on a set, and (3) functions from a set into $\{0,1\}$. All of these are equivalent descriptions of the concept of subset.
 
-Since subsets of $X$ are equivalently described as functions from $X$ into the set $\{0,1\}$, it follows immediately that if $X$ is an $n$-element set, then the number of subsets of $X$ is $2^n$. To put it another way: In order to determine a subset of $X$, there are two possibilities for every element of $X$. It is either in the subset, or it isn't. Thus, there are $2^n$ combined possibilities determining distinct subsets.
+Since subsets of $X$ are equivalently described as functions from $X$ into the set $\{0,1\}$, it follows that the number of subsets of an $n$-element set $X$ is $2^n$. Indeed, for each element $x$ there are two options: Either it is in the subset or it isn't. Given that $X$ has $n$ elements, there are thus $2^n$ specifications of subsets of $X$.
 
-Knowing that the total number of subsets of an $n$-element set is $2^n$, we now turn to the question: How many $k$-element subsets are there of an $n$-element set? For example, the six $2$-element subsets of the set $\{1,2,3,4\}$ are
+Less trivial is the question: \emph{How many $k$-element subsets are there of an $n$-element set?} For example, there are six $2$-element subsets of the set $\{1,2,3,4\}$:
 \begin{equation*}
   \{1,2\},~\{1,3\},~\{1,4\},~\{2,3\},~\{2,4\},~\text{and}~\{3,4\}.
 \end{equation*}
-The binomial coefficients are introduced precisely to answer this question for general $n$ and $k$.
+Let us write
+\begin{equation*}
+  \mathcal{P}_k(X):=\{S\subseteq X\mid \# S=k\}.
+\end{equation*}
+Assuming that both $n$ and $k$ are positive natural numbers, so that in particular $X$ contains at least one element $x_0$, we can approach this question by distinguishing two classes of $k$-element subsets of $X$: Those that contain $x_0$ and those that don't contain $x_0$. Note that a $k$-element subset of $X$ that contains $x_0$ is uniquely determined by a $(k-1)$-element subset of the set $X\setminus\{x_0\}$. Likewise, a $k$-element subset of $X$ that doesn't contain $x_0$ is uniquely determined by a $k$-element subset of $X\setminus\{x_0\}$. Thus we find that
+\begin{equation*}
+  \#\mathcal{P}_k(X)=\#\mathcal{P}_k(X\setminus\{x_0\})+\#\mathcal{P}_{k-1}(X\setminus\{x_0\}).
+\end{equation*}
+This formula suggests a recursive method of determining the number of $k$-element subsets.
 
 \begin{figure}[t]
   \centering
@@ -615,21 +631,23 @@ The binomial coefficients are introduced precisely to answer this question for g
 The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is 0\supth{} row of Pascal's triangle. In the $n$\supth{} row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
 
 \begin{theorem}
-  Consider an \(n\)-element set \(S\), and a natural number \(k\). Then the number of \(k\)-element subsets of \(S\) is the binomial coefficient \(\binom{n}{k}\).
+  Consider an $n$-element set $X$, and a natural number $k$. Then the number of $k$-element subsets of $X$ is the binomial coefficient $\binom{n}{k}$.
 \end{theorem}
 
 \begin{proof}
-  Since the binomial coefficients are defined recursively, this theorem is best proven by induction on both variables.
+  We will proof the theorem by induction on both variables. There are four cases to consider.
 
-  If \(S\) has no elements and \(k=0\), then there is exactly one subset of \(S\) having \(k\) elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{0}{0}\).
+  There is always exactly one $0$-element subset of any set, the empty subset. In particular, we find that the number of $0$-element subsets of a $0$-element set is $\binom{0}{0}$, and the number of $0$-element subsets of a $(n+1)$-element set is $\binom{n+1}{0}$.
 
-  If \(S\) has no elements, then there are no \((k+1)\)-element subsets of \(S\), since any \((k+1)\)-element subset has at least one element, but \(S\) has no elements. This shows that the number of \((k+1)\)-element subsets of \(S\) is \(\binom{0}{k+1}\).
+  If $X$ has no elements, then $X$ doesn't contain any subsets with a positive number of elements, so we conclude that the number of $(k+1)$-element subsets of $X$ is $\binom{0}{k+1}$.
 
-  If \(S\) has \(n+1\) elements, then there is exactly one subset of \(S\) with no elements, the empty subset. This shows that the number of \(0\)-element subsets of \(S\) is \(\binom{n+1}{0}\).
-
-  If \(S\) has \(n+1\) elements, then \(S\) has at least one element \(x_0\). Now there are two classes of subsets having \((k+1)\) elements: the subsets containing \(x_0\) and the subsets not containing \(x_0\). A \((k+1)\)-element subset of \(S\) containing \(x_0\) is equivalently described as a \(k\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\), because its \((k+1)\)\supst{} element is the element \(x_0\). By the induction hypothesis, there are exactly \(\binom{n}{k}\) such subsets. Furthermore, a \((k+1)\)-element subset of \(S\) not containing \(x_0\) is equivalently described as a \((k+1)\)-element subset of the \(n\)-element set \(S\setminus\{x_0\}\). By the induction hypothesis, there are exactly \(\binom{n}{k+1}\) such subsets. Combining these two observations, we find that the number of \((k+1)\)-element subsets of \(S\) is
+  Finally, we consider the case of $(k+1)$-element subsets of an $(n+1)$-element set $X$. Since $X$ has a positive number of elements, we may pick one and call it $x_0$. As we have already found in the discussion leading up to this theorem, the number of $(k+1)$-element subsets is given by the formula
   \begin{equation*}
-    \binom{n}{k+1} + \binom{n}{k} = \binom{n+1}{k+1}.\qedhere
+    \#\mathcal{P}_{k+1}(X)= \#\mathcal{P}_k(X\setminus\{x_0\})+\#\mathcal{P}_{k+1}(X\setminus\{x_0\}).
+  \end{equation*}
+  By the inductive hypothesis, we have that $\#\mathcal{P}_k(X\setminus\{x_0\})=\binom{n}{k}$ and $\#\mathcal{P}_{k+1}(X\setminus\{x_0\})=\binom{n}{k+1}$, so that the number of $(k+1)$-element subsets of $X$ is
+  \begin{equation*}
+    \binom{n}{k} + \binom{n}{k+1} = \binom{n+1}{k+1}.\qedhere
   \end{equation*}
 \end{proof}
 
@@ -655,40 +673,40 @@ From here on, the falling factorials are less tricky: The first falling factoria
 We will prove that the falling factorial $n_{k}$ is divisible by the factorial $k!$ using a combinatorial argument, by first establishing that the falling factorials $n_{k}$ count something called \emph{$k$-permutations}. A $k$-permutation of $n$ is essentially a list of length $k$ of nonrepeating elements of the set $[n]$.
 
 \begin{definition}
-  We define the set $P_k(S)$ of \define{$k$-permutations} of a set $S$ recursively by:
+  We define the set $P_k(X)$ of \define{$k$-permutations} of a set $X$ recursively by:
   \begin{enumerate}
-  \item The set $P_0(S)$ of $0$-permutations of $S$ is the set $\{\ast\}$ with one element.
-  \item The set $P_{k+1}(S)$ of $(k+1)$-permutations of $S$ is the set
+  \item The set $P_0(X)$ of $0$-permutations of $X$ is the set $\{\ast\}$ with one element.
+  \item The set $P_{k+1}(X)$ of $(k+1)$-permutations of $X$ is the set
     \begin{equation*}
-      \{(s,t) \mid s\in S,\ t\in P_r(S\setminus\{s\})\}
+      \{(x,p) \mid x\in X,\ p\in P_r(X\setminus\{s\})\}
     \end{equation*}
-    of pairs $(s,t)$ consisting of an element in $S$ and an $k$-permutation of the set $S\setminus\{s\}$.
+    of pairs $(x,p)$ consisting of an element in $X$ and an $k$-permutation of the set $X\setminus\{s\}$.
   \end{enumerate}
 \end{definition}
 
 \begin{lemma}
-  The number of $k$-permutations of an $n$-element set $S$ is $n_k$.
+  The number of $k$-permutations of an $n$-element set $X$ is $n_k$.
 \end{lemma}
 
 \begin{proof}
-  The proof is by induction on $k$. There is exactly one $0$-permutation of any $n$-element set. To see that the number of $(k+1)$-permutations of an $n$-element set is $n\cdots(n-k)$, note that such a $(k+1)$-permutation consists of a choice of an element of $S$, and a $k$-permutation on the remaining $n-1$-element set of elements. Thus, the number of $(k+1)$-permutations on an $n$-element set is $n$ times the number of $k$-permutations on an $(n-1)$-element set, i.e., it is
+  The proof is by induction on $k$. There is exactly one $0$-permutation of any $n$-element set. To see that the number of $(k+1)$-permutations of an $n$-element set is $n\cdots(n-k)$, note that such a $(k+1)$-permutation consists of a choice of an element of $X$, and a $k$-permutation on the remaining $n-1$-element set of elements. Thus, the number of $(k+1)$-permutations on an $n$-element set is $n$ times the number of $k$-permutations on an $(n-1)$-element set, i.e., it is
   \begin{equation*}
     n(n-1)\cdots((n-1)-k+1)=n(n-1)\cdots(n-k).\qedhere
   \end{equation*}
 \end{proof}
 
 \begin{proposition}\label{proposition:characterize-k-permutations}
-  There is a bijection between the set of $k$-permutations of an $n$-element set $S$, and the set
+  There is a bijection between the set of $k$-permutations of an $n$-element set $X$, and the set
   \begin{equation*}
-    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}
+    \{(A,f) \mid A\subseteq X, f : \{0,\ldots,k-1\}\cong A\}
   \end{equation*}
-  of pairs $(A,f)$ consisting of a subset $A\subseteq S$ and a bijection $\{0,\ldots,k-1\}\cong A$.
+  of pairs $(A,f)$ consisting of a subset $A\subseteq X$ and a bijection $\{0,\ldots,k-1\}\cong A$.
 \end{proposition}
 
 \begin{proof}
-  There is exactly one $0$-permutation of any $n$-element set $S$, and likewise the set of empty subsets $A$ of $S$ equipped with a bijection $[0]\cong A$ also contains exactly one element: the empty subset equipped with the empty bijection.
+  There is exactly one $0$-permutation of any $n$-element set $X$, and likewise the set of empty subsets $A$ of $X$ equipped with a bijection $[0]\cong A$ also contains exactly one element: the empty subset equipped with the empty bijection.
 
-  For the inductive step, consider a $(k+1)$-permutation $(s,t)$ of $S$, consisting of an element $s$ and a $k$-permutation $t$ of the set $S\setminus\{s\}$. By the induction hypothesis, the $k$-permutation $t$ corresponds uniquely to a subset $A\subseteq S\setminus\{s\}$ equipped with a bijection $f:[n]\cong A$. Thus, the $(k+1)$-permutation $(s,t)$ corresponds to the subset $B:=A\cup\{s\}\subseteq S$, equipped with the bijection $g:[n+1]\cong B$ given by $g(x):=f(x)$ for $x<n$ and $g(n):= s$.
+  For the inductive step, consider a $(k+1)$-permutation $(x,p)$ of $X$, consisting of an element $x$ and a $k$-permutation $p$ of the set $X\setminus\{x\}$. By the induction hypothesis, the $k$-permutation $p$ corresponds uniquely to a subset $A\subseteq X\setminus\{x\}$ equipped with a bijection $f:[n]\cong A$. Thus, the $(k+1)$-permutation $(x,p)$ corresponds to the subset $B:=A\cup\{x\}\subseteq X$, equipped with the bijection $g:[n+1]\cong B$ given by $g(i):=f(i)$ for $i<n$ and $g(n):= x$.
 \end{proof}
 
 \begin{proposition}
@@ -696,9 +714,9 @@ We will prove that the falling factorial $n_{k}$ is divisible by the factorial $
 \end{proposition}
 
 \begin{proof}
-  By \zcref{proposition:characterize-k-permutations} there is a bijection between the set of $k$-permutations of the set $S:=[n]$, and the set
+  By \zcref{proposition:characterize-k-permutations} there is a bijection between the set of $k$-permutations of the set $X:=[n]$, and the set
   \begin{equation*}
-    \{(A,f) \mid A\subseteq S, f : \{0,\ldots,k-1\}\cong A\}.
+    \{(A,f) \mid A\subseteq X, f : \{0,\ldots,k-1\}\cong A\}.
   \end{equation*}
   These two sets therefore have the same number of elements. Thus, it follows that
   \begin{equation*}
@@ -707,8 +725,7 @@ We will prove that the falling factorial $n_{k}$ is divisible by the factorial $
   showing that the left-hand side is divisible by $k!$.
 \end{proof}
 
-\begin{corollary}
-  \emph{Formula for binomial coefficients.} For any two natural numbers $n$ and $k$ such that $k\leq n$, we have
+\begin{corollary}[Formula for binomial coefficients.] For any two natural numbers $n$ and $k$ such that $k\leq n$, we have
   \begin{equation*}
     \binom{n}{k}=\frac{n!}{k!(n-k)!}.
   \end{equation*}
