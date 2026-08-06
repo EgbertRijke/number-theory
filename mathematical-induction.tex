@@ -432,7 +432,6 @@ We illustrate induction with another example, the \define{formula for the geomet
 
 \begin{figure}[t]
   \centering
-  \tagpdfparaOff
   \begin{tikzpicture}[scale=0.6]
     % --- first tiling (a) at y=0 ---
     \begin{scope}[shift={(0,0)}]
@@ -482,7 +481,6 @@ We illustrate induction with another example, the \define{formula for the geomet
       }
     \end{scope}
   \end{tikzpicture}
-  \tagpdfparaOn
   \caption[Some Hemachandra tilings of a 1-by-19 grid]{\label{figure:fibonacci-tilings}Three example tilings of a 1-by-19 grid using monominoes (1-by-1 tiles) and dominoes (1-by-2 tiles).}
 \end{figure}
 
@@ -493,7 +491,6 @@ In order to rediscover Hemachandra's method, it might be helpful to think of the
 In order to count them, let $H_n$ be the number of such tilings. One way of finding the number $H_n$, which works when a specific $n$ is given, is to simply list all the tilings of a 1-by-$n$ grid. Doing so for small values of $n$ is a great way to get a feeling for the problem. In \zcref{figure:complete-fifth-fibonacci-tiling} we have listed all the possible tilings of the 1-by-5 grid.
 \begin{figure}[t]
   \centering
-  \tagpdfparaOff
   \begin{tikzpicture}[scale=0.6]
     % Colours
     \definecolor{mono}{RGB}{255,165,0}   % monomino
@@ -527,7 +524,6 @@ In order to count them, let $H_n$ be the number of such tilings. One way of find
     \drawtiling{7}{ -4.5}{0/2,2/2,4/1}          % 2 2 1
     
   \end{tikzpicture}
-  \tagpdfparaOn
   \caption[Hemachandra tilings of a 1-by-5 grid]{\label{figure:complete-fifth-fibonacci-tiling}A list of all the possible tilings of a 1-by-5 grid using monominoes and dominoes.}
 \end{figure}
 

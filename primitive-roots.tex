@@ -51,13 +51,13 @@ for every integer $a$ such that $\gcd(a,n)=1$. By \zcrefnamed{theorem:order-theo
   \ord_n(a)\mid \totient(n).
 \end{equation*}
 Euler's theorem therefore gives an upper bound for the order of any element modulo $n$. For example, since $13$ is a prime number, we have $\totient(13)=12$, so all integers relatively prime to $13$ have an order dividing the number $12$. Computing the powers of $2$, for instance, we see that $\ord_{13}(2)=12$:
-\begin{equation*}
-    \newcolumntype{C}{>{\centering\arraybackslash$}m{1em}<{$}}
+\begin{center}
+    \newcolumntype{C}{>{\centering\arraybackslash}m{1em}}
   \begin{tabular}{l*{12}{C}}
-    $m$             & 0 & 1 & 2 & 3 & 4 & 5 & 6  & 7  & 8 & 9 & 10 & 11 \\ \midrule
-    $2^m \pmod{13}$ & 1 & 2 & 4 & 8 & 3 & 6 & 12 & 11 & 9 & 5 & 10 & 7.
+    $m$             & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ \\ \midrule
+    $2^m \pmod{13}$ & $1$ & $2$ & $4$ & $8$ & $3$ & $6$ & $12$ & $11$ & $9$ & $5$ & $10$ & $7$.
   \end{tabular}
-\end{equation*}
+\end{center}
 The process of doubling integers modulo $13$ is illustrated in \zcref{figure:doubling-modulo-13}. Using \zcref{theorem:order-power}, we can use this table to compute the orders of all the nonzero integers modulo $13$. Recall that \zcref{theorem:order-power} states that
 \begin{equation*}
   \ord_n(a^m)=\frac{\ord_n(a)}{\gcd(m,\ord_n(a))}.
@@ -67,13 +67,13 @@ For example, since $3\equiv 2^4\pmod{13}$, it follows that the order of $3$ modu
   5^4 \equiv (2^9)^4 \equiv (2^{12})^3 \equiv 1 \pmod{13}.
 \end{equation*}
 Computing the orders of all the elements from $1$ to $12$ modulo $13$ this way, we obtain:
-\begin{equation*}
-  \newcolumntype{C}{>{\centering\arraybackslash$}m{1em}<{$}}
+\begin{center}
+  \newcolumntype{C}{>{\centering\arraybackslash}m{1em}}
   \begin{tabular}{l*{12}{C}}
-    $a$           & 1 & 2  & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\ \midrule
-    $\ord_{13}(a)$ & 1 & 12 & 3 & 6 & 4 & 12 & 12 & 4 & 3 & 6 & 12 & 2.
+    $a$           & $1$ & $2$  & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ \\ \midrule
+    $\ord_{13}(a)$ & $1$ & $12$ & $3$ & $6$ & $4$ & $12$ & $12$ & $4$ & $3$ & $6$ & $12$ & $2$.
   \end{tabular}
-\end{equation*}
+\end{center}
 
 While the orders of the integers modulo $13$ might at first glance appear to be somewhat unwieldy, \zcref{theorem:order-power} is the key to some important patterns. For example, given an integer $a\pmod{p}$ with $\ord_p(a)=p-1$ such as $2\pmod{13}$, \zcref{theorem:order-power} tells us that
 \begin{equation*}

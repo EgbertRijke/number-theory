@@ -163,6 +163,53 @@ Since we have expressed $a^n-b^n$ as a product in terms of the homogenized cyclo
   \end{equation*}
 \end{example}
 
+\section{Irreducibility of the Cyclotomic Polynomials}
+
+\begin{definition}
+  We say that a polynomial $f(x)$ is \define{square-free} if $r(x)^2\mid x^n-1$ implies that $r(x)$ is constant, for every polynomial $r(x)$. Furthermore, we say that $f(x)$ is \define{square-free modulo $p$} if $r(x)^2\mid x^n-1 \pmod{p}$ implies that $r(x)$ is constant modulo $p$, for every polynomial $r(x)$.
+\end{definition}
+
+The polynomial $x^n-1$ is square-free in the ordinary sense, since it does not have repeated roots. In the following lemma we will prove the stronger property that $x^n-1$ is square-free modulo primes $p$ not dividing $n$.
+
+\begin{lemma}
+  The polynomial $x^n-1$ is square-free modulo $p$ for every prime $p\nmid n$.
+\end{lemma}
+
+\begin{proof}
+  It suffices that there cannot be an irreducible polynomial $r(x)$ such that
+  \begin{equation*}
+    x^n-1=r(x)^2s(x)\pmod{p}.
+  \end{equation*}
+  By taking derivatives, we see that
+  \begin{equation*}
+    nx^{n-1}=2r(x)r'(x)s(x)+r(x)^2s(x)\pmod{p}.
+  \end{equation*}
+  In particular, we see that $r(x)\mid nx^{n-1}$ in $\mathbb{F}_p[x]$. By the assumption that $p\nmid n$ it follows that $n$ is invertible, and hence we obtain
+  \begin{equation*}
+    r(x)\mid x^{n-1}.
+  \end{equation*}
+  Since $r(x)$ is assumed to be irreducible, it follows that $r(x)\mid x$. That is, $x\mid r(x)$. This leads to a contradiction, however, since
+  \begin{equation*}
+    x\nmid x^n-1.
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}
+  The $n$\supth cyclotomic polynomial $\Phi_n(x)$ is irreducible for every $n\geq 1$.
+\end{theorem}
+
+\begin{proof}
+  Let $\zeta=e^{2\pi i/n}$. We claim that if $f(x)$ is an irreducible polynomial such that $f(\zeta)=0$, then $f(\zeta^a)=0$ for every integer $a$ coprime to $n$. To prove this claim, it suffices to show that $f(\zeta^p)=0$ for every prime $p\nmid n$. 
+
+  We observe first that $\zeta^p$ is a primitive root of unity, since $(\zeta^p)^m=1$ implies $n\mid pm$, which implies $n\mid m$ since $p\nmid n$. Now, since we have assumed that $f(\zeta)=0$ it follows that
+  \begin{equation*}
+    \Phi_n(x)=f(x)g(x).
+  \end{equation*}
+Therefore, if $f(\zeta^p)\neq 0$, it follows that $g(\zeta^p)=0$. This shows that $\zeta$ is a root of the polynomial $g(x^p)$. Since $f(x)$ is an irreducible polynomial with root $\zeta$, it follows that $f(x)\mid g(x^p)$.
+
+  As a consequence of the fact that $\zeta^a$ is a root of every irreducible polynomial $f(x)$ such that $f(\zeta)=0$, for every integer $a$ relatively prime to $n$, every such polynomial is of degree $\varphi(n)$. It follows that the polynomial $\Phi_n(x)$ is of minimal degree such that $\Phi_n(\zeta)=0$, and therefore must be irreducible.
+\end{proof}
+
 \section{Zsigmondy's Theorem}
 
 \begin{definition}

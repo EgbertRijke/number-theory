@@ -1,6 +1,6 @@
 \directlua{
   fonts.handlers.otf.addfeature{
-    name = "customkerns",
+    name = "cormorant-customkerns",
     type = "kern",
     data = {
       ["a"] = { ["c"] = 10, ["q"] = 5, ["s"] = 10, ["u"] = -10, ["v"] = -20, ["w"] = 15, ["w"] = -10, ["y"] = -20},
@@ -70,10 +70,10 @@
   Ligatures = {TeX, Common},
   ContextualAlternates = On,
   Kerning = On,
-  RawFeature = {+customkerns,+rijkeliga},
-  ItalicFeatures = {RawFeature={+customkerns}},
-  BoldFeatures = {LetterSpace=1,RawFeature={+customkerns}},
-  BoldItalicFeatures = {LetterSpace=1,RawFeature={+customkerns}},
+  RawFeature = {+cormorant-customkerns,+rijkeliga},
+  ItalicFeatures = {RawFeature={+cormorant-customkerns}},
+  BoldFeatures = {LetterSpace=1,RawFeature={+cormorant-customkerns}},
+  BoldItalicFeatures = {LetterSpace=1,RawFeature={+cormorant-customkerns}},
   SmallCapsFeatures = {LetterSpace=2, Kerning=On},
 ]
 \setmathfont{Garamond-Math.otf}

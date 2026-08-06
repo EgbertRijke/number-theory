@@ -1,21 +1,19 @@
 \DocumentMetadata{
-  lang        = en-US,
-  pdfversion  = 2.0,
-  pdfstandard = {a-4f},%ua-2
-  tagging     = off,
-%  testphase   = {bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem}
-%  testphase   = {phase-III,bib,title,toc,sec,math,amsthm,graphic,table,block,firstaid,enumitem},
-  uncompress
+  lang          = en-US,
+  pdfversion    = 2.0,
+  pdfstandard   = {ua-2,a-4f},
+  tagging       = on,
+  tagging-setup =
+    { math/setup=mathml-SE,
+      extra-modules={verbatim-mo}}
 }
 
 \documentclass[
-fontsize=11pt,
-paper=letter,
-chapterprefix=true,
-headings=big,
-numbers=noenddot,
-bibliography=totoc
-]{scrbook}
+  11pt,
+  letterpaper,
+  twoside,
+  openright
+]{book}
 
 % \tagpdfsetup{math/mathml/luamml/load=false}
 
@@ -24,8 +22,6 @@ bibliography=totoc
 \usepackage{fontspec}
 \usepackage{mathtools}
 \usepackage{unicode-math}
-
-% \setmathfont{STIX Two Math}[range={"25BF}]
 
 \directlua{
   local fontsetup = os.getenv("NT_FONT_SETUP")
@@ -59,7 +55,7 @@ bibliography=totoc
 \usepackage[balanced]{lua-widow-control}
 \usepackage{fnpct}
 
-\usepackage{lua-typo}
+%\usepackage[All]{lua-typo}
 
 \UseMicrotypeSet[protrusion]{basicmath}
 
@@ -77,15 +73,45 @@ bibliography=totoc
   Script=Greek
 ]
 
-\addtokomafont{disposition}{\rmfamily}
-\addtokomafont{chapter}{\huge\bfseries}
-\addtokomafont{chapterprefix}{\Large\lsstyle\scshape\mdseries}
+\usepackage{geometry}
+\geometry{
+  hcentering,
+  letterpaper,
+  includehead,
+  headheight=14pt,
+}
 
-\renewcommand*{\chapterformat}{Chapter~\thechapter\enskip}
-\renewcommand*{\chapterheadstartvskip}{\vspace*{.1\textheight}}
-\renewcommand*{\chapterheadendvskip}{\vspace*{.2\textheight}}
-\renewcommand*{\chaptermarkformat}{%
-  \textsc{\chaptername~\thechapter}\enskip%
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\itshape{\leftmark}}
+\fancyhead[LO]{\itshape{\rightmark}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\pagestyle{fancy}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[LE,RO]{\itshape\thepage}
+  \fancyhead[RE]{\itshape\nouppercase{\leftmark}}
+  \fancyhead[LO]{\itshape\nouppercase{\rightmark}}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\EditInstance{heading}{chapter}{
+  after-penalty-vspace = .1\textheight,
+  after-vspace         = .2\textheight,
+  heading-decls        = \normalfont\raggedright\Large\lsstyle\scshape,
+  number-decls         = , 
+  title-decls          = \normalfont\Huge\bfseries
+}
+
+\NewDocumentCommand{\italicsection}{m}{%
+  \ParseLaTeXeHeading{section}
+    {\BooleanTrue}
+    {heading-decls={\normalfont\Large\mdseries\itshape}}
+    {#1}%
 }
 
 \NewDocumentCommand{\italicsubsection}{m}{%
@@ -94,20 +120,6 @@ bibliography=totoc
     {heading-decls={\normalfont\large\mdseries\itshape}}
     {#1}%
 }
-  
-\usepackage{geometry}
-\geometry{
-  hcentering,
-  letterpaper,
-  includehead,
-}
-
-\usepackage[automark]{scrlayer-scrpage}
-\clearpairofpagestyles
-\ohead{\pagemark}
-\ihead{\headmark}
-\setkomafont{pageheadfoot}{\itshape}
-\DeclarePageStyleAlias{noheader}{empty}
 
 \usepackage{calc}
 \usepackage{totcount}
@@ -344,20 +356,23 @@ bibliography=totoc
 \usepackage{xurl}
 
 \usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linktoc=all,
-  allcolors=CornflowerBlue,
-%  hypertexnames=false,
-  pdftitle    = {The Great Story of Numbers},
-  % Elementary Number Theory
-  % Number Theory: A Narrative
-  % Number Theory For All
-  % The Great Story of Numbers
-  pdfauthor   = {Egbert Rijke},
-  pdfsubject  = {Course Notes},
-  pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, Zsigmondy's theorem, Vantieghem's theorem, quadratic residues, quadratic reciprocity, quadratic fields}
-}
+\hypersetup{hidelinks}
+
+% \usepackage{hyperref}
+% \hypersetup{
+%   colorlinks=true,
+%   linktoc=all,
+%   allcolors=CornflowerBlue,
+% %  hypertexnames=false,
+%   pdftitle    = {The Great Story of Numbers},
+%   % Elementary Number Theory
+%   % Number Theory: A Narrative
+%   % Number Theory For All
+%   % The Great Story of Numbers
+%   pdfauthor   = {Egbert Rijke},
+%   pdfsubject  = {Course Notes},
+%   pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, Zsigmondy's theorem, Vantieghem's theorem, quadratic residues, quadratic reciprocity, quadratic fields}
+% }
 
 \usepackage{zref-titleref}
 \usepackage{zref-clever}
@@ -367,6 +382,23 @@ bibliography=totoc
   noabbrev,
   nameinlink,
 }
+
+\makeatletter
+\ExplSyntaxOn
+
+\AddToHook{cmd/ParseLaTeXeTheoremlike/after}
+  {
+    \tl_if_novalue:oTF \l__block_note_tl
+      { }
+      {
+        \exp_args:NV
+          \zref@titleref@setcurrent
+          \l__block_note_tl
+      }
+  }
+
+\ExplSyntaxOff
+\makeatother
 
 \newcommand{\zcrefnamed}[1]{\zcref{#1}\space(\ztitleref{#1})}
 
@@ -528,6 +560,7 @@ bibliography=totoc
 \newcommand{\content}{\DeclareSemanticSymbol{\mathrm{cont}}{the content of}}
 \newcommand{\floorfrac}[2]{\DeclareSemanticSymbol{\left\lfloor\frac{#1}{#2}\right\rfloor}{the largest integer less than or equal to}}
 \newcommand{\totient}{\DeclareSemanticSymbol{\phi}{totient}}
+\newcommand{\im}{\mathrm{im}}
 
 \newif\ifshownotes
 \shownotestrue
@@ -553,6 +586,24 @@ bibliography=totoc
 
 \definecolor{JHUBlue}{HTML}{002D72}
 \definecolor{JHUSpiritBlue}{HTML}{68ACE5}
+
+\ExplSyntaxOn
+
+\NewDocumentCommand \ShowTagParaBalance { m }
+  {
+    \iow_term:x
+      {
+        TAGPARA~#1:~
+        outer~
+        \int_use:N \g__tag_para_begin_int /
+        \int_use:N \g__tag_para_end_int;~
+        inner~
+        \int_use:N \g__tag_para_main_begin_int /
+        \int_use:N \g__tag_para_main_end_int
+      }
+  }
+
+\ExplSyntaxOff
 
 \begin{document}
 
@@ -654,9 +705,13 @@ bibliography=totoc
 
 \cleardoublepage
 
+\input{lilavati}
+
+\cleardoublepage
+
 \frontmatter
 
-\pagestyle{scrheadings}
+\pagestyle{fancy}
 
 \tableofcontents
 
@@ -746,13 +801,13 @@ bibliography=totoc
 
 \input{polygonal-numbers}
 
-\part{Multiplicative Number Theory}
+% \part{Multiplicative Number Theory}
 
-\input{dirichlet-series}
+% \input{dirichlet-series}
 
-\input{distribution-of-primes}
+% \input{distribution-of-primes}
 
-\input{prime-partition-function}
+% \input{prime-partition-function}
 
 % % \part{Additive Number Theory}
 % % \part{Algebraic Number Theory}
@@ -767,21 +822,21 @@ bibliography=totoc
 % % \part{\texorpdfstring{$p$}{p}-Adic Analysis}
 % % \part{The Langlands Program}
 
-\part{Topics}
+% \part{Topics}
 
-\input{symmetric-counting}
+% \input{symmetric-counting}
 
-\input{real-numbers}
+% \input{real-numbers}
 
-\input{geometric-number-theory}
+% \input{geometric-number-theory}
 
-\input{fermats-last-theorem}
+% \input{fermats-last-theorem}
 
-\input{bernoulli-numbers}
+% \input{bernoulli-numbers}
 
-\input{origami}
+% \input{origami}
 
-\input{miscellaneous}
+% \input{miscellaneous}
 
 \appendix
 
