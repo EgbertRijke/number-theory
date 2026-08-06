@@ -81,11 +81,13 @@
   headheight=14pt,
 }
 
+\AddToHook{cmd/chapter/after}{\thispagestyle{empty}}
+
 \usepackage{fancyhdr}
 \fancyhf{}
 \fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\itshape{\leftmark}}
-\fancyhead[LO]{\itshape{\rightmark}}
+\fancyhead[RE]{\scshape\lsstyle\nouppercase{\leftmark}}
+\fancyhead[LO]{\scshape\lsstyle\nouppercase{\rightmark}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \pagestyle{fancy}
@@ -98,6 +100,45 @@
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
+
+\newfontfamily\partdisplayfont{EB Garamond}
+
+\makeatletter
+
+% Based on the default `placement = page` start-code for the
+% `heading/display` template in latex-lab-sec-template.dtx;
+% only `\thispagestyle{plain}` has been changed to `empty`.
+% See: latex-lab-sec-template, §11.6.4 "heading templates code",
+% around the implementation of `placement = page`.
+%
+% Local documentation:
+%   texdoc latex-lab-sec-template
+%
+% Source:
+%   macros/latex-dev/required/latex-lab/latex-lab-sec-template.dtx
+
+\EditInstance{heading}{part}{
+  start-code = {
+    \if@openright
+      \cleardoublepage
+    \else
+      \clearpage
+    \fi
+    \thispagestyle{empty} % We make the page style empty
+    \if@twocolumn
+      \onecolumn
+      \@tempswatrue
+    \else
+      \@tempswafalse
+    \fi
+    \null\vfil
+  },
+  prefix-decls = \partdisplayfont\mdseries\itshape,
+  number-decls = \partdisplayfont\mdseries\itshape,
+  title-decls  = \partdisplayfont\mdseries\upshape\Huge\lsstyle\scshape
+}
+
+\makeatother
 
 \EditInstance{heading}{chapter}{
   after-penalty-vspace = .1\textheight,
