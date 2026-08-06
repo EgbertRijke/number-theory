@@ -3,28 +3,28 @@
 \section{Polynomials with Abstract Coefficients}
 
 \begin{definition}
-  An \emph{polynomial} in one variable $x$ is an expression of the form
+  A \define{polynomial} in one variable $x$ is an expression of the form
   \begin{equation*}
     f(x) = a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0,
   \end{equation*}
-  in which we require that the \emph{leading coefficient} $a_n$ is nonzero, unless $n=0$. A polynomial $f(x)$ as above with leading coefficient $a_n$ is said to be of \emph{degree} $n$. The numbers $a_k$ are called the \emph{coefficients} of $f(x)$. The \emph{zero polynomial} is the constant polynomial $f(x)=0$.
+  in which we require that the \define{leading coefficient} $a_n$ is nonzero, unless $n=0$. A polynomial $f(x)$ as above with leading coefficient $a_n$ is said to be of \define{degree} $n$. The numbers $a_k$ are called the \define{coefficients} of $f(x)$. The \define{zero polynomial} is the constant polynomial $f(x)=0$.
 \end{definition}
 
-The coefficients of a polynomial may be taken from any number system. When we wish to specify that the coefficients are integers, rational, or real numbers, we speak of \emph{polynomials with integer coefficients}, \emph{polynomials with rational coefficients}, or \emph{polynomials with real coefficients}. Other number systems from which we will occasionally take coefficients include the rings $\mathbb{Z}/n$ of modular arithmetic. Since there is such a large variety of number systems which will eventually play a role one way or another in number theory, it will be useful to us to develop methods general enough so as to cover all these cases at once.
+The coefficients of a polynomial may be taken from any number system. When we wish to specify that the coefficients are integers, rational, or real numbers, we speak of \define{polynomials with integer coefficients}, \define{polynomials with rational coefficients}, or \define{polynomials with real coefficients}. Other number systems from which we will occasionally take coefficients include the rings $\mathbb{Z}/n$ of modular arithmetic. Since there is such a large variety of number systems which will eventually play a role one way or another in number theory, it will be useful to us to develop methods general enough so as to cover all these cases at once.
 
 \begin{definition}
-  A \emph{commutative ring} is a set $R$ equipped with constants $0$ and $1$ and operations $+$ for addition, $-$ for subtraction, and $\cdot$ for multiplication, satisfying the following laws of arithmetic:
+  A \define{commutative ring} is a set $R$ equipped with constants $0$ and $1$ and operations $+$ for addition, $-$ for subtraction, and $\cdot$ for multiplication, satisfying the following laws of arithmetic:
   \begin{align*}
     (x+y)+z & = x + (y+ z), & (xy)z & = x(yz), \\
     x + y & = y + x, & xy & = yx, \\
     0+x & = x, & 1x & = x, \\
     x+(-x) & = 0, & x(y+z) & = xy+xz.
   \end{align*}
-  The adjective \emph{commutative} refers to the law asserting that $xy=yx$. A commutative ring with $0\neq 1$ is said to be a \emph{integral domain} if it satisfies the following condition:
+  The adjective \define{commutative} refers to the law asserting that $xy=yx$. A commutative ring with $0\neq 1$ is said to be a \define{integral domain} if it satisfies the following condition:
   \begin{equation*}
     xy=0 \Rightarrow x=0\lor y=0.
   \end{equation*}
-  A commutative ring with $0\neq 1$ is said to be a \emph{field} if it comes equipped with a further operation $({-})^{-1}$ defined on all nonzero elements, such that
+  A commutative ring with $0\neq 1$ is said to be a \define{field} if it comes equipped with a further operation $({-})^{-1}$ defined on all nonzero elements, such that
   \begin{equation*}
     xx^{-1}=1.
   \end{equation*}
@@ -40,7 +40,7 @@ Most rings satisfy the condition that $0\neq 1$. Indeed, if $0=1$ in a ring $R$,
 \begin{equation*}
   x=1x=0x=0.
 \end{equation*}
-Thus, only the ring $\mathbb{Z}/1$ satisfies $0=1$. This ring is called the \emph{trivial ring} for understandable reasons.
+Thus, only the ring $\mathbb{Z}/1$ satisfies $0=1$. This ring is called the \define{trivial ring} for understandable reasons.
 
 The condition of being an integral domain is quite innocent-looking: It guarantees that the product of any two nonzero numbers is nonzero. This condition is true in familiar number systems such as $\mathbb{Z}$, $\mathbb{Z}[i]$, $\mathbb{Q}$, and $\mathbb{R}$, which are therefore integral domains. However, the ring $\mathbb{Z}/n$ is only an integral domain when $n$ is prime. For composite $n$, we can find examples of nonzero numbers that multiply to $0$. For instance, we have $2\cdot 2\equiv 0\pmod{4}$ in $\mathbb{Z}/4$, and we have $2\cdot 3\equiv 0\pmod{6}$ in $\mathbb{Z}/6$. Having such examples shows that the condition of being an integral domain is not provable from the laws of arithmetic stated in the definition of a ring.
 
@@ -64,7 +64,7 @@ The previous definitions of rings, integral domains, and fields are extremely ge
 \end{remark}
 
 \begin{definition}
-  Consider a ring $R$. A function $f:R\to R$ is said to be \emph{polynomial in $R$} if there exists a polynomial with coefficients in $R$ such as the above, such that
+  Consider a ring $R$. A function $f:R\to R$ is said to be \define{polynomial in $R$} if there exists a polynomial with coefficients in $R$ such as the above, such that
   \begin{equation*}
     f(x)=a_nx^n+ a_{n-1}x^{n-1} +\cdots + a_0
   \end{equation*}
@@ -84,7 +84,7 @@ The previous definitions of rings, integral domains, and fields are extremely ge
 \section{The Factor Theorem}
 
 \begin{definition}
-  Consider a polynomial $f(x)$ with coefficients in a ring $R$. A \emph{root} of $f(x)$ is an element $r\in R$ such that
+  Consider a polynomial $f(x)$ with coefficients in a ring $R$. A \define{root} of $f(x)$ is an element $r\in R$ such that
   \begin{equation*}
     f(r)=0.
   \end{equation*}
@@ -332,7 +332,7 @@ Then we have that $g_i(x_j)=0$ for all $j\neq i$ and $g_i(x_i)\neq 0$. Thus ther
 \end{theorem}
 
 \begin{proof}
-  For any $0\leq i\leq n$, define the \emph{basis polynomial} for Lagrange interpolation $g_i(x)$ by
+  For any $0\leq i\leq n$, define the \define{basis polynomial} for Lagrange interpolation $g_i(x)$ by
   \begin{equation*}
     g_i(x) := \prod_{\substack{j=0\\j\neq i}}^n \frac{x-x_j}{x_i-x_j}.
   \end{equation*}
@@ -380,7 +380,7 @@ Even though the basis polynomials of Lagrange's Interpolation Theorem don't alwa
 are integers, then $f(x)$ is an integer for every integer $x$.
 
 \begin{definition}
-  A polynomial $f(x)$ with real coefficients is said to be \emph{integer valued}
+  A polynomial $f(x)$ with real coefficients is said to be \define{integer valued}
   if $f(x)$ is an integer for every integer $x$.
 \end{definition}
 
@@ -434,7 +434,7 @@ Equipped with this change of perspective, we can prove that a polynomial of degr
 In \zcref{chapter:linear-diophantine-equations}, we have done a few exercises which asked us to show that integers in certain polynomial forms satisfy a divisibility property. For example, we showed that $a^3-a$ is always divisible by $6$, and that $a^5-a$ is always divisible by $30$. We also showed that the product of any $n$ consecutive integers is always divisible by $n!$. In this section we will establish a vast generalization of these facts.
 
 \begin{definition}\label{definition:fixed-divisor}
-  The \emph{fixed divisor} of a function $f:X\to \mathbb{Z}$ into the integers is the greatest common divisor of all values of $f$, i.e.,
+  The \define{fixed divisor} of a function $f:X\to \mathbb{Z}$ into the integers is the greatest common divisor of all values of $f$, i.e.,
   \begin{equation*}
     \gcd(\{f(x)\mid x\in X\}).
   \end{equation*}
@@ -471,7 +471,7 @@ In \zcref{chapter:linear-diophantine-equations}, we have done a few exercises wh
   \begin{equation*}
     f(x)=x^n-x.
   \end{equation*}
-  When $n$ is even, then $f$ is an \emph{even function}, which means that $f(-x)=f(x)$, and when $n$ is odd, then $f$ is an \emph{odd function} which means that $f(-x)=-f(x)$. In either case, this implies that the fixed divisor of $x^n-x$ is equal to the greatest common divisor of the elements
+  When $n$ is even, then $f$ is an \define{even function}, which means that $f(-x)=f(x)$, and when $n$ is odd, then $f$ is an \define{odd function} which means that $f(-x)=-f(x)$. In either case, this implies that the fixed divisor of $x^n-x$ is equal to the greatest common divisor of the elements
   \begin{equation*}
     f(0),\ldots,f(m),
   \end{equation*}
@@ -559,7 +559,7 @@ In \zcref{chapter:linear-diophantine-equations}, we have done a few exercises wh
     \end{cases}
   \end{equation*}
   Use these polynomials similarly to the basis polynomials in \zcrefnamed{theorem:lagranges-interpolation-theorem} to show that every function $\mathbb{Z}/p\mathbb{Z}\to \mathbb{Z}/p\mathbb{Z}$ is polynomial.
-  \exercise Define the $k$\supth{} \emph{power sum}
+  \exercise Define the $k$\supth{} \define{power sum}
   \begin{equation*}
     p_k(a_1,\ldots,a_n) := a_1^k + \cdots + a_n^k.
   \end{equation*}

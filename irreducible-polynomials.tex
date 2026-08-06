@@ -10,12 +10,12 @@ are either integers or irrational numbers. \zcrefnamed{theorem:gausss-lemma-poly
 \begin{equation*}
   f(x)=x^3-3x^2+3x-2
 \end{equation*}
-are either integers or irrational. The crucial property, besides $f$ having integer coefficients, is that the leading coefficient is $1$. Such polynomials are called \emph{monic}. Note that the polynomial $x^2-n$ of our previous example is also monic.
+are either integers or irrational. The crucial property, besides $f$ having integer coefficients, is that the leading coefficient is $1$. Such polynomials are called \define{monic}. Note that the polynomial $x^2-n$ of our previous example is also monic.
 
 Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's concept of primitive polynomials and prove a key property about them.
 
 \begin{definition}
-  A polynomial $f(x)$ with integer coefficients is said to be \emph{primitive} if the greatest common divisor of its coefficients is $1$.
+  A polynomial $f(x)$ with integer coefficients is said to be \define{primitive} if the greatest common divisor of its coefficients is $1$.
 \end{definition}
 
 \begin{theorem}
@@ -82,11 +82,11 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
   \begin{equation*}
     x^4+x^2+1=(x^2-x+1)(x^2+x+1).
   \end{equation*}
-  The process we have exhibited here is called \emph{Euclidean division} or \emph{long division} for polynomials.
+  The process we have exhibited here is called \define{Euclidean division} or \define{long division} for polynomials.
 \end{example}
 
 \begin{definition}
-  We say that a polynomial $g(x)$ \emph{divides} a polynomial $f(x)$ if there is a polynomial $h(x)$ such that
+  We say that a polynomial $g(x)$ \define{divides} a polynomial $f(x)$ if there is a polynomial $h(x)$ such that
   \begin{equation*}
     f(x)=g(x)h(x).
   \end{equation*}
@@ -143,7 +143,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
 \section{Irreducible Polynomials}
 
 \begin{definition}
-  A polynomial $f(x)$ with coefficients in $R$ is said to be \emph{irreducible} if it cannot be written in the form
+  A polynomial $f(x)$ with coefficients in $R$ is said to be \define{irreducible} if it cannot be written in the form
   \begin{equation*}
     f(x)=g(x)h(x)
   \end{equation*}
@@ -174,7 +174,7 @@ Before we can proceed to stating and proving Gauss's Lemma, we introduce Gauss's
     (x+1)(x+2)(x+3)(x+4)+1=(x^2+5x+5)^2.
   \end{equation*}
   
-  Knowing that the polynomial $P_n(x)$ is irreducible for $n\neq 4$ is consistent with the conjecture that infinitely many numbers of the form $n!+1$ are prime. Primes of the form $n!\pm 1$ are called \emph{factorial primes}. Even though it is still a long way to proving the conjecture, P\'{o}lya's observation rules out the simplest algebraic obstruction: The number $P_n(0)=n!+1$ is not automatically composite for purely polynomial reasons.
+  Knowing that the polynomial $P_n(x)$ is irreducible for $n\neq 4$ is consistent with the conjecture that infinitely many numbers of the form $n!+1$ are prime. Primes of the form $n!\pm 1$ are called \define{factorial primes}. Even though it is still a long way to proving the conjecture, P\'{o}lya's observation rules out the simplest algebraic obstruction: The number $P_n(0)=n!+1$ is not automatically composite for purely polynomial reasons.
 
   Note that a polynomial $f(x)$ is irreducible in $\mathbb{Z}[x]$ if and only if every translation $f(x+a)$ is also irreducible. In other words, translations have no effect on the irreducibility of a polynomial. We use this to bring P\'{o}lya's polynomial to slightly more convenient form. We define
   \begin{equation*}

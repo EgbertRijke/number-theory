@@ -5,21 +5,21 @@
 The French mathematician \'Edouard Lucas observed that the familiar Fibonacci sequence was just a single instance of a larger family of recursively defined sequences that all share similar properties. 
 
 \begin{definition}
-  Consider two integers $a$ and $b$. The \emph{Lucas sequence} $u_n$ at $a$ and $b$ is defined by
+  Consider two integers $a$ and $b$. The \define{Lucas sequence} $u_n$ at $a$ and $b$ is defined by
   \begin{equation*}
     u_0:= 0, \qquad u_1:=1,\qquad\text{and}\qquad u_{n+2}:= au_{n+1}- bu_n.
   \end{equation*}
-  If the parameters $a$ and $b$ are not clear from the context, we will write $u(a,b)_n$ for $u_n$. When $a$ and $b$ are relatively prime, we say that the Lucas sequence $(u_n)$ is \emph{reduced}.
+  If the parameters $a$ and $b$ are not clear from the context, we will write $u(a,b)_n$ for $u_n$. When $a$ and $b$ are relatively prime, we say that the Lucas sequence $(u_n)$ is \define{reduced}.
 
-  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$. The \emph{characteristic polynomial} of this Lucas sequence is the polynomial
+  Consider a Lucas sequence $(u_n)$ with recurrence $u_{n+2}=au_{n+1}-bu_n$. The \define{characteristic polynomial} of this Lucas sequence is the polynomial
   \begin{equation*}
     x^2-ax+b,
   \end{equation*}
-  and its \emph{characteristic form} is the binary quadratic form
+  and its \define{characteristic form} is the binary quadratic form
   \begin{equation*}
     x^2-axy+y^2.
   \end{equation*}
-  The roots $\alpha:=\frac{a+\sqrt{a^2-4b}}{2}$ and $\beta:=\frac{a-\sqrt{a^2-4b}}{2}$ of the characteristic polynomial are called the \emph{characteristic roots}. By the Vieta relations, the characteristic roots satisfy the identites
+  The roots $\alpha:=\frac{a+\sqrt{a^2-4b}}{2}$ and $\beta:=\frac{a-\sqrt{a^2-4b}}{2}$ of the characteristic polynomial are called the \define{characteristic roots}. By the Vieta relations, the characteristic roots satisfy the identites
   \begin{equation*}
     \alpha+\beta = a\qquad\text{and}\qquad \alpha\beta=b.
   \end{equation*}
@@ -36,7 +36,7 @@ The French mathematician \'Edouard Lucas observed that the familiar Fibonacci se
     \begin{equation*}
       \alpha=\frac{1+\sqrt{5}}{2}\qquad\text{and}\qquad \beta=\frac{1-\sqrt{5}}{2}.
     \end{equation*}
-  \item When $a=2$ and $b=-1$, then the sequence $(u_n)$ is the \emph{Pell sequence}
+  \item When $a=2$ and $b=-1$, then the sequence $(u_n)$ is the \define{Pell sequence}
     \begin{equation*}
       0,1,2,5,12,29,70,169,408,985,\ldots
     \end{equation*}
@@ -101,7 +101,7 @@ In the following theorem we establish two fundamental identities for a Lucas seq
 Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Sequences with this property are called \emph{divisibility sequences}. We will additionally assume that divisibility sequences $(a_n)$ satisfy $a_0=0$ and $a_1=0$. Such divisibility sequences are sometimes called \emph{normalized}.
 
 \begin{definition}
-  An integer sequence $(a_n)$ is said to be a \emph{divisibility sequence} if $a_0=0$, $a_1=1$, and it preserves the divisibility relation, meaning that it satisfies the condition
+  An integer sequence $(a_n)$ is said to be a \define{divisibility sequence} if $a_0=0$, $a_1=1$, and it preserves the divisibility relation, meaning that it satisfies the condition
   \begin{equation*}
     m\mid n \Rightarrow a_m\mid a_n
   \end{equation*}
@@ -123,7 +123,7 @@ Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Seque
 When the parameters $a$ and $b$ in the recursive law of a Lucas sequence $(u_n)$ are relatively prime, the Lucas sequence has the further property of preserving greatest common divisors. Divisibility sequences that preserve greatest common divisors are called \emph{strong divisibility sequences}.
 
 \begin{definition}
-  A divisibility sequence $(a_n)$ is said to be a \emph{strong divisibility sequence} if $(a_n)$ preserves greatest common divisors, meaning that it satisfies the equation
+  A divisibility sequence $(a_n)$ is said to be a \define{strong divisibility sequence} if $(a_n)$ preserves greatest common divisors, meaning that it satisfies the equation
   \begin{equation*}
     a_{\gcd(m,n)}=\gcd(a_m,a_n)
   \end{equation*}
@@ -313,7 +313,7 @@ We give a second proof of the addition law, making use of the fundamental identi
 \end{example}
 
 \begin{definition}
-  Consider an integer sequence $(a_n)$ and a positive integer $m$. The \emph{rank of apparition} $\rho_a(m)$ of $m$ is the least positive integer $n$ such that $m\mid a_n$.
+  Consider an integer sequence $(a_n)$ and a positive integer $m$. The \define{rank of apparition} $\rho_a(m)$ of $m$ is the least positive integer $n$ such that $m\mid a_n$.
 \end{definition}
 
 \begin{theorem}[Rank of Apparition Theorem]\label{theorem:rank-of-apparition}
@@ -438,11 +438,11 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
 \end{example}
 
 \begin{remark}
-  More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \emph{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
+  More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \define{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
   \begin{equation*}
     g(x)\leq_P y \Leftrightarrow x\leq_Q f(y)
   \end{equation*}
-  for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \emph{upper adjoint}, and the map $g$ is said to be the \emph{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \zcref{theorem:rank-of-apparition} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
+  for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \define{upper adjoint}, and the map $g$ is said to be the \define{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \zcref{theorem:rank-of-apparition} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
 
   Another famous Galois connection on the natural numbers ordered by divisibility is the Fibonacci sequence. We will give the full statement of this fact in the exercises.
 \end{remark}
@@ -450,7 +450,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
 \section{Primitive Sequences}
 
 \begin{definition}
-  Consider a divisibility sequence $n\mapsto a_n$ indexed by the natural numbers, with $a_1=1$. The \emph{primitive sequence} of $a_n$ is the sequence $(u_n)$ of rational numbers defined by
+  Consider a divisibility sequence $n\mapsto a_n$ indexed by the natural numbers, with $a_1=1$. The \define{primitive sequence} of $a_n$ is the sequence $(u_n)$ of rational numbers defined by
   \begin{equation*}
     u_n:=\prod_{d\mid n}a_d^{\mu(n/d)}.
   \end{equation*}
@@ -473,7 +473,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
 \section{LCM-sequences}
 
 \begin{definition}
-  The \emph{lcm-sequence} $(m_n)$ of an integer sequence $(a_n)$ is given by $m_1:=1$ and
+  The \define{lcm-sequence} $(m_n)$ of an integer sequence $(a_n)$ is given by $m_1:=1$ and
   \begin{equation*}
     m_n := \frac{\lcm(a_1,\ldots,a_n)}{\lcm(a_1,\ldots,a_{n-1})}\qquad\text{for $n\geq 2$}.
   \end{equation*}
@@ -567,7 +567,7 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
 \end{example}
 
 \begin{definition}
-  A strong divisibility sequence is said to satisfy the \emph{law of repetition} if for any prime $p$, we have
+  A strong divisibility sequence is said to satisfy the \define{law of repetition} if for any prime $p$, we have
   \begin{equation*}
     \nu_p(a_{n\rho_a(p)})=\nu_p(a_{\rho_a(p)})+\nu_p(n).
   \end{equation*}
@@ -615,7 +615,7 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
   \begin{equation*}
     u_{n+1}^2\equiv b^n\pmod{u_n}.
   \end{equation*}
-  \exercise Consider a Lucas sequence $(u_n)$ and let $m$ be such that $u_m\neq 0$. Define the \emph{cofactor sequence} $(\tilde{u}_k)$ by
+  \exercise Consider a Lucas sequence $(u_n)$ and let $m$ be such that $u_m\neq 0$. Define the \define{cofactor sequence} $(\tilde{u}_k)$ by
   \begin{equation*}
     \tilde{u}_k:=u_{km}/u_m.
   \end{equation*}
@@ -626,12 +626,12 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
   \exercise
   \begin{subexenum}
   \item Show that the function $(x,y)\mapsto (y,x+y)$ is a bijection on the set of pairs of elements $x,y\in \mathbb{Z}/n\mathbb{Z}$.
-  \item Show that for any $m$, the Fibonacci sequence is periodic modulo $m$. Its period is called the \emph{Pisano period}.
+  \item Show that for any $m$, the Fibonacci sequence is periodic modulo $m$. Its period is called the \define{Pisano period}.
   \item Show that for any natural number $m$, there is a least positive number $n$ such that
     \begin{equation*}
       m\mid F_n.
     \end{equation*}
-    We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \emph{cofibonacci sequence}.
+    We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \define{cofibonacci sequence}.
   \item Show that $G(m)$ satisfies the following logical equivalence
     \begin{equation*}
       G_m\mid n \Leftrightarrow m \mid F_n.
@@ -643,12 +643,12 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
     P_0:=0,\qquad P_1:=1,\qquad\text{and}\qquad P_{n+2}=2P_{n+1}+P_{n},
   \end{equation*}
   forms a strong divisibility sequence.
-  \exercise Define a \emph{Mersenne integer} to be any integer that can be written in the form
+  \exercise Define a \define{Mersenne integer} to be any integer that can be written in the form
   \begin{equation*}
     \frac{M_{i_1}\cdots M_{i_m}}{M_{j_1}\cdots M_{j_n}}.
   \end{equation*}
   Show that the number $23$ is not a Mersenne integer.
-  \exercise Define a \emph{Fibonacci integer} to be any integer that can be written in the form
+  \exercise Define a \define{Fibonacci integer} to be any integer that can be written in the form
   \begin{equation*}
     \frac{F_{i_1}\cdots F_{i_m}}{F_{j_1}\cdots F_{j_n}}.
   \end{equation*}

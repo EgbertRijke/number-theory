@@ -5,7 +5,7 @@
 Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^n\equiv 1\pmod{p}$. By the \zcrefnamed{theorem:order-theorem} it follows that $\ord_p(a)\mid n$. By \zcrefnamed{theorem:fermats-little-theorem} it follows that the order of $a$ modulo $p$ is itself a divisor of $p-1$.
 
 \begin{definition}
-  The $n$\supth{} \emph{cyclotomic polynomial} $\Phi_n$ is defined by
+  The $n$\supth{} \define{cyclotomic polynomial} $\Phi_n$ is defined by
   \begin{equation*}
     \Phi_n(x) := \prod_{\substack{1\leq k \leq n\\[2pt]\gcd(k,n)=1}}(x-e^{2\pi ik/n}).
   \end{equation*}
@@ -67,7 +67,7 @@ Consider a prime factor $p$ of $a^n-1$. Since $p\mid a^n-1$, it follows that $a^
 In the following theorem we will establish that the coefficients of the cyclotomic polynomials are palindromic, meaning that they read the same forward and back. 
 
 \begin{theorem}
-  The cyclotomic polynomials $\Phi_n(x)$ are \emph{reciprocal} in the sense that
+  The cyclotomic polynomials $\Phi_n(x)$ are \define{reciprocal} in the sense that
   \begin{equation*}
     \Phi_n\left(\tfrac{1}{x}\right)x^{\phi(n)} = \Phi_n(x).
   \end{equation*}
@@ -213,7 +213,7 @@ Therefore, if $f(\zeta^p)\neq 0$, it follows that $g(\zeta^p)=0$. This shows tha
 \section{Zsigmondy's Theorem}
 
 \begin{definition}
-  Consider a sequence $(a_n)$ of integers. A prime $p$ is said to be a \emph{primitive prime divisor} of $a_n$ if the rank of apparition of $p$ satisfies $\rho(p)=n$.
+  Consider a sequence $(a_n)$ of integers. A prime $p$ is said to be a \define{primitive prime divisor} of $a_n$ if the rank of apparition of $p$ satisfies $\rho(p)=n$.
 \end{definition}
 
 \begin{proposition}\label{proposition:zsigmondy}

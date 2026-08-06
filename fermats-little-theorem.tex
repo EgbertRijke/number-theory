@@ -241,7 +241,7 @@ We present two proofs of Euler's Theorem. The first is the standard proof, and t
 \end{proof}
 
 \begin{remark}
-  The second proof of Euler's theorem can be simplified using the language of group theory. A \emph{group} is a set $G$ equipped with a binary operation $x,y\mapsto xy$, a unary operation $x\mapsto x^{-1}$, and a unit element $1$, satisfying the axioms
+  The second proof of Euler's theorem can be simplified using the language of group theory. A \define{group} is a set $G$ equipped with a binary operation $x,y\mapsto xy$, a unary operation $x\mapsto x^{-1}$, and a unit element $1$, satisfying the axioms
   \begin{align*}
     (xy)z & = x(yz) \\
     x1 & = x \\
@@ -266,7 +266,7 @@ Some questions about Euler's totient function remain unresolved. While we have s
 \begin{equation*}
   \phi(n)\mid n-1.
 \end{equation*}
-This open problem is now known as \emph{Lehmer's problem} \cite{lehmer1933}.
+This open problem is now known as \define{Lehmer's problem} \cite{lehmer1933}.
 
 \section{Wilson's Theorem}
 
@@ -505,22 +505,22 @@ The techniques of proving Dirichlet's Theorem are beyond the scope of this cours
     2^{p-2}+3^{p-2}+6^{p-2} \equiv 1 \pmod{p}
   \end{equation*}
   for any prime number $p\neq 3$.
-  \exercise For any positive integer $n$ we define the \emph{Euler quotient}
+  \exercise For any positive integer $n$ we define the \define{Euler quotient}
   \begin{equation*}
     q_n(x):=\frac{x^{\phi(n)}-1}{n},
   \end{equation*}
-  where $x$ is assumed to be relatively prime to $n$. In the special case where $n$ is a prime, $q_n(x)$ is called the \emph{Fermat quotient}.
+  where $x$ is assumed to be relatively prime to $n$. In the special case where $n$ is a prime, $q_n(x)$ is called the \define{Fermat quotient}.
   \begin{subexenum}
   \item Show that
     \begin{equation*}
       q_n(ab)\equiv q_n(a)+q_n(b)\pmod{n}
     \end{equation*}
     for any two integers $a$ and $b$ relatively prime to $n$, and conclude that $q_n(a^k)\equiv k q_n(a)\pmod{n}$ for $a$ relatively prime to $n$.
-  \item For any prime $p$, define the \emph{Wilson quotient} $W_p$ by
+  \item For any prime $p$, define the \define{Wilson quotient} $W_p$ by
     \begin{equation*}
       W_p:=\frac{(p-1)!+1}{p}.
     \end{equation*}
-    Prove \emph{Lerch's formula} \cite{lerch1905}, which asserts that
+    Prove \define{Lerch's formula} \cite{lerch1905}, which asserts that
     \begin{equation*}
       \sum_{k=1}^{p-1}q_p(k)\equiv W_p\pmod{p}.
     \end{equation*}
@@ -570,7 +570,7 @@ The techniques of proving Dirichlet's Theorem are beyond the scope of this cours
     \begin{equation*}
       a^p\equiv a\pmod{p^2}\qquad\Leftrightarrow \qquad a^{p^2}\equiv a\pmod{p^2}.
     \end{equation*}
-  \item A prime satisfying $a^p\equiv a\pmod{p^2}$ is called a \emph{Wieferich prime base $a$}. Wieferich encountered this condition by showing that if $x^p+y^p=z^p$ with $p\nmid xyz$, then $p$ must be a Wieferich prime base $2$ \cite{wieferich1909}. The only known Wieferich primes base $2$ are $p=1093$ and $p=3511$, and there are no smaller Wieferich primes base $2$.
+  \item A prime satisfying $a^p\equiv a\pmod{p^2}$ is called a \define{Wieferich prime base $a$}. Wieferich encountered this condition by showing that if $x^p+y^p=z^p$ with $p\nmid xyz$, then $p$ must be a Wieferich prime base $2$ \cite{wieferich1909}. The only known Wieferich primes base $2$ are $p=1093$ and $p=3511$, and there are no smaller Wieferich primes base $2$.
     
     In bases larger than $2$ there are smaller Wieferich primes, although they are still rare. The only known Wieferich primes base $3$ are $p=11$ and $p=1006003$. Show that $5$ is a Wieferich prime base $32$.
   \end{subexenum}

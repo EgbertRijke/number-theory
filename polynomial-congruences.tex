@@ -58,7 +58,7 @@ The derivative of a function $f$ at a point $x$, if it exists, measures the rate
 \begin{equation*}
   f'(x):=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}
 \end{equation*}
-Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \emph{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There is an important theorem in number theory that require knowledge of the derivatives of polynomials: In our proof of \zcrefnamed{theorem:hensels-lemma} we will make use of \zcrefnamed{theorem:taylor-expansion-theorem} proven below.
+Intuitively, such a limit exists if we can determine a unique value $y=f'(x)$ so that the quanitity $(f(x+h)-f(x))/h$ gets arbitrarily close to $y$ as $h$ gets arbitrarily close to $0$. When such a limit exists for every $x$, we say that $f$ is \define{differentiable}. Many of the most common functions are differentiable, except at obvious points of discontinuity as seen, for instance, in step functions, or functions with sudden change of direction such as the absolute value function. In this short section we will prove that all polynomials are differentiable. There is an important theorem in number theory that require knowledge of the derivatives of polynomials: In our proof of \zcrefnamed{theorem:hensels-lemma} we will make use of \zcrefnamed{theorem:taylor-expansion-theorem} proven below.
 
 The following theorem is not only useful when $h$ approaches $0$. For example, in the case where $h$ is a prime $p$ it tells us that $f(x+p)-f(x)$ is always a multiple of $p$.
 
@@ -208,11 +208,11 @@ Using the elementary symmetric polynomials, we find another way of stating \zcre
 \section{Reduced Polynomials Modulo a Prime}
 
 \begin{definition}
-  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
+  Two polynomials $f(x)$ and $g(x)$ are said to be \define{congruent} modulo a prime $p$ if their coefficients are congruent modulo $p$. 
 \end{definition}
 
 \begin{definition}
-  Two polynomials $f(x)$ and $g(x)$ are said to be \emph{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
+  Two polynomials $f(x)$ and $g(x)$ are said to be \define{equivalent} modulo a prime $p$ if for each integer $x$ the polynomial congruence
   \begin{equation*}
     f(x)\equiv g(x)\pmod{p}
   \end{equation*}
@@ -220,7 +220,7 @@ Using the elementary symmetric polynomials, we find another way of stating \zcre
 \end{definition}
 
 \begin{definition}
-  A polynomial $f(x)$ is said to be \emph{reduced} modulo $p$ if it is of degree less than $p$.
+  A polynomial $f(x)$ is said to be \define{reduced} modulo $p$ if it is of degree less than $p$.
 \end{definition}
 
 \begin{theorem}
