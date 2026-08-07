@@ -31,6 +31,11 @@
   tex.sprint("\\input{" .. fontsetup .. "}")
 }
 
+\newfontfamily\mottofont{EB Garamond}
+\newfontfamily\partdisplayfont{EB Garamond}
+\newfontfamily\headerfont{EB Garamond}
+
+
 \newcommand{\otfrac}[2]{#1/#2}
 
 \newcommand{\supst}{\textsuperscript{st}}
@@ -85,25 +90,21 @@
 
 \usepackage{fancyhdr}
 \fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\scshape\lsstyle\nouppercase{\leftmark}}
-\fancyhead[LO]{\scshape\lsstyle\nouppercase{\rightmark}}
+\fancyhead[LE,RO]{\headerfont\thepage}
+\fancyhead[RE]{\headerfont\scshape\lsstyle\nouppercase{\leftmark}}
+\fancyhead[LO]{\headerfont\scshape\lsstyle\nouppercase{\rightmark}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \pagestyle{fancy}
 
 \fancypagestyle{plain}{%
   \fancyhf{}
-  \fancyhead[LE,RO]{\itshape\thepage}
-  \fancyhead[RE]{\itshape\nouppercase{\leftmark}}
-  \fancyhead[LO]{\itshape\nouppercase{\rightmark}}
+  \fancyhead[LE,RO]{\headerfont\itshape\thepage}
+  \fancyhead[RE]{\headerfont\itshape\nouppercase{\leftmark}}
+  \fancyhead[LO]{\headerfont\itshape\nouppercase{\rightmark}}
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
-
-\newfontfamily\mottofont{EB Garamond}
-
-\newfontfamily\partdisplayfont{EB Garamond}
 
 \makeatletter
 
