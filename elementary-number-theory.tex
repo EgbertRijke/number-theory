@@ -26,7 +26,7 @@
 \directlua{
   local fontsetup = os.getenv("NT_FONT_SETUP")
   if fontsetup == nil or fontsetup == "" then
-    fontsetup = "fontsetups/stix-two-custom-kerning.tex"
+    fontsetup = "fontsetups/libertinus-custom-kerning.tex"
   end
   tex.sprint("\\input{" .. fontsetup .. "}")
 }
