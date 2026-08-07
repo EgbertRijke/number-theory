@@ -31,9 +31,34 @@
   tex.sprint("\\input{" .. fontsetup .. "}")
 }
 
-\newfontfamily\mottofont{EB Garamond}
-\newfontfamily\partdisplayfont{EB Garamond}
-\newfontfamily\headerfont{EB Garamond}
+\newfontfamily\mottofont{EB Garamond}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  Scale = 1.04,
+  StylisticSet = {6},
+  ItalicFeatures = {RawFeature={+customkerns}},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+  ]
+\newfontfamily\partdisplayfont{EB Garamond}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  Scale = 1.04,
+  StylisticSet = {6},
+  ItalicFeatures = {RawFeature={+customkerns}},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+  ]
+\newfontfamily\headerfont{EB Garamond}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  Scale = 1.04, StylisticSet = {6},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+  ]
 
 
 \newcommand{\otfrac}[2]{#1/#2}
