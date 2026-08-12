@@ -1,7 +1,7 @@
 \DocumentMetadata{
   lang          = en-US,
   pdfversion    = 2.0,
-  pdfstandard   = {ua-2,a-4f},
+  pdfstandard   = ua-2,
   tagging       = on,
   tagging-setup =
     { math/setup=mathml-SE,
@@ -15,7 +15,8 @@
   openright
 ]{book}
 
-% \tagpdfsetup{math/mathml/luamml/load=false}
+\title{The Great Story of Numbers}
+\author{Egbert Rijke}
 
 \setcounter{tocdepth}{2}
 
@@ -240,6 +241,7 @@
 
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
+\definecolor{CornflowerBlue}{HTML}{007ACD}
 \definecolor{grayblue}{HTML}{0047AB}
 \usepackage{tikz}
 \usetikzlibrary{
@@ -425,7 +427,13 @@
 \usepackage{xurl}
 
 \usepackage{hyperref}
-\hypersetup{hidelinks}
+\hypersetup{
+  hidelinks,
+  pdftitle          = {The Great Story of Numbers},
+  pdfauthor         = {Egbert Rijke},
+  pdfsubject        = {Number Theory Course Notes},
+  pdfdisplaydoctitle = true,
+}
 
 % \usepackage{hyperref}
 % \hypersetup{
@@ -734,7 +742,19 @@
     {\Huge\textbf{Egbert Rijke}\par}
     \vspace*{\stretch{1}}
     \begin{center}
-    \begin{tikzpicture}[scale=5]
+    \begin{tikzpicture}[
+      scale=5,
+      alt={
+        The unit circle on a square coordinate grid, centered at the origin.
+        On the unit circle, a sequence of four Vieta jumps 
+        is shown with arrows pointing to the target of each jump.
+        This sequence of jumps ends at the point (1,0).
+        Each jump is constructed using a dashed line segment
+        from the nearest corner point (±1,±1) to the current point.
+        Extending this line segment, we find a second intersection point on the
+        unit circle, which is the target point of the jump.
+        }
+      ]
       \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
       \draw[ultra thick] (0,0) circle (1);
       \coordinate (P1) at ({117/125},{44/125});
@@ -784,7 +804,7 @@
 
 \begingroup
 \tableofcontents
-\addfontfeatures{RawFeature={-calt}}
+%\addfontfeatures{RawFeature={-calt}}
 \endgroup
 
 \listoffigures

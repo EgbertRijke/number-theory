@@ -54,7 +54,7 @@ and so forth.
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[
-    % local styles
+    alt={Two sets with three elements each, and arrows between their elements so as to indicate a bijective correspondence. The elements of the first set A are labeled a_1, a_2, a_3, and the elements of the second set B are labeled b_1, b_2, b_3. The bijection sends a_1 to b_2, a_2 to b_3, and a_3 to b_1.},
     element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
     set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
     arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
@@ -75,11 +75,11 @@ and so forth.
     
     % Bijection arrows
     \draw[underpass] (a1) to (b2);
-    \draw[arrow] (a1) to (b2);
+    \draw[|->] (a1) to (b2);
     \draw[underpass] (a2) to (b3);
-    \draw[arrow] (a2) to (b3);
+    \draw[|->] (a2) to (b3);
     \draw[underpass] (a3) to (b1);
-    \draw[arrow] (a3) to (b1);
+    \draw[|->] (a3) to (b1);
     
   \end{tikzpicture}
   \caption[A bijection]{A bijection between two $3$-element sets.}
@@ -112,7 +112,7 @@ we have to create what is called a \emph{bijective correspondence} between the e
   \begin{minipage}{.4\textwidth}
     \centering
     \begin{tikzpicture}[
-      % local styles
+      alt={A 3-element set A and a 2-element set B, with arrows between the elements of A and the elements of B so as to indicate a function from A to B. This function sends a_1 to b_1, a_2 to b_2, and a_3 to b_1.},
       element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
       set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
       arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
@@ -139,13 +139,17 @@ we have to create what is called a \emph{bijective correspondence} between the e
       \draw[arrow] (a3) to (b1);
       
     \end{tikzpicture}
-    \captionof{figure}[Not a bijection]{This function is not a bijection since $b_1$ is the value of the distinct elements $a_1$ and $a_3$.}
+    \captionof{figure}[Not a bijection]{This function is not a bijection since the distinct elements $a_1$ and $a_3$ are both sent to $b_1$.}
     \label{figure:not-bijection-1}
-  \end{minipage}\hspace{.1\textwidth}
+  \end{minipage}
+
+  \tagpdfsetup{float/split}
+
+  \hspace{.1\textwidth}
   \begin{minipage}{.4\textwidth}
     \centering
     \begin{tikzpicture}[
-      % local styles
+      alt={A 3-element set A and a 4-element set B, with arrows between the elements of A and the elements of B so as to indicate a function from A to B. This function sends a_1 to b_2, a_2 to b_3, and a_3 to b_1.},
       element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
       set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
       arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
@@ -1265,9 +1269,8 @@ In light of this observation, we can reverse the roles of $m$ and $n$ in the thi
 
 \thispagestyle{empty}
 
-\thispagestyle{empty} % no header/footer if you like
-\vspace*{\fill}
-\begin{center}
+\begin{figure}[p]
+  \centering
   \begin{tikzpicture}[every node/.style={
       draw,
       thick,
@@ -1291,10 +1294,11 @@ In light of this observation, we can reverse the roles of $m$ and $n$ in the thi
       }
     }
   \end{tikzpicture}
-  \captionof{figure}[Parity in Pascal's triangle]{Shade all the circles in which the binomial coefficient is odd.}
+
+  \caption[Parity in Pascal's triangle]
+  {Shade all the circles in which the binomial coefficient is odd.}
   \label{figure:parity-pascals-triangle}
-\end{center}
-\vspace*{\fill}
+\end{figure}
 
 \clearpage
 
