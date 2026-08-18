@@ -57,8 +57,14 @@ and so forth.
     alt={Two sets with three elements each, and arrows between their elements so as to indicate a bijective correspondence. The elements of the first set A are labeled a_1, a_2, a_3, and the elements of the second set B are labeled b_1, b_2, b_3. The bijection sends a_1 to b_2, a_2 to b_3, and a_3 to b_1.},
     element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
     set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
-    arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
-    underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
+    underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm},
+    mapsto/.style={
+      |->,
+      thick,
+      bend left=10,
+      shorten >=2mm,
+      shorten <=2mm
+    },
     ]
     
     % Left set (domain)
@@ -75,11 +81,11 @@ and so forth.
     
     % Bijection arrows
     \draw[underpass] (a1) to (b2);
-    \draw[|->] (a1) to (b2);
+    \draw[mapsto] (a1) to (b2);
     \draw[underpass] (a2) to (b3);
-    \draw[|->] (a2) to (b3);
+    \draw[mapsto] (a2) to (b3);
     \draw[underpass] (a3) to (b1);
-    \draw[|->] (a3) to (b1);
+    \draw[mapsto] (a3) to (b1);
     
   \end{tikzpicture}
   \caption[A bijection]{A bijection between two $3$-element sets.}
@@ -115,7 +121,7 @@ we have to create what is called a \emph{bijective correspondence} between the e
       alt={A 3-element set A and a 2-element set B, with arrows between the elements of A and the elements of B so as to indicate a function from A to B. This function sends a_1 to b_1, a_2 to b_2, and a_3 to b_1.},
       element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
       set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
-      arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
+      mapsto/.style={|->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
       underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
       ]
       
@@ -132,19 +138,19 @@ we have to create what is called a \emph{bijective correspondence} between the e
       
       % Bijection arrows
       \draw[underpass] (a1) to (b1);
-      \draw[arrow] (a1) to (b1);
+      \draw[mapsto] (a1) to (b1);
       \draw[underpass] (a2) to (b2);
-      \draw[arrow] (a2) to (b2);
+      \draw[mapsto] (a2) to (b2);
       \draw[underpass] (a3) to (b1);
-      \draw[arrow] (a3) to (b1);
+      \draw[mapsto] (a3) to (b1);
       
     \end{tikzpicture}
     \captionof{figure}[Not a bijection]{This function is not a bijection since the distinct elements $a_1$ and $a_3$ are both sent to $b_1$.}
     \label{figure:not-bijection-1}
-  \end{minipage}
-
+  \end{minipage}%
+  %
   \tagpdfsetup{float/split}
-
+  %
   \hspace{.1\textwidth}
   \begin{minipage}{.4\textwidth}
     \centering
@@ -152,7 +158,7 @@ we have to create what is called a \emph{bijective correspondence} between the e
       alt={A 3-element set A and a 4-element set B, with arrows between the elements of A and the elements of B so as to indicate a function from A to B. This function sends a_1 to b_2, a_2 to b_3, and a_3 to b_1.},
       element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
       set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
-      arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
+      mapsto/.style={|->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
       underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
       ]
       
@@ -171,11 +177,11 @@ we have to create what is called a \emph{bijective correspondence} between the e
       
       % Bijection arrows
       \draw[underpass] (a1) to (b2);
-      \draw[arrow] (a1) to (b2);
+      \draw[mapsto] (a1) to (b2);
       \draw[underpass] (a2) to (b3);
-      \draw[arrow] (a2) to (b3);
+      \draw[mapsto] (a2) to (b3);
       \draw[underpass] (a3) to (b1);
-      \draw[arrow] (a3) to (b1);
+      \draw[mapsto] (a3) to (b1);
       
     \end{tikzpicture}
     \captionof{figure}[Not a bijection]{This function is not a bijection since $b_4$ is not the value of any element in $A$.}
@@ -224,10 +230,11 @@ which we may use if it helps us in our proof.
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[
-    % local styles
+    alt={Three sets A, B, and C, with bijections between A and B and between B and C. The bijection between A and B sends a sub 1 to b sub 2, a sub 2 to b sub 3, and a sub 3 to b sub 1. The bijection between B and C sends b sub 1 to c sub 2, b sub 2 to c sub 1, and b sub 3 to c sub 3. The composite bijection therefore sends a sub 1 via b sub 2 to c sub 1, a sub 2 via b sub 3 to c sub 3, and a sub 3 via b sub 1 to c sub 2.
+    },
     element/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
     set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=20mm},
-    arrow/.style={->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
+    mapsto/.style={|->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
     underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
     ]
     
@@ -248,17 +255,17 @@ which we may use if it helps us in our proof.
 
     % Bijection arrows
     \draw[underpass] (a1) to (b2);
-    \draw[arrow] (a1) to (b2);
+    \draw[mapsto] (a1) to (b2);
     \draw[underpass] (a2) to (b3);
-    \draw[arrow] (a2) to (b3);
+    \draw[mapsto] (a2) to (b3);
     \draw[underpass] (a3) to (b1);
-    \draw[arrow] (a3) to (b1);
+    \draw[mapsto] (a3) to (b1);
     \draw[underpass] (b1) to (c2);
-    \draw[arrow] (b1) to (c2);
+    \draw[mapsto] (b1) to (c2);
     \draw[underpass] (b2) to (c1);
-    \draw[arrow] (b2) to (c1);
+    \draw[mapsto] (b2) to (c1);
     \draw[underpass] (b3) to (c3);
-    \draw[arrow] (b3) to (c3);
+    \draw[mapsto] (b3) to (c3);
     
   \end{tikzpicture}
   \caption[Composition of bijections]{Composition of bijections between 3-element sets.}
@@ -373,7 +380,8 @@ An immediate corollary of these definitions is that a function is a bijection if
 \begin{figure}[t]
   \centering
 \begin{tikzpicture}[
-  % local styles
+  alt={Two sets A and B with a bijection between them and its inverse. In the forward direction, the bijection from A to B sends a sub 1 to b sub 2, a sub 2 to b sub 3, and a sub 3 to b sub 1. In the inverse direction, the bijection from B to A sends b sub 2 to a sub 1,  b sub 3 to a sub 2, and b sub 1 to a sub 3.
+  },
   element/.style={
     circle,
     draw,
@@ -598,6 +606,8 @@ This formula suggests a recursive method of determining the number of $k$-elemen
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[every node/.style={
+      alt={A triangular grid with numbers in circular nodes, where each number is connected to the two numbers below it, one slightly to the left and one slightly to the right. The top node contains the number 1, and each other node contains the sum of the numbers in the connected nodes above it.
+      },
       draw=CornflowerBlue,
       thick,
       circle,
@@ -751,7 +761,10 @@ The binomial theorem has a long history. The earliest known references to aspect
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[
+    alt={Five overlapping circles labeled A, B, C, D, E, with equal radii are arranged regularly around a circle which is not drawn. Their overlaps partition the union into 21 regions. The regions contained in 1, 3, or 5 circles are colored orange, and the regions contained in 2 or 4 circles are colored blue, so that the coloring creates an alternating pattern. All five circles overlap in the central region, which is therefore orange.
+    }
+  ]
 
   \def\d{1.55}
   \def\R{2.67}
@@ -795,9 +808,9 @@ The binomial theorem has a long history. The earliest known references to aspect
     \pgfmathtruncatemacro{\bE}{mod(floor(#1/16),2)}%
     \pgfmathtruncatemacro{\pop}{\bA+\bB+\bC+\bD+\bE}%
     \ifodd\pop
-      \def\regioncolor{YellowOrange!50!White}%
+      \def\regioncolor{YellowOrange!40!White}%
     \else
-      \def\regioncolor{CornflowerBlue}%
+      \def\regioncolor{CornflowerBlue!40!White}%
     \fi
     \begin{scope}
       \clipbit{#1}{1}{A}
@@ -816,7 +829,7 @@ The binomial theorem has a long history. The earliest known references to aspect
   }
 
   \foreach \X in {A,B,C,D,E}{
-    \draw[black!82] (\X) circle[radius=\R];
+    \draw[CornflowerBlue,thick] (\X) circle[radius=\R];
   }
 
   \node at ( 90:{\d+\R-0.35}) {$A$};
@@ -902,7 +915,13 @@ The \define{stars-and-bars problem} is a classic counting exercise which asks in
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[xscale=.5,every node/.style={font=\large, inner sep=1pt}]
+  \begin{tikzpicture}[
+    alt={
+      Four stars-and-bars configurations, in each of which there are five stars arranged linearly and spaced evenly. The stars act as dividers between spaces in which bars can be placed. In each of the configurations, a total of three bars is placed in these gaps. The four configuratsions are as follows: The first is bar bar star star star bar star star; the second is star bar star star star bar star bar; the third is star star bar bar star star bar star; and the fourth is bar star star bar star star bar star.
+    },
+    xscale=.5,
+    every node/.style={font=\large, inner sep=1pt}
+    ]
     \foreach \j in {1,...,5} { \node at (2*\j,0) {$\bigstar$}; }
     \node at ({0.7},0) {$|$};
     \node at ({1.3},0) {$|$};
@@ -933,7 +952,34 @@ For our definition of stars-and-bars configuration, we need to think about what 
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[xscale=.5,every node/.style={font=\large, inner sep=1pt}]
+  \begin{tikzpicture}[
+    alt={Eight bars are displayed in order along the top, and five stars in
+      order along the bottom.
+      The five stars determine six ordered spaces:
+      before the first star, between consecutive stars, and after the last star.
+      The eight bars are grouped into consecutive blocks of sizes 3, 2, 1,
+      and 2,
+      with arrows sending these blocks respectively to four of the
+      six spaces in order.
+      Thus each bar is assigned to a space, and the assignment
+      is order-preserving:
+      As the bars are read from left to right,
+      so are their spaces assigned from left to right.
+      The resulting placement has 3 bars before the first star,
+      2 between the second and third stars,
+      1 between the fourth and fifth stars,
+      and 2 after the last star;
+      the other two spaces are empty.
+    },
+    xscale=.5,
+    every node/.style={font=\large, inner sep=1pt},
+    mapsto/.style={
+      |->,
+      thick,
+      bend left=10,
+      shorten >=2mm,
+      shorten <=2mm},
+    ]
     \foreach \b in {1,2,3,4,5,6,7,8} { \node at ({\b-4.5},0) {$|$}; }
     \draw[thick,dashed,CornflowerBlue,rounded corners] (-3.8,-.5) rectangle (-1.2,.5);
     \draw[thick,dashed,CornflowerBlue,rounded corners] (-0.8,-.5) rectangle (0.8,.5);
@@ -945,10 +991,10 @@ For our definition of stars-and-bars configuration, we need to think about what 
     }
     \foreach \b in {-8,-7.5,-7,-1.75,-1.25,4.5,7.25,7.75} { \node at (\b,-3) {$|$};}
 
-    \draw[|->] (-3.83,-.8) -- (-6.16,-2.2); % x=+5/3 y -2.5
-    \draw[|->] (-.4,-.8) -- (-1.1,-2.2);
-    \draw[|->] (2.3,-.8) -- (3.7,-2.2); % x= -y+1.5
-    \draw[|->] ({1.5*0.8+3},-0.8) -- ({1.5*2.2+3},-2.2); % x= 1.5y +3
+    \draw[mapsto] (-3.83,-.8) -- (-6.16,-2.2); % x=+5/3 y -2.5
+    \draw[mapsto] (-.4,-.8) -- (-1.1,-2.2);
+    \draw[mapsto] (2.3,-.8) -- (3.7,-2.2); % x= -y+1.5
+    \draw[mapsto] ({1.5*0.8+3},-0.8) -- ({1.5*2.2+3},-2.2); % x= 1.5y +3
   \end{tikzpicture}
   \caption[A placement of $8$ bars between $5$ stars]{A placement of $8$ bars between $5$ stars.}
   \label{figure:5-stars-8-bars}
@@ -1059,7 +1105,7 @@ Recall that the \define{complement} of a subset $A$ of a set $X$ is the subset $
 \begin{equation*}
   A\subseteq \complementsubset{B}\Leftrightarrow A\cap B=\varnothing.
 \end{equation*}
-Now observe that the complement of an $m$-element subset of an $(m+n)$-element set is an $n$-element subset. Furthermore, as an operation on the set of all subsets of $X$, taking complements is a bijection. Hence the operation of taking complements is a bijection
+That is, a subset $A$ is contained in the complement of $B$ if and only if $A$ and $B$ have no elements in common. Now observe that the complement of an $m$-element subset of an $(m+n)$-element set is an $n$-element subset. Furthermore, as an operation on the set of all subsets of $X$, taking complements is a bijection. Hence, whenever $X$ is an $(m+n)$-element set, the operation of taking complements is a bijection
 \begin{equation*}
   \{A\subseteq X\mid \# A=m\}\cong\{B\subseteq X\mid \#B=n\}.
 \end{equation*}
@@ -1076,6 +1122,14 @@ In light of this observation, we can reverse the roles of $m$ and $n$ in the thi
     \{(b_0,\ldots,b_n)\mid b_0+\cdots + b_n=m\}.
   \end{equation*}
 \end{corollary}
+
+\begin{remark}
+  The previous corollary has a natural interpretation in walks on the two-dimensional integer lattice. The points on this lattice are vectors $(x,y)$ in which each coordinate is an integer. A lattice walk starts at the origin $(0,0)$ and each step either increases the $x$-coordinate by exactly $1$ or increases the $y$-coordinate by exactly $1$. The question is then, in how many ways can we walk to the point $(m,n)$?
+
+Notice that a lattice walk is completely determined by specifying for each of the integers $0$ through $m$, how many steps upwards the path should travel. For example, the first lattice walk of \zcref{figure:lattice-walks} steps upwards $0$ steps at $x$-coordinate $0$, $2$ steps at $x$-coordinate $1$, $0$ steps at $x$-coordinate $2$, $1$ step at $x$-coordinate $3$, and $0$ steps at $x$-coordinate $4$. The total number of steps traveled upwards must be $n=3$, so we have written $n$ as the sum $0+2+0+1+0=3$. Thus we see that lattice walks from $(0,0)$ to $(m,n)$ are uniquely determined by lists $(a_0,...,a_m)$ of integers such that $a_0+\cdots+\cdots a_m=n$. Of such lists, there are $\binom{m+n}{n}$, as we have seen in \zcref{theorem:stars-and-bars}.
+
+Now, we could also flip the lattice walk about the diagonal axis, as indicated in \zcref{figure:lattice-walks}. This operation is a bijection between lattice walks from $(0,0)$ to $(m,n)$ and lattice walks from $(0,0)$ to $(n,m)$. By the previous reasoning, there are $\binom{m+n}{n}$ such lattice walks. This bijection, which is induced by the symmetry about the diagonal axis, corresponds to the bijection of \zcref{corollary:transposing-ordered-partitions} which was obtained via taking complements.
+\end{remark}
 
 \begin{figure}[t]
   \centering
@@ -1144,10 +1198,6 @@ In light of this observation, we can reverse the roles of $m$ and $n$ in the thi
   \caption[Transposition of lattice walks]{By reflecting a lattice walk through the diagonal we obtain a bijective correspondence between lattice walks to $(m,n)$ and lattice walks to $(n,m)$.}
   \label{figure:lattice-walks}
 \end{figure}
-
-\begin{remark}
-  The previous corollary has a natural interpretation in walks on the two-dimensional integer lattice. The points on this lattice are vectors $(x,y)$ in which each coordinate is an integer. A lattice walk starts at the origin $(0,0)$ and each step either increases the $x$-coordinate by exactly $1$ or increases the $y$-coordinate by exactly $1$. The question is then, in how many ways can we walk to the point $(m,n)$?
-\end{remark}
 
 \begin{corollary}\label{corollary:transposing-order-preserving-maps}
   There is a bijection

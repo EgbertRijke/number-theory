@@ -112,9 +112,10 @@
   headheight=14pt,
 }
 
-\AddToHook{cmd/chapter/after}{\thispagestyle{empty}}
+\AddToHook{cmd/chapter/after}{\thispagestyle{chapteropening}}
 
 \usepackage{fancyhdr}
+
 \fancyhf{}
 \fancyhead[LE,RO]{\headerfont\thepage}
 \fancyhead[RE]{\headerfont\scshape\lsstyle\nouppercase{\leftmark}}
@@ -128,6 +129,13 @@
   \fancyhead[LE,RO]{\headerfont\itshape\thepage}
   \fancyhead[RE]{\headerfont\itshape\nouppercase{\leftmark}}
   \fancyhead[LO]{\headerfont\itshape\nouppercase{\rightmark}}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{chapteropening}{
+  \fancyhf{}                % clear all headers and footers
+  \fancyfoot[C]{\thepage}   % page number centered at bottom
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
@@ -241,7 +249,7 @@
 
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
-\definecolor{CornflowerBlue}{HTML}{007ACD}
+\definecolor{CornflowerBlueHighContrast}{HTML}{007ACD}
 \definecolor{grayblue}{HTML}{0047AB}
 \usepackage{tikz}
 \usetikzlibrary{
@@ -297,8 +305,8 @@
   in
   \pgfextra{%
     \foreach \shift/\direction/\shortenstart/\shortenend in {
-      90/{->}/\arrowpairshortenbutt/\arrowpairshortentip,
-      -90/{<-}/\arrowpairshortentip/\arrowpairshortenbutt
+      90/{|->}/\arrowpairshortenbutt/\arrowpairshortentip,
+      -90/{<-|}/\arrowpairshortentip/\arrowpairshortenbutt
     } {%
       \begin{scope}[
         transform canvas={
@@ -326,8 +334,8 @@
   in
   \pgfextra{%
     \foreach \shift/\direction/\shortenstart/\shortenend in {
-      90/{->}/4mm/4mm,
-      -90/{<-}/4mm/4.5mm
+      90/{|->}/4mm/4mm,
+      -90/{<-|}/4mm/4.5mm
     } {%
       \begin{scope}[
         transform canvas={
@@ -640,8 +648,8 @@
 \newcommand{\im}{\mathrm{im}}
 
 \newif\ifshownotes
-\shownotestrue
-% \shownotesfalse
+% \shownotestrue
+\shownotesfalse
 
 \usepackage{environ}
 \NewEnviron{noteblock}{%
@@ -683,6 +691,8 @@
 \ExplSyntaxOff
 
 \begin{document}
+
+\hypersetup{pageanchor=false}
 
 \pagestyle{empty}
 
@@ -799,6 +809,7 @@
 \cleardoublepage
 
 \frontmatter
+\hypersetup{pageanchor=true}
 
 \pagestyle{fancy}
 
@@ -847,7 +858,7 @@
 
 \input{strong-divisibility-sequences}
 
-\input{cyclic-counting}
+\note{\input{cyclic-counting}}
 
 \input{fermats-little-theorem}
 
@@ -867,31 +878,31 @@
 
 \input{cyclotomic-polynomials}
 
-\input{aurifeuillean-factorizations}
+\note{\input{aurifeuillean-factorizations}}
 
 \part{The Arithmetic of Quadratic Forms}
 
 \input{quadratic-residues}
 
-\input{permutations}
+\note{\input{permutations}}
 
-\input{quadratic-characters}
+\note{\input{quadratic-characters}}
 
 \input{quadratic-reciprocity}
 
-\input{jacobi-symbols}
+\note{\input{jacobi-symbols}}
 
 \input{primality-testing}
 
-\input{pells-equation}
+\note{\input{pells-equation}}
 
-\input{binary-quadratic-forms}
+\note{\input{binary-quadratic-forms}}
 
-\input{quadratic-fields}
+\note{\input{quadratic-fields}}
 
-\input{conics}
+\note{\input{conics}}
 
-\input{polygonal-numbers}
+\note{\input{polygonal-numbers}}
 
 % \part{Multiplicative Number Theory}
 

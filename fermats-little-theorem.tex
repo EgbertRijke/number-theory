@@ -29,51 +29,113 @@
 \end{proof}
 
 \begin{figure}[t]
-  \centering
-  \begin{subfigure}{0.45\textwidth}
-    \centering
-    \begin{tikzpicture}[
-      thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
-      \def\n{11}
-      \def\radius{2.5cm}
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\value}{int(\i-1)}
-        \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
-      }
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
-        \draw[->] 
-        (\angle-10:\radius)
-        arc[start angle=\angle-10, delta angle=-360/\n+20, radius=\radius];
-      }
-    \end{tikzpicture}  
+\centering
 
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}{0.45\textwidth}
-    \centering
-    \begin{tikzpicture}[
-      thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
-      \def\n{11}
-      \def\radius{2.5cm}
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\value}{int(mod(\n+\i-5,\n))}
-        \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
-      }
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
-        \draw[->] 
-        (\angle-10:\radius)
-        arc[start angle=\angle-10, delta angle=-360/\n+20, radius=\radius];
-      }
-    \end{tikzpicture}  
-  \end{subfigure}
-  \caption[Golomb's proof of Fermat's Little Theorem]{\label{figure:golombs-proof-FLT}In Golomb's proof of Fermat's Little Theorem, two labellings of a cyclic set $C$ with elements from a set $A$ are considered the same---or equivalent---if one can be obtained from the other by rotation.}
+\begin{minipage}{0.45\textwidth}
+\centering
+\begin{tikzpicture}[
+  thick,
+  every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}
+]
+  \def\n{11}
+  \def\radius{2.5cm}
+
+  \foreach \i in {1,...,\n} {
+    \pgfmathsetmacro{\value}{int(\i-1)}
+    \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
+  }
+
+  \foreach \i in {1,...,\n} {
+    \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+    \draw[->]
+      (\angle-10:\radius)
+      arc[start angle=\angle-10,
+          delta angle=-360/\n+20,
+          radius=\radius];
+  }
+\end{tikzpicture}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+\centering
+\begin{tikzpicture}[
+  thick,
+  every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}
+]
+  \def\n{11}
+  \def\radius{2.5cm}
+
+  \foreach \i in {1,...,\n} {
+    \pgfmathsetmacro{\value}{int(mod(\n+\i-5,\n))}
+    \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
+  }
+
+  \foreach \i in {1,...,\n} {
+    \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+    \draw[->]
+      (\angle-10:\radius)
+      arc[start angle=\angle-10,
+          delta angle=-360/\n+20,
+          radius=\radius];
+  }
+\end{tikzpicture}
+\end{minipage}
+
+\caption[Golomb's proof of Fermat's Little Theorem]{%
+  \label{figure:golombs-proof-FLT}%
+  In Golomb's proof of Fermat's Little Theorem, two labellings of a
+  cyclic set $C$ with elements from a set $A$ are considered the
+  same---or equivalent---if one can be obtained from the other by
+  rotation.%
+}
 \end{figure}
+
+% \begin{figure}[t]
+%   \centering
+%   \begin{subfigure}{0.45\textwidth}
+%     \centering
+%     \begin{tikzpicture}[
+%       thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
+%       \def\n{11}
+%       \def\radius{2.5cm}
+      
+%       \foreach \i in {1,...,\n} {
+%         \pgfmathsetmacro{\value}{int(\i-1)}
+%         \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
+%       }
+      
+%       \foreach \i in {1,...,\n} {
+%         \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+%         \draw[->] 
+%         (\angle-10:\radius)
+%         arc[start angle=\angle-10, delta angle=-360/\n+20, radius=\radius];
+%       }
+%     \end{tikzpicture}  
+
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}{0.45\textwidth}
+%     \centering
+%     \begin{tikzpicture}[
+%       thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
+%       \def\n{11}
+%       \def\radius{2.5cm}
+      
+%       \foreach \i in {1,...,\n} {
+%         \pgfmathsetmacro{\value}{int(mod(\n+\i-5,\n))}
+%         \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
+%       }
+      
+%       \foreach \i in {1,...,\n} {
+%         \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+%         \draw[->] 
+%         (\angle-10:\radius)
+%         arc[start angle=\angle-10, delta angle=-360/\n+20, radius=\radius];
+%       }
+%     \end{tikzpicture}  
+%   \end{subfigure}
+%   \caption[Golomb's proof of Fermat's Little Theorem]{\label{figure:golombs-proof-FLT}In Golomb's proof of Fermat's Little Theorem, two labellings of a cyclic set $C$ with elements from a set $A$ are considered the same---or equivalent---if one can be obtained from the other by rotation.}
+% \end{figure}
 
 \begin{proof}[Golomb's combinatorial proof \cite{golomb1956}]
   Consider a set $A$ with $a$ elements, and a cyclic set $C$ with $p$ elements. There are $a^p$ functions from $C$ to $A$. Each such function $f:C\to A$ can be viewed as a labelling of each of the elements of $C$ by an element of $A$.
