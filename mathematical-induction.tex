@@ -283,14 +283,14 @@ Among Peano's axioms are the axioms stating that $0$ is not a successor and that
 As the reader may have duly noted, we have neither postulated that $0$ is not a successor and that the successor function is injective. Our goal is to prove them.
 
 \begin{example}
-  We define the binary operation $E:\mathbb{N}\to(\mathbb{N}\to\mathcal{P}(\symbf{1}))$ by defining
+  We define the binary relation $E$ on $\mathbb{N}$ by
   \begin{align*}
     E(0,0) & := \top, & E(0,n+1) & := \bot, \\
     E(m+1,0) & := \bot, & E(m+1,n+1) & := E(m,n).
   \end{align*}
   We can prove by induction that the proposition $E(m,n)$ is true if and only if $m=n$. For the forward direction, we have to show that if $E(m,n)$ is true, then $m=n$. This is proven by double induction: the proposition $E(0,0)$ is true by definition, and indeed we have $0=0$; the propositions $E(0,n+1)$ and $E(m+1,0)$ are both false by definition; and if $E(m+1,n+1)$ is true, then $m=n$ by the inductive hypothesis, which implies that $m+1=n+1$.
 
-  For the converse, we have to show that if $m=n$, then $E(m,n)$ is true. In other words, we need to show that $E(n,n)$ is true for each natural number $n$. Indeed, the proposition $E(0,0)$ is true by definition, and the proposition $E(n+1,n+1)=E(n,n)$ is true by the inductive hypothesis.
+  For the converse, we have to show that if $m=n$, then $E(m,n)$ is true. In other words, we need to show that $E(n,n)$ is true for all natural numbers $n$. Indeed, the proposition $E(0,0)$ is true by definition, and the proposition $E(n+1,n+1)$ is by definition equal to the proposition $E(n,n)$, which is true by the inductive hypothesis.
 \end{example}
 
 This simple example allows us to prove the two properties Peano postulated as axioms.
@@ -304,7 +304,7 @@ This simple example allows us to prove the two properties Peano postulated as ax
   \begin{equation*}
     E(0,0)=E(0,n+1).
   \end{equation*}
-  In other words, we have that $\symbf{1}=\varnothing$. Thus we conclude that $\top=\bot$, which is absurd.
+  Since $E(0,0)=\top$ and $E(0,n+1)=\bot$, we conclude that $\top=\bot$, which is a contradiction.
 \end{proof}
 
 \begin{theorem}
@@ -316,19 +316,14 @@ This simple example allows us to prove the two properties Peano postulated as ax
 \end{proof}
 
 \begin{example}
-  We end with the inductive definitions of the inequality relations $\leq$ and $<$. These are defined by first defining binary operations
-  \begin{equation*}
-    R_{\leq},R_{<}:\mathbb{N}\to(\mathbb{N}\to\mathcal{P}(\symbf{1})).
-  \end{equation*}
-  Both of these operations are defined recursively:
+  Likewise, we can define the binary relations $\leq$ and $<$ recursively on the natural numbers. Their recursive definitions are given by
   \begin{align*}
-    R_{\leq}(0,0) & := \symbf{1}, & R_{\leq}(0,n+1) & := \symbf{1}, \\
-    R_{\leq}(m+1,0) & := \varnothing & R_{\leq}(m+1,n+1) & := R_{\leq}(m,n). \\
+    0 \leq 0 & := \top, & 0\leq n+1 & := \top, \\
+    m+1 \leq 0 & := \bot & m+1 \leq n+1 & := m \leq n. \\
     \intertext{and}
-    R_{<}(0,0) & := \varnothing, & R_{<}(0,n+1) & := \symbf{1}, \\
-    R_{<}(m+1,0) & := \varnothing & R_{<}(m+1,n+1) & := R_{<}(m,n).
+    0 < 0 & := \bot, & 0 < n+1 & := \top, \\
+    m+1 < 0 & := \bot & m+1 < n+1 & := m < n.
   \end{align*}
-  Now we define $m\leq n$ to hold if and only if $R_{\leq}(m,n)$ contains an element, and we define $m<n$ to hold if and only if $R_{<}(m,n)$ contains an element.
 \end{example}
 
 \begin{remark}
