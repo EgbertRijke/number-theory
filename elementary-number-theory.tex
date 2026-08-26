@@ -108,9 +108,19 @@
 \geometry{
   hcentering,
   letterpaper,
+  textwidth=5.5in,
   includehead,
   headheight=14pt,
 }
+
+\emergencystretch=2em
+
+\addtolength{\abovedisplayskip}{2pt}
+\addtolength{\belowdisplayskip}{2pt}
+\addtolength{\abovedisplayshortskip}{2pt}
+\addtolength{\belowdisplayshortskip}{2pt}
+
+\setlength{\jot}{5pt}
 
 \AddToHook{cmd/chapter/after}{\thispagestyle{chapteropening}}
 
