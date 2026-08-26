@@ -86,6 +86,8 @@
 \usepackage[balanced]{lua-widow-control}
 \usepackage{fnpct}
 
+%\lwcsetup{draft}
+
 %\usepackage[All]{lua-typo}
 
 \UseMicrotypeSet[protrusion]{basicmath}
@@ -248,14 +250,26 @@
 \usepackage{array}
 \usepackage{booktabs}
 %\usepackage{stfloats}
-\usepackage{caption}
-\usepackage{subcaption}
-\captionsetup{font=small}
+
+\AddToHook{cmd/@makecaption/before}{\small}
+
+\usepackage[hypcap=false]{subcaption}
 \captionsetup[subfigure]{
   labelformat=parens,
   labelsep=none,
 }
+
 \usepackage{float}
+
+\makeatletter
+\AddToHook{begindocument/end}{%
+  \renewcommand*\caption@anchor[1]{%
+    \ifmeasuring@\else
+      \caption@raisedlink{\MakeLinkTarget*{#1}}%
+    \fi
+  }%
+}
+\makeatother
 
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
@@ -302,39 +316,10 @@
   }
 }
 
-\newcommand{\arrowpairsep}{3pt}
+\newcommand{\arrowpairsep}{4pt}
 \newcommand{\arrowpairshortentip}{4mm}
 \newcommand{\arrowpairshortenbutt}{5mm}
 \newcommand{\arrowpairmaskwidth}{3pt}
-
-\newcommand{\arrowpair}[2]{%
-  \path let
-    \p1=(#1.center),
-    \p2=(#2.center),
-    \n1={atan2(\y2-\y1,\x2-\x1)}
-  in
-  \pgfextra{%
-    \foreach \shift/\direction/\shortenstart/\shortenend in {
-      90/{|->}/\arrowpairshortenbutt/\arrowpairshortentip,
-      -90/{<-|}/\arrowpairshortentip/\arrowpairshortenbutt
-    } {%
-      \begin{scope}[
-        transform canvas={
-          shift={({\n1+\shift}:\arrowpairsep)}
-        }
-      ]
-        \draw[
-          \direction,
-          thick,
-          bend left=10,
-          shorten <=\shortenstart,
-          shorten >=\shortenend
-        ]
-          (#1.center) to (#2.center);
-      \end{scope}
-    }%
-  };
-}
 
 \newcommand{\arrowpairover}[2]{%
   \path let
@@ -843,6 +828,17 @@
 \input{mathematical-induction}
 
 \input{counting}
+
+\backmatter
+
+\begingroup
+\urlstyle{same}
+\clubpenalty=10000
+\widowpenalty=10000
+\printbibliography[heading=bibintoc,title=References]
+\endgroup
+
+\end{document}
 
 \input{integers}
 

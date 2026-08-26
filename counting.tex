@@ -115,7 +115,7 @@ we have to create what is called a \emph{bijective correspondence} between the e
 
 \begin{figure}[t]
   \centering
-  \begin{minipage}{.4\textwidth}
+  \begin{minipage}[t]{.45\textwidth}
     \centering
     \begin{tikzpicture}[
       alt={A 3-element set A and a 2-element set B, with arrows between the elements of A and the elements of B so as to indicate a function from A to B. This function sends a_1 to b_1, a_2 to b_2, and a_3 to b_1.},
@@ -124,19 +124,18 @@ we have to create what is called a \emph{bijective correspondence} between the e
       mapsto/.style={|->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
       underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
       ]
+
+      \path[use as bounding box] (-1.2,-2) rectangle (4.2,2);
       
-      % Left set (domain)
       \node[set,label=left:$A$] (A) at (0,0) {};
       \node[element] (a1) at ($(A.center)+(0,1.2)$) {$a_1$};
       \node[element] (a2) at ($(A.center)+(0,0)$) {$a_2$};
       \node[element] (a3) at ($(A.center)+(0,-1.2)$) {$a_3$};
       
-      % Right set (codomain)
       \node[set,label=right:$B$] (B) at (3,0) {};
       \node[element] (b1) at ($(B.center)+(0,0.6)$) {$b_1$};
       \node[element] (b2) at ($(B.center)+(0,-0.6)$) {$b_2$};
       
-      % Bijection arrows
       \draw[underpass] (a1) to (b1);
       \draw[mapsto] (a1) to (b1);
       \draw[underpass] (a2) to (b2);
@@ -144,15 +143,15 @@ we have to create what is called a \emph{bijective correspondence} between the e
       \draw[underpass] (a3) to (b1);
       \draw[mapsto] (a3) to (b1);
       
-    \end{tikzpicture}
+    \end{tikzpicture}%
     \captionof{figure}[Not a bijection]{This function is not a bijection since the distinct elements $a_1$ and $a_3$ are both sent to $b_1$.}
-    \label{figure:not-bijection-1}
+    \label{figure:not-bijection-1}%
   \end{minipage}%
   %
-  \tagpdfsetup{float/split}
+  \tagpdfsetup{float/split}%
   %
-  \hspace{.1\textwidth}
-  \begin{minipage}{.4\textwidth}
+  \hspace{.1\textwidth}%
+  \begin{minipage}[t]{.45\textwidth}
     \centering
     \begin{tikzpicture}[
       alt={A 3-element set A and a 4-element set B, with arrows between the elements of A and the elements of B so as to indicate a function from A to B. This function sends a_1 to b_2, a_2 to b_3, and a_3 to b_1.},
@@ -161,21 +160,20 @@ we have to create what is called a \emph{bijective correspondence} between the e
       mapsto/.style={|->, thick, bend left=10, shorten >=2mm, shorten <=2mm},
       underpass/.style={draw=white, line width=3pt, bend left=10, shorten >=2mm, shorten <=2mm}
       ]
+
+      \path[use as bounding box] (-1.2,-2) rectangle (4.2,2);
       
-      % Left set (domain)
       \node[set,label=left:$A$] (A) at (0,0) {};
       \node[element] (a1) at ($(A.center)+(0,1.2)$) {$a_1$};
       \node[element] (a2) at ($(A.center)+(0,0)$) {$a_2$};
       \node[element] (a3) at ($(A.center)+(0,-1.2)$) {$a_3$};
       
-      % Right set (codomain)
       \node[set,label=right:$B$] (B) at (3,0) {};
       \node[element] (b1) at ($(B.center)+(0,1.2)$) {$b_1$};
       \node[element] (b2) at ($(B.center)+(0,0.4)$) {$b_2$};
       \node[element] (b3) at ($(B.center)+(0,-0.4)$) {$b_3$};
       \node[element] (b4) at ($(B.center)+(0,-1.2)$) {$b_4$};
       
-      % Bijection arrows
       \draw[underpass] (a1) to (b2);
       \draw[mapsto] (a1) to (b2);
       \draw[underpass] (a2) to (b3);
@@ -183,9 +181,9 @@ we have to create what is called a \emph{bijective correspondence} between the e
       \draw[underpass] (a3) to (b1);
       \draw[mapsto] (a3) to (b1);
       
-    \end{tikzpicture}
-    \captionof{figure}[Not a bijection]{This function is not a bijection since $b_4$ is not the value of any element in $A$.}
-    \label{figure:not-bijection-2}
+    \end{tikzpicture}%
+    \captionof{figure}[Not a bijection]{This function is not a bijection since $b_4$ is not the value of any element in $A$.}%
+    \label{figure:not-bijection-2}%
   \end{minipage}
 \end{figure}
 In \zcref{figure:bijection} we displayed an example of a bijection between two $3$-element sets.
@@ -950,6 +948,14 @@ While the statement of the stars-and-bars problem is intuitively clear, it is go
 
 For our definition of stars-and-bars configurations, we need to think about what it means "to place a linear arrangement of $n$ bars between or at the ends of a linear arrangement of $m$ stars". Since the stars and the bars are both supposed to be in linear arrangements, they can be numbered $1$ through $m$ and $1$ through $n$, respectively. The stars separate the $m+1$ spaces in which the bars can go, so we label them $0$ through $m$. Then, the bars are placed in those spaces, in such a way as to preserve their ordering. An example of such a placement is displayed in \zcref{figure:5-stars-8-bars}. We observe now that all there is to a stars-and-bars configuration is an \emph{order-preserving map} from the set $\{1,\ldots,n\}$ of bars to the set $\{0,\ldots,m\}$ of spaces separated by the stars. 
 
+\begin{definition}
+  A \define{stars-and-bars configuration} with $m$ stars and $n$ bars is an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$, where $f$ is said to be \define{order-preserving} if it satisfies the implication
+  \begin{equation*}
+    i\leq j\quad\Rightarrow\quad f(i)\leq f(j)
+  \end{equation*}
+  for all $i,j\in\{1,\ldots,n\}$.
+\end{definition}
+
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[
@@ -999,14 +1005,6 @@ For our definition of stars-and-bars configurations, we need to think about what
   \caption[A placement of $8$ bars between $5$ stars]{A placement of $8$ bars between $5$ stars.}
   \label{figure:5-stars-8-bars}
 \end{figure}
-
-\begin{definition}
-  A \define{stars-and-bars configuration} with $m$ stars and $n$ bars is an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$, where $f$ is said to be \define{order-preserving} if it satisfies the implication
-  \begin{equation*}
-    i\leq j\quad\Rightarrow\quad f(i)\leq f(j)
-  \end{equation*}
-  for all $i,j\in\{1,\ldots,n\}$.
-\end{definition}
 
 Another way of thinking about the stars-and-bars problem is that a stars-and-bars configuration is entirely determined by the number of bars in each of the $m+1$ spaces separated by stars. That is, a stars-and-bars configuration is represented by a list $(b_0,\ldots,b_m)$ of natural numbers, each representing the number of bars in one of the spaces, such that the total number of bars is
 \begin{equation*}
@@ -1202,8 +1200,8 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
 \begin{corollary}\label{corollary:transposing-order-preserving-maps}
   There is a bijection
   \begin{equation*}
-    \{f:\{1,\ldots,n\}\to\{0,\ldots,m\}\mid f\text{ preserves order}\} \cong
-    \{g:\{1,\ldots,m\}\to\{0,\ldots,n\}\mid g\text{ preserves order}\}
+    \{f:[n]\to\{0,\ldots,m\}\mid f\text{ preserves order}\} \cong
+    \{g:[m]\to\{0,\ldots,n\}\mid g\text{ preserves order}\}
   \end{equation*}
 \end{corollary}
 
@@ -1320,8 +1318,10 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
 \thispagestyle{empty}
 
 \begin{figure}[p]
-  \centering
-  \begin{tikzpicture}[every node/.style={
+  \makebox[\textwidth][c]{%
+  \begin{tikzpicture}[
+    x=.97cm,
+    every node/.style={
       draw,
       thick,
       circle,
@@ -1343,7 +1343,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
         \draw[thick] (n\n\r) -- (n\nn\r) (n\n\r) -- (n\nn\rp);
       }
     }
-  \end{tikzpicture}
+  \end{tikzpicture}}
 
   \caption[Parity in Pascal's triangle]
   {Shade all the circles in which the binomial coefficient is odd.}
