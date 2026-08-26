@@ -251,25 +251,13 @@
 \usepackage{booktabs}
 %\usepackage{stfloats}
 
-\AddToHook{cmd/@makecaption/before}{\small}
-
-\usepackage[hypcap=false]{subcaption}
-\captionsetup[subfigure]{
-  labelformat=parens,
-  labelsep=none,
-}
+\input{setup/caption}
 
 \usepackage{float}
 
-\makeatletter
-\AddToHook{begindocument/end}{%
-  \renewcommand*\caption@anchor[1]{%
-    \ifmeasuring@\else
-      \caption@raisedlink{\MakeLinkTarget*{#1}}%
-    \fi
-  }%
-}
-\makeatother
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{1}
 
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
@@ -828,17 +816,6 @@
 \input{mathematical-induction}
 
 \input{counting}
-
-\backmatter
-
-\begingroup
-\urlstyle{same}
-\clubpenalty=10000
-\widowpenalty=10000
-\printbibliography[heading=bibintoc,title=References]
-\endgroup
-
-\end{document}
 
 \input{integers}
 
