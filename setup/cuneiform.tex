@@ -1,0 +1,38 @@
+\newfontfamily\cuneifont[
+  Path = fonts/,
+  Extension = .ttf,
+  UprightFont = *-Regular
+]{NotoSansCuneiform}
+
+\ExplSyntaxOn
+
+\tl_new:N \l__book_cuneiform_actualtext_tl
+
+\NewDocumentCommand \cuneinumeral { m m }
+  {
+    \tl_set:Nx \l__book_cuneiform_actualtext_tl
+      {
+        cuneiform
+        \c_space_tl
+        numeral
+        \c_space_tl
+        #1
+      }
+
+    \tag_mc_end_push:
+
+    \tag_mc_begin:n
+      {
+        tag        = Span,
+        actualtext = \l__book_cuneiform_actualtext_tl
+      }
+
+    \group_begin:
+      \cuneifont #2
+    \group_end:
+
+    \tag_mc_end:
+    \tag_mc_begin_pop:n { }
+  }
+
+\ExplSyntaxOff

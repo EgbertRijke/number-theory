@@ -1,0 +1,370 @@
+% Tagging-aware, book-local replacement for caption/subcaption.
+% Target: LaTeX 2026-06-01 + latex-lab-float 0.81n + tagpdf 1.0e.
+%
+% Provides the subset used by The Great Story of Numbers:
+%   subfigure environment
+%   \subcaption[<short>]{<text>}
+%   \phantomsubcaption
+%   \subref and \subref*
+%   \caption inside subfigure (locally = \subcaption)
+%   \captionof{<type>} as a thin delegate to native \caption
+%
+% Ordinary \caption is NOT redefined globally.
+
+\makeatletter
+\ExplSyntaxOn
+
+\AddToHook{cmd/@makecaption/before}[book/caption-font]
+  {
+    \str_if_eq:eeTF { \@captype } { subfigure }
+      { \footnotesize }
+      { \small }
+  }
+
+% --------------------------------------------------------------------------
+% Counter/reference model formerly supplied by \DeclareCaptionSubType.
+% --------------------------------------------------------------------------
+\newcounter{subfigure}[figure]
+\cs_set:Npn \thesubfigure { \alph{subfigure} }
+\cs_set:Npn \p@subfigure { }
+\cs_set:Npn \theHsubfigure { \theHfigure . \arabic{subfigure} }
+\cs_set:Npn \subfigureautorefname { \figureautorefname }
+\cs_set:Npn \fnum@subfigure { (\thesubfigure) }
+
+% --------------------------------------------------------------------------
+% Symbolic names used by latex-lab's native caption tagging sockets.
+% A subfigure itself is deliberately a Part, as proposed by latex-lab-float;
+% only its Caption and Lbl need symbolic names here.
+% --------------------------------------------------------------------------
+\NewStructureName{float/subfigure/caption}
+\AssignStructureRole{float/subfigure/caption}{Caption}
+\NewStructureName{float/subfigure/label}
+\AssignStructureRole{float/subfigure/label}{Lbl}
+
+% No separator after (a), matching
+%   labelformat=parens, labelsep=none.
+\NewSocketPlug{caption/label}{book-subfigure}
+  { #1 }
+
+% --------------------------------------------------------------------------
+% State local to one subfigure environment.
+% --------------------------------------------------------------------------
+\tl_new:N   \l__book_subfigure_part_struct_tl
+\tl_new:N   \l__book_subfigure_target_tl
+\tl_new:N   \l__book_subfigure_outer_struct_tl
+\tl_new:N   \l__book_subfigure_parent_ref_tl
+\int_new:N  \l__book_subfigure_parent_counter_int
+\bool_new:N \l__book_subfigure_caption_seen_bool
+\bool_new:N \l__book_subfigure_active_bool
+\bool_new:N \l__book_subfigure_bottom_fix_bool
+\int_new:N  \g__book_subfigure_target_int
+
+\msg_new:nnn { book-subfigure } { outside-float }
+  {
+    The~subfigure~environment~must~occur~inside~a~float~with~an~active~
+    LaTeX~float~structure.
+  }
+
+\msg_new:nnn { book-subfigure } { subcaption-outside }
+  { \string\subcaption~used~outside~a~subfigure~environment. }
+
+% --------------------------------------------------------------------------
+% zref-clever compatibility.
+% This mirrors the compatibility information zref-clever normally installs
+% when it detects the subcaption package.
+% --------------------------------------------------------------------------
+\cs_new_protected:Npn \__book_subfigure_setup_zref_clever:
+  {
+    \cs_if_exist:NT \zcsetup
+      {
+        \zcsetup
+          {
+            countertype   = { subfigure = figure },
+            counterresetby = { subfigure = figure },
+          }
+      }
+    \cs_if_exist:NT \zref@newprop
+      {
+        \zref@ifpropundefined{subref}
+          { \zref@newprop{subref}{\thesubfigure} }
+          { }
+      }
+  }
+\AddToHook{begindocument/before}[book/subfigure-zref]
+  { \__book_subfigure_setup_zref_clever: }
+
+% --------------------------------------------------------------------------
+% Label compatibility.
+% The primary label keeps the full subfigure reference (e.g. 3.7a), while
+% sub@<key> stores only a/b/... so existing \subref calls keep working.
+% --------------------------------------------------------------------------
+\cs_new_protected:Npn \__book_subfigure_saved_label: { }
+
+\cs_new_protected:Npn \__book_subfigure_label:nn #1#2
+  {
+    % Write the ordinary label first, preserving its optional argument.
+    \IfNoValueTF{#1}
+      { \__book_subfigure_saved_label:{#2} }
+      { \__book_subfigure_saved_label:[#1]{#2} }
+
+    % Once a subcaption has stepped the counter, also create sub@<key>.
+    \bool_if:NT \l__book_subfigure_caption_seen_bool
+      {
+        \group_begin:
+          \protected@edef \@currentlabel { \thesubfigure }
+          \__book_subfigure_saved_label:{sub@#2}
+        \group_end:
+      }
+  }
+
+\NewDocumentCommand \__book_subfigure_label { o m }
+  { \__book_subfigure_label:nn {#1}{#2} }
+
+% --------------------------------------------------------------------------
+% Determine the reference prefix of the surrounding figure without stepping
+% its counter.  In the usual source order (subfigures first, main caption
+% afterwards), the parent number is the *next* figure number.  If the native
+% main caption has already run, its latex-lab target tells us that the current
+% figure number is already the right one.  This lets native \\caption remain
+% completely untouched and step the outer figure exactly once.
+% --------------------------------------------------------------------------
+\cs_new_protected:Npn \__book_subfigure_set_parent_reference:
+  {
+    \tl_set:Ne \l__book_subfigure_outer_struct_tl
+      { \@current@float@struct }
+    \tl_if_eq:eeTF
+      { \@currentHref }
+      { figure.struct.\l__book_subfigure_outer_struct_tl }
+      {
+        \tl_set:Ne \l__book_subfigure_parent_ref_tl { \thefigure }
+      }
+      {
+        \int_set:Nn \l__book_subfigure_parent_counter_int { \c@figure }
+        \int_incr:N \c@figure
+        \tl_set:Ne \l__book_subfigure_parent_ref_tl { \thefigure }
+        \int_set:Nn \c@figure { \l__book_subfigure_parent_counter_int }
+      }
+    \cs_set:Npx \p@subfigure { \l__book_subfigure_parent_ref_tl }
+  }
+
+% --------------------------------------------------------------------------
+% Counter step + hyperlink state shared by \subcaption and
+% \phantomsubcaption.  We intentionally use the kernel refstepcounter, just
+% as latex-lab's current native \caption does inside a float; the hyperlink
+% target was already created at the beginning of this Part.
+% --------------------------------------------------------------------------
+\cs_new_protected:Npn \__book_subfigure_step:
+  {
+    \@kernel@refstepcounter{subfigure}
+
+    \protected@edef\@currentlabel
+      {
+        \l__book_subfigure_parent_ref_tl
+        \space
+        (\thesubfigure)
+      }
+
+    \xdef\@currentHref{\l__book_subfigure_target_tl}
+    \bool_set_true:N \l__book_subfigure_caption_seen_bool
+  }
+
+% --------------------------------------------------------------------------
+% Label-only subcaption, optimized for the book's common \subcaption{} use.
+% This avoids creating an empty P structure under Caption.
+% --------------------------------------------------------------------------
+\cs_new_protected:Npn \__book_subfigure_make_label_only_caption:
+  {
+    \footnotesize
+    \vskip 6pt\relax
+    \UseTaggingSocket{caption/begin}{\@current@float@struct}
+    \global\@minipagefalse
+    \hb@xt@\hsize
+      {
+        \hfil
+        \UseTaggingSocket{caption/label/begin}
+        \UseSocket{caption/label}{\fnum@subfigure}
+        \UseTaggingSocket{caption/label/end}
+        \hfil
+      }
+    \UseTaggingSocket{caption/end}
+  }
+
+% --------------------------------------------------------------------------
+% \subcaption.  The optional short caption is accepted for source
+% compatibility, but subcaptions are intentionally not written to the LoF,
+% matching subcaption's default list=false.
+% --------------------------------------------------------------------------
+\cs_new_protected:Npn \__book_subfigure_caption:nn #1#2
+  {
+    \bool_if:NTF \l__book_subfigure_active_bool
+      {
+        \__book_subfigure_step:
+        \cs_set:Npn \@currentlabelname {#2}
+        \AssignSocketPlug{caption/label}{book-subfigure}
+        \setlength\abovecaptionskip{6pt}
+        \setlength\belowcaptionskip{0pt}
+        \tl_if_blank:nTF {#2}
+          { \__book_subfigure_make_label_only_caption: }
+          { \@makecaption{\fnum@subfigure}{#2} }
+      }
+      { \msg_error:nn { book-subfigure } { subcaption-outside } }
+  }
+
+\NewDocumentCommand \subcaption { o m }
+  { \__book_subfigure_caption:nn {#1}{#2} }
+
+\NewDocumentCommand \phantomsubcaption { }
+  {
+    \bool_if:NTF \l__book_subfigure_active_bool
+      { \__book_subfigure_step: }
+      { \msg_error:nn { book-subfigure } { subcaption-outside } }
+  }
+
+% --------------------------------------------------------------------------
+% \subref compatibility.  Default output is a/b/...; the unstarred form
+% hyperlinks the whole reference to the beginning of the subfigure Part.
+% An optional argument is accepted for compatibility with subcaption syntax.
+% --------------------------------------------------------------------------
+\NewDocumentCommand \subref { s o m }
+  {
+    \IfBooleanTF{#1}
+      {
+        \zcref*
+          [
+            noname,
+            ref = subref,
+            refbounds = {,(,),}
+          ]
+          {#3}
+      }
+      {
+        \zcref
+          [
+            noname,
+            ref = subref,
+            refbounds = {,(,),}
+          ]
+          {#3}
+      }
+  }
+
+% --------------------------------------------------------------------------
+% Minipage setup.  Supports the usual subcaption/minipage forms
+%   \begin{subfigure}[t]{.48\textwidth}
+%   \begin{subfigure}[t][<height>]{<width>}
+%   \begin{subfigure}[t][<height>][c]{<width>}
+% including subcaption's T/B alignment conveniences.
+% --------------------------------------------------------------------------
+\cs_new_protected:Npn \__book_subfigure_begin_minipage:nnnn #1#2#3#4
+  {
+    \bool_set_false:N \l__book_subfigure_bottom_fix_bool
+    \str_case:nnF {#1}
+      {
+        {T}
+          {
+            \IfNoValueTF{#2}
+              { \begin{minipage}[t]{#4} }
+              {
+                \IfNoValueTF{#3}
+                  { \begin{minipage}[t][#2]{#4} }
+                  { \begin{minipage}[t][#2][#3]{#4} }
+              }
+            \vspace{0pt}
+          }
+        {B}
+          {
+            \IfNoValueTF{#2}
+              { \begin{minipage}[b]{#4} }
+              {
+                \IfNoValueTF{#3}
+                  { \begin{minipage}[b][#2]{#4} }
+                  { \begin{minipage}[b][#2][#3]{#4} }
+              }
+            \bool_set_true:N \l__book_subfigure_bottom_fix_bool
+          }
+      }
+      {
+        \IfNoValueTF{#2}
+          { \begin{minipage}[#1]{#4} }
+          {
+            \IfNoValueTF{#3}
+              { \begin{minipage}[#1][#2]{#4} }
+              { \begin{minipage}[#1][#2][#3]{#4} }
+          }
+      }
+  }
+
+\cs_new_protected:Npn \__book_subfigure_begin:nnnn #1#2#3#4
+  {
+    \tl_if_exist:NTF \@current@float@struct
+      {
+        \tl_if_empty:NTF \@current@float@struct
+          { \msg_error:nn { book-subfigure } { outside-float } }
+          {
+            \bool_set_true:N  \l__book_subfigure_active_bool
+            \bool_set_false:N \l__book_subfigure_caption_seen_bool
+            \__book_subfigure_set_parent_reference:
+
+            % One Part per subfigure, exactly as proposed by latex-lab-float.
+            \tag_struct_begin:n { tag=Part }
+            \tl_set:Ne \l__book_subfigure_part_struct_tl
+              { \tag_get:n { struct_num } }
+
+            % Use a dedicated target counter, mirroring latex-lab-float's own
+            % link-target strategy.  Creating it while Part is current lets
+            % tagpdf associate the destination with this structure.
+            \int_gincr:N \g__book_subfigure_target_int
+            \tl_set:Ne \l__book_subfigure_target_tl
+              { subfigure.structure.\int_use:N\g__book_subfigure_target_int }
+            \MakeLinkTarget*{\l__book_subfigure_target_tl}
+
+            \__book_subfigure_begin_minipage:nnnn {#1}{#2}{#3}{#4}
+
+            % The minipage is now the layout box; semantically its captions
+            % belong to the surrounding Part, not to the outer Figure.
+            \cs_set:Npn \@captype { subfigure }
+            \tl_set:NV \@current@float@struct
+              \l__book_subfigure_part_struct_tl
+
+            % Preserve the source-level subcaption API locally.
+            \cs_set_eq:NN \caption \subcaption
+            \cs_set_eq:NN \__book_subfigure_saved_label: \label
+            \cs_set_eq:NN \label \__book_subfigure_label
+
+            % Mirror zref-clever's subcaption compatibility hook.
+            \cs_if_exist:NT \zref@localaddprop
+              { \zref@localaddprop \ZREF@mainlist { subref } }
+          }
+      }
+      { \msg_error:nn { book-subfigure } { outside-float } }
+  }
+
+\cs_new_protected:Npn \__book_subfigure_end:
+  {
+    \bool_if:NT \l__book_subfigure_active_bool
+      {
+        \bool_if:NT \l__book_subfigure_bottom_fix_bool { \vspace{0pt} }
+        \end{minipage}
+        \tag_struct_end:
+      }
+  }
+
+\NewDocumentEnvironment{subfigure}{ O{b} o o m }
+  { \__book_subfigure_begin:nnnn {#1}{#2}{#3}{#4} }
+  { \__book_subfigure_end: }
+
+% --------------------------------------------------------------------------
+% Minimal replacement for caption's \captionof, because the book uses it in
+% minipages inside a figure.  It does not implement captions: it merely sets
+% \@captype and delegates immediately to native \caption.  The surrounding
+% minipage supplies the intended local scope, and a following \label sees the
+% native caption's reference state.
+% --------------------------------------------------------------------------
+\ProvideDocumentCommand \captionof { m }
+  {
+    \cs_set:Npn \@captype {#1}
+    \caption
+  }
+
+\ExplSyntaxOff
+\makeatother

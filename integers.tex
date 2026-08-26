@@ -9,16 +9,16 @@ Natural numbers have been around for at least as long as humans count. But what 
 \begin{figure}[b]
   \centering
   \begin{tikzpicture}[
-    % local styles
+    alt={
+      A set A with 12 elements labelled a sub 1 through a sub 12 is displayed with exactly one outgoing arrow from each element, indicating a mapping. The mapping is a bijection, so that each element also has exactly one incoming arrow. The mapping sends a sub 1 to a sub 5 to a sub 9 to a sub 1; a sub 2 to itself; a sub 3 to a sub 4 to a sub 8 to a sub 12 to a sub 7 to a sub 3; and a sub 6 to a sub 11 to a sub 10 to a sub 6. Notice that there are four disjoint cycles in this mapping, which are called orbits.
+      },
     element/.style={circle, draw, thick, minimum size=6.5mm, inner sep=0pt, font=\small},
     set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=80mm},
     arrow/.style={->, thick, shorten >=1mm, shorten <=1mm}
     ]
 
-% The set
     \node[set] (A) at (0,0) {};
 
-    % Elements inside (3 rows of 4, staggered)
     \node[element] (a1)  at ($(A.center)+(-3.0,  0.6)$) {$a_1$};
     \node[element] (a2)  at ($(A.center)+(-0.3,  1.1)$) {$a_2$};
     \node[element] (a3)  at ($(A.center)+( 1.0,  1.2)$) {$a_3$};
@@ -38,9 +38,7 @@ Natural numbers have been around for at least as long as humans count. But what 
     \draw[arrow] (a5) to[bend left=10] (a9);
     \draw[arrow] (a9) to[bend left=10] (a1);
 
-    \draw[arrow] (a6) to[bend left=10] (a11);
-    \draw[arrow] (a11) to[bend left=10] (a10);
-    \draw[arrow] (a10) to[bend left=10] (a6);
+    \draw[arrow] (a2) to[out=340,in=280,looseness=5] (a2);
 
     \draw[arrow] (a3) to[bend left=10] (a4);
     \draw[arrow] (a4) to[bend left=10] (a8);
@@ -48,7 +46,9 @@ Natural numbers have been around for at least as long as humans count. But what 
     \draw[arrow] (a12) to[bend left=10] (a7);
     \draw[arrow] (a7) to[bend left=10] (a3);
 
-    \draw[arrow] (a2) to[out=340,in=280,looseness=5] (a2);
+    \draw[arrow] (a6) to[bend left=10] (a11);
+    \draw[arrow] (a11) to[bend left=10] (a10);
+    \draw[arrow] (a10) to[bend left=10] (a6);
 
   \end{tikzpicture}  
   \caption[A bijection on a $12$-element set]{A bijection on a $12$-element set.}
@@ -71,11 +71,14 @@ which implies by the assumption that $f$ is a bijection that $f^{n-1}(a)=f^{m-1}
   An \define{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
 \end{definition}
 
-The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}, for example, has three such orbits. Since bijections on a set partition the set into cyclic orbits, we can now define a \emph{cyclic set} to be a set equipped with a bijection that has exactly one orbit, so that all the elements of the set fit in the same cycle. In \zcref{figure:cyclically-ordered-set} we displayed an example of a cyclic set.
+The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}, for example, has four such orbits. Since bijections on a set partition the set into cyclic orbits, we can now define a \emph{cyclic set} to be a set equipped with a bijection that has exactly one orbit, so that all the elements of the set fit in the same cycle. In \zcref{figure:cyclically-ordered-set} we displayed an example of a cyclic set.
 
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[
+    alt={
+      A set A with 12 elements labeled 0 through 11, and arrows between them indicating a mapping. This mapping has a single cycle: It maps 0 to 1 to 2 to 3, and so on until it reaches 11, which is sent back to 0.
+      },
     thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}]
     \def\n{12}
     \def\radius{2.5cm}
@@ -115,8 +118,13 @@ The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[every node/.style={circle,draw,fill=white,inner sep=1pt,minimum size=6mm,thick}]
-    % ––– local “preamble” –––
+  \begin{tikzpicture}[
+    alt={
+      Two cyclic sets are displayed, with a mapping between them. The first cyclic set is displayed as an outer cycle, around the second cyclic set, so as to indicate the winding of the first cyclic set around the second cyclic set. The first cyclic set has 14 elements labeled 0 through 13 and the second cyclic set has 7 elements labeled 0 through 6. The mapping therefore winds around twice, sending 0 to 3, 1 to 4, and so on until the assignment 13 to 2. 
+      },
+    every node/.style={
+      circle,draw,fill=white,inner sep=1pt,minimum size=6mm,thick}
+    ]
     \newdimen\radiusInner 
     \newdimen\radiusMiddle
     \newdimen\radiusOuter
@@ -125,7 +133,6 @@ The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}
     \def\radiusMiddle{3.5cm}
     \def\radiusOuter{4.3cm}
     
-    % place the seven nodes on all three radii:
     \foreach \i in {0,...,6} {
       \pgfmathsetmacro{\ang}{-360/7*\i}
       \pgfmathtruncatemacro{\highlabel}{7+\i}
@@ -186,20 +193,30 @@ holds trivially. In \zcref{figure:example-cyclic-structure-map} we displayed an 
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}
-    [ declare function={f(\x)=0.2*sin(\x)+\x/900;}, line cap=butt, line join=miter,
-    rubout/.style=
-    { /utils/exec=\tikzset{rubout/.cd,#1},
-      decoration=
-      {show path construction,
+  \begin{tikzpicture}[
+    alt={
+      Two abstractions of cyclic sets are displayed, one above the other. The upper one maps down to the second one, and winds around five times.
+      },
+    declare function={f(\x)=0.2*sin(\x)+\x/900;},
+    line cap=butt,
+    line join=miter,
+    rubout/.style={%
+      /utils/exec=\tikzset{rubout/.cd,#1},
+      decoration={
+        show path construction,
         curveto code={
           \draw [white,line width=\pgfkeysvalueof{/tikz/rubout/line width}+2*\pgfkeysvalueof{/tikz/rubout/halo}] 
           (\tikzinputsegmentfirst) .. controls
           (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb)  ..(\tikzinputsegmentlast); 
           \draw [thick,shorten <=-0.1pt,shorten >=-0.1pt] (\tikzinputsegmentfirst) .. controls
           (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb) ..(\tikzinputsegmentlast);  
-        }}},
-    rubout/.cd,line width/.initial=2pt,halo/.initial=0.5pt]
+        }
+      }
+    },
+    rubout/.cd,
+    line width/.initial=2pt,
+    halo/.initial=0.5pt
+    ]
     
     \draw[rubout={line width=1.5pt,halo=0.5pt},decorate]
     
@@ -259,12 +276,14 @@ The organizational principle of defining structured sets along with their struct
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[thick]
-    % parameters: number of visible nodes and horizontal separation
+  \begin{tikzpicture}[
+    alt={
+      The infinite cyclic set has for each integer an element, and the cyclic structure maps each integer to its successor. The infinite cyclic set thus extends infinitely in both directions, the negative direction and the positive direction.
+    },
+    thick]
     \def\n{6}       
-    \def\xsep{.7in}
+    \def\xsep{.65in}
     
-    % draw the nodes
     \foreach \i in {0,...,\n} {
       \pgfmathtruncatemacro{\value}{\i-3}
       \node[circle, draw, minimum size=7mm, inner sep=1pt,font=\small] (N\i) at (\i*\xsep,0) {$\value$};
@@ -272,18 +291,15 @@ The organizational principle of defining structured sets along with their struct
     
     \pgfmathtruncatemacro{\nMinusOne}{\n-1}
     
-    % draw directed edges between successive nodes
     \foreach \i in {0,...,\nMinusOne} {
       \pgfmathtruncatemacro{\next}{\i+1}
       \draw[->, thick, shorten >=1mm, shorten <=1mm]
       (N\i) -- (N\next);
     }
     
-    % extra “incoming” arrow into N0
     \draw[->, thick, dashed, shorten >=1mm, shorten <=4mm]
     ($(N0)+(-\xsep,0)$) -- (N0);
     
-    % extra “outgoing” arrow from N\n
     \draw[->, thick, dashed, shorten >=4mm, shorten <=1mm]
     (N\n) -- ++(\xsep,0);
   \end{tikzpicture}
@@ -392,10 +408,17 @@ We have given a structural definition of the set of integers as the universal cy
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[scale=1,line join=round,line cap=round]
+  \begin{tikzpicture}[
+    alt={
+      The lattice of points m comma n is displayed in a two dimensional coordinate system, where m and n range over the natural numbers. The points on the x axis as well as the points on the y axis are marked as solid points, while the points in the positive quadrant, where both coordinates are positive integers, are marked as open points. The set of lattice points thus defined mark the integers, according to the Cartesian definition of the integers.
+      },
+    scale=1,
+    line join=round,
+    line cap=round
+    ]
     
-    \draw[->] (-0.3,0) -- (10.5,0) node[right] {$a$};
-    \draw[->] (0,-0.3) -- (0,4.5) node[above] {$b$};
+    \draw[->] (-0.3,0) -- (10.5,0) node[right] {$x$};
+    \draw[->] (0,-0.3) -- (0,4.5) node[above] {$y$};
     
     \foreach \x in {0,1,2,3,4,5,6,7,8,9,10} {
       \foreach \y in {0,1,2,3,4} {
@@ -410,7 +433,7 @@ We have given a structural definition of the set of integers as the universal cy
     }    
     
   \end{tikzpicture}
-  \caption[The set of integers along the axis of the positive quadrant]{The set $Z$ consists of the lattice points on the axes with natural number coordinates. Along the $a$-axis we find the nonnegative integers in their usual spots, while along the $b$-axis we find the nonpositive integers.}
+  \caption[The set of integers along the axis of the positive quadrant]{The set $Z$ consists of the lattice points on the axes with natural number coordinates. Along the $x$-axis we find the nonnegative integers in their usual spots, while along the $y$-axis we find the nonpositive integers.}
   \label{figure:implementation-integers}
 \end{figure}
   

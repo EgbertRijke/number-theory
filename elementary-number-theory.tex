@@ -1,7 +1,7 @@
 \DocumentMetadata{
   lang          = en-US,
   pdfversion    = 2.0,
-  pdfstandard   = ua-2,
+  pdfstandard   = {ua-2,a-4f},
   tagging       = on,
   tagging-setup =
     { math/setup=mathml-SE,
@@ -12,7 +12,8 @@
   11pt,
   letterpaper,
   twoside,
-  openright
+  openright,
+  draft
 ]{book}
 
 \title{The Great Story of Numbers}
@@ -93,13 +94,9 @@
 \UseMicrotypeSet[protrusion]{basicmath}
 
 \frenchspacing
-\emergencystretch=1.5em
+\emergencystretch=2em
 
-\newfontfamily\cuneifont[
-  Path = fonts/,
-  Extension = .ttf,
-  UprightFont = *-Regular
-]{NotoSansCuneiform}
+\input{setup/cuneiform}
 
 \newfontfamily\greekfont{GFS Artemisia}[
   Scale=MatchLowercase,
@@ -114,8 +111,6 @@
   includehead,
   headheight=14pt,
 }
-
-\emergencystretch=2em
 
 \addtolength{\abovedisplayskip}{2pt}
 \addtolength{\belowdisplayskip}{2pt}
@@ -675,109 +670,7 @@
 
 \begin{document}
 
-\hypersetup{pageanchor=false}
-
-\pagestyle{empty}
-
-% \begingroup
-%   \centering
-%   \color{JHUBlue}
-
-%   \vspace{-1cm}
-%   \includegraphics[width=0.5\textwidth]{jhulogo-cropped.pdf}\par
-  
-%   \vspace*{.5cm}
-%   {\Huge\textbf{Egbert Rijke}\par}
-%   \vspace*{.3cm}
-  
-%   \begin{tikzpicture}[scale=4]
-%     \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
-%     \draw[ultra thick] (0,0) circle (1);
-%     \coordinate (P1) at ({117/125},{44/125});
-%     \coordinate (P2) at ({45/53},{-28/53});
-%     \coordinate (P3) at ({5/13},{12/13});
-%     \coordinate (P4) at ({-3/5},{4/5});
-    
-%     \draw[DarkOrchid,ultra thick,dashed] (1,1) -- (P1);
-%     \draw[DarkOrchid,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
-%     \draw[Green,ultra thick,dashed] (1,-1) -- (P2);
-%     \draw[Green,ultra thick,->,shorten >=1ex] (P2) -- (P3);
-%     \draw[YellowOrange,ultra thick,dashed] (1,1) -- (P3);
-%     \draw[YellowOrange,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
-%     \draw[CornflowerBlue,ultra thick,dashed] (-1,1) -- (P4);
-%     \draw[CornflowerBlue,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
-%     \draw[fill=white,very thick] (P1) circle (.5pt);
-%     \draw[fill=white,very thick] (P2) circle (.5pt);
-%     \draw[fill=white,very thick] (P3) circle (.5pt); 
-%     \draw[fill=white,very thick] (P4) circle (.5pt);
-%     \draw[fill=JHUBlue,very thick] (1,0) circle (.5pt);
-%   \end{tikzpicture}
-
-%   \vspace*{.3cm}
-
-%   {\superhuge \textbf{The Great Story of Numbers}\par}
-
-%   \vspace*{.3cm}
-
-%   {\LARGE Math 304\par}
-
-%   \vspace*{.5cm}
-
-%   {\Large\Version{0}\par}
-% \endgroup
-
-%%%% No Logo Version
-%
-\begin{titlepage}
-  \begin{center}
-    {\Huge\textsc{Johns Hopkins University}\par}
-    \vspace*{\stretch{1}}
-    {\Huge\textbf{Egbert Rijke}\par}
-    \vspace*{\stretch{1}}
-    \begin{center}
-    \begin{tikzpicture}[
-      scale=5,
-      alt={
-        The unit circle on a square coordinate grid, centered at the origin.
-        On the unit circle, a sequence of four Vieta jumps 
-        is shown with arrows pointing to the target of each jump.
-        This sequence of jumps ends at the point (1,0).
-        Each jump is constructed using a dashed line segment
-        from the nearest corner point (±1,±1) to the current point.
-        Extending this line segment, we find a second intersection point on the
-        unit circle, which is the target point of the jump.
-        }
-      ]
-      \draw[gray,ultra thin] (-1.1,-1.1) grid[step=0.2] (1.1,1.1);
-      \draw[ultra thick] (0,0) circle (1);
-      \coordinate (P1) at ({117/125},{44/125});
-      \coordinate (P2) at ({45/53},{-28/53});
-      \coordinate (P3) at ({5/13},{12/13});
-      \coordinate (P4) at ({-3/5},{4/5});
-
-      \draw[DarkOrchid,ultra thick,dashed] (1,1) -- (P1);
-      \draw[DarkOrchid,ultra thick,->,shorten >=2.4ex] (P1) -- (P2);
-      \draw[Green,ultra thick,dashed] (1,-1) -- (P2);
-      \draw[Green,ultra thick,->,shorten >=1ex] (P2) -- (P3);
-      \draw[YellowOrange,ultra thick,dashed] (1,1) -- (P3);
-      \draw[YellowOrange,ultra thick,->,shorten >=1.8ex] (P3) -- (P4);
-      \draw[CornflowerBlue,ultra thick,dashed] (-1,1) -- (P4);
-      \draw[CornflowerBlue,ultra thick,->,shorten >=1ex] (P4) -- (1,0);
-      \draw[fill=white,very thick] (P1) circle (.5pt);
-      \draw[fill=white,very thick] (P2) circle (.5pt);
-      \draw[fill=white,very thick] (P3) circle (.5pt); 
-      \draw[fill=white,very thick] (P4) circle (.5pt);
-      \draw[fill=black,very thick] (1,0) circle (.5pt);
-    \end{tikzpicture}
-    \end{center}
-    \vspace*{\stretch{.5}}
-    {\superhuge \textbf{The Great Story of Numbers}\par}
-    \vspace*{\stretch{2}}
-    {\Large\Version{0}}
-  \end{center}
-\end{titlepage}
-
-% \hypersetup{pageanchor=true}
+\input{titlepage}
 
 \cleardoublepage
 
@@ -796,137 +689,134 @@
 
 \pagestyle{fancy}
 
-\begingroup
 \tableofcontents
-%\addfontfeatures{RawFeature={-calt}}
-\endgroup
 
 \listoffigures
 
 \listoftables
 
-\input{introduction}
+% \input{introduction}
 
 \mainmatter
 
 \part{The Nature of Numbers}
 
-\input{nature-of-numbers}
+%\input{nature-of-numbers}
 
-\input{mathematical-induction}
+%\input{mathematical-induction}
 
-\input{counting}
+%\input{counting}
 
 \input{integers}
 
-\input{euclidean-division}
+%\input{euclidean-division}
 
-\input{linear-diophantine-equations}
+%\input{linear-diophantine-equations}
 
-\input{congruences}
+%\input{congruences}
 
-\input{systems-of-linear-congruences}
+%\input{systems-of-linear-congruences}
 
-\input{rational-numbers}
+%\input{rational-numbers}
 
-\input{pythagorean-triples}
+%\input{pythagorean-triples}
 
-\input{infinite-descent}
+%\input{infinite-descent}
 
-\part{The Multiplicative Nature of Numbers}
+%\part{The Multiplicative Nature of Numbers}
 
-\input{prime-numbers}
+%\input{prime-numbers}
 
-\input{multiplicative-functions}
+%\input{multiplicative-functions}
 
-\input{strong-divisibility-sequences}
+%\input{strong-divisibility-sequences}
 
-\note{\input{cyclic-counting}}
+%\note{\input{cyclic-counting}}
 
-\input{fermats-little-theorem}
+%\input{fermats-little-theorem}
 
-\input{sums-of-squares}
+%\input{sums-of-squares}
 
-\input{gaussian-integers}
+%\input{gaussian-integers}
 
-\input{polynomials}
+%\input{polynomials}
 
-\input{primitive-roots}
+%\input{primitive-roots}
 
-\input{moduli-with-primitive-roots}
+%\input{moduli-with-primitive-roots}
 
-\input{polynomial-congruences}
+%\input{polynomial-congruences}
 
-\input{irreducible-polynomials}
+%\input{irreducible-polynomials}
 
-\input{cyclotomic-polynomials}
+%\input{cyclotomic-polynomials}
 
-\note{\input{aurifeuillean-factorizations}}
+%\note{\input{aurifeuillean-factorizations}}
 
-\part{The Arithmetic of Quadratic Forms}
+%\part{The Arithmetic of Quadratic Forms}
 
-\input{quadratic-residues}
+%\input{quadratic-residues}
 
-\note{\input{permutations}}
+%\note{\input{permutations}}
 
-\note{\input{quadratic-characters}}
+%\note{\input{quadratic-characters}}
 
-\input{quadratic-reciprocity}
+%\input{quadratic-reciprocity}
 
-\note{\input{jacobi-symbols}}
+%\note{\input{jacobi-symbols}}
 
-\input{primality-testing}
+%\input{primality-testing}
 
-\note{\input{pells-equation}}
+%\note{\input{pells-equation}}
 
-\note{\input{binary-quadratic-forms}}
+%\note{\input{binary-quadratic-forms}}
 
-\note{\input{quadratic-fields}}
+%\note{\input{quadratic-fields}}
 
-\note{\input{conics}}
+%\note{\input{conics}}
 
-\note{\input{polygonal-numbers}}
+%\note{\input{polygonal-numbers}}
 
-% \part{Multiplicative Number Theory}
+%% \part{Multiplicative Number Theory}
 
-% \input{dirichlet-series}
+%% \input{dirichlet-series}
 
-% \input{distribution-of-primes}
+%% \input{distribution-of-primes}
 
-% \input{prime-partition-function}
+%% \input{prime-partition-function}
 
-% % \part{Additive Number Theory}
-% % \part{Algebraic Number Theory}
-% % \part{Analytic Number Theory}
-% % \part{Combinatorial Number Theory}
-% % \part{Diophantine Approximation}
-% % \part{Diophantine Equations}
-% % \part{Elliptic Curves}
-% % \part{Geometric Number Theory}
-% % \part{Modular Forms}
-% % \part{Numbers and Symmetries}
-% % \part{\texorpdfstring{$p$}{p}-Adic Analysis}
-% % \part{The Langlands Program}
+%% % \part{Additive Number Theory}
+%% % \part{Algebraic Number Theory}
+%% % \part{Analytic Number Theory}
+%% % \part{Combinatorial Number Theory}
+%% % \part{Diophantine Approximation}
+%% % \part{Diophantine Equations}
+%% % \part{Elliptic Curves}
+%% % \part{Geometric Number Theory}
+%% % \part{Modular Forms}
+%% % \part{Numbers and Symmetries}
+%% % \part{\texorpdfstring{$p$}{p}-Adic Analysis}
+%% % \part{The Langlands Program}
 
-% \part{Topics}
+%% \part{Topics}
 
-% \input{symmetric-counting}
+%% \input{symmetric-counting}
 
-% \input{real-numbers}
+%% \input{real-numbers}
 
-% \input{geometric-number-theory}
+%% \input{geometric-number-theory}
 
-% \input{fermats-last-theorem}
+%% \input{fermats-last-theorem}
 
-% \input{bernoulli-numbers}
+%% \input{bernoulli-numbers}
 
-% \input{origami}
+%% \input{origami}
 
-% \input{miscellaneous}
+%% \input{miscellaneous}
 
-\appendix
+%\appendix
 
-\input{open-problems}
+%\input{open-problems}
 
 \backmatter
 
