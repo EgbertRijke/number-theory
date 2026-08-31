@@ -13,7 +13,7 @@
   letterpaper,
   twoside,
   openright,
-  draft
+%  draft
 ]{book}
 
 \title{The Great Story of Numbers}
@@ -670,21 +670,19 @@
 
 \begin{document}
 
-\input{titlepage}
+%\input{titlepage}
 
-\cleardoublepage
+%\cleardoublepage
 
-\vspace*{\fill}
-\noindent
-\textit{Cover image:} Vieta jumps between the rational points on the unit circle eventually reach one of the points $(1,0)$, $(0,1)$, $(-1,0)$, or $(0,-1)$. See \zcref{section:tree-of-pythagorean-triples} for a full explanation.
+%\input{cover-text}
 
-\cleardoublepage
+%\cleardoublepage
 
-\input{lilavati}
+%\input{lilavati}
 
-\cleardoublepage
+%\cleardoublepage
 
-\frontmatter
+%\frontmatter
 \hypersetup{pageanchor=true}
 
 \pagestyle{fancy}
@@ -695,33 +693,35 @@
 
 \listoftables
 
-% \input{introduction}
+\input{introduction}
 
 \mainmatter
 
 \part{The Nature of Numbers}
 
-%\input{nature-of-numbers}
+\input{nature-of-numbers}
 
-%\input{mathematical-induction}
+\input{mathematical-induction}
 
-%\input{counting}
+\input{counting}
 
 \input{integers}
 
-%\input{euclidean-division}
+\input{euclidean-division}
 
-%\input{linear-diophantine-equations}
+\input{divisibility}
 
-%\input{congruences}
+\input{linear-diophantine-equations}
 
-%\input{systems-of-linear-congruences}
+\input{congruences}
 
-%\input{rational-numbers}
+\input{systems-of-linear-congruences}
 
-%\input{pythagorean-triples}
+\input{rational-numbers}
 
-%\input{infinite-descent}
+\input{pythagorean-triples}
+
+\input{infinite-descent}
 
 %\part{The Multiplicative Nature of Numbers}
 
