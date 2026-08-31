@@ -1,4 +1,4 @@
-TEXFILE := elementary-number-theory.tex
+TEXFILE := number-theory.tex
 BIBFILE := references.bib
 ENGINE  := lualatex
 BIBTOOL := biber
