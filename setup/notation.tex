@@ -1,27 +1,48 @@
-\ExplSyntaxOn
-\NewDocumentCommand{\DeclareSemanticSymbol}{mm}
-{
-  \tag_if_active:TF
-  {
-    \tag_mc_begin:n { tag=Span, actualtext = #2 }
-    #1
-    \tag_mc_end:
-  }
-  {
-    #1
-  }
-}
-\ExplSyntaxOff
+% Semantic mathematical notation.
+%
+% Accessibility policy:
+% - Use MathML intent/arg annotations for mathematical semantics.
+% - Keep TeX atom classes (\mathord, \mathbin, \mathrel, ...) outside the
+%   semantic wrapper whenever spacing depends on them.
+% - Suppress both PDF tagging and LuaMML during trial typesetting.
 
 \ExplSyntaxOn
+
+\box_new:N \l__notation_symbol_box
+\dim_new:N \l__notation_half_extra_dim
+
+\cs_new_protected:Npn \__notation_math_measure:nN #1#2
+  {
+    \hbox_set:Nn #2
+      {
+        \group_begin:
+          \tag_suspend:n { notation-measure }
+          \cs_if_exist:NT \luamml_ignore: { \luamml_ignore: }
+          $#1$
+          \tag_resume:n { notation-measure }
+        \group_end:
+      }
+  }
 
 \NewDocumentCommand \dotsofwidth { m }
   {
-    \hbox_set:Nn \l_tmpa_box { $#1$ }
+    \__notation_math_measure:nN {#1} \l_tmpa_box
+    \__notation_math_measure:nN {\vdots} \l__notation_symbol_box
+
+    \dim_set:Nn \l__notation_half_extra_dim
+      {
+        (
+          \box_wd:N \l_tmpa_box
+          -
+          \box_wd:N \l__notation_symbol_box
+        ) / 2
+      }
+
     \mathrel
       {
-        \hbox_to_wd:nn { \box_wd:N \l_tmpa_box }
-          { \hfil $\vdots$ \hfil }
+        \kern \l__notation_half_extra_dim
+        \vdots
+        \kern \l__notation_half_extra_dim
       }
   }
 
@@ -44,35 +65,73 @@
 \DeclarePairedDelimiter{\legendredelim}{(}{)}
 
 \newcommand{\legendre}[2]{%
-  \DeclareSemanticSymbol{%
-    \legendredelim*{\genfrac{}{}{}{}{#1}{#2}}%
-  }{the Legendre symbol of #1 over #2}%
+  \MathMLintent{legendre-symbol($a,$p)}{{%
+    \legendredelim*{%
+      \genfrac{}{}{}{}{%
+        \MathMLarg{a}{#1}%
+      }{%
+        \MathMLarg{p}{#2}%
+      }%
+    }%
+  }}%
 }
 
 \newcommand{\abssep}{\mkern2mu}
-\DeclarePairedDelimiterX{\abs}[1]{\lvert}{\rvert}{\abssep #1\abssep}
+
+\DeclarePairedDelimiterX{\absdelim}[1]{\lvert}{\rvert}{\abssep #1\abssep}
+\NewDocumentCommand{\abs}{s o m}{%
+  \MathMLintent{absolute-value($x)}{{%
+    \IfBooleanTF{#1}
+      {\absdelim*{\MathMLarg{x}{#3}}}
+      {%
+        \IfNoValueTF{#2}
+          {\absdelim{\MathMLarg{x}{#3}}}
+          {\absdelim[#2]{\MathMLarg{x}{#3}}}%
+      }%
+  }}%
+}
 
 \newcommand{\lres}[2]{%
-  \DeclareSemanticSymbol{%
-    \lfloor #1 \rceil_{#2}%
-  }{the least absolute residue of #1 modulo #2}%
+  \MathMLintent{least-absolute-residue($x,$m)}{{%
+    \lfloor
+      \MathMLarg{x}{#1}%
+    \rceil_{\MathMLarg{m}{#2}}%
+  }}%
 }
 
 \newcommand{\abslres}[2]{%
-  \DeclareSemanticSymbol{%
-    \ensuremath{|\mkern-3mu \lfloor #1 \rceil\mkern-3mu |_{#2}}
-}{the absolute value of the least absolute residue of #1 modulo #2}}
+  \MathMLintent{absolute-least-residue($x,$m)}{{%
+    \ensuremath{%
+      |\mkern-3mu
+      \lfloor \MathMLarg{x}{#1} \rceil
+      \mkern-3mu|_{\MathMLarg{m}{#2}}%
+    }%
+  }}%
+}
 
 \newcommand{\complementsubset}[1]{%
-  \DeclareSemanticSymbol{#1^{\mathrm{c}}}{the complement of #1}}
+  \MathMLintent{complement($set)}{{%
+    \MathMLarg{set}{#1}^{\mathrm{c}}%
+  }}%
+}
 
-\newcommand{\Oh}{\DeclareSemanticSymbol{\mathord{O}}{big Oh}}
+\newcommand{\Oh}{%
+  \mathord{\MathMLintent{_big_O}{{O}}}%
+}
 
-\newcommand{\oh}{\DeclareSemanticSymbol{\mathord{o}}{little Oh}}
+\newcommand{\oh}{%
+  \mathord{\MathMLintent{_small_o}{{o}}}%
+}
 
-\newcommand{\blank}{\DeclareSemanticSymbol{\mathord{\hspace{1pt}\text{--}\hspace{1pt}}}{blank}}
+\newcommand{\blank}{%
+  \mathord{%
+    \MathMLintent{_blank}{{\hspace{1pt}\text{--}\hspace{1pt}}}%
+  }%
+}
 
-\newcommand{\apart}{\DeclareSemanticSymbol{\mathbin{\#}}{is apart from}}
+\newcommand{\apart}{%
+  \mathbin{\MathMLintent{_is_apart_from}{{\#}}}%
+}
 
 \DeclareMathOperator{\numerator}{num}
 
@@ -80,18 +139,35 @@
 
 \setmathfont[range=\triangledown]{STIX Two Math}
 
-\newcommand{\mediant}{\DeclareSemanticSymbol{\mathbin{\triangledown}}{mediant}}
-
-\newcommand{\bimapsto}{%
-  \DeclareSemanticSymbol{%
-    \mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}
-  }{maps to and comes from}
+\newcommand{\mediant}{%
+  \mathbin{\MathMLintent{_mediant}{{\triangledown}}}%
 }
 
-\newcommand{\content}{\DeclareSemanticSymbol{\mathrm{cont}}{the content of}}
+\newcommand{\bimapsto}{%
+  \mathrel{%
+    \MathMLintent{_maps_to_and_comes_from}{{%
+      \vcenter{%
+        \offinterlineskip
+        \ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}%
+      }%
+    }}%
+  }%
+}
 
-\newcommand{\floorfrac}[2]{\DeclareSemanticSymbol{\left\lfloor\frac{#1}{#2}\right\rfloor}{the largest integer less than or equal to}}
+\newcommand{\content}{%
+  \MathMLintent{_content}{{\mathrm{cont}}}%
+}
 
-\newcommand{\totient}{\DeclareSemanticSymbol{\phi}{totient}}
+\newcommand{\floorfrac}[2]{%
+  \MathMLintent{floor($x)}{{%
+    \left\lfloor
+      \MathMLarg{x}{\frac{#1}{#2}}%
+    \right\rfloor
+  }}%
+}
 
-\newcommand{\im}{\mathrm{im}}
+\newcommand{\totient}{%
+  \MathMLintent{_Euler_totient_function}{{\phi}}%
+}
+
+\DeclareMathOperator{\im}{im}
