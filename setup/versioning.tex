@@ -6,4 +6,47 @@
   \TwoDigits{\day}%
 }
 
-\newcommand{\Version}[1]{Version #1.\TodayYYMMDD~~~~\VersionFontName}
+% The short identifier describes the artifact rather than its typography or
+% technical PDF profile:
+%
+%   0.YYMMDD
+%   0.YYMMDD-vol-N
+%   0.YYMMDD-ally
+%   0.YYMMDD-vol-N-ally
+%
+% Volume masters define \VolumeNumber; the omnibus master deliberately does
+% not.  The Ally marker is selected before \documentclass by ally.tex or by
+% NT_PDF_PROFILE=ally in the Makefile.
+\newcommand{\VersionIdentifier}[1]{%
+  #1.\TodayYYMMDD%
+  \ifdefined\VolumeNumber-vol-\VolumeNumber\fi%
+  \ifdefined\NTAllyCompatibilityBuild-ally\fi%
+}
+
+% On title pages the version stays deliberately terse.
+\newcommand{\Version}[1]{\VersionIdentifier{#1}}
+
+% The full technical description belongs on the edition-information verso,
+% not on the title page.  It is set as ordinary paragraphs rather than a
+% tabular so that accessibility checkers do not mistake it for a data table.
+% The PDF facts below are defined beside the matching \DocumentMetadata branch
+% in setup/document-metadata.tex.  PDF/A is present only in the canonical
+% build.
+\newcommand{\VersionInformation}[1]{%
+  \begingroup
+  \small
+  \textbf{Edition information}\par
+  \medskip
+  \textbf{Version:} \VersionIdentifier{#1}\par
+  \textbf{Typeface:} \VersionFontName\par
+  \textbf{Typesetting engine:} LuaLaTeX\par
+  \textbf{Document language:} \NTPDFLanguage\par
+  \textbf{PDF version:} \NTPDFVersion\par
+  \textbf{Accessibility standard:} \NTPDFUAStandard\par
+  \ifdefined\NTPDFAStandard
+    \textbf{Archival standard:} \NTPDFAStandard\par
+  \fi
+  \textbf{Tagging:} on; \NTMathTaggingDescription\space
+    (\NTMathTaggingSetup)\par
+  \endgroup
+}

@@ -1,6 +1,7 @@
 SHELL := /bin/sh
 
 OMNIBUS_TEX := number-theory.tex
+ALLY_TEX := ally.tex
 OMNIBUS_JOB := $(basename $(notdir $(OMNIBUS_TEX)))
 VOLUME_JOB_PREFIX := number-theory-volume-
 BUILDDIR := build
@@ -81,11 +82,11 @@ endif
 
 __default:
 	@$(MAKE) --no-print-directory __omnibus \
-		MODE=full FONT="$(DEFAULT_FONT)" SUFFIX=
+		MODE=full PROFILE=canonical FONT="$(DEFAULT_FONT)" SUFFIX=
 
 __dispatch:
 	@set -eu; \
-	mode=full; scope=omnibus; scope_set=0; volume_number=; \
+	mode=full; profile=canonical; scope=omnibus; scope_set=0; volume_number=; \
 	font="$(if $(strip $(FONT)),$(FONT),$(DEFAULT_FONT))"; \
 	explicit_font=$(if $(strip $(FONT)),1,0); open_after=0; \
 	set_scope() { \
@@ -103,6 +104,7 @@ __dispatch:
 	for word in $(MAKECMDGOALS); do \
 		case "$$word" in \
 			quick) mode=quick ;; \
+			ally) profile=ally ;; \
 			pdf|omnibus) set_scope omnibus ;; \
 			volume) set_scope volume ;; \
 			volumes) set_scope volumes ;; \
@@ -148,11 +150,12 @@ __dispatch:
 	esac; \
 	case "$$scope" in archive|doctor|clean|distclean|help) \
 		if [ "$$mode" != full ] || [ "$$explicit_font" -eq 1 ] || \
-		   [ "$$open_after" -eq 1 ]; then \
-			echo "$$scope does not combine with quick, fonts, or open." >&2; exit 2; \
+		   [ "$$profile" != canonical ] || [ "$$open_after" -eq 1 ]; then \
+			echo "$$scope does not combine with quick, ally, fonts, or open." >&2; exit 2; \
 		fi ;; \
 	esac; \
 	if [ "$$explicit_font" -eq 1 ]; then suffix="-$$font"; else suffix=; fi; \
+	if [ "$$profile" = ally ]; then suffix="$$suffix-ally"; fi; \
 	case "$$scope" in \
 		omnibus) target=__omnibus ;; \
 		volume) target=__volume_set ;; \
@@ -166,14 +169,16 @@ __dispatch:
 		help) target=__help ;; \
 	esac; \
 	$(MAKE) --no-print-directory "$$target" MODE="$$mode" \
-		FONT="$$font" SUFFIX="$$suffix" SELECT="$$volume_number" \
+		PROFILE="$$profile" FONT="$$font" SUFFIX="$$suffix" SELECT="$$volume_number" \
 		OPEN_AFTER="$$open_after"
 
 __omnibus:
 	@set -eu; \
-	setup="$(call fontsetup,$(FONT))"; job="$(OMNIBUS_JOB)$(SUFFIX)"; \
-	if [ ! -f "$(OMNIBUS_TEX)" ]; then \
-		echo "Missing main file: $(OMNIBUS_TEX)" >&2; exit 2; \
+	setup="$(call fontsetup,$(FONT))"; source="$(OMNIBUS_TEX)"; \
+	job="$(OMNIBUS_JOB)$(SUFFIX)"; \
+	if [ "$(PROFILE)" = ally ]; then source="$(ALLY_TEX)"; fi; \
+	if [ ! -f "$$source" ]; then \
+		echo "Missing main file: $$source" >&2; exit 2; \
 	fi; \
 	if [ ! -f "$$setup" ]; then \
 		echo "Missing font setup: $$setup" >&2; exit 2; \
@@ -181,12 +186,12 @@ __omnibus:
 	mkdir -p "$(BUILDDIR)"; \
 	if [ "$(MODE)" = quick ]; then \
 		echo "==> Quick build: $$job.pdf ($(FONT))"; \
-		NT_FONT_SETUP="$$setup" $(ENGINE) $(LATEXFLAGS) \
-			-jobname="$$job" "$(OMNIBUS_TEX)"; \
+		NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
+			$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$source"; \
 	else \
 		echo "==> Full build: $$job.pdf ($(FONT))"; \
-		NT_FONT_SETUP="$$setup" $(LATEXMK) $(LATEXMKFLAGS) \
-			-jobname="$$job" "$(OMNIBUS_TEX)"; \
+		NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
+			$(LATEXMK) $(LATEXMKFLAGS) -jobname="$$job" "$$source"; \
 	fi; \
 	cmp -s "$(BUILDDIR)/$$job.pdf" "$$job.pdf" || \
 		cp -f "$(BUILDDIR)/$$job.pdf" "$$job.pdf"; \
@@ -283,7 +288,8 @@ __volume_set:
 		if [ "$(MODE)" = quick ]; then \
 			if needs_rebuild "$$job"; then \
 				echo "==> Quick build: $$job.pdf ($(FONT); $$stale_reason)"; \
-				NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
+				NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
+					NT_VOLUME_SUFFIX="$$suffix" \
 					$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
 				external_aux_signature > "$$external"; \
 				touch "$$stamp"; \
@@ -292,7 +298,8 @@ __volume_set:
 			fi; \
 		else \
 			echo "==> Full build: $$job.pdf ($(FONT))"; \
-			NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
+			NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
+				NT_VOLUME_SUFFIX="$$suffix" \
 				$(LATEXMK) $(LATEXMKFLAGS) $$force_flag \
 				-jobname="$$job" "$$tex"; \
 			external_aux_signature > "$$external"; \
@@ -310,7 +317,8 @@ __volume_set:
 		for n in $$numbers; do \
 			tex="volume-$$n.tex"; job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
 			echo "==> Bootstrap pass: $$job.pdf ($(FONT))"; \
-			NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
+			NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
+				NT_VOLUME_SUFFIX="$$suffix" \
 				$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
 		done; \
 	}; \
@@ -359,14 +367,15 @@ __fonts:
 	@set -eu; \
 	for font in $(FONTS); do \
 		$(MAKE) --no-print-directory __omnibus MODE="$(MODE)" \
-			FONT="$$font" SUFFIX="-$$font" OPEN_AFTER=0; \
+			PROFILE="$(PROFILE)" FONT="$$font" \
+			SUFFIX="-$$font$(if $(filter ally,$(PROFILE)),-ally,)" OPEN_AFTER=0; \
 	done
 
 __all:
 	@$(MAKE) --no-print-directory __omnibus MODE="$(MODE)" \
-		FONT="$(FONT)" SUFFIX="$(SUFFIX)" OPEN_AFTER=0
+		PROFILE="$(PROFILE)" FONT="$(FONT)" SUFFIX="$(SUFFIX)" OPEN_AFTER=0
 	@$(MAKE) --no-print-directory __volume_set MODE="$(MODE)" \
-		FONT="$(FONT)" SUFFIX="$(SUFFIX)" SELECT=all \
+		PROFILE="$(PROFILE)" FONT="$(FONT)" SUFFIX="$(SUFFIX)" SELECT=all \
 		OPEN_AFTER="$(OPEN_AFTER)"
 
 __archive:
@@ -394,6 +403,12 @@ __doctor:
 	done; \
 	if [ ! -f "$(OMNIBUS_TEX)" ]; then \
 		echo "Missing main file: $(OMNIBUS_TEX)" >&2; status=1; \
+	fi; \
+	if [ ! -f "$(ALLY_TEX)" ]; then \
+		echo "Missing Ally master file: $(ALLY_TEX)" >&2; status=1; \
+	fi; \
+	if [ ! -f "setup/document-metadata.tex" ]; then \
+		echo "Missing shared metadata file: setup/document-metadata.tex" >&2; status=1; \
 	fi; \
 	for font in $(FONTS); do \
 		setup="$(FONTDIR)/$$font-custom-kerning.tex"; \
@@ -431,13 +446,18 @@ __help:
 	@printf '%s\n' \
 		'make                              full omnibus, default font' \
 		'make quick                        one-pass omnibus update' \
+		'make ally                         Ally-compatible omnibus PDF' \
+		'make quick ally                   one-pass Ally-compatible update' \
 		'make alegreya                     full omnibus in Alegreya' \
 		'make quick alegreya               one-pass omnibus in Alegreya' \
+		'make ally [font]                  Ally-compatible omnibus in a font' \
 		'make volume N                     volumes 1--N, default font' \
 		'make volume N alegreya            volumes 1--N in Alegreya' \
 		'make quick volume N [font]        one pass for each volume 1--N' \
+		'make ally volume N [font]         Ally-compatible volumes 1--N' \
 		'make volumes [font]               all discovered volumes; stabilize links' \
 		'make quick volumes [font]         one pass over all discovered volumes' \
+		'make ally volumes [font]          all Ally-compatible volumes' \
 		'make all [font]                   omnibus plus all volumes' \
 		'make fonts                        omnibus in every configured font' \
 		'make archive                      zip tracked files at ARCHIVE_REF (HEAD)' \

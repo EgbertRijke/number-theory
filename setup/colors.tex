@@ -2,6 +2,13 @@
 
 \definecolor{CornflowerBlueHighContrast}{HTML}{007ACD}
 
+% Ally's contrast check applies to links and other colored text.  Rebinding
+% the existing name keeps every call site consistent in the compatibility
+% edition, including hyperref's allcolors setting.
+\ifdefined\NTAllyCompatibilityBuild
+  \colorlet{CornflowerBlue}{CornflowerBlueHighContrast}
+\fi
+
 \definecolor{grayblue}{HTML}{0047AB}
 
 \definecolor{JHUBlue}{HTML}{002D72}

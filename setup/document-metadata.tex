@@ -1,0 +1,60 @@
+% Select the PDF profile before \documentclass.
+%
+% The canonical build is PDF/UA-2 + PDF/A-4f with MathML structure
+% elements and no formula /Alt entry.  The Ally profile targets the older
+% PDF 1.7 / PDF/UA-1 model which Ally understands: hyperref can write the
+% legacy DocInfo title and formulas carry /Alt entries instead of MathML.
+
+\ifdefined\NTAllyCompatibilityBuild
+\else
+  \directlua{
+    local profile = os.getenv("NT_PDF_PROFILE")
+    if profile == "ally" then
+      local slash = string.char(92)
+      tex.sprint(slash .. "def" .. slash ..
+        "NTAllyCompatibilityBuild{1}")
+    elseif profile ~= nil and profile ~= "" and profile ~= "canonical" then
+      tex.error("Unknown NT_PDF_PROFILE: " .. profile)
+    end
+  }
+\fi
+
+% Shared by both profiles and printed on the edition-information verso.
+\def\NTPDFLanguage{en-US}
+
+\ifdefined\NTAllyCompatibilityBuild
+  % Machine-readable build facts reused by setup/versioning.tex.  Keep these
+  % adjacent to the metadata they describe so the printed build information
+  % cannot drift away from the PDF profile actually being selected.
+  \def\NTPDFVersion{1.7}
+  \def\NTPDFUAStandard{PDF/UA-1}
+  \def\NTMathTaggingSetup{math/alt/use}
+  \def\NTMathTaggingDescription{formula alternative text}
+
+  \DocumentMetadata{
+    lang          = \NTPDFLanguage,
+    pdfversion    = 1.7,
+    pdfstandard   = ua-1,
+    tagging       = on,
+    tagging-setup =
+      { math/setup={},
+        math/alt/use,
+        extra-modules={verbatim-mo}}
+  }
+\else
+  \def\NTPDFVersion{2.0}
+  \def\NTPDFUAStandard{PDF/UA-2}
+  \def\NTPDFAStandard{PDF/A-4f}
+  \def\NTMathTaggingSetup{math/setup=mathml-SE}
+  \def\NTMathTaggingDescription{MathML structure elements}
+
+  \DocumentMetadata{
+    lang          = \NTPDFLanguage,
+    pdfversion    = 2.0,
+    pdfstandard   = {ua-2,a-4f},
+    tagging       = on,
+    tagging-setup =
+      { math/setup=mathml-SE,
+        extra-modules={verbatim-mo}}
+  }
+\fi
