@@ -1,0 +1,57 @@
+\usepackage{xurl}
+
+% \usepackage{hyperref}
+% \hypersetup{
+%   hidelinks,
+%   pdftitle          = {The Great Story of Numbers},
+%   pdfauthor         = {Egbert Rijke},
+%   pdfsubject        = {Number Theory Course Notes},
+%   pdfdisplaydoctitle = true,
+% }
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linktoc=all,
+  allcolors=CornflowerBlue,
+%  hypertexnames=false,
+  pdftitle    = {The Great Story of Numbers},
+  % Elementary Number Theory
+  % Number Theory: A Narrative
+  % Number Theory For All
+  % The Great Story of Numbers
+  pdfauthor   = {Egbert Rijke},
+  pdfsubject  = {Course Notes},
+  pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, Zsigmondy's theorem, Vantieghem's theorem, quadratic residues, quadratic reciprocity, quadratic fields},
+}
+
+\usepackage{zref-titleref}
+\usepackage{zref-clever}
+
+\zcsetup{
+  cap,
+  noabbrev,
+  nameinlink,
+}
+
+\makeatletter
+\ExplSyntaxOn
+
+\AddToHook{cmd/ParseLaTeXeTheoremlike/after}
+  {
+    \tl_if_novalue:oTF \l__block_note_tl
+      { }
+      {
+        \exp_args:NV
+          \zref@titleref@setcurrent
+          \l__block_note_tl
+      }
+  }
+
+\ExplSyntaxOff
+\makeatother
+
+\newcommand{\zcrefnamed}[1]{\zcref{#1}\space(\ztitleref{#1})}
+
+\zcRefTypeSetup{enumXi}{Name-sg = Exercise, Name-pl = Exercises}
+\zcRefTypeSetup{enumXii}{Name-sg = Exercise, Name-pl = Exercises}

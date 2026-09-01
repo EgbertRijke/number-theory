@@ -1,0 +1,79 @@
+\usepackage{totcount}
+
+\newtotcounter{exercisecounter}
+\AtEndDocument{%
+  \typeout{Total number of exercises: \number\value{exercisecounter}}%
+}
+
+\newcounter{currentchaptex}
+
+\newcommand{\exercises}{%
+  \par\clearpage%
+  \phantomsection%
+  \section*{Exercises}%
+  \addcontentsline{toc}{section}{Exercises}%
+  \markboth{\leftmark}{\MakeUppercase{Exercises}}%
+  \setcounter{currentchaptex}{0}
+}
+
+\newcommand{\exercise}{\stepcounter{exercisecounter}\item}
+
+\newenvironment{exenum}
+{\begin{enumext}[
+    label=\thechapter.\arabic*,
+    ref=\thechapter.\arabic*,
+    widest=99,
+    labelsep=.6em,
+    noitemsep]}
+{\end{enumext}}
+
+\newenvironment{subexenum}
+{\begin{enumext}[
+    label=(\alph*),
+    ref=\thechapter.\arabic{enumXi}(\alph*),
+    noitemsep]}
+{\end{enumext}}
+
+\newenvironment{starter}
+{%
+  \italicsubsection{Starter Exercises}%
+  \begin{exenum}
+  \setcounter{enumXi}{\value{currentchaptex}}
+}
+{%
+  \setcounter{currentchaptex}{\value{enumXi}}
+  \end{exenum}
+}
+
+\newenvironment{foundational}
+{%
+  \italicsubsection{Foundational Exercises}%
+  \begin{exenum}
+  \setcounter{enumXi}{\value{currentchaptex}}
+}
+{%
+  \setcounter{currentchaptex}{\value{enumXi}}
+  \end{exenum}
+}
+
+\newenvironment{routine}
+{%
+  \italicsubsection{Routine-Building Exercises}%
+  \begin{exenum}
+  \setcounter{enumXi}{\value{currentchaptex}}
+}
+{%
+  \setcounter{currentchaptex}{\value{enumXi}}
+  \end{exenum}
+}
+
+\newenvironment{challenge}
+{%
+  \italicsubsection{Challenge Exercises}%
+  \begin{exenum}
+  \setcounter{enumXi}{\value{currentchaptex}}
+}
+{%
+  \setcounter{currentchaptex}{\value{enumXi}}
+  \end{exenum}
+}

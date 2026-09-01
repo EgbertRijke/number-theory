@@ -1,0 +1,50 @@
+\setcounter{tocdepth}{2}
+
+\makeatletter
+
+\EditInstance{heading}{part}{
+  start-code = {
+    \if@openright
+      \cleardoublepage
+    \else
+      \clearpage
+    \fi
+    \thispagestyle{empty}
+    \if@twocolumn
+      \onecolumn
+      \@tempswatrue
+    \else
+      \@tempswafalse
+    \fi
+    \null\vfil
+  },
+  prefix-decls = \partdisplayfont\mdseries\itshape,
+  number-decls = \partdisplayfont\mdseries\itshape,
+  title-decls  = \partdisplayfont\mdseries\upshape\Huge\lsstyle\scshape
+}
+
+\makeatother
+
+\EditInstance{heading}{chapter}{
+  after-penalty-vspace = .1\textheight,
+  after-vspace         = .2\textheight,
+  heading-decls        = \normalfont\raggedright\Large\lsstyle\scshape,
+  number-decls         = , 
+  title-decls          = \normalfont\Huge\bfseries
+}
+
+\NewDocumentCommand{\italicsection}{m}{%
+  \ParseLaTeXeHeading{section}
+    {\BooleanTrue}
+    {heading-decls={\normalfont\Large\mdseries\itshape}}
+    {#1}%
+}
+
+\NewDocumentCommand{\italicsubsection}{m}{%
+  \ParseLaTeXeHeading{subsection}
+    {\BooleanTrue}
+    {heading-decls={\normalfont\large\mdseries\itshape}}
+    {#1}%
+}
+
+\newcommand\objectives{\italicsubsection{Learning Objectives}}

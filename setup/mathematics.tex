@@ -1,0 +1,16 @@
+\setlength{\jot}{5pt}
+
+\newlength{\casesleftsep}
+\newlength{\casescolsep}
+
+\setlength{\casesleftsep}{0.2em} % distance from brace to first column
+\setlength{\casescolsep}{1.2em}   % distance between the two columns
+
+\renewenvironment{cases}
+  {\left\{\,
+   \begin{array}{
+     @{\hspace{\casesleftsep}} l
+     @{\hspace{\casescolsep}} l
+     @{}
+   }}
+  {\end{array}\right.}

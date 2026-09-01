@@ -1,0 +1,17 @@
+\ExplSyntaxOn
+
+\NewDocumentCommand \ShowTagParaBalance { m }
+  {
+    \iow_term:x
+      {
+        TAGPARA~#1:~
+        outer~
+        \int_use:N \g__tag_para_begin_int /
+        \int_use:N \g__tag_para_end_int;~
+        inner~
+        \int_use:N \g__tag_para_main_begin_int /
+        \int_use:N \g__tag_para_main_end_int
+      }
+  }
+
+\ExplSyntaxOff

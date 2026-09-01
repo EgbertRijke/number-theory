@@ -1,0 +1,93 @@
+\input{setup/caption}
+
+\usepackage{float}
+
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{1}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  angles,
+  arrows.meta,
+  babel,
+  backgrounds,
+  calc,
+  decorations.markings,
+  decorations.pathreplacing,
+  decorations.pathmorphing,
+  hobby,
+  intersections,
+  quotes,
+  shapes.geometric,
+  trees}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\tikzset{every picture/.append style={line cap=round, line join=round}}
+
+\pgfplotsset{
+  lectureplot/.style={
+    width=12cm, height=8cm,
+    axis lines=middle,
+    axis line style={-stealth},
+    tick style={draw=none},
+    xlabel={$x$}, ylabel={$y$},
+    xmin=0, xmax=1e6,
+    ymin=0, ymax=8.5e4,
+    clip=false,
+    legend style={
+      draw=none,                               
+      fill=none,
+      font=\footnotesize,
+      at={(0.05,0.95)},                        
+      anchor=north west,
+      /tikz/every even column/.append style={column sep=1em}
+    },
+    legend cell align=left
+  }
+}
+
+\newcommand{\arrowpairsep}{4pt}
+\newcommand{\arrowpairshortentip}{4mm}
+\newcommand{\arrowpairshortenbutt}{5mm}
+\newcommand{\arrowpairmaskwidth}{3pt}
+
+\newcommand{\arrowpairover}[2]{%
+  \path let
+    \p1=(#1.center),
+    \p2=(#2.center),
+    \n1={atan2(\y2-\y1,\x2-\x1)}
+  in
+  \pgfextra{%
+    \foreach \shift/\direction/\shortenstart/\shortenend in {
+      90/{|->}/4mm/4mm,
+      -90/{<-|}/4mm/4.5mm
+    } {%
+      \begin{scope}[
+        transform canvas={
+          shift={({\n1+\shift}:\arrowpairsep)}
+        }
+      ]
+        \draw[
+          white,
+          line width=\arrowpairmaskwidth,
+          bend left=10,
+          shorten <=\shortenstart,
+          shorten >=\shortenend
+        ]
+          (#1.center) to (#2.center);
+        \draw[
+          \direction,
+          thick,
+          bend left=10,
+          shorten <=\shortenstart,
+          shorten >=\shortenend
+        ]
+          (#1.center) to (#2.center);
+      \end{scope}
+    }%
+  };
+}

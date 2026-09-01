@@ -1,0 +1,16 @@
+\newif\ifshownotes
+% \shownotestrue
+\shownotesfalse
+
+\usepackage{environ}
+\NewEnviron{noteblock}{%
+  \ifshownotes
+    \begingroup\color{black!60}\BODY\endgroup
+  \fi
+}
+
+\newcommand{\note}[1]{%
+  \ifshownotes
+    \begingroup\color{black!60}#1\endgroup
+  \fi
+}

@@ -1,28 +1,39 @@
 TEXFILE := number-theory.tex
-BIBFILE := references.bib
-ENGINE  := lualatex
-BIBTOOL := biber
 BUILDDIR := build
 
-BASE := $(basename $(TEXFILE))
-
-OUTPUT_PREFIX := number-theory
+OUTPUT_PREFIX := $(basename $(notdir $(TEXFILE)))
+DEFAULTPDF := $(OUTPUT_PREFIX).pdf
 
 DEFAULT_FONT := libertinus
+FONTDIR := fontsetups
+
+ENGINE ?= lualatex
+LATEXMK ?= latexmk
+BIBER ?= biber
+OPEN ?= open
 
 .DEFAULT_GOAL := pdf
 
-# Flags
-LATEXFLAGS := -interaction=nonstopmode -halt-on-error -synctex=1 -file-line-error -output-directory=$(BUILDDIR)
+.NOTPARALLEL:
 
-# --------------------------------------------------------------------
-# Font setup files
-# --------------------------------------------------------------------
+LATEXFLAGS := \
+	-interaction=nonstopmode \
+	-halt-on-error \
+	-file-line-error \
+	-synctex=1 \
+	-output-directory=$(BUILDDIR)
 
-FONTDIR := fontsetups
+LATEXMKFLAGS := \
+	-lualatex \
+	-bibtex \
+	-interaction=nonstopmode \
+	-halt-on-error \
+	-file-line-error \
+	-synctex=1 \
+	-outdir=$(BUILDDIR)
 
 FONTS := \
-        alegreya \
+	alegreya \
 	libertinus \
 	stix-two \
 	eb-garamond \
@@ -33,152 +44,140 @@ FONTS := \
 	new-computer-modern \
 	new-computer-modern-book \
 	kpfonts \
-        cochineal \
-        etbb \
-        baskervaldx \
-        scholax \
-        xits \
-        cmu-concrete \
-        cormorant-garamond \
-        junicode \
-        source-serif \
-        oldstandard \
-        fbb \
-        gentium \
-        charis-sil \
-        noto-serif
-#	termes \
-#       pagella \
-#       pagella-asana \
-#       ibm-plex-serif \
-#       cmu-concrete-euler \
+	cochineal \
+	etbb \
+	baskervaldx \
+	scholax \
+	xits \
+	cmu-concrete \
+	cormorant-garamond \
+	junicode \
+	source-serif \
+	oldstandard \
+	fbb \
+	gentium \
+	charis-sil \
+	noto-serif
 
-
-FONTSETUP_alegreya                 := $(FONTDIR)/alegreya-custom-kerning.tex
-FONTSETUP_libertinus               := $(FONTDIR)/libertinus-custom-kerning.tex
-FONTSETUP_stix-two                 := $(FONTDIR)/stix-two-custom-kerning.tex
-FONTSETUP_eb-garamond              := $(FONTDIR)/eb-garamond-custom-kerning.tex
-FONTSETUP_schola                   := $(FONTDIR)/schola-custom-kerning.tex
-FONTSETUP_bonum                    := $(FONTDIR)/bonum-custom-kerning.tex
-FONTSETUP_xcharter                 := $(FONTDIR)/xcharter-custom-kerning.tex
-FONTSETUP_erewhon                  := $(FONTDIR)/erewhon-custom-kerning.tex
-FONTSETUP_new-computer-modern      := $(FONTDIR)/new-computer-modern-custom-kerning.tex
-FONTSETUP_new-computer-modern-book := $(FONTDIR)/new-computer-modern-book-custom-kerning.tex
-FONTSETUP_kpfonts                  := $(FONTDIR)/kpfonts-custom-kerning.tex
-FONTSETUP_cochineal                := $(FONTDIR)/cochineal-custom-kerning.tex
-FONTSETUP_etbb                     := $(FONTDIR)/etbb-custom-kerning.tex
-FONTSETUP_baskervaldx              := $(FONTDIR)/baskervaldx-custom-kerning.tex
-FONTSETUP_scholax                  := $(FONTDIR)/scholax-custom-kerning.tex
-FONTSETUP_xits                     := $(FONTDIR)/xits-custom-kerning.tex
-FONTSETUP_cmu-concrete             := $(FONTDIR)/cmu-concrete-custom-kerning.tex
-FONTSETUP_cormorant-garamond       := $(FONTDIR)/cormorant-garamond-custom-kerning.tex
-FONTSETUP_junicode                 := $(FONTDIR)/junicode-custom-kerning.tex
-FONTSETUP_source-serif             := $(FONTDIR)/source-serif-custom-kerning.tex
-FONTSETUP_oldstandard              := $(FONTDIR)/oldstandard-custom-kerning.tex
-FONTSETUP_fbb                      := $(FONTDIR)/fbb-custom-kerning.tex
-FONTSETUP_gentium                  := $(FONTDIR)/gentium-custom-kerning.tex
-FONTSETUP_charis-sil               := $(FONTDIR)/charis-sil-custom-kerning.tex
-FONTSETUP_noto-serif               := $(FONTDIR)/noto-serif-custom-kerning.tex
-# FONTSETUP_termes                   := $(FONTDIR)/termes-custom-kerning.tex
-# FONTSETUP_pagella                  := $(FONTDIR)/pagella-custom-kerning.tex
-# FONTSETUP_pagella-asana            := $(FONTDIR)/pagella-asana-custom-kerning.tex
-# FONTSETUP_ibm-plex-serif           := $(FONTDIR)/ibm-plex-serif-custom-kerning.tex
-# FONTSETUP_cmu-concrete-euler       := $(FONTDIR)/cmu-concrete-euler-custom-kerning.tex
+fontsetup = $(FONTDIR)/$(1)-custom-kerning.tex
 
 ROOTPDFS := $(addprefix $(OUTPUT_PREFIX)-,$(addsuffix .pdf,$(FONTS)))
-DEFAULTPDF := $(OUTPUT_PREFIX).pdf
 
-$(DEFAULTPDF): $(TEXFILE) $(BIBFILE) $(FONTSETUP_$(DEFAULT_FONT)) | $(BUILDDIR)
-	@echo "==> Building $(DEFAULTPDF)"
-	@echo "==> Font setup: $(FONTSETUP_$(DEFAULT_FONT))"
+.PHONY: all pdf quick fonts font clean distclean open doctor help $(FONTS)
 
-	@echo "==> 1) $(ENGINE) (Pass 1)"
-	@NT_FONT_SETUP="$(FONTSETUP_$(DEFAULT_FONT))" \
-		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)" $(TEXFILE)
+pdf: | $(BUILDDIR)
+	@setup="$(call fontsetup,$(DEFAULT_FONT))"; \
+	if [ ! -f "$$setup" ]; then \
+		echo "Missing font setup: $$setup" >&2; \
+		exit 2; \
+	fi; \
+	echo "==> Building $(DEFAULTPDF)"; \
+	echo "==> Font setup: $$setup"; \
+	NT_FONT_SETUP="$$setup" \
+		$(LATEXMK) $(LATEXMKFLAGS) -jobname="$(OUTPUT_PREFIX)" "$(TEXFILE)"; \
+	cmp -s "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)" \
+		|| cp -f "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)"; \
+	echo "==> Built $(DEFAULTPDF)"
 
-	@echo "==> 2) $(BIBTOOL)"
-	@$(BIBTOOL) \
-		--input-directory $(BUILDDIR) \
-		--output-directory $(BUILDDIR) \
-		"$(OUTPUT_PREFIX)" \
-		|| { echo "Biber failed. Check $(BUILDDIR)/$(OUTPUT_PREFIX).blg"; exit 1; }
+quick: | $(BUILDDIR)
+	@setup="$(call fontsetup,$(DEFAULT_FONT))"; \
+	if [ ! -f "$$setup" ]; then \
+		echo "Missing font setup: $$setup" >&2; \
+		exit 2; \
+	fi; \
+	echo "==> Quick build of $(DEFAULTPDF)"; \
+	echo "==> Font setup: $$setup"; \
+	NT_FONT_SETUP="$$setup" \
+		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)" "$(TEXFILE)"; \
+	cmp -s "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)" \
+		|| cp -f "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)"; \
+	echo "==> Built $(DEFAULTPDF) (quick)"
 
-	@echo "==> 3) $(ENGINE) (Pass 2)"
-	@NT_FONT_SETUP="$(FONTSETUP_$(DEFAULT_FONT))" \
-		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)" $(TEXFILE)
+# Generic entry point, e.g. `make font FONT=stix-two`.
+font: | $(BUILDDIR)
+	@if [ -z "$(FONT)" ]; then \
+		echo "Usage: make font FONT=<name>" >&2; \
+		echo "Available fonts: $(FONTS)" >&2; \
+		exit 2; \
+	fi
+	@case " $(FONTS) " in \
+		*" $(FONT) "*) ;; \
+		*) echo "Unknown font: $(FONT)" >&2; \
+		   echo "Available fonts: $(FONTS)" >&2; \
+		   exit 2 ;; \
+	esac
+	@setup="$(call fontsetup,$(FONT))"; \
+	output="$(OUTPUT_PREFIX)-$(FONT)"; \
+	if [ ! -f "$$setup" ]; then \
+		echo "Missing font setup: $$setup" >&2; \
+		exit 2; \
+	fi; \
+	echo "==> Building $$output.pdf"; \
+	echo "==> Font setup: $$setup"; \
+	NT_FONT_SETUP="$$setup" \
+		$(LATEXMK) $(LATEXMKFLAGS) -jobname="$$output" "$(TEXFILE)"; \
+	cmp -s "$(BUILDDIR)/$$output.pdf" "$$output.pdf" \
+		|| cp -f "$(BUILDDIR)/$$output.pdf" "$$output.pdf"; \
+	echo "==> Built $$output.pdf"
 
-	@echo "==> 4) $(ENGINE) (Pass 3)"
-	@NT_FONT_SETUP="$(FONTSETUP_$(DEFAULT_FONT))" \
-		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)" $(TEXFILE)
+$(FONTS):
+	@$(MAKE) --no-print-directory font FONT="$@"
 
-	@cp -f "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)"
-	@echo "==> Built $(DEFAULTPDF)"
+fonts:
+	@set -e; \
+	for font in $(FONTS); do \
+		$(MAKE) --no-print-directory font FONT="$$font"; \
+	done
 
-.PHONY: all pdf quick fonts clean distclean open $(FONTS)
-
-all: fonts
-
-fonts: $(ROOTPDFS)
-
-pdf: $(DEFAULTPDF)
-
-quick: $(TEXFILE) $(FONTSETUP_$(DEFAULT_FONT)) | $(BUILDDIR)
-	@echo "==> Quick build of $(DEFAULTPDF)"
-	@echo "==> Font setup: $(FONTSETUP_$(DEFAULT_FONT))"
-	@echo "==> $(ENGINE) (single pass)"
-	@NT_FONT_SETUP="$(FONTSETUP_$(DEFAULT_FONT))" \
-		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)" $(TEXFILE)
-	@cp -f "$(BUILDDIR)/$(OUTPUT_PREFIX).pdf" "$(DEFAULTPDF)"
-	@echo "==> Built $(DEFAULTPDF) (quick)"
+all: pdf fonts
 
 $(BUILDDIR):
-	@mkdir -p $(BUILDDIR)
+	@mkdir -p "$(BUILDDIR)"
 
-# --------------------------------------------------------------------
-# Template for building one font version
-# --------------------------------------------------------------------
+open: pdf
+	@$(OPEN) "$(DEFAULTPDF)"
 
-define FONT_template
-
-$(1): $(OUTPUT_PREFIX)-$(1).pdf
-
-$(OUTPUT_PREFIX)-$(1).pdf: $(TEXFILE) $(BIBFILE) $$(FONTSETUP_$(1)) | $(BUILDDIR)
-	@echo "==> Building $(OUTPUT_PREFIX)-$(1).pdf"
-	@echo "==> Font setup: $$(FONTSETUP_$(1))"
-
-	@echo "==> 1) $(ENGINE) (Pass 1)"
-	@NT_FONT_SETUP="$$(FONTSETUP_$(1))" \
-		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)-$(1)" $(TEXFILE)
-
-	@echo "==> 2) $(BIBTOOL)"
-	@$(BIBTOOL) \
-		--input-directory $(BUILDDIR) \
-		--output-directory $(BUILDDIR) \
-		"$(OUTPUT_PREFIX)-$(1)" \
-		|| { echo "Biber failed. Check $(BUILDDIR)/$(OUTPUT_PREFIX)-$(1).blg"; exit 1; }
-
-	@echo "==> 3) $(ENGINE) (Pass 2)"
-	@NT_FONT_SETUP="$$(FONTSETUP_$(1))" \
-		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)-$(1)" $(TEXFILE)
-
-	@echo "==> 4) $(ENGINE) (Pass 3)"
-	@NT_FONT_SETUP="$$(FONTSETUP_$(1))" \
-		$(ENGINE) $(LATEXFLAGS) -jobname="$(OUTPUT_PREFIX)-$(1)" $(TEXFILE)
-
-	@cp -f "$(BUILDDIR)/$(OUTPUT_PREFIX)-$(1).pdf" "$(OUTPUT_PREFIX)-$(1).pdf"
-	@echo "==> Built $(OUTPUT_PREFIX)-$(1).pdf"
-
-endef
-
-$(foreach font,$(FONTS),$(eval $(call FONT_template,$(font))))
-
-open: $(DEFAULTPDF)
-	@open $(DEFAULTPDF)
+doctor:
+	@status=0; \
+	for tool in "$(ENGINE)" "$(LATEXMK)" "$(BIBER)"; do \
+		if ! command -v "$$tool" >/dev/null 2>&1; then \
+			echo "Missing command: $$tool" >&2; \
+			status=1; \
+		fi; \
+	done; \
+	if [ ! -f "$(TEXFILE)" ]; then \
+		echo "Missing main file: $(TEXFILE)" >&2; \
+		status=1; \
+	fi; \
+	for font in $(FONTS); do \
+		setup="$(FONTDIR)/$$font-custom-kerning.tex"; \
+		if [ ! -f "$$setup" ]; then \
+			echo "Missing font setup: $$setup" >&2; \
+			status=1; \
+		fi; \
+	done; \
+	if [ "$$status" -eq 0 ]; then \
+		echo "==> Build setup looks good"; \
+	fi; \
+	exit "$$status"
 
 clean:
 	@echo "==> Cleaning $(BUILDDIR)/"
-	@rm -rf $(BUILDDIR)
+	@rm -rf "$(BUILDDIR)"
 
 distclean: clean
 	@echo "==> Removing generated PDFs"
-	@rm -f $(ROOTPDFS)
+	@rm -f "$(DEFAULTPDF)" $(ROOTPDFS)
+
+help:
+	@printf '%s\n' \
+		'make / make pdf            full default-font build' \
+		'make quick                 one LuaLaTeX pass only' \
+		'make <font>                build one font comparison' \
+		'make font FONT=<font>      same, with an explicit font name' \
+		'make fonts                 build all font comparisons serially' \
+		'make all                   build the normal PDF and all fonts' \
+		'make open                  build and open the normal PDF' \
+		'make doctor                check tools and font setup files' \
+		'make clean                 remove transient build files' \
+		'make distclean             remove build files and generated PDFs'

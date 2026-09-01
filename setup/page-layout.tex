@@ -1,0 +1,36 @@
+\usepackage{geometry}
+\geometry{
+  hcentering,
+  letterpaper,
+  textwidth=5.5in,
+  includehead,
+  headheight=14pt,
+}
+
+\AddToHook{cmd/chapter/after}{\thispagestyle{chapteropening}}
+
+\usepackage{fancyhdr}
+
+\fancyhf{}
+\fancyhead[LE,RO]{\headerfont\thepage}
+\fancyhead[RE]{\headerfont\scshape\lsstyle\nouppercase{\leftmark}}
+\fancyhead[LO]{\headerfont\scshape\lsstyle\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\pagestyle{fancy}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[LE,RO]{\headerfont\itshape\thepage}
+  \fancyhead[RE]{\headerfont\itshape\nouppercase{\leftmark}}
+  \fancyhead[LO]{\headerfont\itshape\nouppercase{\rightmark}}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{chapteropening}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}

@@ -1,0 +1,51 @@
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+\addbibresource{src/references.bib}
+
+\setcounter{biburlnumpenalty}{7000}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{7000}
+\appto{\bibsetup}{\emergencystretch=3em}
+
+\DeclareLabelalphaTemplate{%
+  \labelelement{%
+    \field[final]{shorthand}%
+    \field{label}%
+    \field[strwidth=3,strside=left,ifnames=1]{labelname}%
+    \field[strwidth=1,strside=left]{labelname}%
+  }%
+  \labelelement{%
+    \field{year}%
+  }%
+}
+
+\DeclareFieldFormat{labelalpha}{\textsc{\lsstyle #1}}
+
+\renewcommand{\mkbibnamefamily}[1]{\textsc{#1}}
+\renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
+
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{issuetitle}{#1}
+\DeclareFieldFormat{edition}{#1\isdot~\bibstring{edition}}
+% \DeclareFieldFormat{isbn}{\textsf{\textsc{isbn}}\addcolon\space #1}
+% \DeclareFieldFormat{issn}{\textsf{\textsc{issn}}\addcolon\space #1}
+% \DeclareFieldFormat{doi}{%
+%   \textsf{\textsc{doi}}\addcolon\space
+%   \ifhyperref
+%     {\href{https://doi.org/#1}{\nolinkurl{#1}}}
+%     {\nolinkurl{#1}}}
+% \DeclareFieldFormat{url}{%
+%   \textsf{\textsc{url}}\addcolon\space
+%   \ifhyperref
+%     {\href{#1}{\nolinkurl{#1}}}
+%     {\nolinkurl{#1}}}
+\DeclareFieldFormat{eprint:arxiv}{%
+  \textsc{arXiv}\addcolon\space
+  \ifhyperref{\href{https://arxiv.org/abs/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
+  \iffieldundef{eprintclass}{}{\addspace\mkbibbrackets{\thefield{eprintclass}}}}
+
+\DeclareFieldFormat
+  [article,inbook,incollection,inproceedings,misc,unpublished]
+  {title}{\mkbibemph{#1}}
+
+\setlength{\bibitemsep}{0.5\baselineskip}
+\setlength{\bibhang}{1.5em}

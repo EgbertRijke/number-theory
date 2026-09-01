@@ -1,0 +1,55 @@
+\directlua{
+  local fontsetup = os.getenv("NT_FONT_SETUP")
+  if fontsetup == nil or fontsetup == "" then
+    fontsetup = "fontsetups/libertinus-custom-kerning.tex"
+  end
+  tex.sprint("\\input{" .. fontsetup .. "}")
+}
+
+\newfontfamily\mottofont{EB Garamond}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  Scale = 1.04,
+  StylisticSet = {6},
+  ItalicFeatures = {RawFeature={+customkerns}},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+  ]
+\newfontfamily\partdisplayfont{EB Garamond}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  Scale = 1.04,
+  StylisticSet = {6},
+  ItalicFeatures = {RawFeature={+customkerns}},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+  ]
+\newfontfamily\headerfont{EB Garamond}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  Scale = 1.04, StylisticSet = {6},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+  ]
+
+
+\newcommand{\otfrac}[2]{#1/#2}
+
+\newcommand{\supst}{\textsuperscript{st}}
+\newcommand{\supnd}{\textsuperscript{nd}}
+\newcommand{\suprd}{\textsuperscript{rd}}
+\newcommand{\supth}{\textsuperscript{th}}
+
+\input{setup/cuneiform}
+
+\newfontfamily\greekfont{GFS Artemisia}[
+  Scale=MatchLowercase,
+  Script=Greek
+]
+
+\newcommand{\superhuge}{\fontsize{30}{36}\selectfont}
+
+\newcommand{\define}[1]{\textbf{\textcolor{CornflowerBlue}{#1}}}

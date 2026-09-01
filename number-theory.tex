@@ -19,666 +19,55 @@
 \title{The Great Story of Numbers}
 \author{Egbert Rijke}
 
-\setcounter{tocdepth}{2}
+\input{setup/specifications}
 
-\usepackage{fontspec}
-\usepackage{mathtools}
-\usepackage{unicode-math}
+\input{setup/colors}
 
-\directlua{
-  local fontsetup = os.getenv("NT_FONT_SETUP")
-  if fontsetup == nil or fontsetup == "" then
-    fontsetup = "fontsetups/libertinus-custom-kerning.tex"
-  end
-  tex.sprint("\\input{" .. fontsetup .. "}")
-}
+\input{setup/fonts}
 
-\newfontfamily\mottofont{EB Garamond}[
-  Numbers = OldStyle,
-  Ligatures = {TeX, Common},
-  ContextualAlternates = On,
-  Kerning = On,
-  Scale = 1.04,
-  StylisticSet = {6},
-  ItalicFeatures = {RawFeature={+customkerns}},
-  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
-  ]
-\newfontfamily\partdisplayfont{EB Garamond}[
-  Numbers = OldStyle,
-  Ligatures = {TeX, Common},
-  ContextualAlternates = On,
-  Kerning = On,
-  Scale = 1.04,
-  StylisticSet = {6},
-  ItalicFeatures = {RawFeature={+customkerns}},
-  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
-  ]
-\newfontfamily\headerfont{EB Garamond}[
-  Numbers = OldStyle,
-  Ligatures = {TeX, Common},
-  ContextualAlternates = On,
-  Kerning = On,
-  Scale = 1.04, StylisticSet = {6},
-  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
-  ]
+\input{setup/typography}
 
+\input{setup/page-layout}
 
-\newcommand{\otfrac}[2]{#1/#2}
+\input{setup/chapters}
 
-\newcommand{\supst}{\textsuperscript{st}}
-\newcommand{\supnd}{\textsuperscript{nd}}
-\newcommand{\suprd}{\textsuperscript{rd}}
-\newcommand{\supth}{\textsuperscript{th}}
+\input{setup/lists}
 
-\usepackage[
-  activate={true,nocompatibility},
-  final,
-  tracking=true,
-  factor=1100,
-  stretch=10,
-  shrink=0
-]{microtype}
-\usepackage[ngerman,american]{babel}
-\usepackage[autostyle=true,strict=true]{csquotes}
-\MakeOuterQuote{"}
-\usepackage[english]{selnolig}
-\usepackage{realscripts}
-\usepackage{impnattypo}
-\usepackage[balanced]{lua-widow-control}
-\usepackage{fnpct}
+\input{setup/tables}
 
-%\lwcsetup{draft}
+\input{setup/figures}
 
-%\usepackage[All]{lua-typo}
+\input{setup/mathematics}
 
-\UseMicrotypeSet[protrusion]{basicmath}
+\input{setup/theorems}
 
-\frenchspacing
-\emergencystretch=2em
+\input{setup/exercises}
 
-\input{setup/cuneiform}
+\input{setup/bibliography}
 
-\newfontfamily\greekfont{GFS Artemisia}[
-  Scale=MatchLowercase,
-  Script=Greek
-]
+\input{setup/references}
 
-\usepackage{geometry}
-\geometry{
-  hcentering,
-  letterpaper,
-  textwidth=5.5in,
-  includehead,
-  headheight=14pt,
-}
+\input{setup/notation}
 
-\addtolength{\abovedisplayskip}{2pt}
-\addtolength{\belowdisplayskip}{2pt}
-\addtolength{\abovedisplayshortskip}{2pt}
-\addtolength{\belowdisplayshortskip}{2pt}
+\input{setup/notes}
 
-\setlength{\jot}{5pt}
+\input{setup/versioning}
 
-\AddToHook{cmd/chapter/after}{\thispagestyle{chapteropening}}
+\input{setup/names}
 
-\usepackage{fancyhdr}
-
-\fancyhf{}
-\fancyhead[LE,RO]{\headerfont\thepage}
-\fancyhead[RE]{\headerfont\scshape\lsstyle\nouppercase{\leftmark}}
-\fancyhead[LO]{\headerfont\scshape\lsstyle\nouppercase{\rightmark}}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-\pagestyle{fancy}
-
-\fancypagestyle{plain}{%
-  \fancyhf{}
-  \fancyhead[LE,RO]{\headerfont\itshape\thepage}
-  \fancyhead[RE]{\headerfont\itshape\nouppercase{\leftmark}}
-  \fancyhead[LO]{\headerfont\itshape\nouppercase{\rightmark}}
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}
-}
-
-\fancypagestyle{chapteropening}{
-  \fancyhf{}                % clear all headers and footers
-  \fancyfoot[C]{\thepage}   % page number centered at bottom
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}
-}
-
-\makeatletter
-
-% Based on the default `placement = page` start-code for the
-% `heading/display` template in latex-lab-sec-template.dtx;
-% only `\thispagestyle{plain}` has been changed to `empty`.
-% See: latex-lab-sec-template, §11.6.4 "heading templates code",
-% around the implementation of `placement = page`.
-%
-% Local documentation:
-%   texdoc latex-lab-sec-template
-%
-% Source:
-%   macros/latex-dev/required/latex-lab/latex-lab-sec-template.dtx
-
-\EditInstance{heading}{part}{
-  start-code = {
-    \if@openright
-      \cleardoublepage
-    \else
-      \clearpage
-    \fi
-    \thispagestyle{empty} % We make the page style empty
-    \if@twocolumn
-      \onecolumn
-      \@tempswatrue
-    \else
-      \@tempswafalse
-    \fi
-    \null\vfil
-  },
-  prefix-decls = \partdisplayfont\mdseries\itshape,
-  number-decls = \partdisplayfont\mdseries\itshape,
-  title-decls  = \partdisplayfont\mdseries\upshape\Huge\lsstyle\scshape
-}
-
-\makeatother
-
-\EditInstance{heading}{chapter}{
-  after-penalty-vspace = .1\textheight,
-  after-vspace         = .2\textheight,
-  heading-decls        = \normalfont\raggedright\Large\lsstyle\scshape,
-  number-decls         = , 
-  title-decls          = \normalfont\Huge\bfseries
-}
-
-\NewDocumentCommand{\italicsection}{m}{%
-  \ParseLaTeXeHeading{section}
-    {\BooleanTrue}
-    {heading-decls={\normalfont\Large\mdseries\itshape}}
-    {#1}%
-}
-
-\NewDocumentCommand{\italicsubsection}{m}{%
-  \ParseLaTeXeHeading{subsection}
-    {\BooleanTrue}
-    {heading-decls={\normalfont\large\mdseries\itshape}}
-    {#1}%
-}
-
-\usepackage{calc}
-\usepackage{totcount}
-\usepackage{enumext}
-\renewcommand{\labelenumi}{\textup{(\roman{enumi})}}
-\renewcommand{\labelenumii}{\textup{(\alph{enumii})}}
-\renewcommand{\labelenumiii}{\textup{\arabic{enumiii}.}}
-
-\renewcommand{\theenumi}{\roman{enumi}}
-\renewcommand{\theenumii}{\alph{enumii}}
-\renewcommand{\theenumiii}{\arabic{enumiii}}
-
-\newcommand{\TwoDigits}[1]{\ifnum#1<10 0\fi\number#1}
-
-\newcommand{\TodayYYMMDD}{%
-  \TwoDigits{\numexpr\year-2000\relax}%
-  \TwoDigits{\month}%
-  \TwoDigits{\day}%
-}
-
-\newcommand{\Version}[1]{Version #1.\TodayYYMMDD~~~~\VersionFontName}
-
-\newenvironment{nobreakenumerate}
-{
-    \par
-    \addvspace{\topsep}
-    \noindent
-    \begin{minipage}{\linewidth}
-    \begin{enumerate}
-}
-{
-    \end{enumerate}
-    \end{minipage}
-    \par
-    \addvspace{\topsep}
-}
-  
-\usepackage{array}
-\usepackage{booktabs}
-%\usepackage{stfloats}
-
-\input{setup/caption}
-
-\usepackage{float}
-
-\setcounter{topnumber}{1}
-\setcounter{bottomnumber}{1}
-\setcounter{totalnumber}{1}
-
-\usepackage{graphicx}
-\usepackage[dvipsnames]{xcolor}
-\definecolor{CornflowerBlueHighContrast}{HTML}{007ACD}
-\definecolor{grayblue}{HTML}{0047AB}
-\usepackage{tikz}
-\usetikzlibrary{
-  angles,
-  arrows.meta,
-  babel,
-  backgrounds,
-  calc,
-  decorations.markings,
-  decorations.pathreplacing,
-  decorations.pathmorphing,
-  hobby,
-  intersections,
-  quotes,
-  shapes.geometric,
-  trees}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
-\tikzset{every picture/.append style={line cap=round, line join=round}}
-
-\pgfplotsset{
-  lectureplot/.style={
-    width=12cm, height=8cm,
-    axis lines=middle,
-    axis line style={-stealth},
-    tick style={draw=none},
-    xlabel={$x$}, ylabel={$y$},
-    xmin=0, xmax=1e6,
-    ymin=0, ymax=8.5e4,
-    clip=false,
-    legend style={
-      draw=none,                               
-      fill=none,
-      font=\footnotesize,
-      at={(0.05,0.95)},                        
-      anchor=north west,
-      /tikz/every even column/.append style={column sep=1em}
-    },
-    legend cell align=left
-  }
-}
-
-\newcommand{\arrowpairsep}{4pt}
-\newcommand{\arrowpairshortentip}{4mm}
-\newcommand{\arrowpairshortenbutt}{5mm}
-\newcommand{\arrowpairmaskwidth}{3pt}
-
-\newcommand{\arrowpairover}[2]{%
-  \path let
-    \p1=(#1.center),
-    \p2=(#2.center),
-    \n1={atan2(\y2-\y1,\x2-\x1)}
-  in
-  \pgfextra{%
-    \foreach \shift/\direction/\shortenstart/\shortenend in {
-      90/{|->}/4mm/4mm,
-      -90/{<-|}/4mm/4.5mm
-    } {%
-      \begin{scope}[
-        transform canvas={
-          shift={({\n1+\shift}:\arrowpairsep)}
-        }
-      ]
-        \draw[
-          white,
-          line width=\arrowpairmaskwidth,
-          bend left=10,
-          shorten <=\shortenstart,
-          shorten >=\shortenend
-        ]
-          (#1.center) to (#2.center);
-        \draw[
-          \direction,
-          thick,
-          bend left=10,
-          shorten <=\shortenstart,
-          shorten >=\shortenend
-        ]
-          (#1.center) to (#2.center);
-      \end{scope}
-    }%
-  };
-}
-
-\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
-\addbibresource{references.bib}
-
-\setcounter{biburlnumpenalty}{7000}
-\setcounter{biburllcpenalty}{7000}
-\setcounter{biburlucpenalty}{7000}
-\appto{\bibsetup}{\emergencystretch=3em}
-
-\DeclareLabelalphaTemplate{%
-  \labelelement{%
-    \field[final]{shorthand}%
-    \field{label}%
-    \field[strwidth=3,strside=left,ifnames=1]{labelname}%
-    \field[strwidth=1,strside=left]{labelname}%
-  }%
-  \labelelement{%
-    \field{year}%
-  }%
-}
-
-\DeclareFieldFormat{labelalpha}{\textsc{\lsstyle #1}}
-
-\renewcommand{\mkbibnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
-
-\DeclareFieldFormat{journaltitle}{#1}
-\DeclareFieldFormat{issuetitle}{#1}
-\DeclareFieldFormat{edition}{#1\isdot~\bibstring{edition}}
-% \DeclareFieldFormat{isbn}{\textsf{\textsc{isbn}}\addcolon\space #1}
-% \DeclareFieldFormat{issn}{\textsf{\textsc{issn}}\addcolon\space #1}
-% \DeclareFieldFormat{doi}{%
-%   \textsf{\textsc{doi}}\addcolon\space
-%   \ifhyperref
-%     {\href{https://doi.org/#1}{\nolinkurl{#1}}}
-%     {\nolinkurl{#1}}}
-% \DeclareFieldFormat{url}{%
-%   \textsf{\textsc{url}}\addcolon\space
-%   \ifhyperref
-%     {\href{#1}{\nolinkurl{#1}}}
-%     {\nolinkurl{#1}}}
-\DeclareFieldFormat{eprint:arxiv}{%
-  \textsc{arXiv}\addcolon\space
-  \ifhyperref{\href{https://arxiv.org/abs/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
-  \iffieldundef{eprintclass}{}{\addspace\mkbibbrackets{\thefield{eprintclass}}}}
-
-\DeclareFieldFormat
-  [article,inbook,incollection,inproceedings,misc,unpublished]
-  {title}{\mkbibemph{#1}}
-
-\setlength{\bibitemsep}{0.5\baselineskip}
-\setlength{\bibhang}{1.5em}
-
-\usepackage{amsmath}
-\usepackage{amsthm}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}{Conjecture}
-\newtheorem{problem}[conjecture]{Problem}
-
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-
-\usepackage{xurl}
-
-% \usepackage{hyperref}
-% \hypersetup{
-%   hidelinks,
-%   pdftitle          = {The Great Story of Numbers},
-%   pdfauthor         = {Egbert Rijke},
-%   pdfsubject        = {Number Theory Course Notes},
-%   pdfdisplaydoctitle = true,
-% }
-
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linktoc=all,
-  allcolors=CornflowerBlue,
-%  hypertexnames=false,
-  pdftitle    = {The Great Story of Numbers},
-  % Elementary Number Theory
-  % Number Theory: A Narrative
-  % Number Theory For All
-  % The Great Story of Numbers
-  pdfauthor   = {Egbert Rijke},
-  pdfsubject  = {Course Notes},
-  pdfkeywords = {number theory, introduction to number theory, introduction to proof,history of number theory, Euclid, Fibonacci, Fermat, Euler, Gauss, mathematical induction, Euclidean algorithm, modular arithmetic, Pythagorean triples, infinite descent, prime numbers, multiplicative functions, strong divisibility sequences, Fermat's little theorem, Fermat's two-squares theorem, polynomials, cyclotomic polynomials, Zsigmondy's theorem, Vantieghem's theorem, quadratic residues, quadratic reciprocity, quadratic fields},
-}
-
-\usepackage{zref-titleref}
-\usepackage{zref-clever}
-
-\zcsetup{
-  cap,
-  noabbrev,
-  nameinlink,
-}
-
-\makeatletter
-\ExplSyntaxOn
-
-\AddToHook{cmd/ParseLaTeXeTheoremlike/after}
-  {
-    \tl_if_novalue:oTF \l__block_note_tl
-      { }
-      {
-        \exp_args:NV
-          \zref@titleref@setcurrent
-          \l__block_note_tl
-      }
-  }
-
-\ExplSyntaxOff
-\makeatother
-
-\newcommand{\zcrefnamed}[1]{\zcref{#1}\space(\ztitleref{#1})}
-
-\zcRefTypeSetup{enumXi}{Name-sg = Exercise, Name-pl = Exercises}
-\zcRefTypeSetup{enumXii}{Name-sg = Exercise, Name-pl = Exercises}
-
-\newtotcounter{exercisecounter}
-\AtEndDocument{%
-  \typeout{Total number of exercises: \number\value{exercisecounter}}%
-}
-
-\newcounter{currentchaptex}
-
-\newcommand{\exercises}{%
-  \par\clearpage%
-  \phantomsection%
-  \section*{Exercises}%
-  \addcontentsline{toc}{section}{Exercises}%
-  \markboth{\leftmark}{\MakeUppercase{Exercises}}%
-  \setcounter{currentchaptex}{0}
-}
-
-\newcommand{\exercise}{\stepcounter{exercisecounter}\item}
-
-\newenvironment{exenum}
-{\begin{enumext}[
-    label=\thechapter.\arabic*,
-    ref=\thechapter.\arabic*,
-    widest=99,
-    labelsep=.6em,
-    noitemsep]}
-{\end{enumext}}
-
-\newenvironment{subexenum}
-{\begin{enumext}[
-    label=(\alph*),
-    ref=\thechapter.\arabic{enumXi}(\alph*),
-    noitemsep]}
-{\end{enumext}}
-
-\newenvironment{starter}
-{%
-  \italicsubsection{Starter Exercises}%
-  \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
-  \end{exenum}
-}
-
-\newenvironment{foundational}
-{%
-  \italicsubsection{Foundational Exercises}%
-  \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
-  \end{exenum}
-}
-
-\newenvironment{routine}
-{%
-  \italicsubsection{Routine-Building Exercises}%
-  \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
-  \end{exenum}
-}
-
-\newenvironment{challenge}
-{%
-  \italicsubsection{Challenge Exercises}%
-  \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
-  \end{exenum}
-}
-  
-\newcommand\objectives{\italicsubsection{Learning Objectives}}
-
-\newcommand{\define}[1]{\textbf{\textcolor{CornflowerBlue}{#1}}}
-
-\ExplSyntaxOn
-\NewDocumentCommand{\DeclareSemanticSymbol}{mm}
-{
-  \tag_if_active:TF
-  {
-    \tag_mc_begin:n { tag=Span, actualtext = #2 }
-    #1
-    \tag_mc_end:
-  }
-  {
-    #1
-  }
-}
-\ExplSyntaxOff
-
-\newlength{\casesleftsep}
-\newlength{\casescolsep}
-
-\setlength{\casesleftsep}{0.2em} % distance from brace to first column
-\setlength{\casescolsep}{1.2em}   % distance between the two columns
-
-\renewenvironment{cases}
-  {\left\{\,
-   \begin{array}{
-     @{\hspace{\casesleftsep}} l
-     @{\hspace{\casescolsep}} l
-     @{}
-   }}
-  {\end{array}\right.}
-
-\newcommand{\Sierpinski}{Sierpiński}
-\newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
-\renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
-\DeclareMathOperator{\ord}{ord}
-\DeclareMathOperator{\ind}{ind}
-\DeclareMathOperator*{\lcm}{lcm}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\rad}{rad}
-\DeclarePairedDelimiter{\legendredelim}{(}{)}
-\newcommand{\legendre}[2]{%
-  \DeclareSemanticSymbol{%
-    \legendredelim*{\genfrac{}{}{}{}{#1}{#2}}%
-  }{the Legendre symbol of #1 over #2}%
-}
-\newcommand{\abssep}{\mkern2mu}
-\DeclarePairedDelimiterX{\abs}[1]{\lvert}{\rvert}{\abssep #1\abssep}
-\newcommand{\lres}[2]{%
-  \DeclareSemanticSymbol{%
-    \lfloor #1 \rceil_{#2}%
-  }{the least absolute residue of #1 modulo #2}%
-}
-\newcommand{\abslres}[2]{%
-  \DeclareSemanticSymbol{%
-    \ensuremath{|\mkern-3mu \lfloor #1 \rceil\mkern-3mu |_{#2}}
-}{the absolute value of the least absolute residue of #1 modulo #2}}
-\newcommand{\complementsubset}[1]{%
-  \DeclareSemanticSymbol{#1^{\mathrm{c}}}{the complement of #1}}
-\newcommand{\Oh}{\DeclareSemanticSymbol{\mathord{O}}{big Oh}}
-\newcommand{\oh}{\DeclareSemanticSymbol{\mathord{o}}{little Oh}}
-\newcommand{\blank}{\DeclareSemanticSymbol{\mathord{\hspace{1pt}\text{--}\hspace{1pt}}}{blank}}
-\newcommand{\apart}{\DeclareSemanticSymbol{\mathbin{\#}}{is apart from}}
-\DeclareMathOperator{\numerator}{num}
-\DeclareMathOperator{\denominator}{denom}
-\setmathfont[range=\triangledown]{STIX Two Math}
-\newcommand{\mediant}{\DeclareSemanticSymbol{\mathbin{\triangledown}}{mediant}}
-\newcommand{\bimapsto}{%
-  \DeclareSemanticSymbol{%
-    \mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}
-  }{maps to and comes from}
-}
-\newcommand{\content}{\DeclareSemanticSymbol{\mathrm{cont}}{the content of}}
-\newcommand{\floorfrac}[2]{\DeclareSemanticSymbol{\left\lfloor\frac{#1}{#2}\right\rfloor}{the largest integer less than or equal to}}
-\newcommand{\totient}{\DeclareSemanticSymbol{\phi}{totient}}
-\newcommand{\im}{\mathrm{im}}
-
-\newif\ifshownotes
-% \shownotestrue
-\shownotesfalse
-
-\usepackage{environ}
-\NewEnviron{noteblock}{%
-  \ifshownotes
-    \begingroup\color{black!60}\BODY\endgroup
-  \fi
-}
-
-\newcommand{\note}[1]{%
-  \ifshownotes
-    \begingroup\color{black!60}#1\endgroup
-  \fi
-}
-
-\hyphenation{Py-tha-gorean}
-\hyphenation{you-tube}
-
-\newcommand{\superhuge}{\fontsize{30}{36}\selectfont}
-
-\definecolor{JHUBlue}{HTML}{002D72}
-\definecolor{JHUSpiritBlue}{HTML}{68ACE5}
-
-\ExplSyntaxOn
-
-\NewDocumentCommand \ShowTagParaBalance { m }
-  {
-    \iow_term:x
-      {
-        TAGPARA~#1:~
-        outer~
-        \int_use:N \g__tag_para_begin_int /
-        \int_use:N \g__tag_para_end_int;~
-        inner~
-        \int_use:N \g__tag_para_main_begin_int /
-        \int_use:N \g__tag_para_main_end_int
-      }
-  }
-
-\ExplSyntaxOff
+\input{setup/tagging}
 
 \begin{document}
 
-%\input{titlepage}
+%\input{src/titlepage}
 
 %\cleardoublepage
 
-%\input{cover-text}
+%\input{src/cover-text}
 
 %\cleardoublepage
 
-%\input{lilavati}
+%\input{src/lilavati}
 
 %\cleardoublepage
 
@@ -693,97 +82,97 @@
 
 \listoftables
 
-\input{introduction}
+\input{src/introduction}
 
 \mainmatter
 
 \part{The Nature of Numbers}
 
-\input{nature-of-numbers}
+\input{src/nature-of-numbers}
 
-\input{mathematical-induction}
+\input{src/mathematical-induction}
 
-\input{counting}
+\input{src/counting}
 
-\input{integers}
+\input{src/integers}
 
-\input{euclidean-division}
+\input{src/euclidean-division}
 
-\input{divisibility}
+\input{src/divisibility}
 
-\input{linear-diophantine-equations}
+\input{src/linear-diophantine-equations}
 
-\input{congruences}
+\input{src/congruences}
 
-\input{systems-of-linear-congruences}
+\input{src/systems-of-linear-congruences}
 
-\input{rational-numbers}
+\input{src/rational-numbers}
 
-\input{pythagorean-triples}
+\input{src/pythagorean-triples}
 
-\input{infinite-descent}
+\input{src/infinite-descent}
 
 %\part{The Multiplicative Nature of Numbers}
 
-%\input{prime-numbers}
+%\input{src/prime-numbers}
 
-%\input{multiplicative-functions}
+%\input{src/multiplicative-functions}
 
-%\input{strong-divisibility-sequences}
+%\input{src/strong-divisibility-sequences}
 
-%\note{\input{cyclic-counting}}
+%\note{\input{src/cyclic-counting}}
 
-%\input{fermats-little-theorem}
+%\input{src/fermats-little-theorem}
 
-%\input{sums-of-squares}
+%\input{src/sums-of-squares}
 
-%\input{gaussian-integers}
+%\input{src/gaussian-integers}
 
-%\input{polynomials}
+%\input{src/polynomials}
 
-%\input{primitive-roots}
+%\input{src/primitive-roots}
 
-%\input{moduli-with-primitive-roots}
+%\input{src/moduli-with-primitive-roots}
 
-%\input{polynomial-congruences}
+%\input{src/polynomial-congruences}
 
-%\input{irreducible-polynomials}
+%\input{src/irreducible-polynomials}
 
-%\input{cyclotomic-polynomials}
+%\input{src/cyclotomic-polynomials}
 
-%\note{\input{aurifeuillean-factorizations}}
+%\note{\input{src/aurifeuillean-factorizations}}
 
 %\part{The Arithmetic of Quadratic Forms}
 
-%\input{quadratic-residues}
+%\input{src/quadratic-residues}
 
-%\note{\input{permutations}}
+%\note{\input{src/permutations}}
 
-%\note{\input{quadratic-characters}}
+%\note{\input{src/quadratic-characters}}
 
-%\input{quadratic-reciprocity}
+%\input{src/quadratic-reciprocity}
 
-%\note{\input{jacobi-symbols}}
+%\note{\input{src/jacobi-symbols}}
 
-%\input{primality-testing}
+%\input{src/primality-testing}
 
-%\note{\input{pells-equation}}
+%\note{\input{src/pells-equation}}
 
-%\note{\input{binary-quadratic-forms}}
+%\note{\input{src/binary-quadratic-forms}}
 
-%\note{\input{quadratic-fields}}
+%\note{\input{src/quadratic-fields}}
 
-%\note{\input{conics}}
+%\note{\input{src/conics}}
 
-%\note{\input{polygonal-numbers}}
+%\note{\input{src/polygonal-numbers}}
 
 %% \part{Multiplicative Number Theory}
 
-%% \input{dirichlet-series}
+%% \input{src/dirichlet-series}
 
-%% \input{distribution-of-primes}
+%% \input{src/distribution-of-primes}
 
-%% \input{prime-partition-function}
+%% \input{src/prime-partition-function}
 
 %% % \part{Additive Number Theory}
 %% % \part{Algebraic Number Theory}
@@ -800,23 +189,23 @@
 
 %% \part{Topics}
 
-%% \input{symmetric-counting}
+%% \input{src/symmetric-counting}
 
-%% \input{real-numbers}
+%% \input{src/real-numbers}
 
-%% \input{geometric-number-theory}
+%% \input{src/geometric-number-theory}
 
-%% \input{fermats-last-theorem}
+%% \input{src/fermats-last-theorem}
 
-%% \input{bernoulli-numbers}
+%% \input{src/bernoulli-numbers}
 
-%% \input{origami}
+%% \input{src/origami}
 
-%% \input{miscellaneous}
+%% \input{src/miscellaneous}
 
 %\appendix
 
-%\input{open-problems}
+%\input{src/open-problems}
 
 \backmatter
 
@@ -830,5 +219,7 @@
 \end{document}
 
 %%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
 %%% TeX-engine: luatex
 %%% End:

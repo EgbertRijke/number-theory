@@ -1,0 +1,97 @@
+\ExplSyntaxOn
+\NewDocumentCommand{\DeclareSemanticSymbol}{mm}
+{
+  \tag_if_active:TF
+  {
+    \tag_mc_begin:n { tag=Span, actualtext = #2 }
+    #1
+    \tag_mc_end:
+  }
+  {
+    #1
+  }
+}
+\ExplSyntaxOff
+
+\ExplSyntaxOn
+
+\NewDocumentCommand \dotsofwidth { m }
+  {
+    \hbox_set:Nn \l_tmpa_box { $#1$ }
+    \mathrel
+      {
+        \hbox_to_wd:nn { \box_wd:N \l_tmpa_box }
+          { \hfil $\vdots$ \hfil }
+      }
+  }
+
+\ExplSyntaxOff
+
+\newcommand{\rpermutation}[2]{{}_{#1}P_{#2}}
+
+\renewcommand{\pmod}[1]{\mkern5mu\left(\operatorname{mod} \mkern 6mu #1\right)}
+
+\DeclareMathOperator{\ord}{ord}
+
+\DeclareMathOperator{\ind}{ind}
+
+\DeclareMathOperator*{\lcm}{lcm}
+
+\DeclareMathOperator{\sgn}{sgn}
+
+\DeclareMathOperator{\rad}{rad}
+
+\DeclarePairedDelimiter{\legendredelim}{(}{)}
+
+\newcommand{\legendre}[2]{%
+  \DeclareSemanticSymbol{%
+    \legendredelim*{\genfrac{}{}{}{}{#1}{#2}}%
+  }{the Legendre symbol of #1 over #2}%
+}
+
+\newcommand{\abssep}{\mkern2mu}
+\DeclarePairedDelimiterX{\abs}[1]{\lvert}{\rvert}{\abssep #1\abssep}
+
+\newcommand{\lres}[2]{%
+  \DeclareSemanticSymbol{%
+    \lfloor #1 \rceil_{#2}%
+  }{the least absolute residue of #1 modulo #2}%
+}
+
+\newcommand{\abslres}[2]{%
+  \DeclareSemanticSymbol{%
+    \ensuremath{|\mkern-3mu \lfloor #1 \rceil\mkern-3mu |_{#2}}
+}{the absolute value of the least absolute residue of #1 modulo #2}}
+
+\newcommand{\complementsubset}[1]{%
+  \DeclareSemanticSymbol{#1^{\mathrm{c}}}{the complement of #1}}
+
+\newcommand{\Oh}{\DeclareSemanticSymbol{\mathord{O}}{big Oh}}
+
+\newcommand{\oh}{\DeclareSemanticSymbol{\mathord{o}}{little Oh}}
+
+\newcommand{\blank}{\DeclareSemanticSymbol{\mathord{\hspace{1pt}\text{--}\hspace{1pt}}}{blank}}
+
+\newcommand{\apart}{\DeclareSemanticSymbol{\mathbin{\#}}{is apart from}}
+
+\DeclareMathOperator{\numerator}{num}
+
+\DeclareMathOperator{\denominator}{denom}
+
+\setmathfont[range=\triangledown]{STIX Two Math}
+
+\newcommand{\mediant}{\DeclareSemanticSymbol{\mathbin{\triangledown}}{mediant}}
+
+\newcommand{\bimapsto}{%
+  \DeclareSemanticSymbol{%
+    \mathrel{\vcenter{\offinterlineskip\ialign{##\cr$\mapsfrom$\cr\noalign{\kern0pt}$\mapsto$\cr}}}
+  }{maps to and comes from}
+}
+
+\newcommand{\content}{\DeclareSemanticSymbol{\mathrm{cont}}{the content of}}
+
+\newcommand{\floorfrac}[2]{\DeclareSemanticSymbol{\left\lfloor\frac{#1}{#2}\right\rfloor}{the largest integer less than or equal to}}
+
+\newcommand{\totient}{\DeclareSemanticSymbol{\phi}{totient}}
+
+\newcommand{\im}{\mathrm{im}}

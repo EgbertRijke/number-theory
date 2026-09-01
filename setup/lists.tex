@@ -1,0 +1,24 @@
+\usepackage{enumext}
+
+\renewcommand{\labelenumi}{\textup{(\roman{enumi})}}
+\renewcommand{\labelenumii}{\textup{(\alph{enumii})}}
+\renewcommand{\labelenumiii}{\textup{\arabic{enumiii}.}}
+
+\renewcommand{\theenumi}{\roman{enumi}}
+\renewcommand{\theenumii}{\alph{enumii}}
+\renewcommand{\theenumiii}{\arabic{enumiii}}
+
+\newenvironment{nobreakenumerate}
+{
+    \par
+    \addvspace{\topsep}
+    \noindent
+    \begin{minipage}{\linewidth}
+    \begin{enumerate}
+}
+{
+    \end{enumerate}
+    \end{minipage}
+    \par
+    \addvspace{\topsep}
+}

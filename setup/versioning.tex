@@ -1,0 +1,9 @@
+\newcommand{\TwoDigits}[1]{\ifnum#1<10 0\fi\number#1}
+
+\newcommand{\TodayYYMMDD}{%
+  \TwoDigits{\numexpr\year-2000\relax}%
+  \TwoDigits{\month}%
+  \TwoDigits{\day}%
+}
+
+\newcommand{\Version}[1]{Version #1.\TodayYYMMDD~~~~\VersionFontName}
