@@ -193,6 +193,9 @@ __omnibus:
 	echo "==> Built $$job.pdf"; \
 	if [ "$(OPEN_AFTER)" = 1 ]; then $(OPEN) "$$job.pdf"; fi
 
+# A clean forward-reference build needs every external .aux to exist before
+# latexmk records dependencies.  Full mode therefore bootstraps all missing
+# auxiliaries and forces its first settled sweep; later sweeps are incremental.
 __volume_set:
 	@set -eu; \
 	setup="$(call fontsetup,$(FONT))"; suffix="$(SUFFIX)"; \
@@ -273,7 +276,8 @@ __volume_set:
 		return 1; \
 	}; \
 	build_one() { \
-		n="$$1"; tex="volume-$$n.tex"; job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
+		n="$$1"; force_flag="$${2-}"; \
+		tex="volume-$$n.tex"; job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
 		stamp="$(BUILDDIR)/$$job.build-stamp"; \
 		external="$(BUILDDIR)/$$job.external-aux.sig"; \
 		if [ "$(MODE)" = quick ]; then \
@@ -289,14 +293,27 @@ __volume_set:
 		else \
 			echo "==> Full build: $$job.pdf ($(FONT))"; \
 			NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
-				$(LATEXMK) $(LATEXMKFLAGS) -jobname="$$job" "$$tex"; \
+				$(LATEXMK) $(LATEXMKFLAGS) $$force_flag \
+				-jobname="$$job" "$$tex"; \
 			external_aux_signature > "$$external"; \
 			touch "$$stamp"; \
 		fi; \
 		cmp -s "$(BUILDDIR)/$$job.pdf" "$$job.pdf" || \
 			cp -f "$(BUILDDIR)/$$job.pdf" "$$job.pdf"; \
 	}; \
-	build_sweep() { for n in $$numbers; do build_one "$$n"; done; }; \
+	build_sweep() { \
+		force_flag="$${1-}"; \
+		for n in $$numbers; do build_one "$$n" "$$force_flag"; done; \
+	}; \
+	bootstrap_sweep() { \
+		echo "==> Bootstrapping auxiliary files for all volumes"; \
+		for n in $$numbers; do \
+			tex="volume-$$n.tex"; job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
+			echo "==> Bootstrap pass: $$job.pdf ($(FONT))"; \
+			NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
+				$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
+		done; \
+	}; \
 	volume_signature() { \
 		for n in $$numbers; do \
 			aux="$(BUILDDIR)/$(VOLUME_JOB_PREFIX)$$n$$suffix.aux"; \
@@ -310,11 +327,18 @@ __volume_set:
 	if [ "$(MODE)" = quick ]; then \
 		build_sweep; \
 	else \
+		bootstrap=0; \
+		for n in $$numbers; do \
+			aux="$(BUILDDIR)/$(VOLUME_JOB_PREFIX)$$n$$suffix.aux"; \
+			if [ ! -f "$$aux" ]; then bootstrap=1; break; fi; \
+		done; \
+		if [ "$$bootstrap" -eq 1 ]; then bootstrap_sweep; fi; \
 		previous=$$(volume_signature); \
-		stable=0; sweep=1; \
+		stable=0; sweep=1; force_flag=-g; \
 		while [ "$$sweep" -le "$(MAX_VOLUME_SWEEPS)" ]; do \
 			echo "==> Volume sweep $$sweep/$(MAX_VOLUME_SWEEPS)"; \
-			build_sweep; \
+			build_sweep "$$force_flag"; \
+			force_flag=; \
 			signature=$$(volume_signature); \
 			if [ -n "$$previous" ] && [ "$$signature" = "$$previous" ]; then \
 				stable=1; break; \
