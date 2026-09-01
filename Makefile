@@ -2,6 +2,7 @@ SHELL := /bin/sh
 
 OMNIBUS_TEX := number-theory.tex
 OMNIBUS_JOB := $(basename $(notdir $(OMNIBUS_TEX)))
+VOLUME_JOB_PREFIX := number-theory-volume-
 BUILDDIR := build
 
 DEFAULT_FONT := libertinus
@@ -15,11 +16,13 @@ OPEN ?= open
 ARCHIVE ?= $(OMNIBUS_JOB)-source.zip
 ARCHIVE_REF ?= HEAD
 MAX_VOLUME_SWEEPS ?= 5
+MAKEFILE_SELF := $(firstword $(MAKEFILE_LIST))
 
 LATEXFLAGS := \
 	-interaction=nonstopmode \
 	-halt-on-error \
 	-file-line-error \
+	-recorder \
 	-synctex=1 \
 	-output-directory=$(BUILDDIR)
 
@@ -216,31 +219,103 @@ __volume_set:
 		numbers="$$numbers $$n"; n=$$((n + 1)); \
 	done; \
 	mkdir -p "$(BUILDDIR)"; \
+	external_aux_signature() { \
+		for dep_tex in volume-[0-9]*.tex; do \
+			[ -e "$$dep_tex" ] || continue; \
+			dep_n=$${dep_tex#volume-}; dep_n=$${dep_n%.tex}; \
+			case "$$dep_n" in ''|*[!0-9]*) continue ;; esac; \
+			dep_aux="$(BUILDDIR)/$(VOLUME_JOB_PREFIX)$$dep_n$$suffix.aux"; \
+			[ -f "$$dep_aux" ] && cksum "$$dep_aux"; \
+		done | cksum | awk '{ print $$1 ":" $$2 }'; \
+	}; \
+	needs_rebuild() { \
+		check_job="$$1"; \
+		check_stamp="$(BUILDDIR)/$$check_job.build-stamp"; \
+		check_fls="$(BUILDDIR)/$$check_job.fls"; \
+		check_external="$(BUILDDIR)/$$check_job.external-aux.sig"; \
+		stale_reason=; \
+		for required in \
+			"$(BUILDDIR)/$$check_job.pdf" \
+			"$(BUILDDIR)/$$check_job.aux" \
+			"$$check_fls" \
+			"$$check_external" \
+			"$$check_stamp"; do \
+			if [ ! -f "$$required" ]; then \
+				stale_reason="missing $$required"; return 0; \
+			fi; \
+		done; \
+		if [ "$(MAKEFILE_SELF)" -nt "$$check_stamp" ]; then \
+			stale_reason="$(MAKEFILE_SELF) changed"; return 0; \
+		fi; \
+		if [ "$$setup" -nt "$$check_stamp" ]; then \
+			stale_reason="$$setup changed"; return 0; \
+		fi; \
+		current_external=$$(external_aux_signature); \
+		saved_external=$$(sed -n '1p' "$$check_external"); \
+		if [ "$$current_external" != "$$saved_external" ]; then \
+			stale_reason="cross-volume auxiliary data changed"; return 0; \
+		fi; \
+		while IFS= read -r record; do \
+			case "$$record" in \
+				INPUT\ *) \
+					input=$${record#INPUT }; \
+					case "$$input" in \
+						*"$(VOLUME_JOB_PREFIX)"[0-9]*.aux) continue ;; \
+					esac; \
+					if [ ! -e "$$input" ]; then \
+						stale_reason="recorded input disappeared: $$input"; return 0; \
+					fi; \
+					if [ "$$input" -nt "$$check_stamp" ]; then \
+						stale_reason="newer input: $$input"; return 0; \
+					fi ;; \
+			esac; \
+		done < "$$check_fls"; \
+		return 1; \
+	}; \
 	build_one() { \
-		n="$$1"; tex="volume-$$n.tex"; job="volume-$$n$$suffix"; \
+		n="$$1"; tex="volume-$$n.tex"; job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
+		stamp="$(BUILDDIR)/$$job.build-stamp"; \
+		external="$(BUILDDIR)/$$job.external-aux.sig"; \
 		if [ "$(MODE)" = quick ]; then \
-			echo "==> Quick build: $$job.pdf ($(FONT))"; \
-			NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
-				$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
+			if needs_rebuild "$$job"; then \
+				echo "==> Quick build: $$job.pdf ($(FONT); $$stale_reason)"; \
+				NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
+					$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
+				external_aux_signature > "$$external"; \
+				touch "$$stamp"; \
+			else \
+				echo "==> Up to date: $$job.pdf ($(FONT))"; \
+			fi; \
 		else \
 			echo "==> Full build: $$job.pdf ($(FONT))"; \
 			NT_FONT_SETUP="$$setup" NT_VOLUME_SUFFIX="$$suffix" \
 				$(LATEXMK) $(LATEXMKFLAGS) -jobname="$$job" "$$tex"; \
+			external_aux_signature > "$$external"; \
+			touch "$$stamp"; \
 		fi; \
 		cmp -s "$(BUILDDIR)/$$job.pdf" "$$job.pdf" || \
 			cp -f "$(BUILDDIR)/$$job.pdf" "$$job.pdf"; \
 	}; \
 	build_sweep() { for n in $$numbers; do build_one "$$n"; done; }; \
+	volume_signature() { \
+		for n in $$numbers; do \
+			aux="$(BUILDDIR)/$(VOLUME_JOB_PREFIX)$$n$$suffix.aux"; \
+			if [ -f "$$aux" ]; then \
+				cksum "$$aux"; \
+			else \
+				printf 'MISSING %s\n' "$$aux"; \
+			fi; \
+		done | cksum | awk '{ print $$1 ":" $$2 }'; \
+	}; \
 	if [ "$(MODE)" = quick ]; then \
 		build_sweep; \
 	else \
-		previous=; stable=0; sweep=1; \
+		previous=$$(volume_signature); \
+		stable=0; sweep=1; \
 		while [ "$$sweep" -le "$(MAX_VOLUME_SWEEPS)" ]; do \
 			echo "==> Volume sweep $$sweep/$(MAX_VOLUME_SWEEPS)"; \
 			build_sweep; \
-			signature=$$(for n in $$numbers; do \
-				cksum "$(BUILDDIR)/volume-$$n$$suffix.aux"; \
-			done | cksum | awk '{ print $$1 ":" $$2 }'); \
+			signature=$$(volume_signature); \
 			if [ -n "$$previous" ] && [ "$$signature" = "$$previous" ]; then \
 				stable=1; break; \
 			fi; \
@@ -252,7 +327,9 @@ __volume_set:
 		fi; \
 	fi; \
 	echo "==> Built volumes 1--$$max ($(FONT), $(MODE))"; \
-	if [ "$(OPEN_AFTER)" = 1 ]; then $(OPEN) "volume-$$max$$suffix.pdf"; fi
+	if [ "$(OPEN_AFTER)" = 1 ]; then \
+		$(OPEN) "$(VOLUME_JOB_PREFIX)$$max$$suffix.pdf"; \
+	fi
 
 __fonts:
 	@set -eu; \
@@ -322,6 +399,8 @@ __clean:
 __distclean: __clean
 	@echo "==> Removing generated PDFs and the default source archive"
 	@rm -f "$(OMNIBUS_JOB).pdf" "$(OMNIBUS_JOB)-"*.pdf \
+		"$(VOLUME_JOB_PREFIX)"[0-9]*.pdf \
+		"$(VOLUME_JOB_PREFIX)"[0-9]*-*.pdf \
 		volume-[0-9]*.pdf volume-[0-9]*-*.pdf "$(ARCHIVE)"
 
 __help:
