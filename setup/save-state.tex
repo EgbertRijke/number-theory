@@ -1,5 +1,45 @@
 \makeatletter
 
+% Keep each explicit font build in its own auxiliary namespace.  The Makefile
+% supplies either an empty suffix or a validated value such as -alegreya.
+\directlua{
+  local suffix = os.getenv("NT_VOLUME_SUFFIX") or ""
+  local valid = suffix == "" or suffix:sub(1, 1) == "-"
+  for i = 1, suffix:len() do
+    local byte = suffix:byte(i)
+    valid = valid and (
+      byte == 45
+      or (byte >= 48 and byte <= 57)
+      or (byte >= 65 and byte <= 90)
+      or (byte >= 97 and byte <= 122)
+    )
+  end
+  if valid == false then
+    tex.error("Invalid NT_VOLUME_SUFFIX", {suffix})
+  end
+  token.set_macro("NTVolumeSuffix", suffix, "global")
+}
+
+\NewExpandableDocumentCommand{\VolumeAuxPath}{m}{%
+  build/volume-#1\NTVolumeSuffix
+}
+
+\NewExpandableDocumentCommand{\VolumePdfPath}{m}{%
+  volume-#1\NTVolumeSuffix.pdf
+}
+
+% Expand the suffix before zref stores the external auxiliary and PDF names.
+\NewDocumentCommand{\ExternalVolume}{m}{%
+  \begingroup
+  \edef\next{%
+    \endgroup
+    \noexpand\zexternaldocument
+      {\VolumeAuxPath{#1}}%
+      [\VolumePdfPath{#1}]%
+  }%
+  \next
+}
+
 \zref@newprop{volchapter}[0]{\number\value{chapter}}
 \zref@newprop{volnextpage}[1]{\number\value{page}}
 

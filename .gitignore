@@ -51,6 +51,7 @@
 .DS_Store
 
 build/
+/number-theory-source.zip
 
 auto/
 */auto/
