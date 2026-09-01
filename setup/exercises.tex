@@ -5,75 +5,66 @@
   \typeout{Total number of exercises: \number\value{exercisecounter}}%
 }
 
-\newcounter{currentchaptex}
+\resetenumext[1]{chapter}
 
-\newcommand{\exercises}{%
+\NewDocumentCommand{\exercises}{}{%
   \par\clearpage%
   \phantomsection%
   \section*{Exercises}%
   \addcontentsline{toc}{section}{Exercises}%
-  \markboth{\leftmark}{\MakeUppercase{Exercises}}%
-  \setcounter{currentchaptex}{0}
+  \markright{Exercises}%
 }
 
-\newcommand{\exercise}{\stepcounter{exercisecounter}\item}
+\NewDocumentCommand{\exercise}{}{%
+  \stepcounter{exercisecounter}%
+  \item
+}
 
-\newenvironment{exenum}
-{\begin{enumext}[
+\NewDocumentEnvironment{exenum}{}{%
+  \begin{enumext}[
+    resume,
     label=\thechapter.\arabic*,
     ref=\thechapter.\arabic*,
     widest=99,
     labelsep=.6em,
-    noitemsep]}
-{\end{enumext}}
+    noitemsep]
+}{%
+  \end{enumext}
+}
 
-\newenvironment{subexenum}
-{\begin{enumext}[
+\NewDocumentEnvironment{subexenum}{}{%
+  \begin{enumext}[
     label=(\alph*),
     ref=\thechapter.\arabic{enumXi}(\alph*),
-    noitemsep]}
-{\end{enumext}}
+    noitemsep]
+}{%
+  \end{enumext}
+}
 
-\newenvironment{starter}
-{%
+\NewDocumentEnvironment{starter}{}{%
   \italicsubsection{Starter Exercises}%
   \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
+}{%
   \end{exenum}
 }
 
-\newenvironment{foundational}
-{%
+\NewDocumentEnvironment{foundational}{}{%
   \italicsubsection{Foundational Exercises}%
   \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
+}{%
   \end{exenum}
 }
 
-\newenvironment{routine}
-{%
+\NewDocumentEnvironment{routine}{}{%
   \italicsubsection{Routine-Building Exercises}%
   \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
+}{%
   \end{exenum}
 }
 
-\newenvironment{challenge}
-{%
+\NewDocumentEnvironment{challenge}{}{%
   \italicsubsection{Challenge Exercises}%
   \begin{exenum}
-  \setcounter{enumXi}{\value{currentchaptex}}
-}
-{%
-  \setcounter{currentchaptex}{\value{enumXi}}
+}{%
   \end{exenum}
 }
