@@ -1,0 +1,69 @@
+\DocumentMetadata{
+  lang          = en-US,
+  pdfversion    = 2.0,
+  pdfstandard   = {ua-2,a-4f},
+  tagging       = on,
+  tagging-setup =
+    { math/setup=mathml-SE,
+      extra-modules={verbatim-mo}}
+}
+
+\documentclass[
+  11pt,
+  letterpaper,
+  twoside,
+  openright
+]{book}
+
+\title{Book I of The Great Story of Numbers: The Nature of Numbers}
+\author{Egbert Rijke}
+
+\input{setup/preamble}
+
+\input{setup/save-state}
+
+\hypersetup{
+  pdftitle = {
+    Book I of The Great Story of Numbers: The Nature of Numbers
+  }
+}
+
+\zexternaldocument
+  {build/volume-2}
+  [volume-2.pdf]
+
+\zexternaldocument
+  {build/volume-3}
+  [volume-3.pdf]
+
+\begin{document}
+
+\hypersetup{pageanchor=true}
+\pagestyle{fancy}
+
+\frontmatter
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\input{src/introduction}
+
+\mainmatter
+
+\input{src/contents-volume-1}
+
+\SaveVolumeChapterState{volume-1}
+
+\backmatter
+
+\begingroup
+\urlstyle{same}
+\clubpenalty=10000
+\widowpenalty=10000
+\printbibliography[heading=bibintoc,title=References]
+\endgroup
+
+\SaveVolumePageState{volume-1}
+
+\end{document}

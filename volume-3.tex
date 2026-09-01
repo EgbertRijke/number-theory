@@ -1,0 +1,71 @@
+\DocumentMetadata{
+  lang          = en-US,
+  pdfversion    = 2.0,
+  pdfstandard   = {ua-2,a-4f},
+  tagging       = on,
+  tagging-setup =
+    { math/setup=mathml-SE,
+      extra-modules={verbatim-mo}}
+}
+
+\documentclass[
+  11pt,
+  letterpaper,
+  twoside,
+  openright
+]{book}
+
+\title{Book III of The Great Story of Numbers: The Arithmetic of Quadratic Forms}
+\author{Egbert Rijke}
+
+\input{setup/preamble}
+
+\input{setup/save-state}
+
+\hypersetup{
+  pdftitle = {
+    Book III of The Great Story of Numbers: The Arithmetic of Quadratic Forms
+  }
+}
+
+\zexternaldocument
+  {build/volume-1}
+  [volume-1.pdf]
+
+\zexternaldocument
+  {build/volume-2}
+  [volume-2.pdf]
+
+\begin{document}
+
+\hypersetup{pageanchor=true}
+\pagestyle{fancy}
+
+\frontmatter
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\input{src/introduction}
+
+\mainmatter
+
+\ContinueFromVolume{volume-2}
+
+\input{src/contents-volume-3}
+
+\SaveVolumeChapterState{volume-3}
+
+\backmatter
+
+\begingroup
+\urlstyle{same}
+\clubpenalty=10000
+\widowpenalty=10000
+\printbibliography[heading=bibintoc,title=References]
+\endgroup
+
+\SaveVolumePageState{volume-3}
+
+\end{document}

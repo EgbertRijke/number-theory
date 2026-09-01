@@ -1,0 +1,71 @@
+\DocumentMetadata{
+  lang          = en-US,
+  pdfversion    = 2.0,
+  pdfstandard   = {ua-2,a-4f},
+  tagging       = on,
+  tagging-setup =
+    { math/setup=mathml-SE,
+      extra-modules={verbatim-mo}}
+}
+
+\documentclass[
+  11pt,
+  letterpaper,
+  twoside,
+  openright
+]{book}
+
+\title{Book II of The Great Story of Numbers: The Multiplicative Nature of Numbers}
+\author{Egbert Rijke}
+
+\input{setup/preamble}
+
+\input{setup/save-state}
+
+\hypersetup{
+  pdftitle = {
+    Book II of The Great Story of Numbers: The Multiplicative Nature of Numbers
+  }
+}
+
+\zexternaldocument
+  {build/volume-1}
+  [volume-1.pdf]
+
+\zexternaldocument
+  {build/volume-3}
+  [volume-3.pdf]
+
+\begin{document}
+
+\hypersetup{pageanchor=true}
+\pagestyle{fancy}
+
+\frontmatter
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\input{src/introduction}
+
+\mainmatter
+
+\ContinueFromVolume{volume-1}
+
+\input{src/contents-volume-2}
+
+\SaveVolumeChapterState{volume-2}
+
+\backmatter
+
+\begingroup
+\urlstyle{same}
+\clubpenalty=10000
+\widowpenalty=10000
+\printbibliography[heading=bibintoc,title=References]
+\endgroup
+
+\SaveVolumePageState{volume-2}
+
+\end{document}

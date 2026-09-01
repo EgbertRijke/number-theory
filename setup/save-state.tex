@@ -1,0 +1,49 @@
+\makeatletter
+
+\zref@newprop{volchapter}[0]{\number\value{chapter}}
+\zref@newprop{volnextpage}[1]{\number\value{page}}
+
+\NewDocumentCommand{\SaveVolumeChapterState}{m}{%
+  \cleardoublepage
+  \zref@wrapper@immediate{%
+    \zref@labelbyprops
+      {volume-chapter:#1}
+      {volchapter}%
+  }%
+}
+
+\NewDocumentCommand{\SaveVolumePageState}{m}{%
+  \cleardoublepage
+  \zref@wrapper@immediate{%
+    \zref@labelbyprops
+      {volume-page:#1}
+      {volnextpage}%
+  }%
+}
+
+\NewDocumentCommand{\ContinueFromVolume}{m}{%
+  \zref@ifrefundefined{volume-chapter:#1}{%
+    \PackageError{number-theory}
+      {Missing chapter state for #1}
+      {Build the preceding volume first.}%
+  }{}%
+  \zref@ifrefundefined{volume-page:#1}{%
+    \PackageError{number-theory}
+      {Missing page state for #1}
+      {Build the preceding volume first.}%
+  }{}%
+  \setcounter{chapter}{%
+    \zref@extractdefault
+      {volume-chapter:#1}
+      {volchapter}
+      {0}%
+  }%
+  \setcounter{page}{%
+    \zref@extractdefault
+      {volume-page:#1}
+      {volnextpage}
+      {1}%
+  }%
+}
+
+\makeatother
