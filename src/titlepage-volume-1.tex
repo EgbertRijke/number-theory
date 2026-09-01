@@ -1,0 +1,62 @@
+\begin{titlepage}
+  \begin{center}
+    {\Huge\textsc{Johns Hopkins University}\par}
+    \vspace*{\stretch{1}}
+    {\Huge\textbf{\DocumentAuthor}\par}
+    \vspace*{\stretch{1}}
+    \begin{center}
+      \begin{tikzpicture}[
+        alt={
+          A circle of radius square root of 10 is displayed on a Cartesian grid.
+          On the circle, a sequence of open dots are displayed with arrows
+          from each dot to the next, until the last dot is reached, which is a
+          solid dot.
+          The arrows from one dot to the next are obtained by tracing out the unique line between it and the nearest lattice point, and it is targeting the second intersection on the circle.
+          The solid dot is itself a lattice point, so this process terminates there.
+        }
+        ]
+        
+        \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
+        
+        \draw[thick] (0,0) circle ({sqrt(10)});
+        
+        \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
+        \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
+        
+        \coordinate (P5) at (-3,-1);
+        \draw[fill=black,thick] (P5) circle (2pt);
+        
+        \coordinate (R5) at ({-1401/3305},{-10357/3305});
+        \coordinate (R4) at ({1401/653},{-1517/653});
+        \coordinate (R3) at ({-13/41},{129/41});
+        \coordinate (R2) at ({13/5},{9/5});
+        \coordinate (R1) at ({-3},{-1});
+        \coordinate (Q5) at ({0},{-3});
+        \coordinate (Q4) at ({2},{-2});
+        \coordinate (Q3) at (0,3);
+        \coordinate (Q2) at (3,2);
+        \draw[DarkOrchid,very thick,->,shorten >=1.5ex] (R5) -- (R4);
+        \draw[Green,very thick,->,shorten >=1ex] (R4) -- (R3);    
+        \draw[YellowOrange,very thick,->,shorten >=1.5ex] (R3) -- (R2);
+        \draw[CornflowerBlue,very thick,->,shorten >=1ex] (Q2) -- (R1);
+        \draw[fill=white,thick] (R5) circle (2pt);
+        \draw[fill=white,thick] (R4) circle (2pt);
+        \draw[fill=white,thick] (R3) circle (2pt);
+        \draw[fill=white,thick] (R2) circle (2pt);
+        \draw[fill=DarkOrchid,draw=DarkOrchid,thick] (Q5) circle (2pt);
+        \draw[fill=Green,draw=Green,thick] (Q4) circle (2pt);
+        \draw[fill=YellowOrange,draw=YellowOrange,thick] (Q3) circle (2pt);
+        \draw[fill=CornflowerBlue,draw=CornflowerBlue,thick] (Q2) circle (2pt);
+        \draw[fill=white,thick] (R2) circle (2pt);
+      \end{tikzpicture}
+    \end{center}
+    \vspace*{\stretch{.5}}
+    {\superhuge \textbf{\VolumeTitle}\par}
+    \vspace*{\stretch{1}}
+    {\Large Book I of\par}
+    \vspace*{\stretch{.5}}
+    {\huge \textsc{\SeriesTitle}\par}
+    \vspace*{\stretch{2}}
+    {\Large\Version{0}}
+  \end{center}
+\end{titlepage}

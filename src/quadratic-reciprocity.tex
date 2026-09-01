@@ -468,23 +468,19 @@ for every integer $k$ and every rational or real number $x$. Concretely, we have
     \centering
     \begin{tikzpicture}[scale=1,line join=round,line cap=round]
       
-      % Define primes and half-values
       \def\p{17}
       \def\q{13}
-      \def\xmax{8.5} % q/2
-      \def\ymax{6.5} % p/2
+      \def\xmax{8.5}
+      \def\ymax{6.5}
       
-      % Draw the rectangle boundaries (0,0) to (q/2, p/2)
       \draw[very thick,lightgray,dashed] (0,0) rectangle (\xmax,\ymax);
 
-            % Draw coordinate axes
       \draw[->] (-0.3,0) -- (\xmax+0.5,0) node[right] {$x$};
       \draw[->] (0,-0.3) -- (0,\ymax+0.5) node[above] {$y$};
       
       \node[below] at (\xmax,0) {$\frac{17}{2}$};
       \node[left] at (0,\ymax) {$\frac{13}{2}$};
       
-      % Draw the lattice points (integer coordinates inside the rectangle)
       \foreach \x in {1,2,3,4,5,6,7,8} {
         \foreach \y in {1,2,...,6} {
           \fill[CornflowerBlue] (\x,\y) circle (2pt);

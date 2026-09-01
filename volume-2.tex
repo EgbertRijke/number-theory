@@ -5,6 +5,7 @@
   tagging       = on,
   tagging-setup =
     { math/setup=mathml-SE,
+      math/alt/use, % Delete this if Ally check not required
       extra-modules={verbatim-mo}}
 }
 
@@ -15,8 +16,17 @@
   openright
 ]{book}
 
-\title{Book II of The Great Story of Numbers: The Multiplicative Nature of Numbers}
-\author{Egbert Rijke}
+\newcommand{\SeriesTitle}{The Great Story of Numbers}
+  % Elementary Number Theory
+  % Number Theory: A Narrative
+  % Number Theory For All
+  % The Great Story of Numbers
+
+\newcommand{\VolumeTitle}{The Multiplicative Nature of Numbers}
+
+\newcommand{\DocumentTitle}{Book II of \SeriesTitle: \VolumeTitle}
+
+\newcommand{\DocumentAuthor}{Egbert Rijke}
 
 \input{setup/preamble}
 
@@ -28,6 +38,11 @@
 
 \begin{document}
 
+\pagestyle{empty}
+\hypersetup{pageanchor=false}
+
+\input{src/titlepage-volume-2}
+
 \hypersetup{pageanchor=true}
 \pagestyle{fancy}
 
@@ -36,8 +51,6 @@
 \tableofcontents
 \listoffigures
 \listoftables
-
-\input{src/introduction}
 
 \mainmatter
 

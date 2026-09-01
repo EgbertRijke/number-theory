@@ -5,6 +5,7 @@
   tagging       = on,
   tagging-setup =
     { math/setup=mathml-SE,
+      math/alt/use, % Delete this if Ally check not required
       extra-modules={verbatim-mo}}
 }
 
@@ -13,20 +14,31 @@
   letterpaper,
   twoside,
   openright,
-%  draft
 ]{book}
 
-\title{The Great Story of Numbers}
+\newcommand{\SeriesTitle}{The Great Story of Numbers}
   % Elementary Number Theory
   % Number Theory: A Narrative
   % Number Theory For All
   % The Great Story of Numbers
 
-\author{Egbert Rijke}
+\newcommand{\VolumeTitle}{}
+
+\newcommand{\DocumentTitle}{\SeriesTitle}
+
+\newcommand{\DocumentAuthor}{Egbert Rijke}
+
+\title{\DocumentTitle}
+
+\author{\DocumentAuthor}
 
 \input{setup/preamble}
 
 \begin{document}
+
+\hypersetup{pageanchor=false}
+
+\pagestyle{empty}
 
 \input{src/titlepage}
 
@@ -41,6 +53,7 @@
 \cleardoublepage
 
 \frontmatter
+
 \hypersetup{pageanchor=true}
 
 \pagestyle{fancy}

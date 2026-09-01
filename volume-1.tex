@@ -5,6 +5,7 @@
   tagging       = on,
   tagging-setup =
     { math/setup=mathml-SE,
+      math/alt/use, % Delete this if Ally check not required
       extra-modules={verbatim-mo}}
 }
 
@@ -15,8 +16,17 @@
   openright
 ]{book}
 
-\title{Book I of The Great Story of Numbers: The Nature of Numbers}
-\author{Egbert Rijke}
+\newcommand{\SeriesTitle}{The Great Story of Numbers}
+  % Elementary Number Theory
+  % Number Theory: A Narrative
+  % Number Theory For All
+  % The Great Story of Numbers
+
+\newcommand{\VolumeTitle}{The Nature of Numbers}
+
+\newcommand{\DocumentTitle}{Book I of \SeriesTitle: \VolumeTitle}
+
+\newcommand{\DocumentAuthor}{Egbert Rijke}
 
 \input{setup/preamble}
 
@@ -28,10 +38,18 @@
 
 \begin{document}
 
-\hypersetup{pageanchor=true}
-\pagestyle{fancy}
+\pagestyle{empty}
+\hypersetup{pageanchor=false}
+
+\input{src/titlepage-volume-1}
+
+\cleardoublepage
 
 \frontmatter
+
+\hypersetup{pageanchor=true}
+
+\pagestyle{fancy}
 
 \tableofcontents
 \listoffigures
