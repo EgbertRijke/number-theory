@@ -18,10 +18,8 @@ The simplest Diophantine equation is the equation $ax=b$ in one variable $x$. Th
   \begin{enumerate}
   \item The integers $1$ and $-1$ divide any integer $b$. Indeed, the integer $b$ itself is a solution to the equation $1x=b$, and the integer $-b$ is a solution to the equation $-1x=b$.
   \item Every integer $a$ divides $0$. Indeed, $x=0$ is a solution to the equation $ax=0$.
-  \item If $0\mid b$ for some integer $b$, then it follows that $b=0$. Indeed, if $0x=b$ has a solution, then $b=0$ because $0x=0$. Furthermore, we observe that \emph{every} integer is a solution to the equation $0x=0$.
-    
-    On the other hand, it follows that $0\nmid 1$, and indeed that $0\nmid b$ for any nonzero integer $b$.
-  \item Similarly, but slightly more complicated, if $a\mid 1$ for some integer $a$, then it follows that $a=\pm 1$. Indeed, if $ax=1$ has a solution, then the absolute value $|a|$ of $a$ cannot be greater than $1$, because its nonzero multiples would be of absolute value greater than $1$. Therefore it follows that $|a|=1$, which proves the claim. In the situation where $a\mid 1$, we say that $a$ is \define{invertible}, or that it is a \define{multiplicative unit}, because the solution to the equation $ax=1$ is a multiplicative inverse of $a$.
+  \item If $0\mid b$ for some integer $b$, then it follows that $b=0$. Indeed, if $0x=b$ has a solution, then $b=0$ because $0x=0$. Furthermore, we observe that \emph{every} integer is a solution to the equation $0x=0$. It follows that $0\nmid 1$, and indeed that $0\nmid b$ for any nonzero integer $b$.
+  \item Similarly, if $a\mid 1$ for some integer $a$, then it follows that $a=\pm 1$. Indeed, if $ax=1$ has a solution, then the absolute value $|a|$ of $a$ cannot be greater than $1$, because its nonzero multiples would be of absolute value greater than $1$. Therefore it follows that $|a|=1$, which proves the claim. In the situation where $a\mid 1$, we say that $a$ is \define{invertible}, or that it is a \define{multiplicative unit}, because the solution to the equation $ax=1$ is a multiplicative inverse of $a$.
   \end{enumerate}
 \end{example}
 
@@ -38,7 +36,7 @@ The simplest Diophantine equation is the equation $ax=b$ in one variable $x$. Th
 \end{proof}
 
 \begin{remark}
-  While we have given an informal description, the definition of divisibility features the \emph{existential quantifier} $\exists$. When we write the logical formula $\exists_{(x\in X)}P(x)$, this means that there exists an element $x\in X$ for which $P(x)$ holds. The definition of divisibility translates to the following logical formula:
+  While we have given a definition of divisibility in natural language, the formal definition of divisibility features the \emph{existential quantifier} $\exists$. When we write the logical formula $\exists_{(x\in X)}P(x)$, this means that there exists an element $x\in X$ for which $P(x)$ holds. The definition of divisibility translates to the following logical formula:
   \begin{equation*}
     a\mid b := \exists_{(x\in\mathbb{Z})}ax=b.
   \end{equation*}
@@ -66,7 +64,7 @@ Sometimes, the hardest thing is to figure out how to rigorously prove a property
 
 There are, as is commonly the case in mathematics, several ways to approach this problem, but the question is how to generate ideas towards a full proof. One good way of generating ideas is by looking at special cases. In our problem at hand, a special case of interest is the set $\{0,1,\ldots,k-1\}$. There should be exactly one element in the set $\{0,1,\ldots,k-1\}$ divisible by $k$.
 
-Indeed, this is a direct consequence of the Euclidean division theorem: the only element in this set that has remainder $0$ after division by $k$ is the integer $0$. This suggests using the Euclidean division theorem for the general claim as well. Furthermore, we will also use the common proof technique of assuming something \emph{without loss of generality}.
+Indeed, this is a direct consequence of the Euclidean division theorem: The only element in this set that has remainder $0$ after division by $k$ is the integer $0$. This suggests using the Euclidean division theorem for the general claim as well. Furthermore, we will also use the common proof technique of assuming something \emph{without loss of generality}.
 
 \begin{proposition}
   In any set of $k>0$ consecutive integers
@@ -88,34 +86,23 @@ Indeed, this is a direct consequence of the Euclidean division theorem: the only
   It now follows that every element $y\in\{0,1,\ldots,k-1\}$ is the value of $r$ of exactly one element $x\in\{a,a+1,\ldots,a+k-1\}$, because both sets have $k$ elements and the map $r$ doesn't take any value more than once. In particular, there is exactly one element $x\in\{a,a+1,\ldots,a+k-1\}$ whose remainder after division by $k$ is $0$. In other words, exactly one element of this set is divisible by $k$.
 \end{proof}
 
-Another approach that often works well, which was suggested in class by Lucy, is a proof by contradiction. In proofs by contradiction, you assume the contrary and derive a contradiction. If the contrary is impossible, then the original claim must be true.
-
-\begin{proof}[Proof by contradiction]
-  Let's assume that there isn't a unique integer in the set
-  \begin{equation*}
-    \{a,\ldots,a+k-1\}
-  \end{equation*}
-  divisible by $k$. There are two cases to consider: Either there are no elements divisible by $k$, or there are at least two distinct elements divisible by $k$.
-
-  In the first case, by Euclid's division theorem there is a unique pair $(q,r)$ such that $a=qk+r$, and since $a$ is not divisible by $k$ it must be the case that $r \neq 0$. Now it follows that $qk+k$ is an element in $\{a,\ldots,a+k-1\}$, which is divisible by $k$, contrary to our assumption. Thus we conclude that it is not true that none of the elements of $\{a,\ldots,a+k-1\}$ is divisible by $k$.
-
-  In the second case, let $x$ and $y$ be distinct elements of $\{a,\ldots,a+k-1\}$ that are both divisible by $k$. Assume without loss of generality, that $x\leq y$. Then we have $0\leq y-x < k$, and $y-x$ is divisible by $k$. By the Euclidean division theorem, we must have $y-x=0$, which contradicts our assumption that $x$ and $y$ are distinct.
-\end{proof}
-
 \section{Ideals of Integers}
 
-Ideals are a concept from \emph{ring theory}, which studies \emph{rings}, which are sets equipped with addition, subtraction, and multiplication, satisfying the most familiar laws of arithmetic:
-\begin{align*}
-  (x+y)+z & = x+(y+z), & (xy)z & = x(yz), \\
-  0+x & = x, & 1x & = x, \\
-  x+0 & = x, & x1 & = x, \\
-  x-x & = 0, & x(y+z) & = xy + xz, \\
-  -x+x & = 0, & (x+y)z & = xz + yz, \\
-  x+y & = y+x.
-\end{align*}
-Rings such as the integers satisfy additionally the law $xy=yx$ of commutativity; such rings are called \emph{commutative rings}. Notice that the set $\mathbb{N}$ of natural numbers isn't a ring, because it lacks subtraction. Sets with the structure of a ring appeared in David Hilbert's \emph{Zahlbericht}, but their formal definition was first given by Emmy Noether in \emph{Idealtheorie in Ringbereichen}, who was also the first to study them systematically.
+A fruitful way of studying the divisibility relation is by studying the set of \emph{all} integers divisible by a given integer. That is, instead of focusing on one instance of divisibility, we turn our attention to the totality of all integers divisible by a given integer, and we ask questions such as: What properties does the set of all integers divisible by an integer $a$ have? This abstraction leads us to the concept of \emph{ideal}, which was first defined and studied by Richard Dedekind \cite{dedekind1871,kleiner1998}.
 
-An \emph{ideal of integers} is a subset $I\subseteq \mathbb{Z}$ that contains $0$, and contains the linear combination $kx+ly$ for any $x,y\in I$, and any $k,l\in\mathbb{Z}$. The subset $\{0\}\subseteq{Z}$ satisfies the conditions of being an ideal in a trivial way; this ideal is called the \emph{zero ideal}. The subset $(a):=\{ka \mid k\in\mathbb{Z}\}$ also satisfies the conditions of being an ideal; ideals of this form are called \emph{principal ideals}, since they are generated by a single integer. In the following theorem we show that every ideal of integers is of this form.
+\begin{definition}
+  An \define{ideal of integers} is a subset $I\subseteq \mathbb{Z}$ that contains $0$, and contains the linear combination $kx+ly$ for any $x,y\in I$, and any $k,l\in\mathbb{Z}$.  
+\end{definition}
+
+\begin{example}
+  The subset $\{0\}\subseteq{\mathbb{Z}}$ satisfies the conditions of being an ideal in a trivial way; this ideal is called the \define{zero ideal}.
+\end{example}
+
+\begin{example}
+  The subset $(a):=\{ka \mid k\in\mathbb{Z}\}$ also satisfies the conditions of being an ideal; ideals of this form are called \define{principal ideals}, since they are generated by a single integer.  
+\end{example}
+
+In the following theorem we show that every ideal of integers is a principal ideal. By virtue of this properties, we also call $\mathbb{Z}$ a \define{principal ideal domain}.
 
 \begin{theorem}
   \label{theorem:integers-principal-ideal-domain}

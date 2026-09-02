@@ -12,6 +12,7 @@
   \setlength{\tabcolsep}{8pt}
   \renewcommand{\arraystretch}{1.25}
 
+  \FitToMaxWidth{\linewidth}{%
   \begin{tabular}{*{10}{r}}
     \toprule
     & \cuneinumeral{1}{𒁹}
@@ -103,6 +104,7 @@
     
     \bottomrule
   \end{tabular}
+  }
   \caption[The sexagesimal notation in cuneiform script]{The sexagesimal system in cuneiform script was developed by the ancient Sumerians in Mesopotamia, around 3200 BCE, and continued to be used by the Babylonians. Note that there was no notation for the number $0$ in cuneiform script. Consequently, there was no visual distinction between the numbers $1$, $60$, and $3600$, and so on.}
 \end{figure}
 
@@ -369,7 +371,7 @@ In the present chapter, we will be content with some very elementary application
   \end{equation*}
   where $0\leq c_1<c_2<\cdots <c_m$ is a strictly increasing sequence of natural numbers. This is called the \define{combinatoradic expansion} of $n$ of degree $m$. For example, the $2$\supnd{}, $3$\suprd{}, and $4$\supth{} degree combinatoracic expansions of $629$ are
   \begin{equation*}
-    \binom{35}{2}+\binom{34}{1},\qquad \binom{16}{3}+\binom{12}{2}+\binom{3}{1},\qquad\text{and}\qquad \binom{12}{4}+\binom{10}{3}+\binom{5}{2}+\binom{4}{1}.
+    \binom{35}{2}+\binom{34}{1},\quad \binom{16}{3}+\binom{12}{2}+\binom{3}{1},\quad\text{and}\quad \binom{12}{4}+\binom{10}{3}+\binom{5}{2}+\binom{4}{1}.
   \end{equation*}
 \end{routine}
 

@@ -38,4 +38,42 @@
 \addtolength{\abovedisplayshortskip}{2pt}
 \addtolength{\belowdisplayshortskip}{2pt}
 
+\newcommand{\define}[1]{\textbf{\textcolor{CornflowerBlueHighContrast}{#1}}}
 
+\ExplSyntaxOn
+
+\box_new:N \l__nt_fit_width_measure_box
+\box_new:N \l__nt_fit_width_output_box
+\dim_new:N \l__nt_fit_width_natural_dim
+
+\cs_new_protected:Npn \nt_fit_to_width:nn #1#2
+  {
+    \SuspendTagging
+    \hbox_set:Nn \l__nt_fit_width_measure_box {#2}
+    \dim_set:Nn
+      \l__nt_fit_width_natural_dim
+      { \box_wd:N \l__nt_fit_width_measure_box }
+    \box_clear:N \l__nt_fit_width_measure_box
+    \ResumeTagging
+
+    \hbox_set:Nn \l__nt_fit_width_output_box {#2}
+
+    \dim_compare:nNnT
+      { \l__nt_fit_width_natural_dim }
+      >
+      { #1 }
+      {
+        \box_resize_to_wd:Nn
+          \l__nt_fit_width_output_box
+          { #1 }
+      }
+
+    \box_use_drop:N \l__nt_fit_width_output_box
+  }
+
+\NewDocumentCommand{\FitToMaxWidth}{m +m}
+  {
+    \nt_fit_to_width:nn {#1} {#2}
+  }
+
+\ExplSyntaxOff

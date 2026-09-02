@@ -3,14 +3,52 @@
 \newlength{\casesleftsep}
 \newlength{\casescolsep}
 
-\setlength{\casesleftsep}{0.2em} % distance from brace to first column
-\setlength{\casescolsep}{1.2em}   % distance between the two columns
+\setlength{\casesleftsep}{0.2em}
+\setlength{\casescolsep}{1.2em}
 
-\renewenvironment{cases}
-  {\left\{\,
-   \begin{array}{
-     @{\hspace{\casesleftsep}} l
-     @{\hspace{\casescolsep}} l
-     @{}
-   }}
-  {\end{array}\right.}
+\ExplSyntaxOn
+
+\tl_new:N \l__nt_cases_tl
+
+\msg_new:nnn { number-theory } { cases-patch-failed }
+  {
+    The~implementation~of~\string\env@cases~has~changed;
+    ~the~cases~spacing~patch~was~not~applied.
+  }
+
+\AddToHook{begindocument/end}
+  {
+    \tl_set:Nv \l__nt_cases_tl { env@cases }
+
+    \regex_match:nVTF
+      {
+        \cL\@ \cB\{ \cE\} l
+        \cL\@ \cB\{ \c{quad} \cE\} l
+      }
+      \l__nt_cases_tl
+      {
+        \regex_replace_once:nnN
+          {
+            \cL\@ \cB\{ \cE\} l
+            \cL\@ \cB\{ \c{quad} \cE\} l
+          }
+          {
+            \cL\@ \cB\{
+              \c{hspace} \cB\{ \c{casesleftsep} \cE\}
+            \cE\} l
+            \cL\@ \cB\{
+              \c{hspace} \cB\{ \c{casescolsep} \cE\}
+            \cE\} l
+          }
+          \l__nt_cases_tl
+
+        \cs_set_eq:cN { env@cases } \l__nt_cases_tl
+      }
+      {
+        \msg_error:nn
+          { number-theory }
+          { cases-patch-failed }
+      }
+  }
+
+\ExplSyntaxOff
