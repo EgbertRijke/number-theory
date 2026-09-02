@@ -6,6 +6,48 @@
   \TwoDigits{\day}%
 }
 
+% Keep executable Lua in a real Lua module.  In particular, do not place
+% comparisons such as ~= inside \directlua: characters which are harmless in
+% Lua can be active in a 2026 LaTeX preamble and expand before Lua sees them.
+% The long-bracket string also avoids dependence on the catcode of a quote.
+\directlua{require([[setup.versioning]])}
+
+% The engine banner contains the LuaHBTeX version and TeX distribution.  The
+% module also appends LuaTeX's development id when the binary exposes one.
+% The format date and patch level are recorded independently here.
+\makeatletter
+\newcommand{\NTLaTeXFormatInformation}{%
+  \fmtname\space\fmtversion
+  \ifnum\patch@level>0
+    \space patch level \number\patch@level
+  \else
+    \ifnum\patch@level<0
+      \space pre-release \number\patch@level
+    \fi
+  \fi
+}
+\makeatother
+
+% Supporting font families are discovered only after the last page.  Their
+% human-facing family names are written to the aux file and displayed on the
+% next run.  Style, weight, optical-size, and TeX-size instances are collapsed
+% by setup/versioning.lua.  This sees fonts loaded lazily in the body while
+% avoiding node traversal, font switching, and shipout callbacks.
+\providecommand{\NTRecordedSupportingFontFamilies}{%
+  pending a full typesetting pass%
+}
+
+\makeatletter
+\newcommand{\NTWriteFontManifestToAux}[1]{%
+  \immediate\write\@auxout{%
+    \string\gdef\string\NTRecordedSupportingFontFamilies{#1}}%
+}
+\makeatother
+
+\AddToHook{enddocument/afterlastpage}{%
+  \directlua{NTVersioning.writeLoadedFontManifest()}%
+}
+
 % The short identifier describes the artifact rather than its typography or
 % technical PDF profile:
 %
@@ -34,19 +76,50 @@
 % build.
 \newcommand{\VersionInformation}[1]{%
   \begingroup
-  \small
-  \textbf{Edition information}\par
+  \setlength{\parindent}{0pt}
+  \textbf{Colophon}\par
   \medskip
-  \textbf{Version:} \VersionIdentifier{#1}\par
-  \textbf{Typeface:} \VersionFontName\par
-  \textbf{Typesetting engine:} LuaLaTeX\par
-  \textbf{Document language:} \NTPDFLanguage\par
-  \textbf{PDF version:} \NTPDFVersion\par
-  \textbf{Accessibility standard:} \NTPDFUAStandard\par
+  Version: \VersionIdentifier{#1}\par
+  Primary font: \VersionFontName\par
+  Supporting fonts:
+    \NTRecordedSupportingFontFamilies\par
+  TeX engine: \NTTeXEngineInformation\par
+  LaTeX format: \NTLaTeXFormatInformation\par
+  Document language: \NTPDFLanguage\par
+  PDF version: \NTPDFVersion\par
+  Accessibility standard: \NTPDFUAStandard\par
   \ifdefined\NTPDFAStandard
-    \textbf{Archival standard:} \NTPDFAStandard\par
+    Archival standard: \NTPDFAStandard\par
   \fi
-  \textbf{Tagging:} on; \NTMathTaggingDescription\space
+  Tagging setup: \NTMathTaggingDescription\space
     (\NTMathTaggingSetup)\par
+  \endgroup
+}
+
+% A copyable citation for the exact artifact.  @misc is understood by
+% traditional BibTeX and does not require us to invent a publisher.  The
+% version, volume, Ally marker, and standards all follow the active build.
+\newcommand{\ArtifactBibTeXEntry}[1]{%
+  \begingroup
+  \footnotesize
+  \ttfamily
+  \raggedright
+  \parskip=0pt
+  \parindent=0pt
+  @misc\{rijke-\VersionIdentifier{#1},\par
+  \hangindent=2em\hangafter=1\hspace*{1em}%
+    author       = \{\DocumentAuthor\},\par
+  \hangindent=2em\hangafter=1\hspace*{1em}%
+    title        = \{\DocumentTitle\},\par
+  \hangindent=2em\hangafter=1\hspace*{1em}%
+    year         = \{\number\year\},\par
+  \hangindent=2em\hangafter=1\hspace*{1em}%
+    month        = \ifcase\month\or jan\or feb\or mar\or apr\or may\or jun\or
+      jul\or aug\or sep\or oct\or nov\or dec\fi,\par
+  \hangindent=2em\hangafter=1\hspace*{1em}%
+    howpublished = \{PDF\},\par
+  \hangindent=2em\hangafter=1\hspace*{1em}%
+    note         = \{Version \VersionIdentifier{#1}\}\par
+  \}\par
   \endgroup
 }
