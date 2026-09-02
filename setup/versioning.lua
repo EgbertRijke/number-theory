@@ -208,6 +208,10 @@ local function sortedNames(collection)
   return table.concat(names, ", ")
 end
 
+local ignoredFamilies = {
+  computermodern = true
+}
+
 function versioning.writeLoadedFontManifest()
   local supporting = {}
   local profileLabel = token.get_macro("VersionFontName") or ""
