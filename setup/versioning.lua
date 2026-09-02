@@ -223,8 +223,8 @@ function versioning.writeLoadedFontManifest()
   for _, data in font.each() do
     local name = fontFamily(data)
     if name then
-      local key = string.lower(name)
-      if normalize(name) ~= primaryFamily then
+      local key = normalize(name)
+      if key ~= primaryFamily and not ignoredFamilies[key] then
         supporting[key] = name
       end
     end
