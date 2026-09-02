@@ -6,15 +6,8 @@
   \TwoDigits{\day}%
 }
 
-% Keep executable Lua in a real Lua module.  In particular, do not place
-% comparisons such as ~= inside \directlua: characters which are harmless in
-% Lua can be active in a 2026 LaTeX preamble and expand before Lua sees them.
-% The long-bracket string also avoids dependence on the catcode of a quote.
 \directlua{require([[setup.versioning]])}
 
-% The engine banner contains the LuaHBTeX version and TeX distribution.  The
-% module also appends LuaTeX's development id when the binary exposes one.
-% The format date and patch level are recorded independently here.
 \makeatletter
 \newcommand{\NTLaTeXFormatInformation}{%
   \fmtname\space\fmtversion
@@ -28,11 +21,6 @@
 }
 \makeatother
 
-% Supporting font families are discovered only after the last page.  Their
-% human-facing family names are written to the aux file and displayed on the
-% next run.  Style, weight, optical-size, and TeX-size instances are collapsed
-% by setup/versioning.lua.  This sees fonts loaded lazily in the body while
-% avoiding node traversal, font switching, and shipout callbacks.
 \providecommand{\NTRecordedSupportingFontFamilies}{%
   pending a full typesetting pass%
 }
@@ -48,76 +36,12 @@
   \directlua{NTVersioning.writeLoadedFontManifest()}%
 }
 
-% The short identifier describes the artifact rather than its typography or
-% technical PDF profile:
-%
-%   0.YYMMDD
-%   0.YYMMDD-vol-N
-%   0.YYMMDD-ally
-%   0.YYMMDD-vol-N-ally
-%
-% Volume masters define \VolumeNumber; the omnibus master deliberately does
-% not.  The Ally marker is selected before \documentclass by ally.tex or by
-% NT_PDF_PROFILE=ally in the Makefile.
-\newcommand{\VersionIdentifier}[1]{%
-  #1.\TodayYYMMDD%
+\newcommand*{\DocumentVersionNumber}{0}
+
+\newcommand{\VersionIdentifier}{%
+  \DocumentVersionNumber.\TodayYYMMDD%
   \ifdefined\VolumeNumber-vol-\VolumeNumber\fi%
   \ifdefined\NTAllyCompatibilityBuild-ally\fi%
 }
 
-% On title pages the version stays deliberately terse.
-\newcommand{\Version}[1]{\VersionIdentifier{#1}}
-
-% The full technical description belongs on the edition-information verso,
-% not on the title page.  It is set as ordinary paragraphs rather than a
-% tabular so that accessibility checkers do not mistake it for a data table.
-% The PDF facts below are defined beside the matching \DocumentMetadata branch
-% in setup/document-metadata.tex.  PDF/A is present only in the canonical
-% build.
-\newcommand{\VersionInformation}[1]{%
-  \begingroup
-  \setlength{\parindent}{0pt}
-  Version: \VersionIdentifier{#1}\par
-  Primary font: \VersionFontName\par
-  Supporting fonts:
-    \NTRecordedSupportingFontFamilies\par
-  TeX engine: \NTTeXEngineInformation\par
-  LaTeX format: \NTLaTeXFormatInformation\par
-  Document language: \NTPDFLanguage\par
-  PDF version: \NTPDFVersion\par
-  Accessibility standard: \NTPDFUAStandard\par
-  \ifdefined\NTPDFAStandard
-    Archival standard: \NTPDFAStandard\par
-  \fi
-  Tagging setup: \NTMathTaggingDescription\space
-    (\NTMathTaggingSetup)\par
-  \endgroup
-}
-
-% A copyable citation for the exact artifact.  @misc is understood by
-% traditional BibTeX and does not require us to invent a publisher.  The
-% version, volume, Ally marker, and standards all follow the active build.
-\newcommand{\ArtifactBibTeXEntry}[1]{%
-  \begingroup
-  \footnotesize
-  \ttfamily
-  \raggedright
-  \parskip=0pt
-  \parindent=0pt
-  @misc\{rijke-\VersionIdentifier{#1},\par
-  \hangindent=2em\hangafter=1\hspace*{1em}%
-    author       = \{\DocumentAuthor\},\par
-  \hangindent=2em\hangafter=1\hspace*{1em}%
-    title        = \{\DocumentTitle\},\par
-  \hangindent=2em\hangafter=1\hspace*{1em}%
-    year         = \{\number\year\},\par
-  \hangindent=2em\hangafter=1\hspace*{1em}%
-    month        = \ifcase\month\or jan\or feb\or mar\or apr\or may\or jun\or
-      jul\or aug\or sep\or oct\or nov\or dec\fi,\par
-  \hangindent=2em\hangafter=1\hspace*{1em}%
-    howpublished = \{PDF\},\par
-  \hangindent=2em\hangafter=1\hspace*{1em}%
-    note         = \{Version \VersionIdentifier{#1}\}\par
-  \}\par
-  \endgroup
-}
+\newcommand{\Version}{\VersionIdentifier}

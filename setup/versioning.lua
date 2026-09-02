@@ -1,9 +1,3 @@
--- Runtime provenance for setup/versioning.tex.
---
--- This is intentionally a Lua module rather than a large \directlua block.
--- TeX therefore cannot expand active characters in the Lua program before
--- LuaHBTeX parses it.  The interface exposed to TeX is deliberately tiny.
-
 local existing = rawget(_G, "NTVersioning")
 if existing then
   return existing
@@ -48,11 +42,6 @@ local function normalize(value)
   return table.concat(output)
 end
 
--- OpenType family metadata normally removes weight and style by itself.  Some
--- fonts, however, expose only a PostScript/full name, and a few related font
--- files use distinct subfamily records even though a reader regards them as
--- one family.  These ordered prefix rules provide stable, human-facing names
--- for the families used by this project.  Put more specific prefixes first.
 local familyUmbrellas = {
   { "notosanscuneiform", "Noto Sans Cuneiform" },
   { "gfsartemisia", "GFS Artemisia" },
