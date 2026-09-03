@@ -209,7 +209,8 @@ local function sortedNames(collection)
 end
 
 local ignoredFamilies = {
-  computermodern = true
+  computermodern = true,
+  latinmodern = true
 }
 
 function versioning.writeLoadedFontManifest()

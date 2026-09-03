@@ -48,16 +48,19 @@
 
 \cs_new_protected:Npn \nt_fit_to_width:nn #1#2
   {
-    \SuspendTagging
+    % Trial typesetting: do not generate tagging structures.
+    \tag_suspend:n { nt-fit-to-width }
     \hbox_set:Nn \l__nt_fit_width_measure_box {#2}
     \dim_set:Nn
       \l__nt_fit_width_natural_dim
       { \box_wd:N \l__nt_fit_width_measure_box }
     \box_clear:N \l__nt_fit_width_measure_box
-    \ResumeTagging
+    \tag_resume:n { nt-fit-to-width }
 
+    % Actual typesetting: tagging is active.
     \hbox_set:Nn \l__nt_fit_width_output_box {#2}
 
+    % Shrink only if necessary.
     \dim_compare:nNnT
       { \l__nt_fit_width_natural_dim }
       >
