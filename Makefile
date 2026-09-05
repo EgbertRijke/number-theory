@@ -82,12 +82,12 @@ endif
 
 __default:
 	@$(MAKE) --no-print-directory __omnibus \
-		MODE=full PROFILE=canonical FONT="$(DEFAULT_FONT)" SUFFIX=
+		MODE=full PROFILE=canonical FONT="$(DEFAULT_FONT)" SUFFIX= FRESH=0
 
 __dispatch:
 	@set -eu; \
 	mode=full; profile=canonical; scope=omnibus; scope_set=0; volume_number=; \
-	font="$(if $(strip $(FONT)),$(FONT),$(DEFAULT_FONT))"; \
+	fresh=0; font="$(if $(strip $(FONT)),$(FONT),$(DEFAULT_FONT))"; \
 	explicit_font=$(if $(strip $(FONT)),1,0); open_after=0; \
 	set_scope() { \
 		if [ "$$scope_set" -eq 1 ] && [ "$$scope" != "$$1" ]; then \
@@ -104,6 +104,7 @@ __dispatch:
 	for word in $(MAKECMDGOALS); do \
 		case "$$word" in \
 			quick) mode=quick ;; \
+			fresh) fresh=1 ;; \
 			ally) profile=ally ;; \
 			pdf|omnibus) set_scope omnibus ;; \
 			volume) set_scope volume ;; \
@@ -149,9 +150,10 @@ __dispatch:
 		   fi ;; \
 	esac; \
 	case "$$scope" in archive|doctor|clean|distclean|help) \
-		if [ "$$mode" != full ] || [ "$$explicit_font" -eq 1 ] || \
-		   [ "$$profile" != canonical ] || [ "$$open_after" -eq 1 ]; then \
-			echo "$$scope does not combine with quick, ally, fonts, or open." >&2; exit 2; \
+		if [ "$$mode" != full ] || [ "$$fresh" -eq 1 ] || \
+		   [ "$$explicit_font" -eq 1 ] || [ "$$profile" != canonical ] || \
+		   [ "$$open_after" -eq 1 ]; then \
+			echo "$$scope does not combine with quick, fresh, ally, fonts, or open." >&2; exit 2; \
 		fi ;; \
 	esac; \
 	if [ "$$explicit_font" -eq 1 ]; then suffix="-$$font"; else suffix=; fi; \
@@ -168,7 +170,7 @@ __dispatch:
 		distclean) target=__distclean ;; \
 		help) target=__help ;; \
 	esac; \
-	$(MAKE) --no-print-directory "$$target" MODE="$$mode" \
+	$(MAKE) --no-print-directory "$$target" MODE="$$mode" FRESH="$$fresh" \
 		PROFILE="$$profile" FONT="$$font" SUFFIX="$$suffix" SELECT="$$volume_number" \
 		OPEN_AFTER="$$open_after"
 
@@ -184,6 +186,10 @@ __omnibus:
 		echo "Missing font setup: $$setup" >&2; exit 2; \
 	fi; \
 	mkdir -p "$(BUILDDIR)"; \
+	if [ "$(FRESH)" = 1 ]; then \
+		echo "==> Resetting generated state: $$job"; \
+		rm -f "$(BUILDDIR)/$$job".*; \
+	fi; \
 	if [ "$(MODE)" = quick ]; then \
 		echo "==> Quick build: $$job.pdf ($(FONT))"; \
 		NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
@@ -227,6 +233,15 @@ __volume_set:
 		numbers="$$numbers $$n"; n=$$((n + 1)); \
 	done; \
 	mkdir -p "$(BUILDDIR)"; \
+	if [ "$(FRESH)" = 1 ]; then \
+		if [ "$(SELECT)" = all ]; then fresh_numbers="$$numbers"; \
+		else fresh_numbers="$(SELECT)"; fi; \
+		for n in $$fresh_numbers; do \
+			job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
+			echo "==> Resetting generated state: $$job"; \
+			rm -f "$(BUILDDIR)/$$job".*; \
+		done; \
+	fi; \
 	external_aux_signature() { \
 		for dep_tex in volume-[0-9]*.tex; do \
 			[ -e "$$dep_tex" ] || continue; \
@@ -366,15 +381,15 @@ __volume_set:
 __fonts:
 	@set -eu; \
 	for font in $(FONTS); do \
-		$(MAKE) --no-print-directory __omnibus MODE="$(MODE)" \
+		$(MAKE) --no-print-directory __omnibus MODE="$(MODE)" FRESH="$(FRESH)" \
 			PROFILE="$(PROFILE)" FONT="$$font" \
 			SUFFIX="-$$font$(if $(filter ally,$(PROFILE)),-ally,)" OPEN_AFTER=0; \
 	done
 
 __all:
-	@$(MAKE) --no-print-directory __omnibus MODE="$(MODE)" \
+	@$(MAKE) --no-print-directory __omnibus MODE="$(MODE)" FRESH="$(FRESH)" \
 		PROFILE="$(PROFILE)" FONT="$(FONT)" SUFFIX="$(SUFFIX)" OPEN_AFTER=0
-	@$(MAKE) --no-print-directory __volume_set MODE="$(MODE)" \
+	@$(MAKE) --no-print-directory __volume_set MODE="$(MODE)" FRESH="$(FRESH)" \
 		PROFILE="$(PROFILE)" FONT="$(FONT)" SUFFIX="$(SUFFIX)" SELECT=all \
 		OPEN_AFTER="$(OPEN_AFTER)"
 
@@ -446,6 +461,8 @@ __help:
 	@printf '%s\n' \
 		'make                              full omnibus, default font' \
 		'make quick                        one-pass omnibus update' \
+		'make fresh                        discard omnibus build state; full rebuild' \
+		'make quick fresh                  discard omnibus build state; one fresh pass' \
 		'make ally                         Ally-compatible omnibus PDF' \
 		'make quick ally                   one-pass Ally-compatible update' \
 		'make alegreya                     full omnibus in Alegreya' \
@@ -454,9 +471,12 @@ __help:
 		'make volume N                     volumes 1--N, default font' \
 		'make volume N alegreya            volumes 1--N in Alegreya' \
 		'make quick volume N [font]        one pass for each volume 1--N' \
+		'make fresh volume N [font]        reset volume N state; rebuild volumes 1--N' \
+		'make quick fresh volume N [font]  reset volume N state; one pass over 1--N' \
 		'make ally volume N [font]         Ally-compatible volumes 1--N' \
 		'make volumes [font]               all discovered volumes; stabilize links' \
 		'make quick volumes [font]         one pass over all discovered volumes' \
+		'make fresh volumes [font]         reset and rebuild all discovered volumes' \
 		'make ally volumes [font]          all Ally-compatible volumes' \
 		'make all [font]                   omnibus plus all volumes' \
 		'make fonts                        omnibus in every configured font' \
