@@ -534,6 +534,119 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
   Conversely, we can ask whether any reduced integer fraction $\frac{a}{b}$ uniquely determines a rational number. To see this, 
 \end{example}
 
+\begin{figure}[p]
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[
+    alt={The Stern-Brocot tree is displayed with a path from the root 1, which is at the top, down to the node of the fraction 13 over 18. The left-right sequence of this path is left right right left right left.
+      },
+    sbnode/.style={draw,circle,inner sep=0.7pt,minimum size=5.5mm,font=\scriptsize,fill=white},
+    tinydot/.style={draw=gray!55,circle,inner sep=0pt,minimum size=1.2mm,fill=white},
+    pathnode/.style={sbnode,draw=CornflowerBlue,thick,fill=CornflowerBlue!30!White},
+    edge/.style={draw=gray!55},
+    hiedge/.style={draw=CornflowerBlue,thick}
+  ]
+
+    \def\dx{0.12}
+    \def\dy{1.10}
+    \foreach \d in {0,...,7}{%
+      \pgfmathtruncatemacro{\last}{2^\d-1}%
+      \pgfmathtruncatemacro{\shift}{2^(7-\d)}%
+      \foreach \i in {0,...,\last}{%
+        \pgfmathsetmacro{\x}{(2*\i+1-2^\d)*\shift*\dx/2}%
+        \pgfmathsetmacro{\y}{-\d*\dy}%
+        \coordinate (n-\d-\i) at (\x,\y);
+      }%
+    }
+
+    \foreach \d in {0,...,6}{%
+      \pgfmathtruncatemacro{\last}{2^\d-1}%
+      \pgfmathtruncatemacro{\dd}{\d+1}%
+      \foreach \i in {0,...,\last}{%
+        \pgfmathtruncatemacro{\li}{2*\i}%
+        \pgfmathtruncatemacro{\ri}{2*\i+1}%
+        \ifnum\dd<5
+          \draw[draw=black] (n-\d-\i) -- (n-\dd-\li);
+          \draw[draw=black] (n-\d-\i) -- (n-\dd-\ri);
+        \else
+          \draw[edge] (n-\d-\i) -- (n-\dd-\li);
+          \draw[edge] (n-\d-\i) -- (n-\dd-\ri);
+        \fi
+      }%
+    }
+
+    \draw[hiedge]
+      (n-0-0) -- node[midway,auto,swap, inner sep=1pt] {\scriptsize L} (n-1-0)
+      -- node[midway,auto, inner sep=1pt] {\scriptsize R} (n-2-1)
+      -- node[midway,auto, inner sep=1pt] {\scriptsize R} (n-3-3)
+      -- node[midway,auto,swap,xshift=-1pt,yshift=-2pt, inner sep=1pt] {\scriptsize L} (n-4-6)
+      -- node[midway,auto,yshift=-2pt, inner sep=1pt] {\scriptsize R} (n-5-13)
+      -- node[midway,auto,swap,yshift=-2pt, inner sep=1pt] {\scriptsize L} (n-6-26);
+
+    \foreach \d in {5,6,7}{%
+      \pgfmathtruncatemacro{\last}{2^\d-1}%
+      \foreach \i in {0,...,\last}{%
+        \node[tinydot] at (n-\d-\i) {};
+      }%
+    }
+
+    \node[sbnode] at (n-0-0) {$\frac{1}{1}$};
+
+    \node[sbnode] at (n-1-0) {$\frac{1}{2}$};
+    \node[sbnode] at (n-1-1) {$\frac{2}{1}$};
+
+    \node[sbnode] at (n-2-0) {$\frac{1}{3}$};
+    \node[sbnode] at (n-2-1) {$\frac{2}{3}$};
+    \node[sbnode] at (n-2-2) {$\frac{3}{2}$};
+    \node[sbnode] at (n-2-3) {$\frac{3}{1}$};
+
+    \node[sbnode] at (n-3-0) {$\frac{1}{4}$};
+    \node[sbnode] at (n-3-1) {$\frac{2}{5}$};
+    \node[sbnode] at (n-3-2) {$\frac{3}{5}$};
+    \node[sbnode] at (n-3-3) {$\frac{3}{4}$};
+    \node[sbnode] at (n-3-4) {$\frac{4}{3}$};
+    \node[sbnode] at (n-3-5) {$\frac{5}{3}$};
+    \node[sbnode] at (n-3-6) {$\frac{5}{2}$};
+    \node[sbnode] at (n-3-7) {$\frac{4}{1}$};
+
+    \node[sbnode] at (n-4-0)  {$\frac{1}{5}$};
+    \node[sbnode] at (n-4-1)  {$\frac{2}{7}$};
+    \node[sbnode] at (n-4-2)  {$\frac{3}{8}$};
+    \node[sbnode] at (n-4-3)  {$\frac{3}{7}$};
+    \node[sbnode] at (n-4-4)  {$\frac{4}{7}$};
+    \node[sbnode] at (n-4-5)  {$\frac{5}{8}$};
+    \node[sbnode] at (n-4-6)  {$\frac{5}{7}$};
+    \node[sbnode] at (n-4-7)  {$\frac{4}{5}$};
+    \node[sbnode] at (n-4-8)  {$\frac{5}{4}$};
+    \node[sbnode] at (n-4-9)  {$\frac{7}{5}$};
+    \node[sbnode] at (n-4-10) {$\frac{8}{5}$};
+    \node[sbnode] at (n-4-11) {$\frac{7}{4}$};
+    \node[sbnode] at (n-4-12) {$\frac{7}{3}$};
+    \node[sbnode] at (n-4-13) {$\frac{8}{3}$};
+    \node[sbnode] at (n-4-14) {$\frac{7}{2}$};
+    \node[sbnode] at (n-4-15) {$\frac{5}{1}$};
+
+    \node[pathnode] at (n-0-0)  {$\frac{1}{1}$};
+    \node[pathnode] at (n-1-0)  {$\frac{1}{2}$};
+    \node[pathnode] at (n-2-1)  {$\frac{2}{3}$};
+    \node[pathnode] at (n-3-3)  {$\frac{3}{4}$};
+    \node[pathnode] at (n-4-6)  {$\frac{5}{7}$};
+    \node[pathnode] at (n-5-13) {$\frac{8}{11}$};
+    \node[pathnode] at (n-6-26) {$\frac{13}{18}$};
+  \end{tikzpicture}%
+  }
+\caption[The Stern--Brocot path from $1$ to $\frac{13}{18}$.]{The Stern--Brocot tree, with the path $LRRLRL$ from $\frac{1}{1}$ to $\frac{13}{18}$ highlighted. The Euclidean algorithm for the pair $(13,18)$ traces the same left-right pattern, when marking the side of the smaller number at each stage:
+\par\medskip
+  {\centering
+    \(\displaystyle
+      (13,18)\mapsto(13,5)\mapsto(8,5)\mapsto(3,5)\mapsto(3,2)
+      \mapsto(1,2)\mapsto(1,1).
+    \)
+    \par
+  }%
+}
+\end{figure}
+
 \exercises
 
 \begin{routine}
