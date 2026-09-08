@@ -647,6 +647,150 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
 }
 \end{figure}
 
+\begin{figure}[p]
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[
+    sbnode/.style={draw,circle,inner sep=0.7pt,minimum size=5.5mm,font=\scriptsize,fill=white},
+    tinydot/.style={draw=gray!55,circle,inner sep=0pt,minimum size=1.2mm,fill=white},
+    pathnode/.style={sbnode,draw=CornflowerBlue,thick,fill=CornflowerBlue!30!White},
+    edge/.style={draw=black},
+    sibedge/.style={draw=gray!55,dashed},
+    hiedge/.style={draw=CornflowerBlue,thick},
+    hisib/.style={draw=CornflowerBlue,thick,dashed}
+  ]
+
+    % root
+    \node[pathnode] (r) at (0,0) {$\frac{1}{1}$};
+
+    % level 1: first five children of the root
+    \node[pathnode] (a1) at (-48,-2.2) {$\frac{1}{2}$};
+    \node[pathnode] (a2) at (-24,-2.2) {$\frac{2}{3}$};
+    \node[pathnode] (a3) at (  0,-2.2) {$\frac{3}{4}$};
+    \node[sbnode]   (a4) at ( 24,-2.2) {$\frac{4}{5}$};
+    \node[sbnode]   (a5) at ( 48,-2.2) {$\frac{5}{6}$};
+    \node[tinydot]  (a6) at ( 60,-2.2) {};
+    \node[tinydot]  (a7) at ( 64,-2.2) {};
+
+    % level 2: first five children of 1/2
+    \node[sbnode]  (b11) at (-56,-4.4) {$\frac{1}{3}$};
+    \node[sbnode]  (b12) at (-52,-4.4) {$\frac{2}{5}$};
+    \node[sbnode]  (b13) at (-48,-4.4) {$\frac{3}{7}$};
+    \node[sbnode]  (b14) at (-44,-4.4) {$\frac{4}{9}$};
+    \node[sbnode]  (b15) at (-40,-4.4) {$\frac{5}{11}$};
+    \node[tinydot] (b16) at (-36,-4.4) {};
+    \node[tinydot] (b17) at (-34,-4.4) {};
+
+    % level 2: first five children of 2/3
+    \node[sbnode]  (b21) at (-32,-4.4) {$\frac{3}{5}$};
+    \node[sbnode]  (b22) at (-28,-4.4) {$\frac{5}{8}$};
+    \node[sbnode]  (b23) at (-24,-4.4) {$\frac{7}{11}$};
+    \node[sbnode]  (b24) at (-20,-4.4) {$\frac{9}{14}$};
+    \node[sbnode]  (b25) at (-16,-4.4) {$\frac{11}{17}$};
+    \node[tinydot] (b26) at (-12,-4.4) {};
+    \node[tinydot] (b27) at (-10,-4.4) {};
+
+    % level 2: first five children of 3/4
+    \node[pathnode] (b31) at ( -8,-4.4) {$\frac{5}{7}$};
+    \node[pathnode] (b32) at ( -4,-4.4) {$\frac{8}{11}$};
+    \node[sbnode]   (b33) at (  0,-4.4) {$\frac{11}{15}$};
+    \node[sbnode]   (b34) at (  4,-4.4) {$\frac{14}{19}$};
+    \node[sbnode]   (b35) at (  8,-4.4) {$\frac{17}{23}$};
+    \node[tinydot]  (b36) at ( 12,-4.4) {};
+    \node[tinydot]  (b37) at ( 14,-4.4) {};
+
+    % level 2: first five children of 4/5
+    \node[sbnode]  (b41) at (16,-4.4) {$\frac{7}{9}$};
+    \node[sbnode]  (b42) at (20,-4.4) {$\frac{11}{14}$};
+    \node[sbnode]  (b43) at (24,-4.4) {$\frac{15}{19}$};
+    \node[sbnode]  (b44) at (28,-4.4) {$\frac{19}{24}$};
+    \node[sbnode]  (b45) at (32,-4.4) {$\frac{23}{29}$};
+    \node[tinydot] (b46) at (36,-4.4) {};
+    \node[tinydot] (b47) at (38,-4.4) {};
+
+    % level 3: first four children of 5/7 and 8/11
+    \node[sbnode]   (c11) at (-16,-6.6) {$\frac{7}{10}$};
+    \node[sbnode]   (c12) at (-12,-6.6) {$\frac{12}{17}$};
+    \node[sbnode]   (c13) at ( -8,-6.6) {$\frac{17}{24}$};
+    \node[sbnode]   (c14) at ( -4,-6.6) {$\frac{22}{31}$};
+    \node[tinydot]  (c15) at (  0,-6.6) {};
+    \node[tinydot]  (c16) at (  2,-6.6) {};
+
+    \node[pathnode] (c21) at (  4,-6.6) {$\frac{13}{18}$};
+    \node[sbnode]   (c22) at (  8,-6.6) {$\frac{21}{29}$};
+    \node[sbnode]   (c23) at ( 12,-6.6) {$\frac{29}{40}$};
+    \node[sbnode]   (c24) at ( 16,-6.6) {$\frac{37}{51}$};
+    \node[tinydot]  (c25) at ( 20,-6.6) {};
+    \node[tinydot]  (c26) at ( 22,-6.6) {};
+
+    % parent-child edges
+    \draw[edge] (r) -- (a1);
+    \draw[edge] (r) -- (a2);
+    \draw[edge] (r) -- (a3);
+    \draw[edge] (r) -- (a4);
+    \draw[edge] (r) -- (a5);
+
+    \draw[edge] (a1) -- (b11);
+    \draw[edge] (a1) -- (b12);
+    \draw[edge] (a1) -- (b13);
+    \draw[edge] (a1) -- (b14);
+    \draw[edge] (a1) -- (b15);
+
+    \draw[edge] (a2) -- (b21);
+    \draw[edge] (a2) -- (b22);
+    \draw[edge] (a2) -- (b23);
+    \draw[edge] (a2) -- (b24);
+    \draw[edge] (a2) -- (b25);
+
+    \draw[edge] (a3) -- (b31);
+    \draw[edge] (a3) -- (b32);
+    \draw[edge] (a3) -- (b33);
+    \draw[edge] (a3) -- (b34);
+    \draw[edge] (a3) -- (b35);
+
+    \draw[edge] (a4) -- (b41);
+    \draw[edge] (a4) -- (b42);
+    \draw[edge] (a4) -- (b43);
+    \draw[edge] (a4) -- (b44);
+    \draw[edge] (a4) -- (b45);
+
+    \draw[edge] (b31) -- (c11);
+    \draw[edge] (b31) -- (c12);
+    \draw[edge] (b31) -- (c13);
+    \draw[edge] (b31) -- (c14);
+
+    \draw[edge] (b32) -- (c21);
+    \draw[edge] (b32) -- (c22);
+    \draw[edge] (b32) -- (c23);
+    \draw[edge] (b32) -- (c24);
+
+    % sibling guides
+    \draw[sibedge] (a1) -- (a2) -- (a3) -- (a4) -- (a5) -- (a6) -- (a7);
+    \draw[sibedge] (b11) -- (b12) -- (b13) -- (b14) -- (b15) -- (b16) -- (b17);
+    \draw[sibedge] (b21) -- (b22) -- (b23) -- (b24) -- (b25) -- (b26) -- (b27);
+    \draw[sibedge] (b31) -- (b32) -- (b33) -- (b34) -- (b35) -- (b36) -- (b37);
+    \draw[sibedge] (b41) -- (b42) -- (b43) -- (b44) -- (b45) -- (b46) -- (b47);
+    \draw[sibedge] (c11) -- (c12) -- (c13) -- (c14) -- (c15) -- (c16);
+    \draw[sibedge] (c21) -- (c22) -- (c23) -- (c24) -- (c25) -- (c26);
+
+    % highlighted walk LRRLRL
+    \draw[hiedge]
+      (r) -- node[midway,auto,swap,inner sep=1pt] {\scriptsize L} (a1);
+    \draw[hisib]
+      (a1) -- node[midway,above,inner sep=1pt] {\scriptsize R} (a2)
+      (a2) -- node[midway,above,inner sep=1pt] {\scriptsize R} (a3);
+    \draw[hiedge]
+      (a3) -- node[midway,auto,swap,inner sep=1pt] {\scriptsize L} (b31);
+    \draw[hisib]
+      (b31) -- node[midway,above,inner sep=1pt] {\scriptsize R} (b32);
+    \draw[hiedge]
+      (b32) -- node[midway,auto,swap,inner sep=1pt] {\scriptsize L} (c21);
+
+  \end{tikzpicture}%
+  }
+\caption[The brush tree path to $\frac{13}{18}$.]{A finite portion of the brush tree of positive rational numbers, with the brush path to $\frac{13}{18}$ highlighted. A vertical move records the letter $L$ and means “pass to the first child,” while a horizontal dashed move records the letter $R$ and means “pass to the next sibling.” Thus the highlighted walk spells the word $LRRLRL$, corresponding to the one-based brush code $(1,3,2,1)$. To show how this path sits inside the wider brush tree, the figure displays the first five children of the root, the first five children of $\frac12$, $\frac23$, $\frac34$, and $\frac45$, and the first four children of $\frac57$ and $\frac{8}{11}$.}
+\end{figure}
+
 \exercises
 
 \begin{routine}
