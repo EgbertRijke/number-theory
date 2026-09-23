@@ -1,0 +1,245 @@
+% fractions.tex
+% Fraction geometry for LuaLaTeX + unicode-math.
+%
+% Load this file after the final \setmathfont declaration.  In the
+% number-theory source tree, setup/mathematics.tex is already loaded after
+% setup/fonts.tex, so it is a suitable place to \input this file.
+%
+% The code changes only LuaTeX's native OpenType-math geometry parameters.
+% It does not redefine \frac, \dfrac, \tfrac, \genfrac, \binom, etc., and
+% therefore leaves LaTeX/LuaMML's semantic math structure untouched.
+
+\ExplSyntaxOn
+
+\msg_new:nnn { number-theory } { fractions-luatex-only }
+  {
+    The~number-theory~fraction~geometry~layer~requires~LuaLaTeX.
+  }
+
+\msg_new:nnn { number-theory } { fractions-unicode-math-required }
+  {
+    The~number-theory~fraction~geometry~layer~requires~unicode-math~and~must~be~
+    loaded~after~the~math~font~has~been~selected.
+  }
+
+\msg_new:nnn { number-theory } { fractions-local-inside-math }
+  {
+    A~local~fraction-geometry~scope~must~enclose~the~complete~math~formula,~
+    not~start~inside~an~already-open~formula.~LuaTeX~consults~these~math~
+    parameters~when~the~whole~math~list~is~converted.~Use~the~local~scope~
+    around~$...$,~\(...\),~\[...\],~or~the~display~environment.
+  }
+
+\sys_if_engine_luatex:F
+  { \msg_fatal:nn { number-theory } { fractions-luatex-only } }
+
+\cs_if_exist:NF \Umathfractiondenomdown
+  { \msg_fatal:nn { number-theory } { fractions-unicode-math-required } }
+\cs_if_exist:NF \crampedtextstyle
+  { \msg_fatal:nn { number-theory } { fractions-unicode-math-required } }
+
+\bool_new:N \l__nt_fraction_global_bool
+
+% LuaTeX's \Umath... parameter scanner expects a real math-style command.
+% Therefore these scratch control sequences are aliases, not macros expanding
+% to style commands.
+\cs_new_eq:NN \l__nt_fraction_style:         \displaystyle
+\cs_new_eq:NN \l__nt_fraction_cramped_style: \crampeddisplaystyle
+
+\cs_new_protected:Npn \__nt_fraction_select_style:NN #1#2
+  {
+    \cs_set_eq:NN \l__nt_fraction_style:         #1
+    \cs_set_eq:NN \l__nt_fraction_cramped_style: #2
+  }
+
+\cs_new_protected:Npn \__nt_fraction_assign_one:NNn #1#2#3
+  {
+    \bool_if:NT \l__nt_fraction_global_bool { \tex_global:D }
+    #1 #2 = \dim_eval:n {#3} \scan_stop:
+  }
+
+\cs_new_protected:Npn \__nt_fraction_set:Nn #1#2
+  {
+    \__nt_fraction_assign_one:NNn
+      #1 \l__nt_fraction_style: {#2}
+    \__nt_fraction_assign_one:NNn
+      #1 \l__nt_fraction_cramped_style: {#2}
+  }
+
+\cs_new_protected:Npn \__nt_fraction_adjust_one:NNn #1#2#3
+  {
+    \dim_set:Nn \l_tmpa_dim
+      { \tex_the:D #1 #2 + ( #3 ) }
+    \__nt_fraction_assign_one:NNn #1 #2 { \l_tmpa_dim }
+  }
+
+\cs_new_protected:Npn \__nt_fraction_adjust:Nn #1#2
+  {
+    \__nt_fraction_adjust_one:NNn
+      #1 \l__nt_fraction_style: {#2}
+    \__nt_fraction_adjust_one:NNn
+      #1 \l__nt_fraction_cramped_style: {#2}
+  }
+
+% Keys for one math style.
+%
+% Ordinary ruled fractions use the fraction parameters.  A generalized
+% fraction with zero rule thickness (notably \binom) uses the stack parameters.
+% delimiter-size controls the minimum delimiter size used by generalized
+% fractions with delimiters.
+\keys_define:nn { number-theory / fractions / style }
+  {
+    numerator-shift .code:n =
+      { \__nt_fraction_set:Nn \Umathfractionnumup {#1} },
+    numerator-shift-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathfractionnumup {#1} },
+
+    denominator-shift .code:n =
+      { \__nt_fraction_set:Nn \Umathfractiondenomdown {#1} },
+    denominator-shift-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathfractiondenomdown {#1} },
+
+    numerator-gap .code:n =
+      { \__nt_fraction_set:Nn \Umathfractionnumvgap {#1} },
+    numerator-gap-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathfractionnumvgap {#1} },
+
+    denominator-gap .code:n =
+      { \__nt_fraction_set:Nn \Umathfractiondenomvgap {#1} },
+    denominator-gap-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathfractiondenomvgap {#1} },
+
+    rule-thickness .code:n =
+      { \__nt_fraction_set:Nn \Umathfractionrule {#1} },
+    rule-thickness-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathfractionrule {#1} },
+
+    stack-numerator-shift .code:n =
+      { \__nt_fraction_set:Nn \Umathstacknumup {#1} },
+    stack-numerator-shift-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathstacknumup {#1} },
+
+    stack-denominator-shift .code:n =
+      { \__nt_fraction_set:Nn \Umathstackdenomdown {#1} },
+    stack-denominator-shift-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathstackdenomdown {#1} },
+
+    stack-gap .code:n =
+      { \__nt_fraction_set:Nn \Umathstackvgap {#1} },
+    stack-gap-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathstackvgap {#1} },
+
+    delimiter-size .code:n =
+      { \__nt_fraction_set:Nn \Umathfractiondelsize {#1} },
+    delimiter-size-adjust .code:n =
+      { \__nt_fraction_adjust:Nn \Umathfractiondelsize {#1} },
+  }
+
+\cs_new_protected:Npn \__nt_fraction_style_keys:NNn #1#2#3
+  {
+    \__nt_fraction_select_style:NN #1#2
+    \keys_set:nn { number-theory / fractions / style } {#3}
+  }
+
+\keys_define:nn { number-theory / fractions }
+  {
+    display .code:n =
+      {
+        \__nt_fraction_style_keys:NNn
+          \displaystyle \crampeddisplaystyle {#1}
+      },
+    text .code:n =
+      {
+        \__nt_fraction_style_keys:NNn
+          \textstyle \crampedtextstyle {#1}
+      },
+    inline .code:n =
+      {
+        \__nt_fraction_style_keys:NNn
+          \textstyle \crampedtextstyle {#1}
+      },
+    script .code:n =
+      {
+        \__nt_fraction_style_keys:NNn
+          \scriptstyle \crampedscriptstyle {#1}
+      },
+    scriptscript .code:n =
+      {
+        \__nt_fraction_style_keys:NNn
+          \scriptscriptstyle \crampedscriptscriptstyle {#1}
+      },
+  }
+
+% Permanent document-wide setup.
+\NewDocumentCommand \NTFractionSetup { m }
+  {
+    \group_begin:
+      \bool_set_true:N \l__nt_fraction_global_bool
+      \keys_set:nn { number-theory / fractions } {#1}
+    \group_end:
+  }
+
+% Local setup.  The scope must begin outside math mode so that the parameter
+% values are still in force when LuaTeX converts the completed math list.
+\NewDocumentCommand \NTWithFractionSetup { m m }
+  {
+    \mode_if_math:T
+      { \msg_warning:nn { number-theory } { fractions-local-inside-math } }
+    \group_begin:
+      \bool_set_false:N \l__nt_fraction_global_bool
+      \keys_set:nn { number-theory / fractions } {#1}
+      #2
+    \group_end:
+  }
+
+\NewDocumentEnvironment { ntfractionsetup } { m }
+  {
+    \mode_if_math:T
+      { \msg_warning:nn { number-theory } { fractions-local-inside-math } }
+    \group_begin:
+      \bool_set_false:N \l__nt_fraction_global_bool
+      \keys_set:nn { number-theory / fractions } {#1}
+  }
+  { \group_end: }
+
+% Diagnostic output: report the current native parameters in the .log file.
+\cs_new_protected:Npn \__nt_fraction_show_one:NNn #1#2#3
+  {
+    \iow_term:x
+      { NT~FRACTIONS~|~#3~=~\tex_the:D #1 #2 }
+  }
+
+\cs_new_protected:Npn \__nt_fraction_show_style:NNn #1#2#3
+  {
+    \__nt_fraction_show_one:NNn \Umathfractionnumup       #1 { #3/numerator-shift }
+    \__nt_fraction_show_one:NNn \Umathfractiondenomdown   #1 { #3/denominator-shift }
+    \__nt_fraction_show_one:NNn \Umathfractionnumvgap     #1 { #3/numerator-gap }
+    \__nt_fraction_show_one:NNn \Umathfractiondenomvgap   #1 { #3/denominator-gap }
+    \__nt_fraction_show_one:NNn \Umathfractionrule        #1 { #3/rule-thickness }
+    \__nt_fraction_show_one:NNn \Umathstacknumup          #1 { #3/stack-numerator-shift }
+    \__nt_fraction_show_one:NNn \Umathstackdenomdown      #1 { #3/stack-denominator-shift }
+    \__nt_fraction_show_one:NNn \Umathstackvgap           #1 { #3/stack-gap }
+    \__nt_fraction_show_one:NNn \Umathfractiondelsize     #1 { #3/delimiter-size }
+    \__nt_fraction_show_one:NNn \Umathfractionnumup       #2 { #3-cramped/numerator-shift }
+    \__nt_fraction_show_one:NNn \Umathfractiondenomdown   #2 { #3-cramped/denominator-shift }
+  }
+
+\NewDocumentCommand \NTFractionShow { }
+  {
+    \__nt_fraction_show_style:NNn
+      \displaystyle \crampeddisplaystyle { display }
+    \__nt_fraction_show_style:NNn
+      \textstyle \crampedtextstyle { text }
+    \__nt_fraction_show_style:NNn
+      \scriptstyle \crampedscriptstyle { script }
+    \__nt_fraction_show_style:NNn
+      \scriptscriptstyle \crampedscriptscriptstyle { scriptscript }
+  }
+
+\ExplSyntaxOff
+
+\NTFractionSetup{
+  text = {
+    denominator-shift-adjust = -2pt,
+  },
+}

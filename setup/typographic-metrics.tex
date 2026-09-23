@@ -1,0 +1,57 @@
+% Install after the rest of the preamble: \input{setup/typographic-metrics}
+% Keep typographic-metrics.lua in the same setup/ directory.
+% The module observes nodes; it changes neither typesetting nor PDF tagging.
+\ifdefined\directlua\else
+  \PackageError{typographic-metrics}{LuaLaTeX is required}{}
+\fi
+
+\directlua{NTTypometrics = require("setup.typographic-metrics")}
+
+\AddToHook{cmd/mainmatter/before}[nt-metrics-start]
+  {\par\begingroup\normalfont\normalsize\directlua{NTTypometrics.start()}\endgroup}
+\AddToHook{cmd/backmatter/before}[nt-metrics-stop]
+  {\par\directlua{NTTypometrics.stop()}}
+
+% Sectioning marks the next paragraph(s) as potential heading material.
+% Lua detects the return to body text; no private book-class command is used.
+\AddToHook{cmd/part/before}[nt-metrics-part-head-in]
+  {\par\directlua{NTTypometrics.heading_begin()}}
+\AddToHook{cmd/chapter/before}[nt-metrics-chapter-head-in]
+  {\par\directlua{NTTypometrics.heading_begin()}}
+\AddToHook{cmd/section/before}[nt-metrics-section-head-in]
+  {\par\directlua{NTTypometrics.heading_begin()}}
+\AddToHook{cmd/subsection/before}[nt-metrics-subsection-head-in]
+  {\par\directlua{NTTypometrics.heading_begin()}}
+\AddToHook{cmd/subsubsection/before}[nt-metrics-subsubsection-head-in]
+  {\par\directlua{NTTypometrics.heading_begin()}}
+
+% Captions inside floats and other floating material are not book prose.
+\AddToHook{env/figure/begin}[nt-metrics-figure-in]
+  {\directlua{NTTypometrics.exclude_begin()}}
+\AddToHook{env/figure/end}[nt-metrics-figure-out]
+  {\directlua{NTTypometrics.exclude_end()}}
+\AddToHook{env/figure*/begin}[nt-metrics-figure-star-in]
+  {\directlua{NTTypometrics.exclude_begin()}}
+\AddToHook{env/figure*/end}[nt-metrics-figure-star-out]
+  {\directlua{NTTypometrics.exclude_end()}}
+\AddToHook{env/table/begin}[nt-metrics-table-in]
+  {\directlua{NTTypometrics.exclude_begin()}}
+\AddToHook{env/table/end}[nt-metrics-table-out]
+  {\directlua{NTTypometrics.exclude_end()}}
+\AddToHook{env/table*/begin}[nt-metrics-table-star-in]
+  {\directlua{NTTypometrics.exclude_begin()}}
+\AddToHook{env/table*/end}[nt-metrics-table-star-out]
+  {\directlua{NTTypometrics.exclude_end()}}
+\AddToHook{env/longtable/begin}[nt-metrics-longtable-in]
+  {\directlua{NTTypometrics.exclude_begin()}}
+\AddToHook{env/longtable/end}[nt-metrics-longtable-out]
+  {\directlua{NTTypometrics.exclude_end()}}
+
+% For a caption outside a float (or another passage to omit), wrap it in this.
+\NewDocumentEnvironment{NTMetricsExclude}{}
+  {\directlua{NTTypometrics.exclude_begin()}}
+  {\directlua{NTTypometrics.exclude_end()}}
+
+% Run after the final shipout, so page-density figures include the last page.
+\AddToHook{enddocument/afterlastpage}[nt-metrics-report]
+  {\directlua{NTTypometrics.report()}}
