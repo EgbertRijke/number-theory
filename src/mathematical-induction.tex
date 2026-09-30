@@ -262,9 +262,14 @@ The last identification is called the \define{interchange law} for addition. The
   \end{equation*}
 
   Now we prove that $l(m+n)=lm+ln$. We prove it by induction on $n$. In the base case, we have that $l(m+0)=lm=lm+0= lm+l0$. For the inductive step, assume that $l(m+n)=lm+ln$. Then we have that
-  \begin{equation*}
-    l(m+(n+1))=l((m+n)+1)=l(m+n)+l=(lm+ln)+l=lm+(ln+l)=lm+l(n+1).
-  \end{equation*}
+  \begin{align*}
+    l(m+(n+1))
+    & = l((m+n)+1) \\
+    & = l(m+n)+l \\
+    & = (lm+ln)+l \\
+    & = lm+(ln+l) \\
+    & = lm+l(n+1).
+  \end{align*}
   The identification $(l+m)n=ln+mn$ follows from the previous identification, using the fact that $mn=nm$.
 
   Finally, the proof that $(lm)n=l(mn)$ is by induction on $n$. In the base case, we have the equalities $(lm)0=0=l0=l(m0)$. For the inductive step, assume that $(lm)n=l(mn)$. Then we have that

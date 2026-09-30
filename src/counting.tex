@@ -899,11 +899,11 @@ Thus, we see an alternating pattern emerging: Single sets are added, intersectio
   for each $x\in X$.
   
   Observe that the sum $\sum_{1\leq i_1<\cdots<i_k\leq n}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]$ is a count of the number of strictly increasing sequences $i_1<\cdots <i_k$ such that $x\in A_{i_j}$ for all $1\leq j\leq k$. If the total number of indices $i$ such that $x\in A_i$ is $m$, then the number of such strictly increasing sequences is $\binom{m}{k}$. This shows that
-  \begin{equation*}
-    \sum_{k=0}^n (-1)^{k}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]\right) =
-    \sum_{k=0}^n (-1)^{k}\binom{m}{k} =
-    \sum_{k=0}^m (-1)^{k}\binom{m}{k}.
-  \end{equation*}
+  \begin{align*}
+    \sum_{k=0}^n (-1)^{k}\left(\sum_{1\leq i_1<\cdots<i_k\leq n}[x\in A_{i_1}\cap\cdots\cap A_{i_k}]\right)
+    & = \sum_{k=0}^n (-1)^{k}\binom{m}{k} \\
+    & = \sum_{k=0}^m (-1)^{k}\binom{m}{k}.
+  \end{align*}
   By the binomial theorem, the latter sum equals $(1-1)^m$. Since $m\geq 1$ for each $x\in X$, we conclude that this sum is $0$. This concludes the proof.
 \end{proof}
 
@@ -1131,7 +1131,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
 
 \begin{figure}[t]
   \centering
-    \begin{tikzpicture}[scale=1,line join=round,line cap=round]
+  \begin{tikzpicture}[scale=.8,line join=round,line cap=round]
     
     \draw[->] (-0.3,0) -- (5.5,0) node[right] {$x$};
     \draw[->] (0,-0.3) -- (0,4.5) node[above] {$y$};
@@ -1162,7 +1162,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
       \draw[->] (90:0.25) arc[start angle=90,end angle=0,radius=0.25];
     \end{scope}
 
-    \begin{scope}[xshift=8cm]
+    \begin{scope}[shift={(8,0)}]
 
       \draw[->] (-0.3,0) -- (4.5,0) node[right] {$x$};
       \draw[->] (0,-0.3) -- (0,5.5) node[above] {$y$};
@@ -1200,8 +1200,8 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
 \begin{corollary}\label{corollary:transposing-order-preserving-maps}
   There is a bijection
   \begin{equation*}
-    \{f:[n]\to\{0,\ldots,m\}\mid f\text{ preserves order}\} \cong
-    \{g:[m]\to\{0,\ldots,n\}\mid g\text{ preserves order}\}
+    \mathrm{Map}_{\leq}(\{1,\ldots,n\},\{0,\ldots,m\}) \cong
+    \mathrm{Map}_{\leq}(\{1,\ldots,m\},\{0,\ldots,n\}).
   \end{equation*}
 \end{corollary}
 
@@ -1281,19 +1281,20 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
     \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
   \end{equation*}
   The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
+  \exercise Define a bijection between ordered triples $(a,b,c)$ of positive integers such that $a+b+c=n$ and the set of $2$-element subsets of $\{1,\ldots,n-1\}$, and use this to determine the number of such ordered triples.
+  \exercise Consider an arbitrary subset $A$ of the natural numbers, and let the sets $\mathcal{P}_{\mathrm{even}}(A)$ and $\mathcal{P}_{\mathrm{odd}}(A)$ be defined as follows:
+  \begin{align*}
+    \mathcal{P}_{\mathrm{even}}(A) & :=\big\{S\subseteq A\bigm| \text{$S$ is finite and }{\textstyle \sum_{s\in S}s}\text{ is even}\big\}, \\
+    \mathcal{P}_{\mathrm{odd}}(A) & :=\big\{S\subseteq A\bigm| \text{$S$ is finite and }{\textstyle \sum_{s\in S}s}\text{ is odd}\big\}.
+  \end{align*}
+  Show that there is a bijection bijection $f:\mathcal{P}_{\mathrm{even}}(A)\to\mathcal{P}_{\mathrm{odd}}(A)$ if and only if the set $A$ contains an odd number. Use this bijection to conclude that for $n\geq 1$, there are exactly $2^{n-1}$ subsets $S\subseteq\{1,\ldots,n\}$ whose sum of elements is even.
+\end{routine}
+
+\begin{challenge}
   \exercise Show that
   \begin{equation*}
     \sum_{k=0}^n\prod_{i=0}^m (k+i) = (m+1)!\binom{n+m+1}{m+2}.
   \end{equation*}
-  \exercise Consider a set $A\subseteq \mathbb{N}$, and let the sets $\mathcal{P}_0(A)$ and $\mathcal{P}_1(A)$ be defined as follows:
-  \begin{equation*}
-    \mathcal{P}_0(A):=\big\{S\subseteq A\bigm| {\textstyle \sum_{s\in S}s}\text{ is even}\big\}\quad\text{and}\quad
-    \mathcal{P}_1(A):=\big\{S\subseteq A\bigm| {\textstyle \sum_{s\in S}s}\text{ is odd}\big\}.
-  \end{equation*}
-  Show that there is a bijection bijection $f:\mathcal{P}_0(A)\to\mathcal{P}_1(A)$ if and only if the set $A$ contains an odd number. Use this bijection to conclude that for $n\geq 1$, there are exactly $2^{n-1}$ subsets $S\subseteq\{1,\ldots,n\}$ whose sum of elements is even.
-\end{routine}
-
-\begin{challenge}
   \exercise
   \begin{subexenum}
   \item Show that in the $n$\supth{} row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
