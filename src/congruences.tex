@@ -101,19 +101,21 @@ Carl Friedrich Gauss introduced the congruence relations in his monumental work,
   \end{align*}
 
   The main difficulty is obtaining the right correction terms for leap days. Since leap days are added at the end of February, it is therefore customary to consider the days in January and February to belong to the prior year. That is, we will be working with the values
-  \begin{equation*}
-    m' :=
+\begin{equation*}
+  \begin{aligned}
+    m' & :=
     \begin{cases}
-      m+12 & \text{if $m=1$ or $m=2$,} \\
-      m & \text{otherwise,}
+      \mathmakebox[3em][l]{m+12} & \text{if $m=1$ or $m=2$,} \\
+      m    & \text{otherwise,}
     \end{cases}
-    \qquad\text{and}\qquad
-    y' :=
+    \\
+    y' & :=
     \begin{cases}
-      y-1 & \text{if $m=1$ or $m=2$,} \\
-      y & \text{otherwise.}
+      \mathmakebox[3em][l]{y-1} & \text{if $m=1$ or $m=2$,} \\
+      y   & \text{otherwise.}
     \end{cases}
-  \end{equation*}
+  \end{aligned}
+\end{equation*}
 
   Every year has $365$ days, except in a leap year, which has an extra day at the end of February. In the Gregorian calendar, every fourth year is a leap year, except every hundredth year, in which the leap day is skipped, except every four hundredth year, in which skipping the leap day is skipped. Thus, the exact number of days in all years prior to the given date is
   \begin{equation*}
