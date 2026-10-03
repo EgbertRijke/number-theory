@@ -129,10 +129,14 @@
 
 \DeclareMathOperator{\denominator}{denom}
 
-\setmathfont[range=\triangledown]{STIX Two Math}
+\newfontface\MathBackupFont{STIX Two Math}[Renderer=Basic]
 
 \newcommand{\mediant}{%
-  \mathbin{\MathMLintent{_mediant}{{\triangledown}}}%
+  \mathbin{%
+    \MathMLintent{_mediant}{%
+      {\text{\MathBackupFont\char"25BF}}%
+    }%
+  }%
 }
 
 \newcommand{\bimapsto}{%

@@ -28,7 +28,7 @@ is perfect. Indeed, since the divisors of $2^k$ are precisely the numbers $2^i$ 
 \begin{equation*}
   1,~2,\ldots,~2^k,\qquad\text{and}\qquad (2^m-1),~2(2^m-1),\ldots,~2^k(2^m-1).
 \end{equation*}
-The sum of the divisors of $2^k(2^m-1)$ is thus
+The sum of the divisors of $2^k(2^m-1)$ is therefore
 \begin{equation*}
   (2^{k+1}-1)+(2^{k+1}-1)(2^m-1)=(2^{k+1}-1)2^m.
 \end{equation*}
@@ -49,7 +49,7 @@ Using Euclid's method, we can find the first few perfect numbers. \zcref{tab:mer
   \begin{tabular}{c|cccccccccc}
     $m$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ \\
     \midrule
-    $2^m-1$ & $\symbf{3}$ & $\symbf{7}$ & $3\cdot 5$ & $\symbf{31}$ & $3^2\cdot 7$ & $\symbf{127}$ & $3\cdot 5\cdot 17$ & $7\cdot 73$ & $3\cdot 11\cdot 31$ & $23\cdot 89$
+    $2^m-1$ & $\symbf{3}$ & $\symbf{7}$ & $3{\cdot} 5$ & $\symbf{31}$ & $3^2{\cdot} 7$ & $\symbf{127}$ & $3{\cdot} 5{\cdot}17$ & $7{\cdot}73$ & $3{\cdot} 11{\cdot} 31$ & $23{\cdot} 89$
   \end{tabular}
   \caption[The first few Mersenne numbers]{The Mersenne numbers $M_m$ for $2\leq m\leq 11$.}
   \label{tab:mersenne-numbers}
@@ -124,9 +124,9 @@ The multiplicative property of the sum-of-divisors function along with the expre
 \end{corollary}
 
 \begin{example}
-  We saw in \zcref{example:15!} that $15!=2^{11}\cdot 3^6\cdot 5^3\cdot 7^2 \cdot 11\cdot 13$. It follows that
+  We saw in \zcref{example:15!} that $15!=2^{11}{\cdot} 3^6{\cdot} 5^3{\cdot} 7^2 {\cdot} 11{\cdot} 13$. It follows that
   \begin{equation*}
-    \sigma(15!)=(2^{12}-1)\cdot \frac{3^7-1}{2}\cdot \frac{5^4-1}{4}\cdot \frac{7^3-1}{6}\cdot 12\cdot 14=2^5\cdot 3^5\cdot 5\cdot 7^2 \cdot 13^2\cdot 19\cdot 1093.
+    \sigma(15!)=(2^{12}-1){\cdot} \frac{3^7-1}{2}{\cdot} \frac{5^4-1}{4}{\cdot} \frac{7^3-1}{6}{\cdot} 12{\cdot} 14=2^5{\cdot} 3^5{\cdot} 5{\cdot} 7^2 {\cdot} 13^2{\cdot} 19{\cdot} 1093.
   \end{equation*}
 \end{example}
 
@@ -255,25 +255,31 @@ Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient
   \end{equation*}
 \end{corollary}
 
-\begin{example}
-  \begin{table}[t]
-    \centering
-    \begin{tabular}{lll}
-      $2^k$ & Fermat primes & $\{n\mid \totient(n)=2^k\}$ \\
-      \midrule
-      $1$   &             & $\{1,2\}$ \\
-      $2$   & $3$         & $\{3,4,6\}$ \\
-      $4$   & $3,5$       & $\{5,8,10,12\}$ \\
-      $8$   & $3,5$       & $\{15,16,20,24,30\}$ \\
-      $16$  & $3,5,17$    & $\{17,32,34,40,48,60\}$ \\
-      $32$  & $3,5,17$    & $\{51,64,68,80,96,102,120\}$ \\
-      $64$  & $3,5,17$    & $\{85,128,136,160,170,192,204,240\}$ \\
-      $128$ & $3,5,17$    & $\{255,256,272,320,340,384,408,480,510\}$
-    \end{tabular}
-    \caption{\label{table:totient-power-of-two}Lists of numbers $n$ for which $\totient(n)=2^k$}
-  \end{table}
-  We will use \zcref{theorem:product-formula-totient} to determine all $n$ for which $\totient(n)=2^k$ for some $k$.
+\begin{table}[t]
+  \centering
+  \tagpdfsetup{
+    table/header-rows={1},
+    table/header-columns={}
+  }
+  \begin{tabular}{l b{7em} l}
+    $2^k$ & Fermat primes\newline $p\le 2^k+1$
+    & $n$ such that $\totient(n)=2^k$ \\
+    \midrule
+    $1$   & none              & $1$, $2$ \\
+    $2$   & $3$               & $3$, $4$, $6$ \\
+    $4$   & $3$, $5$          & $5$, $8$, $10$, $12$ \\
+    $8$   & $3$, $5$          & $15$, $16$, $20$, $24$, $30$ \\
+    $16$  & $3$, $5$, $17$    & $17$, $32$, $34$, $40$, $48$, $60$ \\
+    $32$  & $3$, $5$, $17$    & $51$, $64$, $68$, $80$, $96$, $102$, $120$ \\
+    $64$  & $3$, $5$, $17$    & $85$, $128$, $136$, $160$, $170$, $192$, $204$, $240$ \\
+    $128$ & $3$, $5$, $17$    & $255$, $256$, $272$, $320$, $340$, $384$, $408$, $480$, $510$
+  \end{tabular}
+  \caption{\label{table:totient-power-of-two}Lists of numbers $n$ for which $\totient(n)=2^k$}
+\end{table}
 
+\begin{example}
+  We will use \zcref{theorem:product-formula-totient} to determine all $n$ for which $\totient(n)=2^k$ for some $k$.
+  
   If $p$ is an odd prime so that $p^a-p^{a-1}=p^{a-1}(p-1)$ is a power of $2$, then it follows that $a-1=0$. In other words, in order for $p^a-p^{a-1}$ to be a power of $2$, we must have $a=1$. This shows that if $\totient(n)$ is a power of $2$, then $n$ must be of the form
   \begin{equation*}
     n=2^a\prod_{p\in S}p,
@@ -716,6 +722,7 @@ We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offer
   \begin{equation*}
     q\equiv 1\pmod{2p}.
   \end{equation*}
+  Conclude that $\gcd(k,M_p)=1$ for all $1\leq k \leq 2p$.
   Hint: Apply \zcrefnamed{theorem:order-theorem}.
   % This exercise uses Fermat's little theorem
   \exercise

@@ -28,6 +28,28 @@
 \pgfplotsset{compat=1.18}
 \tikzset{every picture/.append style={line cap=round, line join=round}}
 
+\makeatletter
+\newcommand{\TikZFontSizes}{%
+  \renewcommand\normalsize{\@setfontsize\normalsize{9pt}{10.8pt}}%
+  \renewcommand\small{\@setfontsize\small{8.1pt}{9.9pt}}%
+  \renewcommand\footnotesize{\@setfontsize\footnotesize{7.2pt}{8.55pt}}%
+  \renewcommand\scriptsize{\@setfontsize\scriptsize{6.3pt}{7.2pt}}%
+  \renewcommand\tiny{\@setfontsize\tiny{4.5pt}{5.4pt}}%
+  \renewcommand\large{\@setfontsize\large{10.8pt}{12.6pt}}%
+  \renewcommand\Large{\@setfontsize\Large{12.96pt}{16.2pt}}%
+  \renewcommand\LARGE{\@setfontsize\LARGE{15.552pt}{19.8pt}}%
+  \renewcommand\huge{\@setfontsize\huge{18.666pt}{22.5pt}}%
+  \renewcommand\Huge{\@setfontsize\Huge{22.392pt}{27pt}}%
+  \normalsize
+}
+\makeatother
+
+\tikzset{
+  every picture/.append style={
+    execute at begin picture=\TikZFontSizes
+  }
+}
+
 \pgfplotsset{
   lectureplot/.style={
     width=12cm, height=8cm,

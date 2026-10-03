@@ -4,10 +4,10 @@
 
 When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $S$ given by $n\mapsto n+1$.
 
-As we saw in our exposition on the history of the concept of number, the definition of the natural numbers centers on precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
+As we saw in \zcref{sec:concept-of-number} on the history of the concept of number, the definition of the natural numbers centers on precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
 
 \begin{definition}
-  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$ given by $n\mapsto n+1$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
+  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$, which we also denote by the map $n\mapsto n+1$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
   \begin{enumerate}
   \item an element $a_0\in A_0$, and
   \item for each $n$, a function $h_n:A_n\to A_{n+1}$,
@@ -21,13 +21,13 @@ As we saw in our exposition on the history of the concept of number, the definit
 
 Thus, when defining a function by structural induction there are two subtasks: First, we have to specify the value of $f(0)$ by specifying an element of the set $A_0$, and second, we have to specify how each potential value of $f$ at $n$ can be used to obtain the value of $f$ at $n+1$. This second task is performed by defining a function $h_n$ from $A_n$ to $A_{n+1}$, so that if $f(n)$ is determined, then we can determine $f(n+1)$ by applying $h_n$ to $f(n)$.
 
-The two equations that the function $f$ in the structural induction principle satisfies are called the \emph{computation rules}. By these computation rules we can present definitions by structural induction in the following shorthand form:
+The two equations that the function $f$ in the structural induction principle satisfies are called the \define{computation rules}. By these computation rules we can present definitions by structural induction in the following shorthand form:
 \begin{align*}
   f(0) & := a_0, \\
   f(n+1) & := h_n(f(n)).
 \end{align*}
 
-An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to \emph{iterate} any function $f$ on any set $X$. Here, we pick $A_n:= X$ for each $n$ (so it is not dependent on $n$), and we define $h_n:X\to X$ by $h:=f$ (again, not dependent on $n$). In the following definition we give the precise definition of the $n$\supth{} iteration of $f$.
+An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to iterate any function $f$ on any set $X$. Here, we pick $A_n:= X$ for each $n$ (so it is not dependent on $n$), and we define $h_n:X\to X$ by $h:=f$ (again, not dependent on $n$). In the following definition we give the precise definition of the $n$\supth{} iteration of $f$.
 
 \begin{definition}
   Consider a function $f:X\to X$. For each natural number $n$, we define the \define{$n$\supth{} iteration} $f^n$ of $f$ by
@@ -386,9 +386,12 @@ This simple example allows us to prove the two properties Peano postulated as ax
     S_n + (n+1) = \frac{n(n+1)}{2} + (n+1).
   \end{equation*}
   Observe that $(n+1)=\frac{2(n+1)}{2}$. Therefore we can make the following computation:
-  \begin{equation*}
-    \frac{n(n+1)}{2} + (n+1) = \frac{n(n+1)}{2}+\frac{2(n+1)}{2} = \frac{n(n+1)+2(n+1)}{2}=\frac{(n+2)(n+1)}{2}.
-  \end{equation*}
+  \begin{align*}
+    \frac{n(n+1)}{2} + (n+1) 
+    & = \frac{n(n+1)}{2}+\frac{2(n+1)}{2} \\
+    & = \frac{n(n+1)+2(n+1)}{2} \\
+    & = \frac{(n+2)(n+1)}{2}.
+  \end{align*}
   Since $(n+2)(n+1)=(n+1)(n+2)$ it follows that $S_{n+1}=\frac{(n+1)(n+2)}{2}$ as desired.
 \end{proof}
 
