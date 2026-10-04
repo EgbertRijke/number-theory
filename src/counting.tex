@@ -15,7 +15,7 @@ of any $k$ consecutive natural numbers is always divisible by $k!$.
 
 What do mathematicians mean by counting? How do we establish that a certain set of objects contain a certain number of objects? Or, more generally, how do we establish that two sets of objects have the same number of objects?
 
-These questions take us back to the 18\supth{}-century Scottish philosopher David Hume. He sheds light on this very question in his \emph{Treatise of Human Nature},
+These questions take us back to the 18\supth{}-century Scottish philosopher David Hume. He sheds light on this very question in his \textsc{Treatise of Human Nature},
 a philosphical work in which he set out to found a general ``science of man'' by applying empirical methods to understanding, the passions, and morals \cite[Part III, Book I]{hume1978}.
 In discussing the idea of number, he observes that equality of numbers can be determined whenever there is a one-to-one correspondence between their constituents:
 \begin{quote}
@@ -102,7 +102,7 @@ and by making sure that every element of $A$ is labeled \emph{at most once} we m
 
 Thus,
 in order to show that the set $A$ has $n$ elements,
-we have to create what is called a \emph{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
+we have to create what is called a \define{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
 
 \begin{definition}
   A function $f:X\to Y$ is said to be a \define{bijection} if for every $y\in Y$ there is exactly one element $x\in X$ such that $f(x)=y$.
@@ -180,8 +180,8 @@ we have to create what is called a \emph{bijective correspondence} between the e
       \draw[mapsto] (a1) to (b2);
       \draw[underpass] (a2) to (b3);
       \draw[mapsto] (a2) to (b3);
-      \draw[underpass] (a3) to (b1);
-      \draw[mapsto] (a3) to (b1);
+      \draw[underpass,bend left=20] (a3) to (b1);
+      \draw[mapsto,bend left=20] (a3) to (b1);
       
     \end{tikzpicture}%
     \captionof{figure}[Not a bijection]{This function is not a bijection since $b_4$ is not the value of any element in $A$.}%
@@ -199,7 +199,7 @@ then no function $f:A\to B$ could have all the elements of $B$ in its range.
 This is precisely the reason why we are interested in bijections:
 If there is a bijection between $A$ and $B$,
 then they must have the same number of elements.
-The principle that any two finite sets have the same number of elements if and only if there is a bijection between them is \emph{Hume's Principle}.
+The principle that any two finite sets have the same number of elements if and only if there is a bijection between them is \define{Hume's Principle}.
 
 In order to prove Hume's principle more formally,
 we need two lemmas.
@@ -481,7 +481,7 @@ Intuitively, a bijection from $[n]$ to $[n]$ is determined, at least for $n>0$, 
   \end{align*}  
 \end{definition}
 
-In the following proposition we prove the number of bijections $[n]\cong[n]$ on the \emph{standard $n$-element set} is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
+In the following proposition we prove the number of bijections $[n]\cong[n]$ on the standard $n$-element set is the number $n!$. In other words, the factorial function counts the number of bijections on the standard $n$-element set.
   
 \begin{proposition}
   The number of bijections $[n]\cong [n]$ from the standard $n$-element set to itself is exactly $n!$.
@@ -553,7 +553,7 @@ A \define{subset} $A$ of a set $X$ is a set consisting entirely of elements of $
 \begin{equation*}
   A\subseteq X.
 \end{equation*}
-Subsets of $X$ can be formed using \emph{predicates} over the elements of $X$. A \define{predicate} is a proposition about or condition on indeterminate elements. For example, the condition that $n$ is an even natural number is a predicate with the indeterminate natural number $n$. This predicate determines the subset of all even natural numbers
+Subsets of $X$ can be formed using predicates over the elements of $X$. A \define{predicate} is a proposition about or condition on indeterminate elements. For example, the condition that $n$ is an even natural number is a predicate with the indeterminate natural number $n$. This predicate determines the subset of all even natural numbers
 \begin{equation*}
   \{0,2,4,6,\ldots\}\subseteq\mathbb{N}.
 \end{equation*}
@@ -648,7 +648,7 @@ This formula suggests a recursive method of determining the number of $k$-elemen
   \end{align*}
 \end{definition}
 
-The binomial coefficients can be arranged in \emph{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$\supth{} row of Pascal's triangle. In the $n$\supth{} row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
+The binomial coefficients can be arranged in \define{Pascal's triangle}, where each entry is the sum of the two directly above it. At the top of the triangle we find the binomial coefficient $\binom{0}{0}$. This is $0$\supth{} row of Pascal's triangle. In the $n$\supth{} row from the top, we find the binomial coefficients $\binom{n}{k}$ for $0\leq k\leq n$.
 
 \begin{theorem}
   Consider an $n$-element set $X$, and a natural number $k$. Then the number of $k$-element subsets of $X$ is the binomial coefficient $\binom{n}{k}$.
@@ -675,7 +675,7 @@ Next, we turn our attention to the closed form for the binomial coefficients
 \begin{equation*}
   \binom{n}{k}=\frac{n!}{k!(n-k)!}.
 \end{equation*}
-Equivalent formulas and computational rules were studied in several mathematical traditions over many centuries. Indian mathematicians had studied problems of permutations and combinations since antiquity, and by the ninth century Mahāvīra had given general arithmetical rules for their calculation \cite{mahavira1912}. In the \emph{Līlāvatī}, written around 1150 CE, the Indian mathematician Bhāskara II dedicated an entire chapter to combinatorics and provided rules for calculating combinations and permutations \cite{bhaskara1817}. In \emph{Maaseh Hoshev}, completed in 1321 CE, the French mathematician Levi ben Gerson stated the closed form for both combinations and permutations \cite{gerson1909}. Furthermore, his proofs are among the earliest surviving clear uses of mathematical induction. The Italian mathematician Girolamo Cardano published the closed form in \cite{cardano1570}.
+Equivalent formulas and computational rules were studied in several mathematical traditions over many centuries. Indian mathematicians had studied problems of permutations and combinations since antiquity, and by the ninth century Mahāvīra had given general arithmetical rules for their calculation \cite{mahavira1912}. In the \textsc{Līlāvatī}, written around 1150 CE, the Indian mathematician Bhāskara II dedicated an entire chapter to combinatorics and provided rules for calculating combinations and permutations \cite{bhaskara1817}. In \textsc{Maaseh Hoshev}, completed in 1321 CE, the French mathematician Levi ben Gerson stated the closed form for both combinations and permutations \cite{gerson1909}. Furthermore, his proofs are among the earliest surviving clear uses of mathematical induction. The Italian mathematician Girolamo Cardano published the closed form in \cite{cardano1570}.
 
 We will prove the formula for the binomial coefficients via a counting argument, by showing that
 \begin{equation*}
@@ -755,7 +755,7 @@ The binomial theorem has many proofs, including combinatorial proofs and algebra
   \end{align*}
 \end{proof}
 
-The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \emph{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2\supnd{} century BCE. Around the 11\supth{} century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13\supth{} century CE, and thus Pascal’s triangle is sometimes called the \emph{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \emph{Principia Mathematica}.
+The binomial theorem has a long history. The earliest known references to aspects of the binomial theorem are found in the Chinese mathematical text \textsc{Jiuzhang Suanshu} (Nine Chapters on the Mathematical Art), from approximately the 2\supnd{} century BCE. Around the 11\supth{} century CE, the Chinese mathematician Jia Xian described a method for calculating binomial coefficients, which corresponds to what we now refer to as Pascal’s triangle. This method was popularized by Yang Hui in the 13\supth{} century CE, and thus Pascal’s triangle is sometimes called the \define{Yang Hui triangle} in China. Isaac Newton was the first to generalize the binomial theorem to non-integer number systems, in 1687 in his \textsc{Principia Mathematica}.
 
 \section{The Inclusion--Exclusion Principle}
 
@@ -844,7 +844,7 @@ The binomial theorem has a long history. The earliest known references to aspect
   \label{figure:inclusion-exclusion}
 \end{figure}
 
-Consider two subsets $A$ and $B$ of a set $X$. The \emph{union} of $A$ and $B$ is the set
+Consider two subsets $A$ and $B$ of a set $X$. The \define{union} of $A$ and $B$ is the set
 \begin{equation*}
   A\cup B :=\{x\in X\mid x\in A\text{ or }x\in B\}.
 \end{equation*}
@@ -1282,7 +1282,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
   \begin{equation*}
     \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
   \end{equation*}
-  The binomial coefficient $\binom{2n}{n}$ is also called the \emph{central binomial coefficient}.
+  The binomial coefficient $\binom{2n}{n}$ is also called the \define{central binomial coefficient}.
   \exercise Define a bijection between ordered triples $(a,b,c)$ of positive integers such that $a+b+c=n$ and the set of $2$-element subsets of $\{1,\ldots,n-1\}$, and use this to determine the number of such ordered triples.
   \exercise Consider an arbitrary subset $A$ of the natural numbers, and let the sets $\mathcal{P}_{\mathrm{even}}(A)$ and $\mathcal{P}_{\mathrm{odd}}(A)$ be defined as follows:
   \begin{align*}
@@ -1302,7 +1302,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
   \item Show that in the $n$\supth{} row of Pascal's triangle all the entries are odd precisely when $n=2^k-1$ for some $k$.
   \item Show that in each row of Pascal's triangle, the number of odd entries is always a power of $2$.
   \end{subexenum}
-  \exercise A \emph{derangement} is a bijection $f:A\to A$ such that $f(x)\neq x$ for every $x\in A$. We define the \emph{derangement number} $!n$ to be the number of derangements on an $n$-element set.
+  \exercise A \define{derangement} is a bijection $f:A\to A$ such that $f(x)\neq x$ for every $x\in A$. We define the \define{derangement number} $!n$ to be the number of derangements on an $n$-element set.
   \begin{subexenum}
   \item Compute $!n$ for $0\leq n\leq 6$.
   \item Show that the derangement numbers satisfy the following recurrence relation:

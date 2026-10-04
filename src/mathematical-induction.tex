@@ -2,12 +2,12 @@
 
 \section{Recursion and Induction}
 
-When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that the natural numbers are generated from $0$ and the \define{successor function} $S$ given by $n\mapsto n+1$.
+When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we really mean that they are generated from $0$ and the successor function $S$ given by $n\mapsto n+1$.
 
-As we saw in \zcref{sec:concept-of-number} on the history of the concept of number, the definition of the natural numbers centers on precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
+As we saw in \zcref{sec:concept-of-number} on the history of the concept of number, the definition of the set of natural numbers centers on precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
 
 \begin{definition}
-  The set $\mathbb{N}$ of natural numbers is a set equipped with an element $0$ and a successor function $S:\mathbb{N}\to\mathbb{N}$, which we also denote by the map $n\mapsto n+1$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers equipped with
+  The set $\mathbb{N}$ of \define{natural numbers} is a set equipped with an element $0$ called \define{zero} and a \define{successor function} $S:\mathbb{N}\to\mathbb{N}$, which we also denote by the map $n\mapsto n+1$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers, equipped with
   \begin{enumerate}
   \item an element $a_0\in A_0$, and
   \item for each $n$, a function $h_n:A_n\to A_{n+1}$,
@@ -19,15 +19,17 @@ As we saw in \zcref{sec:concept-of-number} on the history of the concept of numb
   \end{align*}
 \end{definition}
 
-Thus, when defining a function by structural induction there are two subtasks: First, we have to specify the value of $f(0)$ by specifying an element of the set $A_0$, and second, we have to specify how each potential value of $f$ at $n$ can be used to obtain the value of $f$ at $n+1$. This second task is performed by defining a function $h_n$ from $A_n$ to $A_{n+1}$, so that if $f(n)$ is determined, then we can determine $f(n+1)$ by applying $h_n$ to $f(n)$.
+\begin{remark}[Structural induction explained]
+When defining a function by structural induction, there are two subtasks: First, we have to specify the value of $f(0)$ by specifying an element of the set $A_0$, and second, we have to specify how each potential value of $f$ at $n$ can be used to obtain the value of $f$ at $n+1$. This second task is performed by defining a function $h_n$ from $A_n$ to $A_{n+1}$, so that if $f(n)$ is determined, then we can determine $f(n+1)$ by applying $h_n$ to $f(n)$.
 
 The two equations that the function $f$ in the structural induction principle satisfies are called the \define{computation rules}. By these computation rules we can present definitions by structural induction in the following shorthand form:
 \begin{align*}
   f(0) & := a_0, \\
   f(n+1) & := h_n(f(n)).
 \end{align*}
+\end{remark}
 
-An important special case of structural induction, which will serve as our first example and by which we will define many further examples of recursive functions, is to iterate any function $f$ on any set $X$. Here, we pick $A_n:= X$ for each $n$ (so it is not dependent on $n$), and we define $h_n:X\to X$ by $h:=f$ (again, not dependent on $n$). In the following definition we give the precise definition of the $n$\supth{} iteration of $f$.
+An important special case of structural induction, which will serve as our first example and by which we will obtain many further examples of recursively defined functions, is to iterate a function $f:X\to X$ acting on a set $X$. The family of sets $(A_n)$ used in this application of structural induction is defined by $A_n:= X$ for each $n$ (so it is not dependent on $n$), and we define the function $h_n:X\to X$ by $h_n:=f$ (again, not dependent on $n$).
 
 \begin{definition}
   Consider a function $f:X\to X$. For each natural number $n$, we define the \define{$n$\supth{} iteration} $f^n$ of $f$ by
@@ -39,7 +41,7 @@ An important special case of structural induction, which will serve as our first
 
 In other words, the $0$\supth{} iteration of $f$ is the \define{identity function}, which leaves all elements untouched, and the $(n+1)$\supst{} iteration of $f$ is obtained by applying $f$ once more to the values of the $n$\supth{} iteration of $f$.
 
-\begin{remark}\label{remark:alternative-iteration}
+\begin{remark}[A choice made in the definition of iterates]\label{remark:alternative-iteration}
   Notice that we made a choice in the definition of the $(n+1)$\supst{} iteration of $f$. We could have defined it alternatively by $f^{n+1}(x):=f^n(f(x))$. In order to prove that the identity
   \begin{equation*}
     f^{n+1}(x)=f^n(f(x))
@@ -48,7 +50,7 @@ In other words, the $0$\supth{} iteration of $f$ is the \define{identity functio
 \end{remark}
 
 \begin{definition}
-  The principle of \define{mathematical induction} asserts that for any predicate $P(n)$ (that is, for any property of numbers depending on $n$), if
+  The principle of \define{mathematical induction} asserts that for any predicate $P(n)$---that is, for any property of numbers depending on $n$---if
   \begin{enumerate}
   \item the proposition $P(0)$ holds, and
   \item for any $n$, if the proposition $P(n)$ holds then the proposition $P(n+1)$ holds,
@@ -56,17 +58,15 @@ In other words, the $0$\supth{} iteration of $f$ is the \define{identity functio
   then $P(n)$ is true for all $n$.
 \end{definition}
 
-\begin{remark}
-  Proofs by induction can thus be broken down into the following steps:
+\begin{remark}[Proofs by induction explained]
+  Proofs by induction proceed in the following steps, each of which is a necessary aspect of an inductive proof:
   \begin{enumerate}
-  \item First identify the property $P(n)$ that you want to prove by induction. The goal of an induction proof is always to prove that $P(n)$ is true for all $n$.
-  \item Next, prove the \emph{base case}. In other words, show that $P(0)$ is a true proposition. While this step is often trivial, it is a necessary and essential part of an induction proof.
-  \item Finally, for the \emph{inductive step}, write down the exact \emph{induction hypothesis}, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds.
+  \item First, announce that your proof proceeds by induction and identify the property $P(n)$ that you are about to prove. The goal of an induction proof is always to prove that $P(n)$ is true for all $n$.
+  \item Next, prove the \define{base case}. In other words, show that $P(0)$ is a true proposition. While this step is often trivial, it is a necessary and essential part of an induction proof.
+  \item Finally, for the \define{inductive step}, write down the exact \define{induction hypothesis}, namely the property $P(n)$, and the exact goal of the inductive step, namely the property $P(n+1)$. Then use the induction hypothesis to prove that $P(n+1)$ then also holds.
   \end{enumerate}
   After these steps the proof that $P(n)$ holds is complete. Using induction we can prove, for example, that the identity $f^{n+1}(x)=f^n(f(x))$ holds for every $n$.  
 \end{remark}
-
-We are now in position to fully address \zcref{remark:alternative-iteration}.
 
 \begin{proposition}\label{proposition:iterate-successor}
   Consider a function $f:X\to X$ on a set $X$, and let $n$ be a natural number. Then we have
@@ -541,7 +541,7 @@ Notice that the last tile is either a monomino or a domino, so there are two cas
 \begin{equation*}
   H_n = H_{n-1} + H_{n-2}.
 \end{equation*}
-This recursive rule is very famous: It is the rule that generates the \emph{Fibonacci numbers}.
+This recursive rule is very famous: It is the rule that generates the Fibonacci numbers.
 
 \begin{definition}
   The sequence $F_n$ of \define{Fibonacci numbers} is defined by
@@ -554,9 +554,9 @@ Since the numbers $H_n$ start with $H_1=1$ and $H_2=2$, we find that
 \begin{equation*}
   H_n = F_{n+1}.
 \end{equation*}
-Hemachandra applied this recurrence to list the initial values of the sequence $H_n$:  $1$, $2$, $3$, $5$, $8$, $13$, $21$. His results appear in his treatise on metrics, the \emph{Chandonuśāsana} \cite{hemachandra1961}, composed several decades before Fibonacci's \emph{Liber Abaci} (1202). Nevertheless, in most of the world this sequence of numbers is called the Fibonacci numbers, even though it might be more appropriate to call them the Hemachandra--Fibonacci numbers.
+Hemachandra applied this recurrence to list the initial values of the sequence $H_n$:  $1$, $2$, $3$, $5$, $8$, $13$, $21$. His results appear in his treatise on metrics, the \textsc{Chandonuśāsana} \cite{hemachandra1961}, composed several decades before Fibonacci's \textsc{Liber Abaci} (1202). Nevertheless, in most of the world this sequence of numbers is called the Fibonacci numbers, even though it might be more appropriate to call them the Hemachandra--Fibonacci numbers.
 
-The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham1996}. The delightful book \emph{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
+The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham1996}. The delightful book \textsc{Proofs That Really Count: The Art of Combinatorial Proof} by Arthur Benjamin and Jennifer Quinn uses the tiling interpretation of the Fibonacci numbers to derive many Fibonacci identities combinatorially, and it contains many further examples of beautiful counting constructions \cite{benjamin2003}.
 
 \clearpage%
 
@@ -567,7 +567,7 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \begin{equation*}
     \sum_{k=0}^{n-1} 2k+1 = n^2.
   \end{equation*}
-  Note: This summation formula is the starting point from which Fibonacci derived much of his work in his book  \emph{Liber Quadratorum (The Book of Squares)} \cite{fibonacci1987}.
+  Note: This summation formula is the starting point from which Fibonacci derived much of his work in his book  \textsc{Liber Quadratorum} \cite{fibonacci1987}.
   \exercise
   \begin{subexenum}
   \item Prove that
@@ -774,7 +774,7 @@ The tiling interpretation of the Fibonacci numbers also appears in \cite{brigham
   \begin{equation*}
     s_0:=0,\qquad s_1:=1,\qquad\text{and}\qquad s_{n+2}=34\,s_{n+1}-s_n+2.
   \end{equation*}
-  The first few numbers in this sequence are $0,1,36,1225,41616, 1413721, 48024900,\ldots$.
+  The first few numbers in this sequence are $0$, $1$, $36$, $1225$, $41616$, $1413721$, and $48024900$.
   \begin{subexenum}
   \item Show that $s_n$ is a square number for each $n$.
   \item Show that $s_n$ is a triangular number for each $n$.
