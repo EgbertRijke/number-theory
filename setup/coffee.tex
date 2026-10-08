@@ -1,18 +1,30 @@
 \newcommand{\CoffeeMessage}{%
-  If you enjoy this book, please consider \href{https://buymeacoffee.com/mathguyegbert}{supporting this project}. With even the smallest donations, your support would help me finish and refine current drafts, and include new theorems, examples, exercises, and possibly even new chapters.
+  If you enjoy this book, please consider \CoffeeFooterLink{supporting this project}. With even the smallest donations, your support would help me finish and refine current drafts, and include new theorems, examples, exercises, and possibly even new chapters.
 }
 
 \ExplSyntaxOn
 
 \dim_new:N \g__coffee_bottom_inset_dim
 \dim_new:N \g__coffee_right_inset_dim
+\dim_new:N \g__coffee_left_inset_dim
 \dim_new:N \g__coffee_qr_size_dim
 \dim_new:N \g__coffee_text_width_dim
 \tl_new:N  \g__coffee_image_tl
 \tl_new:N  \g__coffee_message_tl
+\tl_new:N  \g__coffee_url_tl
+\tl_new:N  \g__coffee_alt_tl
+
+\tl_gset:Ne \g__coffee_url_tl
+  { \tl_to_str:n { https://buymeacoffee.com/mathguyegbert } }
+\tl_gset:Nn \g__coffee_alt_tl
+  {
+    QR~code~and~link~to~support~The~Great~Story~of~Numbers~
+    on~Buy~Me~a~Coffee.
+  }
 
 \dim_gset:Nn \g__coffee_bottom_inset_dim { 6mm }
 \dim_gset:Nn \g__coffee_right_inset_dim  { 6mm }
+\dim_gset:Nn \g__coffee_left_inset_dim   { 6mm }
 \dim_gset:Nn \g__coffee_qr_size_dim      { 18mm }
 \dim_gset:Nn \g__coffee_text_width_dim   { 64mm }
 
@@ -20,41 +32,88 @@
 
 \tl_gset:Nn \g__coffee_message_tl { \CoffeeMessage }
 
-\cs_new_protected:Npn \__coffee_shipout:
+\cs_new_protected:Npn \__coffee_href:n #1
+  {
+    \tag_start:n { artifact-group }
+    \tag_mc_end:
+    \tag_struct_begin:n { tag=P }
+    \tag_mc_begin:n { tag=P }
+    \exp_args:NV \href \g__coffee_url_tl {#1}
+    \tag_mc_end:
+    \tag_struct_end:
+    \tag_mc_begin:n { artifact=pagination/footer }
+    \tag_stop:n { artifact-group }
+  }
+
+\NewDocumentCommand \CoffeeFooterLink { m }
+  { \__coffee_href:n {#1} }
+
+\cs_new_protected:Npn \__coffee_message:n #1
+  {
+    \parbox[c]{\dim_use:N \g__coffee_text_width_dim}
+      {
+        \normalfont
+        \coffeefont
+        \fontsize{8}{10}\selectfont
+        #1
+        \tl_use:N \g__coffee_message_tl
+        \par
+      }
+  }
+
+\cs_new_protected:Npn \__coffee_qr:
+  {
+    \parbox[c]{\dim_use:N \g__coffee_qr_size_dim}
+      {
+        \__coffee_href:n
+          {
+            \includegraphics[
+              width=\linewidth,
+              alt={\tl_use:N \g__coffee_alt_tl}
+            ]{ \tl_use:N \g__coffee_image_tl }
+          }
+        \par
+      }
+  }
+
+\cs_new_protected:Npn \__coffee_put:nnn #1#2#3
   {
     \put
       (
-        \dim_eval:n
-          { \paperwidth - \g__coffee_right_inset_dim },
+        \dim_eval:n {#1},
         \dim_eval:n
           { -\paperheight + \g__coffee_bottom_inset_dim }
       )
       {
         \tag_mc_artifact_group_begin:n { pagination/footer }
         \tagpdfparaOff
-
-        \makebox(0,0)[br]
-          {
-            \parbox[c]{\dim_use:N \g__coffee_text_width_dim}
-              {
-                \normalfont
-                \coffeefont
-                \fontsize{8}{10}\selectfont
-                \raggedleft
-                \tl_use:N \g__coffee_message_tl
-                \par
-              }
-
-            \hspace{3mm}
-
-            \parbox[c]{\dim_use:N \g__coffee_qr_size_dim}
-              {
-                \includegraphics[width=\linewidth]
-                  { \tl_use:N \g__coffee_image_tl }
-              }
-          }
-
+        \makebox(0,0)[#2]{#3}
         \tag_mc_artifact_group_end:
+      }
+  }
+
+\cs_new_protected:Npn \__coffee_shipout:
+  {
+    \int_if_odd:nTF { \ReadonlyShipoutCounter }
+      {
+        \__coffee_put:nnn
+          { \paperwidth - \g__coffee_right_inset_dim }
+          { br }
+          {
+            \__coffee_message:n { \raggedleft }
+            \hspace{3mm}
+            \__coffee_qr:
+          }
+      }
+      {
+        \__coffee_put:nnn
+          { \g__coffee_left_inset_dim }
+          { bl }
+          {
+            \__coffee_qr:
+            \hspace{3mm}
+            \__coffee_message:n { \raggedright }
+          }
       }
   }
 
@@ -65,8 +124,16 @@
 
 \bool_new:N \g__coffee_enabled_bool
 \bool_new:N \g__coffee_skip_next_bool
+\bool_new:N \g__coffee_empty_page_bool
 
 \bool_gset_true:N \g__coffee_enabled_bool
+
+\AddToHookWithArguments{cmd/thispagestyle/after}[coffee]
+  {
+    \str_if_eq:eeTF {#1} { empty }
+      { \bool_gset_true:N \g__coffee_empty_page_bool }
+      { \bool_gset_false:N \g__coffee_empty_page_bool }
+  }
 
 \cs_new_eq:NN \__coffee_draw: \__coffee_shipout:
 
@@ -74,11 +141,15 @@
   {
     \bool_if:NF \g__coffee_skip_next_bool
       {
-        \bool_if:NT \g__coffee_enabled_bool
-          { \__coffee_draw: }
+        \bool_if:NF \g__coffee_empty_page_bool
+          {
+            \bool_if:NT \g__coffee_enabled_bool
+              { \__coffee_draw: }
+          }
       }
 
     \bool_gset_false:N \g__coffee_skip_next_bool
+    \bool_gset_false:N \g__coffee_empty_page_bool
   }
 
 \NewDocumentCommand \CoffeeSkipThisPage { }
