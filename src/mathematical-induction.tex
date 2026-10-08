@@ -19,7 +19,7 @@ As we saw in \zcref{sec:concept-of-number} on the history of the concept of numb
   \end{align*}
 \end{definition}
 
-\begin{remark}[Structural induction explained]
+\begin{remark}[The method of structural induction]
 When defining a function by structural induction, there are two subtasks: First, we have to specify the value of $f(0)$ by specifying an element of the set $A_0$, and second, we have to specify how each potential value of $f$ at $n$ can be used to obtain the value of $f$ at $n+1$. This second task is performed by defining a function $h_n$ from $A_n$ to $A_{n+1}$, so that if $f(n)$ is determined, then we can determine $f(n+1)$ by applying $h_n$ to $f(n)$.
 
 The two equations that the function $f$ in the structural induction principle satisfies are called the \define{computation rules}. By these computation rules we can present definitions by structural induction in the following shorthand form:
@@ -58,7 +58,7 @@ In other words, the $0$\supth{} iteration of $f$ is the \define{identity functio
   then $P(n)$ is true for all $n$.
 \end{definition}
 
-\begin{remark}[Proofs by induction explained]
+\begin{remark}[The method of mathematical induction]
   Proofs by induction proceed in the following steps, each of which is a necessary aspect of an inductive proof:
   \begin{enumerate}
   \item First, announce that your proof proceeds by induction and identify the property $P(n)$ that you are about to prove. The goal of an induction proof is always to prove that $P(n)$ is true for all $n$.
@@ -172,22 +172,6 @@ Iteration of functions is a basic operation that can be used to define many furt
     f^{m+(n+1)}(x)=f(f^{m+n}(x))=f(f^n(f^m(x)))=f^{n+1}(f^m(x)). \qedhere
   \end{equation*}
 \end{proof}
-
-% \begin{proof}
-%   The proof is by induction on $n$. In the base case, we have $m+0=m$ and $f^0(x)=x$. Together, these identities give:
-%   \begin{equation*}
-%     f^{m+0}(x)=f^m(x)=f^m(f^0(x)).
-%   \end{equation*}
-%   For the inductive step, assume that for every element $x\in X$ we have $f^{m+n}(x)=f^m(f^n(x))$. Our goal is to show that
-%   \begin{equation*}
-%     f^{m+(n+1)}(x)=f^m(f^{n+1}(x)).
-%   \end{equation*}
-%   Here, we use that the equalities $m+(n+1)=(m+n)+1$ and $f^{n+1}(x)=f(f^n(x))$ hold by definition, and that the equality $f^m(f(x))=f(f^m(x))$ holds by \zcref{proposition:iterate-successor}. Together, these identities give:
-%   \begin{align*}
-%     f^{m+(n+1)}(x)=f^{(m+n)+1}(x) & =f(f^{m+n}(x))=f(f^m(f^n(x))) \\
-%                                   & =f^m(f(f^n(x)))=f^m(f^{n+1}(x)).\qedhere
-%   \end{align*}
-% \end{proof}
 
 \begin{corollary}
   Addition of natural numbers is \define{associative}: For any three natural numbers $l$, $m$, and $n$ we have

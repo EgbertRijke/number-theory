@@ -1,0 +1,88 @@
+\ExplSyntaxOn
+
+\dim_new:N \g__coffee_bottom_inset_dim
+\dim_new:N \g__coffee_qr_size_dim
+\dim_new:N \g__coffee_text_width_dim
+\tl_new:N  \g__coffee_image_tl
+\tl_new:N  \g__coffee_message_tl
+
+\dim_gset:Nn \g__coffee_bottom_inset_dim { 6mm }
+\dim_gset:Nn \g__coffee_qr_size_dim      { 18mm }
+\dim_gset:Nn \g__coffee_text_width_dim   { 62mm }
+
+\tl_gset:Nn \g__coffee_image_tl { figures/coffee-qr.png }
+
+\tl_gset:Nn \g__coffee_message_tl
+  {
+    Enjoying~this~book?~You~can~buy~me~a~coffee.
+  }
+
+\cs_new_protected:Npn \__coffee_shipout:
+  {
+    \put
+      (
+        \dim_eval:n { .5\paperwidth },
+        \dim_eval:n
+          { -\paperheight + \g__coffee_bottom_inset_dim }
+      )
+      {
+        \tag_mc_artifact_group_begin:n { pagination/footer }
+        \tagpdfparaOff
+
+        \makebox(0,0)[b]
+          {
+            \parbox[c]{\dim_use:N \g__coffee_qr_size_dim}
+              {
+                \includegraphics[width=\linewidth]
+                  { \tl_use:N \g__coffee_image_tl }
+              }
+
+            \hspace{3mm}
+
+            \parbox[c]{\dim_use:N \g__coffee_text_width_dim}
+              {
+                \normalfont
+                \fontsize{8}{10}\selectfont
+                \raggedright
+                \tl_use:N \g__coffee_message_tl
+                \par
+              }
+          }
+
+        \tag_mc_artifact_group_end:
+      }
+  }
+
+\RemoveFromHook{shipout/foreground}[coffee]
+
+\AddToHook{shipout/foreground}[coffee]
+  { \__coffee_shipout: }
+
+\bool_new:N \g__coffee_enabled_bool
+\bool_new:N \g__coffee_skip_next_bool
+
+\bool_gset_true:N \g__coffee_enabled_bool
+
+\cs_new_eq:NN \__coffee_draw: \__coffee_shipout:
+
+\cs_set_protected:Npn \__coffee_shipout:
+  {
+    \bool_if:NF \g__coffee_skip_next_bool
+      {
+        \bool_if:NT \g__coffee_enabled_bool
+          { \__coffee_draw: }
+      }
+
+    \bool_gset_false:N \g__coffee_skip_next_bool
+  }
+
+\NewDocumentCommand \CoffeeSkipThisPage { }
+  { \bool_gset_true:N \g__coffee_skip_next_bool }
+
+\NewDocumentCommand \CoffeeOff { }
+  { \bool_gset_false:N \g__coffee_enabled_bool }
+
+\NewDocumentCommand \CoffeeOn { }
+  { \bool_gset_true:N \g__coffee_enabled_bool }
+
+\ExplSyntaxOff
