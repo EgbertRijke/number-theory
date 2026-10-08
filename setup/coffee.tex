@@ -1,27 +1,31 @@
+\newcommand{\CoffeeMessage}{%
+  If you enjoy this book, please consider \href{https://buymeacoffee.com/mathguyegbert}{supporting this project}. With even the smallest donations, your support would help me finish and refine current drafts, and include new theorems, examples, exercises, and possibly even new chapters.
+}
+
 \ExplSyntaxOn
 
 \dim_new:N \g__coffee_bottom_inset_dim
+\dim_new:N \g__coffee_right_inset_dim
 \dim_new:N \g__coffee_qr_size_dim
 \dim_new:N \g__coffee_text_width_dim
 \tl_new:N  \g__coffee_image_tl
 \tl_new:N  \g__coffee_message_tl
 
 \dim_gset:Nn \g__coffee_bottom_inset_dim { 6mm }
+\dim_gset:Nn \g__coffee_right_inset_dim  { 6mm }
 \dim_gset:Nn \g__coffee_qr_size_dim      { 18mm }
-\dim_gset:Nn \g__coffee_text_width_dim   { 62mm }
+\dim_gset:Nn \g__coffee_text_width_dim   { 64mm }
 
 \tl_gset:Nn \g__coffee_image_tl { figures/coffee-qr.png }
 
-\tl_gset:Nn \g__coffee_message_tl
-  {
-    Enjoying~this~book?~You~can~buy~me~a~coffee.
-  }
+\tl_gset:Nn \g__coffee_message_tl { \CoffeeMessage }
 
 \cs_new_protected:Npn \__coffee_shipout:
   {
     \put
       (
-        \dim_eval:n { .5\paperwidth },
+        \dim_eval:n
+          { \paperwidth - \g__coffee_right_inset_dim },
         \dim_eval:n
           { -\paperheight + \g__coffee_bottom_inset_dim }
       )
@@ -29,23 +33,24 @@
         \tag_mc_artifact_group_begin:n { pagination/footer }
         \tagpdfparaOff
 
-        \makebox(0,0)[b]
+        \makebox(0,0)[br]
           {
-            \parbox[c]{\dim_use:N \g__coffee_qr_size_dim}
+            \parbox[c]{\dim_use:N \g__coffee_text_width_dim}
               {
-                \includegraphics[width=\linewidth]
-                  { \tl_use:N \g__coffee_image_tl }
+                \normalfont
+                \coffeefont
+                \fontsize{8}{10}\selectfont
+                \raggedleft
+                \tl_use:N \g__coffee_message_tl
+                \par
               }
 
             \hspace{3mm}
 
-            \parbox[c]{\dim_use:N \g__coffee_text_width_dim}
+            \parbox[c]{\dim_use:N \g__coffee_qr_size_dim}
               {
-                \normalfont
-                \fontsize{8}{10}\selectfont
-                \raggedright
-                \tl_use:N \g__coffee_message_tl
-                \par
+                \includegraphics[width=\linewidth]
+                  { \tl_use:N \g__coffee_image_tl }
               }
           }
 
