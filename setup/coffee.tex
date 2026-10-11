@@ -1,5 +1,6 @@
+\newcommand{\CoffeeNoMessage}{}
 \newcommand{\CoffeeMessage}{%
-  If you enjoy this book, please consider \CoffeeFooterLink{supporting this project}. With even the smallest donations, your support would help me finish and refine current drafts, and include new theorems, examples, exercises, and possibly even new chapters.
+  If you enjoy this book, please consider \CoffeeFooterLink{supporting this project}. With even the smallest donations, your support would help me finish and refine current drafts, and you can sponsor write-ups of theorems, examples, exercises, or sponsor a figure.
 }
 
 \ExplSyntaxOn
@@ -30,7 +31,7 @@
 
 \tl_gset:Nn \g__coffee_image_tl { figures/coffee-qr.png }
 
-\tl_gset:Nn \g__coffee_message_tl { \CoffeeMessage }
+\tl_gset:Nn \g__coffee_message_tl { \CoffeeNoMessage }
 
 \cs_new_protected:Npn \__coffee_href:n #1
   {
@@ -125,11 +126,45 @@
 \bool_new:N \g__coffee_enabled_bool
 \bool_new:N \g__coffee_skip_next_bool
 \bool_new:N \g__coffee_empty_page_bool
+\bool_new:N \g__coffee_page_style_override_bool
+\bool_new:N \l__coffee_default_empty_bool
+\bool_new:N \l__coffee_effective_empty_bool
 
 \bool_gset_true:N \g__coffee_enabled_bool
 
+\AddToHookWithArguments{cmd/pagestyle/after}[coffee]
+  {
+    \str_if_eq:eeTF {#1} { empty }
+      { \bool_set_true:N \l__coffee_default_empty_bool }
+      { \bool_set_false:N \l__coffee_default_empty_bool }
+  }
+
+\AddToHook{begindocument/end}[coffee]
+  {
+    \bool_set_false:N \l__coffee_default_empty_bool
+    \cs_if_eq:ccT { @oddhead } { @empty }
+      {
+        \cs_if_eq:ccT { @evenhead } { @empty }
+          {
+            \cs_if_eq:ccT { @oddfoot } { @empty }
+              {
+                \cs_if_eq:ccT { @evenfoot } { @empty }
+                  { \bool_set_true:N \l__coffee_default_empty_bool }
+              }
+          }
+      }
+    \legacy_if:nT { @specialpage }
+      {
+        \bool_gset_true:N \g__coffee_page_style_override_bool
+        \str_if_eq:eeTF { \use:c { @specialstyle } } { empty }
+          { \bool_gset_true:N \g__coffee_empty_page_bool }
+          { \bool_gset_false:N \g__coffee_empty_page_bool }
+      }
+  }
+
 \AddToHookWithArguments{cmd/thispagestyle/after}[coffee]
   {
+    \bool_gset_true:N \g__coffee_page_style_override_bool
     \str_if_eq:eeTF {#1} { empty }
       { \bool_gset_true:N \g__coffee_empty_page_bool }
       { \bool_gset_false:N \g__coffee_empty_page_bool }
@@ -139,9 +174,17 @@
 
 \cs_set_protected:Npn \__coffee_shipout:
   {
+    \bool_set_eq:NN \l__coffee_effective_empty_bool
+      \l__coffee_default_empty_bool
+    \bool_if:NT \g__coffee_page_style_override_bool
+      {
+        \bool_set_eq:NN \l__coffee_effective_empty_bool
+          \g__coffee_empty_page_bool
+      }
+
     \bool_if:NF \g__coffee_skip_next_bool
       {
-        \bool_if:NF \g__coffee_empty_page_bool
+        \bool_if:NF \l__coffee_effective_empty_bool
           {
             \bool_if:NT \g__coffee_enabled_bool
               { \__coffee_draw: }
@@ -150,6 +193,7 @@
 
     \bool_gset_false:N \g__coffee_skip_next_bool
     \bool_gset_false:N \g__coffee_empty_page_bool
+    \bool_gset_false:N \g__coffee_page_style_override_bool
   }
 
 \NewDocumentCommand \CoffeeSkipThisPage { }

@@ -26,7 +26,7 @@ The simplest Diophantine equation is the equation $ax=b$ in one variable $x$. Th
 %If $a$ is a nonzero integer, then there is always at most one solution to the equation $ax=b$. In other words, if a nonzero integer $a$ divides an integer $b$, then its quotient is uniquely defined. On the other hand, we just saw that every integer is a solution to the equation $0x=0$. The quotient is therefore not uniquely defined in this case. In the following lemma we remove this ambiguity by imposing an extra bound on the solution, that $|x|\leq |b|$. In the case where $a$ is nonzero, then this condition is automatically satisfied, while in the case where $a=0$ it imposes the zero solution.
 
 \begin{lemma}
-  Suppose that $a\mid b$, where $a$ is a nonzero integer. Then there is a unique integer $x$ satisfying the equation $ax=b$. We will write $b/a$ for this unique integer, which is called the \emph{quotient} of $b$ divided by $a$.
+  Suppose that $a\mid b$, where $a$ is a nonzero integer. Then there is a unique integer $x$ satisfying the equation $ax=b$. We will write $b/a$ for this unique integer, which is called the \define{quotient} of $b$ divided by $a$.
 \end{lemma}
 
 \begin{proof}
@@ -305,13 +305,18 @@ The set of ideals of $\mathbb{Z}$ is ordered by inclusion: We write $I\subseteq 
   \exercise
   \label{exercise:div-fifth-power-minus-first-power}
   Show that $a^5-a$ is divisible by $30$ for every integer $a$.  
+  \exercise Show that for any two positive integers $a \leq b$ there is a unique integer $a\leq x \leq b$ satisfying the logical equivalence
+  \begin{equation*}
+    2^k\mid x\quad\Leftrightarrow\quad 2^k\mid \lcm(a,\ldots,b)
+  \end{equation*}
+  for every $k\geq 0$.
 \end{routine}
 
 \begin{challenge}
   \exercise
   \label{exercise:addition-formula-fibonacci}
   \begin{subexenum}
-  \item Prove the \emph{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
+  \item Prove the \define{Fibonacci addition formula} $F_{m+n+1} = F_{m+1}F_{n+1} + F_{m}F_{n}$.
   \item For any integer $d$ and any two natural numbers $m$ and $n$, show that if two of the three following conditions hold, then so does the third:
     \begin{enumerate}
     \item $d\mid F_m$.

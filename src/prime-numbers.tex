@@ -446,7 +446,7 @@ In some cases we can give precise expressions of the prime factorization of a nu
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[x=0.9cm, y=0.9cm]
+  \begin{tikzpicture}[scale=.7]
     \def\N{15}
     \pgfmathtruncatemacro{\Kmax}{floor(ln(\N)/ln(2))}
     
@@ -941,18 +941,18 @@ The primes in this list are sometimes called the \define{Bertrand primes}, and t
   \exercise \label{exercise:fractions-lcm}
   \begin{subexenum}
   \item Show that
-  \begin{equation*}
-    \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,m)} =
-    \prod_{k\geq 1} \prod_{\substack{p\,\text{prime}\\m<p^k\leq n}}p.
-  \end{equation*}
-  Use this formula to conclude that
-  \begin{equation*}
-    \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,n-1)} =
-    \begin{cases}
-      p & \text{if $n=p^k$ for some prime $p$ and $k\geq 1$,} \\
-      1 & \text{otherwise.}
-    \end{cases}
-  \end{equation*}
+    \begin{equation*}
+      \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,m)} =
+      \prod_{k\geq 1} \prod_{\substack{p\,\text{prime}\\m<p^k\leq n}}p.
+    \end{equation*}
+    Use this formula to conclude that
+    \begin{equation*}
+      \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,n-1)} =
+      \begin{cases}
+        p & \text{if $n=p^k$ for some prime $p$ and $k\geq 1$,} \\
+        1 & \text{otherwise.}
+      \end{cases}
+    \end{equation*}
   \item Show that
     \begin{equation*}
       \frac{\lcm(1,\ldots,n)}{\lcm(1,\ldots,m)}
