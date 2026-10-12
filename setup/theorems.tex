@@ -1,6 +1,35 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 
+\newtheoremstyle{nttheorem}
+  {}{}                            % Default vertical spacing
+  {\itshape}                      % Italic body
+  {}                              % No indentation
+  {\normalfont\scshape}            % Small-caps heading
+  {.}
+  {5pt plus 1pt minus 1pt}         % Default heading separation
+  {}
+
+\newtheoremstyle{ntdefinition}
+  {}{}                            % Default vertical spacing
+  {\normalfont}                   % Upright body
+  {}
+  {\normalfont\scshape}
+  {.}
+  {5pt plus 1pt minus 1pt}
+  {}
+
+\newtheoremstyle{ntremark}
+  {}
+  {}
+  {\normalfont}
+  {}
+  {\normalfont\scshape}
+  {.}
+  {5pt plus 1pt minus 1pt}
+  {}
+
+\theoremstyle{nttheorem}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -8,9 +37,9 @@
 \newtheorem{conjecture}{Conjecture}
 \newtheorem{problem}[conjecture]{Problem}
 
-\theoremstyle{definition}
+\theoremstyle{ntdefinition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
 
-\theoremstyle{remark}
+\theoremstyle{ntremark}
 \newtheorem{remark}[theorem]{Remark}

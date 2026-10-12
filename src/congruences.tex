@@ -580,15 +580,15 @@ Expanding a fraction such as $\otfrac{1}{7}$ in decimal notation amounts to writ
 where each digit $d_k$ is an integer from $0$ to $9$ except possibly the number $d_0$, which can be any integer. In the case of $\otfrac{1}{7}$, the integer $d_0$ is $0$. The digits $d_1$, $d_2$, $d_3$ are called the tenth's digit, the hundredth's digit, the thousandth's digit, and so on.
 
 We see from the above expression that the tenth's digit of $\otfrac{1}{7}$ can be computed as the integer part of the number $\otfrac{10}{7}$, which has all the decimal digits of $\otfrac{1}{7}$ shifted by one position to the left. It also follows that the remainder of the digits coincide with the digits of $\otfrac{3}{7}$, where the numerator is the remainder of $10$ after division by $7$. The first digit of the fractional part of $\otfrac{3}{7}$ is the integer part of $\otfrac{30}{7}$, which is $4$. For the next digit after that, we take the remainder of $30$ after division by $7$, which is $2$, and we compute the integer part of the fraction $\otfrac{20}{7}$. If we keep going in this manner, we find that
-\begin{equation*}
-  d_1=\left\lfloor\frac{10}{7}\right\rfloor,~~
-  d_2=\left\lfloor\frac{30}{7}\right\rfloor,~~
-  d_3=\left\lfloor\frac{20}{7}\right\rfloor,~~
-  d_4=\left\lfloor\frac{60}{7}\right\rfloor,~~
-  d_5=\left\lfloor\frac{40}{7}\right\rfloor,~~
-  d_6=\left\lfloor\frac{50}{7}\right\rfloor,~~
-  d_7=\left\lfloor\frac{10}{7}\right\rfloor.
-\end{equation*}
+\begin{align*}
+  d_1 & =\left\lfloor\frac{10}{7}\right\rfloor, &
+  d_2 & =\left\lfloor\frac{30}{7}\right\rfloor, &
+  d_3 & =\left\lfloor\frac{20}{7}\right\rfloor, &
+  d_4 & =\left\lfloor\frac{60}{7}\right\rfloor, \\
+  d_5 & =\left\lfloor\frac{40}{7}\right\rfloor, &
+  d_6 & =\left\lfloor\frac{50}{7}\right\rfloor, &
+  d_7 & =\left\lfloor\frac{10}{7}\right\rfloor.
+\end{align*}
 Here we see that our task at hand begins to repeat itself. We have already computed the integer part of $\otfrac{10}{7}$ in the first step, which led us to compute the integer part of $\otfrac{30}{7}$, and so on. Thus, we find that the decimal expansion of $\otfrac{1}{7}$ is given by
 \begin{equation*}
   \frac{1}{7}=0.142857142857142857\ldots

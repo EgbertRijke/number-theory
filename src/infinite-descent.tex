@@ -675,12 +675,12 @@ Determining which numbers are congruent turns out to be an incredibly difficult 
     \hspace*{\fill}
     \begin{subfigure}[t]{0.45\textwidth}
       \centering
-      \begin{tikzpicture}[scale=0.70]
+      \begin{tikzpicture}[scale=0.5]
         \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
         
         \draw[thick] (0,0) ellipse ({sqrt(11)} and {sqrt(11/2)});
         
-        \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
+        \draw[->] (-4.2,0) -- (4.2,0) node[right,overlay] {\(x\)};
         \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
         
         \coordinate (R5) at ({151/771},{1805/771});
@@ -714,14 +714,14 @@ Determining which numbers are congruent turns out to be an incredibly difficult 
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
       \centering
-      \begin{tikzpicture}[scale=0.70]
+      \begin{tikzpicture}[scale=0.5]
         \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
         
         \draw[thick,variable=\theta,domain=0:360,samples=200,smooth]
         plot ({sqrt(7)*cos(\theta)+sqrt(7/3)*sin(\theta)},
         {2*sqrt(7/3)*sin(\theta)});
         
-        \draw[->] (-4.2,0) -- (4.2,0) node[right] {\(x\)};
+        \draw[->] (-4.2,0) -- (4.2,0) node[right,overlay] {\(x\)};
         \draw[->] (0,-4.2) -- (0,4.2) node[above] {\(y\)};
         
         \coordinate (P5) at (-3,-1);
