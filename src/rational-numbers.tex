@@ -31,59 +31,6 @@ While it is common to think of rational numbers as integer fractions, there is a
   \end{enumerate}
 \end{definition}
 
-\begin{figure}[t]
-  \centering
-  \begin{tikzpicture}[scale=1,line join=round,line cap=round]
-    
-    % Define primes and half-values
-    \def\p{23}
-    \def\q{13}
-
-    % Draw coordinate axes
-    \draw[->] (-0.3,0) -- (9.5,0) node[right] {$a$};
-    \draw[->] (0,-0.3) -- (0,7.5) node[above] {$b$};
-
-    \node[circle,minimum size=2pt,inner sep=0] (A) at (3,4) {};
-    \node[circle,minimum size=2pt,inner sep=0] (B) at (5,3) {};
-
-    \fill[YellowOrange,opacity=.4] (0,0) -- (3,4) -- (8,7) -- (5,3) -- cycle;
-    
-    \draw[->,thick,shorten >=2pt] (0,0) -- (A);
-    \draw[->,thick,shorten >=2pt] (0,0) -- (B);
-    
-    \foreach \x in {0,1,2,3,4,5,6,7,8,9} {
-      \foreach \y in {0,1,2,3,4,5,6,7} {
-        \draw[CornflowerBlue,fill=white,thick] (\x,\y) circle (2pt);
-      }
-    }
-
-    \draw[CornflowerBlue,fill,thick] (1,1) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (2,2) circle (2pt);    
-    \draw[CornflowerBlue,fill,thick] (3,3) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (4,4) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (5,5) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (3,2) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (4,3) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (5,4) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (6,5) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (7,6) circle (2pt);
-    \draw[CornflowerBlue,fill,thick] (8,7) circle (2pt);
-
-  \end{tikzpicture}
-  \caption[Lattice points in a parallelogram]{There are 11 lattice points in the parallelogram spanned by $(3,4)$ and $(5,3)$, not including the points $(0,0)$, $(3,4)$, and $(5,3)$. This number is equal to the quantity $4\cdot 5-3\cdot 3$, and it is also equal to the number of reduced integer fractions between $\frac{3}{4}$ and $\frac{5}{3}$ with denominators not exceeding $7$.}
-  \label{figure:lattice-points-parallelogram}
-\end{figure}
-
-\begin{remark}
-More generally, the quantity $\abs{bc-ad}$ is a measure for how far apart the fractions $\otfrac{a}{b}$ and $\otfrac{c}{d}$ are. Assuming that the inequality $\otfrac{a}{b}\leq \otfrac{c}{d}$ holds so that $bc-ad\geq 0$, we will show in \zcref{theorem:meaning-explanation-determinant-fractions} that the number
-\begin{equation*}
-  bc-ad
-\end{equation*}
-counts the number of fractions $\otfrac{a}{b}<\otfrac{s}{t}<\otfrac{c}{d}$ such that the denominator $t$ does not exceed $b+d$. Indeed, if $\otfrac{a}{b}=\otfrac{c}{d}$ then there should be no fractions strictly between $\otfrac{a}{b}$ and $\otfrac{c}{d}$, as is signified by the number $bc-ad=0$.
-
-The quantity $k=\abs{bc-ad}$ is also the area of the parallelogram spanned by $(a,b)$ and $(c,d)$. Moreover, there are exactly $k$ lattice points in this parallelogram, excluding multiples of $(a,b)$ and $(c,d)$.
-\end{remark}
-
 \begin{theorem}
   For any integer fraction $\frac{a}{b}$ there is a unique reduced integer fraction $\frac{c}{d}$ such that $\frac{a}{b}\sim\frac{c}{d}$. Consequently, two integer fractions are the same if and only if they have the same reduced integer fraction.
 \end{theorem}
@@ -444,19 +391,61 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
   \end{equation*}
 \end{theorem}
 
-\begin{theorem}\label{theorem:meaning-explanation-determinant-fractions}
-  Consider two reduced fractions $\frac{a}{b}<\frac{c}{d}$ and set
+\begin{proof}
+  Suppose that $\tfrac{a}{b}<\tfrac{p}{q}<\tfrac{c}{d}$, with $q>0$, so that the numbers $bp-aq$ and $cq-pd$ are positive integers. Then it follows that
   \begin{equation*}
-    k:=bc-ad.
+    q=(bc-ad)q=b(cq-pd)+d(bp-aq)\geq b+d. 
   \end{equation*}
-  Then there are exactly $k$ Farey fractions of order $\leq b+d$ strictly between $\frac{a}{b}$ and $\frac{c}{d}$.
+  Here we have an equality if and only if $cq-pd=1$ and $bp-aq=1$. In this case, it follows that the numerator $p$ is also uniquely determined, for we have
+  \begin{equation*}
+    p=(bc-ad)p=a(cq-dp)+c(bp-aq)=a+c. \qedhere
+  \end{equation*}
+\end{proof}
+
+The previous theorem shows that if $\tfrac{a}{b}$ and $\tfrac{c}{d}$ are adjacent Farey fractions, then there is a unique rational number strictly between them whose denominator is $\leq b+d$, namely their mediant. The observation that there is a unique rational number with minimal denominator in the interval of rational numbers strictly between $\tfrac{a}{b}$ and $\tfrac{c}{d}$ generalizes to arbitrary intervals $I\subseteq (0,1)$ that contain at least one rational number.
+
+\begin{definition}
+  An \define{interval} of rational numbers is a subset $I\subseteq \mathbb{Q}$ such that if $q,r\in I$, then $x\in I$ for all $q\leq x\leq r$. For any two rational numbers $q$ and $r$, the \define{closed interval} $[q,r]$ is defined as
+  \begin{equation*}
+    [q,r]:=\{x\in \mathbb{Q}\mid q\leq x\leq r\};
+  \end{equation*}
+  the \define{open interval} $(q,r)$ is defined as
+  \begin{equation*}
+    (q,r):=\{x\in \mathbb{Q}\mid q<x<r\};
+  \end{equation*}
+  and the \define{half-open intervals} $[q,r)$ and $(q,r]$ are defined as
+  \begin{align*}
+    [q,r) & := \{x\in\mathbb{Q}\mid q\leq x <r\}, \\
+    (q,r] & := \{x\in\mathbb{Q}\mid q<x \leq r\}.
+  \end{align*}
+\end{definition}
+
+\begin{theorem}
+  Any interval $I\subseteq (0,1)\subseteq \mathbb{Q}$ containing at least one rational number, contains a unique rational number with minimal denominator.
 \end{theorem}
+
+\begin{proof}
+  Suppose $I$ is an interval of rational numbers containing reduced fractions $\tfrac{a}{q}$ and $\tfrac{b}{q}$, where $0<a<b<q$. We claim that
+  \begin{equation*}
+    \frac{a}{q}<\frac{a}{q-1}<\frac{b}{q},
+  \end{equation*}
+  so that $\tfrac{a}{q-1}\in I$. This claim indeed proves the theorem, since it shows that any denominator which occurs more than once in $I$ cannot be minimal.
+
+  It is clear that $\tfrac{a}{q}<\frac{a}{q-1}$, since $q-1<q$. To see that $\tfrac{a}{q-1}<\tfrac{b}{q}$, it suffices to show that $aq<b(q-1)$, or equivalently,
+  \begin{equation*}
+    aq+b<bq.
+  \end{equation*}
+  Since $a<b<q$, it follows that $aq+b<aq+q=(a+1)q\leq bq$.
+\end{proof}
 
 \section{A Structural Definition of the Rational Numbers}
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[every node/.style={font=\fontsize{9pt}{9pt}}]
+  \begin{tikzpicture}[%
+    scale=.9,
+    every node/.style={font=\small}
+    ]
     \node[draw,thick,circle,inner sep=1.8pt] (N01) at (0,-1) {$\dfrac{0}{1}$};
     \node[draw,thick,circle,inner sep=1.8pt] (N11) at (12,-1) {$\dfrac{1}{1}$};
     \draw[thick,shorten <=2pt,shorten >=2pt] (N01) -- (N11);
@@ -708,6 +697,7 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
     \end{equation*}
     where we assume that $a_0$ and $a_n$ are square-free and $a_0\mid a_1$ and $a_n\mid a_{n-1}$. Show that if $f(x,y)\in\mathbb{Z}$ for two rational numbers $x=\frac{u}{s}$ and $y=\frac{v}{t}$ in lowest terms with $s,t>0$, then $s=t$.
   \end{subexenum}
+  \exercise Show that for any two positive rational numbers $r\leq s$, there is a unique rational number $r\leq \tfrac{a}{b} \leq s$ such that $a+b$ is minimal.
 \end{routine}
 
 %%% Local Variables:
@@ -715,3 +705,56 @@ We can think of the mediant of two reduced integer fractions as the \emph{weight
 %%% TeX-master: "number-theory"
 %%% TeX-engine: luatex
 %%% End:
+
+\endinput
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[scale=1,line join=round,line cap=round]
+    
+    \def\p{23}
+    \def\q{13}
+
+    \draw[->] (-0.3,0) -- (9.5,0) node[right] {$a$};
+    \draw[->] (0,-0.3) -- (0,7.5) node[above] {$b$};
+
+    \node[circle,minimum size=2pt,inner sep=0] (A) at (3,4) {};
+    \node[circle,minimum size=2pt,inner sep=0] (B) at (5,3) {};
+
+    \fill[YellowOrange,opacity=.4] (0,0) -- (3,4) -- (8,7) -- (5,3) -- cycle;
+    
+    \draw[->,thick,shorten >=2pt] (0,0) -- (A);
+    \draw[->,thick,shorten >=2pt] (0,0) -- (B);
+    
+    \foreach \x in {0,1,2,3,4,5,6,7,8,9} {
+      \foreach \y in {0,1,2,3,4,5,6,7} {
+        \draw[CornflowerBlue,fill=white,thick] (\x,\y) circle (2pt);
+      }
+    }
+
+    \draw[CornflowerBlue,fill,thick] (1,1) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (2,2) circle (2pt);    
+    \draw[CornflowerBlue,fill,thick] (3,3) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (4,4) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (5,5) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (3,2) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (4,3) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (5,4) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (6,5) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (7,6) circle (2pt);
+    \draw[CornflowerBlue,fill,thick] (8,7) circle (2pt);
+
+  \end{tikzpicture}
+  \caption[Lattice points in a parallelogram]{There are 11 lattice points in the parallelogram spanned by $(3,4)$ and $(5,3)$, not including the points $(0,0)$, $(3,4)$, and $(5,3)$. This number is equal to the quantity $4\cdot 5-3\cdot 3$, and it is also equal to the number of reduced integer fractions between $\frac{3}{4}$ and $\frac{5}{3}$ with denominators not exceeding $7$.}
+  \label{figure:lattice-points-parallelogram}
+\end{figure}
+
+\begin{remark}
+More generally, the quantity $\abs{bc-ad}$ is a measure for how far apart the fractions $\otfrac{a}{b}$ and $\otfrac{c}{d}$ are. Assuming that the inequality $\otfrac{a}{b}\leq \otfrac{c}{d}$ holds so that $bc-ad\geq 0$, we will show in \zcref{theorem:meaning-explanation-determinant-fractions} that the number
+\begin{equation*}
+  bc-ad
+\end{equation*}
+counts the number of fractions $\otfrac{a}{b}<\otfrac{s}{t}<\otfrac{c}{d}$ such that the denominator $t$ does not exceed $b+d$. Indeed, if $\otfrac{a}{b}=\otfrac{c}{d}$ then there should be no fractions strictly between $\otfrac{a}{b}$ and $\otfrac{c}{d}$, as is signified by the number $bc-ad=0$.
+
+The quantity $k=\abs{bc-ad}$ is also the area of the parallelogram spanned by $(a,b)$ and $(c,d)$. Moreover, there are exactly $k$ lattice points in this parallelogram, excluding multiples of $(a,b)$ and $(c,d)$.
+\end{remark}

@@ -14,6 +14,54 @@
 \tl_new:N  \g__coffee_message_tl
 \tl_new:N  \g__coffee_url_tl
 \tl_new:N  \g__coffee_alt_tl
+\tl_new:N  \g__coffee_mode_tl
+\tl_new:N  \g__coffee_side_tl
+
+\keys_define:nn { coffee }
+  {
+    mode .choice:,
+    mode / two-sided .code:n =
+      { \tl_gset:Nn \g__coffee_mode_tl { two-sided } },
+    mode / recto .code:n =
+      { \tl_gset:Nn \g__coffee_mode_tl { recto } },
+    mode / verso .code:n =
+      { \tl_gset:Nn \g__coffee_mode_tl { verso } },
+    mode .initial:n = two-sided,
+    mode .value_required:n = true,
+
+    side .choice:,
+    side / auto .code:n =
+      { \tl_gset:Nn \g__coffee_side_tl { auto } },
+    side / default .meta:n = { side = auto },
+    side / right .code:n =
+      { \tl_gset:Nn \g__coffee_side_tl { right } },
+    side / left .code:n =
+      { \tl_gset:Nn \g__coffee_side_tl { left } },
+    side .initial:n = auto,
+    side .value_required:n = true
+  }
+
+\NewDocumentCommand \CoffeeSetup { m }
+  { \keys_set:nn { coffee } {#1} }
+
+\prg_new_conditional:Npnn \__coffee_page_selected: { T }
+  {
+    \str_case:VnF \g__coffee_mode_tl
+      {
+        { two-sided } { \prg_return_true: }
+        { recto }
+          {
+            \int_if_odd:nTF { \ReadonlyShipoutCounter }
+              { \prg_return_true: } { \prg_return_false: }
+          }
+        { verso }
+          {
+            \int_if_odd:nTF { \ReadonlyShipoutCounter }
+              { \prg_return_false: } { \prg_return_true: }
+          }
+      }
+      { \prg_return_false: }
+  }
 
 \tl_gset:Ne \g__coffee_url_tl
   { \tl_to_str:n { https://buymeacoffee.com/mathguyegbert } }
@@ -93,28 +141,41 @@
       }
   }
 
+\cs_new_protected:Npn \__coffee_draw_right:
+  {
+    \__coffee_put:nnn
+      { \paperwidth - \g__coffee_right_inset_dim }
+      { br }
+      {
+        \__coffee_message:n { \raggedleft }
+        \hspace{3mm}
+        \__coffee_qr:
+      }
+  }
+
+\cs_new_protected:Npn \__coffee_draw_left:
+  {
+    \__coffee_put:nnn
+      { \g__coffee_left_inset_dim }
+      { bl }
+      {
+        \__coffee_qr:
+        \hspace{3mm}
+        \__coffee_message:n { \raggedright }
+      }
+  }
+
 \cs_new_protected:Npn \__coffee_shipout:
   {
-    \int_if_odd:nTF { \ReadonlyShipoutCounter }
+    \str_case:VnF \g__coffee_side_tl
       {
-        \__coffee_put:nnn
-          { \paperwidth - \g__coffee_right_inset_dim }
-          { br }
-          {
-            \__coffee_message:n { \raggedleft }
-            \hspace{3mm}
-            \__coffee_qr:
-          }
+        { right } { \__coffee_draw_right: }
+        { left }  { \__coffee_draw_left: }
       }
       {
-        \__coffee_put:nnn
-          { \g__coffee_left_inset_dim }
-          { bl }
-          {
-            \__coffee_qr:
-            \hspace{3mm}
-            \__coffee_message:n { \raggedright }
-          }
+        \int_if_odd:nTF { \ReadonlyShipoutCounter }
+          { \__coffee_draw_right: }
+          { \__coffee_draw_left: }
       }
   }
 
@@ -187,7 +248,7 @@
         \bool_if:NF \l__coffee_effective_empty_bool
           {
             \bool_if:NT \g__coffee_enabled_bool
-              { \__coffee_draw: }
+              { \__coffee_page_selected:T { \__coffee_draw: } }
           }
       }
 
@@ -206,3 +267,5 @@
   { \bool_gset_true:N \g__coffee_enabled_bool }
 
 \ExplSyntaxOff
+
+\CoffeeSetup{mode=recto}
