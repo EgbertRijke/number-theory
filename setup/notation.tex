@@ -167,3 +167,10 @@
 }
 
 \DeclareMathOperator{\im}{im}
+
+\NewDocumentCommand{\digits}{m}{\symup{#1}}
+\NewDocumentCommand{\basednum}{mm}{(\digits{#2})_{#1}}
+\NewDocumentCommand{\binarynum}{m}{\basednum{2}{#1}}
+\NewDocumentCommand{\hexnum}{m}{\basednum{16}{#1}}
+\NewDocumentCommand{\factoradicnum}{m}{\basednum{!}{#1}}
+\NewDocumentCommand{\combinatoradicnum}{m}{\basednum{\symup{c}}{#1}}

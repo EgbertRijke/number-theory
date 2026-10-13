@@ -108,7 +108,7 @@
   \caption[The sexagesimal notation in cuneiform script]{The sexagesimal system in cuneiform script was developed by the ancient Sumerians in Mesopotamia, around 3200 BCE, and continued to be used by the Babylonians. Note that there was no notation for the number $0$ in cuneiform script. Consequently, there was no visual distinction between the numbers $1$, $60$, and $3600$, and so on.}
 \end{figure}
 
-The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number two hundred and thirty-one, which consists of two lots of hundred, three lots of ten and one unit. Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $A$ to $F$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $(11100111)_2$, while the hexadecimal representation of this number is $(E7)_{16}$. In each of these representations of the number $231$, the position of the digits relative to each other is significant for its value. Such ways of writing numbers are therefore called \define{positional}. Positional number systems have a long history, going back to the Sumerians in ancient Mesopotamia. The Sumerians were known for using a \emph{sexagesimal} system, which is in base $60$. They used cuneiform script, which was also the earliest form of writing.
+The \emph{decimal representation} of integers is well-embedded in our culture: Any integer can be uniquely represented as a sequence of digits from $0$ to $9$, where the leading digit is nonzero. When we write a number such as $231$, it represents the number two hundred and thirty-one, which consists of two lots of hundred, three lots of ten and one unit. Similar representations exists in binary (using only the digits $0$ and $1$), and in hexadecimal notation (using the digits $0$ to $9$ and the letters $\digits{A}$ to $\digits{F}$ representing digits of values $10$ through $15$). The binary representation of the number $231$ is $\binarynum{11100111}$, while the hexadecimal representation of this number is $\hexnum{E7}$. In each of these representations of the number $231$, the position of the digits relative to each other is significant for its value. Such ways of writing numbers are therefore called \define{positional}. Positional number systems have a long history, going back to the Sumerians in ancient Mesopotamia. The Sumerians were known for using a \emph{sexagesimal} system, which is in base $60$. They used cuneiform script, which was also the earliest form of writing.
 
 On the other side of the world, the Mayans developed roughly between 400 BCE and 150 CE a \emph{vigesimal} numerical system; that is, a system base $20$. Notably, there was no contact between the Mayans in Mesoamerica and civilizations in Africa, Asia, or Europe. They had thus developed their number system entirely independently, and conversely their number system did not influence the Indian and Arabic developments which would eventually make its way into the modern mathematical tradition. The Mayans were the first known civilization to have notation for the number $0$.
 
@@ -361,9 +361,9 @@ In the present chapter, we will be content with some very elementary application
   \begin{equation*}
     \sum_{k=1}^m d_k k!,
   \end{equation*}
-  where $0\leq d_k\leq k$ and $d_m\neq 0$. This is called the \define{factoradic expansion} of $n$. For example, the number $629$ has factoradic expansion
+  where $0\leq d_k\leq k$ and $d_m\neq 0$. This is called the \define{factoradic expansion} of $n$. For example, the number $629$ has factoradic expansion $\factoradicnum{5,1,0,2,1}$, since
   \begin{equation*}
-    5\cdot 5! + 1\cdot 4!+ 0\cdot 3!+ 2\cdot 2! + 1\cdot 1!.
+    629=5\cdot 5! + 1\cdot 4!+ 0\cdot 3!+ 2\cdot 2! + 1\cdot 1!.
   \end{equation*}
   \exercise Show that for any $m$, any natural number $n$ can be written uniquely in the form
   \begin{equation*}
@@ -371,8 +371,9 @@ In the present chapter, we will be content with some very elementary application
   \end{equation*}
   where $0\leq c_1<c_2<\cdots <c_m$ is a strictly increasing sequence of natural numbers. This is called the \define{combinatoradic expansion} of $n$ of degree $m$. For example, the $2$\supnd{}, $3$\suprd{}, and $4$\supth{} degree combinatoracic expansions of $629$ are
   \begin{equation*}
-    \binom{35}{2}+\binom{34}{1},\quad \binom{16}{3}+\binom{12}{2}+\binom{3}{1},\quad\text{and}\quad \binom{12}{4}+\binom{10}{3}+\binom{5}{2}+\binom{4}{1}.
+    \binom{35}{2}+\binom{34}{1},\quad \binom{16}{3}+\binom{12}{2}+\binom{3}{1},\quad\text{and}\quad \binom{12}{4}+\binom{10}{3}+\binom{5}{2}+\binom{4}{1},
   \end{equation*}
+  so we can write $629=\combinatoradicnum{35,34}$, $629=\combinatoradicnum{16,12,3}$, and $629=\combinatoradicnum{12,10,5,4}$.
 \end{routine}
 
 \begin{challenge}

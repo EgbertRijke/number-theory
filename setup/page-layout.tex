@@ -35,3 +35,36 @@
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
+
+\makeatletter
+
+\newcount\ConditionalBottomThreshold
+\newbox\ConditionalBottomMeasure
+
+\AddToHook{cmd/@make@normalcolbox/before}{%
+  \ConditionalBottomThreshold=\vbadness
+  \vbadness=10000
+}
+
+\AddToHook{cmd/@make@normalcolbox/after}{%
+  \vbadness=\ConditionalBottomThreshold
+  \ifnum\badness>\ConditionalBottomThreshold
+    \ifnum\badness<10001
+      \setbox\ConditionalBottomMeasure=\vbox{%
+        \unvcopy\@outputbox
+      }%
+      \ifdim\ht\ConditionalBottomMeasure<\ht\@outputbox
+        \setbox\@outputbox=\vbox to\ht\@outputbox{%
+          \unvbox\@outputbox
+          \vskip0pt plus .0001fil\relax
+        }%
+      \else
+        \setbox\@outputbox=\vbox to\ht\@outputbox{%
+          \unvbox\@outputbox
+        }%
+      \fi
+    \fi
+  \fi
+}
+
+\makeatother
