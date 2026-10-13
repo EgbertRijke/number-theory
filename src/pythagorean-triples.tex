@@ -452,6 +452,8 @@ which satisfies $(a/c)^2+(b/c)^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)
 
 \section[Vieta Jumping]{Vieta Jumping Between Rational Points on the Unit Circle}\label{section:vieta-jumping}
 
+The unit circle is a $1$-dimensional curve through the plane. This suggests that there should be a way of parametrizing all the (rational) points on the unit circle using one rational number as a parameter. We will use a parametrization called the \define{stereographic projection} (see \zcref{figure:rational-points-unit-circle}). The idea of the stereographic projection is to take one particularly simple rational point on the unit circle as our base point---we take the point $(-1,0)$ as our base point---and characterize all the other rational points $(x,y)$ by the slope of the line through the base point $(-1,0)$ and $(x,y)$. Surely, if $(x,y)$ is a rational point on the circle, then the line through $(-1,0)$ and $(x,y)$ will have a rational slope. The question that thus arises is: Does every line through $(-1,0)$ with a rational slope intersect the unit circle in a rational point?
+
 \begin{figure}[t]
   \begin{center}
     \begin{tikzpicture}[scale=4]
@@ -477,8 +479,6 @@ which satisfies $(a/c)^2+(b/c)^2=(a^2+b^2)/c^2= 1$. Thus we see that if $(a,b,c)
   \caption[Stereographic projection]{A point $(x,y)$ on the unit circle is rational if and only if the line through $(-1,0)$ and $(x,y)$ has a rational slope.}
   \label{figure:stereographic-projection}
 \end{figure}
-
-The unit circle is a $1$-dimensional curve through the plane. This suggests that there should be a way of parametrizing all the (rational) points on the unit circle using one rational number as a parameter. We will use a parametrization called the \define{stereographic projection} (see \zcref{figure:rational-points-unit-circle}). The idea of the stereographic projection is to take one particularly simple rational point on the unit circle as our base point---we take the point $(-1,0)$ as our base point---and characterize all the other rational points $(x,y)$ by the slope of the line through the base point $(-1,0)$ and $(x,y)$. Surely, if $(x,y)$ is a rational point on the circle, then the line through $(-1,0)$ and $(x,y)$ will have a rational slope. The question that thus arises is: Does every line through $(-1,0)$ with a rational slope intersect the unit circle in a rational point?
 
 At first consideration, it might not be so clear that this should indeed be the case. The key insights are obtained through Vieta's formulas for the roots of a (quadratic) polynomial, named after the 16\supth{} century French mathematician Fran\c{c}ois Vi\`{e}te. He was one of the first to use letters as parameters in his study of algebraic equations. Vieta's formulas are the essential ingredient in a problem-solving technique called \define{Vieta jumping}.
 
@@ -706,9 +706,12 @@ This inequality, which is an instance of the AM--GM inequality, follows from the
     xx' = \frac{(bu-av)^2-(a-uc)^2}{(a-uc)^2+(b-vc)^2}.
   \end{equation*}
   Given that $u^2=v^2=1$ and $a^2+b^2=c^2$, we compute this quantity as follows:
-  \begin{equation*}
-    xx'= \frac{(bu-av)^2-(a-uc)^2}{(a-uc)^2+(b-vc)^2} = \frac{b^2-c^2-2uvab+2uac}{-2uac-2vbc + a^2+b^2+2c^2}=\frac{a}{c}\frac{-a-2uvb+2uc}{-2ua-2vb + 3c}.
-  \end{equation*}
+  \begin{align*}
+    xx'
+    & = \frac{(bu-av)^2-(a-uc)^2}{(a-uc)^2+(b-vc)^2} \\
+    & = \frac{b^2-c^2-2uvab+2uac}{-2uac-2vbc + a^2+b^2+2c^2} \\
+    & = \frac{a}{c}\frac{-a-2uvb+2uc}{-2ua-2vb + 3c}.
+  \end{align*}
   Thus, we obtain the following expressions for $a'$ and $c'$, so that $x'=a'/c'$:
   \begin{align*}
     a' & = -a-2uvb+2uc, \\

@@ -26,27 +26,38 @@
 
 \makeatother
 
+\NewDocumentCommand{\HeadingRaggedRight}{}{%
+  \raggedright
+  \hyphenpenalty=10000
+  \exhyphenpenalty=10000
+  \relax
+}
+
 \EditInstance{heading}{chapter}{
   after-penalty-vspace = .1\textheight,
   after-vspace        = .2\textheight,
-  heading-decls       = \normalfont\raggedright\Large,
-  prefix-decls        = \lsstyle\scshape,
-  number-decls        = \lsstyle\scshape,
+  heading-decls       = \normalfont\Large\HeadingRaggedRight,
+  prefix-decls        = \scshape,
+  number-decls        = \scshape,
   title-decls         = \normalfont\Huge\bfseries
+}
+
+\EditInstance{heading}{section}{
+  heading-decls = \normalfont\Large\bfseries\HeadingRaggedRight
+}
+
+\EditInstance{heading}{subsection}{
+  heading-decls = \normalfont\large\bfseries\HeadingRaggedRight
 }
 
 \NewDocumentCommand{\italicsection}{m}{%
   \section*[
-    heading-decls={\normalfont\Large\mdseries\itshape}
+    heading-decls={\normalfont\Large\mdseries\itshape\HeadingRaggedRight}
   ]{#1}%
 }
 
 \NewDocumentCommand{\italicsubsection}{m}{%
   \subsection*[
-    heading-decls={\normalfont\large\mdseries\itshape}
+    heading-decls={\normalfont\large\mdseries\itshape\HeadingRaggedRight}
   ]{#1}%
-}
-
-\NewDocumentCommand{\objectives}{}{%
-  \italicsection{Learning Objectives}%
 }
