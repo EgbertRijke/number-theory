@@ -1287,7 +1287,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
       
       \draw[->] (-0.3,0) -- (12.5,0) node[right] {$x$};
       \draw[->] (0,-0.3) -- (0,4.5) node[above] {$y$};
-      \draw[dashed,thick,BrickRed!50!White] (5,-0.6) -- (5,4.6);
+      \draw[dashed,thick,BrickRed!50!White] (9.5,-0.5) -- (4.5,4.5);
       
       \foreach \x in {0,1,2,3,4,5,6,7,8,9,10,11,12} {
         \foreach \y in {0,1,2,3,4} {
@@ -1302,12 +1302,12 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
       \coordinate (A4) at (3,1);
       \coordinate (A5) at (4,1);
       \coordinate (A6) at (5,1);
-      \coordinate (A7) at (6,1);
-      \coordinate (A8) at (7,1);
-      \coordinate (A9) at (7,2);
+      \coordinate (A7) at (5,2);
+      \coordinate (A8) at (5,3);
+      \coordinate (A9) at (6,3);
       \coordinate (A10) at (7,3);
       \coordinate (A11) at (8,3);
-      \coordinate (A12) at (9,3);
+      \coordinate (A12) at (8,4);
       \coordinate (A13) at (9,4);
       \coordinate (A14) at (10,4);
       \coordinate (A15) at (11,4);
@@ -1320,13 +1320,13 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
         \draw[thick, CornflowerBlue, fill=CornflowerBlue] (A\i) circle (2pt);
       }
 
-      \foreach \i in {0,2,3,4} {
-        \draw[thick,BrickRed,fill=White] (5,\i) circle (2pt);
+      \foreach \x/\y in {9/0, 8/1, 7/2, 6/3, 5/4} {
+        \draw[thick,BrickRed,fill=white] (\x,\y) circle (2pt);
       }
-      
-      \draw[thick,BrickRed,fill=BrickRed] (5,1) circle (2pt);
+
+      \draw[thick,BrickRed,fill=BrickRed] (6,3) circle (2pt);
     \end{tikzpicture}
-    \caption[The Chu--Vandermonde identity]{Every lattice walk from $(0,0)$ to $(12,4)$ must pass through one of the lattice points on the line at $x=5$.}
+    \caption[The Chu--Vandermonde identity]{Every lattice walk from $(0,0)$ to $(12,4)$ must pass through exactly one of the lattice points on the line $x+y=9$.}
     \label{figure:chu-vandermonde}
   \end{figure}
   \exercise Show that
