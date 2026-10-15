@@ -96,11 +96,8 @@ Suppose now that we are given an arbitrary set $A$,
 and we wish to count its elements.
 What does it mean when we say that the set $A$ has $n$ elements?
 It means that we can, at least in principle,
-label each element of $A$ with a number $0\leq i<n$ in such a way that every element of $A$ is labeled by \emph{exactly one} number $0\leq i<n$.
-By making sure that every element of $A$ is labeled \emph{at least once} we make sure that every element of $A$ is accounted for,
-and by making sure that every element of $A$ is labeled \emph{at most once} we make sure to not overshoot the count.
-
-Thus,
+label each element of $A$ with a number $0\leq i<n$ in such a way that every label $0\leq i<n$ is used \emph{exactly once}.
+By making sure that all labels are used at least once, we make sure that there are indeed at least $n$ elements in $A$, and by making sure that all labels are used at most once, we make sure not to overcount the elements of $A$. Thus,
 in order to show that the set $A$ has $n$ elements,
 we have to create what is called a \define{bijective correspondence} between the elements of the standard finite set $[n]$ and the set $A$.
 
@@ -540,7 +537,7 @@ In the following proposition we prove the number of bijections $[n]\cong[n]$ on 
   \end{equation*}
   and the claim is proven by rearranging.
   
-  The strict lower bound for $n!$ given here is not the best known estimate of the factorial function. Nevertheless, its proof is elementary, and it can be used in basic number-theoretic estimates. The best approximation to the factorial function is given by \define{Stirling's approximation formula}:
+  The strict lower bound for $n!$ given here is not the best known estimate of the factorial function. Nevertheless, its proof is elementary, and it can be used in basic number-theoretic estimates. The most famous approximation to the factorial function is given by \define{Stirling's approximation formula}:
   \begin{equation*}
     n!\sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n.
   \end{equation*}
@@ -684,10 +681,11 @@ We will prove the formula for the binomial coefficients via a counting argument,
 Products of successive natural numbers such as the one on the right-hand side of this equation are called \emph{falling factorials}.
 
 \begin{definition}
-  Let $k$ and $n$ be natural numbers such that $k\leq n$. The \define{$k$\supth{} falling factorial} of $n$ is the number
+  Let $k$ and $n$ be natural numbers. The \define{$k$\supth{} falling factorial} of $n$ is the number
   \begin{equation*}
-    n_{k}:=n(n-1)\cdots (n-k+1).
+    n_{k}:=n(n-1)\cdots (n-k+1),
   \end{equation*}
+  where we take $n_k=0$ for $k>n$.
 \end{definition}
 
 The $0$\supth{} falling factorial requires some explanation. It is the product of $0$ consecutive integers going down from $n$. The product of no numbers is an empty product, which is $1$ by definition. Thus, we have
@@ -764,83 +762,83 @@ The binomial theorem has a long history. The earliest known references to aspect
   \begin{tikzpicture}[
     alt={Five overlapping circles labeled A, B, C, D, E, with equal radii are arranged regularly around a circle which is not drawn. Their overlaps partition the union into 21 regions. The regions contained in 1, 3, or 5 circles are colored orange, and the regions contained in 2 or 4 circles are colored blue, so that the coloring creates an alternating pattern. All five circles overlap in the central region, which is therefore orange.
     }
-  ]
-
-  \def\d{1.55}
-  \def\R{2.67}
-  \def\pad{0.20}
-
-  \coordinate (A) at ( 90:\d);
-  \coordinate (B) at ( 18:\d);
-  \coordinate (C) at (-54:\d);
-  \coordinate (D) at (-126:\d);
-  \coordinate (E) at (162:\d);
-
-  \pgfmathsetmacro{\extent}{\d+\R+\pad}
-
-  \path[use as bounding box]
+    ]
+    
+    \def\d{1.55}
+    \def\R{2.67}
+    \def\pad{0.20}
+    
+    \coordinate (A) at ( 90:\d);
+    \coordinate (B) at ( 18:\d);
+    \coordinate (C) at (-54:\d);
+    \coordinate (D) at (-126:\d);
+    \coordinate (E) at (162:\d);
+    
+    \pgfmathsetmacro{\extent}{\d+\R+\pad}
+    
+    \path[use as bounding box]
     (-\extent,-\extent) rectangle
     ( \extent, \extent);
-
-  \newcommand{\clipoutside}[1]{%
-    \pgfseteorule
-    \clip
+    
+    \newcommand{\clipoutside}[1]{%
+      \pgfseteorule
+      \clip
       (-\extent,-\extent) rectangle
       (\extent,\extent)
       (#1) circle[radius=\R];
-    \pgfsetnonzerorule
-  }
-
-  \newcommand{\clipbit}[3]{%
-    \pgfmathtruncatemacro{\thisbit}{mod(floor((#1)/(#2)),2)}%
-    \ifnum\thisbit=1\relax
-      \clip (#3) circle[radius=\R];
-    \else
-      \clipoutside{#3}
-    \fi
-  }
-
-  \newcommand{\FillMembership}[1]{%
-    \pgfmathtruncatemacro{\bA}{mod(#1,2)}%
-    \pgfmathtruncatemacro{\bB}{mod(floor(#1/2),2)}%
-    \pgfmathtruncatemacro{\bC}{mod(floor(#1/4),2)}%
-    \pgfmathtruncatemacro{\bD}{mod(floor(#1/8),2)}%
-    \pgfmathtruncatemacro{\bE}{mod(floor(#1/16),2)}%
-    \pgfmathtruncatemacro{\pop}{\bA+\bB+\bC+\bD+\bE}%
-    \ifodd\pop
-      \def\regioncolor{YellowOrange!40!White}%
-    \else
-      \def\regioncolor{CornflowerBlue!40!White}%
-    \fi
-    \begin{scope}
-      \clipbit{#1}{1}{A}
-      \clipbit{#1}{2}{B}
-      \clipbit{#1}{4}{C}
-      \clipbit{#1}{8}{D}
-      \clipbit{#1}{16}{E}
-      \fill[\regioncolor]
+      \pgfsetnonzerorule
+    }
+    
+    \newcommand{\clipbit}[3]{%
+      \pgfmathtruncatemacro{\thisbit}{mod(floor((#1)/(#2)),2)}%
+      \ifnum\thisbit=1\relax
+        \clip (#3) circle[radius=\R];
+      \else
+        \clipoutside{#3}
+      \fi
+    }
+    
+    \newcommand{\FillMembership}[1]{%
+      \pgfmathtruncatemacro{\bA}{mod(#1,2)}%
+      \pgfmathtruncatemacro{\bB}{mod(floor(#1/2),2)}%
+      \pgfmathtruncatemacro{\bC}{mod(floor(#1/4),2)}%
+      \pgfmathtruncatemacro{\bD}{mod(floor(#1/8),2)}%
+      \pgfmathtruncatemacro{\bE}{mod(floor(#1/16),2)}%
+      \pgfmathtruncatemacro{\pop}{\bA+\bB+\bC+\bD+\bE}%
+      \ifodd\pop
+        \def\regioncolor{YellowOrange!40!White}%
+      \else
+        \def\regioncolor{CornflowerBlue!40!White}%
+      \fi
+      \begin{scope}
+        \clipbit{#1}{1}{A}
+        \clipbit{#1}{2}{B}
+        \clipbit{#1}{4}{C}
+        \clipbit{#1}{8}{D}
+        \clipbit{#1}{16}{E}
+        \fill[\regioncolor]
         (-\extent,-\extent) rectangle
         (\extent,\extent);
-    \end{scope}
-  }
-
-  \foreach \m in {1,...,31}{
-    \FillMembership{\m}
-  }
-
-  \foreach \X in {A,B,C,D,E}{
-    \draw[CornflowerBlue,thick] (\X) circle[radius=\R];
-  }
-
-  \node at ( 90:{\d+\R-0.35}) {$A$};
-  \node at ( 18:{\d+\R-0.35}) {$B$};
-  \node at (-54:{\d+\R-0.35}) {$C$};
-  \node at (-126:{\d+\R-0.35}) {$D$};
-  \node at (162:{\d+\R-0.35}) {$E$};
-
-\end{tikzpicture}
-
-  \caption[The inclusion-exclusion principle]{A Venn diagram of five intersecting circles}
+      \end{scope}
+    }
+    
+    \foreach \m in {1,...,31}{
+      \FillMembership{\m}
+    }
+    
+    \foreach \X in {A,B,C,D,E}{
+      \draw[CornflowerBlue,thick] (\X) circle[radius=\R];
+    }
+    
+    \node at ( 90:{\d+\R-0.35}) {$A$};
+    \node at ( 18:{\d+\R-0.35}) {$B$};
+    \node at (-54:{\d+\R-0.35}) {$C$};
+    \node at (-126:{\d+\R-0.35}) {$D$};
+    \node at (162:{\d+\R-0.35}) {$E$};
+    
+  \end{tikzpicture}
+  
+  \caption[The inclusion-exclusion principle]{Five overlapping sets, with their intersections shaded in orange and blue according to the parity of sets they are contained in.}
   \label{figure:inclusion-exclusion}
 \end{figure}
 
@@ -1126,7 +1124,7 @@ In light of this observation, we can reverse the roles of $m$ and $n$ in the thi
 \begin{remark}
   The previous corollary has a natural interpretation in walks on the two-dimensional integer lattice. The points on this lattice are vectors $(x,y)$ in which each coordinate is an integer. A lattice walk starts at the origin $(0,0)$ and each step either increases the $x$-coordinate by exactly $1$ or increases the $y$-coordinate by exactly $1$. The question is then, in how many ways can we walk to the point $(m,n)$?
 
-Notice that a lattice walk is completely determined by specifying for each of the integers $0$ through $m$, how many steps upwards the path should travel. For example, the first lattice walk of \zcref{figure:lattice-walks} steps upwards $0$ steps at $x$-coordinate $0$, $2$ steps at $x$-coordinate $1$, $0$ steps at $x$-coordinate $2$, $1$ step at $x$-coordinate $3$, and $0$ steps at $x$-coordinate $4$. The total number of steps traveled upwards must be $n=3$, so we have written $n$ as the sum $0+2+0+1+0=3$. Thus we see that lattice walks from $(0,0)$ to $(m,n)$ are uniquely determined by lists $(a_0,...,a_m)$ of integers such that $a_0+\cdots+\cdots a_m=n$. Of such lists, there are $\binom{m+n}{n}$, as we have seen in \zcref{theorem:stars-and-bars}.
+Notice that a lattice walk is completely determined by specifying for each of the integers $0$ through $m$, how many steps upwards the path should travel. For example, the first lattice walk of \zcref{figure:lattice-walks} steps upwards $0$ steps at $x$-coordinate $0$, $2$ steps at $x$-coordinate $1$, $0$ steps at $x$-coordinate $2$, $1$ step at $x$-coordinate $3$, and $0$ steps at $x$-coordinate $4$. The total number of steps traveled upwards must be $n=3$, so we have written $n$ as the sum $0+2+0+1+0=3$. Thus we see that lattice walks from $(0,0)$ to $(m,n)$ are uniquely determined by lists $(a_0,...,a_m)$ of nonnegative integers such that $a_0+\cdots+\cdots a_m=n$. Of such lists, there are $\binom{m+n}{n}$, as we have seen in \zcref{theorem:stars-and-bars}.
 
 Now, we could also flip the lattice walk about the diagonal axis, as indicated in \zcref{figure:lattice-walks}. This operation is a bijection between lattice walks from $(0,0)$ to $(m,n)$ and lattice walks from $(0,0)$ to $(n,m)$. By the previous reasoning, there are $\binom{m+n}{n}$ such lattice walks. This bijection, which is induced by the symmetry about the diagonal axis, corresponds to the bijection of \zcref{corollary:transposing-ordered-partitions} which was obtained via taking complements.
 \end{remark}
@@ -1261,7 +1259,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
     \frac{4^n}{2n+1} < \binom{2n}{n} < 4^n
   \end{equation*}
   hold for all $n\geq 1$.
-  \exercise Prove that
+  \exercise For $n\geq 1$, prove that
   \begin{equation*}
     \sum_{k=0}^n\binom{n}{k}(-1)^k = 0.
   \end{equation*}
@@ -1274,10 +1272,63 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
   \begin{equation*}
     \sum_{i=k}^m\binom{i}{k}=\binom{m+1}{k+1}.
   \end{equation*}
-  \exercise \emph{The Chu--Vandermonde identity.} Use the binomial theorem at the polynomial $(x+1)^m(x+1)^n$ to show that
+  \exercise \emph{The Chu--Vandermonde identity.}
+  The \define{Chu--Vandermonde identity} asserts that
   \begin{equation*}
-    \sum_{i=0}^k \binom{m}{i}\binom{n}{k-i} = \binom{m+n}{k}.
+    \binom{m+n}{k} = \sum_{i=0}^k \binom{m}{i}\binom{n}{k-i}.
   \end{equation*}
+  \begin{subexenum}
+  \item Use the binomial theorem at the polynomial $(x+1)^m(x+1)^n$ to prove the Chu--Vandermonde identity.
+  \item Use the lattice-walk interpretation of the binomial coefficients, illustrated in \zcref{figure:chu-vandermonde}, to give a second proof of the Chu--Vandermonde identity.
+  \end{subexenum}
+  \begin{figure}[t]
+    \centering
+    \begin{tikzpicture}[scale=.8,line join=round,line cap=round]
+      
+      \draw[->] (-0.3,0) -- (12.5,0) node[right] {$x$};
+      \draw[->] (0,-0.3) -- (0,4.5) node[above] {$y$};
+      \draw[dashed,thick,BrickRed!50!White] (5,-0.6) -- (5,4.6);
+      
+      \foreach \x in {0,1,2,3,4,5,6,7,8,9,10,11,12} {
+        \foreach \y in {0,1,2,3,4} {
+          \draw[thick,CornflowerBlue,fill=white] (\x,\y) circle (2pt);
+        }
+      }
+      
+      \coordinate (A0) at (0,0);
+      \coordinate (A1) at (1,0);
+      \coordinate (A2) at (1,1);
+      \coordinate (A3) at (2,1);
+      \coordinate (A4) at (3,1);
+      \coordinate (A5) at (4,1);
+      \coordinate (A6) at (5,1);
+      \coordinate (A7) at (6,1);
+      \coordinate (A8) at (7,1);
+      \coordinate (A9) at (7,2);
+      \coordinate (A10) at (7,3);
+      \coordinate (A11) at (8,3);
+      \coordinate (A12) at (9,3);
+      \coordinate (A13) at (9,4);
+      \coordinate (A14) at (10,4);
+      \coordinate (A15) at (11,4);
+      \coordinate (A16) at (12,4);
+      
+      \draw[very thick, YellowOrange]
+      (A0) \foreach \i in {1,...,16} { -- (A\i) };
+
+      \foreach \i in {0,...,16} {
+        \draw[thick, CornflowerBlue, fill=CornflowerBlue] (A\i) circle (2pt);
+      }
+
+      \foreach \i in {0,2,3,4} {
+        \draw[thick,BrickRed,fill=White] (5,\i) circle (2pt);
+      }
+      
+      \draw[thick,BrickRed,fill=BrickRed] (5,1) circle (2pt);
+    \end{tikzpicture}
+    \caption[The Chu--Vandermonde identity]{Every lattice walk from $(0,0)$ to $(12,4)$ must pass through one of the lattice points on the line at $x=5$.}
+    \label{figure:chu-vandermonde}
+  \end{figure}
   \exercise Show that
   \begin{equation*}
     \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
