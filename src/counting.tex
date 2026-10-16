@@ -1006,112 +1006,152 @@ For our definition of stars-and-bars configurations, we need to think about what
   \label{figure:5-stars-8-bars}
 \end{figure}
 
-Another way of thinking about the stars-and-bars problem is that a stars-and-bars configuration is entirely determined by the number of bars in each of the $m+1$ spaces separated by stars. That is, a stars-and-bars configuration is represented by a list $(b_0,\ldots,b_m)$ of natural numbers, each representing the number of bars in one of the spaces, such that the total number of bars is
+Another way of thinking about the stars-and-bars problem is that a stars-and-bars configuration is entirely determined by the number of stars between successive bars. That is, a stars-and-bars configuration is represented by a list $(s_0,\ldots,s_n)$ of natural numbers, such that the total number of stars is
 \begin{equation*}
-  b_0+\cdots+b_m=n.
+  s_0+\cdots+s_n=m.
 \end{equation*}
-Listing the number of bars in each of the four configurations displayed in \zcref{figure:stars-and-bars} gives us $(2,0,0,1,0,0)$ for the first example, $(0,1,0,0,1,1)$ for the second, $(0,0,2,0,1,0)$ for the third, and $(1,0,1,0,1,0)$ for the fourth.
+Listing the number of stars in each of the four configurations displayed in \zcref{figure:stars-and-bars} gives us $(0,0,3,2)$ for the first example, $(1,3,1,0)$ for the second, $(2,0,2,1)$ for the third, and $(0,2,2,1)$ for the fourth.
 
-Yet another way of thinking about the stars-and-bars problem is that the stars mark an $m$-element subset $S\subseteq \{1,\ldots,m+n\}$, and the elements not in $S$ are the bars. Now, it does not suffice to merely appreciate that each of these ways indeed model the stars-and-bars problem. We need to prove their equivalence!
+Yet another way of thinking about the stars-and-bars problem is that the bars mark an $n$-element subset $B\subseteq \{1,\ldots,m+n\}$, and the elements not in $S$ are the bars. Now, it does not suffice to merely appreciate that each of these ways indeed model the stars-and-bars problem. We need to prove their equivalence.
 
 \begin{theorem}\label{theorem:stars-and-bars}
   There are bijections between the following sets:
   \begin{enumerate}
-  \item The set of stars-and-bars configurations with $m$ stars and $n$ bars; that is, the set of order-preserving maps from $\{1,\ldots,n\}$ to $\{0,\ldots,m\}$. 
-  \item The set of $(m+1)$-tuples $(b_0,\ldots,b_m)$ of natural numbers such that
+  \item The set of stars-and-bars configurations with $m$ stars and $n$ bars; that is, the set of order-preserving maps from $\{1,\ldots,n\}$ to $\{0,\ldots,m\}$.
+  \item The set of ordered $(n+1)$-tuples $(s_0,\ldots,s_n)$ of natural numbers such that
     \begin{equation*}
-      b_0+\cdots+b_m=n.
+      s_0+\cdots+s_n=m.
     \end{equation*}
-  \item The set of $m$-element subsets of the set $\{1,\ldots,m+n\}$.
+  \item The set of $n$-element subsets of the set $\{1,\ldots,m+n\}$.
   \end{enumerate}
-  Consequently, the number of elements in each of these sets is $\binom{m+n}{m}$.
 \end{theorem}
 
 \begin{proof}
-  We will first construct a bijection $\Phi$ between the set of order-preserving maps
-  \begin{equation*}
-    \{1,\ldots,n\}\to\{0,\ldots,m\}
-  \end{equation*}
-  and the set of $(m+1)$-tuples $(b_0,\ldots,b_m)$ of natural numbers such that
-  \begin{equation*}
-    b_0+\cdots+b_m=n.
-  \end{equation*}
-  Given an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$, we define the $(m+1)$-tuple $\Phi(f)=(b_0,\ldots,b_m)$ by
-  \begin{equation*}
-    b_i:=\#\{1\leq j\leq n\mid f(j)=i\}. 
-  \end{equation*}
-  Since $k\in\{1\leq j\leq n\mid f(j)=i\}$ if and only if $i=f(k)$, we see that every $1\leq k\leq n$ is in exactly one of the sets $\{1\leq j\leq n\mid f(j)=i\}$. This implies that $b_0+\cdots+b_m=n$.
+  In a stars-and-bars configuration $f$, the value $f(k)$ counts the stars preceding the $k$\supth{} bar. Successive differences therefore count the stars in the groups separated by the bars.
 
-  Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\#\{1\leq j\leq n\mid f(j)\leq i\}$. Since the map $f$ is order-preserving, the set $\{1\leq j\leq n\mid f(j)\leq i\}$ is an initial segment of the set $\{1,\ldots,n\}$. By the fact that it contains $B_i$ elements, it must be the set $\{1,\ldots,B_i\}$. This implies the logical equivalence
+  More precisely, put $f(0)=0$ and $f(n+1)=m$, and define
   \begin{equation*}
-    f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i
+    s_k=f(k+1)-f(k)
   \end{equation*}
-  for every $1\leq j\leq n$ and $0\leq i\leq m$.
+  for each $0\leq k\leq n$. Since $f$ is order-preserving we have $0\leq s_k\leq m$ for each $k$, and their sum is
+  \begin{equation*}
+    \sum_{k=0}^{n}s_k=f(n+1)-f(0)=m.
+  \end{equation*}
+  Conversely, from any such tuple we recover an order-preserving map by taking partial sums:
+  \begin{equation*}
+    f(k)=s_0+\cdots +s_{k-1}
+    \qquad (1\leq k\leq n).
+  \end{equation*}
+  Since successive differences and partial sums are mutual inverse operations, this gives the first bijection.
 
-  In order to show that the map $f\mapsto \Phi(f)$ is a bijection, it suffices to show that for every ordered sum $b_0+\cdots+b_m=n$ with associated sequence $(B_0,\ldots,B_m)$ defined by $B_i=b_0+\cdots+b_i$, there is exactly one order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$ such that 
+  For the second, the idea is that each stars-and-bars configuration $f$ determines the subset $B_f$ of bar-positions in the set $\{1,\ldots,m+n\}$. Observe that $k$\supth{} bar is preceeded by $f(k)$ stars and $k-1$ bars, so we define
   \begin{equation*}
-    f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i.
+    B_f:=\{f(k)+k\mid 1\leq k\leq n\}.
   \end{equation*}
-  As for the existence, we define
+  The positions $f(k)+k$ are indeed strictly increasing, since
   \begin{equation*}
-    f(j):=\min\{0\leq i\leq m\mid j\leq B_i\}.
+    f(k)+k\leq f(l)+k<f(l)+l
   \end{equation*}
-  This clearly defines an order-preserving map, since if $j\leq k$ then $k\leq B_i$ implies $j\leq B_i$. Moreover, since $f(j)$ is defined as a minimum, we have
-  \begin{equation*}
-    f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i.
-  \end{equation*}
-  As for the uniqueness, suppose that both $f$ and $g$ satisfy the asserted logical equivalence. Then we have
-  \begin{equation*}
-    f(j) \leq i \quad\Leftrightarrow\quad j\leq B_i \quad\Leftrightarrow\quad g(j)\leq i.
-  \end{equation*}
-  Since $f(j)\leq f(j)$ holds, we obtain that $g(j)\leq f(j)$. Conversely, since $g(j)\leq g(j)$ holds, we obtain that $f(j)\leq g(j)$. Together, these imply that $f(j)=g(j)$. This completes the proof that $\Phi$ is a bijection.
+  for any $1\leq k<l\leq n$. Furthermore we have $f(n)+n\leq m+n$, so the set $B_f$ is indeed an $n$-element subset of $\{1,\ldots,m+n\}$, as required.
 
-  For the second bijection, we need to construct a bijection $\Psi$ between the set of ordered sums $b_0+\cdots+b_m=n$ and the set of $m$-element subsets of $\{1,\ldots,m+n\}$. Given an ordered sum $b_0+\cdots+b_m=n$, we define the subset $S=\{s_1,\ldots,s_m\}\subseteq\{1,\ldots,m+n\}$ by
+  Conversely, by listing the elements of an $n$-element subset $B$ of $\{1,\ldots,m+n\}$ in order, we obtain a strictly increasing sequence $b_1<\ldots<b_n$. Then the map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$ given by
   \begin{equation*}
-    s_i=b_0+\cdots+b_{i-1}+i.
+    f(k)=b_k-k
   \end{equation*}
-  Then the elements $s_i$ form a strictly increasing sequence of numbers with $s_m=b_0+\cdots+b_{m-1}+m\leq m+n$, so that indeed $S:=\{s_1,\ldots,s_m\}$ is a subset of $\{1,\ldots,m+n\}$. We define $\Psi(b_0,\ldots,b_m):=S$.
-
-  It remains to show that for every $m$-element subset $S=\{s_1<\ldots<s_m\}\subseteq\{1,\ldots,m+n\}$ there is a unique ordered sum $b_0+\cdots+b_m=n$ such that $\Psi(b_0,\ldots,b_m)=S$.
-
-  As for the existence, notice that we can define a \define{rank function}
+  is order-preserving, since
   \begin{equation*}
-    r : \{1,\ldots,m+n\}\to\{0,\ldots,m\},
+    b_k-k\leq b_l-(l-k)-k=b_l-l
   \end{equation*}
-  given by $r_k=\#\{1\leq i\leq m\mid s_i\leq k\}$. Since the elements $s_1<\cdots s_m$ are listed in strictly increasing order, it follows that this function satisfies the logical equivalence
-  \begin{equation*}
-    s_i\leq k\quad\Leftrightarrow\quad i\leq r_k
-  \end{equation*}
-  for every $1\leq i\leq m$ and $1\leq k\leq m+n$. In particular, $s_i$ is the minimal element of rank $i$. Then we define
-  \begin{equation*}
-    b_i:=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k=i\}.
-  \end{equation*}
-  Then the sum $b_0+\cdots+b_m$ accounts for all the elements not in $S$, and hence must equal $n$. Moreover, we have
-  \begin{equation*}
-    b_0+\cdots+b_{i-1}=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k<i\}
-  \end{equation*}
-  It follows that
-  \begin{equation*}
-    b_0+\cdots+b_{i-1}+i-1 =\#\{1\leq k\leq m+n\mid r_k<i\},
-  \end{equation*}
-  which implies that $b_0+\cdots+b_{i-1}+i=s_i$. This shows that $\Psi(b_0,\ldots,b_m)=S$.
-
-  As for uniqueness, Suppose that $\Psi(b_0,\ldots,b_m)=S$. Then we have $s_1-1=b_0$, $s_{i+1}-s_i-1=b_i$, and $m+n-s_m=b_m$, so that the $(m+1)$-tuple $(b_0,\ldots,b_m)$ is uniquely determined in terms of $S$.
+  for every $1\leq k\leq l\leq n$, and takes values between $0\leq b_1-1$ and $b_n-n\leq (m+n)-n$. Since $(f(k)+k)-k=f(k)$ and $(b_k-k)+k=b_k$, it follows that the map $f\mapsto B_f$ is a bijection.
 \end{proof}
 
-Recall that the \define{complement} of a subset $A$ of a set $X$ is the subset $\complementsubset{A}\subseteq X$ consisting of all the elements of $X$ not in the subset $A$. For any two subsets $A$ and $B$ of $X$, the complement satisfies the logical equivalence
+% \begin{proof}
+%   We will first construct a bijection $\Phi$ between the set of order-preserving maps
+%   \begin{equation*}
+%     \{1,\ldots,n\}\to\{0,\ldots,m\}
+%   \end{equation*}
+%   and the set of $(m+1)$-tuples $(b_0,\ldots,b_m)$ of natural numbers such that
+%   \begin{equation*}
+%     b_0+\cdots+b_m=n.
+%   \end{equation*}
+%   Given an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$, we define the $(m+1)$-tuple $\Phi(f)=(b_0,\ldots,b_m)$ by
+%   \begin{equation*}
+%     b_i:=\#\{1\leq j\leq n\mid f(j)=i\}. 
+%   \end{equation*}
+%   Since $k\in\{1\leq j\leq n\mid f(j)=i\}$ if and only if $i=f(k)$, we see that every $1\leq k\leq n$ is in exactly one of the sets $\{1\leq j\leq n\mid f(j)=i\}$. This implies that $b_0+\cdots+b_m=n$.
+
+%   Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\#\{1\leq j\leq n\mid f(j)\leq i\}$. Since the map $f$ is order-preserving, the set $\{1\leq j\leq n\mid f(j)\leq i\}$ is an initial segment of the set $\{1,\ldots,n\}$. By the fact that it contains $B_i$ elements, it must be the set $\{1,\ldots,B_i\}$. This implies the logical equivalence
+%   \begin{equation*}
+%     f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i
+%   \end{equation*}
+%   for every $1\leq j\leq n$ and $0\leq i\leq m$.
+
+%   In order to show that the map $f\mapsto \Phi(f)$ is a bijection, it suffices to show that for every ordered sum $b_0+\cdots+b_m=n$ with associated sequence $(B_0,\ldots,B_m)$ defined by $B_i=b_0+\cdots+b_i$, there is exactly one order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$ such that 
+%   \begin{equation*}
+%     f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i.
+%   \end{equation*}
+%   As for the existence, we define
+%   \begin{equation*}
+%     f(j):=\min\{0\leq i\leq m\mid j\leq B_i\}.
+%   \end{equation*}
+%   This clearly defines an order-preserving map, since if $j\leq k$ then $k\leq B_i$ implies $j\leq B_i$. Moreover, since $f(j)$ is defined as a minimum, we have
+%   \begin{equation*}
+%     f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i.
+%   \end{equation*}
+%   As for the uniqueness, suppose that both $f$ and $g$ satisfy the asserted logical equivalence. Then we have
+%   \begin{equation*}
+%     f(j) \leq i \quad\Leftrightarrow\quad j\leq B_i \quad\Leftrightarrow\quad g(j)\leq i.
+%   \end{equation*}
+%   Since $f(j)\leq f(j)$ holds, we obtain that $g(j)\leq f(j)$. Conversely, since $g(j)\leq g(j)$ holds, we obtain that $f(j)\leq g(j)$. Together, these imply that $f(j)=g(j)$. This completes the proof that $\Phi$ is a bijection.
+
+%   For the second bijection, we need to construct a bijection $\Psi$ between the set of ordered sums $b_0+\cdots+b_m=n$ and the set of $m$-element subsets of $\{1,\ldots,m+n\}$. Given an ordered sum $b_0+\cdots+b_m=n$, we define the subset $S=\{s_1,\ldots,s_m\}\subseteq\{1,\ldots,m+n\}$ by
+%   \begin{equation*}
+%     s_i=b_0+\cdots+b_{i-1}+i.
+%   \end{equation*}
+%   Then the elements $s_i$ form a strictly increasing sequence of numbers with $s_m=b_0+\cdots+b_{m-1}+m\leq m+n$, so that indeed $S:=\{s_1,\ldots,s_m\}$ is a subset of $\{1,\ldots,m+n\}$. We define $\Psi(b_0,\ldots,b_m):=S$.
+
+%   It remains to show that for every $m$-element subset $S=\{s_1<\ldots<s_m\}\subseteq\{1,\ldots,m+n\}$ there is a unique ordered sum $b_0+\cdots+b_m=n$ such that $\Psi(b_0,\ldots,b_m)=S$.
+
+%   As for the existence, notice that we can define a \define{rank function}
+%   \begin{equation*}
+%     r : \{1,\ldots,m+n\}\to\{0,\ldots,m\},
+%   \end{equation*}
+%   given by $r_k=\#\{1\leq i\leq m\mid s_i\leq k\}$. Since the elements $s_1<\cdots s_m$ are listed in strictly increasing order, it follows that this function satisfies the logical equivalence
+%   \begin{equation*}
+%     s_i\leq k\quad\Leftrightarrow\quad i\leq r_k
+%   \end{equation*}
+%   for every $1\leq i\leq m$ and $1\leq k\leq m+n$. In particular, $s_i$ is the minimal element of rank $i$. Then we define
+%   \begin{equation*}
+%     b_i:=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k=i\}.
+%   \end{equation*}
+%   Then the sum $b_0+\cdots+b_m$ accounts for all the elements not in $S$, and hence must equal $n$. Moreover, we have
+%   \begin{equation*}
+%     b_0+\cdots+b_{i-1}=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k<i\}
+%   \end{equation*}
+%   It follows that
+%   \begin{equation*}
+%     b_0+\cdots+b_{i-1}+i-1 =\#\{1\leq k\leq m+n\mid r_k<i\},
+%   \end{equation*}
+%   which implies that $b_0+\cdots+b_{i-1}+i=s_i$. This shows that $\Psi(b_0,\ldots,b_m)=S$.
+
+%   As for uniqueness, Suppose that $\Psi(b_0,\ldots,b_m)=S$. Then we have $s_1-1=b_0$, $s_{i+1}-s_i-1=b_i$, and $m+n-s_m=b_m$, so that the $(m+1)$-tuple $(b_0,\ldots,b_m)$ is uniquely determined in terms of $S$.
+% \end{proof}
+
+The attentive reader may have already observed that stars and bars play dual roles in the stars-and-bars problem. This is most clearly seen in the last interpretation of \zcrefnamed{theorem:stars-and-bars}: An $n$-element subset of an $(m+n)$-element set is equivalently described by its $m$-element \emph{complement}.
+
+The \define{complement} of a subset $A$ of a set $X$ is the subset $\complementsubset{A}\subseteq X$ consisting of all the elements of $X$ not in the subset $A$. For any two subsets $A$ and $B$ of $X$, the complement satisfies the logical equivalence
 \begin{equation*}
   A\subseteq \complementsubset{B}\Leftrightarrow A\cap B=\varnothing.
 \end{equation*}
-That is, a subset $A$ is contained in the complement of $B$ if and only if $A$ and $B$ have no elements in common. Now observe that the complement of an $m$-element subset of an $(m+n)$-element set is an $n$-element subset. Furthermore, as an operation on the set of all subsets of $X$, taking complements is a bijection. Hence, whenever $X$ is an $(m+n)$-element set, the operation of taking complements is a bijection
+That is, a subset $A$ is contained in the complement of $B$ if and only if $A$ and $B$ have no elements in common. Now observe that the complement of an $n$-element subset of an $(m+n)$-element set is an $m$-element subset. Furthermore, the operation of taking complements is a bijection
 \begin{equation*}
   \{A\subseteq X\mid \# A=m\}\cong\{B\subseteq X\mid \#B=n\}.
 \end{equation*}
-Indeed, this bijection is reflected by the identity
+Indeed, the inverse operation is again taking the complement. This bijection proves the identity
 \begin{equation*}
   \binom{m+n}{m}=\binom{m+n}{n}.
 \end{equation*}
-In light of this observation, we can reverse the roles of $m$ and $n$ in the third statement of \zcref{theorem:stars-and-bars} and retain a set with the same number of elements. Now we get to the point: We can also reverse the roles of $m$ and $n$ in any of the other statements! We obtain the following corollaries:
+In light of this observation, we can reverse the roles of $m$ and $n$ in the third statement of \zcref{theorem:stars-and-bars} and retain sets with the same number of elements. Now we get to the point: We can also reverse the roles of $m$ and $n$ in any of the other statements! We obtain the following corollaries:
 
 \begin{corollary}\label{corollary:transposing-ordered-partitions}
   There is a bijection
@@ -1197,46 +1237,57 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
   \label{figure:lattice-walks}
 \end{figure}
 
-\begin{corollary}\label{corollary:transposing-order-preserving-maps}
-  There is a bijection
+It also follows from \zcrefnamed{theorem:stars-and-bars} that there is a bijection between the set of order-preserving maps
+\begin{equation*}
+  f:\{1,\ldots,n\}\to\{0,\ldots,m\}
+\end{equation*}
+and the set of order-preserving maps
+\begin{equation*}
+  g:\{1,\ldots,m\}\to\{0,\ldots,n\}.
+\end{equation*}
+This bijection has some nice properties, but they are best expressed if we extend the domain of $f$ to include $0$ and set $f(0)=0$, and the domain of $g$ to include $0$ and set $g(m)=n$.
+
+\begin{theorem}\label{corollary:transposing-order-preserving-maps}
+  There is a bijective correspondence between order-perserving maps
   \begin{equation*}
-    \mathrm{Map}_{\leq}(\{1,\ldots,n\},\{0,\ldots,m\}) \cong
-    \mathrm{Map}_{\leq}(\{1,\ldots,m\},\{0,\ldots,n\}).
+    f:\{0,\ldots,n\}\to\{0,\ldots,m\},\qquad f(0)=0
   \end{equation*}
-\end{corollary}
-
-\begin{remark}
-  While \zcref{corollary:transposing-order-preserving-maps} follows directly from the previous observations, it is worthwhile to construct the bijection $f\mapsto f^\ast$ explicitly.
-
-  Consider an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$. By the correspondence of \zcref{theorem:stars-and-bars} we obtain $c_i=\#f^{-1}(i)$ such that
+  and order-preserving maps
   \begin{equation*}
-    c_0+\cdots + c_m=n. 
+    g:\{0,\ldots,m\}\to\{0,\ldots,n\},\qquad g(m)=n,
   \end{equation*}
-  This determines the subset $\{a_1,\ldots,a_m\}\subseteq\{1,\ldots,m+n\}$ given by $a_1:= c_0$ and $a_{i+1}=a_i+c_i+1$. The complement of this subset is a set $\{b_1,\ldots,b_n\}$
-
-  Thus, $f^\ast : \{1,\ldots,m\}\to\{0,\ldots,n\}$ is the unique order-preserving map such that for any $1\leq i\leq m$ and any $1\leq j\leq n$ we have
-  \begin{equation*}
-    f(i)\leq j \Leftrightarrow i \leq f^\ast(j).
-  \end{equation*}
-
-  The Canadian mathematician Andr\'e Joyal observed that duality between order-preserving maps $\{1,\ldots,n\}\to\{0,\ldots,m\}$ and order-preserving maps $\{1,\ldots,m\}\to\{0,\ldots,n\}$ can be generalized to a duality between planar trees and a combinatorial structure called disks \cite{joyal1997}.
-\end{remark}
-
-\begin{theorem}\label{theorem:stars-and-bars-primes}
-  Given a set $p_1,\ldots,p_n$ of distinct primes, the set of numbers of the form
-  \begin{equation*}
-    p_1^{m_1}\cdots p_n^{m_n}
-  \end{equation*}
-  such that $m_1+\ldots+m_n\leq k$ has exactly $\binom{k+n}{n}$ elements.
+  characterized by the logical equivalence
+  \begin{equation}\label{equation:transposing-order-preserving-maps}
+    f(x)\leq y\quad\Leftrightarrow\quad x\leq g(y) \tag{\textasteriskcentered}
+  \end{equation}
+  for all $0\leq x\leq n$ and $0\leq y\leq m$.
 \end{theorem}
 
 \begin{proof}
-  By the hockey-stick identity (\zcref{exercise:hockey-stick-identity}), we have
+  We begin the proof by showing that for any order-preserving map $f$ satisfying $f(0)=0$, there is at most one map $g$ satisfying \zcref{equation:transposing-order-preserving-maps}. Indeed, if $g'$ is another such map, we get
   \begin{equation*}
-    \sum_{i=0}^k\binom{i+n-1}{n-1}=\binom{k+n}{n}.\qedhere
+    g(y)\leq g(y) \quad\Rightarrow\quad f(g(y))\leq y\quad\Rightarrow\quad g(y)\leq g'(y),
   \end{equation*}
+  showing that $g(y)\leq g'(y)$. Interchanging $g$ and $g'$ gives the reverse inequality, so we conclude that $g(y)=g'(y)$. Any map $g$ satisfying \zcref{equation:transposing-order-preserving-maps} is order-preserving. Indeed, given $y\leq z$, we obtain the implication $f(x)\leq y\Rightarrow f(x)\leq z$, which gives $x\leq g(y)\Rightarrow x\leq g(z)$. By choosing $x=g(y)$ we conclude that $g(y)\leq g(z)$. Moreover, the map $g$ satisfies $g(m)=n$ since $f(n)\leq m$ holds.
+
+  By the same argument, it follows that for any order-preserving map $g$ satisfying $g(m)=n$, there is at most one map $f$ satisfying \zcref{equation:transposing-order-preserving-maps}, which is necessarily order-preserving and satisfies $f(0)=0$.
+
+  Let $f:\{0,\ldots,n\}\to\{0,\ldots,m\}$ be an order-preserving map satisfying $f(0)=0$. For any $0\leq y\leq m$, we define
+  \begin{equation*}
+    g(y):=\max\{0\leq x\leq n\mid f(x)\leq y\}.
+  \end{equation*}
+  This maximum is always attained, since $f(0)=0$. By its very definition, the function $g$ satisfies the logical equivalence \zcref{equation:transposing-order-preserving-maps}.
+
+  Conversely, for any order-preserving map $g:\{0,\ldots,m\}\to\{0,\ldots,n\}$ satisfying $g(m)=n$ the function $f$ given by
+ \begin{equation*}
+   f(x):=\min\{0\leq y\leq m\mid x\leq g(y)\}
+ \end{equation*}
+ is well-defined since $g(m)=n$, and also satisfies the logical equivalence \zcref{equation:transposing-order-preserving-maps} by its very definition.
 \end{proof}
 
+\begin{remark}
+  The Canadian mathematician Andr\'e Joyal observed that duality between order-preserving maps $\{1,\ldots,n\}\to\{0,\ldots,m\}$ and order-preserving maps $\{1,\ldots,m\}\to\{0,\ldots,n\}$ can be generalized to a duality between planar trees and a combinatorial structure called disks \cite{joyal1997}.
+\end{remark}
 
 \exercises
 
@@ -1279,7 +1330,7 @@ Now, we could also flip the lattice walk about the diagonal axis, as indicated i
   \end{equation*}
   \begin{subexenum}
   \item Use the binomial theorem at the polynomial $(x+1)^m(x+1)^n$ to prove the Chu--Vandermonde identity.
-  \item Use the lattice-walk interpretation of the binomial coefficients, illustrated in \zcref{figure:chu-vandermonde}, to give a second proof of the Chu--Vandermonde identity.
+  \item Use the suggestion of \zcref{figure:chu-vandermonde} to give a lattice-walk interpretation of the Chu--Vandermonde identity.
   \end{subexenum}
   \begin{figure}[t]
     \centering

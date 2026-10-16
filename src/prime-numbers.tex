@@ -351,7 +351,11 @@ where $m_1+\cdots+m_{n} \leq k$. We will use this observation to obtain a bound 
   \begin{equation*}
     m_1+\cdots+m_n \leq \log_2 N.
   \end{equation*}
-  By \zcref{theorem:stars-and-bars-primes} it follows that
+  The set of ordered tuples $(m_1,\ldots,m_n)$ with sum $\leq \log_2$ is in bijection with the set of ordered tuples $(m_0,\ldots,m_n)$ satisfying
+  \begin{equation*}
+    m_0+m_1+\cdots+m_n = \log_2 N.
+  \end{equation*}
+  The number of such ordered $(n+1)$-tuples is determined in \zcref{theorem:stars-and-bars-prime}, by which it follows that
   \begin{equation*}
     N\leq \binom{\lfloor\log_2 N\rfloor + n}{n}
     \leq \frac{(\log_2 N + n)^{n}}{n!}
