@@ -1264,25 +1264,25 @@ This bijection has some nice properties, but they are best expressed if we exten
 \end{theorem}
 
 \begin{proof}
-  We begin the proof by showing that for any order-preserving map $f$ satisfying $f(0)=0$, there is at most one map $g$ satisfying \zcref{equation:transposing-order-preserving-maps}. Indeed, if $g'$ is another such map, we get
+  We begin the proof by showing that for any order-preserving map $f$ satisfying $f(0)=0$, there is at most one map $g$ satisfying \zref{equation:transposing-order-preserving-maps}. Indeed, if $g'$ is another such map, we get
   \begin{equation*}
     g(y)\leq g(y) \quad\Rightarrow\quad f(g(y))\leq y\quad\Rightarrow\quad g(y)\leq g'(y),
   \end{equation*}
-  showing that $g(y)\leq g'(y)$. Interchanging $g$ and $g'$ gives the reverse inequality, so we conclude that $g(y)=g'(y)$. Any map $g$ satisfying \zcref{equation:transposing-order-preserving-maps} is order-preserving. Indeed, given $y\leq z$, we obtain the implication $f(x)\leq y\Rightarrow f(x)\leq z$, which gives $x\leq g(y)\Rightarrow x\leq g(z)$. By choosing $x=g(y)$ we conclude that $g(y)\leq g(z)$. Moreover, the map $g$ satisfies $g(m)=n$ since $f(n)\leq m$ holds.
+  showing that $g(y)\leq g'(y)$. Interchanging $g$ and $g'$ gives the reverse inequality, so we conclude that $g(y)=g'(y)$. Any map $g$ satisfying \zref{equation:transposing-order-preserving-maps} is order-preserving. Indeed, given $y\leq z$, we obtain the implication $f(x)\leq y\Rightarrow f(x)\leq z$, which gives $x\leq g(y)\Rightarrow x\leq g(z)$. By choosing $x=g(y)$ we conclude that $g(y)\leq g(z)$. Moreover, the map $g$ satisfies $g(m)=n$ since $f(n)\leq m$ holds.
 
-  By the same argument, it follows that for any order-preserving map $g$ satisfying $g(m)=n$, there is at most one map $f$ satisfying \zcref{equation:transposing-order-preserving-maps}, which is necessarily order-preserving and satisfies $f(0)=0$.
+  By the same argument, it follows that for any order-preserving map $g$ satisfying $g(m)=n$, there is at most one map $f$ satisfying \zref{equation:transposing-order-preserving-maps}, which is necessarily order-preserving and satisfies $f(0)=0$.
 
   Let $f:\{0,\ldots,n\}\to\{0,\ldots,m\}$ be an order-preserving map satisfying $f(0)=0$. For any $0\leq y\leq m$, we define
   \begin{equation*}
     g(y):=\max\{0\leq x\leq n\mid f(x)\leq y\}.
   \end{equation*}
-  This maximum is always attained, since $f(0)=0$. By its very definition, the function $g$ satisfies the logical equivalence \zcref{equation:transposing-order-preserving-maps}.
+  This maximum is always attained, since $f(0)=0$. By its very definition, the function $g$ satisfies the logical equivalence \zref{equation:transposing-order-preserving-maps}.
 
   Conversely, for any order-preserving map $g:\{0,\ldots,m\}\to\{0,\ldots,n\}$ satisfying $g(m)=n$ the function $f$ given by
  \begin{equation*}
    f(x):=\min\{0\leq y\leq m\mid x\leq g(y)\}
  \end{equation*}
- is well-defined since $g(m)=n$, and also satisfies the logical equivalence \zcref{equation:transposing-order-preserving-maps} by its very definition.
+ is well-defined since $g(m)=n$, and also satisfies the logical equivalence \zref{equation:transposing-order-preserving-maps} by its very definition.
 \end{proof}
 
 \begin{remark}

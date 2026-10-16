@@ -66,9 +66,9 @@ which must eventually have repeated values since the set $A$ was assumed to be f
 which implies by the assumption that $f$ is a bijection that $f^{n-1}(a)=f^{m-1}(a)$. This is impossible by the minimality of $n$, so we must have $n=0$. We conclude that the iterations of $f$ trace out cycles. Such cycles are called \emph{orbits}.
 
 \begin{definition}
-  Consider a set $X$ with a bijection $f:X\cong X$. Then we say that two elements $x,y\in X$ are \define{in the same orbit} of $f$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$; that is, if one can be reached from the other by iteratively applying $f$.
+  Consider a bijection $f:X\cong X$. We say that $x,y\in X$ are \define{in the same orbit} of $f$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$.
 
-  An \define{orbit} of $f$ is defined to be an inhabited subset $U\subseteq X$ so that all elements of $U$ are in the same orbit.
+  A subset $U\subseteq X$ is an \define{orbit} of $f$ if there exists an element $x\in X$, such that $U$ consists of exactly the elements in the same orbit as $x$.
 \end{definition}
 
 The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}, for example, has four such orbits. Since bijections on a set partition the set into cyclic orbits, we can now define a \emph{cyclic set} to be a set equipped with a bijection that has exactly one orbit, so that all the elements of the set fit in the same cycle. In \zcref{figure:cyclically-ordered-set} we displayed an example of a cyclic set.
