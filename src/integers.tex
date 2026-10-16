@@ -407,6 +407,15 @@ The induction principle for the integers may be used, for instance, to prove tha
   The final claim follows immediately by the integer recursion principle.
 \end{proof}
 
+\begin{theorem}
+  Let the inclusion of the naturals into the integers $i:\mathbb{N}\to\mathbb{Z}$ be defined by
+  \begin{align*}
+    i(0) & := 0, \\
+    i(n+1) & := S(i(n)),
+  \end{align*}
+  and write $N$ for its image. Then $0$ is not of the form $S(i(n))$, for any natural number $n$.
+\end{theorem}
+
 \section{Constructing the Integers from the Natural Numbers}
 
 We have given a structural definition of the set of integers as the universal cyclic set. We think of this as the \emph{specification} of the integers. In this section we will construct a set that meets this specification.
