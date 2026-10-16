@@ -332,7 +332,11 @@ For example, integer recursion can be used to define \emph{iterated bijections} 
 \begin{proof}
   Suppose $f:A\cong B$ is a bijection with inverse $f^{-1}$. Then for any bijection $g:B\cong X$ we have
   \begin{equation*}
-    g\circ f\circ f^{-1}=g\qquad\text{and}\qquad g\circ f^{-1}\circ f=g.
+    g\circ f\circ f^{-1}=g,
+  \end{equation*}
+  and for any $h:A\cong B$ we have
+  \begin{equation*}
+    h\circ f^{-1}\circ f=h.
   \end{equation*}
   This shows that the function $\blank\circ f^{-1}$ is inverse to the function $\blank\circ f$. Similarly $f^{-1}\circ\blank$ is inverse to the function $f\circ\blank$.
 \end{proof}
@@ -346,7 +350,7 @@ For example, integer recursion can be used to define \emph{iterated bijections} 
   This definition is possible, since composing with $f$ on the left is a bijection $(X\cong X)\cong(X\cong X)$.
 \end{definition}
 
-The specification of the set of integers with integer recursion also allows us to formulate an induction principle for the integers. This induction principle states what one should do in order to show that a proposition $P(x)$ is true for all integers $x$.
+The specification of the set of integers with integer recursion also allows us to formulate an induction principle for the integers. This induction principle states what one should do in order to show that a proposition $P(x)$ is true for all integers $x$. The induction principle for the integers was first formulated by Angelo Margaris \cite{margaris1961}.
 
 \begin{theorem}[Integer Induction Principle]\label{theorem:integer-induction}
   Consider a property $P(a)$ parametrized by an integer $a$. In order to prove that $P(a)$ is true for all $a$, it suffices to prove:
