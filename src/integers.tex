@@ -106,12 +106,30 @@ The bijection on the $12$-element set in \zcref{figure:bijection-12-element-set}
   Since orbits are assumed to be inhabited---that is, nonempty---subsets of a set $X$, it follows that cyclic sets are always inhabited. Indeed, if $U$ is the unique orbit of a cyclic set, and $U$ is inhabited by an element $x\in U$, then we have $x\in X$. Thus, empty sets are not considered to be cyclically structured.
 \end{remark}
 
-\begin{example}
+\begin{example}\label{example:standard-finite-cyclic-sets}
   Every inhabited standard finite set can be given the structure of a cyclic set. The cyclic structure on the standard finite set $[n+1]$ is given by
   \begin{equation*}
     0\mapsto 1 \mapsto 2 \mapsto \cdots \mapsto n \mapsto 0.
   \end{equation*}
-  This cyclic structure can be defined precisely without much trouble. However, to avoid cluttering these pages, we will postpone the definition until \zcrefnamed{theorem:euclidean-division}.
+  To define this function precisely, observe that there are two functions $i,s:[n]\to[n+1]$ given by
+  \begin{equation*}
+    \iota(x)=x\qquad\text{and}\qquad \sigma(x)=x+1.
+  \end{equation*}
+  These allow us to define the successor function $S$ and its inverse $T$ as follows:
+  \begin{equation*}
+    S(x)=
+    \begin{cases}
+      \sigma(y) & \text{if $x = \iota(y)$,} \\
+      0    & \text{if $x = n$,}
+    \end{cases}
+    \qquad\qquad
+    T(x)=
+    \begin{cases}
+      \iota(y) & \text{if $x = \sigma(y)$,} \\
+      n & \text{if $x = 0$.}
+    \end{cases}
+  \end{equation*}
+  Thus, we obtain a cyclic set $([n+1],0,S)$ for each $n$.
 \end{example}
 
 \section{Maps Preserving Cyclic Structure}
@@ -311,12 +329,12 @@ The organizational principle of defining structured sets along with their struct
 Although the examples we have discussed so far are finite, the definition of cyclic sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \zcref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
 
 \begin{definition}\label{definition:integers}
-  The set of integers is specified to be a set $\mathbb{Z}$ equipped with an element $0\in \mathbb{Z}$ and a bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
+  The set of \define{integers} is specified to be a set $\mathbb{Z}$ equipped with a \define{zero} element $0\in \mathbb{Z}$ and a \define{successor} bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
   \begin{enumerate}
   \item $f(0)=x_0$, and
   \item $f(S(a))=h(f(a))$ for every $a\in\mathbb{Z}$.
   \end{enumerate}
-  Such functions are said to be defined by \define{integer recursion}.
+  Such functions are said to be defined by \define{integer recursion}. We will commonly write $a\mapsto a+1$ for the successor function $S$, and $a\mapsto a-1$ for its inverse.
 \end{definition}
 
 For example, integer recursion can be used to define \emph{iterated bijections} $f^k:A\cong A$ for any bijection $f:A\cong A$. The idea is entirely analogous to the idea of iterated functions, where a function $f:A\to A$ could be iterated any natural number of times. For iterated bijections, we restrict to the case of a bijection $f:A\cong A$, which allows us to also consider the \emph{negative iterations} of $f$ by using the inverse of $f$. In order to formally define iterated bijections, we need the following theorem:
@@ -345,7 +363,7 @@ For example, integer recursion can be used to define \emph{iterated bijections} 
   Consider a set $X$ equipped with a bijection $f:X\cong X$. Then we define for each integer $k$ the \define{$k$\supth{} iteration} of $f$ by
   \begin{align*}
     f^{0} & := \mathrm{id} \\
-    f^{S(k)} & := f\circ f^k.
+    f^{k+1} & := f\circ f^k.
   \end{align*}
   This definition is possible, since composing with $f$ on the left is a bijection $(X\cong X)\cong(X\cong X)$.
 \end{definition}
@@ -378,7 +396,7 @@ In \zcref{section:integer-arithmetic} we will use the integer induction principl
   \end{equation*}
   so that $A$ consists of exactly those integers $a$ for which $P(a)$ holds. Clearly, we have $0\in A$, so we choose $a_0:=0$. In order to define a function $s:A\to A$, observe that for $a\in A$, the property $P(a)$ holds by assumption, which implies $P(a+1)$ so that $a+1\in A$. Thus, we simply define $s(a):=a+1$.
 
-  To see that $s$ is a bijection, we define an inverse $t$. For any $a\in A$, consider the unique integer $b$ such that $S(b)=a$. Such an element is indeed uniquely determined since $S:\mathbb{Z}\to\mathbb{Z}$ is a bijection. Since $P(a)$ holds, it follows that $P(b)$ holds, so we find that $b\in A$. Thus, we define $t(a):=b$. It follows immediately from the definition of $t$ that the identities $s(t(a))=a$ and $t(s(a))=a$ hold. Thus we see that $t$ is an inverse of $s$, which concludes the proof that $s$ is a bijection on $A$.
+  To see that $s$ is a bijection, we define an inverse $t$. For any $a\in A$, observe that the logical equivalence $P(a-1)\Leftrightarrow P(a)$ holds, since $(a-1)+1=a$, so it follows that $P(a-1)$ holds. This allows us to define $t(a):=a-1$. It follows immediately from the definition of $t$ that the identities $s(t(a))=a$ and $t(s(a))=a$ hold. Thus we see that $t$ is an inverse of $s$, which concludes the proof that $s$ is a bijection on $A$.
 
   By the specification of $\mathbb{Z}$, it follows that there is a unique function $f:\mathbb{Z}\to A$ such that
   \begin{equation*}
@@ -386,7 +404,7 @@ In \zcref{section:integer-arithmetic} we will use the integer induction principl
   \end{equation*}
   Now we claim that $f(a)=a$ for all $a\in\mathbb{Z}$. To see this, note that by the inclusion of $A\subseteq \mathbb{Z}$ we may regard $f$ as a function $\mathbb{Z}\to\mathbb{Z}$ satisfying the equations
   \begin{equation*}
-    f(0)=0\qquad\text{and}\qquad f(S(a))=S(a).
+    f(0)=0\qquad\text{and}\qquad f(a+1)=s(f(a))=f(a)+1.
   \end{equation*}
   However, there is a known function satisfying these equations: the \emph{identity function} $x\mapsto x$, which is often denoted by $\mathrm{id}$. Since $f$ is uniquely determined by its equations, which are also satisfied by the identity function, it follows that $f$ and the identity function must be the same. Thus it follows that $f(a)=a$ for all $a\in\mathbb{Z}$. Furthermore, since we have $f(a)\in A$ by definition, we obtain that $a\in A$ for every integer $a$. Thus we conclude that the property $P(a)$ holds for all $a\in\mathbb{Z}$.
 \end{proof}
@@ -415,6 +433,17 @@ The induction principle for the integers may be used, for instance, to prove tha
   \end{align*}
   Then $0$ is not of the form $S(i(n))$, for any natural number $n$.
 \end{theorem}
+
+\begin{proof}
+  Suppose that $0=S(i(n))=i(n+1)$ for some natural number $n$. Recall from \zcref{example:standard-finite-cyclic-sets} that the set $\{0,\ldots,n+1\}$ has the structure of a cyclic set with successor map $S$. Integer recursion therefore gives us a function $f:\mathbb{Z}\to\{0,\ldots,n+1\}$ satisfying the equations
+  \begin{equation*}
+    f(0)=0 \qquad\text{and}\qquad f(a+1)=S(f(a)).
+  \end{equation*}
+  Since $S(x)=x+1$ for each $0\leq x\leq n$, it follows that $f(i(x))=x$ for each $0\leq x\leq n+1$. Now we obtain a contradiction with \zcref{theorem:is-not-successor-zero-nat}:
+  \begin{equation*}
+    0=f(0)=f(i(n+1))=n+1. \qedhere
+  \end{equation*}
+\end{proof}
 
 \section{Constructing the Integers from the Natural Numbers}
 
