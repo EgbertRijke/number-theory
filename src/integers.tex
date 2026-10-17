@@ -416,13 +416,13 @@ The induction principle for the integers may be used, for instance, to prove tha
 \end{theorem}
 
 \begin{proof}
-  Our goal is to show by integer induction that every integer $a$ is in the orbit of $0$. Clearly $0$ is in the same orbit as itself, so the base case is trivial. For the inductive step, we have to show that $x$ is in the orbit of $0$ if and only if $S(x)$ is in the orbit of $0$.
+  We show by integer induction that every integer is in the orbit of $0$. Clearly $0$ is in its own orbit, so the base case is trivial. For the inductive step, we have to show that $x$ is in the orbit of $0$ if and only if $S(x)$ is.
 
-  For the forward implication, there are two cases to consider. Either there is a natural number $k$ such that $S^k(0)=x$ or there is a natural number $k$ such that $S^k(x)=0$. In the first case, it immediately follows that $S^{k+1}(0)=S(x)$. In the second case it follows that $S^k(S(x))=S(0)$, which implies that $S^{k-1}(S(x))=0$. Thus we see that in both cases, $S(x)$ is in the orbit of $0$.
+  Suppose first that $x$ is in the orbit of $0$. If $S^k(0)=x$ for some natural number $k$, then $S^{k+1}(0)=S(x)$. Otherwise, $S^k(x)=0$ for some natural number $k$. The case $k=0$ gives $x=0$ and is already covered. We may therefore write $k=k'+1$, and we obtain $S^{k'}(S(x))=0$. In either case, $S(x)$ is in the orbit of $0$.
 
-  For the reverse implication, there are again two cases to consider. Either there is a natural number $k$ such that $S^k(0)=S(x)$ or there is a natural number $k$ such that $S^k(S(x))=0$. In the first case, it follows that $S^{k-1}(0)=x$. In the second case, it follows that $S^{k+1}(x)=0$. In both cases it follows that $x$ is in the orbit of $0$, completing the proof.
+  Conversely, suppose that $S(x)$ is in the orbit of $0$. If $S^k(0)=S(x)$ for some natural number $k$, we distinguish two cases. If $k=0$, then $S(x)=0$, so $x$ is in the orbit of $0$. If $k=k'+1$, injectivity of $S$ gives $S^{k'}(0)=x$. Alternatively, if $S^k(S(x))=0$ for some natural number $k$, then $S^{k+1}(x)=0$. Thus $x$ is in the orbit of $0$, completing the induction.
 
-  The final claim follows immediately by the integer recursion principle.
+  The final claim follows from the integer recursion principle.
 \end{proof}
 
 \begin{theorem}
