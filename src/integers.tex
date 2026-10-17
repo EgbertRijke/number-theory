@@ -329,7 +329,7 @@ The organizational principle of defining structured sets along with their struct
 Although the examples we have discussed so far are finite, the definition of cyclic sets isn't restricted to finite sets. We could indeed imagine a very large cyclic set that extends infinitely in both directions, as in \zcref{figure:integers}. If such a set has a designated zero element, we could use it as the starting point to describe the other elements as the iterated successors and the iterated predecessors. This way, we would expect to find one element for each integer. Alternatively, as we are about to do now, we could take the infinite cyclic set as the definition of the set of integers!
 
 \begin{definition}\label{definition:integers}
-  The set of \define{integers} is specified to be a set $\mathbb{Z}$ equipped with a \define{zero} element $0\in \mathbb{Z}$ and a \define{successor} bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
+  The set of \define{integers} is specified to be a set $\mathbb{Z}$ equipped with a distinguished \define{zero} element $0\in \mathbb{Z}$ and a \define{successor} bijection $S:\mathbb{Z}\cong\mathbb{Z}$ such that for every set $X$, every element $x_0$ and every bijection $h:X\cong X$ uniquely determine a function $f:\mathbb{Z}\to X$ such that
   \begin{enumerate}
   \item $f(0)=x_0$, and
   \item $f(S(a))=h(f(a))$ for every $a\in\mathbb{Z}$.
@@ -412,7 +412,7 @@ In \zcref{section:integer-arithmetic} we will use the integer induction principl
 The induction principle for the integers may be used, for instance, to prove that the integers form a cyclic set.
 
 \begin{theorem}
-  The pair $(\mathbb{Z},S)$ consisting of the set $\mathbb{Z}$ of integers and the successor bijection $S$ is a cyclic set. Furthermore, for any cyclic set $(Y,t)$ there is a unique cyclic-structure preserving map from $(\mathbb{Z},S)$ to $(Y,t)$.
+  The pair $(\mathbb{Z},S)$ consisting of the set $\mathbb{Z}$ of integers and the successor bijection $S$ is a cyclic set. Furthermore, for any cyclic set $(Y,t)$ with a distinguished element $y_0$, there is a unique cyclic-structure preserving map $f$ from $(\mathbb{Z},S)$ to $(Y,t)$ satisfying $f(0)=y_0$.
 \end{theorem}
 
 \begin{proof}
@@ -517,7 +517,7 @@ We have given a structural definition of the set of integers as the universal cy
 \end{proof}
 
 \begin{theorem}
-  The set $\mathbb{Z}_C$ equipped with the zero element $(0,0)$ and the successor function $s$ satisfies the specification of the integers in \zcref{definition:integers}.
+  The set $\mathbb{Z}_C$ equipped with the distinguished zero element $(0,0)$ and the successor function $s$ satisfies the specification of the integers in \zcref{definition:integers}.
 \end{theorem}
 
 \begin{proof}

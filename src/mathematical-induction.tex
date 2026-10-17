@@ -7,7 +7,7 @@ When we say that the natural numbers are the numbers $0$, $1$, $2$, $\ldots$, we
 As we saw in \zcref{sec:concept-of-number} on the history of the concept of number, the definition of the set of natural numbers centers on precisely expressing the idea that all numbers are generated from $0$ and a successor function. Several ways of expressing this idea have been proposed through history: Dedekind's simply infinite sets, Peano's axioms, and the structural induction principle of type theory. We will follow the type-theoretic approach.
 
 \begin{definition}
-  The set $\mathbb{N}$ of \define{natural numbers} is a set equipped with an element $0$ called \define{zero} and a \define{successor function} $S:\mathbb{N}\to\mathbb{N}$, which we also denote by the map $n\mapsto n+1$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers, equipped with
+  The set $\mathbb{N}$ of \define{natural numbers} is a set equipped with a distinguished element $0$ called \define{zero} and a \define{successor function} $S:\mathbb{N}\to\mathbb{N}$, which we also denote by the map $n\mapsto n+1$, satisfying the following principle of \define{structural induction}: For any family of sets $A_n$ indexed by the natural numbers, equipped with
   \begin{enumerate}
   \item an element $a_0\in A_0$, and
   \item for each $n$, a function $h_n:A_n\to A_{n+1}$,
