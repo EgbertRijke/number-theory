@@ -8,7 +8,7 @@ with integer coefficients $a_0,\ldots,a_k$. The objective of a linear Diophantin
 
 \section{Greatest Common Divisors}
 
-Some preorders $(P,\leq)$ satisfy the property that for any two elements $a,b\in P$ there is a maximal element below both of them. This property can be formulated succinctly as follows: An element $d$ is a maximal element below $a$ and $b$ if it satisfies the logical equivalence
+Some preorders $(P,\leq)$ satisfy the property that for any two elements $a,b\in P$ there is a greatest element below both of them. This property can be formulated succinctly as follows: An element $d$ is a greatest element below $a$ and $b$ if it satisfies the logical equivalence
 \begin{equation*}
   (x \leq a) \land (x \leq b) \Leftrightarrow (x \leq d)
 \end{equation*}
@@ -19,7 +19,7 @@ The definition of meets needs some explanation. It uses the \emph{conjunction} (
 If $d$ is the meet of $a$ and $b$, then the logical equivalence gives two implications back and forth:
 \begin{enumerate}
 \item Any element $x$ that is below both $a$ and $b$, must be below $d$.
-\item Any element $x$ that is below $d$, must be below both $a$ and $b$. In particular, $d$ itself satisfies $d\leq d$, so it follows that $d\leq a$ and $d\leq b$. That is, $d$ itself is below both $a$ and $b$, and by the first property it is the maximal such element.
+\item Any element $x$ that is below $d$, must be below both $a$ and $b$. In particular, $d$ itself satisfies $d\leq d$, so it follows that $d\leq a$ and $d\leq b$. That is, $d$ itself is below both $a$ and $b$, and by the first property it is the greatest such element.
 \end{enumerate}
 
 We wouldn't have this discussion if it didn't apply for us. Indeed, we will show that the preorder of integers with divisibility has meets. In the case of the integers, we will call such meets \emph{greatest common divisors}.
@@ -65,7 +65,7 @@ Thus, a greatest common divisor of $a$ and $b$ is an integer $d$ that divides bo
   The last claim follows, because $d$ is an element of $I+J$, which consists elements of the form $ax+by$.
 \end{proof}
 
-A very important condition on pairs of integers $a$ and $b$, which occurs as an assumption in many lemmas, propositions, and theorems, is the condition that $\gcd(a,b)=1$. In other words, that any common divisor of $a$ and $b$ must be $1$. Such numbers are called \emph{relatively prime} or \emph{coprime}.
+A very important condition on pairs of integers $a$ and $b$, which occurs as an assumption in many lemmas, propositions, and theorems, is the condition that $\gcd(a,b)=1$. In other words, that any nonnegative common divisor of $a$ and $b$ must be $1$. Such numbers are called \emph{relatively prime} or \emph{coprime}.
 
 \begin{definition}
   Two integers $a$ and $b$ are said to be \define{relatively prime} or \define{coprime} if
