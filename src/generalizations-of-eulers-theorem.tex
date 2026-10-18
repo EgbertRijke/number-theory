@@ -49,17 +49,20 @@ The previous theorem relies on having a bijection which rearranges the order of 
   \end{equation*}
   Consequently, we obtain the congruence
   \begin{equation*}
-    \prod_{\stackrel{1\leq k<n\\ \gcd(n,k)=1}} u_{rk}\equiv c^{\sum_k q_k}\prod_{\stackrel{1\leq k<n\\ \gcd(n,k)=1}} u_k \pmod{u_n}.
+    \prod_{\substack{1\leq k<n\\ \gcd(n,k)=1}} u_{rk}\equiv c^{\sum_k q_k}\prod_{\substack{1\leq k<n\\ \gcd(n,k)=1}} u_k \pmod{u_n}.
   \end{equation*}
   By the assumption that $(u_m)$ is a strong divisibility sequence, it follows that $\gcd(u_n,u_k)=u_{\gcd(n,k)}=1$, so that $\prod_k u_k$ is invertible modulo $u_n$.
 
   It remains to evaluate the sum $\sum_k q_k$. Observe that
-  \begin{align*}
-    n\sum_{k}q_k
-    & = \sum_{k}(rk-s_k) \\
-    & = \sum_{k}(r-1)k \\
-    & = n(r-1)\varphi(n)/2.\qedhere
-  \end{align*}
+  \begin{equation*}
+    n\sum_{k}q_k = \sum_{k}(rk-s_k) = \sum_{k}(r-1)k = n(r-1)\varphi(n)/2.\qedhere
+  \end{equation*}
+  % \begin{align*}
+  %   n\sum_{k}q_k
+  %   & = \sum_{k}(rk-s_k) \\
+  %   & = \sum_{k}(r-1)k \\
+  %   & = n(r-1)\varphi(n)/2.\qedhere
+  % \end{align*}
 \end{proof}
 
 \begin{definition}
