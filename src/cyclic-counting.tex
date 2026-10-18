@@ -111,6 +111,40 @@ The following theorem is a special case of a more general theorem of group theor
   \end{equation*}
 \end{theorem}
 
+\section{Cyclic Coloring}
+
+\begin{theorem}
+  Consider two natural numbers $1\leq k<n$, and let $g=\gcd(n,k)$. Define the function
+  \begin{equation*}
+    S(n,k)=-\sum_{\substack{d\mid g\\ d>1}}\mu(d)\binom{n/d}{k/d}.
+  \end{equation*}
+  Then we have
+  \begin{equation*}
+    n\mid \binom{n}{k}\quad\Leftrightarrow\quad n\mid S(n,k).
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Consider a cyclic set $C$ of order $n$, and let $X$ be the set of all $k$-element subsets of $C$. The number of elements in $X$ is $\binom{n}{k}$. Let $U\subset X$ be the subset consisting of $k$-element subsets of $C$ that are invarant under rotation by $r$ steps for some $0<r<n$. Every $k$-element subset of $C$ outside of $U$ has $n$ distinct rotations. The set $X\setminus U$ is therefore partitioned into orbits of size $n$. Consequently, we obtain
+  \begin{equation*}
+    \binom{n}{k}\equiv \# U \pmod{n}.
+  \end{equation*}
+  It remains to show that $S(n,k)$ is the number of $k$-element subsets of $C$ in $U$.
+
+  For each $d\mid n$, let $U_d$ be the collection of $k$-element subsets of $C$ that are invariant under rotation by $n/d$ steps. Note that a $k$-element subset of $C$ belongs to $U_d$ precisely when it is a union of orbits of the rotation by $n/d$ steps. Each such orbit contains exactly $d$ elements, so it follows that $U_d$ is empty unless $d\mid k$. When $d\mid k$, then a $k$-element subset invariant under rotation by $n/d$ steps is a $k/d$-element subset of such orbits. Therefore, we have
+  \begin{equation*}
+    \# U_d = \binom{n/d}{k/d}
+  \end{equation*}
+  for every divisor $d\mid g$. Note that $U_d\subseteq U_d'$ for every $1<d'\mid d$. Therefore it follows that
+  \begin{equation*}
+    U=\bigcup_{p\mid g} U_p.
+  \end{equation*}
+  It follows by \zcrefnamed{theorem:inclusion-exclusion-principle} that
+  \begin{equation*}
+    \# U=\sum_{p\mid g}\binom{n/p}{k/p}-\sum_{p<q\mid g}\binom{n/pq}{k/pq}+\cdots = -\sum_{d\mid g}\mu(d)\binom{n/d}{k/d}.\qedhere
+  \end{equation*}
+\end{proof}
+
 \section{Cyclic Integer Partitions}
 
 \section{Cyclic Lists}

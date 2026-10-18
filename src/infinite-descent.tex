@@ -178,12 +178,6 @@ A classic application of Fermat's infinite descent gives us that the area of a P
 
 The following theorem is due the the French winemaker and amateur mathematician L\'eon Aubry \cite{Aubry1912}. The idea of the proof is illustrated in \zcref{figure:aubrys-theorem}.
 
-In the proof, it will be convenient to view pairs of rational numbers $(x_1,x_2)$ as vectors. Recall that if $x=(x_1,x_2)$ and $y=(y_1,y_2)$ are vectors, then their \emph{inner product} $x\cdot y$ is defined as
-\begin{equation*}
-  x\cdot y := x_1y_1+x_2y_2.
-\end{equation*}
-In particular, $x\cdot x=x_1^2+x_2^2$ is a sum of two squares, and the equation $x\cdot x=n$ tells us that the vector $x$ lies on the circle with radius $\sqrt{n}$.
-
 \begin{figure}[htbp]
   \centering
   \begin{tikzpicture}
@@ -251,6 +245,12 @@ In particular, $x\cdot x=x_1^2+x_2^2$ is a sum of two squares, and the equation 
     \end{equation*}
   \end{enumerate}
 \end{theorem}
+
+In the proof, it will be convenient to view pairs of rational numbers $(x_1,x_2)$ as vectors. Recall that if $x=(x_1,x_2)$ and $y=(y_1,y_2)$ are vectors, then their \emph{inner product} $x\cdot y$ is defined as
+\begin{equation*}
+  x\cdot y := x_1y_1+x_2y_2.
+\end{equation*}
+In particular, $x\cdot x=x_1^2+x_2^2$ is a sum of two squares, and the equation $x\cdot x=n$ tells us that the vector $x$ lies on the circle with radius $\sqrt{n}$.
 
 \begin{proof}
   Consider two rational numbers $x$ and $y$ such that $x^2+y^2=n$, and let $d$ be the least positive integer such that both $dx$ and $dy$ are integers; that is, $d$ is the least common multiple of the denominators of $x$ and $y$. If $d=1$, then both $x$ and $y$ are integers, which implies that we can choose $a=x$ and $b=y$. For the remainder of the proof, we assume that $d>1$.

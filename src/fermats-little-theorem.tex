@@ -14,10 +14,10 @@
   Note that the congruence $(-a)^p\equiv -a^p\pmod{p}$ holds for all primes $p$, so it suffices to prove the claim for the nonnegative integers.
 \end{remark}
 
-\begin{proof}[Fermat's additive proof]
-  This proof is by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds.
+The following proof, which proceeds by mathematical induction and makes use of the \zcrefnamed{theorem:binomial-theorem}, was first published by Leonhard Euler. Euler, however, was not the first to discover it \cite[p.~59]{dickson1919}. Several decades prior, this proof was discovered by Gottfried Wilhelm Leibniz, which was only published posthumously in \cite{leibniz1863}.
 
-  For the inductive step, assume that $a^p\equiv a\pmod{p}$. \zcrefnamed{theorem:binomial-theorem} then gives us that
+\begin{proof}[The additive proof]
+  This proof is by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds. For the inductive step, assume that $a^p\equiv a\pmod{p}$. \zcrefnamed{theorem:binomial-theorem} then gives us that
   \begin{equation*}
     (a+1)^p=\sum_{k=0}^p \binom{p}{k}a^k
   \end{equation*}

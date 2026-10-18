@@ -355,7 +355,7 @@ where $m_1+\cdots+m_{n} \leq k$. We will use this observation to obtain a bound 
   \begin{equation*}
     m_0+m_1+\cdots+m_n = \log_2 N.
   \end{equation*}
-  The number of such ordered $(n+1)$-tuples is determined in \zcref{theorem:stars-and-bars-prime}, by which it follows that
+  The number of such ordered $(n+1)$-tuples is determined in \zcref{theorem:stars-and-bars}, by which it follows that
   \begin{equation*}
     N\leq \binom{\lfloor\log_2 N\rfloor + n}{n}
     \leq \frac{(\log_2 N + n)^{n}}{n!}
@@ -905,6 +905,11 @@ The primes in this list are sometimes called the \define{Bertrand primes}, and t
   % \end{equation*}
   % for any $0<k<p$, and any prime number $p$.
   \exercise Determine the number of trailing zeros in the decimal representations of $100!$ and $2^{10}!$.
+  \exercise Show that the inequality
+  \begin{equation*}
+    2^{\nu_2\binom{2n}{n}}-1\leq n
+  \end{equation*}
+  holds for all $n\geq 0$.
   \exercise
   \begin{subexenum}
   \item In \zcref{figure:2-adic-valuation} we saw that $\nu_2((2^4-1)!)=11$. More generally, prove that
