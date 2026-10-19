@@ -45,8 +45,8 @@ These are course notes for the course 304 Elementary Number Theory, which I taug
 - Language: English
 - Institution: Johns Hopkins University
 
-The main versions use a tagged PDF setup with PDF 2.0 and MathML.
-The Canvas / Ally versions use its PDF 1.7 compatibility configuration.
+The standard versions use a tagged PDF setup with PDF 2.0 and MathML.
+The Canvas versions use PDF 1.7 for better compatibility with the accessibility checker Ally.
 
 ## Overview of the Course
 
@@ -68,7 +68,5 @@ Each chapter corresponds roughly to one lecture, although many chapters cover op
 For the pedagogical development of this course, I have made use of the textbook _Teaching for Quality Learning at University_ by Biggs and Tang. While not specifically about mathematics education, this book offers valuable advice on how to foster a productive and inspiring learning environment for students.
 
 ## Table of Contents
-
-[Download this table of contents as Markdown](/notes/number-theory/contents.md).
 
 @@CONTENTS@@

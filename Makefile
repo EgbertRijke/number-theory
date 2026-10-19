@@ -12,6 +12,7 @@ FONTDIR := fontsetups
 ENGINE ?= lualatex
 LATEXMK ?= latexmk
 BIBER ?= biber
+PYTHON ?= python3
 OPEN ?= open
 
 ARCHIVE ?= $(OMNIBUS_JOB)-source.zip
@@ -71,7 +72,7 @@ fontsetup = $(FONTDIR)/$(1)-custom-kerning.tex
 # GNU Make sees `make quick volume 2 alegreya` as four goals.  They all share
 # this dispatcher, which interprets the complete request exactly once.
 PRIVATE_GOALS := __omnibus __volume_set __fonts __all __archive __doctor \
-	__clean __distclean __help
+	__website __clean __distclean __help
 PUBLIC_GOALS := $(filter-out $(PRIVATE_GOALS),$(MAKECMDGOALS))
 
 .PHONY: __default __dispatch $(PRIVATE_GOALS) $(PUBLIC_GOALS)
@@ -116,6 +117,7 @@ __dispatch:
 					echo "Usage: make font FONT=<name>" >&2; exit 2; \
 				fi; set_font "$(FONT)" ;; \
 			archive) set_scope archive ;; \
+			website) set_scope website ;; \
 			doctor) set_scope doctor ;; \
 			clean) set_scope clean ;; \
 			distclean) set_scope distclean ;; \
@@ -149,7 +151,7 @@ __dispatch:
 			echo "A volume number is only valid after 'volume'." >&2; exit 2; \
 		   fi ;; \
 	esac; \
-	case "$$scope" in archive|doctor|clean|distclean|help) \
+	case "$$scope" in archive|doctor|website|clean|distclean|help) \
 		if [ "$$mode" != full ] || [ "$$fresh" -eq 1 ] || \
 		   [ "$$explicit_font" -eq 1 ] || [ "$$profile" != canonical ] || \
 		   [ "$$open_after" -eq 1 ]; then \
@@ -165,6 +167,7 @@ __dispatch:
 		fonts) target=__fonts ;; \
 		all) target=__all ;; \
 		archive) target=__archive ;; \
+		website) target=__website ;; \
 		doctor) target=__doctor ;; \
 		clean) target=__clean ;; \
 		distclean) target=__distclean ;; \
@@ -393,6 +396,40 @@ __all:
 		PROFILE="$(PROFILE)" FONT="$(FONT)" SUFFIX="$(SUFFIX)" SELECT=all \
 		OPEN_AFTER="$(OPEN_AFTER)"
 
+# Prepare the book landing page using existing canonical and Ally PDFs.
+# No TeX compilation, Jekyll rendering, or GitHub publication occurs.
+# The generator also copies PDFs and creates cover images so all links work
+# when the generated site source is rendered locally.
+__website:
+	@set -eu; \
+	mkdir -p "$(BUILDDIR)"; \
+	work=$$(mktemp -d "$(BUILDDIR)/.website.XXXXXXXX"); \
+	trap 'rm -rf "$$work"' EXIT HUP INT TERM; \
+	mkdir -p "$$work/pdfs"; \
+	copy_pdf() { \
+		file="$$1"; \
+		if [ ! -f "$$file" ]; then \
+			echo "Missing $$file. Build the canonical and Ally PDFs first." >&2; exit 2; \
+		fi; \
+		ln "$$file" "$$work/pdfs/$$file" 2>/dev/null || \
+			cp "$$file" "$$work/pdfs/$$file"; \
+	}; \
+	copy_pdf "$(OMNIBUS_JOB).pdf"; \
+	copy_pdf "$(OMNIBUS_JOB)-ally.pdf"; \
+	for tex in volume-[0-9]*.tex; do \
+		[ -f "$$tex" ] || continue; \
+		n=$${tex#volume-}; n=$${n%.tex}; \
+		case "$$n" in ''|*[!0-9]*) continue ;; esac; \
+		copy_pdf "$(VOLUME_JOB_PREFIX)$$n.pdf"; \
+		copy_pdf "$(VOLUME_JOB_PREFIX)$$n-ally.pdf"; \
+	done; \
+	$(PYTHON) scripts/book-publication.py site \
+		--pdf-dir "$$work/pdfs" --output "$$work/site"; \
+	rm -rf "$(BUILDDIR)/website"; \
+	mv "$$work/site" "$(BUILDDIR)/website"; \
+	echo "==> Landing-page source: $(BUILDDIR)/website/notes/number-theory/index.md"; \
+	echo "==> Supporting files: $(BUILDDIR)/website/notes/number-theory/"
+
 __archive:
 	@set -eu; \
 	if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then \
@@ -481,11 +518,13 @@ __help:
 		'make all [font]                   omnibus plus all volumes' \
 		'make fonts                        omnibus in every configured font' \
 		'make archive                      zip tracked files at ARCHIVE_REF (HEAD)' \
+		'make website                      generate landing page from existing PDFs (no TeX)' \
 		'make open [volume N|volumes] [font]  build, then open the result' \
 		'make doctor                       check tools, fonts, and volume sequence' \
 		'make clean                        remove transient build files' \
 		'make distclean                    also remove generated PDFs/archive' \
 		'' \
 		'Variables: FONT=<name>, ARCHIVE=<file>, ARCHIVE_REF=<commit>,' \
-		'           MAX_VOLUME_SWEEPS=<n>, ENGINE=<cmd>, LATEXMK=<cmd>.' \
+		'           MAX_VOLUME_SWEEPS=<n>, ENGINE=<cmd>, LATEXMK=<cmd>,' \
+		'           PYTHON=<cmd>.' \
 		'Configured fonts: $(FONTS)'
