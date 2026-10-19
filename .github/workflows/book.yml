@@ -4,6 +4,16 @@ on:
   push:
     branches: ['**']
   workflow_dispatch:
+    inputs:
+      rebuild_latex:
+        description: 'Recompile all PDFs with updated TeX Live, even if cached'
+        type: boolean
+        default: false
+
+# Bump this when changing compilation commands/flags in this workflow.
+# Website/deployment edits to the workflow do not invalidate the PDF cache.
+env:
+  LATEX_CACHE_VERSION: '1'
 
 permissions:
   contents: read
@@ -26,14 +36,58 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Compute book input fingerprint
+        id: book-inputs
+        run: |
+          input_hash=$(python3 scripts/latex-cache-key.py)
+          echo "hash=$input_hash" >> "$GITHUB_OUTPUT"
+
+      # The prefix includes the complete input hash, never just a branch name.
+      # A unique suffix lets a forced rebuild become the newest reusable cache.
+      - name: Restore completed LaTeX build
+        id: latex-cache
+        if: ${{ !inputs.rebuild_latex }}
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            build/
+            number-theory*.pdf
+            diagnostics/
+          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.hash }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.hash }}-
+
+      - name: Validate all restored canonical and Ally PDFs
+        id: cached-pdfs
+        if: steps.latex-cache.outputs.cache-matched-key != ''
+        continue-on-error: true
+        run: |
+          python3 scripts/book-publication.py collect --profile canonical
+          python3 scripts/book-publication.py collect --profile ally
+
+      - name: Start a clean build when PDFs cannot be reused
+        if: steps.cached-pdfs.outcome != 'success'
+        run: |
+          rm -rf build diagnostics dist
+          rm -f number-theory*.pdf
+
+      - name: Report PDF reuse
+        if: steps.cached-pdfs.outcome == 'success'
+        run: |
+          echo 'Reusing cached canonical and Ally PDFs; no TeX compilation.'
+          echo 'PDFs and their build dates are reused. Website generation still runs.' >> "$GITHUB_STEP_SUMMARY"
+
       - name: Set TeX Live installation directory
+        if: steps.cached-pdfs.outcome != 'success'
         run: echo "NT_TEXLIVE_ROOT=$RUNNER_TEMP/number-theory-texlive" >> "$GITHUB_ENV"
 
       - name: Discover the current TeX Live release and mirror
+        if: steps.cached-pdfs.outcome != 'success'
         id: texlive
         run: bash scripts/texlive-ci.sh prepare
 
       - name: Restore TeX Live and font caches
+        if: steps.cached-pdfs.outcome != 'success'
         id: tex-cache
         uses: actions/cache/restore@v4
         with:
@@ -42,7 +96,8 @@ jobs:
           restore-keys: |
             texlive-ubuntu24-x64-${{ steps.texlive.outputs.year }}-${{ hashFiles('scripts/texlive-ci.sh') }}-
 
-      - name: Install if needed, then update all packages on every run
+      - name: Install if needed, then update all packages before compilation
+        if: steps.cached-pdfs.outcome != 'success'
         env:
           NT_TEXLIVE_INSTALLER: ${{ steps.texlive.outputs.installer }}
           NT_TEXLIVE_REPOSITORY: ${{ steps.texlive.outputs.repository }}
@@ -52,16 +107,18 @@ jobs:
       # Save after successful setup, even if the book later hits an upstream bug.
       # A dated key gives immutable GitHub caches a new snapshot each UTC day.
       - name: Save refreshed TeX Live cache
-        if: steps.tex-cache.outputs.cache-hit != 'true'
+        if: steps.cached-pdfs.outcome != 'success' && steps.tex-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
           path: ${{ env.NT_TEXLIVE_ROOT }}
           key: ${{ steps.tex-cache.outputs.cache-primary-key }}
 
       - name: Compile canonical editions with the default fonts
-        run: |
-          make all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
-          python3 scripts/book-publication.py collect --profile canonical
+        if: steps.cached-pdfs.outcome != 'success'
+        run: make all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
+
+      - name: Collect canonical PDFs (fresh or cached)
+        run: python3 scripts/book-publication.py collect --profile canonical
 
       - name: Save canonical PDFs
         uses: actions/upload-artifact@v4
@@ -73,9 +130,11 @@ jobs:
           compression-level: 0
 
       - name: Compile Ally editions with the same updated installation
-        run: |
-          make ally all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
-          python3 scripts/book-publication.py collect --profile ally
+        if: steps.cached-pdfs.outcome != 'success'
+        run: make ally all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
+
+      - name: Collect Ally PDFs (fresh or cached)
+        run: python3 scripts/book-publication.py collect --profile ally
 
       - name: Save Ally PDFs
         uses: actions/upload-artifact@v4
@@ -85,6 +144,17 @@ jobs:
           if-no-files-found: error
           retention-days: 14
           compression-level: 0
+
+      # Save only after both complete editions have compiled and passed collect.
+      - name: Cache completed PDFs and LaTeX-generated files
+        if: steps.cached-pdfs.outcome != 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            build/
+            number-theory*.pdf
+            diagnostics/
+          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.hash }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Save diagnostics, including failed builds
         if: ${{ always() }}
