@@ -6,10 +6,7 @@ Output is the book page source tree, rendered with the website theme before depl
 """
 import argparse
 from datetime import datetime, timezone
-import hashlib
 from html import escape
-import json
-import os
 from pathlib import Path
 import re
 import shutil
@@ -90,6 +87,26 @@ def contents_markdown(outline):
     return '\n'.join(lines).strip() + '\n'
 
 
+def render_placeholders(template, values):
+    """Substitute generated fields, leaving no unresolved template markers."""
+    for key, value in values.items():
+        template = template.replace(f'@@{key}@@', str(value))
+    return template
+
+
+def expand_repeated_block(template, name, replacements):
+    """Repeat a block defined in landing.md for each edition."""
+    begin = f'<!-- BEGIN {name} -->'
+    end = f'<!-- END {name} -->'
+    if template.count(begin) != 1 or template.count(end) != 1:
+        raise ValueError(f'Expected exactly one {begin} and {end} in site/landing.md')
+    before, rest = template.split(begin, 1)
+    fragment, after = rest.split(end, 1)
+    expanded = '\n'.join(render_placeholders(fragment.strip('\n'), values)
+                         for values in replacements)
+    return before + expanded + after
+
+
 def site(pdf_dir, destination):
     import pymupdf
 
@@ -105,9 +122,9 @@ def site(pdf_dir, destination):
         raise ValueError(f'{destination} already exists; choose a fresh output directory.')
     if not shutil.which('pdftoppm'):
         raise ValueError('Install Poppler (pdftoppm) to generate cover PNGs.')
-    stamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
-    commit = os.environ.get('GITHUB_SHA', 'local build')
-    manifest = {'commit': commit, 'built_at': stamp, 'files': {}}
+    today = datetime.now(timezone.utc)
+    stamp = f'{today:%B} {today.day}, {today.year}'
+    manifest = {'files': {}}
     # Build in a temporary directory: incomplete results cannot be published.
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=destination.parent) as temporary:
@@ -124,9 +141,9 @@ def site(pdf_dir, destination):
                     contents = contents_markdown(pdf.get_toc(simple=False))
             shutil.copy2(path, assets / name)
             manifest['files'][name] = {
-                'bytes': path.stat().st_size, 'pages': pages,
-                'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
-        cards, rows = [], []
+                'bytes': path.stat().st_size,
+                'pages': pages}
+        edition_fields = []
         for stem, label in editions():
             subprocess.run(['pdftoppm', '-f', '1', '-l', '1', '-singlefile',
                             '-scale-to', '1000', '-png', str(pdf_dir / (stem + '.pdf')),
@@ -134,56 +151,34 @@ def site(pdf_dir, destination):
             png = assets / (stem + '.png')
             if not png.is_file() or png.read_bytes()[:8] != b'\x89PNG\r\n\x1a\n':
                 raise ValueError(f'Cover generation failed: {png}')
-            cards.append(f'''<div class="book-edition">
-<a class="book-cover" href="{BASE}{stem}.pdf">
-<img src="{BASE}{stem}.png" alt="Download {escape(label)} — The Great Story of Numbers (PDF)" width="773" height="1000">
-<span>{escape(label)}</span></a>
-<a class="book-canvas" href="{BASE}{stem}-ally.pdf">Canvas version</a>
-</div>''')
-            cells = []
-            for profile in ('canonical', 'ally'):
-                name = filename(stem, profile)
-                info = manifest['files'][name]
-                cells.append(f'<td><a href="{BASE}{name}">PDF</a> '
-                             f'<small>({info["pages"]} pages; '
-                             f'{info["bytes"] / 1024**2:.1f} MiB)</small></td>')
-            rows.append(f'<tr><th scope="row">{escape(label)}</th>{"".join(cells)}</tr>')
-        downloads = '''<link rel="stylesheet" href="/notes/number-theory/book.css">
-
-<div class="book-editions" aria-label="Download an edition">
-''' + '\n'.join(cards) + '''
-</div>
-
-<div class="book-downloads">
-<table>
-<caption>Download the complete book or an individual volume</caption>
-<thead><tr><th scope="col">Edition</th><th scope="col">Main version</th>
-<th scope="col">Canvas / Ally</th></tr></thead>
-<tbody>
-''' + '\n'.join(rows) + '''
-</tbody></table>
-</div>
-
-The main versions use the book’s PDF 2.0 and MathML configuration.
-The Canvas / Ally versions use its PDF 1.7 compatibility configuration.
-For links between volumes when reading offline, download all three volumes
-of the same version into one folder and keep their filenames unchanged.
-Support for links between PDF files varies between viewers.
-'''
-        info = (f'Current working drafts. Last built: **{stamp}**.\n\n'
-                f'[Build details and PDF checksums]({BASE}build.json).')
+            main = filename(stem, 'canonical')
+            ally = filename(stem, 'ally')
+            main_info = manifest['files'][main]
+            ally_info = manifest['files'][ally]
+            edition_fields.append({
+                'EDITION_LABEL': escape(label),
+                'MAIN_PDF_URL': BASE + main,
+                'ALLY_PDF_URL': BASE + ally,
+                'COVER_PNG_URL': BASE + stem + '.png',
+                'MAIN_PAGES': main_info['pages'],
+                'ALLY_PAGES': ally_info['pages'],
+                'MAIN_MIB': f"{main_info['bytes'] / 1024**2:.1f}",
+                'ALLY_MIB': f"{ally_info['bytes'] / 1024**2:.1f}",
+            })
         template = Path('site/landing.md').read_text(encoding='utf-8')
-        for token, value in [('DOWNLOADS', downloads), ('BUILD_INFO', info),
-                             ('CONTENTS', contents)]:
-            marker = f'@@{token}@@'
+        template = expand_repeated_block(template, 'EDITION_CARDS', edition_fields)
+        for name in ('BUILT_AT', 'CONTENTS'):
+            marker = f'@@{name}@@'
             if template.count(marker) != 1:
                 raise ValueError(f'Expected exactly one {marker} in site/landing.md')
-            template = template.replace(marker, value)
+        template = render_placeholders(template, {'BUILT_AT': stamp, 'CONTENTS': contents})
+        leftover = re.findall(r'@@[A-Z][A-Z0-9_]*@@', template)
+        if leftover:
+            raise ValueError(f'Unresolved landing page placeholders: {leftover}')
         # Prevent a title containing Liquid syntax from executing as a template.
         template = template.replace('{%', '&#123;%').replace('{{', '&#123;{')
         (root / PAGE).write_text(template, encoding='utf-8')
         (assets / 'contents.md').write_text('# Table of contents\n\n' + contents, encoding='utf-8')
-        (assets / 'build.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
         shutil.copy2('site/book.css', assets / 'book.css')
         shutil.copytree(root, destination)
     print(f'Prepared {len(expected)} PDFs, covers, contents and Jekyll page in {destination}/')

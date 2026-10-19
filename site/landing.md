@@ -17,20 +17,36 @@ keywords:
 These are course notes for the course 304 Elementary Number Theory, which I taught at Johns Hopkins University in the [Spring 2025](/courses/elementary-number-theory-jhu-spring-2025/) and [Fall 2025](/courses/elementary-number-theory-jhu-fall-2025/) semesters.
 
 
-@@DOWNLOADS@@
+<link rel="stylesheet" href="/notes/number-theory/book.css">
+
+<div class="book-editions" aria-label="Download an edition">
+<!-- BEGIN EDITION_CARDS -->
+<div class="book-edition">
+<a class="book-cover" href="@@MAIN_PDF_URL@@">
+<img src="@@COVER_PNG_URL@@" alt="Download @@EDITION_LABEL@@ — The Great Story of Numbers (PDF)" width="773" height="1000">
+<span>@@EDITION_LABEL@@
+<small class="book-file-stats">@@MAIN_PAGES@@ pages · @@MAIN_MIB@@ MiB</small>
+</span></a>
+<a class="book-canvas" href="@@ALLY_PDF_URL@@">Canvas version
+<small class="book-file-stats">@@ALLY_PAGES@@ pages · @@ALLY_MIB@@ MiB</small>
+</a>
+</div>
+<!-- END EDITION_CARDS -->
+</div>
 
 ## Basic information
 
 - Author: Egbert Rijke
 - Title: The Great Story of Numbers
-- Year: 2026
+- Date: **@@BUILT_AT@@**
 - Type: Lecture notes
 - Level: Upper-division undergraduate
 - Prerequisites: None; suitable for non-math majors
 - Language: English
 - Institution: Johns Hopkins University
 
-@@BUILD_INFO@@
+The main versions use a tagged PDF setup with PDF 2.0 and MathML.
+The Canvas / Ally versions use its PDF 1.7 compatibility configuration.
 
 ## Overview of the Course
 
