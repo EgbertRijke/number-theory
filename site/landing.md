@@ -14,8 +14,7 @@ keywords:
 
 # The Great Story of Numbers
 
-These are course notes for the course 304 Elementary Number Theory, which I taught at Johns Hopkins University in the [Spring 2025](/courses/elementary-number-theory-jhu-spring-2025/) and [Fall 2025](/courses/elementary-number-theory-jhu-fall-2025/) semesters.
-
+These volumes grew out of course notes for the course 304 Elementary Number Theory, which I taught at Johns Hopkins University in the [Spring 2025](/courses/elementary-number-theory-jhu-spring-2025/) and [Fall 2025](/courses/elementary-number-theory-jhu-fall-2025/) semesters. Since then, it has become a hobby to add new material to the notes, refine my typesetting, draw more figures, sharpen my writing, and find other ways to improve it, such as implementing LaTeX's new tagging infrastructure to create accessible PDFs. The books are very much still a work in progress, with no anticipated official release or publication date. Please enjoy this beautiful subject!
 
 <link rel="stylesheet" href="/notes/number-theory/book.css">
 
