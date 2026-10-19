@@ -23,9 +23,11 @@ def editions():
                      if (m := re.fullmatch(r'volume-([1-9][0-9]*)\.tex', p.name)))
     if not numbers or numbers != list(range(1, max(numbers) + 1)):
         raise SystemExit('Expected consecutive volume-N.tex drivers starting at 1.')
-    return [('number-theory', 'Complete book')] + [
-        (f'number-theory-volume-{n}', f'Volume {n}') for n in numbers]
 
+    roman = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII'}
+
+    return [('number-theory', 'Single-Volume Edition')] + [
+        (f'number-theory-volume-{n}', f'Book {roman[n]}') for n in numbers]
 
 def filename(stem, profile):
     return stem + ('-ally' if profile == 'ally' else '') + '.pdf'
