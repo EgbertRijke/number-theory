@@ -63,19 +63,29 @@ def markdown_text(text):
 
 
 def contents_markdown(outline):
-    """Use hyperref destination types, not nesting guesses (front/back matter)."""
+    """Use destination types, resolving appendix entries by bookmark parent."""
     lines = []
     counts = {'part': 0, 'chapter': 0}
+    parents = []
     for level, title, page, target in outline:
+        while parents and parents[-1][0] >= level:
+            parents.pop()
         dest = target.get('nameddest', '')
         kind = re.split(r'[.*]', dest, maxsplit=1)[0]
         if kind == 'appendix':
-            kind = 'chapter'
+            # hyperref can name both the chapter and its descendants
+            # appendix.A, appendix.A.1, etc. The prefix alone is ambiguous.
+            # Use the PDF's actual parent, allowing chapters with or without
+            # a containing part and sections/subsections within each appendix.
+            parent_kind = parents[-1][1] if parents else None
+            kind = {None: 'chapter', 'part': 'chapter',
+                    'chapter': 'section', 'section': 'subsection'}.get(parent_kind)
         if kind not in ('part', 'chapter', 'section', 'subsection'):
             raise ValueError(f'Unrecognized bookmark destination {dest!r}: {title!r}. '
                              'Check the PDF outline before publishing.')
         if page < 1:
             raise ValueError(f'Bookmark without a local page: {title!r}')
+        parents.append((level, kind))
         title = markdown_text(title)
         if kind == 'part':
             counts['part'] += 1
