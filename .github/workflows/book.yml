@@ -99,14 +99,9 @@ jobs:
           retention-days: 14
 
   package:
-    name: Prepare PDF download page
-    permissions:
-      contents: read
-      pages: read
+    name: Generate the official book page
     needs: build
-    if: >-
-      vars.PUBLISH_PDFS == 'true' &&
-      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    # Generate a reviewable artifact on every branch, even without publishing.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
@@ -116,17 +111,118 @@ jobs:
         with:
           pattern: book-pdfs-*
           merge-multiple: true
-          path: _site
-      - name: Verify the complete PDF set and generate the download page
+          path: _pdfs
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install publication tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          python3 -m pip install -r scripts/publication-requirements.txt
+      - name: Generate covers, contents, download table and Jekyll page
         run: python3 scripts/book-publication.py site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: book-website-publication
+          path: _publication/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+
+  publish-website:
+    name: Deploy the book directory to the official website
+    needs: package
+    if: >-
+      vars.PUBLISH_PDFS == 'true' &&
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: book-official-website
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+      - name: Check publication configuration
+        env:
+          WEBSITE_DEPLOY_KEY: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+          WEBSITE_SOURCE_BRANCH: ${{ vars.WEBSITE_SOURCE_BRANCH }}
+          WEBSITE_DEPLOY_BRANCH: ${{ vars.WEBSITE_DEPLOY_BRANCH }}
+        run: |
+          test -n "$WEBSITE_DEPLOY_KEY" || { echo 'Set WEBSITE_DEPLOY_KEY.' >&2; exit 1; }
+          test -n "$WEBSITE_SOURCE_BRANCH" || { echo 'Set WEBSITE_SOURCE_BRANCH.' >&2; exit 1; }
+          test -n "$WEBSITE_DEPLOY_BRANCH" || { echo 'Set WEBSITE_DEPLOY_BRANCH.' >&2; exit 1; }
+          test "$WEBSITE_SOURCE_BRANCH" != "$WEBSITE_DEPLOY_BRANCH"
+      - uses: actions/download-artifact@v4
+        with:
+          name: book-website-publication
+          path: _publication
+      - name: Read the current website theme
+        uses: actions/checkout@v6
+        with:
+          repository: EgbertRijke/egbertrijke.github.io
+          ref: ${{ vars.WEBSITE_SOURCE_BRANCH }}
+          path: _website-source
+          ssh-key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+          persist-credentials: false
+      - name: Prepare the book's isolated Jekyll build
+        run: python3 scripts/prepare-book-site.py --website _website-source
+      - name: Render the book page with the website theme
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./_book-source
+          destination: ./_book-site
+      - name: Check out a disposable website working tree for deployment
+        uses: actions/checkout@v6
+        with:
+          repository: EgbertRijke/egbertrijke.github.io
+          ref: ${{ vars.WEBSITE_SOURCE_BRANCH }}
+          path: _deploy
+          ssh-key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+          persist-credentials: true
+      - name: Refuse publication from an obsolete book commit
+        env:
+          BOOK_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          git fetch origin "$BOOK_BRANCH"
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA" || {
+            echo 'A newer book commit exists. Publish from the latest commit.' >&2
+            exit 1
+          }
+      - name: Publish only notes/number-theory in the deployment branch
+        env:
+          WEBSITE_DEPLOY_BRANCH: ${{ vars.WEBSITE_DEPLOY_BRANCH }}
+        run: >-
+          python3 scripts/publish-site.py --scope book
+          --build _book-site --checkout _deploy --branch "$WEBSITE_DEPLOY_BRANCH"
+
+  legacy-package:
+    name: Keep former book URLs working
+    needs: publish-website
+    if: vars.KEEP_LEGACY_BOOK_URLS == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: book-pdfs-*
+          merge-multiple: true
+          path: _pdfs
+      - run: python3 scripts/book-publication.py legacy
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 
   deploy:
-    name: Publish PDFs
-    needs: package
+    name: Publish the legacy redirect and PDF aliases
+    needs: legacy-package
     runs-on: ubuntu-24.04
     permissions:
       pages: write

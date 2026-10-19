@@ -62,3 +62,11 @@ svg-inkscape/
 /dist/
 /_site/
 /diagnostics/
+
+/_pdfs/
+/_publication/
+/_website-source/
+/_book-source/
+/_book-site/
+/_deploy/
+__pycache__/

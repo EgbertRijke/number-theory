@@ -1,0 +1,28 @@
+/* Layout only: typography, colours and surrounding page remain website-owned. */
+.book-editions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.8rem 0;
+}
+.book-edition { text-align: center; min-width: 0; }
+.book-cover { display: block; }
+.markdown-body .book-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 .6rem;
+  border: 1px solid #d0d7de;
+  box-shadow: 0 2px 7px #00000014;
+}
+.book-cover span { display: block; font-weight: 600; }
+.book-canvas { display: inline-block; margin-top: .3rem; font-size: .9em; }
+.book-cover:hover img { box-shadow: 0 3px 10px #00000028; }
+.book-edition a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.book-downloads { overflow-x: auto; margin: 1.5rem 0; }
+.book-downloads table { width: 100%; }
+.book-downloads caption { text-align: left; margin-bottom: .5rem; }
+.book-downloads small { white-space: nowrap; }
+@media (max-width: 540px) {
+  .book-editions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
