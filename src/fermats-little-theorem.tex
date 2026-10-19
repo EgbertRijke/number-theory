@@ -408,17 +408,15 @@ In the European mathematical tradition, it was first published by Edward Waring,
   \end{equation*}
 \end{proof}
 
-\section{Some Related Theorems Concerning Strong Divisibility Sequences}
+\section[Concerning Strong Divisibility Sequences]{Some Theorems Concerning Strong Divisibility Sequences}
 
-\begin{theorem}
-  Consider the $p$\supth{} Mersenne number $M_p=2^p-1$, where $p$ is an odd prime. Then
+\begin{example}
+  Consider the $p$\supth{} Mersenne number $M_p=2^p-1$, where $p$ is an odd prime. We claim that the following congruence holds:
   \begin{equation*}
     \prod_{k=1}^{p-1}(2^k+1)\equiv 1\pmod{M_p}.
   \end{equation*}
-\end{theorem}
 
-\begin{proof}
-  Set $A:=\prod_{k=1}^{p-1}(2^k-1)$ and $B:=\prod_{k=1}^{p-1}(2^k+1)$. Then we have
+  To see this, set $A:=\prod_{k=1}^{p-1}(2^k-1)$ and $B:=\prod_{k=1}^{p-1}(2^k+1)$. Then we have
   \begin{equation*}
     AB=\prod_{k=1}^{p-1}(2^{2k}-1).
   \end{equation*}
@@ -432,12 +430,12 @@ In the European mathematical tradition, it was first published by Edward Waring,
     \gcd(2^k-1,2^p-1)=2^{\gcd(k,p)}-1=1.
   \end{equation*}
   Therefore, we cancel $A$ on both sides to obtain $B\equiv 1\pmod{M_p}$.
-\end{proof}
 
-The previous theorem relies on having a bijection which rearranges the order of the factors in a product. This observation is generalizable; particularly to the setting of strong divisibility sequences.
+  This example relies on having a bijection which rearranges the order of the factors in a product. This idea is generalizable; particularly to the setting of strong divisibility sequences.
+\end{example}
 
-\begin{theorem}
-  Let $(u_m)_{m\geq 0}$ be a strong divisibility sequence. Furthermore, suppose there is a natural number $n$ and an integer $c$ such that
+\begin{theorem}\label{theorem:product-congruence-SDS}
+  Let $(u_m)$ be a strong divisibility sequence. Furthermore, suppose there is a natural number $n$ and an integer $c$ such that
   \begin{equation*}
     u_{m+n}\equiv cu_m\pmod{u_n}
   \end{equation*}
@@ -467,15 +465,49 @@ The previous theorem relies on having a bijection which rearranges the order of 
   \end{equation*}
 \end{proof}
 
-\begin{example}
-  Define the \define{$q$-analog} of $n$ to be
+\begin{corollary}\label{corollary:product-congruence-lucas-sequence}
+  For every Lucas sequence $(u_n)$ with $u_{n+2}=au_{n+1}-bu_n$, where $\gcd(a,b)=1$, and every $r$ relatively prime to $n$, we have the following congruence:
   \begin{equation*}
-    [n]_q := \sum_{i=0}^{n-1}q^i.
+    \prod_{\substack{1\leq k \leq n-1\\ \gcd(n,k)=1}} \frac{u_{rk}}{u_k} \equiv u_{n+1}^{(r-1)\varphi(n)/2} \pmod{u_n}.
   \end{equation*}
-  For any prime $p$ and any two positive integers $a$ and $r$ with $p\nmid r$, we have
+\end{corollary}
+
+\begin{proof}
+  The Lucas sequence $(u_n)$ is strongly divisible by \zcref{theorem:strong-divisibility-lucas-sequences}. Moreover, $(u_n)$ satisfies the following addition formula by \zcref{proposition:addition-formula-lucas-sequence}:
   \begin{equation*}
-    \prod_{k=1}^{p-1}[r]_{a^k}\equiv 1\pmod{[p]_a}
-  \end{equation*}  
+    u_{m+n}=u_{n+1}u_m-bu_nu_{m-1}.
+  \end{equation*}
+  This implies the congruence
+  \begin{equation*}
+    u_{m+n}\equiv u_{n+1}u_m\pmod{u_n}. 
+  \end{equation*}
+  Thus, the claim follows from \zcref{theorem:product-congruence-SDS} with $c:= u_{n+1}$.
+\end{proof}
+
+\begin{example}
+  Consider the Lucas sequence given by $u_n=n$, which satisfies the recurrence relation $u_{n+2}=2u_{n+1}-u_n$. Then we have $u_{n+1}\equiv 1\pmod{u_n}$. The congruence of \zcref{corollary:product-congruence-lucas-sequence} is therefore the congruence of \zcrefnamed{theorem:eulers-theorem}:
+  \begin{equation*}
+    r^{\varphi(n)} \equiv 1 \pmod{n}.
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Consider the Lucas sequence given by $u_n=1+a+\cdots+a^{n-1}$, which satisfies the recurrence relation $u_{n+2}=(a+1)u_{n+1}-au_n$. Since $u_{n+1}=1+au_n$, it follows that $u_{n+1}\equiv 1\pmod{u_n}$. Moreover, note that
+  \begin{equation*}
+    \frac{u_{rk}}{u_k} = \frac{a^{rk}-1}{a^k-1}=1+a^k+\cdots+a^{k(r-1)}.
+  \end{equation*}
+  The congruence of \zcref{corollary:product-congruence-lucas-sequence} is therefore:
+  \begin{equation*}
+    \prod_{\substack{1\leq k \leq n-1\\ \gcd(n,k)=1}} 1+a^k+\cdots+a^{k(r-1)} \equiv 1 \pmod{u_n}.
+  \end{equation*}
+  This is Hao Pan's $q$-analogue of Euler's Theorem \cite{pan2007}.
+\end{example}
+
+\begin{example}
+  Consider the Fibonacci numbers $F_n$, and set $r=2$. Since $F_{2k}=F_k L_k$, it follows from the congruence of \zcref{corollary:product-congruence-lucas-sequence} that
+  \begin{equation*}
+    \prod_{k=1}^{p-1} L_k \equiv F_{p+1}^{\frac{p-1}{2}} \pmod{F_p}.
+  \end{equation*}
 \end{example}
 
 \section{The Quadratic Character of \texorpdfstring{$-1$}{-1}}
