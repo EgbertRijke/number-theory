@@ -57,3 +57,8 @@ auto/
 */auto/
 
 svg-inkscape/
+
+# Generated CI publication files
+/dist/
+/_site/
+/diagnostics/

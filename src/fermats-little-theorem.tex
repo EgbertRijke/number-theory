@@ -408,6 +408,76 @@ In the European mathematical tradition, it was first published by Edward Waring,
   \end{equation*}
 \end{proof}
 
+\section{Some Related Theorems Concerning Strong Divisibility Sequences}
+
+\begin{theorem}
+  Consider the $p$\supth{} Mersenne number $M_p=2^p-1$, where $p$ is an odd prime. Then
+  \begin{equation*}
+    \prod_{k=1}^{p-1}(2^k+1)\equiv 1\pmod{M_p}.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Set $A:=\prod_{k=1}^{p-1}(2^k-1)$ and $B:=\prod_{k=1}^{p-1}(2^k+1)$. Then we have
+  \begin{equation*}
+    AB=\prod_{k=1}^{p-1}(2^{2k}-1).
+  \end{equation*}
+  The order of $2$ modulo $M_p$ is $p$. It follows that $2^k-1\equiv 2^l-1\pmod{M_p}$ if and only if $k\equiv l\pmod{p}$. Since $p$ was assumed to be odd, multiplication by $2$ is a bijection modulo $p$, so we conclude that
+  \begin{equation*}
+    \prod_{k=1}^{p-1}(2^{2k}-1)\equiv \prod_{k=1}^{p-1}(2^k-1) \pmod{M_p},
+  \end{equation*}
+  since both products have the same factors modulo $M_p$. This shows that $AB\equiv A\pmod{M_p}$.
+  Moreover, $A$ is invertible modulo $M_p$, since $A$ is a product of invertible numbers:
+  \begin{equation*}
+    \gcd(2^k-1,2^p-1)=2^{\gcd(k,p)}-1=1.
+  \end{equation*}
+  Therefore, we cancel $A$ on both sides to obtain $B\equiv 1\pmod{M_p}$.
+\end{proof}
+
+The previous theorem relies on having a bijection which rearranges the order of the factors in a product. This observation is generalizable; particularly to the setting of strong divisibility sequences.
+
+\begin{theorem}
+  Let $(u_m)_{m\geq 0}$ be a strong divisibility sequence. Furthermore, suppose there is a natural number $n$ and an integer $c$ such that
+  \begin{equation*}
+    u_{m+n}\equiv cu_m\pmod{u_n}
+  \end{equation*}
+  for all $m$. Then the congruence
+  \begin{equation*}
+    \prod_{\substack{k=1\\\gcd(n,k)=1}}^{n-1}\frac{u_{rk}}{u_k}\equiv c^{(r-1)\varphi(n)/2} \pmod{u_n}
+  \end{equation*}
+  holds for every $r$ relatively prime to $n$.
+\end{theorem}
+
+\begin{proof}
+  For each $k$ relatively prime to $n$, write $rk=q_kn+s_k$, where $1\leq s_k < n$. Since $\gcd(r,n)=1$, multiplying by $r$ is a bijection on reduced residue classes modulo $n$, so that the map $k\mapsto s_k$ is also bijection on reduced residue classes modulo $n$.
+
+  By the congruence $u_{m+n}\equiv cu_m \pmod{u_n}$, it follows that
+  \begin{equation*}
+    u_{rk}\equiv c^{q_k} u_{s_k} \pmod{u_n}.
+  \end{equation*}
+  Consequently, we obtain the congruence
+  \begin{equation*}
+    \prod_{\substack{1\leq k<n\\ \gcd(n,k)=1}} u_{rk}\equiv c^{\sum_k q_k}\prod_{\substack{1\leq k<n\\ \gcd(n,k)=1}} u_k \pmod{u_n}.
+  \end{equation*}
+  By the assumption that $(u_m)$ is a strong divisibility sequence, it follows that $\gcd(u_n,u_k)=u_{\gcd(n,k)}=1$, so that $\prod_k u_k$ is invertible modulo $u_n$.
+
+  It remains to evaluate the sum $\sum_k q_k$. Observe that
+  \begin{equation*}
+    n\sum_{k}q_k = \sum_{k}(rk-s_k) = \sum_{k}(r-1)k = n(r-1)\varphi(n)/2.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{example}
+  Define the \define{$q$-analog} of $n$ to be
+  \begin{equation*}
+    [n]_q := \sum_{i=0}^{n-1}q^i.
+  \end{equation*}
+  For any prime $p$ and any two positive integers $a$ and $r$ with $p\nmid r$, we have
+  \begin{equation*}
+    \prod_{k=1}^{p-1}[r]_{a^k}\equiv 1\pmod{[p]_a}
+  \end{equation*}  
+\end{example}
+
 \section{The Quadratic Character of \texorpdfstring{$-1$}{-1}}
 
 \begin{figure}[t]

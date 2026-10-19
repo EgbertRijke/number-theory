@@ -1,0 +1,3 @@
+# Select the development format for EVERY latexmk pass in CI.
+# ENGINE=lualatex-dev separately selects it for Makefile bootstrap passes.
+$lualatex = 'lualatex-dev %O %S';
