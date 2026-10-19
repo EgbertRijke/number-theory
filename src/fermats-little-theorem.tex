@@ -485,7 +485,7 @@ In the European mathematical tradition, it was first published by Edward Waring,
 \end{proof}
 
 \begin{example}
-  Consider the Lucas sequence given by $u_n=n$, which satisfies the recurrence relation $u_{n+2}=2u_{n+1}-u_n$. Then we have $u_{n+1}\equiv 1\pmod{u_n}$. The congruence of \zcref{corollary:product-congruence-lucas-sequence} is therefore the congruence of \zcrefnamed{theorem:eulers-theorem}:
+  Consider the Lucas sequence given by $u_n=n$, which satisfies the recurrence relation $u_{n+2}=2u_{n+1}-u_n$. Then we have $u_{n+1}\equiv 1\pmod{u_n}$. Assuming $r$ relatively prime to $n$, the congruence of \zcref{corollary:product-congruence-lucas-sequence} is therefore exactly \zcrefnamed{theorem:eulers-theorem}:
   \begin{equation*}
     r^{\varphi(n)} \equiv 1 \pmod{n}.
   \end{equation*}
@@ -496,7 +496,7 @@ In the European mathematical tradition, it was first published by Edward Waring,
   \begin{equation*}
     \frac{u_{rk}}{u_k} = \frac{a^{rk}-1}{a^k-1}=1+a^k+\cdots+a^{k(r-1)}.
   \end{equation*}
-  The congruence of \zcref{corollary:product-congruence-lucas-sequence} is therefore:
+  Assuming $r$ relatively prime to $n$, the congruence of \zcref{corollary:product-congruence-lucas-sequence} is therefore:
   \begin{equation*}
     \prod_{\substack{1\leq k \leq n-1\\ \gcd(n,k)=1}} 1+a^k+\cdots+a^{k(r-1)} \equiv 1 \pmod{u_n}.
   \end{equation*}
@@ -506,8 +506,9 @@ In the European mathematical tradition, it was first published by Edward Waring,
 \begin{example}
   Consider the Fibonacci numbers $F_n$, and set $r=2$. Since $F_{2k}=F_k L_k$, it follows from the congruence of \zcref{corollary:product-congruence-lucas-sequence} that
   \begin{equation*}
-    \prod_{k=1}^{p-1} L_k \equiv F_{p+1}^{\frac{p-1}{2}} \pmod{F_p}.
+    \prod_{k=1}^{p-1} L_k \equiv F_{p+1}^{\frac{p-1}{2}} \pmod{F_p}
   \end{equation*}
+  for any odd prime $p$.
 \end{example}
 
 \section{The Quadratic Character of \texorpdfstring{$-1$}{-1}}
