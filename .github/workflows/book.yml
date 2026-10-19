@@ -1,0 +1,142 @@
+name: Build and publish book
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Superseded builds on the same branch need not finish.
+concurrency:
+  group: book-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build all default-font editions (LaTeX development)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      NT_TEXLIVE_ROOT: ${{ runner.temp }}/number-theory-texlive
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Discover the current TeX Live release and mirror
+        id: texlive
+        run: bash scripts/texlive-ci.sh prepare
+
+      - name: Restore TeX Live and font caches
+        id: tex-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.NT_TEXLIVE_ROOT }}
+          key: texlive-ubuntu24-x64-${{ steps.texlive.outputs.year }}-${{ hashFiles('scripts/texlive-ci.sh') }}-${{ steps.texlive.outputs.day }}
+          restore-keys: |
+            texlive-ubuntu24-x64-${{ steps.texlive.outputs.year }}-${{ hashFiles('scripts/texlive-ci.sh') }}-
+
+      - name: Install if needed, then update all packages on every run
+        env:
+          NT_TEXLIVE_INSTALLER: ${{ steps.texlive.outputs.installer }}
+          NT_TEXLIVE_REPOSITORY: ${{ steps.texlive.outputs.repository }}
+          NT_TEXLIVE_YEAR: ${{ steps.texlive.outputs.year }}
+        run: bash scripts/texlive-ci.sh install
+
+      # Save after successful setup, even if the book later hits an upstream bug.
+      # A dated key gives immutable GitHub caches a new snapshot each UTC day.
+      - name: Save refreshed TeX Live cache
+        if: steps.tex-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.NT_TEXLIVE_ROOT }}
+          key: ${{ steps.tex-cache.outputs.cache-primary-key }}
+
+      - name: Compile canonical editions with the default fonts
+        run: |
+          make all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
+          python3 scripts/book-publication.py collect --profile canonical
+
+      - name: Save canonical PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdfs-canonical
+          path: dist/*.pdf
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+
+      - name: Compile Ally editions with the same updated installation
+        run: |
+          make ally all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
+          python3 scripts/book-publication.py collect --profile ally
+
+      - name: Save Ally PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdfs-ally
+          path: dist/*.pdf
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+
+      - name: Save diagnostics, including failed builds
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-diagnostics
+          path: |
+            diagnostics/
+            build/*.log
+            build/*.blg
+          if-no-files-found: warn
+          retention-days: 14
+
+  package:
+    name: Prepare PDF download page
+    permissions:
+      contents: read
+      pages: read
+    needs: build
+    if: >-
+      vars.PUBLISH_PDFS == 'true' &&
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: book-pdfs-*
+          merge-multiple: true
+          path: _site
+      - name: Verify the complete PDF set and generate the download page
+        run: python3 scripts/book-publication.py site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Publish PDFs
+    needs: package
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: book-pages-deployment
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
