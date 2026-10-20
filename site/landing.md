@@ -43,8 +43,13 @@ Language: English\
 Institution: Johns Hopkins University\
 Prerequisites: No prior knowledge required; This book is suitable for non-math majors
 
-The standard versions use a tagged PDF setup with PDF 2.0 and MathML.
-The Canvas versions use PDF 1.7 for better compatibility with the accessibility checker Ally.
+## Accessibility
+
+The standard versions use a tagged PDF setup with PDF 2.0 and MathML. This is the latest generation of accessibility standards for mathematical documents.
+
+Some institutions, including my own, use the Ally accessibility checker in Canvas, which does not yet fully support these newer standards. For compatibility, I have provided separate Canvas editions that use PDF 1.7 and alternative text for mathematical expressions.
+
+Improving the experience of this book with screen readers and other assistive technologies is very much on my mind, and an ongoing project.
 
 ## Overview of the Course
 
