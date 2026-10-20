@@ -38,11 +38,10 @@ These volumes grew out of course notes for the course 304 Elementary Number Theo
 Author: Egbert Rijke\
 Title: The Great Story of Numbers\
 Date: @@BUILT_AT@@\
-Type: Lecture notes\
 Level: Upper-division undergraduate\
-Prerequisites: None; suitable for non-math majors\
 Language: English\
 Institution: Johns Hopkins University
+Prerequisites: No prior knowledge required; This book is suitable for non-math majors\
 
 The standard versions use a tagged PDF setup with PDF 2.0 and MathML.
 The Canvas versions use PDF 1.7 for better compatibility with the accessibility checker Ally.
