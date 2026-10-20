@@ -40,8 +40,8 @@ Title: The Great Story of Numbers\
 Date: @@BUILT_AT@@\
 Level: Upper-division undergraduate\
 Language: English\
-Institution: Johns Hopkins University
-Prerequisites: No prior knowledge required; This book is suitable for non-math majors\
+Institution: Johns Hopkins University\
+Prerequisites: No prior knowledge required; This book is suitable for non-math majors
 
 The standard versions use a tagged PDF setup with PDF 2.0 and MathML.
 The Canvas versions use PDF 1.7 for better compatibility with the accessibility checker Ally.
