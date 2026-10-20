@@ -255,6 +255,28 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
 %   Consider to finite cyclically ordered sets $(C,f)$ and $(D,g)$ of order $m$ and $n$, respectively. Then their product $(C\times D,f\times g)$ is cyclically ordered if and only if $m$ and $n$ are relatively prime.
 % \end{theorem}
 
+\section[Lifting Congruences]{Lifting Congruences via the Chinese Remainder Theorem}
+
+\begin{theorem}
+  Suppose that $m\mid n$, and $\gcd(a,m)=1$. Then there is an integer $b$ such that
+  \begin{equation*}
+    a\equiv b\pmod{m}\qquad\text{and}\qquad \gcd(b,n)=1.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  Let $s$ be the largest divisor of $n$ such that $\gcd(s,m)=1$, so that
+  \begin{equation*}
+    d\mid s \quad\Leftrightarrow\quad d\mid n \land \gcd(d,m)=1,
+  \end{equation*}
+  and set $t=n/s$, giving $n=st$. Since $m\mid st$ and $m$ is relatively prime to $s$, it follows that $m\mid t$. By \zcref{theorem:chinese-remainder-theorem} there exists an integer $b$ satisfying
+  \begin{align*}
+    b & \equiv 1 \pmod{s}, \\
+    b & \equiv a \pmod{t}. 
+  \end{align*}
+  Since $m\mid t$, the second congruence implies that $b\equiv a\pmod{m}$. The first congruence gives us that $\gcd(b,s)=1$. Therefore it remains to show that $\gcd(b,t)=1$. Since $b\equiv a\pmod{t}$, we know that $\gcd(b,t)=\gcd(a,t)$. Set $d=\gcd(a,t)$. Then $\gcd(d,m)=1$ and $d\mid n$, so that $d\mid s$ by the defining property of $s$. It follows that $d\mid \gcd(s,t)=1$.
+\end{proof}
+
 \exercises
 
 \begin{starter}
@@ -285,7 +307,22 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
     xy + 7x + 4y \equiv 10\pmod{13}.
   \end{equation*}
   Compute the congruence class of $y$ modulo $13$ for $x\equiv 2,5,8\pmod{13}$.
+  \exercise For any natural number $n$, and any two integers $a$ and $b$, show that the following are equivalent:
+  \begin{enumerate}
+  \item $\gcd(a,n)=\gcd(b,n)$,
+  \item There is an invertible integer $k$ modulo $n$ such that
+    \begin{equation*}
+      ka\equiv b\pmod{n}.
+    \end{equation*}
+  \end{enumerate}
 \end{routine}
+
+\begin{challenge}
+  \exercise \emph{(The Bass stable range one property).} Show that for any two integers $a$ and $b$, and any positive integer $n$, there is an integer $t$ such that
+  \begin{equation*}
+    \gcd(a+tb,n)=\gcd(a,b,n).
+  \end{equation*}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex
