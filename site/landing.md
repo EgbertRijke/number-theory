@@ -37,7 +37,7 @@ These volumes grew out of course notes for the course 304 Elementary Number Theo
 
 - Author: Egbert Rijke
 - Title: The Great Story of Numbers
-- Date: **@@BUILT_AT@@**
+- Date: @@BUILT_AT@@
 - Type: Lecture notes
 - Level: Upper-division undergraduate
 - Prerequisites: None; suitable for non-math majors
