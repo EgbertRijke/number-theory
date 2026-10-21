@@ -6,11 +6,28 @@ case "${1:-}" in
   prepare)
     : "${RUNNER_TEMP:?}" "${GITHUB_OUTPUT:?}"
     work=$(mktemp -d "$RUNNER_TEMP/texlive-installer.XXXXXX")
-    # Resolve the CTAN redirect once; install and update against that same mirror.
-    archive_url=$(curl --fail --location --retry 3 --proto '=https' \
-      --proto-redir '=https' --output "$work/installer.tar.gz" \
-      --write-out '%{url_effective}' \
-      https://mirrors.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz)
+    # Prefer CTAN's automatic mirror selection, with verified-HTTPS fallbacks.
+    # Use the successful mirror for both installation and package updates.
+    archive_url=
+    downloaded=false
+    for base in \
+      https://mirrors.ctan.org/systems/texlive/tlnet \
+      https://ctan.math.illinois.edu/systems/texlive/tlnet \
+      https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet; do
+      echo "Trying TeX Live mirror: $base" >&2
+      if archive_url=$(curl --fail --location --show-error --silent --retry 3 \
+        --proto '=https' --proto-redir '=https' \
+        --output "$work/installer.tar.gz" \
+        --write-out '%{url_effective}' \
+        "$base/install-tl-unx.tar.gz"); then
+        downloaded=true
+        break
+      fi
+    done
+    [[ "$downloaded" == true ]] || {
+      echo "Could not download the TeX Live installer from any HTTPS mirror" >&2
+      exit 1
+    }
     case "$archive_url" in
       https://*/install-tl-unx.tar.gz) repository=${archive_url%/install-tl-unx.tar.gz} ;;
       *) echo "Unexpected TeX Live installer URL" >&2; exit 1 ;;
