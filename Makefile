@@ -193,23 +193,38 @@ __omnibus:
 		echo "==> Resetting generated state: $$job"; \
 		rm -f "$(BUILDDIR)/$$job".*; \
 	fi; \
+	context="$(BUILDDIR)/$$job.build-context"; \
+	full_stamp="$(BUILDDIR)/$$job.full-stamp"; \
+	build_context() { \
+		printf '%s\n' "date=$$(date +%Y-%m-%d)" \
+			"engine=$(ENGINE)" "latexmk=$(LATEXMK)" \
+			"latexflags=$(LATEXFLAGS)" "latexmkflags=$(LATEXMKFLAGS)" \
+			"profile=$(PROFILE)" "font=$(FONT)" "suffix=$(SUFFIX)"; \
+	}; \
 	if [ "$(MODE)" = quick ]; then \
 		echo "==> Quick build: $$job.pdf ($(FONT))"; \
 		NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
 			$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$source"; \
+		rm -f "$$full_stamp"; \
 	else \
+		force=; \
+		if [ ! -f "$$full_stamp" ] || ! build_context | cmp -s - "$$context"; then \
+			force=-gt; \
+		fi; \
 		echo "==> Full build: $$job.pdf ($(FONT))"; \
 		NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
-			$(LATEXMK) $(LATEXMKFLAGS) -jobname="$$job" "$$source"; \
+			$(LATEXMK) $(LATEXMKFLAGS) $$force -jobname="$$job" "$$source"; \
+		build_context > "$$context"; \
+		touch "$$full_stamp"; \
 	fi; \
 	cmp -s "$(BUILDDIR)/$$job.pdf" "$$job.pdf" || \
 		cp -f "$(BUILDDIR)/$$job.pdf" "$$job.pdf"; \
 	echo "==> Built $$job.pdf"; \
 	if [ "$(OPEN_AFTER)" = 1 ]; then $(OPEN) "$$job.pdf"; fi
 
-# A clean forward-reference build needs every external .aux to exist before
-# latexmk records dependencies.  Full mode therefore bootstraps all missing
-# auxiliaries and forces its first settled sweep; later sweeps are incremental.
+# External zref references create a cycle between volume auxiliaries.  Seed
+# missing files with one pass, then let latexmk settle each stale volume.
+# A quick (single-pass) build is deliberately NEVER marked fully settled.
 __volume_set:
 	@set -eu; \
 	setup="$(call fontsetup,$(FONT))"; suffix="$(SUFFIX)"; \
@@ -254,11 +269,18 @@ __volume_set:
 			[ -f "$$dep_aux" ] && cksum "$$dep_aux"; \
 		done | cksum | awk '{ print $$1 ":" $$2 }'; \
 	}; \
+	build_context() { \
+		printf '%s\n' "date=$$(date +%Y-%m-%d)" \
+			"engine=$(ENGINE)" "latexmk=$(LATEXMK)" \
+			"latexflags=$(LATEXFLAGS)" "latexmkflags=$(LATEXMKFLAGS)" \
+			"profile=$(PROFILE)" "font=$(FONT)" "suffix=$(SUFFIX)"; \
+	}; \
 	needs_rebuild() { \
-		check_job="$$1"; \
-		check_stamp="$(BUILDDIR)/$$check_job.build-stamp"; \
+		check_job="$$1"; check_mode="$${2-full}"; \
+		check_stamp="$(BUILDDIR)/$$check_job.$$check_mode-stamp"; \
 		check_fls="$(BUILDDIR)/$$check_job.fls"; \
 		check_external="$(BUILDDIR)/$$check_job.external-aux.sig"; \
+		check_context="$(BUILDDIR)/$$check_job.build-context"; \
 		stale_reason=; \
 		for required in \
 			"$(BUILDDIR)/$$check_job.pdf" \
@@ -270,6 +292,24 @@ __volume_set:
 				stale_reason="missing $$required"; return 0; \
 			fi; \
 		done; \
+		if [ "$$check_mode" = full ]; then \
+			for required in "$(BUILDDIR)/$$check_job.fdb_latexmk" \
+				"$(BUILDDIR)/$$check_job.bbl"; do \
+				if [ ! -f "$$required" ]; then \
+					stale_reason="missing $$required"; return 0; \
+				fi; \
+			done; \
+		fi; \
+		if ! build_context | cmp -s - "$$check_context"; then \
+			stale_reason="build settings or date changed"; return 0; \
+		fi; \
+		if [ -f .latexmkrc ] && [ .latexmkrc -nt "$$check_stamp" ]; then \
+			stale_reason=".latexmkrc changed"; return 0; \
+		fi; \
+		if [ -f scripts/latexmk-ci.rc ] && \
+			[ scripts/latexmk-ci.rc -nt "$$check_stamp" ]; then \
+			stale_reason="CI latexmk settings changed"; return 0; \
+		fi; \
 		if [ "$(MAKEFILE_SELF)" -nt "$$check_stamp" ]; then \
 			stale_reason="$(MAKEFILE_SELF) changed"; return 0; \
 		fi; \
@@ -299,41 +339,50 @@ __volume_set:
 		return 1; \
 	}; \
 	build_one() { \
-		n="$$1"; force_flag="$${2-}"; \
+		n="$$1"; \
 		tex="volume-$$n.tex"; job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
-		stamp="$(BUILDDIR)/$$job.build-stamp"; \
+		full_stamp="$(BUILDDIR)/$$job.full-stamp"; \
+		quick_stamp="$(BUILDDIR)/$$job.quick-stamp"; \
+		context="$(BUILDDIR)/$$job.build-context"; \
 		external="$(BUILDDIR)/$$job.external-aux.sig"; \
 		if [ "$(MODE)" = quick ]; then \
-			if needs_rebuild "$$job"; then \
+			if needs_rebuild "$$job" quick; then \
 				echo "==> Quick build: $$job.pdf ($(FONT); $$stale_reason)"; \
 				NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
 					NT_VOLUME_SUFFIX="$$suffix" \
 					$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
 				external_aux_signature > "$$external"; \
-				touch "$$stamp"; \
+				build_context > "$$context"; \
+				touch "$$quick_stamp"; \
+				rm -f "$$full_stamp"; \
 			else \
 				echo "==> Up to date: $$job.pdf ($(FONT))"; \
 			fi; \
 		else \
-			echo "==> Full build: $$job.pdf ($(FONT))"; \
-			NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
-				NT_VOLUME_SUFFIX="$$suffix" \
-				$(LATEXMK) $(LATEXMKFLAGS) $$force_flag \
-				-jobname="$$job" "$$tex"; \
-			external_aux_signature > "$$external"; \
-			touch "$$stamp"; \
+			if needs_rebuild "$$job" full; then \
+				echo "==> Full build: $$job.pdf ($(FONT); $$stale_reason)"; \
+				NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
+					NT_VOLUME_SUFFIX="$$suffix" \
+					$(LATEXMK) $(LATEXMKFLAGS) -gt \
+					-jobname="$$job" "$$tex"; \
+				external_aux_signature > "$$external"; \
+				build_context > "$$context"; \
+				touch "$$full_stamp" "$$quick_stamp"; \
+			else \
+				echo "==> Up to date: $$job.pdf ($(FONT))"; \
+			fi; \
 		fi; \
 		cmp -s "$(BUILDDIR)/$$job.pdf" "$$job.pdf" || \
 			cp -f "$(BUILDDIR)/$$job.pdf" "$$job.pdf"; \
 	}; \
 	build_sweep() { \
-		force_flag="$${1-}"; \
-		for n in $$numbers; do build_one "$$n" "$$force_flag"; done; \
+		for n in $$numbers; do build_one "$$n"; done; \
 	}; \
 	bootstrap_sweep() { \
 		echo "==> Bootstrapping auxiliary files for all volumes"; \
 		for n in $$numbers; do \
 			tex="volume-$$n.tex"; job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
+			if [ -f "$(BUILDDIR)/$$job.aux" ]; then continue; fi; \
 			echo "==> Bootstrap pass: $$job.pdf ($(FONT))"; \
 			NT_PDF_PROFILE="$(PROFILE)" NT_FONT_SETUP="$$setup" \
 				NT_VOLUME_SUFFIX="$$suffix" \
@@ -360,13 +409,17 @@ __volume_set:
 		done; \
 		if [ "$$bootstrap" -eq 1 ]; then bootstrap_sweep; fi; \
 		previous=$$(volume_signature); \
-		stable=0; sweep=1; force_flag=-g; \
+		stable=0; sweep=1; \
 		while [ "$$sweep" -le "$(MAX_VOLUME_SWEEPS)" ]; do \
 			echo "==> Volume sweep $$sweep/$(MAX_VOLUME_SWEEPS)"; \
-			build_sweep "$$force_flag"; \
-			force_flag=; \
+			build_sweep; \
 			signature=$$(volume_signature); \
-			if [ -n "$$previous" ] && [ "$$signature" = "$$previous" ]; then \
+			all_current=1; \
+			for n in $$numbers; do \
+				job="$(VOLUME_JOB_PREFIX)$$n$$suffix"; \
+				if needs_rebuild "$$job" full; then all_current=0; break; fi; \
+			done; \
+			if [ "$$all_current" -eq 1 ] && [ "$$signature" = "$$previous" ]; then \
 				stable=1; break; \
 			fi; \
 			previous="$$signature"; sweep=$$((sweep + 1)); \

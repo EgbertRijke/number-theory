@@ -66,6 +66,36 @@ jobs:
           rm -rf build diagnostics dist
           rm -f number-theory*.pdf
 
+      # An exact input-hash hit above skips TeX entirely. On an input change,
+      # reuse the previous *successful* auxiliary files as a starting point.
+      # The Makefile and latexmk must still recheck new inputs and converge.
+      # Do not reuse invalid exact caches or explicitly forced builds.
+      - name: Restore prior build state for incremental LaTeX compilation
+        id: prior-state
+        if: >-
+          steps.cached-pdfs.outcome != 'success' &&
+          steps.latex-cache.outputs.cache-matched-key == '' &&
+          !inputs.rebuild_latex
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            build/
+            number-theory*.pdf
+            diagnostics/
+          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-incremental-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-
+
+      - name: Preserve previous build's TeX Live identity
+        if: steps.prior-state.outputs.cache-matched-key != ''
+        run: |
+          mkdir -p "$RUNNER_TEMP/nt-previous-toolchain"
+          for file in texlive-packages.txt toolchain.txt runner-image.txt; do
+            if [ -f "diagnostics/$file" ]; then
+              cp "diagnostics/$file" "$RUNNER_TEMP/nt-previous-toolchain/$file"
+            fi
+          done
+
       - name: Report PDF reuse
         if: steps.cached-pdfs.outcome == 'success'
         run: |
@@ -111,6 +141,38 @@ jobs:
           NT_TEXLIVE_OFFLINE: ${{ steps.texlive.outputs.offline }}
           NT_TEXLIVE_EXACT_CACHE_HIT: ${{ steps.tex-cache.outputs.cache-hit }}
         run: bash scripts/texlive-ci.sh install
+
+      # The rolling development format, biblatex, Biber and system fonts may
+      # change independently of the manuscript. Reuse auxiliaries only when
+      # the current installation and runner image match the previous build.
+      - name: Reject incremental state from a different TeX Live or runner
+        if: steps.cached-pdfs.outcome != 'success'
+        env:
+          PRIOR_CACHE_KEY: ${{ steps.prior-state.outputs.cache-matched-key }}
+        run: |
+          printf '%s:%s\n' "${ImageOS:-unknown}" "${ImageVersion:-unknown}" \
+            > diagnostics/runner-image.txt
+          if [ -n "$PRIOR_CACHE_KEY" ]; then
+            prev="$RUNNER_TEMP/nt-previous-toolchain"
+            identical=true
+            cmp -s "$prev/texlive-packages.txt" diagnostics/texlive-packages.txt || identical=false
+            cmp -s "$prev/runner-image.txt" diagnostics/runner-image.txt || identical=false
+            # Toolchain line 2 contains only the UTC date/time of the build.
+            if [ -f "$prev/toolchain.txt" ]; then
+              sed '2d' "$prev/toolchain.txt" > "$RUNNER_TEMP/previous-tools.txt"
+              sed '2d' diagnostics/toolchain.txt > "$RUNNER_TEMP/current-tools.txt"
+              cmp -s "$RUNNER_TEMP/previous-tools.txt" "$RUNNER_TEMP/current-tools.txt" || identical=false
+            else
+              identical=false
+            fi
+            if [ "$identical" != true ]; then
+              echo 'TeX Live or runner changed: discarding old auxiliary state.'
+              rm -rf build
+              rm -f number-theory*.pdf
+            else
+              echo 'TeX Live and runner match: reusing auxiliaries, recompiling changed inputs.'
+            fi
+          fi
 
       - name: Save refreshed TeX Live cache
         if: steps.cached-pdfs.outcome != 'success' && steps.tex-cache.outputs.cache-hit != 'true' && steps.texlive-install.outputs.cacheable == 'true'
