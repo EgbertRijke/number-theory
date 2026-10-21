@@ -258,13 +258,9 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
 \section[Lifting Congruence Classes]{Lifting Congruence Classes via the Chinese Remainder Theorem}
 
 \begin{example}
-  The number $3$ is relatively prime to the number $4$. This, however, does not imply that the number $3$ is relatively prime to every multiple of $4$. For instance, $\gcd(12,3)=3$. However, there are integers $k$ such that $\gcd(12,3+4k)=1$. Indeed, the integers $k=1$ and $k=2$ are two such examples. This shows that if we color ever fourth integer starting from $3$ blue, then we will find that at least one of the colored integers is relatively prime to $12$.
+  Let us compare the invertible numbers modulo $4$ and modulo $12$, with the moduli being chosen so that $4\mid12$. The invertible numbers modulo $4$ are $1$ and $3$, while the invertible numbers modulo $12$ are $1$, $5$, $7$, and $11$. Thus, $3$ is invertible modulo $4$, but not modulo $12$. The question is whether we can find an integer congruent to $3$ modulo $4$ that is also invertible modulo $12$. In other words, if we color every fourth integer starting from $3$ blue, as indicated in \zcref{figure:surjective-on-units}, will we find one that is relatively prime to $12$?
 
-  Another way of saying this, is that the cyclic-structure map $\mathbb{Z}/{12}\to\mathbb{Z}/{4}$ given by
-  \begin{equation*}
-    x\pmod{12} \mapsto x\pmod{4}
-  \end{equation*}
-  induces a surjective map from the invertible numbers modulo $12$ to the invertible numbers modulo $4$. This observation holds generally, as we establish in the following theorem.
+  Indeed, there are two such numbers: $7$ and $11$. In other words, the invertible congruence class of $3$ modulo $4$ can be \emph{lifted} to an invertible congruence class modulo $12$. The following theorem shows that this observation holds whenever one modulus divides another.
 \end{example}
 
 \begin{figure}[t]
@@ -337,7 +333,7 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
 \end{theorem}
 
 \begin{proof}
-  Let $s$ be the largest divisor of $n$ such that $\gcd(s,m)=1$, so that
+  Let $s$ be the greatest divisor of $n$ such that $\gcd(s,m)=1$, so that
   \begin{equation*}
     d\mid s \quad\Leftrightarrow\quad d\mid n\text{ and }\gcd(d,m)=1,
   \end{equation*}
@@ -348,6 +344,16 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
   \end{align*}
   Since $m\mid t$, the second congruence implies that $b\equiv a\pmod{m}$. The first congruence gives us that $\gcd(b,s)=1$. Therefore it remains to show that $\gcd(b,t)=1$. Since $b\equiv a\pmod{t}$, we know that $\gcd(b,t)=\gcd(a,t)$. Set $d=\gcd(a,t)$. Then $\gcd(d,m)=1$ and $d\mid n$, so that $d\mid s$ by the defining property of $s$. It follows that $d\mid \gcd(s,t)=1$.
 \end{proof}
+
+\begin{remark}
+  It is common to write $(\mathbb{Z}/n)^{\times}$ for the set of invertible numbers modulo $n$. Using this notation, we can rephrase \zcref{theorem:unit-surjectivity-mod} as follows: 
+  \begingroup\em If $m\mid n$, then the reduction map
+  \begin{equation*}
+    (\mathbb{Z}/n)^{\times} \to (\mathbb{Z}/m)^{\times}
+  \end{equation*}
+  is surjective.
+  \endgroup
+\end{remark}
 
 \exercises
 
