@@ -30,7 +30,6 @@ def fingerprint():
         if (path.as_posix() in WEBSITE_ONLY_FILES
                 or path.parts[0] in WEBSITE_ONLY_DIRECTORIES):
             continue
-        # A length prefix keeps filenames and file contents unambiguous.
         digest.update(len(name).to_bytes(8, 'big'))
         digest.update(name)
         digest.update(hashlib.sha256(path.read_bytes()).digest())

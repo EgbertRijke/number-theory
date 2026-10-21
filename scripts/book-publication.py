@@ -57,7 +57,6 @@ def collect(profile):
 
 
 def markdown_text(text):
-    # PDF bookmarks have already resolved TeX accents, macros and PDF strings.
     text = escape(' '.join(text.split()), quote=False)
     return re.sub(r'([\\`*_\[\]])', r'\\\1', text)
 
@@ -73,10 +72,6 @@ def contents_markdown(outline):
         dest = target.get('nameddest', '')
         kind = re.split(r'[.*]', dest, maxsplit=1)[0]
         if kind == 'appendix':
-            # hyperref can name both the chapter and its descendants
-            # appendix.A, appendix.A.1, etc. The prefix alone is ambiguous.
-            # Use the PDF's actual parent, allowing chapters with or without
-            # a containing part and sections/subsections within each appendix.
             parent_kind = parents[-1][1] if parents else None
             kind = {None: 'chapter', 'part': 'chapter',
                     'chapter': 'section', 'section': 'subsection'}.get(parent_kind)
@@ -137,7 +132,6 @@ def site(pdf_dir, destination):
     today = datetime.now(timezone.utc)
     stamp = f'{today:%B} {today.day}, {today.year}'
     manifest = {'files': {}}
-    # Build in a temporary directory: incomplete results cannot be published.
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=destination.parent) as temporary:
         root = Path(temporary)
@@ -187,7 +181,6 @@ def site(pdf_dir, destination):
         leftover = re.findall(r'@@[A-Z][A-Z0-9_]*@@', template)
         if leftover:
             raise ValueError(f'Unresolved landing page placeholders: {leftover}')
-        # Prevent a title containing Liquid syntax from executing as a template.
         template = template.replace('{%', '&#123;%').replace('{{', '&#123;{')
         (root / PAGE).write_text(template, encoding='utf-8')
         (assets / 'contents.md').write_text('# Table of contents\n\n' + contents, encoding='utf-8')

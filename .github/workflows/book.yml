@@ -10,15 +10,12 @@ on:
         type: boolean
         default: false
 
-# Bump this when changing compilation commands/flags in this workflow.
-# Website/deployment edits to the workflow do not invalidate the PDF cache.
 env:
   LATEX_CACHE_VERSION: '1'
 
 permissions:
   contents: read
 
-# Superseded builds on the same branch need not finish.
 concurrency:
   group: book-${{ github.ref }}
   cancel-in-progress: true
@@ -42,8 +39,6 @@ jobs:
           input_hash=$(python3 scripts/latex-cache-key.py)
           echo "hash=$input_hash" >> "$GITHUB_OUTPUT"
 
-      # The prefix includes the complete input hash, never just a branch name.
-      # A unique suffix lets a forced rebuild become the newest reusable cache.
       - name: Restore completed LaTeX build
         id: latex-cache
         if: ${{ !inputs.rebuild_latex }}
@@ -79,12 +74,9 @@ jobs:
 
       - name: Set TeX Live installation directory
         if: steps.cached-pdfs.outcome != 'success'
-        run: echo "NT_TEXLIVE_ROOT=$RUNNER_TEMP/number-theory-texlive" >> "$GITHUB_ENV"
-
-      - name: Discover the current TeX Live release and mirror
-        if: steps.cached-pdfs.outcome != 'success'
-        id: texlive
-        run: bash scripts/texlive-ci.sh prepare
+        run: |
+          echo "NT_TEXLIVE_ROOT=$RUNNER_TEMP/number-theory-texlive" >> "$GITHUB_ENV"
+          echo "NT_TEXLIVE_CACHE_DAY=$(date -u +%F)" >> "$GITHUB_ENV"
 
       - name: Restore TeX Live and font caches
         if: steps.cached-pdfs.outcome != 'success'
@@ -92,22 +84,36 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.NT_TEXLIVE_ROOT }}
-          key: texlive-ubuntu24-x64-${{ steps.texlive.outputs.year }}-${{ hashFiles('scripts/texlive-ci.sh') }}-${{ steps.texlive.outputs.day }}
+          key: texlive-ubuntu24-x64-rolling-${{ env.NT_TEXLIVE_CACHE_DAY }}
           restore-keys: |
-            texlive-ubuntu24-x64-${{ steps.texlive.outputs.year }}-${{ hashFiles('scripts/texlive-ci.sh') }}-
+            texlive-ubuntu24-x64-rolling-
+            texlive-ubuntu24-x64-
 
-      - name: Install if needed, then update all packages before compilation
+      - name: Verify restored TeX Live cache
         if: steps.cached-pdfs.outcome != 'success'
+        id: tex-cache-check
+        env:
+          NT_TEXLIVE_CACHE_MATCHED_KEY: ${{ steps.tex-cache.outputs.cache-matched-key }}
+        run: bash scripts/texlive-ci.sh inspect-cache
+
+      - name: Discover the TeX Live installation or mirror
+        if: steps.cached-pdfs.outcome != 'success'
+        id: texlive
+        run: bash scripts/texlive-ci.sh prepare
+
+      - name: Install or update TeX Live, falling back to cache on network errors
+        if: steps.cached-pdfs.outcome != 'success'
+        id: texlive-install
         env:
           NT_TEXLIVE_INSTALLER: ${{ steps.texlive.outputs.installer }}
           NT_TEXLIVE_REPOSITORY: ${{ steps.texlive.outputs.repository }}
           NT_TEXLIVE_YEAR: ${{ steps.texlive.outputs.year }}
+          NT_TEXLIVE_OFFLINE: ${{ steps.texlive.outputs.offline }}
+          NT_TEXLIVE_EXACT_CACHE_HIT: ${{ steps.tex-cache.outputs.cache-hit }}
         run: bash scripts/texlive-ci.sh install
 
-      # Save after successful setup, even if the book later hits an upstream bug.
-      # A dated key gives immutable GitHub caches a new snapshot each UTC day.
       - name: Save refreshed TeX Live cache
-        if: steps.cached-pdfs.outcome != 'success' && steps.tex-cache.outputs.cache-hit != 'true'
+        if: steps.cached-pdfs.outcome != 'success' && steps.tex-cache.outputs.cache-hit != 'true' && steps.texlive-install.outputs.cacheable == 'true'
         uses: actions/cache/save@v4
         with:
           path: ${{ env.NT_TEXLIVE_ROOT }}
@@ -145,7 +151,6 @@ jobs:
           retention-days: 14
           compression-level: 0
 
-      # Save only after both complete editions have compiled and passed collect.
       - name: Cache completed PDFs and LaTeX-generated files
         if: steps.cached-pdfs.outcome != 'success'
         uses: actions/cache/save@v4
@@ -171,7 +176,6 @@ jobs:
   package:
     name: Generate the official book page
     needs: build
-    # Generate a reviewable artifact on every branch, even without publishing.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6

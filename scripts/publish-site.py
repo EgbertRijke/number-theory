@@ -105,8 +105,6 @@ def publish(build, checkout, branch, scope):
         if pushed.returncode == 0:
             print(f'Published {scope} to deployment branch {branch}.')
             return
-        # Re-read the latest remote tree and reapply only our scope. This
-        # preserves a concurrent publication by the other repository.
     raise ValueError('Push failed after three attempts: ' + pushed.stderr)
 
 
