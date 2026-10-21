@@ -318,7 +318,7 @@ We give a second proof of the addition law, making use of the fundamental identi
   \begin{enumerate}
   \item There is a function $g:\mathbb{N}\to\mathbb{N}$ satisfying the logical equivalence
   \begin{equation*}
-    g(m)\mid n \Leftrightarrow m\mid f(n).
+    g(m)\mid n \quad\Leftrightarrow\quad m\mid f(n).
   \end{equation*}
   \item The divisibility sequence $f$ is a strong divisibility sequence.
   \end{enumerate}
@@ -328,7 +328,7 @@ We give a second proof of the addition law, making use of the fundamental identi
 \begin{proof}
   Suppose first that there exists a function $g$ satisfying the logical equivalence
   \begin{equation*}
-    g(m)\mid n \Leftrightarrow m\mid f(n).
+    g(m)\mid n \quad\Leftrightarrow\quad m\mid f(n).
   \end{equation*}
   Then it follows that
   \begin{align*}
@@ -353,7 +353,7 @@ We give a second proof of the addition law, making use of the fundamental identi
 
   We claim that the function $g$ satisfies the logical equivalence
   \begin{equation*}
-    g(m)\mid n\Leftrightarrow m\mid f(n).
+    g(m)\mid n \quad\Leftrightarrow\quad m\mid f(n).
   \end{equation*}
   If $m\mid f(n)$, then it follows that $n\in I_m$ so that $g(m)\mid n$. This proves the reverse direction.
 
@@ -395,7 +395,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
   \end{equation*}
   By the assumption that $a$ and $b$ are relatively prime it follows that the sequence $u_n$ is a strong divisiblity sequence. Thus, the rank-of-apparition function $\rho$ satisfies
   \begin{equation*}
-    \rho(m)\mid n\Leftrightarrow m\mid u_n.
+    \rho(m)\mid n\quad\Leftrightarrow\quad m\mid u_n.
   \end{equation*}
   We make a more detailed analysis of the rank of apparition of a prime, depending on whether it divides $a-b$, $a$, $b$, or none of these numbers.
 
@@ -405,7 +405,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
   \end{equation*}
   Since $a$ and $b$ are invertible modulo $p$, it follows that $(a/b)^n\equiv 1\pmod{p}$, which is equivalent to the condition that $\ord_p(a/b)\mid n$. Thus, we conclude that
   \begin{equation*}
-    \ord_p(a/b)\mid n \Leftrightarrow p\mid u_n.
+    \ord_p(a/b)\mid n \quad\Leftrightarrow\quad p\mid u_n.
   \end{equation*}
   It follows that $\rho(p)=\ord_p(a/b)$. We can extend these observation to moduli $m$ with $\gcd(m,ab(a-b))=1$. Here again, $a$ and $b$ are invertible modulo $m$, from which it follows that
   \begin{equation*}
@@ -423,7 +423,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
   \end{equation*}
   Given that $p\nmid a$, it follows that
   \begin{equation*}
-    p\mid n\Leftrightarrow p\mid u_n.
+    p\mid n\quad\Leftrightarrow\quad p\mid u_n.
   \end{equation*}
   In other words, the rank of apparition of $p$ is $\rho(p)=p$.
 
@@ -437,7 +437,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
 \begin{remark}
   More generally, if $(P,\leq_P)$ and $(Q,\leq_Q)$ are two posets, a \define{Galois connection} between $P$ and $Q$ consists of order preserving maps $f:P\to Q$ and $g:Q\to P$ satisfying the logical equivalence
   \begin{equation*}
-    g(x)\leq_P y \Leftrightarrow x\leq_Q f(y)
+    g(x)\leq_P y \quad\Leftrightarrow\quad x\leq_Q f(y)
   \end{equation*}
   for any $x\in Q$ and $y\in P$. In this case, the map $f$ is said to be the \define{upper adjoint}, and the map $g$ is said to be the \define{lower adjoint} of the Galois connection. Thus we have proven in this section that the function $n\mapsto a^n-1$ is the upper adjoint of a Galois connection, and we have used this fact to show that $f$ preserves greatest common divisors. \zcref{theorem:rank-of-apparition} generalizes to the setting of arbitrary posets, and indeed, some readers may recognize it as a special case of the \emph{Adjoint Functor Theorem}.
 
@@ -635,7 +635,7 @@ The previous lemma can be iterated to obtain a general lemma called the \emph{Li
     We will call this number $G_m$. By virtue of its duality to the Fibonacci sequence, we will call the sequence $G$ the \define{cofibonacci sequence}.
   \item Show that $G(m)$ satisfies the following logical equivalence
     \begin{equation*}
-      G_m\mid n \Leftrightarrow m \mid F_n.
+      G_m\mid n \quad\Leftrightarrow\quad m \mid F_n.
     \end{equation*}
     Conclude that the Fibonacci sequence is a strong divisibility sequence.
   \end{subexenum}
