@@ -140,6 +140,79 @@ An essential step in the previous example was the reduction of a system of linea
 \end{align*}
 In the following theorem we will prove that this system of congruences is uniquely solvable modulo $mn$, provided that $m$ and $n$ are relatively prime.
 
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    alt={
+      A cyclic set with 15 elements is displayed. The nodes with numbers 2, 5, 8, 11, and 14 are colored blue and the nodes with numbers 3, 8, 13 are colored orange. For the node with number 8, which is to be colored both blue and orange, a mixture of the two colors is used.
+    },
+    thick, every node/.style={
+      circle,
+      draw,
+      minimum size=7mm,
+      inner sep=1pt,
+      text=black,
+      text opacity=1},
+    firsthighlight/.style={
+      fill=CornflowerBlue,
+      fill opacity=0.4,
+    },
+    secondhighlight/.style={
+      fill=YellowOrange,
+      fill opacity=0.4,
+    },
+    bothhighlight/.style={
+      fill=CornflowerBlue!50!YellowOrange,
+      fill opacity=0.4,
+    },
+    ]
+    
+    \def\n{15}
+    \def\radius{3.3cm}
+
+    \foreach \i in {1,...,\n} {
+      \pgfmathsetmacro{\midangle}{90-360/\n*(\i-0.5)}
+      
+      \def\startoffset{4}
+      \def\endoffset{4}
+      
+      \draw[->]
+      (\midangle+\startoffset:\radius)
+      arc[
+      start angle=\midangle+\startoffset,
+      end angle=\midangle-\endoffset,
+      radius=\radius
+      ];
+    }
+    
+    \foreach \i in {1,...,\n} {
+      \pgfmathtruncatemacro{\value}{\i-1}
+      \pgfmathtruncatemacro{\firsthighlighted}{mod(\value,3)==2}
+      \pgfmathtruncatemacro{\secondhighlighted}{mod(\value,5)==3}
+      
+      \ifnum\firsthighlighted=1
+        \ifnum\secondhighlighted=1
+          \def\nodestyle{bothhighlight}
+        \else
+          \def\nodestyle{firsthighlight}
+        \fi
+      \else
+        \ifnum\secondhighlighted=1
+          \def\nodestyle{secondhighlight}
+        \else
+          \def\nodestyle{}
+        \fi
+      \fi
+      
+      \node[\nodestyle] (N\i)
+      at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+    }
+  
+\end{tikzpicture}  
+  \caption[The Chinese Remainder Theorem]{The cyclic set with $15$ elements admits maps to the cyclic sets with $3$ and $5$ elements. Every third element of $C_{15}$ starting from $2$ is colored blue, while every fifth element starting from $3$ is colored orange. Exactly one element is colored both blue and orange. In this case, the number $8$ is both orange and blue.}
+  \label{figure:chinese-remainder-theorem}
+\end{figure}
+
 \begin{theorem}[Chinese Remainder Theorem]\label{theorem:chinese-remainder-theorem}
   Consider two linear congruences
   \begin{align*}
