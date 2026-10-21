@@ -110,13 +110,13 @@ case "${1:-}" in
         exit 1
       }
     else
-      : "${NT_TEXLIVE_INSTALLER:?}" "${NT_TEXLIVE_REPOSITORY:?}"
       if [[ "$from_cache" == true && "$installed_year" != "$NT_TEXLIVE_YEAR" ]]; then
         echo "::warning::Cached TeX Live $installed_year differs from mirror release $NT_TEXLIVE_YEAR; keeping the cached release."
         NT_TEXLIVE_YEAR=$installed_year
         NT_TEXLIVE_OFFLINE=true
       fi
       if [[ "$from_cache" == false ]]; then
+        : "${NT_TEXLIVE_INSTALLER:?}" "${NT_TEXLIVE_REPOSITORY:?}"
         profile=$(mktemp)
         cat > "$profile" <<PROFILE
 selected_scheme scheme-full
