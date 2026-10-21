@@ -255,9 +255,81 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
 %   Consider to finite cyclically ordered sets $(C,f)$ and $(D,g)$ of order $m$ and $n$, respectively. Then their product $(C\times D,f\times g)$ is cyclically ordered if and only if $m$ and $n$ are relatively prime.
 % \end{theorem}
 
-\section[Lifting Congruences]{Lifting Congruences via the Chinese Remainder Theorem}
+\section[Lifting Congruence Classes]{Lifting Congruence Classes via the Chinese Remainder Theorem}
 
-\begin{theorem}
+\begin{example}
+  The number $3$ is relatively prime to the number $4$. This, however, does not imply that the number $3$ is relatively prime to every multiple of $4$. For instance, $\gcd(12,3)=3$. However, there are integers $k$ such that $\gcd(12,3+4k)=1$. Indeed, the integers $k=1$ and $k=2$ are two such examples. This shows that if we color ever fourth integer starting from $3$ blue, then we will find that at least one of the colored integers is relatively prime to $12$.
+
+  Another way of saying this, is that the cyclic-structure map $\mathbb{Z}/{12}\to\mathbb{Z}/{4}$ given by
+  \begin{equation*}
+    x\pmod{12} \mapsto x\pmod{4}
+  \end{equation*}
+  induces a surjective map from the invertible numbers modulo $12$ to the invertible numbers modulo $4$. This observation holds generally, as we establish in the following theorem.
+\end{example}
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    alt={
+      The cyclic set with 12 elements is displayed, where the displayed value of an element k is gcd 12 k. The third node is shaded blue, as are the seventh and the eleventh. Among the shaded nodes, the seventh and eleventh have greatest common divisor 1 with 12.
+    },
+    thick, every node/.style={circle, draw, minimum size=7mm, inner sep=1pt},
+    highlight/.style={fill=CornflowerBlue!40},
+    gcdnode/.style={
+      circle,
+      draw,
+      fill=white,
+      minimum size=4mm,
+      inner sep=.5pt,
+      font=\footnotesize
+    }]
+    
+    \def\n{12}
+    \def\radius{2.8cm}
+
+    \foreach \i in {1,...,\n} {
+      \pgfmathsetmacro{\midangle}{90-360/\n*(\i-0.5)}
+      
+      \def\startoffset{5}
+      \def\endoffset{5}
+      
+      \ifnum\i=4 \def\endoffset{2}\fi
+      \ifnum\i=5 \def\endoffset{1.5}\fi
+      
+      \ifnum\i=11 \def\startoffset{1}\fi
+      \ifnum\i=12 \def\startoffset{2}\fi
+      
+      \draw[->]
+      (\midangle+\startoffset:\radius)
+      arc[
+      start angle=\midangle+\startoffset,
+      end angle=\midangle-\endoffset,
+      radius=\radius
+      ];
+    }
+    
+    \foreach \i in {1,...,\n} {
+      \pgfmathtruncatemacro{\value}{\i-1}
+      \pgfmathtruncatemacro{\g}{gcd(\value,\n)}
+      \pgfmathtruncatemacro{\highlighted}{mod(\value,4)==3}
+      
+      \ifnum\highlighted=1
+        \node[highlight] (N\i)
+        at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+      \else
+        \node (N\i)
+        at ({90-360/\n*(\i-1)}:\radius) {$\value$};
+      \fi
+      
+      \node[gcdnode] at (N\i.north east) {$\g$};
+    }
+
+  \end{tikzpicture}  
+  \caption[Surjectivity of the map $(\mathbb{Z}/12)^{\times}\to(\mathbb{Z}/4)^{\times}$]{The cyclic set with $12$ elements, in which the node of an element $k$ has value $\gcd(12,k)$. Every fourth node is shaded blue, starting from the third node. The number $3$ is relatively prime to $4$, and among the blue nodes we find some that are relatively prime to $12$.}
+  \label{figure:surjective-on-units}
+\end{figure}
+
+\begin{theorem}\label{theorem:unit-surjectivity-mod}
   Suppose that $m\mid n$, and $\gcd(a,m)=1$. Then there is an integer $b$ such that
   \begin{equation*}
     a\equiv b\pmod{m}\qquad\text{and}\qquad \gcd(b,n)=1.
@@ -267,7 +339,7 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
 \begin{proof}
   Let $s$ be the largest divisor of $n$ such that $\gcd(s,m)=1$, so that
   \begin{equation*}
-    d\mid s \quad\Leftrightarrow\quad d\mid n \land \gcd(d,m)=1,
+    d\mid s \quad\Leftrightarrow\quad d\mid n\text{ and }\gcd(d,m)=1,
   \end{equation*}
   and set $t=n/s$, giving $n=st$. Since $m\mid st$ and $m$ is relatively prime to $s$, it follows that $m\mid t$. By \zcref{theorem:chinese-remainder-theorem} there exists an integer $b$ satisfying
   \begin{align*}
@@ -307,6 +379,10 @@ In other words, the number $u_i$ is the inverse of $M_i$ modulo $m_i$.
     xy + 7x + 4y \equiv 10\pmod{13}.
   \end{equation*}
   Compute the congruence class of $y$ modulo $13$ for $x\equiv 2,5,8\pmod{13}$.
+  \exercise Show that \zcref{theorem:unit-surjectivity-mod} can be extended to the folling more general statement: If $m\mid n$ and $\gcd(a,m)=g$, then there is an integer $b$ such that
+  \begin{equation*}
+    a\equiv b\pmod{m}\qquad\text{and}\qquad \gcd(b,n)=g.
+  \end{equation*}
   \exercise For any natural number $n$, and any two integers $a$ and $b$, show that the following are equivalent:
   \begin{enumerate}
   \item $\gcd(a,n)=\gcd(b,n)$,
