@@ -1,4 +1,4 @@
-# The Great Story Of Number Theory
+# The Great Story Of Numbers
 
 Hi there!
  
