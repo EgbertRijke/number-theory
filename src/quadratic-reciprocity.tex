@@ -390,23 +390,166 @@ is also a bijection. Restricting this bijection to the set $\{1,\ldots,\frac{p-1
 \begin{equation*}
   x\mapsto \lres{ax}{p} :\bigl\{1,\ldots,\tfrac{p-1}{2}\bigr\}\to\bigl\{-\tfrac{p-1}{2},\ldots,\tfrac{p-1}{2}\bigr\}.
 \end{equation*}
-The following lemma shows that every $1\leq x\leq\frac{p-1}{2}$ occurs exactly once as the absolute value of any number of the form $\lres{ax}{p}$.
+The following lemma implies that every $1\leq x\leq\frac{p-1}{2}$ occurs exactly once as the absolute value of any number of the form $\lres{ax}{p}$. This holds whenever $a$ is relatively prime to the modulus $m\geq 3$, as illustrated in \zcref{figure:gausss-lemma-bijection}.
+
+\begin{figure}[p]
+  \centering
+  \def\m{3}
+  \def\n{3}
+  \def\cellsize{3mm}
+  \def\horizontalgap{4}
+  \def\verticalgap{5}
+  
+  \pgfmathtruncatemacro{\p}{\m*\n+1}
+  \pgfmathtruncatemacro{\lastindex}{\p-1}
+  \pgfmathtruncatemacro{\halfindex}{\lastindex/2}
+  
+  \begin{tikzpicture}[
+    x=\cellsize,
+    y=\cellsize,
+    font=\scriptsize,
+    every node/.style={inner sep=0pt}
+    ]
+    \foreach \a in {1,...,\lastindex} {
+      \pgfmathtruncatemacro{\panelrow}{floor((\a-1)/\n)}
+      \pgfmathtruncatemacro{\panelcolumn}{mod(\a-1,\n)}
+      
+      \begin{scope}[shift={(
+          {\panelcolumn*(\p+\horizontalgap)},
+          {-\panelrow*(\p+\verticalgap)}
+          )}]
+        \fill[black!10] (0,0) rectangle (\p,1);
+        \fill[black!10] (0,0) rectangle (1,\p);
+        \fill[YellowOrange, fill opacity=0.4]
+        (1,\halfindex+1) rectangle (\halfindex+1,\p);
+        
+        \foreach \x in {1,...,\halfindex} {
+          \pgfmathtruncatemacro{\y}{mod(\a*\x,\p)}
+          \ifnum\y>\halfindex\relax
+            \pgfmathtruncatemacro{\reflectedrow}{\p-\y}
+            \fill[SpringGreen, fill opacity=1]
+            (\x,\reflectedrow) rectangle ++(1,1);
+          \fi
+        }
+        
+        \foreach \x in {0,...,\lastindex} {
+          \pgfmathtruncatemacro{\y}{mod(\a*\x,\p)}
+          \fill[CornflowerBlue, fill opacity=1]
+          (\x,\y) rectangle ++(1,1);
+        }
+        
+        \draw[step=\cellsize, black!45, line width=0.15pt]
+        (0,0) grid (\p,\p);
+        \draw[black, line width=0.35pt]
+        (0,0) rectangle (\p,\p);
+        
+        \node[anchor=south, font=\small]
+        at (\p/2,\p+0.6) {$a=\a$};
+        
+        \draw[Black, thick]
+        (1,1) rectangle (\halfindex+1,\halfindex+1);
+      \end{scope}
+    }
+  \end{tikzpicture}
+  \caption[The least absolute residue bijection]{The least absolute residue function is a bijection on $\{1,\ldots,\lfloor(m-1)/2\rfloor\}$ if and only if the multiplier $a$ is relatively prime to $m$.}
+  \label{figure:gausss-lemma-bijection}
+\end{figure}
 
 \begin{lemma}\label{lemma:bijection-gausss-lemma}
-  The function
+  Consider a modulus $m\geq 3$ with $m':=\lfloor\tfrac{m-1}{2}\rfloor$, let $a$ be an integer. Then the map $r_a$ given by $x\mapsto \abslres{ax}{m}$ defines a function
   \begin{equation*}
-    r_a:\bigl\{1,\ldots,\tfrac{p-1}{2}\bigr\}\to\bigl\{1,\ldots,\tfrac{p-1}{2}\bigr\}
+    r_a: \{1,\ldots,m'\} \to \{1,\ldots,m'\}.
   \end{equation*}
-  given by $r_a(x):=\abslres{ax}{p}$ is a bijection.
+  Furthermore, this function $r_a$ is a bijection if and only if $a$ is relatively prime to $m$.
 \end{lemma}
 
 \begin{proof}
-  Since $r_a$ is a function between two sets of finite size $\frac{p-1}{2}$, it suffices to show that $r_a$ is injective. To this end, consider $x$ and $y$ such that $r_a(x)=r_a(y)$. Since the function $x\mapsto \lres{ax}{p}$ is injective, this implies that
+  Suppose first that $\gcd(a,m)=1$.
+  For any $1\leq x\leq m'$, we have $0<2x<m$, so that
+  $m\nmid 2ax$. Consequently,
   \begin{equation*}
-    \lres{ax}{p}=-\lres{ay}{p}
+    0<\abslres{ax}{m}<\frac{m}{2},
   \end{equation*}
-  or, equivalently, that $ax-ay$ is divisible by $p$. Since $a$ is relatively prime to $p$, this implies that $x-y$ is divisible by $p$, i.e., that $x=y$.
+  showing that $r_a$ takes values in the indicated set.
+
+  To prove injectivity, suppose that $r_a(x)=r_a(y)$. Then
+  \begin{equation*}
+    ax\equiv \pm ay\pmod{m},
+  \end{equation*}
+  and hence $x\equiv \pm y\pmod{m}$.
+  The negative sign is impossible because $0<x+y<m$.
+  Thus $x\equiv y\pmod{m}$, which implies $x=y$.
+  Since the domain and codomain have the same finite size,
+  $r_a$ is a bijection.
+
+  Conversely, suppose that the formula defines a bijection.
+  Since $m\geq 3$, its codomain contains $1$, so there is
+  an $x$ such that $\abslres{ax}{m}=1$. Therefore
+  $ax\equiv \pm1\pmod{m}$, which implies $\gcd(a,m)=1$.
 \end{proof}
+
+\begin{figure}[p]
+  \centering
+  \def\m{4}
+  \def\n{3}
+  \def\cellsize{2.2mm}
+  \def\horizontalgap{3.3}
+  \def\verticalgap{4}
+  
+  \pgfmathtruncatemacro{\p}{\m*\n+1}
+  \pgfmathtruncatemacro{\lastindex}{\p-1}
+  \pgfmathtruncatemacro{\halfindex}{\lastindex/2}
+  
+  \begin{tikzpicture}[
+    x=\cellsize,
+    y=\cellsize,
+    font=\scriptsize,
+    every node/.style={inner sep=0pt}
+    ]
+    \foreach \a in {1,...,\lastindex} {
+      \pgfmathtruncatemacro{\panelrow}{floor((\a-1)/\n)}
+      \pgfmathtruncatemacro{\panelcolumn}{mod(\a-1,\n)}
+      
+      \begin{scope}[shift={(
+          {\panelcolumn*(\p+\horizontalgap)},
+          {-\panelrow*(\p+\verticalgap)}
+          )}]
+        \fill[black!10] (0,0) rectangle (\p,1);
+        \fill[black!10] (0,0) rectangle (1,\p);
+        \fill[YellowOrange, fill opacity=0.4]
+        (1,\halfindex+1) rectangle (\halfindex+1,\p);
+        
+        \foreach \x in {1,...,\halfindex} {
+          \pgfmathtruncatemacro{\y}{mod(\a*\x,\p)}
+          \ifnum\y>\halfindex\relax
+            \pgfmathtruncatemacro{\reflectedrow}{\p-\y}
+            \fill[SpringGreen, fill opacity=1]
+            (\x,\reflectedrow) rectangle ++(1,1);
+          \fi
+        }
+        
+        \foreach \x in {0,...,\lastindex} {
+          \pgfmathtruncatemacro{\y}{mod(\a*\x,\p)}
+          \fill[CornflowerBlue, fill opacity=1]
+          (\x,\y) rectangle ++(1,1);
+        }
+        
+        \draw[step=\cellsize, black!45, line width=0.15pt]
+        (0,0) grid (\p,\p);
+        \draw[black, line width=0.35pt]
+        (0,0) rectangle (\p,\p);
+        
+        \node[anchor=south, font=\small]
+        at (\p/2,\p+0.6) {$a=\a$};
+        
+        \draw[Black, thick]
+        (1,1) rectangle (\halfindex+1,\halfindex+1);
+      \end{scope}
+    }
+  \end{tikzpicture}
+  \caption[Gauss's lemma]{If $p$ is an oodd prime, then the number of reflected residues of $ax$ modulo $p$ for $1\leq x\leq \tfrac{p-1}{2}$ is even if and only if $a$ is a quadratic residue.}
+  \label{figure:gausss-lemma-bijection}
+\end{figure}
 
 \begin{lemma}[Gauss's Lemma]\label{lemma:gausss-lemma}
   Consider an odd prime $p$ and an integer such that $p\nmid a$. Define $\mu$ to be the number of elements $x$ among the residue classes
