@@ -8,6 +8,53 @@ The simplest linear congruence is the linear congruence
 \end{equation*}
 To solve this linear congruence, we are tasked with finding an integer $x$ for which the congruence $ax\equiv b\pmod{n}$ holds. However, we may immediately observe that if $x\equiv x' \mod{n}$, then the congruence $ax\equiv b\pmod{n}$ holds if and only if the congruence $ax'\equiv b\pmod{n}$ holds. Thus, we are really interested in solving such congruences in $\mathbb{Z}/n\mathbb{Z}$, i.e., in finding a congruence class $[x]$ modulo $n$ for which the congruence $ax\equiv b\pmod{n}$ holds.
 
+\begin{figure}
+  \centering
+  \def\m{4}
+  \def\n{3}
+  \def\cellsize{3mm}
+  \def\horizontalgap{4}
+  \def\verticalgap{5}
+
+  \pgfmathtruncatemacro{\p}{\m*\n+1}
+  \pgfmathtruncatemacro{\lastindex}{\p-1}
+
+  \resizebox{!}{.94\textheight}{%
+    \begin{tikzpicture}[
+      x=\cellsize,
+      y=\cellsize,
+      font=\scriptsize,
+      every node/.style={inner sep=0pt}
+      ]
+      \foreach \a in {1,...,\lastindex} {
+        \pgfmathtruncatemacro{\panelrow}{floor((\a-1)/\n)}
+        \pgfmathtruncatemacro{\panelcolumn}{mod(\a-1,\n)}
+        
+        \begin{scope}[shift={(
+            {\panelcolumn*(\p+\horizontalgap)},
+            {-\panelrow*(\p+\verticalgap)}
+            )}]
+          \foreach \x in {0,...,\lastindex} {
+            \pgfmathtruncatemacro{\y}{mod(\a*\x,\p)}
+            \fill[CornflowerBlue]
+            (\x,\y) rectangle ++(1,1);
+          }
+          
+          \draw[step=\cellsize, black!45, line width=0.15pt]
+          (0,0) grid (\p,\p);
+          \draw[black, line width=0.35pt]
+          (0,0) rectangle (\p,\p);
+          
+          \node[anchor=south, font=\small]
+          at (\p/2,\p+0.6) {$n=\a$};
+        \end{scope}
+      }
+    \end{tikzpicture}
+  }
+  \caption[Weaving patterns modulo $13$]{In the $n$\supth{} grid, the square $(x,y)$ is colored blue if $y\equiv nx\pmod{13}$.}
+  \label{figure:weaving-patters-mod-13}
+\end{figure}
+
 A complete solution to the linear congruence $ax\equiv b\pmod{n}$ is a description of the set of all congruence classes $[x]$ modulo $n$ that satisfy the linear congruence. We typically list these solutions by listing the numbers $0\leq x < n$ for which the congruence holds. For example, the linear congruence
 \begin{equation*}
   4x\equiv 2\pmod{6}
