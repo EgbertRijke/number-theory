@@ -705,45 +705,44 @@ The logical equivalence in \zcrefnamed{theorem:order-theorem} can also be used e
   \centering
   \def\m{4}
   \def\n{3}
-  \def\cellsize{3mm}
-  \def\horizontalgap{4}
-  \def\verticalgap{5}
-
+  \def\cellsize{2.5mm}
+  \def\horizontalgap{3.6}
+  \def\verticalgap{4.5}
+  
   \pgfmathtruncatemacro{\p}{\m*\n+1}
   \pgfmathtruncatemacro{\lastindex}{\p-1}
-
-  \resizebox{!}{.94\textheight}{%
-    \begin{tikzpicture}[
-      x=\cellsize,
-      y=\cellsize,
-      font=\scriptsize,
-      every node/.style={inner sep=0pt}
-      ]
-      \foreach \a in {1,...,\lastindex} {
-        \pgfmathtruncatemacro{\panelrow}{floor((\a-1)/\n)}
-        \pgfmathtruncatemacro{\panelcolumn}{mod(\a-1,\n)}
+  
+  \begin{tikzpicture}[
+    x=\cellsize,
+    y=\cellsize,
+    font=\scriptsize,
+    every node/.style={inner sep=0pt}
+    ]
+    \foreach \a in {1,...,\lastindex} {
+      \pgfmathtruncatemacro{\panelrow}{floor((\a-1)/\n)}
+      \pgfmathtruncatemacro{\panelcolumn}{mod(\a-1,\n)}
+      
+      \begin{scope}[shift={(
+          {\panelcolumn*(\p+\horizontalgap)},
+          {-\panelrow*(\p+\verticalgap)}
+          )}]
+        \foreach \x in {0,...,\lastindex} {
+          \pgfmathtruncatemacro{\y}{mod(\a*\x,\p)}
+          \fill[CornflowerBlue]
+          (\x,\y) rectangle ++(1,1);
+        }
         
-        \begin{scope}[shift={(
-            {\panelcolumn*(\p+\horizontalgap)},
-            {-\panelrow*(\p+\verticalgap)}
-            )}]
-          \foreach \x in {0,...,\lastindex} {
-            \pgfmathtruncatemacro{\y}{mod(\a*\x,\p)}
-            \fill[CornflowerBlue]
-            (\x,\y) rectangle ++(1,1);
-          }
-          
-          \draw[step=\cellsize, black!45, line width=0.15pt]
-          (0,0) grid (\p,\p);
-          \draw[black, line width=0.35pt]
-          (0,0) rectangle (\p,\p);
-          
-          \node[anchor=south, font=\small]
-          at (\p/2,\p+0.6) {$n=\a$};
-        \end{scope}
-      }
-    \end{tikzpicture}
-  }
+        \draw[step=\cellsize, black!45, line width=0.15pt]
+        (0,0) grid (\p,\p);
+        \draw[black, line width=0.35pt]
+        (0,0) rectangle (\p,\p);
+        
+        \node[anchor=south, font=\small]
+        at (\p/2,\p+0.6) {$n=\a$};
+      \end{scope}
+    }
+  \end{tikzpicture}
+
   \caption[Weaving patterns modulo $13$]{In the $n$\supth{} grid, the square $(x,y)$ is colored blue if $y\equiv nx\pmod{13}$.}
   \label{figure:weaving-patters-mod-13}
 \end{figure}
