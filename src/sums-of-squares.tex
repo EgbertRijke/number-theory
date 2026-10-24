@@ -232,6 +232,34 @@ In order to analyze them further, write $|x|_p$ for the least distance to a mult
   \end{equation*}
 \end{proof}
 
+\begin{figure}[t]
+  \centering
+  \def\cellsize{3mm}
+  \begin{tikzpicture}[  
+    x=\cellsize,
+    y=\cellsize,
+    every node/.style={inner sep=0pt}
+    ]
+    
+    
+    \foreach \x in {0,...,28} {
+      \pgfmathtruncatemacro{\y}{mod(12*\x,29)}
+      \fill[CornflowerBlue]
+      (\x,\y) rectangle ++(1,1);
+    }
+    
+    \draw[step=\cellsize, black!30] (0,0) grid (29,29);
+    \draw[black] (0,0) rectangle (29,29);
+    
+    \draw[thick,RedOrange] (0,0) rectangle (6,6);
+  \end{tikzpicture}
+
+  \caption[Thue's lemma in Lucas' weaving patterns]{Thue's lemma in Lucas' weaving patterns. Here we displayed the points $(x,y)$ satisfying $y\equiv 12x\pmod{29}$.}
+  \label{figure:thue-weaving-pattern}
+\end{figure}
+
+Another way of looking at Thue's lemma is by the weaving patterns of Lucas, as illustrated in \zcref{figure:thue-weaving-pattern}. If $\gcd(a,n)=1$ and $m=\lfloor\sqrt{n}\rfloor$, then there must be a nonzero square with coordinates $(x,y)$ with $0\leq x,y\leq m$ satisfying $y\equiv ax\pmod{n}$. 
+
 \begin{theorem}\label{theorem:two-squares-primes}
   Any prime $p\equiv 1\pmod{4}$ has a unique primitive representation as a sum of two squares.
 \end{theorem}

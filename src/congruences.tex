@@ -732,10 +732,8 @@ The logical equivalence in \zcrefnamed{theorem:order-theorem} can also be used e
           (\x,\y) rectangle ++(1,1);
         }
         
-        \draw[step=\cellsize, black!45, line width=0.15pt]
-        (0,0) grid (\p,\p);
-        \draw[black, line width=0.35pt]
-        (0,0) rectangle (\p,\p);
+        \draw[step=\cellsize, black!30] (0,0) grid (\p,\p);
+        \draw[black] (0,0) rectangle (\p,\p);
         
         \node[anchor=south, font=\small]
         at (\p/2,\p+0.6) {$n=\a$};
