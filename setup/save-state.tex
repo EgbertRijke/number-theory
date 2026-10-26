@@ -2,7 +2,7 @@
 
 \directlua{
   local suffix = os.getenv("NT_VOLUME_SUFFIX") or ""
-  if suffix ~= "" and suffix ~= "-ally" then
+  if not (suffix == "" or suffix == "-ally") then
     tex.error("Invalid NT_VOLUME_SUFFIX (expected empty or -ally)", {suffix})
   end
   token.set_macro("NTVolumeSuffix", suffix, "global")
