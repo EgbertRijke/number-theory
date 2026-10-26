@@ -1,7 +1,5 @@
 \makeatletter
 
-% Keep each explicit font build in its own auxiliary namespace.  The Makefile
-% supplies either an empty suffix or a validated value such as -alegreya.
 \directlua{
   local suffix = os.getenv("NT_VOLUME_SUFFIX") or ""
   local valid = suffix == "" or suffix:sub(1, 1) == "-"

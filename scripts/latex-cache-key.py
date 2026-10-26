@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Fingerprint tracked book inputs, ignoring known website-only files.
 
-Run from the repository root after checkout. Unknown tracked files are included
-deliberately: a new book input should invalidate the cache without configuration.
-File names and contents are hashed, so renames/deletions count, but mtimes do not.
-"""
 import hashlib
 from pathlib import Path
 import subprocess

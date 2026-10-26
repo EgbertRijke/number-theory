@@ -1,10 +1,46 @@
+\input{setup/libertinus-custom-kerning}
+
 \directlua{
-  local fontsetup = os.getenv("NT_FONT_SETUP")
-  if fontsetup == nil or fontsetup == "" then
-    fontsetup = "fontsetups/libertinus-custom-kerning.tex"
-  end
-  tex.sprint("\\input{" .. fontsetup .. "}")
+  fonts.handlers.otf.addfeature{
+    name = "rijkeliga",
+    type = "chainsubstitution",
+    lookups = {
+      {
+        type = "ligature",
+        data = {
+          ["ĳ"] = { "i", "j" },
+        }
+      }
+    },
+    data = {
+      rules = {
+        {
+          before  = { { "R" } },
+          current = { { "i" }, { "j" } },
+          after   = { { "k" }, { "e" } },
+          lookups = { 1 }
+        }
+      }
+    }
+  }
 }
+
+\setmainfont{Libertinus Serif}[
+  Numbers = OldStyle,
+  Ligatures = {TeX, Common},
+  ContextualAlternates = On,
+  Kerning = On,
+  StylisticSet = {6},
+  RawFeature = {+customkerns,+rijkeliga},
+  SmallCapsFeatures = {LetterSpace=2, Kerning=On},
+]
+\setmathfont{Libertinus Math}[Scale=MatchLowercase]
+\setsansfont{Libertinus Sans}[Scale=MatchLowercase]
+\setmonofont{Libertinus Mono}[Scale=MatchLowercase]
+
+%\linespread{1.08}
+
+\newcommand{\VersionFontName}{Libertinus}
 
 \newfontfamily\mottofont{EB Garamond}[
   Numbers = OldStyle,

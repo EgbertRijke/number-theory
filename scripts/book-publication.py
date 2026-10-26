@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Collect PDFs and generate the Jekyll page owned by the book repository.
 
-Run from the repository root. `site` requires PyMuPDF and pdftoppm (Poppler).
-Output is the book page source tree, rendered with the website theme before deployment.
-"""
 import argparse
 from datetime import datetime, timezone
 from html import escape

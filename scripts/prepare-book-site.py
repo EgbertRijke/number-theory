@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare an isolated Jekyll build using the current personal website theme.
 
-No source pages from the website are copied. Only the generated book subtree
-will be deployed; shared root assets remain owned by the website workflow.
-"""
 import argparse
 from pathlib import Path
 import shutil

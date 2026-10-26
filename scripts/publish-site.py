@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Publish a scoped build into the website's deployment-only Git branch.
 
-IMPORTANT: --checkout must be a DISPOSABLE clean CI checkout of the destination
-repository. This command resets that checkout while retrying ordinary pushes.
-No force-push is used. The book owns notes/number-theory; the website owns the
-remaining deployment tree. Both workflows use this same helper.
-"""
 import argparse
 import os
 from pathlib import Path
