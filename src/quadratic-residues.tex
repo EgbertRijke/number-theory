@@ -478,6 +478,21 @@ A deep theorem, the Baker--Heegner--Stark Theorem, shows that these are the only
   \item Show that if $p\equiv 1\pmod{4}$ is a Sophie Germain prime, then $2$ is a primitive root modulo $q$.
   \item Show that if $p\equiv 3\pmod{4}$ is a Sophie Germain prime, then $-2$ is a primitive root modulo $q$.
   \end{subexenum}
+  \exercise Consider the Fibonacci sequence $(F_n)$. For parts (a) and (b) assume that $p\neq 2,5$ is a prime, and define
+  \begin{equation*}
+    h := \frac{p-\legendre{5}{p}}{2}.
+  \end{equation*}
+  \begin{subexenum}
+  \item Show that
+    \begin{equation*}
+      F_{n+2h}\equiv \legendre{5}{p} F_n\pmod{p}.
+    \end{equation*}
+  \item Show that
+    \begin{equation*}
+      F_{h+n} \equiv (-1)^{n+1}\legendre{-1}{p}F_{h-n}\pmod{p}.
+    \end{equation*}
+  \item Show that there does not exist an odd prime $p$ such that for all $0\leq k\leq p-1$, we have $k\equiv s^2$ for some $s$ if and only if $k\equiv F_n\pmod{p}$ for some Fibonacci number $n$.
+  \end{subexenum}
 \end{challenge}
 
 %%% Local Variables:
