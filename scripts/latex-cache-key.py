@@ -7,14 +7,12 @@ import subprocess
 
 WEBSITE_ONLY_FILES = {
     'README.md',
-    'LATEX-CACHE.md',
     'scripts/book-publication.py',
     'scripts/publication-requirements.txt',
     'scripts/prepare-book-site.py',
     'scripts/publish-site.py',
 }
 WEBSITE_ONLY_DIRECTORIES = {'site', '.github'}
-
 
 def fingerprint():
     tracked = subprocess.check_output(['git', 'ls-files', '-z']).split(b'\0')
