@@ -26,7 +26,7 @@ Note also that $2$ is a primitive root if and only if $\ord_p(2) = p-1$, so we s
 However, it is not quite true that $2$ is a primitive root modulo $p$ whenever it is a quadratic nonresidue modulo $p$: The first prime for which $2$ is neither a quadratic residue nor a primitive root is $43$.
 
 \begin{theorem}\label{theorem:second-supplement}
-  The Legendre symbol of $2$ modulo $p$ satisfies the identity
+  The Legendre symbol of $2$ modulo an odd prime $p$ satisfies the identity
   \begin{equation*}
     \legendre{2}{p}=(-1)^{\frac{p^2-1}{8}}.
   \end{equation*}
@@ -71,6 +71,83 @@ However, it is not quite true that $2$ is a primitive root modulo $p$ whenever i
     \end{cases}
     \qedhere
   \end{equation*}
+\end{proof}
+
+We will present a second combinatorial proof, due to Thomas Joannes Stieltjes \cite{stieltjes1884}.
+
+\begin{figure}[t]
+  \centering
+  \begingroup%
+  \def\pmax{43}%
+  \def\cellsize{0.1in}%
+  \def\rowsep{1.5}%
+  
+  \begin{tikzpicture}[
+    alt={%
+      For each prime p from 3 to 43, a horizontal strip of p minus 1 squares is displayed. Squares in the position of a quadratic residue modulo p is colored orange, and squares the position of a nonresidue modulo p is colored blue. For primes congruent to 1 modulo 4, the colors around the center of the strip are symmetric, while for primes congruent to 3 modulo 4, the reflection swaps the colors.
+    },
+    x=\cellsize,
+    y=\cellsize,
+    line width=0.4pt,
+    ]
+    \foreach \p [remember=\row as \previousrow (initially 0)]
+    in {3,...,\pmax} {
+      \let\row\previousrow
+      \pgfmathtruncatemacro{\prime}{isprime(\p)}
+      \ifnum\prime=1\relax
+        \pgfmathtruncatemacro{\last}{\p-1}
+        \pgfmathtruncatemacro{\half}{(\p-1)/2}
+        \pgfmathsetmacro{\stripy}{-\rowsep*\row}
+        
+        \begin{scope}[shift={(0,\stripy)}]
+          \fill[CornflowerBlue!40] (0,0) rectangle (\last,1);
+
+          \foreach \a in {1,...,\half} {
+            \pgfmathtruncatemacro{\x}{mod(\a*\a,\p)-1}
+            \fill[YellowOrange!40] (\x,0) rectangle ++(1,1);
+          }
+
+          \draw[black,step=\cellsize] (0,0) grid (\last,1);
+          \node[anchor=east,inner sep=0pt,outer sep=0pt]
+            at (-0.4,0.5) {$\p$};
+        \end{scope}
+
+        \pgfmathtruncatemacro{\row}{\row+1}
+      \fi
+    }
+  \end{tikzpicture}%
+\endgroup%
+  \caption[Quadratic residues and nonresidues]{%
+    Quadratic residues (orange) and nonresidues
+    (blue) among the integers $1,\ldots,p-1$,
+    for odd primes $3\leq p\leq43$.}
+  \label{figure:quadratic-residues}
+\end{figure}
+
+\begin{proof}
+  We will write $P:=\frac{p-1}{2}$. Call a number $1\leq k\leq p-2$ a \define{variation} if one of $k$ and $k+1$ is a residue and the other is a nonresidue. That is, if we color the residues orange and the nonresidues blue, as we did in \zcref{figure:quadratic-residues}, then $k$ is a variation if $k$ and $k+1$ have distinct colors. We first claim that there are exactly $P$ variations.
+
+  To see this, note that $k$ is a variation if and only if $k(k+1)$ is a nonresidue. Defining $r_k:=\frac{k+1}{k}$, so that $k^2r_k\equiv k(k+1)$, we see that $k$ is a variation if and only if $r_k$ is a nonresidue. Furthermore, the map $k\mapsto r_k$ is a bijection
+  \begin{equation*}
+    \{1,\ldots,p-2\}\cong\{2,\ldots,p-1\}
+  \end{equation*}
+  with inverse $k\mapsto \frac{1}{k-1}$. Since there are exactly $P$ nonresidues in the latter set, the claim follows. Consequently, we observe that since the sequence $1,\ldots,p-1$ begins with a residue and contains exactly $P$ variations, it follows that $-1\equiv p-1\pmod{p}$ is a residue if and only if $P$ is even. That is, $-1$ is a residue if and only if $p\equiv 1\pmod{4}$.
+
+  Observe that $k$ is a variation if and only if $p-k-1$ is a variation. Ideed, multiplying by $-1$ either preserves the residuosity of both members of a consecutive pair of numbers or reverses the residuosity of both. This implies that variations occur in pairs
+  \begin{equation*}
+    \{k,p-k-1\}
+  \end{equation*}
+  Each of these sets has exactly two elements, except the set $\{P,p-P-1\}=\{P\}$. Since the number of variations is $P$, we see that $P$ is a variation if and only if $P$ is odd. It also follows that the number of variations in the set $\{1,\ldots,P-1\}$ is
+  \begin{equation*}
+    \begin{cases}
+      \frac{p-1}{4} & \text{if }p\equiv 1\pmod{4}, \\[4pt]
+      \frac{p-3}{4} & \text{if }p\equiv 3\pmod{4}.
+    \end{cases}
+  \end{equation*}
+
+  There are now two cases, each of which splits in two further cases. If $p\equiv 1\pmod{4}$, then the congruence $2P\equiv -1\pmod{p}$ shows that $2$ is a residue if and only if $P$ is. Furthermore, $P$ is a residue if and only if $P$ is preceeded by an even number of variations. The number of variations preceeding $P$ is $(p-1)/4$, so we conclude that $2$ is a residue if $p\equiv 1\pmod{8}$, and a nonresidue if $p\equiv 5\pmod{8}$.
+
+  If $p\equiv 3\pmod{4}$, then the congruence $2P\equiv -1\pmod{p}$ shows that $2$ is a residue if and only if $P$ is a nonresidue. As before, $P$ is a residue if and only if $P$ is preceeded by an even number of variations, which is $(p-3)/4$, so we conclude that $2$ is a residue if $p\equiv 7\pmod{8}$ and a nonresidue if $p\equiv 3\pmod{8}$.
 \end{proof}
 
 The previous theorem is also known as the \emph{Second Supplement} of the law of Quadratic Reciprocity. An immediate corollary of the second supplement is that
