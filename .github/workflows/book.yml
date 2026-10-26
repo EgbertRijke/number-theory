@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build all default-font editions (LaTeX development)
+    name: Build all editions (LaTeX development)
     runs-on: ubuntu-24.04
     timeout-minutes: 240
     defaults:
@@ -108,7 +108,7 @@ jobs:
           echo "NT_TEXLIVE_ROOT=$RUNNER_TEMP/number-theory-texlive" >> "$GITHUB_ENV"
           echo "NT_TEXLIVE_CACHE_DAY=$(date -u +%F)" >> "$GITHUB_ENV"
 
-      - name: Restore TeX Live and font caches
+      - name: Restore TeX Live caches
         if: steps.cached-pdfs.outcome != 'success'
         id: tex-cache
         uses: actions/cache/restore@v4
@@ -181,7 +181,7 @@ jobs:
           path: ${{ env.NT_TEXLIVE_ROOT }}
           key: ${{ steps.tex-cache.outputs.cache-primary-key }}
 
-      - name: Compile canonical editions with the default fonts
+      - name: Compile canonical editions
         if: steps.cached-pdfs.outcome != 'success'
         run: make all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
 

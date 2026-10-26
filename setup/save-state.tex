@@ -2,18 +2,8 @@
 
 \directlua{
   local suffix = os.getenv("NT_VOLUME_SUFFIX") or ""
-  local valid = suffix == "" or suffix:sub(1, 1) == "-"
-  for i = 1, suffix:len() do
-    local byte = suffix:byte(i)
-    valid = valid and (
-      byte == 45
-      or (byte >= 48 and byte <= 57)
-      or (byte >= 65 and byte <= 90)
-      or (byte >= 97 and byte <= 122)
-    )
-  end
-  if valid == false then
-    tex.error("Invalid NT_VOLUME_SUFFIX", {suffix})
+  if suffix ~= "" and suffix ~= "-ally" then
+    tex.error("Invalid NT_VOLUME_SUFFIX (expected empty or -ally)", {suffix})
   end
   token.set_macro("NTVolumeSuffix", suffix, "global")
 }
