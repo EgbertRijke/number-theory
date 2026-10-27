@@ -1,0 +1,145 @@
+\ExplSyntaxOn
+\makeatletter
+
+\cs_new_protected:Npn \__nt_toc_page_separator:
+  {
+    \nobreak
+    \UseTaggingSocket{toc/leaders/before}
+    \SuspendTagging{toc/leaders}
+      \hspace{.65em}\textperiodcentered\hspace{.65em}
+    \ResumeTagging{toc/leaders}
+    \UseTaggingSocket{toc/leaders/after}
+    \nobreak
+  }
+\cs_new_eq:NN \TOCPageSeparator \__nt_toc_page_separator:
+
+\cs_new_protected:Npn \__nt_toc_entry:nnnn #1#2#3#4
+  {
+    \UseHookWithArguments{contentsline/text/before}{4}
+      {#1}{#2}{#3}{\@contentsline@destination}
+    \use:c {contentsline@text@#1@format} {#2}
+    \UseHookWithArguments{contentsline/text/after}{4}
+      {#1}{#2}{#3}{\@contentsline@destination}
+    \TOCPageSeparator
+    \UseHookWithArguments{contentsline/page/before}{4}
+      {#1}{#2}{#3}{\@contentsline@destination}
+    {#4#3}
+    \UseHookWithArguments{contentsline/page/after}{4}
+      {#1}{#2}{#3}{\@contentsline@destination}
+  }
+
+\cs_new_protected:Npn \__nt_toc_part_numberline:n #1
+  {
+    \__nt_toc_saved_numberline:n
+      {
+        \makebox[0pt][r]
+          {
+            \raisebox
+              {\dimexpr\fontcharht\font`H-\height\relax}
+              [0pt][0pt]
+              {
+                \color{Gray}\partdisplayfont\mdseries\scshape
+                \fontsize{48}{48}\selectfont #1
+              }
+            \hspace{1em}
+          }
+      }
+  }
+
+\cs_set_protected:Npn \l@part #1#2
+  {
+    \int_compare:nNnT {\value{tocdepth}} > {-2}
+      {
+        \addpenalty{-\@highpenalty}
+        \addvspace{2.25em \@plus\p@}
+        \group_begin:
+          \dim_zero:N \parindent
+          \skip_zero:N \leftskip
+          \skip_zero:N \rightskip
+          \skip_set:Nn \parfillskip {0pt plus 1fil}
+          \dim_zero:N \@tempdima
+          \cs_set_eq:NN \__nt_toc_saved_numberline:n \numberline
+          \cs_set_eq:NN \numberline \__nt_toc_part_numberline:n
+          \leavevmode\large\bfseries
+          \__nt_toc_entry:nnnn {-1}{#1}{#2}{}
+          \par
+          \nobreak
+        \group_end:
+      }
+  }
+
+\cs_set_protected:Npn \l@chapter #1#2
+  {
+    \int_compare:nNnT {\value{tocdepth}} > {-1}
+      {
+        \addpenalty{-\@highpenalty}
+        \vskip 1.0em \@plus\p@
+        \group_begin:
+          \dim_set:Nn \@tempdima
+            {\l__nt_toc_chapter_numwidth_dim}
+          \dim_set:Nn \parindent
+            {\l__nt_toc_chapter_indent_dim}
+          \skip_set:Nn \leftskip
+            {\l__nt_toc_chapter_indent_dim}
+          \skip_zero:N \rightskip
+          \skip_set:Nn \parfillskip {0pt plus 1fil}
+          \leavevmode\bfseries
+          \skip_add:Nn \leftskip {\@tempdima}
+          \null\nobreak\hskip-\leftskip
+          \__nt_toc_entry:nnnn {0}{#1}{#2}{}
+          \par
+          \penalty\@highpenalty
+        \group_end:
+      }
+  }
+
+\cs_set_protected:Npn \@dottedtocline #1#2#3#4#5
+  {
+    \int_compare:nNnF {#1} > {\value{tocdepth}}
+      {
+        \vskip\z@ \@plus .2\p@
+        \group_begin:
+          \skip_set:Nn \leftskip {#2}
+          \skip_zero:N \rightskip
+          \skip_set:Nn \parfillskip {0pt plus 1fil}
+          \dim_set:Nn \parindent {#2}
+          \@afterindenttrue
+          \interlinepenalty\@M
+          \leavevmode
+          \dim_set:Nn \@tempdima {#3}
+          \skip_add:Nn \leftskip {\@tempdima}
+          \null\nobreak\hskip-\leftskip
+          \__nt_toc_entry:nnnn {#1}{#4}{#5}{\normalfont\normalcolor}
+          \par
+        \group_end:
+      }
+  }
+
+\dim_new:N \l__nt_toc_chapter_indent_dim
+\dim_new:N \l__nt_toc_chapter_numwidth_dim
+
+\dim_set:Nn \l__nt_toc_chapter_indent_dim   {0em}
+\dim_set:Nn \l__nt_toc_chapter_numwidth_dim {2em}
+
+\cs_set_protected:Npn \l@section
+  {
+    \@dottedtocline {1}{2em}{3em}
+  }
+
+\cs_set_protected:Npn \l@subsection
+  {
+    \@dottedtocline {2}{5em}{3.5em}
+  }
+
+\cs_set_protected:Npn \l@figure
+  {
+    \@dottedtocline {1}{0em}{3em}
+  }
+
+\cs_set_protected:Npn \l@table
+  {
+    \@dottedtocline {1}{0em}{3em}
+  }
+
+\makeatother
+\ExplSyntaxOff
