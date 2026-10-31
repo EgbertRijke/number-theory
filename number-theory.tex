@@ -61,15 +61,140 @@
 
 \mainmatter
 
-\part{The Nature of Numbers}
+\BookDecoration[
+  alt={
+    A circle of radius square root of 10 is displayed on a Cartesian grid.
+    On the circle, a sequence of open dots are displayed with arrows
+    from each dot to the next, until the last dot is reached, which is a
+    solid dot.
+    The arrows from one dot to the next are obtained by tracing out the
+    unique line between it and the nearest lattice point, and it is
+    targeting the second intersection on the circle.
+    The solid dot is itself a lattice point, so this process terminates
+    there.
+  }
+]
+{        
+  \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
+  
+  \draw[thick] (0,0) circle ({sqrt(10)});
+  
+  \draw[->] (-4.2,0) -- (4.2,0);
+  \draw[->] (0,-4.2) -- (0,4.2);
+  
+  \coordinate (P5) at (-3,-1);
+  \draw[fill=black,thick] (P5) circle (2pt);
+  
+  \coordinate (R5) at ({-1401/3305},{-10357/3305});
+  \coordinate (R4) at ({1401/653},{-1517/653});
+  \coordinate (R3) at ({-13/41},{129/41});
+  \coordinate (R2) at ({13/5},{9/5});
+  \coordinate (R1) at ({-3},{-1});
+  \coordinate (Q5) at ({0},{-3});
+  \coordinate (Q4) at ({2},{-2});
+  \coordinate (Q3) at (0,3);
+  \coordinate (Q2) at (3,2);
+  \draw[DarkOrchid,very thick,->,shorten >=1.5ex] (R5) -- (R4);
+  \draw[Green,very thick,->,shorten >=1ex] (R4) -- (R3);    
+  \draw[YellowOrange,very thick,->,shorten >=1.5ex] (R3) -- (R2);
+  \draw[CornflowerBlue,very thick,->,shorten >=1ex] (Q2) -- (R1);
+  \draw[fill=white,thick] (R5) circle (2pt);
+  \draw[fill=white,thick] (R4) circle (2pt);
+  \draw[fill=white,thick] (R3) circle (2pt);
+  \draw[fill=white,thick] (R2) circle (2pt);
+  \draw[fill=DarkOrchid,draw=DarkOrchid,thick] (Q5) circle (2pt);
+  \draw[fill=Green,draw=Green,thick] (Q4) circle (2pt);
+  \draw[fill=YellowOrange,draw=YellowOrange,thick] (Q3) circle (2pt);
+  \draw[fill=CornflowerBlue,draw=CornflowerBlue,thick] (Q2) circle (2pt);
+  \draw[fill=white,thick] (R2) circle (2pt);
+}
+
+\part[
+  shorttitle={The Nature of Numbers}
+]{The Nature of Numbers}
 
 \input{src/contents-volume-1}
 
-\part{The Multiplicative Nature of Numbers}
+\BookDecoration[
+  thick,
+  every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}
+]
+{
+  \def\n{13}
+  \def\mult{2}
+  \pgfmathtruncatemacro{\nminusone}{\n-1}
+  \def\radius{3cm}
+  
+  \foreach \i in {0,...,\nminusone} {
+    \pgfmathsetmacro{\value}{int(\i)}
+    \node (N\i) at ({90-360/\n*(\i)}:\radius) {};
+  }
+  
+  \foreach \i in {0,...,\nminusone} {
+    \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
+    \draw[->] 
+    ({\angle-8}:\radius)
+    arc[start angle={\angle-8}, delta angle={-360/\n+16}, radius=\radius];
+  }
+  
+  \draw[very thick,YellowOrange,->,shorten >= 3pt,shorten <= 3pt] (N0) to[out=240,in=300,looseness=5] (N0);
+  
+  \foreach \i in {1,...,\nminusone} {
+    \pgfmathtruncatemacro{\j}{mod(\mult*\i,\n)}
+    \pgfmathtruncatemacro{\d}{mod(\j-\i+\n,\n)}
+    \pgfmathtruncatemacro{\useRight}{(\d <= \n/2 ? 1 : 0)}
+    \ifnum\useRight=1
+      \draw[very thick, CornflowerBlue, ->, shorten >= 3pt, shorten <= 3pt]
+      (N\i) to[bend right=20] (N\j);
+    \else
+      \draw[very thick, CornflowerBlue, ->, shorten >= 3pt, shorten <= 3pt]
+      (N\i) to[bend left=20] (N\j);
+    \fi
+  }
+}
+
+\part[
+  shorttitle = {The Multiplicative Nature of Numbers}
+]{%
+  The Multiplicative Nature\\
+  of\\
+  Numbers%
+}
 
 \input{src/contents-volume-2}
 
-\part{The Arithmetic of Quadratic Forms}
+\BookDecoration[
+  scale=1,
+  line join=round,
+  line cap=round
+]
+{
+  \def\p{17}
+  \def\q{13}
+  \def\xmax{8.5}
+  \def\ymax{6.5}
+  
+  \draw[very thick,lightgray,dashed] (0,0) rectangle (\xmax,\ymax);
+  
+  \draw[->] (-0.3,0) -- (\xmax+0.5,0);
+  \draw[->] (0,-0.3) -- (0,\ymax+0.5);
+  
+  \foreach \x in {1,2,3,4,5,6,7,8} {
+    \foreach \y in {1,2,...,6} {
+      \fill[CornflowerBlue] (\x,\y) circle (2pt);
+    }
+  }
+  
+  \draw[very thick, domain=-0.2:\xmax+0.2] plot (\x, {(\q/\p)*\x});
+}
+
+\part[
+  shorttitle={The Arithmetic of Quadratic Forms}
+]{%
+  The Arithmetic\\
+  of\\
+  Quadratic Forms%
+}
 
 \input{src/contents-volume-3}
 

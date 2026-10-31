@@ -89,3 +89,28 @@
 \newcommand{\superhuge}{\fontsize{28}{34}\selectfont}
 
 \newfontfamily{\coffeefont}{Libertinus Sans}
+
+\ExplSyntaxOn
+
+\clist_map_inline:nn
+  {
+    tiny,
+    scriptsize,
+    footnotesize,
+    small,
+    normalsize,
+    large,
+    Large,
+    LARGE,
+    huge,
+    Huge
+  }
+  {
+    \skip_new:c { #1baselineskip }
+    \group_begin:
+      \use:c { #1 }
+      \skip_gset:cn { #1baselineskip } { \baselineskip }
+    \group_end:
+  }
+
+\ExplSyntaxOff
