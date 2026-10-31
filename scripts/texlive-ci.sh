@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-# Rolling full TeX Live for GitHub-hosted Ubuntu x86_64 runners.
 set -euo pipefail
 
 cached_year() {
@@ -25,20 +23,23 @@ case "${1:-}" in
     fi
     ;;
   prepare)
-    : "${RUNNER_TEMP:?}" "${GITHUB_OUTPUT:?}" "${NT_TEXLIVE_ROOT:?}"
+    : "${RUNNER_TEMP:?}" "${GITHUB_OUTPUT:?}" "${NT_TEXLIVE_ROOT:?}" "${NT_TEXLIVE_YEAR:?}"
     if installed_year=$(cached_year) && [[ "$installed_year" =~ ^[0-9]{4}$ ]]; then
+      [[ "$installed_year" == "$NT_TEXLIVE_YEAR" ]] || {
+        echo "::error::Cached TeX Live $installed_year does not match configured release $NT_TEXLIVE_YEAR." >&2
+        exit 1
+      }
       echo "::notice::Reusing cached TeX Live $installed_year; skipping installer download."
       {
         printf 'installer=\n'
-        printf 'repository=%s\n' 'https://ctan.math.illinois.edu/systems/texlive/tlnet'
+        printf 'repository=%s\n' 'https://mirrors.ctan.org/systems/texlive/tlnet'
         printf 'year=%s\n' "$installed_year"
         printf 'day=%s\n' "$(date -u +%F)"
-        printf 'offline=false\n'
       } >> "$GITHUB_OUTPUT"
       exit 0
     fi
     work=$(mktemp -d "$RUNNER_TEMP/texlive-installer.XXXXXX")
-    installer= repository= year= offline=true
+    installer= repository= year=
     for base in \
       https://mirrors.ctan.org/systems/texlive/tlnet \
       https://ctan.math.illinois.edu/systems/texlive/tlnet \
@@ -68,28 +69,23 @@ case "${1:-}" in
       version=$(perl "$candidate_installer" --version) || continue
       candidate_year=$(printf '%s\n' "$version" |
         sed -nE 's/^TeX Live .*version ([0-9]{4}).*/\1/p')
-      if [[ "$candidate_year" =~ ^[0-9]{4}$ ]]; then
+      if [[ "$candidate_year" == "$NT_TEXLIVE_YEAR" ]]; then
         installer=$candidate_installer
         repository=$candidate_repo
         year=$candidate_year
-        offline=false
         break
       fi
+      echo "Installer release $candidate_year differs from configured TeX Live $NT_TEXLIVE_YEAR; upgrade local and CI TeX Live together." >&2
     done
-    if [[ "$offline" == true ]]; then
-      year=$(cached_year) || year=
-      [[ "$year" =~ ^[0-9]{4}$ ]] || {
-        echo "No installer could be downloaded, and no usable cached TeX Live was found." >&2
-        exit 1
-      }
-      echo "::warning::TeX Live discovery failed; reusing cached release $year without an update."
+    if [[ -z "$installer" ]]; then
+      echo "No installer for TeX Live $NT_TEXLIVE_YEAR could be downloaded; cannot build with current released packages." >&2
+      exit 1
     fi
     {
       printf 'installer=%s\n' "$installer"
       printf 'repository=%s\n' "$repository"
       printf 'year=%s\n' "$year"
       printf 'day=%s\n' "$(date -u +%F)"
-      printf 'offline=%s\n' "$offline"
     } >> "$GITHUB_OUTPUT"
     ;;
   install)
@@ -97,28 +93,15 @@ case "${1:-}" in
     : "${GITHUB_PATH:?}" "${GITHUB_OUTPUT:?}"
     mkdir -p diagnostics
     texbin="$NT_TEXLIVE_ROOT/bin/x86_64-linux"
-    cacheable=false
-    from_cache=false
-    prior_cache=
     if installed_year=$(cached_year) && [[ "$installed_year" =~ ^[0-9]{4}$ ]]; then
-      from_cache=true
-    fi
-
-    if [[ "${NT_TEXLIVE_OFFLINE:-false}" == true ]]; then
-      [[ "$from_cache" == true && "$installed_year" == "$NT_TEXLIVE_YEAR" ]] || {
-        echo "Offline TeX Live requested, but the cached release cannot be used." >&2
+      [[ "$installed_year" == "$NT_TEXLIVE_YEAR" ]] || {
+        echo "::error::Cached TeX Live $installed_year does not match configured release $NT_TEXLIVE_YEAR." >&2
         exit 1
       }
     else
-      if [[ "$from_cache" == true && "$installed_year" != "$NT_TEXLIVE_YEAR" ]]; then
-        echo "::warning::Cached TeX Live $installed_year differs from mirror release $NT_TEXLIVE_YEAR; keeping the cached release."
-        NT_TEXLIVE_YEAR=$installed_year
-        NT_TEXLIVE_OFFLINE=true
-      fi
-      if [[ "$from_cache" == false ]]; then
-        : "${NT_TEXLIVE_INSTALLER:?}" "${NT_TEXLIVE_REPOSITORY:?}"
-        profile=$(mktemp)
-        cat > "$profile" <<PROFILE
+      : "${NT_TEXLIVE_INSTALLER:?}" "${NT_TEXLIVE_REPOSITORY:?}"
+      profile=$(mktemp)
+      cat > "$profile" <<PROFILE
 selected_scheme scheme-full
 TEXDIR $NT_TEXLIVE_ROOT
 TEXMFLOCAL $NT_TEXLIVE_ROOT/texmf-local
@@ -133,24 +116,13 @@ tlpdbopt_install_docfiles 0
 tlpdbopt_install_srcfiles 0
 tlpdbopt_autobackup 0
 PROFILE
-        if perl "$NT_TEXLIVE_INSTALLER" --profile "$profile" \
-          --repository "$NT_TEXLIVE_REPOSITORY" 2>&1 | tee diagnostics/texlive-install.log &&
-          [[ "$(cached_year)" == "$NT_TEXLIVE_YEAR" ]]; then
-          :
-        elif [[ -n "$prior_cache" ]]; then
-          echo "::warning::New TeX Live installation failed; restoring the older cached release."
-          rm -rf -- "$NT_TEXLIVE_ROOT"
-          mv -- "$prior_cache/texlive" "$NT_TEXLIVE_ROOT"
-          rm -rf -- "$prior_cache"
-          NT_TEXLIVE_YEAR=$installed_year
-          NT_TEXLIVE_OFFLINE=true
-          from_cache=true
-        else
-          echo "TeX Live installation failed and no cached release is available." >&2
-          exit 1
-        fi
+      if ! perl "$NT_TEXLIVE_INSTALLER" --profile "$profile" \
+        --repository "$NT_TEXLIVE_REPOSITORY" 2>&1 | tee diagnostics/texlive-install.log; then
         rm -f "$profile"
+        echo "::error::TeX Live installation failed." >&2
+        exit 1
       fi
+      rm -f "$profile"
     fi
 
     export PATH="$texbin:$PATH"
@@ -159,66 +131,22 @@ PROFILE
       echo "Unexpected TeX Live release: $installed_year" >&2; exit 1;
     }
 
-    if [[ "${NT_TEXLIVE_OFFLINE:-false}" == true || "${NT_TEXLIVE_EXACT_CACHE_HIT:-false}" == true ]]; then
-      echo "::notice::Using cached TeX Live $installed_year; updates skipped (offline or exact daily cache hit)."
-    else
-      snapshot=
-      can_update=true
-      if [[ "$from_cache" == true ]]; then
-        size_kb=$(du -sk "$NT_TEXLIVE_ROOT" | cut -f1)
-        free_kb=$(df -Pk "$RUNNER_TEMP" | awk 'END {print $4}')
-        if (( free_kb < size_kb + 1048576 )); then
-          echo "::warning::Not enough disk space to safeguard the TeX Live cache; skipping update."
-          can_update=false
-        else
-          snapshot=$(mktemp -d "$RUNNER_TEMP/texlive-backup.XXXXXX")
-          if ! cp -a --reflink=auto "$NT_TEXLIVE_ROOT" "$snapshot/texlive"; then
-            echo "::warning::Could not safeguard the TeX Live cache; skipping update."
-            rm -rf -- "$snapshot"
-            snapshot=
-            can_update=false
-          fi
-        fi
-      fi
-      if [[ "$can_update" == true ]]; then
-        if tlmgr option repository "$NT_TEXLIVE_REPOSITORY" &&
-           tlmgr option autobackup 0 &&
-           { tlmgr update --self 2>&1 | tee diagnostics/texlive-update-self.log; } &&
-           { tlmgr update --all 2>&1 | tee diagnostics/texlive-update-all.log; }; then
-          cacheable=true
-        elif [[ "$from_cache" == true && -n "$snapshot" ]]; then
-          echo "::warning::TeX Live update failed; restoring the unchanged cached installation."
-          rm -rf -- "$NT_TEXLIVE_ROOT"
-          mv -- "$snapshot/texlive" "$NT_TEXLIVE_ROOT"
-          cacheable=false
-        elif [[ -n "$prior_cache" ]]; then
-          echo "::warning::TeX Live update failed; restoring the previous cached release."
-          rm -rf -- "$NT_TEXLIVE_ROOT"
-          mv -- "$prior_cache/texlive" "$NT_TEXLIVE_ROOT"
-          NT_TEXLIVE_YEAR=$(cached_year)
-          NT_TEXLIVE_OFFLINE=true
-          cacheable=false
-        else
-          echo "TeX Live update failed, and no cached installation is available." >&2
-          exit 1
-        fi
-      fi
-      if [[ -n "$snapshot" ]]; then
-        rm -rf -- "$snapshot"
-      fi
+    : "${NT_TEXLIVE_REPOSITORY:?}"
+    tlmgr option repository "$NT_TEXLIVE_REPOSITORY"
+    tlmgr option autobackup 0
+    if ! tlmgr update --self --all 2>&1 | tee diagnostics/texlive-update.log; then
+      echo "::error::TeX Live update failed; refusing to compile or reuse PDFs with unverified package freshness." >&2
+      exit 1
     fi
 
-    if [[ -n "$prior_cache" ]]; then
-      rm -rf -- "$prior_cache"
-    fi
-    fmtutil-sys --byfmt lualatex-dev 2>&1 | tee diagnostics/texlive-format.log
+    fmtutil-sys --byfmt lualatex 2>&1 | tee diagnostics/texlive-format.log
     luaotfload-tool --update 2>&1 | tee diagnostics/texlive-fonts.log
     printf '%s\n' "$texbin" >> "$GITHUB_PATH"
     {
-      printf 'Repository: %s\n' "${NT_TEXLIVE_REPOSITORY:-cached (offline)}"
+      printf 'Repository: %s\n' "${NT_TEXLIVE_REPOSITORY}"
       date -u
       tlmgr --version
-      lualatex-dev --version
+      lualatex --version
       latexmk --version
       biber --version
     } > diagnostics/toolchain.txt
@@ -226,9 +154,9 @@ PROFILE
     printf '%s\n' '\documentclass{article}' \
       '\begin{document}\typeout{CI-LATEX-FORMAT: \fmtversion}CI format check.\end{document}' \
       > diagnostics/format-check.tex
-    lualatex-dev -interaction=nonstopmode -halt-on-error \
+    lualatex -interaction=nonstopmode -halt-on-error \
       -output-directory=diagnostics diagnostics/format-check.tex
-    printf 'cacheable=%s\n' "$cacheable" >> "$GITHUB_OUTPUT"
+    printf 'cacheable=true\n' >> "$GITHUB_OUTPUT"
     ;;
   *) echo "Usage: bash scripts/texlive-ci.sh inspect-cache|prepare|install" >&2; exit 2 ;;
 esac

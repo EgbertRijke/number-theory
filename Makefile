@@ -6,9 +6,8 @@ OMNIBUS_JOB := $(basename $(notdir $(OMNIBUS_TEX)))
 VOLUME_JOB_PREFIX := number-theory-volume-
 BUILDDIR := build
 
-# Font configuration is owned by setup/fonts.tex, not by the Makefile.
-
 ENGINE ?= lualatex
+export NT_LATEX_ENGINE := $(ENGINE)
 LATEXMK ?= latexmk
 BIBER ?= biber
 PYTHON ?= python3
@@ -39,8 +38,6 @@ LATEXMKFLAGS := \
 .DEFAULT_GOAL := __default
 .NOTPARALLEL:
 
-# GNU Make sees `make quick volume 2` as three goals.  They all share
-# this dispatcher, which interprets the complete request exactly once.
 PRIVATE_GOALS := __omnibus __volume_set __all __archive __doctor \
 	__website __clean __distclean __help
 PUBLIC_GOALS := $(filter-out $(PRIVATE_GOALS),$(MAKECMDGOALS))
@@ -166,9 +163,6 @@ __omnibus:
 	echo "==> Built $$job.pdf"; \
 	if [ "$(OPEN_AFTER)" = 1 ]; then $(OPEN) "$$job.pdf"; fi
 
-# External zref references create a cycle between volume auxiliaries.  Seed
-# missing files with one pass, then let latexmk settle each stale volume.
-# A quick (single-pass) build is deliberately NEVER marked fully settled.
 __volume_set:
 	@set -eu; \
 	suffix="$(SUFFIX)"; \
@@ -246,10 +240,6 @@ __volume_set:
 		fi; \
 		if [ -f .latexmkrc ] && [ .latexmkrc -nt "$$check_stamp" ]; then \
 			stale_reason=".latexmkrc changed"; return 0; \
-		fi; \
-		if [ -f scripts/latexmk-ci.rc ] && \
-			[ scripts/latexmk-ci.rc -nt "$$check_stamp" ]; then \
-			stale_reason="CI latexmk settings changed"; return 0; \
 		fi; \
 		if [ "$(MAKEFILE_SELF)" -nt "$$check_stamp" ]; then \
 			stale_reason="$(MAKEFILE_SELF) changed"; return 0; \
@@ -379,10 +369,6 @@ __all:
 		PROFILE="$(PROFILE)" SUFFIX="$(SUFFIX)" SELECT=all \
 		OPEN_AFTER="$(OPEN_AFTER)"
 
-# Prepare the book landing page using existing canonical and Ally PDFs.
-# No TeX compilation, Jekyll rendering, or GitHub publication occurs.
-# The generator also copies PDFs and creates cover images so all links work
-# when the generated site source is rendered locally.
 __website:
 	@set -eu; \
 	mkdir -p "$(BUILDDIR)"; \

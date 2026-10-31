@@ -11,7 +11,8 @@ on:
         default: false
 
 env:
-  LATEX_CACHE_VERSION: '1'
+  LATEX_CACHE_VERSION: '2'
+  NT_TEXLIVE_YEAR: '2026'
 
 permissions:
   contents: read
@@ -22,7 +23,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build all editions (LaTeX development)
+    name: Build all editions (released LuaLaTeX)
     runs-on: ubuntu-24.04
     timeout-minutes: 240
     defaults:
@@ -33,11 +34,62 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Compute book input fingerprint
+      - name: Set TeX Live installation directory
+        run: |
+          echo "NT_TEXLIVE_ROOT=$RUNNER_TEMP/number-theory-texlive" >> "$GITHUB_ENV"
+          echo "NT_TEXLIVE_CACHE_DAY=$(date -u +%F)" >> "$GITHUB_ENV"
+
+      - name: Restore TeX Live caches
+        id: tex-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.NT_TEXLIVE_ROOT }}
+          key: texlive-ubuntu24-x64-release-${{ env.NT_TEXLIVE_YEAR }}-${{ env.NT_TEXLIVE_CACHE_DAY }}
+          restore-keys: |
+            texlive-ubuntu24-x64-release-${{ env.NT_TEXLIVE_YEAR }}-
+            texlive-ubuntu24-x64-rolling-
+            texlive-ubuntu24-x64-
+
+      - name: Verify restored TeX Live cache
+        id: tex-cache-check
+        env:
+          NT_TEXLIVE_CACHE_MATCHED_KEY: ${{ steps.tex-cache.outputs.cache-matched-key }}
+        run: bash scripts/texlive-ci.sh inspect-cache
+
+      - name: Discover the TeX Live installation or mirror
+        id: texlive
+        run: bash scripts/texlive-ci.sh prepare
+
+      - name: Install or update released TeX Live (update must succeed)
+        id: texlive-install
+        env:
+          NT_TEXLIVE_INSTALLER: ${{ steps.texlive.outputs.installer }}
+          NT_TEXLIVE_REPOSITORY: ${{ steps.texlive.outputs.repository }}
+          NT_TEXLIVE_YEAR: ${{ steps.texlive.outputs.year }}
+        run: bash scripts/texlive-ci.sh install
+
+      - name: Save refreshed TeX Live cache
+        if: steps.tex-cache.outputs.cache-hit != 'true' && steps.texlive-install.outputs.cacheable == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.NT_TEXLIVE_ROOT }}
+          key: ${{ steps.tex-cache.outputs.cache-primary-key }}
+
+      - name: Compute book and toolchain fingerprints
         id: book-inputs
         run: |
+          printf '%s:%s\n' "${ImageOS:-unknown}" "${ImageVersion:-unknown}" \
+            > diagnostics/runner-image.txt
           input_hash=$(python3 scripts/latex-cache-key.py)
+          toolchain_hash=$({
+            cat diagnostics/texlive-packages.txt
+            sed '1,2d' diagnostics/toolchain.txt
+            grep '^CI-LATEX-FORMAT:' diagnostics/format-check.log
+            cat diagnostics/runner-image.txt
+          } | sha256sum | cut -d ' ' -f1)
           echo "hash=$input_hash" >> "$GITHUB_OUTPUT"
+          echo "toolchain=$toolchain_hash" >> "$GITHUB_OUTPUT"
+          echo "$toolchain_hash" > diagnostics/toolchain-sha256.txt
 
       - name: Restore completed LaTeX build
         id: latex-cache
@@ -47,10 +99,9 @@ jobs:
           path: |
             build/
             number-theory*.pdf
-            diagnostics/
-          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.hash }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.toolchain }}-${{ steps.book-inputs.outputs.hash }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.hash }}-
+            latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.toolchain }}-${{ steps.book-inputs.outputs.hash }}-
 
       - name: Validate all restored canonical and Ally PDFs
         id: cached-pdfs
@@ -63,13 +114,9 @@ jobs:
       - name: Start a clean build when PDFs cannot be reused
         if: steps.cached-pdfs.outcome != 'success'
         run: |
-          rm -rf build diagnostics dist
+          rm -rf build dist
           rm -f number-theory*.pdf
 
-      # An exact input-hash hit above skips TeX entirely. On an input change,
-      # reuse the previous *successful* auxiliary files as a starting point.
-      # The Makefile and latexmk must still recheck new inputs and converge.
-      # Do not reuse invalid exact caches or explicitly forced builds.
       - name: Restore prior build state for incremental LaTeX compilation
         id: prior-state
         if: >-
@@ -81,109 +128,19 @@ jobs:
           path: |
             build/
             number-theory*.pdf
-            diagnostics/
-          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-incremental-${{ github.run_id }}-${{ github.run_attempt }}
+          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.toolchain }}-incremental-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-
-
-      - name: Preserve previous build's TeX Live identity
-        if: steps.prior-state.outputs.cache-matched-key != ''
-        run: |
-          mkdir -p "$RUNNER_TEMP/nt-previous-toolchain"
-          for file in texlive-packages.txt toolchain.txt runner-image.txt; do
-            if [ -f "diagnostics/$file" ]; then
-              cp "diagnostics/$file" "$RUNNER_TEMP/nt-previous-toolchain/$file"
-            fi
-          done
+            latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.toolchain }}-
 
       - name: Report PDF reuse
         if: steps.cached-pdfs.outcome == 'success'
         run: |
-          echo 'Reusing cached canonical and Ally PDFs; no TeX compilation.'
+          echo 'Reusing PDFs with matching source and freshly updated toolchain.'
           echo 'PDFs and their build dates are reused. Website generation still runs.' >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Set TeX Live installation directory
-        if: steps.cached-pdfs.outcome != 'success'
-        run: |
-          echo "NT_TEXLIVE_ROOT=$RUNNER_TEMP/number-theory-texlive" >> "$GITHUB_ENV"
-          echo "NT_TEXLIVE_CACHE_DAY=$(date -u +%F)" >> "$GITHUB_ENV"
-
-      - name: Restore TeX Live caches
-        if: steps.cached-pdfs.outcome != 'success'
-        id: tex-cache
-        uses: actions/cache/restore@v4
-        with:
-          path: ${{ env.NT_TEXLIVE_ROOT }}
-          key: texlive-ubuntu24-x64-rolling-${{ env.NT_TEXLIVE_CACHE_DAY }}
-          restore-keys: |
-            texlive-ubuntu24-x64-rolling-
-            texlive-ubuntu24-x64-
-
-      - name: Verify restored TeX Live cache
-        if: steps.cached-pdfs.outcome != 'success'
-        id: tex-cache-check
-        env:
-          NT_TEXLIVE_CACHE_MATCHED_KEY: ${{ steps.tex-cache.outputs.cache-matched-key }}
-        run: bash scripts/texlive-ci.sh inspect-cache
-
-      - name: Discover the TeX Live installation or mirror
-        if: steps.cached-pdfs.outcome != 'success'
-        id: texlive
-        run: bash scripts/texlive-ci.sh prepare
-
-      - name: Install or update TeX Live, falling back to cache on network errors
-        if: steps.cached-pdfs.outcome != 'success'
-        id: texlive-install
-        env:
-          NT_TEXLIVE_INSTALLER: ${{ steps.texlive.outputs.installer }}
-          NT_TEXLIVE_REPOSITORY: ${{ steps.texlive.outputs.repository }}
-          NT_TEXLIVE_YEAR: ${{ steps.texlive.outputs.year }}
-          NT_TEXLIVE_OFFLINE: ${{ steps.texlive.outputs.offline }}
-          NT_TEXLIVE_EXACT_CACHE_HIT: ${{ steps.tex-cache.outputs.cache-hit }}
-        run: bash scripts/texlive-ci.sh install
-
-      # The rolling development format, biblatex, Biber and system fonts may
-      # change independently of the manuscript. Reuse auxiliaries only when
-      # the current installation and runner image match the previous build.
-      - name: Reject incremental state from a different TeX Live or runner
-        if: steps.cached-pdfs.outcome != 'success'
-        env:
-          PRIOR_CACHE_KEY: ${{ steps.prior-state.outputs.cache-matched-key }}
-        run: |
-          printf '%s:%s\n' "${ImageOS:-unknown}" "${ImageVersion:-unknown}" \
-            > diagnostics/runner-image.txt
-          if [ -n "$PRIOR_CACHE_KEY" ]; then
-            prev="$RUNNER_TEMP/nt-previous-toolchain"
-            identical=true
-            cmp -s "$prev/texlive-packages.txt" diagnostics/texlive-packages.txt || identical=false
-            cmp -s "$prev/runner-image.txt" diagnostics/runner-image.txt || identical=false
-            # Toolchain line 2 contains only the UTC date/time of the build.
-            if [ -f "$prev/toolchain.txt" ]; then
-              sed '2d' "$prev/toolchain.txt" > "$RUNNER_TEMP/previous-tools.txt"
-              sed '2d' diagnostics/toolchain.txt > "$RUNNER_TEMP/current-tools.txt"
-              cmp -s "$RUNNER_TEMP/previous-tools.txt" "$RUNNER_TEMP/current-tools.txt" || identical=false
-            else
-              identical=false
-            fi
-            if [ "$identical" != true ]; then
-              echo 'TeX Live or runner changed: discarding old auxiliary state.'
-              rm -rf build
-              rm -f number-theory*.pdf
-            else
-              echo 'TeX Live and runner match: reusing auxiliaries, recompiling changed inputs.'
-            fi
-          fi
-
-      - name: Save refreshed TeX Live cache
-        if: steps.cached-pdfs.outcome != 'success' && steps.tex-cache.outputs.cache-hit != 'true' && steps.texlive-install.outputs.cacheable == 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: ${{ env.NT_TEXLIVE_ROOT }}
-          key: ${{ steps.tex-cache.outputs.cache-primary-key }}
 
       - name: Compile canonical editions
         if: steps.cached-pdfs.outcome != 'success'
-        run: make all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
+        run: make all
 
       - name: Collect canonical PDFs (fresh or cached)
         run: python3 scripts/book-publication.py collect --profile canonical
@@ -199,7 +156,7 @@ jobs:
 
       - name: Compile Ally editions with the same updated installation
         if: steps.cached-pdfs.outcome != 'success'
-        run: make ally all ENGINE=lualatex-dev LATEXMK='latexmk -r scripts/latexmk-ci.rc'
+        run: make ally all
 
       - name: Collect Ally PDFs (fresh or cached)
         run: python3 scripts/book-publication.py collect --profile ally
@@ -220,8 +177,7 @@ jobs:
           path: |
             build/
             number-theory*.pdf
-            diagnostics/
-          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.hash }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: latex-build-${{ env.LATEX_CACHE_VERSION }}-ubuntu24-${{ runner.arch }}-${{ steps.book-inputs.outputs.toolchain }}-${{ steps.book-inputs.outputs.hash }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Save diagnostics, including failed builds
         if: ${{ always() }}
