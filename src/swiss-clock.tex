@@ -1,0 +1,370 @@
+\usetikzlibrary{calc,arrows.meta}
+\definecolor{clockink}{HTML}{253847}
+\definecolor{clockblue}{HTML}{244D70}
+\definecolor{clocklightblue}{HTML}{7894AA}
+\definecolor{clockgold}{HTML}{D8B96A}
+\definecolor{clockgoldlight}{HTML}{E7D19A}
+\definecolor{clockgoldedge}{HTML}{92723A}
+\definecolor{clocksteel}{HTML}{D4DDE1}
+\definecolor{clockpaper}{HTML}{FCFAF4}
+\definecolor{clockplate}{HTML}{EEEDE5}
+\definecolor{clockruby}{HTML}{A13D56}
+\newif\ifClockConstruction
+\newif\ifClockStepped
+\pgfkeys{/swissclock/.is family,/swissclock,
+ hours/.store in=\ClockHours,minutes/.store in=\ClockMinutes,
+ seconds/.store in=\ClockSeconds,scale/.store in=\ClockScale,
+ construction/.is if=ClockConstruction,stepped/.code={},
+ hours=10,minutes=10,seconds=32.04,scale=1,construction=false,stepped=false}
+
+\newcommand\ClockAngle[2]{\edef#1{\fpeval{(#2)-360*floor((#2)/360)}}}
+\newcommand\ClockState[1]{%
+ \pgfkeys{/swissclock,hours=10,minutes=10,seconds=32.04,scale=1,construction=false,stepped=false,#1}%
+ \edef\ClockT{\fpeval{3600*\ClockHours+60*\ClockMinutes+\ClockSeconds}}%
+ \ClockEscapementState%
+ \ClockAngle\ClockBarrel{-76.5+\ClockTau/60}%
+ \ClockAngle\ClockCentre{-\ClockTau/10}%
+ \ClockAngle\ClockThirdPinion{-707.176714473984+0.6*\ClockTau}%
+ \ClockAngle\ClockThirdWheel{-42.0810014946694+0.6*\ClockTau}%
+ \ClockAngle\ClockCage{-6*\ClockTau}%
+ \ClockAngle\ClockPlanet{171-60*\ClockTau}% relative to cage
+ \ClockAngle\ClockMotion{177+\ClockTau/30}%
+ \ClockAngle\ClockHourWheel{358.5-\ClockTau/120}%
+ \ClockAngle\ClockMinuteHand{90-\ClockTau/10}%
+ \ClockAngle\ClockHourHand{90-\ClockTau/120}%
+
+}
+
+\ExplSyntaxOn
+
+\fp_const:Nn  \c__clock_gear_pressure_angle_fp { 20 * pi / 180 }
+\fp_const:Nn  \c__clock_gear_addendum_fp       { 1 }
+\fp_const:Nn  \c__clock_gear_dedendum_fp       { 1.25 }
+\int_const:Nn \c__clock_gear_flank_steps_int  { 14 }
+\int_const:Nn \c__clock_gear_arc_steps_int    { 4 }
+\int_const:Nn \c__clock_gear_decimal_places_int { 7 }
+
+\prop_new:N \g__clock_gear_outline_prop
+\seq_new:N  \l__clock_gear_tooth_points_seq
+\tl_new:N   \l__clock_gear_outline_tl
+\int_new:N  \l__clock_gear_teeth_int
+\fp_new:N   \l__clock_gear_pitch_radius_fp
+\fp_new:N   \l__clock_gear_base_radius_fp
+\fp_new:N   \l__clock_gear_tip_radius_fp
+\fp_new:N   \l__clock_gear_root_radius_fp
+\fp_new:N   \l__clock_gear_flank_start_fp
+\fp_new:N   \l__clock_gear_involute_pressure_fp
+\fp_new:N   \l__clock_gear_sample_radius_fp
+\fp_new:N   \l__clock_gear_local_pressure_fp
+\fp_new:N   \l__clock_gear_half_width_fp
+\fp_new:N   \l__clock_gear_start_half_width_fp
+\fp_new:N   \l__clock_gear_tip_half_width_fp
+\fp_new:N   \l__clock_gear_root_gap_fp
+\fp_new:N   \l__clock_gear_tooth_angle_fp
+\fp_new:N   \l__clock_gear_rotation_cos_fp
+\fp_new:N   \l__clock_gear_rotation_sin_fp
+
+\cs_new_protected:Npn \__clock_gear_half_width:n #1
+  {
+    \fp_set:Nn \l__clock_gear_local_pressure_fp
+      { acos( min(1, \l__clock_gear_base_radius_fp / (#1)) ) }
+    \fp_set:Nn \l__clock_gear_half_width_fp
+      {
+        pi / (2 * \l__clock_gear_teeth_int)
+        + \l__clock_gear_involute_pressure_fp
+        - ( tan(\l__clock_gear_local_pressure_fp)
+            - \l__clock_gear_local_pressure_fp )
+      }
+  }
+
+\cs_new_protected:Npn \__clock_gear_store_polar:nn #1#2
+  {
+    \seq_put_right:Nx \l__clock_gear_tooth_points_seq
+      {
+        { \fp_eval:n { (#1) * cos(#2) } }
+        { \fp_eval:n { (#1) * sin(#2) } }
+      }
+  }
+
+\cs_new_protected:Npn \__clock_gear_sample_flank:nn #1#2
+  {
+    \fp_set:Nn \l__clock_gear_sample_radius_fp
+      {
+        \l__clock_gear_flank_start_fp
+        + (\l__clock_gear_tip_radius_fp - \l__clock_gear_flank_start_fp)
+          * (#1) / \c__clock_gear_flank_steps_int
+      }
+    \__clock_gear_half_width:n { \l__clock_gear_sample_radius_fp }
+    \__clock_gear_store_polar:nn
+      { \l__clock_gear_sample_radius_fp }
+      { (#2) * \l__clock_gear_half_width_fp }
+  }
+
+\cs_new_protected:Npn \__clock_gear_build_tooth:
+  {
+    \seq_clear:N \l__clock_gear_tooth_points_seq
+    \__clock_gear_half_width:n { \l__clock_gear_flank_start_fp }
+    \fp_set_eq:NN \l__clock_gear_start_half_width_fp
+                   \l__clock_gear_half_width_fp
+    \__clock_gear_half_width:n { \l__clock_gear_tip_radius_fp }
+    \fp_set_eq:NN \l__clock_gear_tip_half_width_fp
+                   \l__clock_gear_half_width_fp
+    \fp_set:Nn \l__clock_gear_root_gap_fp
+      { 2*pi / \l__clock_gear_teeth_int
+        - 2*\l__clock_gear_start_half_width_fp }
+
+    \__clock_gear_store_polar:nn
+      { \l__clock_gear_root_radius_fp }
+      { -\l__clock_gear_start_half_width_fp }
+    \int_step_inline:nnnn { 0 } { 1 } { \c__clock_gear_flank_steps_int }
+      { \__clock_gear_sample_flank:nn {##1} {-1} }
+
+    \int_step_inline:nn { \c__clock_gear_arc_steps_int }
+      {
+        \__clock_gear_store_polar:nn
+          { \l__clock_gear_tip_radius_fp }
+          { -\l__clock_gear_tip_half_width_fp
+            + 2*\l__clock_gear_tip_half_width_fp
+              * ##1 / \c__clock_gear_arc_steps_int }
+      }
+
+    \int_step_inline:nnnn
+      { \c__clock_gear_flank_steps_int - 1 } { -1 } { 0 }
+      { \__clock_gear_sample_flank:nn {##1} {1} }
+    \__clock_gear_store_polar:nn
+      { \l__clock_gear_root_radius_fp }
+      { \l__clock_gear_start_half_width_fp }
+
+    \int_step_inline:nn { \c__clock_gear_arc_steps_int }
+      {
+        \__clock_gear_store_polar:nn
+          { \l__clock_gear_root_radius_fp }
+          { \l__clock_gear_start_half_width_fp
+            + \l__clock_gear_root_gap_fp
+              * ##1 / \c__clock_gear_arc_steps_int }
+      }
+  }
+
+\cs_new_protected:Npn \__clock_gear_append_rotated:nn #1#2
+  {
+    \tl_if_empty:NF \l__clock_gear_outline_tl
+      { \tl_put_right:Nn \l__clock_gear_outline_tl { -- } }
+    \tl_put_right:Nx \l__clock_gear_outline_tl
+      {
+        (
+          \fp_eval:n
+            { round( (#1)*\l__clock_gear_rotation_cos_fp
+                   - (#2)*\l__clock_gear_rotation_sin_fp,
+                     \c__clock_gear_decimal_places_int ) },
+          \fp_eval:n
+            { round( (#1)*\l__clock_gear_rotation_sin_fp
+                   + (#2)*\l__clock_gear_rotation_cos_fp,
+                     \c__clock_gear_decimal_places_int ) }
+        )
+      }
+  }
+
+\cs_new_protected:Npn \__clock_gear_generate:n #1
+  {
+    \int_set:Nn \l__clock_gear_teeth_int {#1}
+    \fp_set:Nn \l__clock_gear_pitch_radius_fp { #1 / 2 }
+    \fp_set:Nn \l__clock_gear_base_radius_fp
+      { \l__clock_gear_pitch_radius_fp * cos(\c__clock_gear_pressure_angle_fp) }
+    \fp_set:Nn \l__clock_gear_tip_radius_fp
+      { \l__clock_gear_pitch_radius_fp + \c__clock_gear_addendum_fp }
+    \fp_set:Nn \l__clock_gear_root_radius_fp
+      { \l__clock_gear_pitch_radius_fp - \c__clock_gear_dedendum_fp }
+    \fp_set:Nn \l__clock_gear_flank_start_fp
+      { max(\l__clock_gear_base_radius_fp, \l__clock_gear_root_radius_fp) }
+    \fp_set:Nn \l__clock_gear_involute_pressure_fp
+      { tan(\c__clock_gear_pressure_angle_fp) - \c__clock_gear_pressure_angle_fp }
+    \__clock_gear_build_tooth:
+
+    \tl_clear:N \l__clock_gear_outline_tl
+    \int_step_inline:nn { \l__clock_gear_teeth_int }
+      {
+        \fp_set:Nn \l__clock_gear_tooth_angle_fp
+          { 2*pi*(##1-1) / \l__clock_gear_teeth_int }
+        \fp_set:Nn \l__clock_gear_rotation_cos_fp
+          { cos(\l__clock_gear_tooth_angle_fp) }
+        \fp_set:Nn \l__clock_gear_rotation_sin_fp
+          { sin(\l__clock_gear_tooth_angle_fp) }
+        \seq_map_inline:Nn \l__clock_gear_tooth_points_seq
+          { \__clock_gear_append_rotated:nn ####1 }
+      }
+    \tl_put_right:Nn \l__clock_gear_outline_tl { --cycle }
+  }
+
+\NewDocumentCommand \ClockPrepareGearOutline { m }
+  {
+    \prop_if_in:NnF \g__clock_gear_outline_prop {#1}
+      {
+        \group_begin:
+          \__clock_gear_generate:n {#1}
+          \prop_gput:NnV \g__clock_gear_outline_prop {#1}
+                         \l__clock_gear_outline_tl
+        \group_end:
+      }
+  }
+\cs_new:Npn \ClockGearOutline #1
+  { \prop_item:Nn \g__clock_gear_outline_prop {#1} }
+\ExplSyntaxOff
+
+\newcommand\ClockGear[7]{%
+ \begin{scope}[shift={(#1,#2)},rotate=#5,scale=#4]
+  \ClockPrepareGearOutline{#3}
+  \pgfmathsetmacro\ClockR{#3/2}
+  \ifnum#7>0
+   \path[fill=#6,draw=clockgoldedge,line width=.16pt,even odd rule]
+    \ClockGearOutline{#3} (0,0) circle[radius={.76*\ClockR}];
+   \foreach \k in {1,...,#7}{
+    \begin{scope}[rotate={360*\k/#7}]
+     \path[fill=#6,draw=clockgoldedge,line width=.16pt]
+      ({.10*\ClockR},{-.075*\ClockR})--({.79*\ClockR},{-.042*\ClockR})
+      --({.79*\ClockR},{.042*\ClockR})--({.10*\ClockR},{.075*\ClockR})--cycle;
+    \end{scope}}
+   \draw[fill=#6,draw=clockgoldedge,line width=.16pt] (0,0) circle[radius={.17*\ClockR}];
+   \draw[clockgoldedge,line width=.12pt] (0,0) circle[radius={.86*\ClockR}];
+  \else
+   \path[fill=#6,draw=clockgoldedge,line width=.16pt] \ClockGearOutline{#3};
+  \fi
+  \ifClockConstruction
+   \draw[clockblue,dash pattern=on 1pt off 1pt,line width=.22pt] (0,0) circle[radius=\ClockR];
+  \fi
+ \end{scope}}
+
+\newcommand\ClockScrew[3]{%
+ \begin{scope}[shift={(#1,#2)},rotate=#3]
+  \draw[fill=clocksteel,draw=clockink,line width=.3pt] (0,0) circle[radius=1.35];
+  \draw[clockblue,line width=.5pt] (-.85,0)--(.85,0);
+  \draw[white,line width=.2pt] (-.7,.28)--(.7,.28);
+ \end{scope}}
+
+\newcommand\ClockJewel[2]{%
+ \draw[fill=clockgoldlight,draw=clockgoldedge,line width=.3pt] (#1,#2) circle[radius=1.55];
+ \draw[fill=clockruby,draw=clockink,line width=.2pt] (#1,#2) circle[radius=.82];
+ \fill[clockink] (#1,#2) circle[radius=.27];
+ \fill[white,opacity=.65] ({#1-.22},{#2+.22}) circle[radius=.16];}
+
+\input{src/swiss-clock-escapement.tex}
+
+\newcommand\ClockTourbillon{%
+ \begin{scope}[shift={(0,-45)}]
+  \draw[clockgoldedge,line width=.35pt] (0,0) circle[radius=24.4];
+  \foreach \k in {0,...,59}{
+   \pgfmathtruncatemacro\kmod{mod(\k,5)}
+   \ifnum\kmod=0\def\TickIn{22.5}\else\def\TickIn{23.2}\fi
+   \draw[clockink,line width=.25pt] ({90-6*\k}:\TickIn)--({90-6*\k}:23.8);}
+  \ClockGear{0}{0}{200}{.12}{0}{clocksteel}{6}
+  \begin{scope}[rotate=\ClockCage]
+   \draw[clockblue,line width=.65mm] (0,0) circle[radius=20.25];
+   \draw[clocklightblue,line width=.12mm] (0,0) circle[radius=20.55];
+   \foreach \a in {90,210,330}{
+    \begin{scope}[rotate=\a]
+     \path[fill=clockblue,draw=clockink,line width=.2pt]
+      (2.2,-.65)--(18.9,-.55)--(20.2,-.2)--(20.2,.2)--(18.9,.55)--(2.2,.65)--cycle;
+     \draw[fill=clocksteel,draw=clockink,line width=.2pt] (18.7,0) circle[radius=.7];
+     \draw[clockink,line width=.25pt] (18.25,0)--(19.15,0);
+    \end{scope}}
+   \path[fill=clockruby,draw=clockpaper,line width=.2pt] (90:21.5)--(86:19.4)--(94:19.4)--cycle;
+   \ClockGear{13.2}{0}{20}{.12}{\ClockPlanet}{clockgoldlight}{0}
+   \begin{scope}[rotate=\ClockBalance]
+    \draw[clockgoldedge,line width=1.25mm] (0,0) circle[radius=10.1];
+    \draw[clockgoldlight,line width=.85mm] (0,0) circle[radius=10.1];
+    \foreach \a in {0,120,240}{\draw[clockgoldlight,line width=.7mm] (0,0)--(\a:9.8);}
+    \foreach \a in {0,30,...,330}{\draw[fill=clockgoldedge,draw=clockink,line width=.12pt] (\a:10.45) circle[radius=.35];}
+
+   \end{scope}
+   \draw[clockblue,line width=.23pt]
+    plot[domain=0:1,samples=220,variable=\u]
+     ({(.85+6.5*\u)*cos(90-1800+1800*\u+\ClockBalance*(1-\u))},
+      {(.85+6.5*\u)*sin(90-1800+1800*\u+\ClockBalance*(1-\u))});
+   \draw[clockblue,line width=.3pt] (0,7.35)--(0,8.3);
+   \draw[fill=clocksteel,draw=clockink,line width=.2pt] (0,8.3) circle[radius=.6];
+   \fill[clockblue] (0,0) circle[radius=.85];
+   \ClockEscapement
+   \pgfmathsetmacro\ClockCockY{-\CEpx*tan(30)}
+   \path[fill=clocksteel,draw=clockink,line width=.18pt]
+    ({\CEpx-.33},\ClockCockY)--({\CEpx-.24},-.6)
+    --({\CEpx-.5},-.25)--({\CEpx-.5},.25)--({\CEpx+.5},.25)
+    --({\CEpx+.5},-.25)--({\CEpx+.24},-.6)--({\CEpx+.33},\ClockCockY)--cycle;
+   \draw[fill=clockgoldlight,draw=clockink,line width=.16pt] (\CEpx,0) circle[radius=.42];
+   \fill[clockruby] (\CEpx,0) circle[radius=.21];
+   \draw[fill=clocksteel,draw=clockink,line width=.14pt] (\CEpx,\ClockCockY) circle[radius=.42];
+   \draw[clockink,line width=.14pt] ({\CEpx-.28},\ClockCockY)--({\CEpx+.28},\ClockCockY);
+  \end{scope}
+  \path[fill=clocksteel,draw=clockink,line width=.3pt]
+   (-.65,-23)--(-.45,-3)--(-1.8,-1.4)--(-1.8,1.4)--(-.45,3)--(-.65,23)
+   --(.65,23)--(.45,3)--(1.8,1.4)--(1.8,-1.4)--(.45,-3)--(.65,-23)--cycle;
+  \draw[white,line width=.2pt] (-.18,-20)--(-.18,-3);
+  \draw[white,line width=.2pt] (-.18,3)--(-.18,20);
+  \ClockScrew{0}{-23}{35}\ClockScrew{0}{23}{-35}\ClockJewel{0}{0}
+ \end{scope}}
+
+\newcommand\ClockTrain{%
+ \ClockGear{0}{28}{120}{.4}{\ClockBarrel}{clockgoldlight}{0}
+ \begin{scope}[shift={(0,28)},rotate=\ClockBarrel]
+  \draw[fill=clockgoldlight,draw=clockgoldedge,line width=.4pt] (0,0) circle[radius=21.9];
+  \draw[clockgoldedge,line width=.25pt] (0,0) circle[radius=20.8];
+  \draw[clockpaper,line width=.25pt] (0,0) circle[radius=21.3];
+  \foreach \a in {0,120,240}{\draw[fill=clockgold,draw=clockgoldedge,line width=.2pt] (\a:19.5) circle[radius=.55];}
+ \end{scope}
+ \ClockGear{0}{0}{20}{.4}{\ClockCentre}{clocksteel}{0}
+ \ClockGear{0}{0}{120}{.4}{\ClockCentre}{clockgold}{5}
+ \ClockGear{-16.241303228361}{-22.808333333333}{20}{.4}{\ClockThirdPinion}{clocksteel}{0}
+ \ClockGear{-16.241303228361}{-22.808333333333}{200}{.25}{\ClockThirdWheel}{clockgoldlight}{6}
+ \ClockGear{0}{-45}{20}{.25}{\ClockCage}{clocksteel}{0}
+ \ClockTourbillon
+ \ClockGear{0}{0}{20}{.55}{\ClockCentre}{clocksteel}{0}
+ \ClockGear{22}{0}{60}{.55}{\ClockMotion}{clockgoldlight}{4}
+ \ClockGear{22}{0}{20}{.44}{\ClockMotion}{clocksteel}{0}
+ \ClockGear{0}{0}{80}{.44}{\ClockHourWheel}{clockgold}{5}
+ \ClockJewel{0}{28}\ClockJewel{-16.241303228361}{-22.808333333333}\ClockJewel{22}{0}
+}
+
+\newcommand\ClockHands{%
+ \begin{scope}[rotate=\ClockHourHand]
+  \path[fill=clockblue,draw=clockink,line width=.35pt]
+   (-7,0)--(-3,-2.2)--(6,-2.6)--(35,-1.45)--(46,0)--(35,1.45)--(6,2.6)--(-3,2.2)--cycle;
+  \path[fill=clocklightblue] (0,0)--(46,0)--(35,1.45)--(6,2.6)--(-3,2.2)--(-7,0)--cycle;
+ \end{scope}
+ \begin{scope}[rotate=\ClockMinuteHand]
+  \path[fill=clockblue,draw=clockink,line width=.35pt]
+   (-8,0)--(-4,-1.2)--(7,-1.45)--(54,-.75)--(66,0)--(54,.75)--(7,1.45)--(-4,1.2)--cycle;
+  \path[fill=clocklightblue] (0,0)--(66,0)--(54,.75)--(7,1.45)--(-4,1.2)--(-8,0)--cycle;
+ \end{scope}
+ \draw[fill=clockgoldlight,draw=clockgoldedge,line width=.4pt] (0,0) circle[radius=2.6];
+ \draw[fill=clockblue,draw=clockink,line width=.3pt] (0,0) circle[radius=1.65];
+}
+
+\newcommand\SwissClock[1][]{%
+ \begingroup\ClockState{#1}%
+ \begin{tikzpicture}[x=1mm,y=1mm,scale=\ClockScale,line cap=round,line join=round]
+  \path[use as bounding box] (-93,-93) rectangle (93,93);
+  \fill[clockink!15] (0,-.7) circle[radius=92.4];
+  \draw[fill=clocksteel,draw=clockink,line width=.6pt] (0,0) circle[radius=92];
+  \draw[white,line width=.7pt] (0,0) circle[radius=91.2];
+  \draw[clockgoldedge,line width=1.2pt] (0,0) circle[radius=89.5];
+  \draw[fill=clockpaper,draw=clockink,line width=.4pt] (0,0) circle[radius=88.7];
+  \draw[clockgoldedge,line width=.3pt] (0,0) circle[radius=86.1];
+  \draw[fill=clockplate,draw=clockgoldedge,line width=.45pt] (0,0) circle[radius=70.6];
+  \begin{scope}\clip (0,0) circle[radius=69.6];
+   \foreach \y in {-70,-68,...,70}{\draw[white,opacity=.55,line width=.2pt] (-71,\y)--(71,\y);}
+  \end{scope}
+  \draw[clockpaper,line width=.6pt] (0,0) circle[radius=69.6];
+  \foreach \k in {0,...,59}{
+   \pgfmathtruncatemacro\kmod{mod(\k,5)}
+   \ifnum\kmod=0\def\TickIn{82.0}\def\TickWidth{.8pt}\else\def\TickIn{83.6}\def\TickWidth{.35pt}\fi
+   \draw[clockink,line width=\TickWidth] ({90-6*\k}:\TickIn)--({90-6*\k}:85.1);}
+  \foreach \h/\roman in {1/I,2/II,3/III,4/IV,5/V,6/VI,7/VII,8/VIII,9/IX,10/X,11/XI,12/XII}{
+   \node[text=clockink,font=\clockfont\rmfamily\fontsize{16}{17}\selectfont,inner sep=0pt] at ({90-30*\h}:77.0){\roman};}
+  \foreach \a in {45,135,225,315}{\begin{scope}[shift={(\a:65.5)}]\ClockScrew{0}{0}{\a}\end{scope}}
+  \ClockTrain
+  \node[text=clockink,font=\clockfont\rmfamily\fontsize{10}{12}\selectfont] at (0,62){B E R N O U L L I};
+  \node[text=clockink,font=\clockfont\sffamily\fontsize{6.2}{8}\selectfont] at (0,57){A R S\quad C O N J E C T A N D I \textperiodcentered{} 1 7 1 3};
+  \ClockHands
+  \ifClockConstruction
+   \foreach \x/\y/\lab in {0/28/B,0/0/C,-16.241303228361/-22.808333333333/D,0/-45/K,22/0/M}{
+    \node[font=\clockfont\sffamily\bfseries\fontsize{8}{9}\selectfont,text=clockblue,fill=white,inner sep=1pt,anchor=south west] at ({\x+2},{\y+2}){\lab};}
+  \fi
+ \end{tikzpicture}\endgroup}

@@ -26,51 +26,54 @@ Carl Friedrich Gauss introduced the congruence relations in his monumental work,
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}
+  % \begin{tikzpicture}
     
-    \def\clockhour{8}
-    \def\clockminute{20}
+  %   \def\clockhour{8}
+  %   \def\clockminute{20}
     
-    % clock radius
-    \def\R{3}
+  %   % clock radius
+  %   \def\R{3}
     
-    % rim
-    \draw[ultra thick] (0,0) circle (\R);
+  %   % rim
+  %   \draw[ultra thick] (0,0) circle (\R);
 
-    % minute angle in degrees
-    \pgfmathsetmacro{\minangle}{90 - (\clockminute)*6}
+  %   % minute angle in degrees
+  %   \pgfmathsetmacro{\minangle}{90 - (\clockminute)*6}
     
-    % hour angle in degrees
-    \pgfmathsetmacro{\hourangle}{90 - (mod(\clockhour,12))*30 - (\clockminute)*0.5}
+  %   % hour angle in degrees
+  %   \pgfmathsetmacro{\hourangle}{90 - (mod(\clockhour,12))*30 - (\clockminute)*0.5}
 
-    % minute & hour ticks
-    \foreach \i in {0,...,59}{
-      \pgfmathsetmacro{\ang}{90 - \i*6}
-      \pgfmathparse{mod(\i,5)==0 ? 1 : 0}
-      \ifnum\pgfmathresult=1
-        % hour tick (every 5 minutes)
-        \draw[ultra thick] (\ang:\R) -- (\ang:{.85*\R});
-      \else
-        % minute tick
-        \draw[thick] (\ang:\R) -- (\ang:{.93*\R});
-      \fi
-    }
+  %   % minute & hour ticks
+  %   \foreach \i in {0,...,59}{
+  %     \pgfmathsetmacro{\ang}{90 - \i*6}
+  %     \pgfmathparse{mod(\i,5)==0 ? 1 : 0}
+  %     \ifnum\pgfmathresult=1
+  %       % hour tick (every 5 minutes)
+  %       \draw[ultra thick] (\ang:\R) -- (\ang:{.85*\R});
+  %     \else
+  %       % minute tick
+  %       \draw[thick] (\ang:\R) -- (\ang:{.93*\R});
+  %     \fi
+  %   }
     
-    % length of the minute hand
-    \pgfmathsetmacro{\minlength}{0.8*\R}
+  %   % length of the minute hand
+  %   \pgfmathsetmacro{\minlength}{0.8*\R}
     
-    % minute hand
-    \draw[line width=3pt, line cap=round] (0,0) -- (\minangle:\minlength);
+  %   % minute hand
+  %   \draw[line width=3pt, line cap=round] (0,0) -- (\minangle:\minlength);
 
-    % length of the hour hand
-    \pgfmathsetmacro{\hourlength}{0.52*\R}
+  %   % length of the hour hand
+  %   \pgfmathsetmacro{\hourlength}{0.52*\R}
         
-    % hour hand
-    \draw[line width=5pt, line cap=round] (0,0) -- (\hourangle:\hourlength);
+  %   % hour hand
+  %   \draw[line width=5pt, line cap=round] (0,0) -- (\hourangle:\hourlength);
     
-    % central boss
-    \fill[black] (0,0) circle (5pt);    
-  \end{tikzpicture}
+  %   % central boss
+  %   \fill[black] (0,0) circle (5pt);    
+  % \end{tikzpicture}
+  \input{src/swiss-clock.tex}
+  \resizebox{.8\textwidth}{!}{%
+    \SwissClock[hours=10,minutes=10,seconds=32.04]}
   \caption[The $12$-hour clock]{The $12$-hour clock contains two systems of modular arithmetic: A system with modulus $12$ to mark the hours and a system with modulus $60$ to mark the minutes.}
   \label{figure:clock}
 \end{figure}
