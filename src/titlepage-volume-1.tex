@@ -19,12 +19,7 @@
         }
         ]
         
-        \draw[gray,very thin] (-4.1,-4.1) grid[step=1] (4.1,4.1);
-        
         \draw[thick] (0,0) circle ({sqrt(10)});
-        
-        \draw[->] (-4.2,0) -- (4.2,0);
-        \draw[->] (0,-4.2) -- (0,4.2);
         
         \coordinate (P5) at (-3,-1);
         \draw[fill=black,thick] (P5) circle (2pt);
@@ -54,12 +49,14 @@
       \end{tikzpicture}
     \end{center}
     \vspace*{\stretch{.5}}
-    {\superhuge \textbf{\VolumeTitle}\par}
-    \vspace*{\stretch{1}}
-    {\Large \textsc{Book I}\par}
-    \vspace*{\stretch{.5}}
-    {\Large \textsc{of}\par}
-    \vspace*{\stretch{1}}
-    {\huge \textsc{\SeriesTitle}}
+    \UseTaggingSocket{title}{}{%
+      {\superhuge \textbf{\VolumeTitle}\par}
+      \vspace*{\stretch{1}}
+      {\Large \textsc{Book I}\par}
+      \vspace*{\stretch{.5}}
+      {\Large \textsc{of}\par}
+      \vspace*{\stretch{.7}}
+      {\huge \textsc{\SeriesTitle}\par}
+    }
   \end{center}
 \end{titlepage}

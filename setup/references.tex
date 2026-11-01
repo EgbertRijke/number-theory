@@ -43,23 +43,6 @@
   namesep = {},
 }
 
-\makeatletter
-\ExplSyntaxOn
-
-\AddToHook{cmd/ParseLaTeXeTheoremlike/after}
-  {
-    \tl_if_novalue:oTF \l__block_note_tl
-      { }
-      {
-        \exp_args:NV
-          \zref@titleref@setcurrent
-          \l__block_note_tl
-      }
-  }
-
-\ExplSyntaxOff
-\makeatother
-
 \newcommand{\zcrefnamed}[1]{\zcref{#1}\space(\ztitleref{#1})}
 
 \zcRefTypeSetup{enumXi}{Name-sg = Exercise, Name-pl = Exercises}

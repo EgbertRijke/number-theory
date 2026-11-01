@@ -8,11 +8,11 @@
 \resetenumext[1]{chapter}
 
 \NewDocumentCommand{\exercises}{}{%
-  \par\clearpage%
-  \phantomsection%
-  \section*{Exercises}%
-  \addcontentsline{toc}{section}{Exercises}%
-  \markright{Exercises}%
+  \par\clearpage
+  \section*[
+    shorttitle = {Exercises},
+    mark-cmd   = {\markright{Exercises}}
+  ]{Exercises}%
 }
 
 \NewDocumentCommand{\exercise}{}{%
