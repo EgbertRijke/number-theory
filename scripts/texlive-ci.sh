@@ -1,4 +1,11 @@
+#!/usr/bin/env bash
 set -euo pipefail
+
+release_repositories=(
+  https://ctan.math.illinois.edu/systems/texlive/tlnet
+  https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet
+  https://ftp.fau.de/ctan/systems/texlive/tlnet
+)
 
 cached_year() {
   local texbin="${NT_TEXLIVE_ROOT:-}/bin/x86_64-linux"
@@ -32,7 +39,7 @@ case "${1:-}" in
       echo "::notice::Reusing cached TeX Live $installed_year; skipping installer download."
       {
         printf 'installer=\n'
-        printf 'repository=%s\n' 'https://mirrors.ctan.org/systems/texlive/tlnet'
+        printf 'repository=%s\n' "${release_repositories[0]}"
         printf 'year=%s\n' "$installed_year"
         printf 'day=%s\n' "$(date -u +%F)"
       } >> "$GITHUB_OUTPUT"
@@ -40,10 +47,7 @@ case "${1:-}" in
     fi
     work=$(mktemp -d "$RUNNER_TEMP/texlive-installer.XXXXXX")
     installer= repository= year=
-    for base in \
-      https://mirrors.ctan.org/systems/texlive/tlnet \
-      https://ctan.math.illinois.edu/systems/texlive/tlnet \
-      https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet; do
+    for base in "${release_repositories[@]}"; do
       echo "Trying TeX Live installer: $base" >&2
       if ! archive_url=$(curl --fail --location --show-error --silent --retry 3 \
         --proto '=https' --proto-redir '=https' \
@@ -132,10 +136,41 @@ PROFILE
     }
 
     : "${NT_TEXLIVE_REPOSITORY:?}"
-    tlmgr option repository "$NT_TEXLIVE_REPOSITORY"
     tlmgr option autobackup 0
-    if ! tlmgr update --self --all 2>&1 | tee diagnostics/texlive-update.log; then
-      echo "::error::TeX Live update failed; refusing to compile or reuse PDFs with unverified package freshness." >&2
+    preferred_repository=${NT_TEXLIVE_REPOSITORY%/}
+    case "$preferred_repository" in
+      https://mirror.ctan.org/*|https://mirrors.ctan.org/*)
+        preferred_repository=${release_repositories[0]} ;;
+    esac
+    updated=false
+    attempt=0
+    declare -A tried_repositories=()
+    : > diagnostics/texlive-update.log
+    for repository in "$preferred_repository" "${release_repositories[@]}"; do
+      [[ -z "${tried_repositories[$repository]:-}" ]] || continue
+      tried_repositories[$repository]=true
+      attempt=$((attempt + 1))
+      attempt_log="diagnostics/texlive-update-attempt-$attempt.log"
+      printf 'Update attempt %s: %s\n' "$attempt" "$repository" |
+        tee -a diagnostics/texlive-update.log
+      if ! tlmgr option repository "$repository" 2>&1 |
+        tee "$attempt_log"; then
+        cat "$attempt_log" >> diagnostics/texlive-update.log
+        echo "::warning::Cannot select $repository; trying another mirror." >&2
+        continue
+      fi
+      if tlmgr update --self --all --reinstall-forcibly-removed 2>&1 |
+        tee -a "$attempt_log"; then
+        cat "$attempt_log" >> diagnostics/texlive-update.log
+        NT_TEXLIVE_REPOSITORY=$repository
+        updated=true
+        break
+      fi
+      cat "$attempt_log" >> diagnostics/texlive-update.log
+      echo "::warning::TeX Live update failed at $repository; trying another mirror if available." >&2
+    done
+    if [[ "$updated" != true ]]; then
+      echo "::error::TeX Live update failed on every candidate mirror; refusing to compile or reuse PDFs with unverified package freshness." >&2
       exit 1
     fi
 
