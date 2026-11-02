@@ -356,15 +356,57 @@
    \pgfmathtruncatemacro\kmod{mod(\k,5)}
    \ifnum\kmod=0\def\TickIn{82.0}\def\TickWidth{.8pt}\else\def\TickIn{83.6}\def\TickWidth{.35pt}\fi
    \draw[clockink,line width=\TickWidth] ({90-6*\k}:\TickIn)--({90-6*\k}:85.1);}
-  \foreach \h/\roman in {1/I,2/II,3/III,4/IV,5/V,6/VI,7/VII,8/VIII,9/IX,10/X,11/XI,12/XII}{
-   \node[text=clockink,font=\clockfont\rmfamily\fontsize{16}{17}\selectfont,inner sep=0pt] at ({90-30*\h}:77.0){\roman};}
+
+  {
+    \clockfont\fontsize{20}{24}\selectfont
+
+    \foreach \h/\roman in {
+      1/I,2/II,3/III,4/IV,5/V,6/VI,
+      7/VII,8/VIII,9/IX,10/X,11/XI,12/XII%
+    }{
+      \pgfmathsetmacro{\theta}{90-30*\h}
+      
+      \path[
+      decorate,
+      decoration={
+        text effects along path,
+        text={\roman},
+        text align=center,
+        text effects/.cd,
+        characters={
+          text along path,
+          yscale=1.50,
+          text=clockink
+        },
+        character widths={
+          text along path,
+          yscale=1
+        }
+      }
+      ]
+      ({\theta+12}:72)
+      arc[
+      start angle={\theta+12},
+      end angle={\theta-12},
+      radius=72
+      ];
+    }
+  }
+
   \foreach \a in {45,135,225,315}{\begin{scope}[shift={(\a:65.5)}]\ClockScrew{0}{0}{\a}\end{scope}}
   \ClockTrain
-  \node[text=clockink,font=\clockfont\rmfamily\fontsize{10}{12}\selectfont] at (0,62){B E R N O U L L I};
-  \node[text=clockink,font=\clockfont\sffamily\fontsize{6.2}{8}\selectfont] at (0,57){A R S\quad C O N J E C T A N D I \textperiodcentered{} 1 7 1 3};
+  \node[
+  text=clockink,
+  font=\clockfont\fontsize{10}{12}\selectfont
+       \addfontfeatures{LetterSpace=40}
+] at (0,62) {\MakeUppercase{Bernoulli}};
+  \node[
+  text=clockink,
+  font=\clockfont\fontsize{6.2}{8}\selectfont
+       \addfontfeatures{LetterSpace=40}] at (0,57){\MakeUppercase{Ars Conjectandi \textperiodcentered{} 1713}};
   \ClockHands
   \ifClockConstruction
    \foreach \x/\y/\lab in {0/28/B,0/0/C,-16.241303228361/-22.808333333333/D,0/-45/K,22/0/M}{
-    \node[font=\clockfont\sffamily\bfseries\fontsize{8}{9}\selectfont,text=clockblue,fill=white,inner sep=1pt,anchor=south west] at ({\x+2},{\y+2}){\lab};}
+    \node[font=\clockfont\fontsize{8}{9}\selectfont,text=clockblue,fill=white,inner sep=1pt,anchor=south west] at ({\x+2},{\y+2}){\lab};}
   \fi
  \end{tikzpicture}\endgroup}
