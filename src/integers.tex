@@ -209,39 +209,58 @@ For example, if $(X,s)$ is a cyclic set, then $s$ is always a cyclic-structure m
 \end{equation*}
 holds trivially. In \zcref{figure:example-cyclic-structure-map} we displayed an example of a cyclic-structure map from a $14$-element set to a $7$-element set. More generally, the idea of a cyclic-structure map is that we can overlay the elements of a cyclic set $X$ onto the elements of a cyclic set $Y$ so that the cyclic structure of the overlay matches the cyclic structure of $Y$. This means that in a cyclic-structure map, we can't skip any elements.
 
+
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[
     alt={
       Two abstractions of cyclic sets are displayed, one above the other. The upper one maps down to the second one, and winds around five times.
-      },
-    declare function={f(\x)=0.2*sin(\x)+\x/900;},
+    },
+    declare function={
+      f(\t)=0.2*sin(\t)+\t/900;
+    },
     line cap=butt,
-    line join=miter,
-    rubout/.style={%
-      /utils/exec=\tikzset{rubout/.cd,#1},
+    rubout/.style={
       decoration={
         show path construction,
         curveto code={
-          \draw [white,line width=\pgfkeysvalueof{/tikz/rubout/line width}+2*\pgfkeysvalueof{/tikz/rubout/halo}] 
-          (\tikzinputsegmentfirst) .. controls
-          (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb)  ..(\tikzinputsegmentlast); 
-          \draw [thick,shorten <=-0.1pt,shorten >=-0.1pt] (\tikzinputsegmentfirst) .. controls
-          (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb) ..(\tikzinputsegmentlast);  
+          \draw[white,line width=2.5pt]
+          (\tikzinputsegmentfirst)
+          .. controls
+          (\tikzinputsegmentsupporta) and
+          (\tikzinputsegmentsupportb)
+          .. (\tikzinputsegmentlast);
+          \draw[
+          thick,
+          shorten <=-0.1pt,
+          shorten >=-0.1pt
+          ]
+          (\tikzinputsegmentfirst)
+          .. controls
+          (\tikzinputsegmentsupporta) and
+          (\tikzinputsegmentsupportb)
+          .. (\tikzinputsegmentlast);
         }
       }
-    },
-    rubout/.cd,
-    line width/.initial=2pt,
-    halo/.initial=0.5pt
+    }
     ]
-    
-    \draw[rubout={line width=1.5pt,halo=0.5pt},decorate]
-    
-    plot[variable=\x,domain=-50:1690,samples=200,smooth] ({cos(\x)},{f(\x)}) to[out=0,in=195] cycle;
-    \draw[thick] (0,-2) arc(-90:270:1cm and 0.2cm);
-    \draw[thick,->]  (0,-0.4) -- (0,-1.4);
-  \end{tikzpicture}  
+
+    \path[rubout,decorate]
+    plot[
+    variable=\t,
+    domain=-50:1690,
+    samples=200,
+    smooth
+    ]
+    ({cos(\t)},{f(\t)})
+    to[out=0,in=195] cycle;
+
+    \draw[thick]
+    (0,-2) arc (-90:270:1cm and 0.2cm);
+
+    \draw[thick,->]
+    (0,-0.4) -- (0,-1.4);
+  \end{tikzpicture}
   \caption[Cyclic-structure maps]{Cyclic-structure maps are defined by ``winding'' the source cyclic set around the target cyclic set.}
   \label{figure:cyclic-structure-maps}
 \end{figure}

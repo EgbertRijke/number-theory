@@ -1,17 +1,20 @@
 \newif\ifshownotes
-
-% \shownotestrue
 \shownotesfalse
 
-\usepackage{environ}
-\NewEnviron{noteblock}{%
-  \ifshownotes
-    \begingroup\color{black!60}\BODY\endgroup
-  \fi
-}
+\NewDocumentEnvironment{noteblock}{+b}
+  {%
+    \ifshownotes
+      \begingroup
+        \color{black!60}#1%
+      \endgroup
+    \fi
+  }
+  {}
 
-\newcommand{\note}[1]{%
+\NewDocumentCommand{\note}{+m}{%
   \ifshownotes
-    \begingroup\color{black!60}#1\endgroup
+    \begingroup
+      \color{black!60}#1%
+    \endgroup
   \fi
 }

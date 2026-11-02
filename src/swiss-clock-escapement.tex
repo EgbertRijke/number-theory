@@ -188,7 +188,7 @@
    \path[fill=clocksteel,draw=clockink,line width=.15pt]
     \CEcoord{rootLead}--\CEcoord{neck}--\CEcoord{toothHeel}--\CEcoord{toothTip}--\CEcoord{rootTrail}--cycle;
   \end{scope}}
-  \foreach \a in {0,120,240}{\begin{scope}[rotate=\a]\fill[clocksteel] (0,-.21) rectangle (\CErootRadius,.21);\end{scope}}
+  \foreach \a in {0,120,240}{\begin{scope}[rotate=\a]\fill[clocksteel,draw=clockink,line width=.15pt] (0,-.21) rectangle (.85*\CErootRadius,.21);\end{scope}}
   \draw[fill=clockgoldlight,draw=clockink,line width=.15pt] (0,0) circle[radius=.65];
   \fill[clockink] (0,0) circle[radius=.18];
  \end{scope}}

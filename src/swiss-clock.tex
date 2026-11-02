@@ -15,7 +15,7 @@
  hours/.store in=\ClockHours,minutes/.store in=\ClockMinutes,
  seconds/.store in=\ClockSeconds,scale/.store in=\ClockScale,
  construction/.is if=ClockConstruction,stepped/.code={},
- hours=10,minutes=10,seconds=32.04,scale=1,construction=false,stepped=false}
+ hours=10,minutes=10,seconds=32.04,construction=false,stepped=false}
 
 \newcommand\ClockAngle[2]{\edef#1{\fpeval{(#2)-360*floor((#2)/360)}}}
 \newcommand\ClockState[1]{%
@@ -269,11 +269,22 @@
    \path[fill=clockruby,draw=clockpaper,line width=.2pt] (90:21.5)--(86:19.4)--(94:19.4)--cycle;
    \ClockGear{13.2}{0}{20}{.12}{\ClockPlanet}{clockgoldlight}{0}
    \begin{scope}[rotate=\ClockBalance]
-    \draw[clockgoldedge,line width=1.25mm] (0,0) circle[radius=10.1];
-    \draw[clockgoldlight,line width=.85mm] (0,0) circle[radius=10.1];
-    \foreach \a in {0,120,240}{\draw[clockgoldlight,line width=.7mm] (0,0)--(\a:9.8);}
-    \foreach \a in {0,30,...,330}{\draw[fill=clockgoldedge,draw=clockink,line width=.12pt] (\a:10.45) circle[radius=.35];}
-
+     \foreach \a in {0,120,240}{
+       \draw[clockgoldedge,line width=.95mm]
+       (0,0)--(\a:9.5);
+       \draw[clockgoldlight,line width=.7mm]
+       (0,0)--(\a:9.5);
+     }
+     
+     \draw[clockgoldedge,line width=1.25mm]
+     (0,0) circle[radius=10.1];
+     \draw[clockgoldlight,line width=.85mm]
+     (0,0) circle[radius=10.1];
+     
+     \foreach \a in {0,30,...,330}{
+       \draw[fill=clockgoldedge,draw=clockink,line width=.12pt]
+       (\a:10.45) circle[radius=.35];
+     }
    \end{scope}
    \draw[clockblue,line width=.23pt]
     plot[domain=0:1,samples=220,variable=\u]
@@ -337,9 +348,95 @@
  \draw[fill=clockblue,draw=clockink,line width=.3pt] (0,0) circle[radius=1.65];
 }
 
+\newsavebox{\ClockWarpBox}
+
+\newcommand{\ClockWarpText}[5]{%
+  \begingroup
+  \sbox{\ClockWarpBox}{{#5#4}}%
+
+  \pgfmathsetmacro{\ClockWarpW}{\the\wd\ClockWarpBox/1pt}
+  \pgfmathsetmacro{\ClockWarpH}{\the\ht\ClockWarpBox/1pt}
+  \pgfmathsetmacro{\ClockWarpD}{\the\dp\ClockWarpBox/1pt}
+  \pgfmathsetmacro{\ClockWarpR}{#1/1pt}
+  \pgfmathsetmacro{\ClockWarpS}{#3}
+
+  \pgfmathtruncatemacro{\ClockWarpCols}{40}
+  \pgfmathtruncatemacro{\ClockWarpRows}{12}
+
+  \pgfmathsetmacro{\ClockWarpDU}{\ClockWarpW/\ClockWarpCols}
+  \pgfmathsetmacro{\ClockWarpDV}{(\ClockWarpH+\ClockWarpD)/\ClockWarpRows}
+
+  \begin{scope}[x=1pt,y=1pt]
+    \foreach \i in {0,...,39}{
+      \pgfmathsetmacro{\ClockWarpU}{-0.5*\ClockWarpW + (\i+0.5)*\ClockWarpDU}
+      \foreach \j in {0,...,11}{
+        \pgfmathsetmacro{\ClockWarpV}{-\ClockWarpD + (\j+0.5)*\ClockWarpDV}
+
+        \pgfmathsetmacro{\ClockWarpAngle}{#2 - \ClockWarpU/\ClockWarpR * 180/pi}
+        \pgfmathsetmacro{\ClockWarpRad}{\ClockWarpR + \ClockWarpS*\ClockWarpV}
+        \pgfmathsetmacro{\ClockWarpK}{1 + (\ClockWarpS*\ClockWarpV)/\ClockWarpR}
+
+        \pgfmathsetmacro{\ClockWarpX}{\ClockWarpRad*cos(\ClockWarpAngle)}
+        \pgfmathsetmacro{\ClockWarpY}{\ClockWarpRad*sin(\ClockWarpAngle)}
+
+        \begin{scope}[
+          cm={
+            \ClockWarpK*sin(\ClockWarpAngle),
+            -\ClockWarpK*cos(\ClockWarpAngle),
+            \ClockWarpS*cos(\ClockWarpAngle),
+            \ClockWarpS*sin(\ClockWarpAngle),
+            (\ClockWarpX,\ClockWarpY)
+          }
+        ]
+          \clip
+            (\ClockWarpU-0.55*\ClockWarpDU,\ClockWarpV-0.55*\ClockWarpDV)
+            rectangle
+            (\ClockWarpU+0.55*\ClockWarpDU,\ClockWarpV+0.55*\ClockWarpDV);
+
+          \node[
+            anchor=base west,
+            inner sep=0pt,
+            outer sep=0pt
+          ] at (-0.5*\ClockWarpW,0) {\usebox{\ClockWarpBox}};
+        \end{scope}
+      }
+    }
+  \end{scope}
+  \endgroup
+}
+
+\newcommand\ClockRomanRadius{72}
+\newcommand\ClockRomanStretch{1.50}
+\newcommand\ClockRomanFontSize{10}
+
+\newcommand\ClockWarpRoman[2]{%
+  \begin{scope}[x=1mm,y=1mm]
+    \directlua{
+      clockwarp.draw(
+        [[\luaescapestring{#1}]],
+        #2,
+        \fpeval{0.5*\ClockRomanRadius},
+        \ClockRomanStretch,
+        \ClockRomanFontId
+      )
+    }%
+  \end{scope}%
+}
+
 \newcommand\SwissClock[1][]{%
- \begingroup\ClockState{#1}%
- \begin{tikzpicture}[x=1mm,y=1mm,scale=\ClockScale,line cap=round,line join=round]
+  \begingroup
+  \ClockState{#1}%
+
+  \clockfont\fontsize{\ClockRomanFontSize}{\ClockRomanFontSize}\selectfont
+  \edef\ClockRomanFontId{\number\fontid\font}%
+
+  \begin{tikzpicture}[
+    x=.5mm,
+    y=.5mm,
+    scale=\ClockScale,
+    line cap=round,
+    line join=round
+  ]
   \path[use as bounding box] (-93,-93) rectangle (93,93);
   \fill[clockink!15] (0,-.7) circle[radius=92.4];
   \draw[fill=clocksteel,draw=clockink,line width=.6pt] (0,0) circle[radius=92];
@@ -349,7 +446,7 @@
   \draw[clockgoldedge,line width=.3pt] (0,0) circle[radius=86.1];
   \draw[fill=clockplate,draw=clockgoldedge,line width=.45pt] (0,0) circle[radius=70.6];
   \begin{scope}\clip (0,0) circle[radius=69.6];
-   \foreach \y in {-70,-68,...,70}{\draw[white,opacity=.55,line width=.2pt] (-71,\y)--(71,\y);}
+   \foreach \y in {-67.5,-64.5,...,67.5}{\draw[white,opacity=.55,line width=.3pt] (-71,\y)--(71,\y);}
   \end{scope}
   \draw[clockpaper,line width=.6pt] (0,0) circle[radius=69.6];
   \foreach \k in {0,...,59}{
@@ -357,56 +454,30 @@
    \ifnum\kmod=0\def\TickIn{82.0}\def\TickWidth{.8pt}\else\def\TickIn{83.6}\def\TickWidth{.35pt}\fi
    \draw[clockink,line width=\TickWidth] ({90-6*\k}:\TickIn)--({90-6*\k}:85.1);}
 
-  {
-    \clockfont\fontsize{20}{24}\selectfont
-
-    \foreach \h/\roman in {
-      1/I,2/II,3/III,4/IV,5/V,6/VI,
-      7/VII,8/VIII,9/IX,10/X,11/XI,12/XII%
-    }{
-      \pgfmathsetmacro{\theta}{90-30*\h}
-      
-      \path[
-      decorate,
-      decoration={
-        text effects along path,
-        text={\roman},
-        text align=center,
-        text effects/.cd,
-        characters={
-          text along path,
-          yscale=1.50,
-          text=clockink
-        },
-        character widths={
-          text along path,
-          yscale=1
-        }
-      }
-      ]
-      ({\theta+12}:72)
-      arc[
-      start angle={\theta+12},
-      end angle={\theta-12},
-      radius=72
-      ];
-    }
+{
+  \foreach \h/\roman in {
+    1/I,2/II,3/III,4/IV,5/V,6/VI,
+    7/VII,8/VIII,9/IX,10/X,11/XI,12/XII%
+  }{
+    \pgfmathsetmacro{\theta}{90-30*\h}
+    \ClockWarpRoman{\roman}{\theta}
   }
+}
 
   \foreach \a in {45,135,225,315}{\begin{scope}[shift={(\a:65.5)}]\ClockScrew{0}{0}{\a}\end{scope}}
   \ClockTrain
   \node[
   text=clockink,
-  font=\clockfont\fontsize{10}{12}\selectfont
+  font=\clockfont\fontsize{5}{6}\selectfont
        \addfontfeatures{LetterSpace=40}
 ] at (0,62) {\MakeUppercase{Bernoulli}};
   \node[
   text=clockink,
-  font=\clockfont\fontsize{6.2}{8}\selectfont
+  font=\clockfont\fontsize{3.6}{5}\selectfont
        \addfontfeatures{LetterSpace=40}] at (0,57){\MakeUppercase{Ars Conjectandi \textperiodcentered{} 1713}};
   \ClockHands
   \ifClockConstruction
    \foreach \x/\y/\lab in {0/28/B,0/0/C,-16.241303228361/-22.808333333333/D,0/-45/K,22/0/M}{
-    \node[font=\clockfont\fontsize{8}{9}\selectfont,text=clockblue,fill=white,inner sep=1pt,anchor=south west] at ({\x+2},{\y+2}){\lab};}
+    \node[font=\clockfont\fontsize{5}{6}\selectfont,text=clockblue,fill=white,inner sep=1pt,anchor=south west] at ({\x+2},{\y+2}){\lab};}
   \fi
  \end{tikzpicture}\endgroup}
