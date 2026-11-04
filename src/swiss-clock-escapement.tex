@@ -23,7 +23,13 @@
  \CEpolar{#1BackEnd}{#1End}{\csname CE#1Length\endcsname}{\csname CE#1FaceAngle\endcsname}}
 
 \newcommand\ClockEscapementGeometry{%
- \CEdef{teeth}{15}\CEdef{lockingRadius}{4.10}\CEdef{rootRadius}{6.3/2}%
+ \CEdef{teeth}{15}%
+ \CEdef{cagePeriod}{60}\CEdef{fixedWheelTeeth}{200}\CEdef{escapePinionTeeth}{20}%
+ \CEdef{cageRate}{360/\CEcagePeriod}%
+ \CEdef{wheelRate}{\CEcageRate*\CEfixedWheelTeeth/\CEescapePinionTeeth}%
+ \CEdef{beatRate}{\CEwheelRate*\CEteeth/180}%
+ \CEdef{balanceFrequency}{\CEbeatRate/2}\CEdef{balanceAmplitude}{260}%
+ \CEdef{lockingRadius}{4.10}\CEdef{rootRadius}{6.3/2}%
  \CEdef{embrace}{2.5*360/\CEteeth}\CEdef{nominalDrop}{1}%
  \CEdef{escapingArc}{10}\CEdef{lock}{1.5}\CEdef{run}{.5}%
  \CEdef{entryDraw}{12}\CEdef{exitDraw}{13.5}%
@@ -161,17 +167,17 @@
 }
 
 \newcommand\ClockEscapementState{%
- \CEdef{beatIndex}{floor(5*\ClockT+.5)}%
- \CEdef{halfTime}{\ClockT-\CEbeatIndex/5}%
+ \CEdef{beatIndex}{floor(\CEbeatRate*\ClockT+.5)}%
+ \CEdef{halfTime}{\ClockT-\CEbeatIndex/\CEbeatRate}%
  \CEdef{parity}{\CEbeatIndex-2*floor(\CEbeatIndex/2)}%
- \CEdef{progress}{260*sin(5*pi*\CEhalfTime)}%
+ \CEdef{progress}{\CEbalanceAmplitude*sin(\CEbeatRate*pi*\CEhalfTime)}%
  \CEdef{balance}{(1-2*\CEparity)*\CEprogress}%
  \CEdef{lever}{abs(\CEprogress)<=\CEhalfEngagement?atan(-\CErollerRadius*sind(\CEbalance),\CEpx-\CErollerRadius*cosd(\CEbalance))*180/pi:-\CEbank*sign(\CEbalance)}%
  \ifnum\CEparity=0\CEwheelPose{\CElever}{entry}\else\CEwheelPose{\CElever}{exit}\fi
  \ifnum\fpeval{abs(\CEprogress)>\CEhalfEngagement?1:0}=1\def\CEstage{locked; balance free}\fi
  \CEdef{unwrappedWheel}{\CEwheel-360/\CEteeth*floor(\CEbeatIndex/2)}%
  \edef\ClockEscapeAngle{\fpeval{\CEunwrappedWheel-360*floor(\CEunwrappedWheel/360)}}%
- \edef\ClockTau{\fpeval{(\CEinitialWheel-\CEunwrappedWheel)/60}}%
+ \edef\ClockTau{\fpeval{(\CEinitialWheel-\CEunwrappedWheel)/\CEwheelRate}}%
  \let\ClockLever\CElever\let\ClockBalance\CEbalance
 }
 

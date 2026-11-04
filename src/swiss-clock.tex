@@ -10,12 +10,13 @@
 \definecolor{clockplate}{HTML}{EEEDE5}
 \definecolor{clockruby}{HTML}{A13D56}
 \newif\ifClockConstruction
-\newif\ifClockStepped
 \pgfkeys{/swissclock/.is family,/swissclock,
  hours/.store in=\ClockHours,minutes/.store in=\ClockMinutes,
  seconds/.store in=\ClockSeconds,scale/.store in=\ClockScale,
- construction/.is if=ClockConstruction,stepped/.code={},
- hours=10,minutes=10,seconds=32.04,construction=false,stepped=false}
+ construction/.is if=ClockConstruction,
+ stepped/.is choice,stepped/false/.code={},
+ stepped/true/.code={\PackageWarningNoLine{swiss-clock}{The stepped key is obsolete; using contact-driven motion}},
+ hours=10,minutes=10,seconds=32.04,scale=1,construction=false,stepped=false}
 
 \newcommand\ClockAngle[2]{\edef#1{\fpeval{(#2)-360*floor((#2)/360)}}}
 \newcommand\ClockState[1]{%
@@ -26,8 +27,8 @@
  \ClockAngle\ClockCentre{-\ClockTau/10}%
  \ClockAngle\ClockThirdPinion{-707.176714473984+0.6*\ClockTau}%
  \ClockAngle\ClockThirdWheel{-42.0810014946694+0.6*\ClockTau}%
- \ClockAngle\ClockCage{-6*\ClockTau}%
- \ClockAngle\ClockPlanet{171-60*\ClockTau}% relative to cage
+ \ClockAngle\ClockCage{-\CEcageRate*\ClockTau}%
+ \ClockAngle\ClockPlanet{171-\CEwheelRate*\ClockTau}%
  \ClockAngle\ClockMotion{177+\ClockTau/30}%
  \ClockAngle\ClockHourWheel{358.5-\ClockTau/120}%
  \ClockAngle\ClockMinuteHand{90-\ClockTau/10}%
@@ -248,6 +249,23 @@
 
 \input{src/swiss-clock-escapement.tex}
 
+\newcommand\ClockCarrierHub{%
+ \path[fill=clockblue,draw=clockink,line width=.2pt,even odd rule]
+  (0,0) circle[radius=2.4] (0,0) circle[radius=1.05];}
+\newcommand\ClockCageRingRadius{20.25}
+\newcommand\ClockEscapeCock{%
+ \path[fill=clocksteel,draw=clockink,line width=.18pt]
+  (\CEex,-.5)--({\CEex+1},-.24)--({\ClockCageRingRadius-.75},-.35)
+  --(\ClockCageRingRadius,-.5)--(\ClockCageRingRadius,.5)
+  --({\ClockCageRingRadius-.75},.35)--({\CEex+1},.24)--(\CEex,.5)--cycle;
+ \path[fill=clocksteel,draw=clockink,line width=.18pt]
+  (\ClockCageRingRadius,0) circle[radius=.6];
+ \draw[fill=clockgoldlight,draw=clockink,line width=.18pt] (\CEex,0) circle[radius=.52];
+ \draw[fill=clockruby,draw=clockink,line width=.12pt] (\CEex,0) circle[radius=.24];
+ \fill[clockink] (\CEex,0) circle[radius=.08];
+ \draw[fill=clocksteel,draw=clockink,line width=.15pt] (\ClockCageRingRadius,0) circle[radius=.42];
+ \draw[clockink,line width=.15pt] ({\ClockCageRingRadius-.27},0)--({\ClockCageRingRadius+.27},0);}
+
 \newcommand\ClockTourbillon{%
  \begin{scope}[shift={(0,-45)}]
   \draw[clockgoldedge,line width=.35pt] (0,0) circle[radius=24.4];
@@ -257,7 +275,7 @@
    \draw[clockink,line width=.25pt] ({90-6*\k}:\TickIn)--({90-6*\k}:23.8);}
   \ClockGear{0}{0}{200}{.12}{0}{clocksteel}{6}
   \begin{scope}[rotate=\ClockCage]
-   \draw[clockblue,line width=.65mm] (0,0) circle[radius=20.25];
+   \draw[clockblue,line width=.65mm] (0,0) circle[radius=\ClockCageRingRadius];
    \draw[clocklightblue,line width=.12mm] (0,0) circle[radius=20.55];
    \foreach \a in {90,210,330}{
     \begin{scope}[rotate=\a]
@@ -266,6 +284,7 @@
      \draw[fill=clocksteel,draw=clockink,line width=.2pt] (18.7,0) circle[radius=.7];
      \draw[clockink,line width=.25pt] (18.25,0)--(19.15,0);
     \end{scope}}
+   \ClockCarrierHub
    \path[fill=clockruby,draw=clockpaper,line width=.2pt] (90:21.5)--(86:19.4)--(94:19.4)--cycle;
    \ClockGear{13.2}{0}{20}{.12}{\ClockPlanet}{clockgoldlight}{0}
    \begin{scope}[rotate=\ClockBalance]
@@ -294,6 +313,7 @@
    \draw[fill=clocksteel,draw=clockink,line width=.2pt] (0,8.3) circle[radius=.6];
    \fill[clockblue] (0,0) circle[radius=.85];
    \ClockEscapement
+   \ClockEscapeCock
    \pgfmathsetmacro\ClockCockY{-\CEpx*tan(30)}
    \path[fill=clocksteel,draw=clockink,line width=.18pt]
     ({\CEpx-.33},\ClockCockY)--({\CEpx-.24},-.6)
