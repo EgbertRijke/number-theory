@@ -94,6 +94,7 @@
 \ClockDefine{SecondsMarkerAngle}{90}\ClockDefine{SecondsMarkerHalfAngle}{4}
 \ClockDefine{SecondsMarkerOutset}{1.25}\ClockDefine{SecondsMarkerInset}{.85}
 \ClockDefine{SecondsRingRadius}{24.4}\ClockDefine{SecondsTicksOuter}{23.8}
+\ClockDefine{SecondsRingFillOpacity}{.5}
 \ClockDefine{SecondsMajorTickLength}{1.3}\ClockDefine{SecondsMinorTickLength}{.6}
 \ClockDefine{BalanceRimRadius}{10.1}\ClockDefine{BalanceSpokeInset}{.6}
 \ClockDefine{BalanceSpokeCount}{3}\ClockDefine{BalanceScrewCount}{12}
@@ -105,6 +106,7 @@
 \ClockDefine{SpringSweep}{360*\ClockSpringTurns}
 \ClockDefine{SpringStudRadius}{\ClockSpringOuterRadius+\ClockSpringStudExtension}
 \ClockDefine{CageBridgeFootRadius}{23}\ClockDefine{CageBridgeHighlightEndInset}{3}
+\ClockDefine{CageBridgeAxisAngle}{\ClockCageThirdDirection-90}
 \ClockDefine{BarrelCoverInset}{2.1}\ClockDefine{BarrelInnerRingInset}{1.1}
 \ClockDefine{BarrelHighlightInset}{.6}\ClockDefine{BarrelScrewInset}{2.4}
 \ClockDefine{BarrelScrewCount}{3}
@@ -412,6 +414,14 @@
 
 \newcommand\ClockTourbillon{%
  \begin{scope}[shift={(\ClockCageX,\ClockCageY)}]
+   \path[
+   fill=white,
+   fill opacity=\ClockSecondsRingFillOpacity,
+   draw=none,
+   even odd rule
+   ]
+   (0,0) circle[radius=\ClockSecondsRingRadius]
+   (0,0) circle[radius=\ClockCageRingRadius];
   \draw[clockgoldedge,line width=.35pt] (0,0) circle[radius=\ClockSecondsRingRadius];
   \foreach \k in {0,...,\fpeval{\ClockDialTickCount-1}}{
    \pgfmathtruncatemacro\kmod{mod(\k,\ClockDialTicksPerHour)}
@@ -480,11 +490,23 @@
    \draw[clockink,line width=.14pt] ({\CEpx-.28},\ClockCockY)--({\CEpx+.28},\ClockCockY);
   \end{scope}
   \path[fill=clocksteel,draw=clockink,line width=.3pt]
-   (-.65,-\ClockCageBridgeFootRadius)--(-.45,-3)--(-1.8,-1.4)--(-1.8,1.4)--(-.45,3)--(-.65,\ClockCageBridgeFootRadius)
-   --(.65,\ClockCageBridgeFootRadius)--(.45,3)--(1.8,1.4)--(1.8,-1.4)--(.45,-3)--(.65,-\ClockCageBridgeFootRadius)--cycle;
-  \draw[white,line width=.2pt] (-.18,{-\ClockCageBridgeFootRadius+\ClockCageBridgeHighlightEndInset})--(-.18,-3);
-  \draw[white,line width=.2pt] (-.18,3)--(-.18,{\ClockCageBridgeFootRadius-\ClockCageBridgeHighlightEndInset});
-  \ClockScrew{0}{-\ClockCageBridgeFootRadius}{35}\ClockScrew{0}{\ClockCageBridgeFootRadius}{-35}\ClockJewel{0}{0}
+  (-.65,-\ClockCageBridgeFootRadius)
+  --(-.45,-3)--(-1.8,-1.4)--(-1.8,1.4)--(-.45,3)
+  --(-.65,\ClockCageBridgeFootRadius)
+  --(.65,\ClockCageBridgeFootRadius)
+  --(.45,3)--(1.8,1.4)--(1.8,-1.4)--(.45,-3)
+  --(.65,-\ClockCageBridgeFootRadius)--cycle;
+  
+  \draw[white,line width=.2pt]
+  (-.18,{-\ClockCageBridgeFootRadius+\ClockCageBridgeHighlightEndInset})
+  --(-.18,-3);
+  \draw[white,line width=.2pt]
+  (-.18,3)
+  --(-.18,{\ClockCageBridgeFootRadius-\ClockCageBridgeHighlightEndInset});
+  
+  \ClockScrew{0}{-\ClockCageBridgeFootRadius}{0}
+  \ClockScrew{0}{\ClockCageBridgeFootRadius}{0}
+  \ClockJewel{0}{0}
  \end{scope}}
 
 \newcommand\ClockTrain{%
@@ -500,7 +522,21 @@
  \ClockGear{\ClockCentreX}{\ClockCentreY}{\ClockCentrePinionTeeth}{\ClockBarrelMeshModule}{\ClockCentre}{clocksteel}{0}
  \ClockGear{\ClockCentreX}{\ClockCentreY}{\ClockCentreWheelTeeth}{\ClockCentreMeshModule}{\ClockCentre}{clockgold}{\ClockCentreWheelSpokes}
  \ClockGear{\ClockThirdX}{\ClockThirdY}{\ClockThirdPinionTeeth}{\ClockCentreMeshModule}{\ClockThirdPinion}{clocksteel}{0}
- \ClockGear{\ClockThirdX}{\ClockThirdY}{\ClockThirdWheelTeeth}{\ClockCageMeshModule}{\ClockThirdWheel}{clockgoldlight}{\ClockThirdWheelSpokes}
+ \begingroup
+ \ClockDefine{WheelHubFraction}{.12}
+ \ClockDefine{ThirdWheelSpokeWidthScale}{.64}
+ 
+ \ClockDefine{WheelSpokeRootHalfWidth}
+ {\ClockThirdWheelSpokeWidthScale*\ClockWheelSpokeRootHalfWidth}
+ \ClockDefine{WheelSpokeEndHalfWidth}
+ {\ClockThirdWheelSpokeWidthScale*\ClockWheelSpokeEndHalfWidth}
+ 
+ \ClockGear
+ {\ClockThirdX}{\ClockThirdY}
+ {\ClockThirdWheelTeeth}{\ClockCageMeshModule}
+ {\ClockThirdWheel}{clockgoldlight}
+ {\ClockThirdWheelSpokes}
+ \endgroup
  \ClockGear{\ClockCageX}{\ClockCageY}{\ClockCagePinionTeeth}{\ClockCageMeshModule}{\ClockCage}{clocksteel}{0}
  \ClockTourbillon
  \ClockGear{\ClockCentreX}{\ClockCentreY}{\ClockCannonTeeth}{\ClockCannonMeshModule}{\ClockCentre}{clocksteel}{0}
