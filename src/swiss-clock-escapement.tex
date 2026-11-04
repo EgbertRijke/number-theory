@@ -23,61 +23,75 @@
  \CEpolar{#1BackEnd}{#1End}{\csname CE#1Length\endcsname}{\csname CE#1FaceAngle\endcsname}}
 
 \newcommand\ClockEscapementGeometry{%
- \CEdef{teeth}{15}%
- \CEdef{cagePeriod}{60}\CEdef{fixedWheelTeeth}{200}\CEdef{escapePinionTeeth}{20}%
- \CEdef{cageRate}{360/\CEcagePeriod}%
- \CEdef{wheelRate}{\CEcageRate*\CEfixedWheelTeeth/\CEescapePinionTeeth}%
- \CEdef{beatRate}{\CEwheelRate*\CEteeth/180}%
- \CEdef{balanceFrequency}{\CEbeatRate/2}\CEdef{balanceAmplitude}{260}%
- \CEdef{lockingRadius}{4.10}\CEdef{rootRadius}{6.3/2}%
- \CEdef{embrace}{2.5*360/\CEteeth}\CEdef{nominalDrop}{1}%
+ \CEdef{teeth}{15}\CEdef{beatsPerTooth}{2}%
+ \CEdef{balanceAmplitude}{260}%
+ \CEdef{lockingRadius}{4.10}\CEdef{rootDiameter}{6.3}%
+ \CEdef{embracedToothPitches}{2.5}\CEdef{nominalDrop}{1}%
  \CEdef{escapingArc}{10}\CEdef{lock}{1.5}\CEdef{run}{.5}%
  \CEdef{entryDraw}{12}\CEdef{exitDraw}{13.5}%
- \CEdef{stoneShare}{5/(5+3)}\CEdef{entryLength}{1.8}\CEdef{exitLength}{1.9}%
- \CEdef{halfEngagement}{34/2}\CEdef{pinRadius}{.6/2}%
+ \CEdef{stoneConstructionParts}{5}\CEdef{toothConstructionParts}{3}%
+ \CEdef{entryLength}{1.8}\CEdef{exitLength}{1.9}%
+ \CEdef{engagementArc}{34}\CEdef{pinDiameter}{.6}%
  \CEdef{guardShake}{1}\CEdef{hornShake}{1.5}\CEdef{entryFreedom}{.5}%
  \CEdef{hollowAngularClearance}{5}\CEdef{hollowDepthClearance}{.1}%
  \CEdef{notchBottomClearance}{.15}\CEdef{hornWidth}{.18}%
  \CEdef{dropTravel}{.1}%
+ \CEdef{rootLeadAngle}{1.5}\CEdef{neckInset}{.2}%
+ \CEdef{neckAngle}{.8}\CEdef{rootTrailAngle}{7}%
+ \CEdef{safetyRadiusFraction}{.6}\CEdef{largeRollerRadiusRatio}{2}%
+ \CEdef{pinFlatRadiusFraction}{1/3}%
+ \CEdef{stemHalfWidth}{.22}\CEdef{bankPinRadius}{.30}\CEdef{bankStation}{3}%
+ \CEdef{lockNumericalTolerance}{1e-12}%
+ \CEdef{fixedWheelTeeth}{\ClockFixedWheelTeeth}\CEdef{escapePinionTeeth}{\ClockEscapePinionTeeth}%
+ \CEdef{cagePeriod}{\ClockCagePeriod}\CEdef{cageRate}{abs(\ClockCageRate)}%
+ \CEdef{wheelRate}{abs(\ClockPlanetRate)}%
+ \CEdef{toothPitch}{360/\CEteeth}\CEdef{halfToothPitch}{\CEtoothPitch/\CEbeatsPerTooth}%
+ \CEdef{beatRate}{\CEwheelRate/\CEhalfToothPitch}%
+ \CEdef{balanceFrequency}{\CEbeatRate/2}%
+ \CEdef{rootRadius}{\CErootDiameter/2}%
+ \CEdef{embrace}{\CEembracedToothPitches*\CEtoothPitch}%
+ \CEdef{exitToothIndex}{floor(\CEembracedToothPitches)}%
+ \CEdef{stoneShare}{\CEstoneConstructionParts/(\CEstoneConstructionParts+\CEtoothConstructionParts)}%
+ \CEdef{halfEngagement}{\CEengagementArc/2}\CEdef{pinRadius}{\CEpinDiameter/2}%
  \CEdef{bank}{\CEescapingArc/2+\CErun}%
- \CEdef{usefulWheelArc}{180/\CEteeth-\CEnominalDrop}%
- \CEpoint{s}{0}{0}\CEpoint{e}{13.2}{0}%
+ \CEdef{usefulWheelArc}{\CEhalfToothPitch-\CEnominalDrop}%
+ \CEpoint{s}{0}{0}\CEpoint{e}{\ClockEscapeOrbitRadius}{0}%
  \CEpoint{p}{\CEex-\CElockingRadius/cosd(\CEembrace/2)}{0}%
- \CEpolar{a}{e}{\CElockingRadius}{180+\CEembrace/2}%
- \CEpolar{b}{e}{\CElockingRadius}{180-\CEembrace/2}%
- \CErotate{c}{a}{e}{-\CEusefulWheelArc}%
- \CErotate{d}{b}{e}{-\CEusefulWheelArc}%
- \CErotate{f}{b}{p}{\CEescapingArc-\CElock}%
- \CEpoint{h}{\CEfx+\CEstoneShare*(\CEdx-\CEfx)}{\CEfy+\CEstoneShare*(\CEdy-\CEfy)}%
- \CErotate{entryTip}{h}{e}{\CEembrace}%
- \CErotate{i}{a}{p}{\CElock}%
- \CErotate{m}{entryTip}{p}{\CEescapingArc}%
- \CErotate{entryLock}{i}{p}{-\CEescapingArc/2}%
- \CErotate{entryEnd}{m}{p}{-\CEescapingArc/2}%
- \CErotate{exitLock}{f}{p}{-\CEescapingArc/2}%
- \CErotate{exitEnd}{h}{p}{-\CEescapingArc/2}%
+ \CEpolar{entryHeel}{e}{\CElockingRadius}{180+\CEembrace/2}%
+ \CEpolar{exitHeel}{e}{\CElockingRadius}{180-\CEembrace/2}%
+ \CErotate{entryNominalRelease}{entryHeel}{e}{-\CEusefulWheelArc}%
+ \CErotate{exitNominalRelease}{exitHeel}{e}{-\CEusefulWheelArc}%
+ \CErotate{exitLockAtRelease}{exitHeel}{p}{\CEescapingArc-\CElock}%
+ \CEpoint{exitDischarge}{\CEexitLockAtReleasex+\CEstoneShare*(\CEexitNominalReleasex-\CEexitLockAtReleasex)}{\CEexitLockAtReleasey+\CEstoneShare*(\CEexitNominalReleasey-\CEexitLockAtReleasey)}%
+ \CErotate{entryTip}{exitDischarge}{e}{\CEembrace}%
+ \CErotate{entryLockBeforeCentering}{entryHeel}{p}{\CElock}%
+ \CErotate{entryEndBeforeCentering}{entryTip}{p}{\CEescapingArc}%
+ \CErotate{entryLock}{entryLockBeforeCentering}{p}{-\CEescapingArc/2}%
+ \CErotate{entryEnd}{entryEndBeforeCentering}{p}{-\CEescapingArc/2}%
+ \CErotate{exitLock}{exitLockAtRelease}{p}{-\CEescapingArc/2}%
+ \CErotate{exitEnd}{exitDischarge}{p}{-\CEescapingArc/2}%
  \CEdef{entryFaceAngle}{180+\CEembrace/2-\CEentryDraw-\CEescapingArc/2}%
  \CEdef{exitFaceAngle}{180-\CEembrace/2-(\CEexitDraw-\CEescapingArc)-\CEescapingArc/2}%
  \CEstoneBody{entry}\CEstoneBody{exit}%
  \CEdef{heelReference}{180-\CEembrace/2-\CEusefulWheelArc}%
  \CEpoint{toothHeel}{\CElockingRadius}{0}%
- \CEpoint{relativeTip}{\CEhx-\CEex}{\CEhy-\CEey}%
+ \CEpoint{relativeTip}{\CEexitDischargex-\CEex}{\CEexitDischargey-\CEey}%
  \CErotate{toothTip}{relativeTip}{s}{-\CEheelReference}%
  \CEdef{tipRadius}{sqrt((\CEtoothTipx)^2+(\CEtoothTipy)^2)}%
- \CEpolar{rootLead}{s}{\CErootRadius}{1.5}%
- \CEpolar{neck}{s}{\CElockingRadius-.2}{.8}%
- \CEpolar{rootTrail}{s}{\CErootRadius}{7}%
+ \CEpolar{rootLead}{s}{\CErootRadius}{\CErootLeadAngle}%
+ \CEpolar{neck}{s}{\CElockingRadius-\CEneckInset}{\CEneckAngle}%
+ \CEpolar{rootTrail}{s}{\CErootRadius}{\CErootTrailAngle}%
  \CEdef{rollerRadius}{\CEpx*sind(\CEbank)/sind(\CEbank+\CEhalfEngagement)}%
- \CEdef{safetyRadius}{.6*\CErollerRadius}\CEdef{largeRollerRadius}{2*\CEsafetyRadius}%
- \CEdef{flat}{\CEpinRadius/3}\CEdef{flatHalfWidth}{sqrt((\CEpinRadius)^2-(\CEflat)^2)}%
+ \CEdef{safetyRadius}{\CEsafetyRadiusFraction*\CErollerRadius}\CEdef{largeRollerRadius}{\CElargeRollerRadiusRatio*\CEsafetyRadius}%
+ \CEdef{flat}{\CEpinFlatRadiusFraction*\CEpinRadius}\CEdef{flatHalfWidth}{sqrt((\CEpinRadius)^2-(\CEflat)^2)}%
  \CEdef{Dangle}{acosd(\CEflat/\CEpinRadius)}%
  \CEdef{pinOuterRadius}{sqrt((\CErollerRadius+\CEflat)^2+(\CEflatHalfWidth)^2)}%
  \CEdef{notchBottom}{\CEpx-\CErollerRadius-\CEflat-\CEnotchBottomClearance}%
  \CEdef{guardAngle}{\CEbank-\CEguardShake}%
  \CEdef{guardLength}{\CEpx*cosd(\CEguardAngle)-sqrt((\CEsafetyRadius)^2-(\CEpx)^2*sind(\CEguardAngle)^2)}%
- \CEpolar{g}{p}{-\CEguardLength}{\CEguardAngle}%
+ \CEpolar{guardContact}{p}{-\CEguardLength}{\CEguardAngle}%
  \CEbetaForLever{\CEguardAngle}%
- \CEdef{guardPolar}{atan(\CEgy,\CEgx)*180/pi}%
+ \CEdef{guardPolar}{atan(\CEguardContacty,\CEguardContactx)*180/pi}%
  \CEdef{hollowHalfAngle}{abs(\CEguardPolar-\CEbeta)+\CEhollowAngularClearance}%
  \CEdef{hollowBottom}{\CEpx-\CEguardLength-\CEhollowDepthClearance}%
  \CEdef{hollowCentre}{((\CEsafetyRadius)^2-(\CEhollowBottom)^2)/(2*(\CEsafetyRadius*cosd(\CEhollowHalfAngle)-\CEhollowBottom))}%
@@ -91,18 +105,17 @@
  \CEdef{intersection}{(-\CEpinRadius-\CEnx*(\CEstartFlatx-\CEpx)-\CEny*\CEstartFlaty)/(\CEnx*\CEvx+\CEny*\CEvy)}%
  \CEpoint{mouthConstruction}{\CEstartFlatx+\CEintersection*\CEvx}{\CEstartFlaty+\CEintersection*\CEvy}%
  \CEdef{mouthLength}{sqrt((\CEmouthConstructionx-\CEpx)^2+(\CEmouthConstructiony)^2-(\CEpinRadius)^2)}%
- \CEpoint{j}{\CEpx-\CEmouthLength}{-\CEpinRadius}%
+ \CEpoint{slotMouth}{\CEpx-\CEmouthLength}{-\CEpinRadius}%
  \CEdef{handoffBeta}{\CEguardPolar-\CEhollowHalfAngle}%
  \CEpolar{handoffFlat}{s}{\CErollerRadius+\CEflat}{\CEhandoffBeta}%
  \CErotate{hornTip}{handoffFlat}{p}{-(\CEbank-\CEhornShake)}%
- \CEpoint{mid}{(\CEjx+\CEhornTipx)/2}{(\CEjy+\CEhornTipy)/2}%
- \CEdef{dx}{\CEhornTipx-\CEjx}\CEdef{dy}{\CEhornTipy-\CEjy}%
- \CEdef{chord}{sqrt((\CEdx)^2+(\CEdy)^2)}%
+ \CEpoint{hornChordMidpoint}{(\CEslotMouthx+\CEhornTipx)/2}{(\CEslotMouthy+\CEhornTipy)/2}%
+ \CEdef{hornChordDx}{\CEhornTipx-\CEslotMouthx}\CEdef{hornChordDy}{\CEhornTipy-\CEslotMouthy}%
+ \CEdef{chord}{sqrt((\CEhornChordDx)^2+(\CEhornChordDy)^2)}%
  \CEdef{offset}{sqrt((\CEpinOuterRadius)^2-(\CEchord)^2/4)}%
- \CEpoint{hornCentre}{\CEmidx+\CEoffset*\CEdy/\CEchord}{\CEmidy-\CEoffset*\CEdx/\CEchord}%
- \CEdef{hornStart}{atan(\CEjy-\CEhornCentrey,\CEjx-\CEhornCentrex)*180/pi}%
+ \CEpoint{hornCentre}{\CEhornChordMidpointx+\CEoffset*\CEhornChordDy/\CEchord}{\CEhornChordMidpointy-\CEoffset*\CEhornChordDx/\CEchord}%
+ \CEdef{hornStart}{atan(\CEslotMouthy-\CEhornCentrey,\CEslotMouthx-\CEhornCentrex)*180/pi}%
  \CEdef{hornEnd}{atan(\CEhornTipy-\CEhornCentrey,\CEhornTipx-\CEhornCentrex)*180/pi}%
- \CEdef{stemHalfWidth}{.22}\CEdef{bankPinRadius}{.30}\CEdef{bankStation}{3}%
  \CEpoint{bankPin}{\CEpx-\CEbankStation*cosd(\CEbank)+(\CEstemHalfWidth+\CEbankPinRadius)*sind(\CEbank)}%
  {-\CEbankStation*sind(\CEbank)-(\CEstemHalfWidth+\CEbankPinRadius)*cosd(\CEbank)}%
 }
@@ -126,7 +139,7 @@
  \CEdef{faceAngle}{\csname CE#2FaceAngle\endcsname+(#1)}%
  \CEcircleLine{\CELx}{\CELy}{cosd(\CEfaceAngle)}{sind(\CEfaceAngle)}{\CEref}%
  \def\CEstage{locking}%
- \ifnum\fpeval{\CEu < -1e-12?1:0}=1
+ \ifnum\fpeval{\CEu < -\CElockNumericalTolerance?1:0}=1
   \CEcircleLine{\CELx}{\CELy}{\CEJx-\CELx}{\CEJy-\CELy}{\CEref}%
   \def\CEstage{pallet impulse}%
   \ifnum\fpeval{\CEu>1?1:0}=1
@@ -148,11 +161,11 @@
  \edef\CEside{#2}\def\CEentryToken{entry}%
  \ifx\CEside\CEentryToken
   \CEdef{isDrop}{(#1)<-\CEescapingArc/2?1:0}\CEdef{wheelOffset}{0}%
-  \def\CEother{exit}\CEdef{landingOffset}{2*360/\CEteeth}%
+  \def\CEother{exit}\CEdef{landingOffset}{\CEexitToothIndex*\CEtoothPitch}%
   \CEdef{releaseAngle}{180+\CEembrace/2-\CEusefulWheelArc}%
  \else
-  \CEdef{isDrop}{(#1)>\CEescapingArc/2?1:0}\CEdef{wheelOffset}{2*360/\CEteeth}%
-  \def\CEother{entry}\CEdef{landingOffset}{-360/\CEteeth}%
+  \CEdef{isDrop}{(#1)>\CEescapingArc/2?1:0}\CEdef{wheelOffset}{\CEexitToothIndex*\CEtoothPitch}%
+  \def\CEother{entry}\CEdef{landingOffset}{-\CEtoothPitch}%
   \CEdef{releaseAngle}{180-\CEembrace/2-\CEusefulWheelArc+\CEwheelOffset}%
  \fi
  \ifnum\CEisDrop=0
@@ -175,7 +188,7 @@
  \CEdef{lever}{abs(\CEprogress)<=\CEhalfEngagement?atan(-\CErollerRadius*sind(\CEbalance),\CEpx-\CErollerRadius*cosd(\CEbalance))*180/pi:-\CEbank*sign(\CEbalance)}%
  \ifnum\CEparity=0\CEwheelPose{\CElever}{entry}\else\CEwheelPose{\CElever}{exit}\fi
  \ifnum\fpeval{abs(\CEprogress)>\CEhalfEngagement?1:0}=1\def\CEstage{locked; balance free}\fi
- \CEdef{unwrappedWheel}{\CEwheel-360/\CEteeth*floor(\CEbeatIndex/2)}%
+ \CEdef{unwrappedWheel}{\CEwheel-\CEtoothPitch*floor(\CEbeatIndex/2)}%
  \edef\ClockEscapeAngle{\fpeval{\CEunwrappedWheel-360*floor(\CEunwrappedWheel/360)}}%
  \edef\ClockTau{\fpeval{(\CEinitialWheel-\CEunwrappedWheel)/\CEwheelRate}}%
  \let\ClockLever\CElever\let\ClockBalance\CEbalance
@@ -185,16 +198,24 @@
 
 \CEcontact{0}{entry}\CEdef{initialWheel}{\CEheelAngle}
 
+\CEdef{webInnerFraction}{.76}\CEdef{spokeCount}{3}\CEdef{spokeEndFraction}{.85}%
+\CEdef{spokeHalfWidth}{.21}\CEdef{rollerRimWidth}{.12}\CEdef{rollerSpokeHalfWidth}{.25}%
+\CEdef{guardRootSetback}{.3}\CEdef{guardRootHalfWidth}{.055}%
+\CEdef{forkShoulderStation}{.35}\CEdef{forkShoulderHalfWidth}{.5}\CEdef{forkStemStation}{.8}%
+
 \newcommand\ClockEscapeWheel{%
  \begin{scope}[shift={(\CEex,0)},rotate=\ClockEscapeAngle]
   \path[fill=clocksteel,draw=clockink,line width=.15pt,even odd rule]
-   (0,0) circle[radius=\CErootRadius] (0,0) circle[radius={.76*\CErootRadius}];
+   (0,0) circle[radius=\CErootRadius] (0,0) circle[radius={\CEwebInnerFraction*\CErootRadius}];
   \pgfmathtruncatemacro\CElastTooth{\CEteeth-1}
-  \foreach \tooth in {0,...,\CElastTooth}{\begin{scope}[rotate={360*\tooth/\CEteeth}]
+  \foreach \tooth in {0,...,\CElastTooth}{\begin{scope}[rotate={\CEtoothPitch*\tooth}]
    \path[fill=clocksteel,draw=clockink,line width=.15pt]
     \CEcoord{rootLead}--\CEcoord{neck}--\CEcoord{toothHeel}--\CEcoord{toothTip}--\CEcoord{rootTrail}--cycle;
   \end{scope}}
-  \foreach \a in {0,120,240}{\begin{scope}[rotate=\a]\fill[clocksteel,draw=clockink,line width=.15pt] (0,-.21) rectangle (.85*\CErootRadius,.21);\end{scope}}
+  \foreach \spoke in {0,...,\fpeval{\CEspokeCount-1}}{\begin{scope}[rotate={360*\spoke/\CEspokeCount}]
+   \fill[clocksteel,draw=clockink,line width=.15pt]
+    (0,-\CEspokeHalfWidth) rectangle ({\CEspokeEndFraction*\CErootRadius},\CEspokeHalfWidth);
+  \end{scope}}
   \draw[fill=clockgoldlight,draw=clockink,line width=.15pt] (0,0) circle[radius=.65];
   \fill[clockink] (0,0) circle[radius=.18];
  \end{scope}}
@@ -202,8 +223,8 @@
 \newcommand\ClockLeverAssembly{%
  \begin{scope}[rotate=\ClockBalance]
   \path[fill=clocksteel,draw=clockink,line width=.12pt,even odd rule]
-   (0,0) circle[radius=\CElargeRollerRadius] (0,0) circle[radius={\CElargeRollerRadius-.12}];
-  \path[fill=clocksteel] (0,-.25) rectangle (\CElargeRollerRadius,.25);
+   (0,0) circle[radius=\CElargeRollerRadius] (0,0) circle[radius={\CElargeRollerRadius-\CErollerRimWidth}];
+  \path[fill=clocksteel] (0,-\CErollerSpokeHalfWidth) rectangle (\CElargeRollerRadius,\CErollerSpokeHalfWidth);
   \path[fill=clockgoldlight,draw=clockgoldedge,line width=.16pt]
    (\CEhollowHalfAngle:\CEsafetyRadius)
    arc[start angle=\CEhollowHalfAngle,end angle={360-\CEhollowHalfAngle},radius=\CEsafetyRadius]
@@ -211,18 +232,18 @@
  \end{scope}
  \begin{scope}[rotate around={\ClockLever:(\CEpx,0)}]
   \path[fill=clocksteel,draw=clockink,line width=.12pt]
-   ({\CEpx-\CEguardLength},0)--({\CEpx-\CEnotchBottom+.3},-.055)
-   --({\CEpx-\CEnotchBottom+.3},.055)--cycle;
+   ({\CEpx-\CEguardLength},0)--({\CEpx-\CEnotchBottom+\CEguardRootSetback},-\CEguardRootHalfWidth)
+   --({\CEpx-\CEnotchBottom+\CEguardRootSetback},\CEguardRootHalfWidth)--cycle;
   \path[fill=clockblue,draw=clockink,line width=.16pt]
-   ({\CEpx-\CEnotchBottom},-\CEpinRadius)--({\CEpx-\CEnotchBottom+.35},-.5)
-   --({\CEpx-\CEnotchBottom+.8},-\CEstemHalfWidth)--(\CEpx,-\CEstemHalfWidth)
-   --(\CEpx,\CEstemHalfWidth)--({\CEpx-\CEnotchBottom+.8},\CEstemHalfWidth)
-   --({\CEpx-\CEnotchBottom+.35},.5)--({\CEpx-\CEnotchBottom},\CEpinRadius)--cycle;
+   ({\CEpx-\CEnotchBottom},-\CEpinRadius)--({\CEpx-\CEnotchBottom+\CEforkShoulderStation},-\CEforkShoulderHalfWidth)
+   --({\CEpx-\CEnotchBottom+\CEforkStemStation},-\CEstemHalfWidth)--(\CEpx,-\CEstemHalfWidth)
+   --(\CEpx,\CEstemHalfWidth)--({\CEpx-\CEnotchBottom+\CEforkStemStation},\CEstemHalfWidth)
+   --({\CEpx-\CEnotchBottom+\CEforkShoulderStation},\CEforkShoulderHalfWidth)--({\CEpx-\CEnotchBottom},\CEpinRadius)--cycle;
   \foreach \side in {entry,exit}{%
    \CEpoint{armEnd}{(\CEx{\side BackLock}+\CEx{\side BackEnd})/2}{(\CEy{\side BackLock}+\CEy{\side BackEnd})/2}%
    \CEdef{armLength}{sqrt((\CEarmEndx-\CEpx)^2+(\CEarmEndy)^2)}%
-   \CEdef{armNx}{-.22*\CEarmEndy/\CEarmLength}%
-   \CEdef{armNy}{.22*(\CEarmEndx-\CEpx)/\CEarmLength}%
+   \CEdef{armNx}{-\CEstemHalfWidth*\CEarmEndy/\CEarmLength}%
+   \CEdef{armNy}{\CEstemHalfWidth*(\CEarmEndx-\CEpx)/\CEarmLength}%
    \path[fill=clockblue,draw=clockink,line width=.15pt]
     ({\CEpx+\CEarmNx},\CEarmNy)--({\CEarmEndx+\CEarmNx},{\CEarmEndy+\CEarmNy})
     --({\CEarmEndx-\CEarmNx},{\CEarmEndy-\CEarmNy})--({\CEpx-\CEarmNx},{-\CEarmNy})--cycle;
@@ -232,12 +253,12 @@
   }
   \foreach \mirror in {1,-1}{\begin{scope}[yscale=\mirror]
    \path[fill=clockblue,draw=clockink,line width=.15pt]
-    ({\CEpx-\CEnotchBottom},-\CEpinRadius)--\CEcoord{j}
+    ({\CEpx-\CEnotchBottom},-\CEpinRadius)--\CEcoord{slotMouth}
     arc[start angle=\CEhornStart,end angle=\CEhornEnd,radius=\CEpinOuterRadius]
     --({\CEhornCentrex+(\CEpinOuterRadius+\CEhornWidth)*cos(\CEhornEnd)},
        {\CEhornCentrey+(\CEpinOuterRadius+\CEhornWidth)*sin(\CEhornEnd)})
     arc[start angle=\CEhornEnd,end angle=\CEhornStart,radius={\CEpinOuterRadius+\CEhornWidth}]
-    --({\CEpx-\CEnotchBottom+.35},-.5)--cycle;
+    --({\CEpx-\CEnotchBottom+\CEforkShoulderStation},-\CEforkShoulderHalfWidth)--cycle;
   \end{scope}}
   \draw[fill=clockgoldlight,draw=clockink,line width=.2pt] (\CEpx,0) circle[radius=.48];
   \draw[fill=clockruby,draw=clockink,line width=.12pt] (\CEpx,0) circle[radius=.23];
@@ -257,7 +278,8 @@
 \newcommand\SwissEscapement[1][]{%
  \begingroup\ClockState{#1}%
  \begin{tikzpicture}[x=1mm,y=1mm,scale=\ClockScale,line join=round,line cap=round]
-  \path[use as bounding box] (-3.3,-5) rectangle (18.3,5);
+  \path[use as bounding box] %
+  (-3.3,-5) rectangle ({\CEex+5.1},5);
   \ClockEscapement
   \ifClockConstruction
    \draw[clockblue!40,densely dashed,line width=.12pt] (0,0)--(\CEex,0);

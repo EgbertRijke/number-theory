@@ -1,3 +1,143 @@
+\newcommand\ClockDefine[2]{\expandafter\edef\csname Clock#1\endcsname{\fpeval{#2}}}
+
+\ClockDefine{SecondsPerMinute}{60}
+\ClockDefine{MinutesPerHour}{60}
+\ClockDefine{HoursPerDial}{12}
+\ClockDefine{UnitInMM}{.5}
+\ClockDefine{BarrelTeeth}{120}
+\ClockDefine{CentrePinionTeeth}{20}
+\ClockDefine{CentreWheelTeeth}{120}
+\ClockDefine{ThirdPinionTeeth}{20}
+\ClockDefine{ThirdWheelTeeth}{200}
+\ClockDefine{CagePinionTeeth}{20}
+\ClockDefine{FixedWheelTeeth}{200}
+\ClockDefine{EscapePinionTeeth}{20}
+\ClockDefine{CannonTeeth}{20}
+\ClockDefine{MotionWheelTeeth}{60}
+\ClockDefine{MotionPinionTeeth}{20}
+\ClockDefine{HourWheelTeeth}{80}
+\ClockDefine{BarrelMeshModule}{.4}
+\ClockDefine{CentreMeshModule}{.4}
+\ClockDefine{CageMeshModule}{.25}
+\ClockDefine{FixedMeshModule}{.12}
+\ClockDefine{CannonMeshModule}{.55}
+\ClockDefine{CentreX}{0}\ClockDefine{CentreY}{0}
+\ClockDefine{CentreCageDistance}{45}
+\ClockDefine{BarrelDirection}{90}
+\ClockDefine{MotionDirection}{0}
+\ClockDefine{CentrePhase}{0}
+\ClockDefine{CagePhase}{0}
+\ClockDefine{FixedWheelPhase}{0}
+\ClockDefine{HandZeroAngle}{90}
+
+\newcommand\ClockMeshDistance[4]{\ClockDefine{#1}{(#2)*((#3)+(#4))/2}}
+\newcommand\ClockMeshPhase[5]{%
+ \ClockDefine{#1}{(#4)+180+(#2)/(#3)*((#4)-(#5))-180/(#3)}}
+\newcommand\ClockBuildTrainGeometry{%
+ \ClockDefine{SecondsPerHour}{\ClockSecondsPerMinute*\ClockMinutesPerHour}%
+ \ClockMeshDistance{BarrelCentreDistance}{\ClockBarrelMeshModule}{\ClockBarrelTeeth}{\ClockCentrePinionTeeth}%
+ \ClockMeshDistance{CentreThirdDistance}{\ClockCentreMeshModule}{\ClockCentreWheelTeeth}{\ClockThirdPinionTeeth}%
+ \ClockMeshDistance{ThirdCageDistance}{\ClockCageMeshModule}{\ClockThirdWheelTeeth}{\ClockCagePinionTeeth}%
+ \ClockMeshDistance{CentreMotionDistance}{\ClockCannonMeshModule}{\ClockCannonTeeth}{\ClockMotionWheelTeeth}%
+ \ClockDefine{HourMeshModule}{2*\ClockCentreMotionDistance/(\ClockMotionPinionTeeth+\ClockHourWheelTeeth)}%
+ \ClockMeshDistance{EscapeOrbitRadius}{\ClockFixedMeshModule}{\ClockFixedWheelTeeth}{\ClockEscapePinionTeeth}%
+ \ClockDefine{BarrelX}{\ClockCentreX+\ClockBarrelCentreDistance*cosd(\ClockBarrelDirection)}%
+ \ClockDefine{BarrelY}{\ClockCentreY+\ClockBarrelCentreDistance*sind(\ClockBarrelDirection)}%
+ \ClockDefine{CageX}{\ClockCentreX}\ClockDefine{CageY}{\ClockCentreY-\ClockCentreCageDistance}%
+ \ClockDefine{ThirdRelativeY}{(\ClockThirdCageDistance^2-\ClockCentreThirdDistance^2-\ClockCentreCageDistance^2)/(2*\ClockCentreCageDistance)}%
+ \ClockDefine{ThirdX}{\ClockCentreX-sqrt(\ClockCentreThirdDistance^2-(\ClockThirdRelativeY)^2)}%
+ \ClockDefine{ThirdY}{\ClockCentreY+\ClockThirdRelativeY}%
+ \ClockDefine{MotionX}{\ClockCentreX+\ClockCentreMotionDistance*cosd(\ClockMotionDirection)}%
+ \ClockDefine{MotionY}{\ClockCentreY+\ClockCentreMotionDistance*sind(\ClockMotionDirection)}%
+ \ClockDefine{CentreThirdDirection}{atan(\ClockThirdY-\ClockCentreY,\ClockThirdX-\ClockCentreX)*180/pi}%
+ \ClockDefine{CageThirdDirection}{atan(\ClockThirdY-\ClockCageY,\ClockThirdX-\ClockCageX)*180/pi}%
+ \ClockMeshPhase{BarrelPhase}{\ClockCentrePinionTeeth}{\ClockBarrelTeeth}{\ClockBarrelDirection}{\ClockCentrePhase}%
+ \ClockMeshPhase{ThirdPinionPhase}{\ClockCentreWheelTeeth}{\ClockThirdPinionTeeth}{\ClockCentreThirdDirection}{\ClockCentrePhase}%
+ \ClockMeshPhase{ThirdWheelPhase}{\ClockCagePinionTeeth}{\ClockThirdWheelTeeth}{\ClockCageThirdDirection}{\ClockCagePhase}%
+ \ClockDefine{ThirdWheelMountingPhase}{\ClockThirdWheelPhase-\ClockThirdPinionPhase}%
+ \ClockMeshPhase{MotionPhase}{\ClockCannonTeeth}{\ClockMotionWheelTeeth}{\ClockMotionDirection}{\ClockCentrePhase}%
+ \ClockMeshPhase{HourWheelPhase}{\ClockMotionPinionTeeth}{\ClockHourWheelTeeth}{\ClockMotionDirection+180}{\ClockMotionPhase}%
+ \ClockMeshPhase{PlanetPhase}{\ClockFixedWheelTeeth}{\ClockEscapePinionTeeth}{0}{\ClockFixedWheelPhase-\ClockCagePhase}%
+ \ClockDefine{CentreRate}{-360/\ClockSecondsPerHour}%
+ \ClockDefine{BarrelRate}{-\ClockCentreRate*\ClockCentrePinionTeeth/\ClockBarrelTeeth}%
+ \ClockDefine{ThirdRate}{-\ClockCentreRate*\ClockCentreWheelTeeth/\ClockThirdPinionTeeth}%
+ \ClockDefine{CageRate}{-\ClockThirdRate*\ClockThirdWheelTeeth/\ClockCagePinionTeeth}%
+ \ClockDefine{PlanetRate}{\ClockCageRate*\ClockFixedWheelTeeth/\ClockEscapePinionTeeth}%
+ \ClockDefine{MotionRate}{-\ClockCentreRate*\ClockCannonTeeth/\ClockMotionWheelTeeth}%
+ \ClockDefine{HourRate}{-\ClockMotionRate*\ClockMotionPinionTeeth/\ClockHourWheelTeeth}%
+ \ClockDefine{CagePeriod}{360/abs(\ClockCageRate)}%
+ \ClockDefine{HourReduction}{\ClockMotionWheelTeeth/\ClockCannonTeeth*\ClockHourWheelTeeth/\ClockMotionPinionTeeth}%
+ \ClockDefine{MinuteHandMountingPhase}{\ClockHandZeroAngle-\ClockCentrePhase}%
+ \ClockDefine{HourHandMountingPhase}{\ClockHandZeroAngle-\ClockHourWheelPhase}%
+ \ClockDefine{BarrelPitchRadius}{\ClockBarrelMeshModule*\ClockBarrelTeeth/2}%
+}
+\ClockBuildTrainGeometry
+
+\ClockDefine{WheelRimInnerFraction}{.76}
+\ClockDefine{WheelSpokeRootFraction}{.10}
+\ClockDefine{WheelSpokeEndFraction}{.79}
+\ClockDefine{WheelSpokeRootHalfWidth}{.075}
+\ClockDefine{WheelSpokeEndHalfWidth}{.042}
+\ClockDefine{WheelHubFraction}{.17}
+\ClockDefine{WheelEngravingFraction}{.86}
+\ClockDefine{CentreWheelSpokes}{5}\ClockDefine{ThirdWheelSpokes}{6}
+\ClockDefine{MotionWheelSpokes}{4}\ClockDefine{HourWheelSpokes}{5}
+\ClockDefine{FixedWheelSpokes}{6}
+\ClockDefine{CageRingRadius}{20.25}
+\ClockDefine{CageRingHighlightOffset}{.30}
+\ClockDefine{CarrierHubRadius}{2.4}\ClockDefine{CarrierHubBore}{1.05}
+\ClockDefine{CarrierArmCount}{3}\ClockDefine{CarrierFirstArmAngle}{90}
+\ClockDefine{CarrierHubOverlap}{.2}\ClockDefine{CarrierShoulderInset}{1.35}
+\ClockDefine{CarrierTipInset}{.05}\ClockDefine{CarrierScrewInset}{1.55}
+\ClockDefine{CarrierRootHalfWidth}{.65}\ClockDefine{CarrierShoulderHalfWidth}{.55}
+\ClockDefine{CarrierTipHalfWidth}{.2}\ClockDefine{CarrierScrewSlotHalfLength}{.45}
+\ClockDefine{SecondsMarkerAngle}{90}\ClockDefine{SecondsMarkerHalfAngle}{4}
+\ClockDefine{SecondsMarkerOutset}{1.25}\ClockDefine{SecondsMarkerInset}{.85}
+\ClockDefine{SecondsRingRadius}{24.4}\ClockDefine{SecondsTicksOuter}{23.8}
+\ClockDefine{SecondsMajorTickLength}{1.3}\ClockDefine{SecondsMinorTickLength}{.6}
+\ClockDefine{BalanceRimRadius}{10.1}\ClockDefine{BalanceSpokeInset}{.6}
+\ClockDefine{BalanceSpokeCount}{3}\ClockDefine{BalanceScrewCount}{12}
+\ClockDefine{BalanceScrewOutset}{.35}\ClockDefine{BalanceScrewHeadRadius}{.35}
+\ClockDefine{SpringInnerRadius}{.85}\ClockDefine{SpringRadialSpan}{6.5}
+\ClockDefine{SpringTurns}{5}\ClockDefine{SpringStudAngle}{90}
+\ClockDefine{SpringStudExtension}{.95}\ClockDefine{SpringSamples}{220}
+\ClockDefine{SpringOuterRadius}{\ClockSpringInnerRadius+\ClockSpringRadialSpan}
+\ClockDefine{SpringSweep}{360*\ClockSpringTurns}
+\ClockDefine{SpringStudRadius}{\ClockSpringOuterRadius+\ClockSpringStudExtension}
+\ClockDefine{CageBridgeFootRadius}{23}\ClockDefine{CageBridgeHighlightEndInset}{3}
+\ClockDefine{BarrelCoverInset}{2.1}\ClockDefine{BarrelInnerRingInset}{1.1}
+\ClockDefine{BarrelHighlightInset}{.6}\ClockDefine{BarrelScrewInset}{2.4}
+\ClockDefine{BarrelScrewCount}{3}
+\ClockDefine{BarrelCoverRadius}{\ClockBarrelPitchRadius-\ClockBarrelCoverInset}
+\ClockDefine{BarrelInnerRingRadius}{\ClockBarrelCoverRadius-\ClockBarrelInnerRingInset}
+\ClockDefine{BarrelHighlightRadius}{\ClockBarrelCoverRadius-\ClockBarrelHighlightInset}
+\ClockDefine{BarrelScrewRadius}{\ClockBarrelCoverRadius-\ClockBarrelScrewInset}
+\ClockDefine{DialTickCount}{\ClockSecondsPerMinute}
+\ClockDefine{DialTickStep}{360/\ClockDialTickCount}
+\ClockDefine{DialTicksPerHour}{\ClockDialTickCount/\ClockHoursPerDial}
+\ClockDefine{HourAngleStep}{360/\ClockHoursPerDial}
+\ClockDefine{CaseRadius}{92}\ClockDefine{PictureMargin}{1}
+\ClockDefine{ShadowOutset}{.4}\ClockDefine{ShadowDrop}{.7}
+\ClockDefine{CaseHighlightInset}{.8}\ClockDefine{BezelInset}{2.5}
+\ClockDefine{DialInset}{3.3}\ClockDefine{ChapterInnerInset}{5.9}
+\ClockDefine{PlateRadius}{70.6}\ClockDefine{PlateRimInset}{1}
+\ClockDefine{TextureSpacing}{3}\ClockDefine{TextureOverhang}{.4}
+\ClockDefine{TickOuterRadius}{85.1}
+\ClockDefine{MajorTickLength}{3.1}\ClockDefine{MinorTickLength}{1.5}
+\ClockDefine{PlateScrewCount}{4}\ClockDefine{PlateScrewRadius}{65.5}
+\ClockDefine{BrandY}{62}\ClockDefine{MottoY}{57}
+\ClockDefine{PictureRadius}{\ClockCaseRadius+\ClockPictureMargin}
+\ClockDefine{PlateInnerRadius}{\ClockPlateRadius-\ClockPlateRimInset}
+\ClockDefine{TextureRowsPerHalf}{floor(\ClockPlateInnerRadius/\ClockTextureSpacing)}
+\ClockDefine{HourTailLength}{7}\ClockDefine{HourRearStation}{3}
+\ClockDefine{HourRearHalfWidth}{2.2}\ClockDefine{HourHeelStation}{6}
+\ClockDefine{HourHeelHalfWidth}{2.6}\ClockDefine{HourTaperStation}{35}
+\ClockDefine{HourTaperHalfWidth}{1.45}\ClockDefine{HourTipLength}{46}
+\ClockDefine{MinuteTailLength}{8}\ClockDefine{MinuteRearStation}{4}
+\ClockDefine{MinuteRearHalfWidth}{1.2}\ClockDefine{MinuteHeelStation}{7}
+\ClockDefine{MinuteHeelHalfWidth}{1.45}\ClockDefine{MinuteTaperStation}{54}
+\ClockDefine{MinuteTaperHalfWidth}{.75}\ClockDefine{MinuteTipLength}{66}
+
 \usetikzlibrary{calc,arrows.meta}
 \definecolor{clockink}{HTML}{253847}
 \definecolor{clockblue}{HTML}{244D70}
@@ -21,23 +161,23 @@
 \newcommand\ClockAngle[2]{\edef#1{\fpeval{(#2)-360*floor((#2)/360)}}}
 \newcommand\ClockState[1]{%
  \pgfkeys{/swissclock,hours=10,minutes=10,seconds=32.04,scale=1,construction=false,stepped=false,#1}%
- \edef\ClockT{\fpeval{3600*\ClockHours+60*\ClockMinutes+\ClockSeconds}}%
+ \edef\ClockT{\fpeval{\ClockSecondsPerHour*\ClockHours+\ClockSecondsPerMinute*\ClockMinutes+\ClockSeconds}}%
  \ClockEscapementState%
- \ClockAngle\ClockBarrel{-76.5+\ClockTau/60}%
- \ClockAngle\ClockCentre{-\ClockTau/10}%
- \ClockAngle\ClockThirdPinion{-707.176714473984+0.6*\ClockTau}%
- \ClockAngle\ClockThirdWheel{-42.0810014946694+0.6*\ClockTau}%
- \ClockAngle\ClockCage{-\CEcageRate*\ClockTau}%
- \ClockAngle\ClockPlanet{171-\CEwheelRate*\ClockTau}%
- \ClockAngle\ClockMotion{177+\ClockTau/30}%
- \ClockAngle\ClockHourWheel{358.5-\ClockTau/120}%
- \ClockAngle\ClockMinuteHand{90-\ClockTau/10}%
- \ClockAngle\ClockHourHand{90-\ClockTau/120}%
-
+ \ClockAngle\ClockBarrel{\ClockBarrelPhase+\ClockBarrelRate*\ClockTau}%
+ \ClockAngle\ClockCentre{\ClockCentrePhase+\ClockCentreRate*\ClockTau}%
+ \ClockAngle\ClockThirdPinion{\ClockThirdPinionPhase+\ClockThirdRate*\ClockTau}%
+ \ClockAngle\ClockThirdWheel{\ClockThirdWheelPhase+\ClockThirdRate*\ClockTau}%
+ \ClockAngle\ClockCage{\ClockCagePhase+\ClockCageRate*\ClockTau}%
+ \ClockAngle\ClockPlanet{\ClockPlanetPhase+\ClockPlanetRate*\ClockTau}% relative to cage
+ \ClockAngle\ClockMotion{\ClockMotionPhase+\ClockMotionRate*\ClockTau}%
+ \ClockAngle\ClockHourWheel{\ClockHourWheelPhase+\ClockHourRate*\ClockTau}%
+ \ClockAngle\ClockMinuteHand{\ClockCentre+\ClockMinuteHandMountingPhase}%
+ \ClockAngle\ClockHourHand{\ClockHourWheel+\ClockHourHandMountingPhase}%
 }
 
 \ExplSyntaxOn
 
+\cs_new:Npn \ClockRomanNumeral #1 { \int_to_Roman:n {#1} }
 \fp_const:Nn  \c__clock_gear_pressure_angle_fp { 20 * pi / 180 }
 \fp_const:Nn  \c__clock_gear_addendum_fp       { 1 }
 \fp_const:Nn  \c__clock_gear_dedendum_fp       { 1.25 }
@@ -196,7 +336,7 @@
     \tl_put_right:Nn \l__clock_gear_outline_tl { --cycle }
   }
 
-\NewDocumentCommand \ClockPrepareGearOutline { m }
+\cs_new_protected:Npn \__clock_gear_prepare:n #1
   {
     \prop_if_in:NnF \g__clock_gear_outline_prop {#1}
       {
@@ -207,8 +347,12 @@
         \group_end:
       }
   }
-\cs_new:Npn \ClockGearOutline #1
+\NewDocumentCommand \ClockPrepareGearOutline { m }
+  { \exp_args:Ne \__clock_gear_prepare:n { \int_eval:n {#1} } }
+\cs_new:Npn \__clock_gear_outline:n #1
   { \prop_item:Nn \g__clock_gear_outline_prop {#1} }
+\cs_new:Npn \ClockGearOutline #1
+  { \exp_args:Ne \__clock_gear_outline:n { \int_eval:n {#1} } }
 \ExplSyntaxOff
 
 \newcommand\ClockGear[7]{%
@@ -217,15 +361,15 @@
   \pgfmathsetmacro\ClockR{#3/2}
   \ifnum#7>0
    \path[fill=#6,draw=clockgoldedge,line width=.16pt,even odd rule]
-    \ClockGearOutline{#3} (0,0) circle[radius={.76*\ClockR}];
+    \ClockGearOutline{#3} (0,0) circle[radius={\ClockWheelRimInnerFraction*\ClockR}];
    \foreach \k in {1,...,#7}{
     \begin{scope}[rotate={360*\k/#7}]
      \path[fill=#6,draw=clockgoldedge,line width=.16pt]
-      ({.10*\ClockR},{-.075*\ClockR})--({.79*\ClockR},{-.042*\ClockR})
-      --({.79*\ClockR},{.042*\ClockR})--({.10*\ClockR},{.075*\ClockR})--cycle;
+      ({\ClockWheelSpokeRootFraction*\ClockR},{-\ClockWheelSpokeRootHalfWidth*\ClockR})--({\ClockWheelSpokeEndFraction*\ClockR},{-\ClockWheelSpokeEndHalfWidth*\ClockR})
+      --({\ClockWheelSpokeEndFraction*\ClockR},{\ClockWheelSpokeEndHalfWidth*\ClockR})--({\ClockWheelSpokeRootFraction*\ClockR},{\ClockWheelSpokeRootHalfWidth*\ClockR})--cycle;
     \end{scope}}
-   \draw[fill=#6,draw=clockgoldedge,line width=.16pt] (0,0) circle[radius={.17*\ClockR}];
-   \draw[clockgoldedge,line width=.12pt] (0,0) circle[radius={.86*\ClockR}];
+   \draw[fill=#6,draw=clockgoldedge,line width=.16pt] (0,0) circle[radius={\ClockWheelHubFraction*\ClockR}];
+   \draw[clockgoldedge,line width=.12pt] (0,0) circle[radius={\ClockWheelEngravingFraction*\ClockR}];
   \else
    \path[fill=#6,draw=clockgoldedge,line width=.16pt] \ClockGearOutline{#3};
   \fi
@@ -248,11 +392,11 @@
  \fill[white,opacity=.65] ({#1-.22},{#2+.22}) circle[radius=.16];}
 
 \input{src/swiss-clock-escapement.tex}
+\ClockDefine{EscapeWheelMountingPhase}{\CEinitialWheel-\ClockPlanetPhase}
 
 \newcommand\ClockCarrierHub{%
  \path[fill=clockblue,draw=clockink,line width=.2pt,even odd rule]
-  (0,0) circle[radius=2.4] (0,0) circle[radius=1.05];}
-\newcommand\ClockCageRingRadius{20.25}
+  (0,0) circle[radius=\ClockCarrierHubRadius] (0,0) circle[radius=\ClockCarrierHubBore];}
 \newcommand\ClockEscapeCock{%
  \path[fill=clocksteel,draw=clockink,line width=.18pt]
   (\CEex,-.5)--({\CEex+1},-.24)--({\ClockCageRingRadius-.75},-.35)
@@ -267,54 +411,65 @@
  \draw[clockink,line width=.15pt] ({\ClockCageRingRadius-.27},0)--({\ClockCageRingRadius+.27},0);}
 
 \newcommand\ClockTourbillon{%
- \begin{scope}[shift={(0,-45)}]
-  \draw[clockgoldedge,line width=.35pt] (0,0) circle[radius=24.4];
-  \foreach \k in {0,...,59}{
-   \pgfmathtruncatemacro\kmod{mod(\k,5)}
-   \ifnum\kmod=0\def\TickIn{22.5}\else\def\TickIn{23.2}\fi
-   \draw[clockink,line width=.25pt] ({90-6*\k}:\TickIn)--({90-6*\k}:23.8);}
-  \ClockGear{0}{0}{200}{.12}{0}{clocksteel}{6}
+ \begin{scope}[shift={(\ClockCageX,\ClockCageY)}]
+  \draw[clockgoldedge,line width=.35pt] (0,0) circle[radius=\ClockSecondsRingRadius];
+  \foreach \k in {0,...,\fpeval{\ClockDialTickCount-1}}{
+   \pgfmathtruncatemacro\kmod{mod(\k,\ClockDialTicksPerHour)}
+   \ifnum\kmod=0\edef\TickIn{\fpeval{\ClockSecondsTicksOuter-\ClockSecondsMajorTickLength}}\else\edef\TickIn{\fpeval{\ClockSecondsTicksOuter-\ClockSecondsMinorTickLength}}\fi
+   \draw[clockink,line width=.25pt] ({\ClockHandZeroAngle-\ClockDialTickStep*\k}:\TickIn)--({\ClockHandZeroAngle-\ClockDialTickStep*\k}:\ClockSecondsTicksOuter);}
+  \ClockGear{0}{0}{\ClockFixedWheelTeeth}{\ClockFixedMeshModule}{\ClockFixedWheelPhase}{clocksteel}{\ClockFixedWheelSpokes}
   \begin{scope}[rotate=\ClockCage]
    \draw[clockblue,line width=.65mm] (0,0) circle[radius=\ClockCageRingRadius];
-   \draw[clocklightblue,line width=.12mm] (0,0) circle[radius=20.55];
-   \foreach \a in {90,210,330}{
+   \draw[clocklightblue,line width=.12mm] (0,0) circle[radius={\ClockCageRingRadius+\ClockCageRingHighlightOffset}];
+   \foreach \arm in {0,...,\fpeval{\ClockCarrierArmCount-1}}{
+    \pgfmathsetmacro\a{\ClockCarrierFirstArmAngle+360*\arm/\ClockCarrierArmCount}
     \begin{scope}[rotate=\a]
      \path[fill=clockblue,draw=clockink,line width=.2pt]
-      (2.2,-.65)--(18.9,-.55)--(20.2,-.2)--(20.2,.2)--(18.9,.55)--(2.2,.65)--cycle;
-     \draw[fill=clocksteel,draw=clockink,line width=.2pt] (18.7,0) circle[radius=.7];
-     \draw[clockink,line width=.25pt] (18.25,0)--(19.15,0);
+      ({\ClockCarrierHubRadius-\ClockCarrierHubOverlap},-\ClockCarrierRootHalfWidth)
+      --({\ClockCageRingRadius-\ClockCarrierShoulderInset},-\ClockCarrierShoulderHalfWidth)
+      --({\ClockCageRingRadius-\ClockCarrierTipInset},-\ClockCarrierTipHalfWidth)
+      --({\ClockCageRingRadius-\ClockCarrierTipInset},\ClockCarrierTipHalfWidth)
+      --({\ClockCageRingRadius-\ClockCarrierShoulderInset},\ClockCarrierShoulderHalfWidth)
+      --({\ClockCarrierHubRadius-\ClockCarrierHubOverlap},\ClockCarrierRootHalfWidth)--cycle;
+     \draw[fill=clocksteel,draw=clockink,line width=.2pt] ({\ClockCageRingRadius-\ClockCarrierScrewInset},0) circle[radius=.7];
+     \draw[clockink,line width=.25pt] ({\ClockCageRingRadius-\ClockCarrierScrewInset-\ClockCarrierScrewSlotHalfLength},0)--({\ClockCageRingRadius-\ClockCarrierScrewInset+\ClockCarrierScrewSlotHalfLength},0);
     \end{scope}}
    \ClockCarrierHub
-   \path[fill=clockruby,draw=clockpaper,line width=.2pt] (90:21.5)--(86:19.4)--(94:19.4)--cycle;
-   \ClockGear{13.2}{0}{20}{.12}{\ClockPlanet}{clockgoldlight}{0}
+   \path[fill=clockruby,draw=clockpaper,line width=.2pt] (\ClockSecondsMarkerAngle:{\ClockCageRingRadius+\ClockSecondsMarkerOutset})
+    --({\ClockSecondsMarkerAngle-\ClockSecondsMarkerHalfAngle}:{\ClockCageRingRadius-\ClockSecondsMarkerInset})
+    --({\ClockSecondsMarkerAngle+\ClockSecondsMarkerHalfAngle}:{\ClockCageRingRadius-\ClockSecondsMarkerInset})--cycle;
+   \ClockGear{\CEex}{\CEey}{\ClockEscapePinionTeeth}{\ClockFixedMeshModule}{\ClockPlanet}{clockgoldlight}{0}
    \begin{scope}[rotate=\ClockBalance]
-     \foreach \a in {0,120,240}{
+     \foreach \spoke in {0,...,\fpeval{\ClockBalanceSpokeCount-1}}{
+       \pgfmathsetmacro\a{360*\spoke/\ClockBalanceSpokeCount}
        \draw[clockgoldedge,line width=.95mm]
-       (0,0)--(\a:9.5);
+       (0,0)--(\a:{\ClockBalanceRimRadius-\ClockBalanceSpokeInset});
        \draw[clockgoldlight,line width=.7mm]
-       (0,0)--(\a:9.5);
+       (0,0)--(\a:{\ClockBalanceRimRadius-\ClockBalanceSpokeInset});
      }
      
      \draw[clockgoldedge,line width=1.25mm]
-     (0,0) circle[radius=10.1];
+     (0,0) circle[radius=\ClockBalanceRimRadius];
      \draw[clockgoldlight,line width=.85mm]
-     (0,0) circle[radius=10.1];
+     (0,0) circle[radius=\ClockBalanceRimRadius];
      
-     \foreach \a in {0,30,...,330}{
+     \foreach \screw in {0,...,\fpeval{\ClockBalanceScrewCount-1}}{
+       \pgfmathsetmacro\a{360*\screw/\ClockBalanceScrewCount}
        \draw[fill=clockgoldedge,draw=clockink,line width=.12pt]
-       (\a:10.45) circle[radius=.35];
+       (\a:{\ClockBalanceRimRadius+\ClockBalanceScrewOutset}) circle[radius=\ClockBalanceScrewHeadRadius];
      }
    \end{scope}
    \draw[clockblue,line width=.23pt]
-    plot[domain=0:1,samples=220,variable=\u]
-     ({(.85+6.5*\u)*cos(90-1800+1800*\u+\ClockBalance*(1-\u))},
-      {(.85+6.5*\u)*sin(90-1800+1800*\u+\ClockBalance*(1-\u))});
-   \draw[clockblue,line width=.3pt] (0,7.35)--(0,8.3);
-   \draw[fill=clocksteel,draw=clockink,line width=.2pt] (0,8.3) circle[radius=.6];
-   \fill[clockblue] (0,0) circle[radius=.85];
+    plot[domain=0:1,samples=\ClockSpringSamples,variable=\u]
+     ({(\ClockSpringInnerRadius+\ClockSpringRadialSpan*\u)*cos(\ClockSpringStudAngle-\ClockSpringSweep+\ClockSpringSweep*\u+\ClockBalance*(1-\u))},
+      {(\ClockSpringInnerRadius+\ClockSpringRadialSpan*\u)*sin(\ClockSpringStudAngle-\ClockSpringSweep+\ClockSpringSweep*\u+\ClockBalance*(1-\u))});
+   \draw[clockblue,line width=.3pt] (\ClockSpringStudAngle:\ClockSpringOuterRadius)--(\ClockSpringStudAngle:\ClockSpringStudRadius);
+   \draw[fill=clocksteel,draw=clockink,line width=.2pt] (\ClockSpringStudAngle:\ClockSpringStudRadius) circle[radius=.6];
+   \fill[clockblue] (0,0) circle[radius=\ClockSpringInnerRadius];
    \ClockEscapement
    \ClockEscapeCock
-   \pgfmathsetmacro\ClockCockY{-\CEpx*tan(30)}
+   \pgfmathsetmacro\ClockPalletCockArmAngle{\ClockCarrierFirstArmAngle+360*(\ClockCarrierArmCount-1)/\ClockCarrierArmCount}
+   \pgfmathsetmacro\ClockCockY{\CEpx*tan(\ClockPalletCockArmAngle)}
    \path[fill=clocksteel,draw=clockink,line width=.18pt]
     ({\CEpx-.33},\ClockCockY)--({\CEpx-.24},-.6)
     --({\CEpx-.5},-.25)--({\CEpx-.5},.25)--({\CEpx+.5},.25)
@@ -325,104 +480,53 @@
    \draw[clockink,line width=.14pt] ({\CEpx-.28},\ClockCockY)--({\CEpx+.28},\ClockCockY);
   \end{scope}
   \path[fill=clocksteel,draw=clockink,line width=.3pt]
-   (-.65,-23)--(-.45,-3)--(-1.8,-1.4)--(-1.8,1.4)--(-.45,3)--(-.65,23)
-   --(.65,23)--(.45,3)--(1.8,1.4)--(1.8,-1.4)--(.45,-3)--(.65,-23)--cycle;
-  \draw[white,line width=.2pt] (-.18,-20)--(-.18,-3);
-  \draw[white,line width=.2pt] (-.18,3)--(-.18,20);
-  \ClockScrew{0}{-23}{35}\ClockScrew{0}{23}{-35}\ClockJewel{0}{0}
+   (-.65,-\ClockCageBridgeFootRadius)--(-.45,-3)--(-1.8,-1.4)--(-1.8,1.4)--(-.45,3)--(-.65,\ClockCageBridgeFootRadius)
+   --(.65,\ClockCageBridgeFootRadius)--(.45,3)--(1.8,1.4)--(1.8,-1.4)--(.45,-3)--(.65,-\ClockCageBridgeFootRadius)--cycle;
+  \draw[white,line width=.2pt] (-.18,{-\ClockCageBridgeFootRadius+\ClockCageBridgeHighlightEndInset})--(-.18,-3);
+  \draw[white,line width=.2pt] (-.18,3)--(-.18,{\ClockCageBridgeFootRadius-\ClockCageBridgeHighlightEndInset});
+  \ClockScrew{0}{-\ClockCageBridgeFootRadius}{35}\ClockScrew{0}{\ClockCageBridgeFootRadius}{-35}\ClockJewel{0}{0}
  \end{scope}}
 
 \newcommand\ClockTrain{%
- \ClockGear{0}{28}{120}{.4}{\ClockBarrel}{clockgoldlight}{0}
- \begin{scope}[shift={(0,28)},rotate=\ClockBarrel]
-  \draw[fill=clockgoldlight,draw=clockgoldedge,line width=.4pt] (0,0) circle[radius=21.9];
-  \draw[clockgoldedge,line width=.25pt] (0,0) circle[radius=20.8];
-  \draw[clockpaper,line width=.25pt] (0,0) circle[radius=21.3];
-  \foreach \a in {0,120,240}{\draw[fill=clockgold,draw=clockgoldedge,line width=.2pt] (\a:19.5) circle[radius=.55];}
+ \ClockGear{\ClockBarrelX}{\ClockBarrelY}{\ClockBarrelTeeth}{\ClockBarrelMeshModule}{\ClockBarrel}{clockgoldlight}{0}
+ \begin{scope}[shift={(\ClockBarrelX,\ClockBarrelY)},rotate=\ClockBarrel]
+  \draw[fill=clockgoldlight,draw=clockgoldedge,line width=.4pt] (0,0) circle[radius=\ClockBarrelCoverRadius];
+  \draw[clockgoldedge,line width=.25pt] (0,0) circle[radius=\ClockBarrelInnerRingRadius];
+  \draw[clockpaper,line width=.25pt] (0,0) circle[radius=\ClockBarrelHighlightRadius];
+  \foreach \screw in {0,...,\fpeval{\ClockBarrelScrewCount-1}}{
+   \draw[fill=clockgold,draw=clockgoldedge,line width=.2pt]
+    ({360*\screw/\ClockBarrelScrewCount}:\ClockBarrelScrewRadius) circle[radius=.55];}
  \end{scope}
- \ClockGear{0}{0}{20}{.4}{\ClockCentre}{clocksteel}{0}
- \ClockGear{0}{0}{120}{.4}{\ClockCentre}{clockgold}{5}
- \ClockGear{-16.241303228361}{-22.808333333333}{20}{.4}{\ClockThirdPinion}{clocksteel}{0}
- \ClockGear{-16.241303228361}{-22.808333333333}{200}{.25}{\ClockThirdWheel}{clockgoldlight}{6}
- \ClockGear{0}{-45}{20}{.25}{\ClockCage}{clocksteel}{0}
+ \ClockGear{\ClockCentreX}{\ClockCentreY}{\ClockCentrePinionTeeth}{\ClockBarrelMeshModule}{\ClockCentre}{clocksteel}{0}
+ \ClockGear{\ClockCentreX}{\ClockCentreY}{\ClockCentreWheelTeeth}{\ClockCentreMeshModule}{\ClockCentre}{clockgold}{\ClockCentreWheelSpokes}
+ \ClockGear{\ClockThirdX}{\ClockThirdY}{\ClockThirdPinionTeeth}{\ClockCentreMeshModule}{\ClockThirdPinion}{clocksteel}{0}
+ \ClockGear{\ClockThirdX}{\ClockThirdY}{\ClockThirdWheelTeeth}{\ClockCageMeshModule}{\ClockThirdWheel}{clockgoldlight}{\ClockThirdWheelSpokes}
+ \ClockGear{\ClockCageX}{\ClockCageY}{\ClockCagePinionTeeth}{\ClockCageMeshModule}{\ClockCage}{clocksteel}{0}
  \ClockTourbillon
- \ClockGear{0}{0}{20}{.55}{\ClockCentre}{clocksteel}{0}
- \ClockGear{22}{0}{60}{.55}{\ClockMotion}{clockgoldlight}{4}
- \ClockGear{22}{0}{20}{.44}{\ClockMotion}{clocksteel}{0}
- \ClockGear{0}{0}{80}{.44}{\ClockHourWheel}{clockgold}{5}
- \ClockJewel{0}{28}\ClockJewel{-16.241303228361}{-22.808333333333}\ClockJewel{22}{0}
+ \ClockGear{\ClockCentreX}{\ClockCentreY}{\ClockCannonTeeth}{\ClockCannonMeshModule}{\ClockCentre}{clocksteel}{0}
+ \ClockGear{\ClockMotionX}{\ClockMotionY}{\ClockMotionWheelTeeth}{\ClockCannonMeshModule}{\ClockMotion}{clockgoldlight}{\ClockMotionWheelSpokes}
+ \ClockGear{\ClockMotionX}{\ClockMotionY}{\ClockMotionPinionTeeth}{\ClockHourMeshModule}{\ClockMotion}{clocksteel}{0}
+ \ClockGear{\ClockCentreX}{\ClockCentreY}{\ClockHourWheelTeeth}{\ClockHourMeshModule}{\ClockHourWheel}{clockgold}{\ClockHourWheelSpokes}
+ \ClockJewel{\ClockBarrelX}{\ClockBarrelY}
+ \ClockJewel{\ClockThirdX}{\ClockThirdY}
+ \ClockJewel{\ClockMotionX}{\ClockMotionY}
 }
 
+\newcommand\ClockDrawHand[9]{%
+ \begin{scope}[rotate=#1]
+  \path[fill=clockblue,draw=clockink,line width=.35pt]
+   (-#2,0)--(-#3,-#4)--(#5,-#6)--(#7,-#8)--(#9,0)
+   --(#7,#8)--(#5,#6)--(-#3,#4)--cycle;
+  \path[fill=clocklightblue]
+   (0,0)--(#9,0)--(#7,#8)--(#5,#6)--(-#3,#4)--(-#2,0)--cycle;
+ \end{scope}}
 \newcommand\ClockHands{%
- \begin{scope}[rotate=\ClockHourHand]
-  \path[fill=clockblue,draw=clockink,line width=.35pt]
-   (-7,0)--(-3,-2.2)--(6,-2.6)--(35,-1.45)--(46,0)--(35,1.45)--(6,2.6)--(-3,2.2)--cycle;
-  \path[fill=clocklightblue] (0,0)--(46,0)--(35,1.45)--(6,2.6)--(-3,2.2)--(-7,0)--cycle;
- \end{scope}
- \begin{scope}[rotate=\ClockMinuteHand]
-  \path[fill=clockblue,draw=clockink,line width=.35pt]
-   (-8,0)--(-4,-1.2)--(7,-1.45)--(54,-.75)--(66,0)--(54,.75)--(7,1.45)--(-4,1.2)--cycle;
-  \path[fill=clocklightblue] (0,0)--(66,0)--(54,.75)--(7,1.45)--(-4,1.2)--(-8,0)--cycle;
- \end{scope}
+ \ClockDrawHand{\ClockHourHand}{\ClockHourTailLength}{\ClockHourRearStation}{\ClockHourRearHalfWidth}
+  {\ClockHourHeelStation}{\ClockHourHeelHalfWidth}{\ClockHourTaperStation}{\ClockHourTaperHalfWidth}{\ClockHourTipLength}
+ \ClockDrawHand{\ClockMinuteHand}{\ClockMinuteTailLength}{\ClockMinuteRearStation}{\ClockMinuteRearHalfWidth}
+  {\ClockMinuteHeelStation}{\ClockMinuteHeelHalfWidth}{\ClockMinuteTaperStation}{\ClockMinuteTaperHalfWidth}{\ClockMinuteTipLength}
  \draw[fill=clockgoldlight,draw=clockgoldedge,line width=.4pt] (0,0) circle[radius=2.6];
  \draw[fill=clockblue,draw=clockink,line width=.3pt] (0,0) circle[radius=1.65];
-}
-
-\newsavebox{\ClockWarpBox}
-
-\newcommand{\ClockWarpText}[5]{%
-  \begingroup
-  \sbox{\ClockWarpBox}{{#5#4}}%
-
-  \pgfmathsetmacro{\ClockWarpW}{\the\wd\ClockWarpBox/1pt}
-  \pgfmathsetmacro{\ClockWarpH}{\the\ht\ClockWarpBox/1pt}
-  \pgfmathsetmacro{\ClockWarpD}{\the\dp\ClockWarpBox/1pt}
-  \pgfmathsetmacro{\ClockWarpR}{#1/1pt}
-  \pgfmathsetmacro{\ClockWarpS}{#3}
-
-  \pgfmathtruncatemacro{\ClockWarpCols}{40}
-  \pgfmathtruncatemacro{\ClockWarpRows}{12}
-
-  \pgfmathsetmacro{\ClockWarpDU}{\ClockWarpW/\ClockWarpCols}
-  \pgfmathsetmacro{\ClockWarpDV}{(\ClockWarpH+\ClockWarpD)/\ClockWarpRows}
-
-  \begin{scope}[x=1pt,y=1pt]
-    \foreach \i in {0,...,39}{
-      \pgfmathsetmacro{\ClockWarpU}{-0.5*\ClockWarpW + (\i+0.5)*\ClockWarpDU}
-      \foreach \j in {0,...,11}{
-        \pgfmathsetmacro{\ClockWarpV}{-\ClockWarpD + (\j+0.5)*\ClockWarpDV}
-
-        \pgfmathsetmacro{\ClockWarpAngle}{#2 - \ClockWarpU/\ClockWarpR * 180/pi}
-        \pgfmathsetmacro{\ClockWarpRad}{\ClockWarpR + \ClockWarpS*\ClockWarpV}
-        \pgfmathsetmacro{\ClockWarpK}{1 + (\ClockWarpS*\ClockWarpV)/\ClockWarpR}
-
-        \pgfmathsetmacro{\ClockWarpX}{\ClockWarpRad*cos(\ClockWarpAngle)}
-        \pgfmathsetmacro{\ClockWarpY}{\ClockWarpRad*sin(\ClockWarpAngle)}
-
-        \begin{scope}[
-          cm={
-            \ClockWarpK*sin(\ClockWarpAngle),
-            -\ClockWarpK*cos(\ClockWarpAngle),
-            \ClockWarpS*cos(\ClockWarpAngle),
-            \ClockWarpS*sin(\ClockWarpAngle),
-            (\ClockWarpX,\ClockWarpY)
-          }
-        ]
-          \clip
-            (\ClockWarpU-0.55*\ClockWarpDU,\ClockWarpV-0.55*\ClockWarpDV)
-            rectangle
-            (\ClockWarpU+0.55*\ClockWarpDU,\ClockWarpV+0.55*\ClockWarpDV);
-
-          \node[
-            anchor=base west,
-            inner sep=0pt,
-            outer sep=0pt
-          ] at (-0.5*\ClockWarpW,0) {\usebox{\ClockWarpBox}};
-        \end{scope}
-      }
-    }
-  \end{scope}
-  \endgroup
 }
 
 \newcommand\ClockRomanRadius{72}
@@ -435,7 +539,7 @@
       clockwarp.draw(
         [[\luaescapestring{#1}]],
         #2,
-        \fpeval{0.5*\ClockRomanRadius},
+        \fpeval{\ClockUnitInMM*\ClockRomanRadius},
         \ClockRomanStretch,
         \ClockRomanFontId
       )
@@ -451,53 +555,55 @@
   \edef\ClockRomanFontId{\number\fontid\font}%
 
   \begin{tikzpicture}[
-    x=.5mm,
-    y=.5mm,
+    x=\ClockUnitInMM mm,
+    y=\ClockUnitInMM mm,
     scale=\ClockScale,
     line cap=round,
     line join=round
   ]
-  \path[use as bounding box] (-93,-93) rectangle (93,93);
-  \fill[clockink!15] (0,-.7) circle[radius=92.4];
-  \draw[fill=clocksteel,draw=clockink,line width=.6pt] (0,0) circle[radius=92];
-  \draw[white,line width=.7pt] (0,0) circle[radius=91.2];
-  \draw[clockgoldedge,line width=1.2pt] (0,0) circle[radius=89.5];
-  \draw[fill=clockpaper,draw=clockink,line width=.4pt] (0,0) circle[radius=88.7];
-  \draw[clockgoldedge,line width=.3pt] (0,0) circle[radius=86.1];
-  \draw[fill=clockplate,draw=clockgoldedge,line width=.45pt] (0,0) circle[radius=70.6];
-  \begin{scope}\clip (0,0) circle[radius=69.6];
-   \foreach \y in {-67.5,-64.5,...,67.5}{\draw[white,opacity=.55,line width=.3pt] (-71,\y)--(71,\y);}
+  \path[use as bounding box] (-\ClockPictureRadius,-\ClockPictureRadius) rectangle (\ClockPictureRadius,\ClockPictureRadius);
+  \fill[clockink!15] (0,-\ClockShadowDrop) circle[radius={\ClockCaseRadius+\ClockShadowOutset}];
+  \draw[fill=clocksteel,draw=clockink,line width=.6pt] (0,0) circle[radius=\ClockCaseRadius];
+  \draw[white,line width=.7pt] (0,0) circle[radius={\ClockCaseRadius-\ClockCaseHighlightInset}];
+  \draw[clockgoldedge,line width=1.2pt] (0,0) circle[radius={\ClockCaseRadius-\ClockBezelInset}];
+  \draw[fill=clockpaper,draw=clockink,line width=.4pt] (0,0) circle[radius={\ClockCaseRadius-\ClockDialInset}];
+  \draw[clockgoldedge,line width=.3pt] (0,0) circle[radius={\ClockCaseRadius-\ClockChapterInnerInset}];
+  \draw[fill=clockplate,draw=clockgoldedge,line width=.45pt] (0,0) circle[radius=\ClockPlateRadius];
+  \begin{scope}\clip (0,0) circle[radius=\ClockPlateInnerRadius];
+   \foreach \row in {\fpeval{-\ClockTextureRowsPerHalf},...,\fpeval{\ClockTextureRowsPerHalf-1}}{
+    \pgfmathsetmacro\y{(\row+.5)*\ClockTextureSpacing}
+    \draw[white,opacity=.55,line width=.3pt]
+     ({-\ClockPlateRadius-\ClockTextureOverhang},\y)--({\ClockPlateRadius+\ClockTextureOverhang},\y);}
   \end{scope}
-  \draw[clockpaper,line width=.6pt] (0,0) circle[radius=69.6];
-  \foreach \k in {0,...,59}{
-   \pgfmathtruncatemacro\kmod{mod(\k,5)}
-   \ifnum\kmod=0\def\TickIn{82.0}\def\TickWidth{.8pt}\else\def\TickIn{83.6}\def\TickWidth{.35pt}\fi
-   \draw[clockink,line width=\TickWidth] ({90-6*\k}:\TickIn)--({90-6*\k}:85.1);}
+  \draw[clockpaper,line width=.6pt] (0,0) circle[radius=\ClockPlateInnerRadius];
+  \foreach \k in {0,...,\fpeval{\ClockDialTickCount-1}}{
+   \pgfmathtruncatemacro\kmod{mod(\k,\ClockDialTicksPerHour)}
+   \ifnum\kmod=0\edef\TickIn{\fpeval{\ClockTickOuterRadius-\ClockMajorTickLength}}\def\TickWidth{.8pt}\else\edef\TickIn{\fpeval{\ClockTickOuterRadius-\ClockMinorTickLength}}\def\TickWidth{.35pt}\fi
+   \draw[clockink,line width=\TickWidth] ({\ClockHandZeroAngle-\ClockDialTickStep*\k}:\TickIn)--({\ClockHandZeroAngle-\ClockDialTickStep*\k}:\ClockTickOuterRadius);}
 
 {
-  \foreach \h/\roman in {
-    1/I,2/II,3/III,4/IV,5/V,6/VI,
-    7/VII,8/VIII,9/IX,10/X,11/XI,12/XII%
-  }{
-    \pgfmathsetmacro{\theta}{90-30*\h}
-    \ClockWarpRoman{\roman}{\theta}
+  \foreach \h in {1,...,\ClockHoursPerDial}{
+    \pgfmathsetmacro{\theta}{\ClockHandZeroAngle-\ClockHourAngleStep*\h}
+    \ClockWarpRoman{\ClockRomanNumeral{\h}}{\theta}
   }
 }
 
-  \foreach \a in {45,135,225,315}{\begin{scope}[shift={(\a:65.5)}]\ClockScrew{0}{0}{\a}\end{scope}}
+  \foreach \screw in {0,...,\fpeval{\ClockPlateScrewCount-1}}{
+   \pgfmathsetmacro\a{360*(\screw+.5)/\ClockPlateScrewCount}
+   \begin{scope}[shift={(\a:\ClockPlateScrewRadius)}]\ClockScrew{0}{0}{\a}\end{scope}}
   \ClockTrain
   \node[
   text=clockink,
   font=\clockfont\fontsize{5}{6}\selectfont
        \addfontfeatures{LetterSpace=40}
-] at (0,62) {\MakeUppercase{Bernoulli}};
+] at (0,\ClockBrandY) {\MakeUppercase{Bernoulli}};
   \node[
   text=clockink,
   font=\clockfont\fontsize{3.6}{5}\selectfont
-       \addfontfeatures{LetterSpace=40}] at (0,57){\MakeUppercase{Ars Conjectandi \textperiodcentered{} 1713}};
+       \addfontfeatures{LetterSpace=40}] at (0,\ClockMottoY){\MakeUppercase{Ars Conjectandi \textperiodcentered{} 1713}};
   \ClockHands
   \ifClockConstruction
-   \foreach \x/\y/\lab in {0/28/B,0/0/C,-16.241303228361/-22.808333333333/D,0/-45/K,22/0/M}{
+   \foreach \x/\y/\lab in {\ClockBarrelX/\ClockBarrelY/B,\ClockCentreX/\ClockCentreY/C,\ClockThirdX/\ClockThirdY/D,\ClockCageX/\ClockCageY/K,\ClockMotionX/\ClockMotionY/M}{
     \node[font=\clockfont\fontsize{5}{6}\selectfont,text=clockblue,fill=white,inner sep=1pt,anchor=south west] at ({\x+2},{\y+2}){\lab};}
   \fi
  \end{tikzpicture}\endgroup}
