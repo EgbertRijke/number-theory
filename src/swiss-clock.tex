@@ -445,9 +445,54 @@
      \draw[clockink,line width=.25pt] ({\ClockCageRingRadius-\ClockCarrierScrewInset-\ClockCarrierScrewSlotHalfLength},0)--({\ClockCageRingRadius-\ClockCarrierScrewInset+\ClockCarrierScrewSlotHalfLength},0);
     \end{scope}}
    \ClockCarrierHub
-   \path[fill=clockruby,draw=clockpaper,line width=.2pt] (\ClockSecondsMarkerAngle:{\ClockCageRingRadius+\ClockSecondsMarkerOutset})
-    --({\ClockSecondsMarkerAngle-\ClockSecondsMarkerHalfAngle}:{\ClockCageRingRadius-\ClockSecondsMarkerInset})
-    --({\ClockSecondsMarkerAngle+\ClockSecondsMarkerHalfAngle}:{\ClockCageRingRadius-\ClockSecondsMarkerInset})--cycle;
+   \begin{scope}[rotate=\ClockSecondsMarkerAngle]
+     
+     \pgfmathsetmacro\ClockMarkerShoulderPosition{0.30}
+     \pgfmathsetmacro\ClockMarkerRadialShift{
+       2*\ClockSecondsMarkerInset
+     }
+     
+     \pgfmathsetmacro\ClockMarkerOuterTipRadius{
+       \ClockCageRingRadius
+       + 3*\ClockSecondsMarkerOutset
+       - \ClockMarkerRadialShift
+     }
+     \pgfmathsetmacro\ClockMarkerInnerTipRadius{
+       \ClockCageRingRadius
+       - 2*\ClockSecondsMarkerInset
+       - \ClockMarkerRadialShift
+     }
+     
+     \pgfmathsetmacro\ClockMarkerShoulderRadius{
+       \ClockMarkerInnerTipRadius
+       + \ClockMarkerShoulderPosition*
+       (\ClockMarkerOuterTipRadius-\ClockMarkerInnerTipRadius)
+     }
+     
+     \pgfmathsetmacro\ClockMarkerHalfWidth{
+       0.6*(\ClockSecondsMarkerOutset+\ClockSecondsMarkerInset)
+     }
+     
+     \path[
+     fill=clockruby,
+     draw=clockruby!60!white,
+     draw opacity=.8,
+     line width=.2pt
+     ]
+     (\ClockMarkerOuterTipRadius,0)
+     -- (\ClockMarkerShoulderRadius,\ClockMarkerHalfWidth)
+     -- (\ClockMarkerInnerTipRadius,0)
+     -- (\ClockMarkerShoulderRadius,-\ClockMarkerHalfWidth)
+     -- cycle;
+
+     \path[
+     draw=white,
+     opacity=.5,
+     line width=.2pt
+     ]
+     (\ClockMarkerOuterTipRadius,0) -- (\ClockMarkerInnerTipRadius,0);
+     
+   \end{scope}
    \ClockGear{\CEex}{\CEey}{\ClockEscapePinionTeeth}{\ClockFixedMeshModule}{\ClockPlanet}{clockgoldlight}{0}
    \begin{scope}[rotate=\ClockBalance]
      \foreach \spoke in {0,...,\fpeval{\ClockBalanceSpokeCount-1}}{
@@ -504,8 +549,8 @@
   (-.18,3)
   --(-.18,{\ClockCageBridgeFootRadius-\ClockCageBridgeHighlightEndInset});
   
-  \ClockScrew{0}{-\ClockCageBridgeFootRadius}{0}
-  \ClockScrew{0}{\ClockCageBridgeFootRadius}{0}
+  \ClockScrew{0}{-\ClockCageBridgeFootRadius}{90}
+  \ClockScrew{0}{\ClockCageBridgeFootRadius}{90}
   \ClockJewel{0}{0}
  \end{scope}}
 
