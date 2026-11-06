@@ -1,10 +1,80 @@
 \chapter{Cyclic Counting and Prime Divisibility}
 
-In many cases, our main method to prove congruences is by algebraic manipulation. Here we introduce a new source of congruences: \emph{symmetry!}
+\section{Hemachandra Wheels}
 
-\section{Hemachandra's Counting Problem on Cycles}
+In \zcref{section:hemachandra} we considered the problem of counting the number $H_n$ of ways we can subdivide a strip of $n$ blocks into squares and dominoes. An equivalent formulation of this problem was stated \zcref{exercise:hemachandra-variant}, where the task was to find a recursive expression for the number of ways in which we could color some squares along a strip of length $n$ blue, so that no two blue squares are adjacent; this number is $H_{n+1}$. The same questions can also be asked for cycles instead of strips.
 
-In \zcref{section:hemachandra} we considered the problem of counting the number $H_n$ of ways we can subdivide a strip of $n$ blocks into squares and dominoes. An equivalent formulation of this problem was stated \zcref{exercise:hemachandra-variant}, where the task was to find a recursive expression for the number $C_n$ of number of ways in which we could color some squares along a strip of length $n$ blue, so that no two blue squares are adjacent, to which the solution is that $C_n=H_{n+1}$. In this section, we consider a cyclic variant of these counting problems.
+\begin{definition}
+  A \define{Hemachandra wheel} of order $n$ is an $n$-element cyclic set in which the elements are colored white and blue, so that no two adjacent elements are both colored blue. Two Hemachandra wheels are considered to be the same when one can be obtained from the other by rotation. Elements of Hemachandra wheels will be called \define{segments}.
+
+  A Hemachandra wheel is said to be \define{labeled} if its $n$ elements are labeled $0$ through $n-1$ in cyclic ordering. Two labeled Hemachandra wheels of order $n$ are considered to be the elements with matching labels have the same color.
+
+  We write $W_n$ for the number of labeled Hemachandra wheels of order $n$, and we write $\tilde{W}_n$ for the number of (unlabeled) Hemachandra wheels of order $n$.
+\end{definition}
+
+\begin{figure}[t]
+  \centering
+    \begin{tikzpicture}
+      \def\rin{1.0}
+      \def\rout{1.5}
+      \def\n{10}
+      \pgfmathsetmacro{\step}{360/\n}
+      
+      \foreach \k in {0,2,7} {
+        \fill[CornflowerBlue]
+        (\k*\step:\rin)
+        arc[start angle=\k*\step, end angle={(\k+1)*\step}, radius=\rin]
+        -- ({(\k+1)*\step}:\rout)
+        arc[start angle={(\k+1)*\step}, end angle=\k*\step, radius=\rout]
+        -- cycle;
+      }
+      
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) -- (\a:\rout);
+      }
+    \end{tikzpicture}
+  \caption[Hemachandra wheels]{Hemachandra wheels.}
+  \label{figure:hemachandra-wheel}
+\end{figure}
+
+\begin{remark}
+  The number $W_n$ of labeled Hemachandra wheels can be determined by considering two cases: Either the element labeled $0$ is white or it is blue. In the first case, the remaining elements of the Hemachandra wheel form a strip of elements labeled $1$ through $n-1$, and the number of colorings of this strip is $F_{n+1}$. In the second case, the blue element labeled $0$ cannot have an adjacent blue element, so the coloring of the remaining strip is determined by the coloring of the elements $2$ through $n-2$. Their number is $F_{n-1}$. Therefore, we conclude that
+  \begin{equation*}
+    W_n=F_{n+1}+F_{n-1}.
+  \end{equation*}
+  Since $F_{n+1}+F_{n-1}$ is the $n$\supth{} Lucas number $L_n$, we find that $W_n=L_n$.
+\end{remark}
+
+\begin{theorem}
+  Consider the Fibonacci numbers $F_n$, and let $p$ be a prime number.
+  \begin{equation*}
+    \tilde{W}_p=\frac{1}{p}(F_{p+1}+F_{p-1}+(p-1))
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  All labelings of the entirely white Hemachandra wheel are the same, so it corresponds to exactly one labeled wheel. Every wheel with at least one blue segment has $p$ distinct labelings. Indeed, if this were not so then its coloring would be preserved by a rotation through $k$ positions for some $0<k<p$. Since $p$ is prime, the positions $0,k,2k,\ldots,(p-1)k$ exhaust the wheel. Every position would therefore have the same color, a contradiction. Consequently, we have
+  \begin{equation*}
+    W_p=1+p(\tilde{W}_p-1),
+  \end{equation*}
+  and the result follows.
+\end{proof}
+
+\begin{corollary}
+  For any prime number $p$ we have the congruence
+  \begin{equation*}
+    F_{p-1}+F_{p+1}\equiv 1\pmod{p}.
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  The number $\tilde{W}_p$ is an integer, so $p\mid F_{p+1}+F_{p-1}-1$.
+\end{proof}
+
+In many cases, our main method to prove congruences is by algebraic manipulation. In the previous theorem we found a new source of congruences: \emph{rotational symmetry!} In the present chapter we will refine this method and find many congruences that can be proven naturally with rotational symmetry.
 
 \section{The Prime--Fixed Point Congruence}
 
@@ -160,7 +230,7 @@ The following theorem is a special case of a more general theorem of group theor
 \item Count the number of bijections up to rotation on a cyclically ordered set with $n$ elements.
 \item Count the number of transitive bijections up to rotation on a cyclically ordered set with $n$ elements.
 \item Count, up to rotation, the number of functions $f:X\to X$ such that for each $x\in X$ the set $f^{-1}(x)$ is empty or has at least two elements, and the set $\{x\in X\mid f^{-1}(x)=\varnothing\}$ is cyclically ordered with $n$ elements.
-\item Count the number $B_n$ of $2$-colorings of a necklace with $n$ beads up to rotation. Say that a $3$-coloring of a necklace is \define{proper} of no two adjacent beads are of the same color. Count the number $C_n$ of proper $3$-colorings of a necklace with $n$ beads up to rotation. Show that
+\item Count the number $B_n$ of $2$-colorings of a wheel with $n$ beads up to rotation. Say that a $3$-coloring of a wheel is \define{proper} of no two adjacent beads are of the same color. Count the number $C_n$ of proper $3$-colorings of a necklace with $n$ beads up to rotation. Show that
   \begin{equation*}
     C_n =
     \begin{cases}
