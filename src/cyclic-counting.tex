@@ -1,4 +1,4 @@
-\chapter{Cyclic Counting and Prime Divisibility}
+\chapter{Cyclic Counting}
 
 \section{Hemachandra Wheels}
 
@@ -63,7 +63,7 @@ In \zcref{section:hemachandra} we considered the problem of counting the number 
   and the result follows.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{corollary:congruence-lucas-numbers-mod-p}
   For any prime number $p$ we have the congruence
   \begin{equation*}
     F_{p-1}+F_{p+1}\equiv 1\pmod{p}.
@@ -85,24 +85,63 @@ In many cases, our main method to prove congruences is by algebraic manipulation
   \end{equation*}
 \end{definition}
 
-\begin{corollary}
-  Consider a finite set $X$ and a map $f:X\to X$ such that $f^p(x)=x$ for all $x\in X$, where $p$ is a prime number. Let $N$ be the number of orbits of $f$. Then we have
+\begin{theorem}[The Prime--Fixed Point Congruence]\label{theorem:prime-fixed-point-congruence}
+  Consider a finite set $X$ and a map $f:X\to X$ such that $f^p(x)=x$ for all $x\in X$, where $p$ is a prime number. Then we have
   \begin{equation*}
     |X| \equiv |\mathrm{Fix}(f)| \pmod{p}.
   \end{equation*}
   In particular, if $|X| \nequiv 0\pmod{p}$ and $f^p(x)=x$ for all $x\in X$, then $f$ has a fixed point.
-\end{corollary}
+\end{theorem}
 
 \begin{proof}
-  By \zcrefnamed{theorem:orbit-counting}, it follows that
+  If $f(x)\neq x$, then the least positive $n$ for which $f^n(x)=x$ is $p$. Indeed, by the assumption that $p$ is prime, if $1<n<p$ then there is an integer $k$ such that $kn\equiv 1\pmod p$. For such $k$ we find that $f(x)=f^{kn}(x)=x$, contradicting our assumption on $x$. Thus we see that $X$ is partitioned into orbits of size $1$ and of size $p$, and the claim follows.
+\end{proof}
+
+\begin{example}
+  The congruence of \zcref{corollary:congruence-lucas-numbers-mod-p} is an instance of \zcrefnamed{theorem:prime-fixed-point-congruence}, since the total number of Hemachandra wheels of order $p$ is
   \begin{equation*}
-    pN= |X| + \sum_{k=1}^{p-1}|\mathrm{Fix}(f^k)|.
+    F_{p-1}+F_{p+1},
   \end{equation*}
-  Now observe that if $f^k(x)=x$ for some $1\leq k\leq p-1$, then we must have $f^t(x)=x$ for $t:=\gcd(k,p)$. Since $p$ is prime, this shows that $f(x)=x$. Thus, it follows that
+  and the only fixed point under rotation is the entirely white Hemachandra wheel.
+\end{example}
+
+\section{Lucas's Theorem}
+
+Our next application of \zcref{theorem:prime-fixed-point-congruence} is a theorem due to {\'E}douard Lucas \cite{lucas1878congruences}, which allows us to compute the residue class of binomial coefficients modulo a prime. This theorem is complementary to \zcrefnamed{theorem:kummers-theorem}, which gives a complete description of the prime factorization of binomial coefficients. The proof we present below is due to Bruce Sagan \cite{sagan2020}.
+
+\begin{theorem}[Lucas's Theorem]
+  Consider a prime number $p$, and natural numbers $m$ and $n$ written in base $p$ as
   \begin{equation*}
-    pN=|X| + (p-1) |\mathrm{Fix}(f)|,
+    m=\sum_{i=0}^ka_ip^i\qquad\text{and}\qquad n=\sum_{i=0}^kb_ip^i.
   \end{equation*}
-  and we conclude the statement of the theorem by reducing modulo $p$.
+  Then the congruence
+  \begin{equation*}
+    \binom{n}{m}\equiv\prod_{i=0}^k\binom{b_i}{a_i}\pmod{p}
+  \end{equation*}
+  holds. In particular, if $b_i<a_i$ for some $i$, then $\binom{n}{m}$ is divisible by $p$.
+\end{theorem}
+
+\begin{proof}
+  By Euclidean division, write $m= rp+a_0$ and $n=sp+b_0$, so that 
+  \begin{equation*}
+    r=\sum_{i=0}^{k-1}a_{i+1}p^i\qquad\text{and}\qquad s=\sum_{i=0}^{k-1}b_{i+1}p^i
+  \end{equation*}
+  It suffices to show that
+  \begin{equation*}
+    \binom{n}{m}\equiv \binom{s}{r}\binom{b_0}{a_0}\pmod{p},
+  \end{equation*}
+  since the claim follows by iterating this congruence. Consider an $n$-element set $X$ and a map $f:X\to X$ so that the number of $p$-cycles is $s$ and the number of fixed points is $b_0$. Then we can define a map $\varphi$ on the set of $m$-element subsets of $X$ by
+  \begin{equation*}
+    \varphi(U):=f(U).
+  \end{equation*}
+  The image of an $m$-element subset $U$ under $f$ is indeed again an $m$-element subset. Furthermore, since $f$ satisfies $f^p(x)=x$ for all $x\in X$, it also follows that $\varphi^p(U)=U$ for every $m$-element subset of $X$. Therefore it follows by \zcref{theorem:prime-fixed-point-congruence} that
+  \begin{equation*}
+    \binom{n}{m}\equiv |\mathrm{Fix}(\varphi)|\pmod{p}.
+  \end{equation*}
+  Now observe that $\varphi(U)=U$ if and only if for every $x\in U$ we have $f(x)\in U$. This means that for every $x\in U$, the entire orbit under $f$ is contained in $U$. As we have seen in \zcref{theorem:prime-fixed-point-congruence}, these orbits have either $p$ elements or $1$ element. Since the number of fixed points of $f$ is $0\leq b_0<p$, it follows that every $m$-element subset contains of a number $t$ of orbits with $p$ elements, and a number $0\leq c<p$ of fixed points, which allows us to write $m=tp+c$. By the uniqueness property of \zcrefnamed{theorem:euclidean-division}, it follows that $t=r$ and $c=a_0$. We conclude that a fixed point $U$ of $\varphi$ consists of a choice of $r$ orbits with $p$ elements and a choice of $a_0$ fixed points of $f$, so that
+  \begin{equation*}
+    |\mathrm{Fix}(\varphi)|=\binom{s}{r}\binom{b_0}{a_0}.
+  \end{equation*}
 \end{proof}
 
 \section{The Orbit--Counting Formula}
@@ -245,13 +284,10 @@ The following theorem is a special case of a more general theorem of group theor
 \exercises
 
 \begin{routine}
-  \exercise Consider a finite set $X$ and a map $f:X\to X$. We say that two elements $x$ and $y$ of $X$ lie \define{in the same orbit} of $f$ if there exist natural numbers $k$ and $l$ such that
+  \exercise Let $n=mp^k$, where $p$ is a prime such that $p\nmid m$, and let $F$ be the sequence of Fibonacci numbers. Show that
   \begin{equation*}
-    f^k(x)=f^l(y).
+    F_{n-1}+F_{n+1}\equiv F_{m-1}+F_{m+1}\pmod{p}.
   \end{equation*}
-  \begin{subexenum}
-  \item Show that the relation $\sim$ is an equivalence relation.
-  \end{subexenum}
   \exercise Determine the number of labeled and unlabeled bicolored wheels with $n$ segments in which no three adjacent segments all have the same color.
 \end{routine}
 

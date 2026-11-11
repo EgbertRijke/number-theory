@@ -98,7 +98,7 @@ In the following theorem we establish two fundamental identities for a Lucas seq
   \end{equation*}
 \end{proof}
 
-Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Sequences with this property are called \emph{divisibility sequences}. We will additionally assume that divisibility sequences $(a_n)$ satisfy $a_0=0$ and $a_1=0$. Such divisibility sequences are sometimes called \emph{normalized}.
+Binet's formula can be used to show that if $m\mid n$, then $u_m\mid u_n$. Sequences with this property are called \emph{divisibility sequences}. We will additionally assume that divisibility sequences $(a_n)$ satisfy $a_0=0$ and $a_1=1$. Such divisibility sequences are sometimes called \emph{normalized}.
 
 \begin{definition}
   An integer sequence $(a_n)$ is said to be a \define{divisibility sequence} if $a_0=0$, $a_1=1$, and it preserves the divisibility relation, meaning that it satisfies the condition
@@ -485,7 +485,7 @@ By \zcrefnamed{theorem:order-theorem}, it follows that the function $g$ defined 
     \end{equation*}
     for every $m$ and $n$.
   \item \textup{\cite{ward1936}} For each prime $p$, we have $p^k\mid a_n$ if and only if $\rho_k(p)\mid n$, where $\rho_k(p)$ is the rank of apparition of $p^k$.
-  \item Each $u_n$ in primitive sequence $(u_n)$ of $(a_n)$ is an integer, and furthermore $u_m$ and $u_n$ are relatively prime for distinct $m$ and $n$.
+  \item Each $u_n$ in the primitive sequence $(u_n)$ of $(a_n)$ is an integer, and furthermore $u_m$ and $u_n$ are relatively prime when $m\nmid n$ and $n\nmid m$.
   \item \textup{\cite{nowicki2015}} The sequence $(a_n)$ satisfies the following divisor-product formula, where $(m_n)$ is the lcm-sequence of $(a_n)$:
     \begin{equation*}
       a_n = \prod_{d\mid n}m_d.

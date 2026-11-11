@@ -369,44 +369,42 @@ In the European mathematical tradition, it was first published by Edward Waring,
 
 \begin{proof}[Second proof of the forward direction of \zcrefnamed{theorem:wilsons-theorem}] Consider a prime $p$, and consider the monic polynomial \begin{equation*} f(x)=\prod_{k=0}^{p-1}(x-k). \end{equation*} Since every element is a root of $f(x)$ modulo $p$, it follows by \zcrefnamed{theorem:fermats-little-theorem} that $f(x)\equiv x^p-x\pmod{p}$. Since $f(x)=x g(x)$, where $g(x):=\prod_{k=1}^{p-1}(x-k)$, it follows by the product rule for differentiation that \begin{equation*} f'(x)=xg'(x)+g(x). \end{equation*} This shows that $f'(0)=g(0)$. On the other hand the derivative of $x^p-x$ is $p x^{p-1}-1$. Thus, we conclude that \begin{equation*} k!=\prod_{k=1}^{p-1}(0-k)\equiv -1\pmod{p}.\qedhere \end{equation*} \end{proof}
 
-\section{Lucas's Theorem}
+% \section{Lucas's Theorem}
 
-\zcrefnamed{theorem:kummers-theorem} gave a complete description of the prime factorization of binomial coefficients. In principle, this is sufficient to know the congruence class of $\binom{n}{m}$ modulo a prime $p$. In the following theorem, which is due to \'Edouard Lucas, we establish a way of determining the congruence class of the binomial coefficient modulo $p$. If this congruence class is shown to be $0$, the $p$-valuation can be computed precisely with Kummer's Theorem.
+% \begin{theorem}[Lucas's Theorem]
+%   Consider a prime number $p$, and natural numbers $m$ and $n$ written in base $p$ as
+%   \begin{equation*}
+%     m=\sum_{i=0}^ka_ip^i\qquad\text{and}\qquad n=\sum_{i=0}^kb_ip^i.
+%   \end{equation*}
+%   Then the congruence
+%   \begin{equation*}
+%     \binom{n}{m}\equiv\prod_{i=0}^k\binom{b_i}{a_i}\pmod{p}
+%   \end{equation*}
+%   holds. In particular, if $b_i<a_i$ for some $i$, then $\binom{n}{m}$ is divisible by $p$.
+% \end{theorem}
 
-\begin{theorem}
-  Consider a prime number $p$, and natural numbers $m$ and $n$ written in base $p$ as
-  \begin{equation*}
-    m=\sum_{i=0}^ka_ip^i\qquad\text{and}\qquad n=\sum_{i=0}^kb_ip^i.
-  \end{equation*}
-  Then the congruence
-  \begin{equation*}
-    \binom{n}{m}\equiv\prod_{i=0}^k\binom{b_i}{a_i}\pmod{p}
-  \end{equation*}
-  holds. In particular, if $b_i<a_i$ for some $i$, then $\binom{n}{m}$ is divisible by $p$.
-\end{theorem}
-
-\begin{proof}
-  Recall from \zcrefnamed{theorem:binomial-theorem} that $\binom{n}{m}$ is the coefficient of the $x^m$-term in $(x+1)^n$. We will prove the asserted congruence by computing this coefficient in another way.
+% \begin{proof}
+%   Recall from \zcrefnamed{theorem:binomial-theorem} that $\binom{n}{m}$ is the coefficient of the $x^m$-term in $(x+1)^n$. We will prove the asserted congruence by computing this coefficient in another way.
   
-  By \zcrefnamed{theorem:fermats-little-theorem} it follows that $a^{p^k}\equiv a\pmod{p}$. This implies that
-  \begin{equation*}
-    (a+b)^{p^k}\equiv a+b \equiv a^{p^k}+b^{p^k}\pmod{p}.
-  \end{equation*}
-  Using the base-$p$ representation $n=\sum_{i=0}^kb_ip^i$ of $n$, we find that
-  \begin{equation*}
-    (x+1)^n=\prod_{i=0}^k(x+1)^{b_ip^i}\equiv \prod_{i=0}^k (x^{p^i}+1)^{b_i}\pmod{p}.
-  \end{equation*}
-  Expanding the polynomial $(x^{p^i}+1)^{b_i}$ we obtain:
-  \begin{equation*}
-    (x+1)^n \equiv
-    \prod_{i=0}^k \sum_{t_i=0}^{p-1}\binom{b_i}{t_i}x^{t_ip^i} \equiv
-    \sum_{0\leq t_0,\ldots,t_k<p}\left(\prod_{i=0}^k\binom{b_i}{t_i}\right)x^{\sum_{i=0}^k t_ip^i}\pmod{p}.
-  \end{equation*}
-  Since every number has a unique representation base $p$, we see that the coefficient of $x^m$ is $\prod_{i=0}^k\binom{b_i}{b_i}$, and thus we obtain:
-  \begin{equation*}
-    \binom{n}{m}\equiv \prod_{i=0}^k\binom{b_i}{b_i}\pmod{p}.\qedhere
-  \end{equation*}
-\end{proof}
+%   By \zcrefnamed{theorem:fermats-little-theorem} it follows that $a^{p^k}\equiv a\pmod{p}$. This implies that
+%   \begin{equation*}
+%     (a+b)^{p^k}\equiv a+b \equiv a^{p^k}+b^{p^k}\pmod{p}.
+%   \end{equation*}
+%   Using the base-$p$ representation $n=\sum_{i=0}^kb_ip^i$ of $n$, we find that
+%   \begin{equation*}
+%     (x+1)^n=\prod_{i=0}^k(x+1)^{b_ip^i}\equiv \prod_{i=0}^k (x^{p^i}+1)^{b_i}\pmod{p}.
+%   \end{equation*}
+%   Expanding the polynomial $(x^{p^i}+1)^{b_i}$ we obtain:
+%   \begin{equation*}
+%     (x+1)^n \equiv
+%     \prod_{i=0}^k \sum_{t_i=0}^{p-1}\binom{b_i}{t_i}x^{t_ip^i} \equiv
+%     \sum_{0\leq t_0,\ldots,t_k<p}\left(\prod_{i=0}^k\binom{b_i}{t_i}\right)x^{\sum_{i=0}^k t_ip^i}\pmod{p}.
+%   \end{equation*}
+%   Since every number has a unique representation base $p$, we see that the coefficient of $x^m$ is $\prod_{i=0}^k\binom{b_i}{b_i}$, and thus we obtain:
+%   \begin{equation*}
+%     \binom{n}{m}\equiv \prod_{i=0}^k\binom{b_i}{b_i}\pmod{p}.\qedhere
+%   \end{equation*}
+% \end{proof}
 
 \section[Concerning Strong Divisibility Sequences]{Some Theorems Concerning Strong Divisibility Sequences}
 
