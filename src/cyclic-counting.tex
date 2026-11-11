@@ -107,7 +107,7 @@ In many cases, our main method to prove congruences is by algebraic manipulation
 
 \section{Lucas's Theorem}
 
-Our next application of \zcref{theorem:prime-fixed-point-congruence} is a theorem due to {\'E}douard Lucas \cite{lucas1878congruences}, which allows us to compute the residue class of binomial coefficients modulo a prime. This theorem is complementary to \zcrefnamed{theorem:kummers-theorem}, which gives a complete description of the prime factorization of binomial coefficients. The proof we present below is due to Bruce Sagan \cite{sagan2020}.
+Our next application of \zcref{theorem:prime-fixed-point-congruence} is a theorem due to {\'E}douard Lucas \cite{lucas1878congruences}, which allows us to compute the residue class of binomial coefficients modulo a prime. This theorem is complementary to \zcrefnamed{theorem:kummers-theorem}, which gives a complete description of the prime factorization of binomial coefficients. The proof we present below is due to Bruce Sagan \cite[Theorem 6.5.6]{sagan2020}.
 
 \begin{theorem}[Lucas's Theorem]
   Consider a prime number $p$, and natural numbers $m$ and $n$ written in base $p$ as
@@ -132,7 +132,7 @@ Our next application of \zcref{theorem:prime-fixed-point-congruence} is a theore
   \end{equation*}
   since the claim follows by iterating this congruence. Consider an $n$-element set $X$ and a map $f:X\to X$ so that the number of $p$-cycles is $s$ and the number of fixed points is $b_0$. Then we can define a map $\varphi$ on the set of $m$-element subsets of $X$ by
   \begin{equation*}
-    \varphi(U):=f(U).
+    \varphi(U):=\{f(x)\mid x\in U\}.
   \end{equation*}
   The image of an $m$-element subset $U$ under $f$ is indeed again an $m$-element subset. Furthermore, since $f$ satisfies $f^p(x)=x$ for all $x\in X$, it also follows that $\varphi^p(U)=U$ for every $m$-element subset of $X$. Therefore it follows by \zcref{theorem:prime-fixed-point-congruence} that
   \begin{equation*}
@@ -140,7 +140,7 @@ Our next application of \zcref{theorem:prime-fixed-point-congruence} is a theore
   \end{equation*}
   Now observe that $\varphi(U)=U$ if and only if for every $x\in U$ we have $f(x)\in U$. This means that for every $x\in U$, the entire orbit under $f$ is contained in $U$. As we have seen in \zcref{theorem:prime-fixed-point-congruence}, these orbits have either $p$ elements or $1$ element. Since the number of fixed points of $f$ is $0\leq b_0<p$, it follows that every $m$-element subset contains of a number $t$ of orbits with $p$ elements, and a number $0\leq c<p$ of fixed points, which allows us to write $m=tp+c$. By the uniqueness property of \zcrefnamed{theorem:euclidean-division}, it follows that $t=r$ and $c=a_0$. We conclude that a fixed point $U$ of $\varphi$ consists of a choice of $r$ orbits with $p$ elements and a choice of $a_0$ fixed points of $f$, so that
   \begin{equation*}
-    |\mathrm{Fix}(\varphi)|=\binom{s}{r}\binom{b_0}{a_0}.
+    |\mathrm{Fix}(\varphi)|=\binom{s}{r}\binom{b_0}{a_0}.\qedhere
   \end{equation*}
 \end{proof}
 
@@ -287,6 +287,10 @@ The following theorem is a special case of a more general theorem of group theor
   \exercise Let $n=mp^k$, where $p$ is a prime such that $p\nmid m$, and let $F$ be the sequence of Fibonacci numbers. Show that
   \begin{equation*}
     F_{n-1}+F_{n+1}\equiv F_{m-1}+F_{m+1}\pmod{p}.
+  \end{equation*}
+  \exercise Consider a prime $p$. Show that
+  \begin{equation*}
+    \binom{n}{m} \equiv \binom{n-p}{m-p}+\binom{n-p}{m}\pmod{p}.
   \end{equation*}
   \exercise Determine the number of labeled and unlabeled bicolored wheels with $n$ segments in which no three adjacent segments all have the same color.
 \end{routine}
