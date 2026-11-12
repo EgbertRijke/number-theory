@@ -121,10 +121,6 @@
   }%
 }
 
-\newcommand{\apart}{%
-  \mathbin{\MathMLintent{_is_apart_from}{{\#}}}%
-}
-
 \DeclareMathOperator{\numerator}{num}
 
 \DeclareMathOperator{\denominator}{denom}
@@ -135,6 +131,14 @@
   \mathbin{%
     \MathMLintent{_mediant}{%
       {\text{\MathBackupFont\char"25BF}}%
+    }%
+  }%
+}
+
+\newcommand{\apart}{%
+  \mathrel{%
+    \MathMLintent{_apartness}{%
+      {\text{\MathBackupFont\char"29E3}}%
     }%
   }%
 }
@@ -174,3 +178,4 @@
 \NewDocumentCommand{\hexnum}{m}{\basednum{16}{#1}}
 \NewDocumentCommand{\factoradicnum}{m}{\basednum{!}{#1}}
 \NewDocumentCommand{\combinatoradicnum}{m}{\basednum{\symup{c}}{#1}}
+\NewDocumentCommand{\cardinality}{m}{\mathord{\#}\mkern1mu #1}

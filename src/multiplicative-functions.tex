@@ -251,7 +251,7 @@ Since $\totient(p^k)=p^{k-1}(p-1)$, it follows that if $k\leq l$, then $\totient
 \begin{corollary}
   The function $n\mapsto\totient(n)$ is a divisibility sequence: For any two natural numbers $m$ and $n$, we have
   \begin{equation*}
-    m\mid n\qquad\Rightarrow\qquad \totient(m)\mid\totient(n).
+    m\mid n\quad\Rightarrow\quad \totient(m)\mid\totient(n).
   \end{equation*}
 \end{corollary}
 
@@ -518,7 +518,7 @@ The set of arithmetic functions with values in a fixed number system such as the
 \begin{example}\label{example:convolution-powers-1}
   Define the arithmetic function $d_k$ by
   \begin{equation*}
-    d_k(n) := \#\{(a_1,\ldots,a_k) \mid a_1\cdots a_k=n\}.
+    d_k(n) := \cardinality{\{(a_1,\ldots,a_k) \mid a_1\cdots a_k=n\}}.
   \end{equation*}
   That is, $d_k(n)$ is the number of ways of writing $n$ as an ordered product of $k$ positive integers. For example, we have $d_2(n)=\tau(n)$ since every divisor $d\mid n$ uniquely determines an ordered pair $(d,e)$ such that $de=n$. Thus, it follows from \zcref{example:1convolution1} that $1\ast 1=d_2$.
 
@@ -532,7 +532,7 @@ The set of arithmetic functions with values in a fixed number system such as the
   We have already seen that $1\ast 1=d_2$. For the inductive step, assume that $1^{\ast k}=d_k$. Then we have
   \begin{equation*}
     1^{\ast(k+1)}(n) = (1\ast 1^{\ast k})(n) =
-    \sum_{d\mid n}1(d)\cdot d_k\left(\frac{n}{d}\right)=\sum_{d\mid n}\#\{(a_1,\ldots,a_k)\mid a_1\cdots a_k=\tfrac{n}{d}\}.
+    \sum_{d\mid n}1(d)\cdot d_k\left(\frac{n}{d}\right)=\sum_{d\mid n}\cardinality{\{(a_1,\ldots,a_k)\mid a_1\cdots a_k=\tfrac{n}{d}\}}.
   \end{equation*}
   Note that the data of $d$ along with $(a_1,\ldots,a_k)$ such that $a_1\cdots a_k=\frac{n}{d}$ is equivalent to the data of $(d,a_1,\ldots,a_k)$ such that $da_1\cdots a_k=n$. The number of such $(k+1)$-tuples is $d_{k+1}(n)$, which completes the inductive step.
 
@@ -643,7 +643,7 @@ In the previous example, one might wonder whether it matters whether we define $
 \begin{theorem}[The M\"obius Inversion Formula]
   Consider two arithmetic functions $f$ and $g$. Then we have
   \begin{equation*}
-    g(n)=\sum_{d\mid n}f(d)\qquad\Leftrightarrow\qquad f(n)=\sum_{d\mid n}\mu(d)g\left(\frac{n}{d}\right).
+    g(n)=\sum_{d\mid n}f(d)\quad\Leftrightarrow\quad f(n)=\sum_{d\mid n}\mu(d)g\left(\frac{n}{d}\right).
   \end{equation*}
   In other words, if $g=1\ast f$ then $f=\mu\ast g$.
 \end{theorem}
@@ -867,7 +867,7 @@ We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offer
   \end{equation*}
   \exercise Define \define{Jordan's totient function} $J_k(n)$ by
   \begin{equation*}
-    J_k(n) = \#\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}.
+    J_k(n) = \cardinality{\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}}.
   \end{equation*}
   In other words, Jordan's totient function counts the number of $k$-tuples $(x_1,\ldots,x_k)$ of positive integers not exceeding $n$ such that if $d$ simultaneously divides all the integers $x_1,\ldots,x_k$ and $n$, then $d=1$. Note that $J_1(n)$ is just Euler's totient function $\totient$.
   \begin{subexenum}

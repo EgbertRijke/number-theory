@@ -14,7 +14,7 @@
   Note that the congruence $(-a)^p\equiv -a^p\pmod{p}$ holds for all primes $p$, so it suffices to prove the claim for the nonnegative integers.
 \end{remark}
 
-The following proof, which proceeds by mathematical induction and makes use of the \zcrefnamed{theorem:binomial-theorem}, was first published by Leonhard Euler. Euler, however, was not the first to discover it \cite[p.~59]{dickson1919}. Several decades prior, this proof was discovered by Gottfried Wilhelm Leibniz, which was only published posthumously in \cite{leibniz1863}.
+We already saw a proof of Fermat's Little Theorem in \zcref{example:fermats-little-theorem}. The following proof, which proceeds by mathematical induction and makes use of the \zcrefnamed{theorem:binomial-theorem}, was first published by Leonhard Euler. Euler, however, was not the first to discover it \cite[p.~59]{dickson1919}. Several decades prior, this proof was discovered by Gottfried Wilhelm Leibniz, which was only published posthumously in \cite{leibniz1863}.
 
 \begin{proof}[The additive proof]
   This proof is by induction on $a$. The base case $0^p\equiv 0\pmod{p}$ clearly holds. For the inductive step, assume that $a^p\equiv a\pmod{p}$. \zcrefnamed{theorem:binomial-theorem} then gives us that
@@ -39,7 +39,7 @@ The following proof, which proceeds by mathematical induction and makes use of t
 \begin{proof}
   Since $a$ is not divisible by $p$, it follows that $a$ is relatively prime to $p$, and therefore the claim follows from the cancellation law
   \begin{equation*}
-    ax\equiv ay\pmod{p}\qquad\Rightarrow\qquad x\equiv y\pmod{p}.\qedhere
+    ax\equiv ay\pmod{p}\quad\Rightarrow\quad x\equiv y\pmod{p}.\qedhere
   \end{equation*}
 \end{proof}
 
@@ -607,7 +607,7 @@ The techniques of proving Dirichlet's Theorem are beyond the scope of this cours
   \begin{subexenum}
   \item Consider a prime $p$ and an integer $p\nmid a$. Show that
     \begin{equation*}
-      a^p\equiv a\pmod{p^2}\qquad\Leftrightarrow \qquad a^{p^2}\equiv a\pmod{p^2}.
+      a^p\equiv a\pmod{p^2}\quad\Leftrightarrow \quad a^{p^2}\equiv a\pmod{p^2}.
     \end{equation*}
   \item A prime satisfying $a^p\equiv a\pmod{p^2}$ is called a \define{Wieferich prime base $a$}. Wieferich encountered this condition by showing that if $x^p+y^p=z^p$ with $p\nmid xyz$, then $p$ must be a Wieferich prime base $2$ \cite{wieferich1909}. The only known Wieferich primes base $2$ are $p=1093$ and $p=3511$, and there are no smaller Wieferich primes base $2$.
     
@@ -632,7 +632,7 @@ The techniques of proving Dirichlet's Theorem are beyond the scope of this cours
   where $p$ and $q$ are prime numbers.
   \exercise Consider two primes $p$ and $q$. Show that
   \begin{equation*}
-    pq\mid (13^p-5^p)(13^q-5^q)\qquad\Leftrightarrow\qquad pq\mid 12.
+    pq\mid (13^p-5^p)(13^q-5^q)\quad\Leftrightarrow\quad pq\mid 12.
   \end{equation*}
   \exercise
   \begin{subexenum}

@@ -2,46 +2,151 @@
 
 \section{Hemachandra Wheels}
 
-In \zcref{section:hemachandra} we considered the problem of counting the number $H_n$ of ways we can subdivide a strip of $n$ blocks into squares and dominoes. An equivalent formulation of this problem was stated \zcref{exercise:hemachandra-variant}, where the task was to find a recursive expression for the number of ways in which we could color some squares along a strip of length $n$ blue, so that no two blue squares are adjacent; this number is $H_{n+1}$. The same questions can also be asked for cycles instead of strips.
+In \zcref{section:hemachandra} we considered the problem of counting the number $H_n$ of ways we can subdivide a strip of $n$ blocks into squares and dominoes. An equivalent formulation of this problem was stated \zcref{exercise:hemachandra-variant}, where the task was to find a recursive expression for the number of ways in which we could color some squares along a strip of length $n$ blue, so that no two blue squares are adjacent; this number is $H_{n+1}$. How do these counts change, if instead we ask for the number of Hemachandra colorings of a cyclic strip? And how do we determine the number of those Hemachandra colorings that are rotationally distinct?
 
 \begin{definition}
   A \define{Hemachandra wheel} of order $n$ is an $n$-element cyclic set in which the elements are colored white and blue, so that no two adjacent elements are both colored blue. Two Hemachandra wheels are considered to be the same when one can be obtained from the other by rotation. Elements of Hemachandra wheels will be called \define{segments}.
 
-  A Hemachandra wheel is said to be \define{labeled} if its $n$ elements are labeled $0$ through $n-1$ in cyclic ordering. Two labeled Hemachandra wheels of order $n$ are considered to be the elements with matching labels have the same color.
+  A Hemachandra wheel is said to be \define{labeled} if its $n$ segments are labeled $0$ through $n-1$ in cyclic ordering. Two labeled Hemachandra wheels of order $n$ are considered to be the same if segments with matching labels have the same color.
 
   We write $W_n$ for the number of labeled Hemachandra wheels of order $n$, and we write $\tilde{W}_n$ for the number of (unlabeled) Hemachandra wheels of order $n$.
 \end{definition}
 
 \begin{figure}[t]
   \centering
-    \begin{tikzpicture}
-      \def\rin{1.0}
-      \def\rout{1.5}
-      \def\n{10}
-      \pgfmathsetmacro{\step}{360/\n}
-      
+  \begin{tikzpicture}
+    \def\rin{1.0}
+    \def\rout{1.5}
+    \def\n{10}
+    \pgfmathsetmacro{\step}{360/\n}
+    
+    \begin{scope}[shift={(0,0)}]
       \foreach \k in {0,2,7} {
-        \fill[CornflowerBlue]
+        \fill[CornflowerBlue!40]
         (\k*\step:\rin)
         arc[start angle=\k*\step, end angle={(\k+1)*\step}, radius=\rin]
-        -- ({(\k+1)*\step}:\rout)
+        to[bend right=20] ({(\k+1)*\step}:\rout)
         arc[start angle={(\k+1)*\step}, end angle=\k*\step, radius=\rout]
-        -- cycle;
+        to[bend left=20] cycle;
       }
       
       \draw[thick] (0,0) circle[radius=\rin];
       \draw[thick] (0,0) circle[radius=\rout];
       
       \foreach \a in {0,\step,...,324} {
-        \draw[thick] (\a:\rin) -- (\a:\rout);
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
       }
-    \end{tikzpicture}
-  \caption[Hemachandra wheels]{Hemachandra wheels.}
-  \label{figure:hemachandra-wheel}
+    \end{scope}
+    
+    \begin{scope}[shift={(3.8,0)}]
+      \foreach \k in {1,6,9} {
+        \fill[CornflowerBlue!40]
+        (\k*\step:\rin)
+        arc[start angle=\k*\step, end angle={(\k+1)*\step}, radius=\rin]
+        to[bend right=20] ({(\k+1)*\step}:\rout)
+        arc[start angle={(\k+1)*\step}, end angle=\k*\step, radius=\rout]
+        to[bend left=20] cycle;
+      }
+      
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+    \end{scope}
+
+    \begin{scope}[shift={(7.6,0)}]
+      \foreach \k in {0,5,7} {
+        \fill[CornflowerBlue!40]
+        (\k*\step:\rin)
+        arc[start angle=\k*\step, end angle={(\k+1)*\step}, radius=\rin]
+        to[bend right=20] ({(\k+1)*\step}:\rout)
+        arc[start angle={(\k+1)*\step}, end angle=\k*\step, radius=\rout]
+        to[bend left=20] cycle;
+      }
+      
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+    \end{scope}
+
+    \begin{scope}[shift={(0,-4)}]
+      \foreach \k in {0,2,7} {
+        \fill[CornflowerBlue!40]
+        (\k*\step:\rin)
+        arc[start angle=\k*\step, end angle={(\k+1)*\step}, radius=\rin]
+        to[bend right=20] ({(\k+1)*\step}:\rout)
+        arc[start angle={(\k+1)*\step}, end angle=\k*\step, radius=\rout]
+        to[bend left=20] cycle;
+      }
+      
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+      
+      \foreach \k in {0,...,9} {
+        \node at ({(-\k+2.5)*\step}:{(\rin+\rout)/2}) {$\k$};
+      }
+    \end{scope}
+
+    \begin{scope}[shift={(3.8,-4)}]
+      \foreach \k in {1,6,9} {
+        \fill[CornflowerBlue!40]
+        (\k*\step:\rin)
+        arc[start angle=\k*\step, end angle={(\k+1)*\step}, radius=\rin]
+        to[bend right=20] ({(\k+1)*\step}:\rout)
+        arc[start angle={(\k+1)*\step}, end angle=\k*\step, radius=\rout]
+        to[bend left=20] cycle;
+      }
+      
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+
+      \foreach \k in {0,...,9} {
+        \node at ({(-\k+1.5)*\step}:{(\rin+\rout)/2}) {$\k$};
+      }
+    \end{scope}
+
+    \begin{scope}[shift={(7.6,-4)}]
+      \foreach \k in {0,2,7} {
+        \fill[CornflowerBlue!40]
+        (\k*\step:\rin)
+        arc[start angle=\k*\step, end angle={(\k+1)*\step}, radius=\rin]
+        to[bend right=20] ({(\k+1)*\step}:\rout)
+        arc[start angle={(\k+1)*\step}, end angle=\k*\step, radius=\rout]
+        to[bend left=20] cycle;
+      }
+      
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+
+      \foreach \k in {0,...,9} {
+        \node at ({(-\k+1.5)*\step}:{(\rin+\rout)/2}) {$\k$};
+      }
+    \end{scope}
+
+  \end{tikzpicture}
+  \caption[Hemachandra wheels]{The top row displays three unlabeled Hemachandra wheels. The first and second are the same up to rotation, while the third is distinct from the other two. The bottom row displays three labeled Hemachandra wheels. The first two are the same, since their colorings match the labeling. The third is distinct from the first two since it is the only wheel among the three with a blue segment labeled $9$.}
+  \label{figure:hemachandra-wheels}
 \end{figure}
 
 \begin{remark}
-  The number $W_n$ of labeled Hemachandra wheels can be determined by considering two cases: Either the element labeled $0$ is white or it is blue. In the first case, the remaining elements of the Hemachandra wheel form a strip of elements labeled $1$ through $n-1$, and the number of colorings of this strip is $F_{n+1}$. In the second case, the blue element labeled $0$ cannot have an adjacent blue element, so the coloring of the remaining strip is determined by the coloring of the elements $2$ through $n-2$. Their number is $F_{n-1}$. Therefore, we conclude that
+  The number $W_n$ of labeled Hemachandra wheels can be determined by considering two cases: Either the element labeled $0$ is white or it is blue. In the first case, the remaining elements of the Hemachandra wheel form a strip of elements labeled $1$ through $n-1$, and the number of colorings of this strip is the Fibonacci number $F_{n+1}$. In the second case, the blue element labeled $0$ cannot have an adjacent blue element, so the coloring of the remaining strip is determined by the coloring of the elements $2$ through $n-2$. Their number is $F_{n-1}$. Therefore, we conclude that
   \begin{equation*}
     W_n=F_{n+1}+F_{n-1}.
   \end{equation*}
@@ -49,10 +154,10 @@ In \zcref{section:hemachandra} we considered the problem of counting the number 
 \end{remark}
 
 \begin{theorem}
-  Consider the Fibonacci numbers $F_n$, and let $p$ be a prime number.
-  \begin{equation*}
-    \tilde{W}_p=\frac{1}{p}(F_{p+1}+F_{p-1}+p-1)
+  The number $\tilde{W}_p$ of unlabeled Hemachandra wheels of prime order $p$ is  \begin{equation*}
+    \tilde{W}_p=\frac{1}{p}(F_{p+1}+F_{p-1}+p-1),
   \end{equation*}
+  where $F_i$ denotes the $i$\supth{} Fibonacci number.
 \end{theorem}
 
 \begin{proof}
@@ -79,7 +184,7 @@ In many cases, our main method to prove congruences is by algebraic manipulation
 \section{The Prime--Fixed Point Congruence}
 
 \begin{definition}
-  Consider a map $f:X \to X$. Then we define the set of \define{fixed points} of $f$ by
+  We define the set of \define{fixed points} of a map $f:X\to X$ by
   \begin{equation*}
     \mathrm{Fix}(f):= \{x\in X\mid f(x)=x\}.
   \end{equation*}
@@ -88,9 +193,9 @@ In many cases, our main method to prove congruences is by algebraic manipulation
 \begin{theorem}[The Prime--Fixed Point Congruence]\label{theorem:prime-fixed-point-congruence}
   Consider a finite set $X$ and a map $f:X\to X$ such that $f^p(x)=x$ for all $x\in X$, where $p$ is a prime number. Then we have
   \begin{equation*}
-    |X| \equiv |\mathrm{Fix}(f)| \pmod{p}.
+    \cardinality{X} \equiv \cardinality{\mathrm{Fix}(f)} \pmod{p}.
   \end{equation*}
-  In particular, if $|X| \nequiv 0\pmod{p}$ and $f^p(x)=x$ for all $x\in X$, then $f$ has a fixed point.
+  In particular, if $\cardinality{X} \nequiv 0\pmod{p}$, then $f$ has a fixed point.
 \end{theorem}
 
 \begin{proof}
@@ -105,83 +210,13 @@ In many cases, our main method to prove congruences is by algebraic manipulation
   and the only fixed point under rotation is the entirely white Hemachandra wheel.
 \end{example}
 
-Solomon Golomb used the prime--fixed point congruence to one of the most fundamental results of elementary number theory, Fermat's Little Theorem \cite{golomb1956}. This theorem is of such importance, that we will prove it here and again in the next chapter, where we will explore its consequences.
-
-\begin{theorem}[Fermat's Little Theorem---Combinatorial Version]\label{theorem:fermats-little-theorem-combinatorial}
-  Consider a prime number $p$ and an integer $a$. Then the congruence
+\begin{example}\label{example:fermats-little-theorem}
+  Consider a set $A$ with $a$ elements, and a cyclic set $C$ with $p$ elements, where $p$ is a prime number. Then there are $a^p$ functions from $C$ to $A$, which we view as $A$-colorings of the elements of $C$. The fixed points under rotation are precisely the colorings defined by a constant function $C\to A$. The number of such constant functions is $a$. Therefore we obtain from \zcrefnamed{theorem:prime-fixed-point-congruence} the congruence
   \begin{equation*}
-    a^{p}\equiv a\pmod{p}
+    a^p\equiv a \pmod{p}.
   \end{equation*}
-  holds.
-\end{theorem}
-
-\begin{figure}[t]
-  \centering
-  \begin{minipage}{0.45\textwidth}
-    \centering
-    \begin{tikzpicture}[
-      thick,
-      every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}
-      ]
-      \def\n{11}
-      \def\radius{2.5cm}
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\value}{int(\i-1)}
-        \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
-      }
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
-        \draw[->]
-        (\angle-10:\radius)
-        arc[start angle=\angle-10,
-        delta angle=-360/\n+20,
-        radius=\radius];
-      }
-    \end{tikzpicture}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.45\textwidth}
-    \centering
-    \begin{tikzpicture}[
-      thick,
-      every node/.style={circle, draw, minimum size=7mm, inner sep=1pt}
-      ]
-      \def\n{11}
-      \def\radius{2.5cm}
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\value}{int(mod(\n+\i-5,\n))}
-        \node (N\i) at ({90-360/\n*(\i-1)}:\radius) {$a_{\value}$};
-      }
-      
-      \foreach \i in {1,...,\n} {
-        \pgfmathsetmacro{\angle}{90-360/\n*(\i-1)}
-        \draw[->]
-        (\angle-10:\radius)
-        arc[start angle=\angle-10,
-        delta angle=-360/\n+20,
-        radius=\radius];
-      }
-    \end{tikzpicture}
-  \end{minipage}
-  
-  \caption[Golomb's proof of Fermat's Little Theorem]{%
-    \label{figure:golombs-proof-FLT}%
-    In Golomb's proof of Fermat's Little Theorem, two labellings of a
-    cyclic set $C$ with elements from a set $A$ are considered the
-    same, or equivalent, if one can be obtained from the other by
-    rotation.%
-  }
-\end{figure}
-
-\begin{proof}[Golomb's combinatorial proof]
-  Consider a set $A$ with $a$ elements, and a cyclic set $C$ with $p$ elements. Then there are $a^p$ functions from $C$ to $A$, which we view as labellings of the elements of $C$. The fixed points under rotation are precisely the labellings defined by a constant function $C\to P$. The number of such constant functions is $a$. Therefore it follows by \zcref{theorem:prime-fixed-point-congruence} that
-  \begin{equation*}
-    a^p\equiv p \pmod{p}.\qedhere
-  \end{equation*}
-\end{proof}
+  That is, we have proven \emph{Fermat's Little Theorem}. This theorem is of such great consequence in the theory of numbers, that we will devote the entire next chapter to it and its consequences. The proof given here was found by Solomon Golomb \cite{golomb1956}.
+\end{example}
 
 \section{Lucas's Theorem}
 
@@ -200,96 +235,109 @@ Our next application of \zcref{theorem:prime-fixed-point-congruence} is a theore
 \end{theorem}
 
 \begin{proof}
-  By Euclidean division, write $m= rp+a_0$ and $n=sp+b_0$, so that 
+  By Euclidean division, write $m= m'p+a_0$ and $n=n'p+b_0$, so that 
   \begin{equation*}
-    r=\sum_{i=0}^{k-1}a_{i+1}p^i\qquad\text{and}\qquad s=\sum_{i=0}^{k-1}b_{i+1}p^i
+    m'=\sum_{i=0}^{k-1}a_{i+1}p^i\qquad\text{and}\qquad n'=\sum_{i=0}^{k-1}b_{i+1}p^i
   \end{equation*}
   It suffices to show that
   \begin{equation*}
-    \binom{n}{m}\equiv \binom{s}{r}\binom{b_0}{a_0}\pmod{p},
+    \binom{n}{m}\equiv \binom{n'}{m'}\binom{b_0}{a_0}\pmod{p},
   \end{equation*}
-  since the claim follows by iterating this congruence. Consider an $n$-element set $X$ and a map $f:X\to X$ so that the number of $p$-cycles is $s$ and the number of fixed points is $b_0$. Then we can define a map $\varphi$ on the set of $m$-element subsets of $X$ by
+  since the claim follows by iterating this congruence. Consider an $n$-element set $X$ and a map $f:X\to X$ so that the number of $p$-cycles is $n'$ and the number of fixed points is $b_0$. Then we can define a map $\varphi$ on the set of $m$-element subsets of $X$ by
   \begin{equation*}
     \varphi(U):=\{f(x)\mid x\in U\}.
   \end{equation*}
   The image of an $m$-element subset $U$ under $f$ is indeed again an $m$-element subset. Furthermore, since $f$ satisfies $f^p(x)=x$ for all $x\in X$, it also follows that $\varphi^p(U)=U$ for every $m$-element subset of $X$. Therefore it follows by \zcref{theorem:prime-fixed-point-congruence} that
   \begin{equation*}
-    \binom{n}{m}\equiv |\mathrm{Fix}(\varphi)|\pmod{p}.
+    \binom{n}{m}\equiv \cardinality{\mathrm{Fix}(\varphi)} \pmod{p}.
   \end{equation*}
-  Now observe that $\varphi(U)=U$ if and only if for every $x\in U$ we have $f(x)\in U$. This means that for every $x\in U$, the entire orbit under $f$ is contained in $U$. As we have seen in \zcref{theorem:prime-fixed-point-congruence}, these orbits have either $p$ elements or $1$ element. Since the number of fixed points of $f$ is $0\leq b_0<p$, it follows that every $m$-element subset contains of a number $t$ of orbits with $p$ elements, and a number $0\leq c<p$ of fixed points, which allows us to write $m=tp+c$. By the uniqueness property of \zcrefnamed{theorem:euclidean-division}, it follows that $t=r$ and $c=a_0$. We conclude that a fixed point $U$ of $\varphi$ consists of a choice of $r$ orbits with $p$ elements and a choice of $a_0$ fixed points of $f$, so that
+  Now observe that $\varphi(U)=U$ if and only if for every $x\in U$ we have $f(x)\in U$. This means that for every $x\in U$, the entire orbit under $f$ is contained in $U$. As we have seen in \zcref{theorem:prime-fixed-point-congruence}, these orbits have either $p$ elements or $1$ element. Since the number of fixed points of $f$ is $0\leq b_0<p$, it follows that every $m$-element subset contains of a number $t$ of orbits with $p$ elements, and a number $0\leq c<p$ of fixed points, which allows us to write $m=tp+c$. By the uniqueness property of \zcrefnamed{theorem:euclidean-division}, it follows that $t=m'$ and $c=a_0$. We conclude that a fixed point $U$ of $\varphi$ consists of a choice of $m'$ orbits with $p$ elements and a choice of $a_0$ fixed points of $f$, so that
   \begin{equation*}
-    |\mathrm{Fix}(\varphi)|=\binom{s}{r}\binom{b_0}{a_0}.\qedhere
+    \cardinality{\mathrm{Fix}(\varphi)}=\binom{n'}{m'}\binom{b_0}{a_0}.\qedhere
   \end{equation*}
 \end{proof}
 
 \section{The Orbit--Counting Formula}
 
-\begin{definition}
-  Consider a finite set $X$ and a bijection $f:X\to X$. We say that two elements $x$ and $y$ of $X$ lie \define{in the same orbit} of $f$ if there exist a natural number $k$ such that
-  \begin{equation*}
-    f^k(x)=y.
-  \end{equation*}
-\end{definition}
+% Recall from \zcref{definition:orbits} that two elements $x$ and $y$ of a set $X$ lie in the same orbit of a bijection $f:X\to X$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$. When $X$ is finite, the condition that there exists a natural number $k$ such that $f^k(x)=y$ suffices.
 
-\begin{proposition}
-  The relation $x\sim y$ of lying in the same orbit of a bijection $f$ is an equivalence relation.
-\end{proposition}
+% \begin{proposition}
+%   The relation $x\sim y$ of lying in the same orbit of a bijection $f$ is an equivalence relation.
+% \end{proposition}
+
+% \begin{proof}
+%   To see that the relation $\sim$ is reflexive, note that $f^0(x)=x$. To see that the relation $\sim$ is transitive, suppose that $f^k(x)=y$ and $f^l(y)=z$. Then it follows that $f^{k+l}(x)=z$.
+
+%   The proof that the relation $\sim$ is symmetric is slightly more work. Let $k$ be the least natural number such that $f^k(x)=y$, and consider the infinite sequence
+%   \begin{equation*}
+%     x,~f(x),~f^2(x),~\ldots
+%   \end{equation*}
+%   Since the set $X$ is assumed to be finite, there must exist a least positive integer $m$ such that $f^m(x)=f^i(x)$ for some $0\leq i<m$. We claim that $i=0$. Indeed, if $0<i$, then the assumption that $f$ is a bijection implies the equation $f^{m-1}(x)=f^{i-1}(x)$, which contradicts the minimality of $m$. Thus the infinite sequence $(f^i(x))_{i\in\mathbb{N}}$ is periodic with period $m$. It follows that $k\leq m$, and that
+%   \begin{equation*}
+%     f^{m-k}(y)=f^{m-k}(f^k(x))=f^m(x)=x.
+%   \end{equation*}
+
+%   Then we have $f^l(y)=f^k(x)$, showing that $y\sim x$. Finally, to see that $\sim$ is transitive, suppose that $f^k(x)=f^l(y)$ and that $f^u(y)=f^v(z)$. Then we have
+%   \begin{equation*}
+%     f^{k+u}(x)=f^u(f^k(x))=f^u(f^l(y))=f^l(f^u(y))=f^l(f^v(z))=f^{l+v}(z).\qedhere
+%   \end{equation*}
+% \end{proof}
+
+% Since the relation $\sim$ is an equivalence relation, it follows that the equivalence classes of the relation $\sim$ partition the set $X$. The equivalence classes of this relation are called \define{orbits}. 
+
+Recall from \zcref{exercise:orbit-order-theorem} that if the orbit of $x$ under a bijection $f:X \to X$ contains exactly $t$ elements, then
+\begin{equation}\label{equation:orbit-order-theorem}
+  f^k(x)=x\quad\Leftrightarrow\quad t\mid k. \tag{\textasteriskcentered}
+\end{equation}
+That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ is a multiple of the number of elements in the orbit of $x$. In the following theorem we establish a relation between the numbers of fixed points of the iterates of $f$ and the number of orbits of $f$.
+
+\begin{theorem}[The Orbit--Counting Formula]\label{theorem:orbit-counting}
+  Consider a bijection $f:X\to X$ on a finite set $X$, and suppose that $f^n(x)=x$ for all $x\in X$, where $n$ is a positive integer. Let $N$ be the number of orbits of $f$. Then we have
+  \begin{equation*}
+    N=\frac{1}{n}\sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f^k)}.
+  \end{equation*}
+\end{theorem}
 
 \begin{proof}
-  To see that the relation $\sim$ is reflexive, note that $f^0(x)=x$. To see that the relation $\sim$ is transitive, suppose that $f^k(x)=y$ and $f^l(y)=z$. Then it follows that $f^{k+l}(x)=z$.
+  Label the orbits of $f$ with indices $1$ through $N$, and let $f_i$ be the restriction of $f$ to the $i$\supth{} orbit. Then it follows that
+  \begin{equation*}
+    \cardinality{\mathrm{Fix}(f^k)}=\sum_{i=1}^N\cardinality{\mathrm{Fix}(f_i^k)}.
+  \end{equation*}
+  Consequently, we have
+  \begin{equation*}
+    \sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f^k)}=\sum_{k=0}^{n-1}\sum_{\vphantom{k}i=1}^N\cardinality{\mathrm{Fix}(f_i^k)}=\sum_{\vphantom{k}i=1}^N\sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f_i^k)}.
+  \end{equation*}
+  Therefore it suffices to prove that
+  \begin{equation*}
+    \frac{1}{n}\sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f_i^k)}=1
+  \end{equation*}
+  for all $1\leq i\leq N$.
 
-  The proof that the relation $\sim$ is symmetric is slightly more work. Let $k$ be the least natural number such that $f^k(x)=y$, and consider the infinite sequence
+  For each $1\leq i\leq N$, write $t_i$ for the number of elements in the $i$\supth{} orbit. By the logical equivalence \zcref{equation:orbit-order-theorem}, which was shown in \zcref{exercise:orbit-order-theorem}, it follows that
   \begin{equation*}
-    x,~f(x),~f^2(x),~\ldots
+    \cardinality{\mathrm{Fix}(f_i^k)}=
+    \begin{cases}
+      t_i & \text{if $t_i\mid k$,}\\
+      0 & \text{otherwise.}
+    \end{cases}
   \end{equation*}
-  Since the set $X$ is assumed to be finite, there must exist a least positive integer $m$ such that $f^m(x)=f^i(x)$ for some $0\leq i<m$. We claim that $i=0$. Indeed, if $0<i$, then the assumption that $f$ is a bijection implies the equation $f^{m-1}(x)=f^{i-1}(x)$, which contradicts the minimality of $m$. Thus the infinite sequence $(f^i(x))_{i\in\mathbb{N}}$ is periodic with period $m$. It follows that $k\leq m$, and that
+  Since the number of multiples of $t_i$ among the integers $0$ through $n-1$ is $n/t_i$, we conclude that
   \begin{equation*}
-    f^{m-k}(y)=f^{m-k}(f^k(x))=f^m(x)=x.
+    \sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f_i^k)}=\frac{n}{t_i}t_i=n,
   \end{equation*}
-
-  Then we have $f^l(y)=f^k(x)$, showing that $y\sim x$. Finally, to see that $\sim$ is transitive, suppose that $f^k(x)=f^l(y)$ and that $f^u(y)=f^v(z)$. Then we have
-  \begin{equation*}
-    f^{k+u}(x)=f^u(f^k(x))=f^u(f^l(y))=f^l(f^u(y))=f^l(f^v(z))=f^{l+v}(z).\qedhere
-  \end{equation*}
+  so the claim follows.
 \end{proof}
 
-Since the relation $\sim$ is an equivalence relation, it follows that the equivalence classes of the relation $\sim$ partition the set $X$. The equivalence classes of this relation are called \define{orbits}. Recall from \zcref{exercise:orbit-order-theorem} that
-\begin{equation*}
-  f^k(x)=x\qquad\Leftrightarrow\qquad d\mid k.
-\end{equation*}
-That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ is a multiple of the number of elements in the orbit of $x$. Fixed points play an essential role in the orbit--counting formula.
+\begin{remark}
+  \zcrefnamed{theorem:orbit-counting} is a special case of a more general theorem of group theory, called \emph{Burnside's Lemma}.
+\end{remark}
 
 \begin{definition}
   Consider a map $f:X\to X$ on a finite set $X$. We write
   \begin{equation*}
-    \nu_f(n):=|\mathrm{Fix}(f^n)|.
+    \nu_f(n):=\cardinality{\mathrm{Fix}(f^n)}.
   \end{equation*}
 \end{definition}
-
-The following theorem is a special case of a more general theorem of group theory, called \emph{Burnside's Lemma}.
-
-\begin{lemma}[The Orbit--Counting Formula]\label{theorem:orbit-counting}
-  Consider a finite set $X$ and a map $f:X\to X$ such that $f^n(x)=x$ for all $x\in X$. Let $N$ be the number of orbits of $f$. Then we have
-  \begin{equation*}
-    N=\frac{1}{n}\sum_{k=0}^{n-1}|\mathrm{Fix}(f^k)|.
-  \end{equation*}
-\end{lemma}
-
-\begin{proof}
-  We will prove the equation
-  \begin{equation*}
-    nN=\sum_{k=0}^{n-1}|\mathrm{Fix}(f^k)|.
-  \end{equation*}
-  Note that $\sum\nolimits_{k=0}^{n-1}|\mathrm{Fix}(f^k)|$ is the number of elements in the set
-  \begin{equation*}
-    A:=\{(k,x) \mid f^k(x)=x\}\subseteq \{0,\ldots,n-1\}\times X.
-  \end{equation*}
-  Now consider an orbit $T$ of size $t$. Then it follows for each $x\in T$ that $f^k(x)=x$ if and only if $k$ is a multiple of $t$. In other words, for each $x\in T$ we have
-  \begin{equation*}
-    (k,x)\in A \Leftrightarrow t \mid k.
-  \end{equation*}
-  It follows that the set $\{(k,x)\in A\mid x\in T\}$ has size $\frac{n}{t}t=n$, and we conclude that $|A|$ is $n$ times the number of orbits of $f$.
-\end{proof}
 
 \begin{theorem}
     Consider a finite set $X$ and a map $f:X\to X$ such that $f^n(x)=x$ for all $x\in X$. Let $N$ be the number of orbits of $f$. Then we have
@@ -314,13 +362,13 @@ The following theorem is a special case of a more general theorem of group theor
 \begin{proof}
   Consider a cyclic set $C$ of order $n$, and let $X$ be the set of all $k$-element subsets of $C$. The number of elements in $X$ is $\binom{n}{k}$. Let $U\subset X$ be the subset consisting of $k$-element subsets of $C$ that are invarant under rotation by $r$ steps for some $0<r<n$. Every $k$-element subset of $C$ outside of $U$ has $n$ distinct rotations. The set $X\setminus U$ is therefore partitioned into orbits of size $n$. Consequently, we obtain
   \begin{equation*}
-    \binom{n}{k}\equiv \# U \pmod{n}.
+    \binom{n}{k}\equiv \cardinality{U} \pmod{n}.
   \end{equation*}
   It remains to show that $S(n,k)$ is the number of $k$-element subsets of $C$ in $U$.
 
   For each $d\mid n$, let $U_d$ be the collection of $k$-element subsets of $C$ that are invariant under rotation by $n/d$ steps. Note that a $k$-element subset of $C$ belongs to $U_d$ precisely when it is a union of orbits of the rotation by $n/d$ steps. Each such orbit contains exactly $d$ elements, so it follows that $U_d$ is empty unless $d\mid k$. When $d\mid k$, then a $k$-element subset invariant under rotation by $n/d$ steps is a $k/d$-element subset of such orbits. Therefore, we have
   \begin{equation*}
-    \# U_d = \binom{n/d}{k/d}
+    \cardinality{U_d} = \binom{n/d}{k/d}
   \end{equation*}
   for every divisor $d\mid g$. Note that $U_d\subseteq U_d'$ for every $1<d'\mid d$. Therefore it follows that
   \begin{equation*}
@@ -328,7 +376,7 @@ The following theorem is a special case of a more general theorem of group theor
   \end{equation*}
   It follows by \zcrefnamed{theorem:inclusion-exclusion-principle} that
   \begin{equation*}
-    \# U=\sum_{p\mid g}\binom{n/p}{k/p}-\sum_{p<q\mid g}\binom{n/pq}{k/pq}+\cdots = -\sum_{d\mid g}\mu(d)\binom{n/d}{k/d}.\qedhere
+    \cardinality{U}=\sum_{p\mid g}\binom{n/p}{k/p}-\sum_{p<q\mid g}\binom{n/pq}{k/pq}+\cdots = -\sum_{d\mid g}\mu(d)\binom{n/d}{k/d}.\qedhere
   \end{equation*}
 \end{proof}
 

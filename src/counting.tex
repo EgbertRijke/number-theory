@@ -592,11 +592,11 @@ Less trivial is the question: \emph{How many $k$-element subsets are there of an
 \end{equation*}
 Let us write
 \begin{equation*}
-  \mathcal{P}_k(X):=\{S\subseteq X\mid \# S=k\}.
+  \mathcal{P}_k(X):=\{S\subseteq X\mid \cardinality{S}=k\}.
 \end{equation*}
 Assuming that both $n$ and $k$ are positive natural numbers, so that in particular $X$ contains at least one element $x_0$, we can approach this question by distinguishing two classes of $k$-element subsets of $X$: Those that contain $x_0$ and those that don't contain $x_0$. Note that a $k$-element subset of $X$ that contains $x_0$ is uniquely determined by a $(k-1)$-element subset of the set $X\setminus\{x_0\}$. Likewise, a $k$-element subset of $X$ that doesn't contain $x_0$ is uniquely determined by a $k$-element subset of $X\setminus\{x_0\}$. Thus we find that
 \begin{equation*}
-  \#\mathcal{P}_k(X)=\#\mathcal{P}_k(X\setminus\{x_0\})+\#\mathcal{P}_{k-1}(X\setminus\{x_0\}).
+  \cardinality{\mathcal{P}_k(X)} = \cardinality{\mathcal{P}_k(X\setminus\{x_0\})}+\cardinality{\mathcal{P}_{k-1}(X\setminus\{x_0\})}.
 \end{equation*}
 This formula suggests a recursive method of determining the number of $k$-element subsets.
 
@@ -660,9 +660,9 @@ The binomial coefficients can be arranged in \define{Pascal's triangle}, where e
 
   Finally, we consider the case of $(k+1)$-element subsets of an $(n+1)$-element set $X$. Since $X$ has a positive number of elements, we may pick one and call it $x_0$. As we have already found in the discussion leading up to this theorem, the number of $(k+1)$-element subsets is given by the formula
   \begin{equation*}
-    \#\mathcal{P}_{k+1}(X)= \#\mathcal{P}_k(X\setminus\{x_0\})+\#\mathcal{P}_{k+1}(X\setminus\{x_0\}).
+    \cardinality{\mathcal{P}_{k+1}(X)}= \cardinality{\mathcal{P}_k(X\setminus\{x_0\})}+\cardinality{\mathcal{P}_{k+1}(X\setminus\{x_0\})}.
   \end{equation*}
-  By the inductive hypothesis, we have that $\#\mathcal{P}_k(X\setminus\{x_0\})=\binom{n}{k}$ and $\#\mathcal{P}_{k+1}(X\setminus\{x_0\})=\binom{n}{k+1}$, so that the number of $(k+1)$-element subsets of $X$ is
+  By the inductive hypothesis, we have that $\cardinality{\mathcal{P}_k(X\setminus\{x_0\})}=\binom{n}{k}$ and $\cardinality{\mathcal{P}_{k+1}(X\setminus\{x_0\})}=\binom{n}{k+1}$, so that the number of $(k+1)$-element subsets of $X$ is
   \begin{equation*}
     \binom{n}{k} + \binom{n}{k+1} = \binom{n+1}{k+1}.\qedhere
   \end{equation*}
@@ -1076,11 +1076,11 @@ Yet another way of thinking about the stars-and-bars problem is that the bars ma
 %   \end{equation*}
 %   Given an order-preserving map $f:\{1,\ldots,n\}\to\{0,\ldots,m\}$, we define the $(m+1)$-tuple $\Phi(f)=(b_0,\ldots,b_m)$ by
 %   \begin{equation*}
-%     b_i:=\#\{1\leq j\leq n\mid f(j)=i\}. 
+%     b_i:=\cardinality{\{1\leq j\leq n\mid f(j)=i\}}. 
 %   \end{equation*}
 %   Since $k\in\{1\leq j\leq n\mid f(j)=i\}$ if and only if $i=f(k)$, we see that every $1\leq k\leq n$ is in exactly one of the sets $\{1\leq j\leq n\mid f(j)=i\}$. This implies that $b_0+\cdots+b_m=n$.
 
-%   Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\#\{1\leq j\leq n\mid f(j)\leq i\}$. Since the map $f$ is order-preserving, the set $\{1\leq j\leq n\mid f(j)\leq i\}$ is an initial segment of the set $\{1,\ldots,n\}$. By the fact that it contains $B_i$ elements, it must be the set $\{1,\ldots,B_i\}$. This implies the logical equivalence
+%   Define also $B_i:=b_0+\cdots+b_i$ so that $B_i=\cardinality{\{1\leq j\leq n\mid f(j)\leq i\}}$. Since the map $f$ is order-preserving, the set $\{1\leq j\leq n\mid f(j)\leq i\}$ is an initial segment of the set $\{1,\ldots,n\}$. By the fact that it contains $B_i$ elements, it must be the set $\{1,\ldots,B_i\}$. This implies the logical equivalence
 %   \begin{equation*}
 %     f(j)\leq i\quad\Leftrightarrow\quad j\leq B_i
 %   \end{equation*}
@@ -1116,21 +1116,21 @@ Yet another way of thinking about the stars-and-bars problem is that the bars ma
 %   \begin{equation*}
 %     r : \{1,\ldots,m+n\}\to\{0,\ldots,m\},
 %   \end{equation*}
-%   given by $r_k=\#\{1\leq i\leq m\mid s_i\leq k\}$. Since the elements $s_1<\cdots s_m$ are listed in strictly increasing order, it follows that this function satisfies the logical equivalence
+%   given by $r_k=\cardinality{\{1\leq i\leq m\mid s_i\leq k\}}$. Since the elements $s_1<\cdots s_m$ are listed in strictly increasing order, it follows that this function satisfies the logical equivalence
 %   \begin{equation*}
 %     s_i\leq k\quad\Leftrightarrow\quad i\leq r_k
 %   \end{equation*}
 %   for every $1\leq i\leq m$ and $1\leq k\leq m+n$. In particular, $s_i$ is the minimal element of rank $i$. Then we define
 %   \begin{equation*}
-%     b_i:=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k=i\}.
+%     b_i:=\cardinality{\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k=i\}}.
 %   \end{equation*}
 %   Then the sum $b_0+\cdots+b_m$ accounts for all the elements not in $S$, and hence must equal $n$. Moreover, we have
 %   \begin{equation*}
-%     b_0+\cdots+b_{i-1}=\#\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k<i\}
+%     b_0+\cdots+b_{i-1}=\cardinality\{1\leq k\leq m+n\mid k\notin S\text{ and }r_k<i\}}
 %   \end{equation*}
 %   It follows that
 %   \begin{equation*}
-%     b_0+\cdots+b_{i-1}+i-1 =\#\{1\leq k\leq m+n\mid r_k<i\},
+%     b_0+\cdots+b_{i-1}+i-1 =\cardinality{\{1\leq k\leq m+n\mid r_k<i\}},
 %   \end{equation*}
 %   which implies that $b_0+\cdots+b_{i-1}+i=s_i$. This shows that $\Psi(b_0,\ldots,b_m)=S$.
 
@@ -1145,7 +1145,7 @@ The \define{complement} of a subset $A$ of a set $X$ is the subset $\complements
 \end{equation*}
 That is, a subset $A$ is contained in the complement of $B$ if and only if $A$ and $B$ have no elements in common. Now observe that the complement of an $n$-element subset of an $(m+n)$-element set is an $m$-element subset. Furthermore, the operation of taking complements is a bijection
 \begin{equation*}
-  \{A\subseteq X\mid \# A=m\}\cong\{B\subseteq X\mid \#B=n\}.
+  \{A\subseteq X\mid \cardinality{A}=m\}\cong\{B\subseteq X\mid \cardinality{B}=n\}.
 \end{equation*}
 Indeed, the inverse operation is again taking the complement. This bijection proves the identity
 \begin{equation*}

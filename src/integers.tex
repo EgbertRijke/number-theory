@@ -65,7 +65,7 @@ which must eventually have repeated values since the set $A$ was assumed to be f
 \end{equation*}
 which implies by the assumption that $f$ is a bijection that $f^{n-1}(a)=f^{m-1}(a)$. This is impossible by the minimality of $n$, so we must have $n=0$. We conclude that the iterations of $f$ trace out cycles. Such cycles are called \emph{orbits}.
 
-\begin{definition}
+\begin{definition}\label{definition:orbits}
   Consider a bijection $f:X\cong X$. We say that $x,y\in X$ are \define{in the same orbit} of $f$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$.
 
   A subset $U\subseteq X$ is an \define{orbit} of $f$ if there exists an element $x\in X$, such that $U$ consists of exactly the elements in the same orbit as $x$.
@@ -600,7 +600,7 @@ Before we start proving the laws of addition and the additive inverse of the int
   \end{equation*}
   so the base case holds. To see that
   \begin{equation*}
-    f^{a+b}(x)=f^b(f^a(x)) \qquad\Leftrightarrow\qquad f^{a+(b+1)}(x)=f^{b+1}(f^a(x))
+    f^{a+b}(x)=f^b(f^a(x)) \quad\Leftrightarrow\quad f^{a+(b+1)}(x)=f^{b+1}(f^a(x))
   \end{equation*}
   note that $f^{a+(b+1)}(x)=f(f^{a+b}(x))$ and $f^{b+1}(f^a(x))=f(f^b(f^a(x)))$. Furthermore, since $f$ is a bijection, it follows that $f(y)=f(z)$ if and only if $y=z$. In our case we get:
   \begin{align*}
@@ -640,7 +640,7 @@ Before we start proving the laws of addition and the additive inverse of the int
   \end{equation*}
   Similarly, we note that $0+a=a$ by induction on $a$. The base case is covered in the previous step. For the inductive step, we have to show that
   \begin{equation*}
-    0+a=a\qquad\Leftrightarrow\qquad 0+(a+1)=a+1.
+    0+a=a\quad\Leftrightarrow\quad 0+(a+1)=a+1.
   \end{equation*}
   This can be seen by chaining the injectivity of the successor function and associativity:
   \begin{align*}
@@ -655,7 +655,7 @@ Before we start proving the laws of addition and the additive inverse of the int
   
   The two unit laws $a+0=a$ and $0+a=a$ combined settle the base case for the inductive proof that $a+b=b+a$. For the inductive step, we have to show that
   \begin{equation*}
-    a+b=b+a \qquad\Leftrightarrow\qquad a+(b+1)=(b+1)+a.
+    a+b=b+a \quad\Leftrightarrow\quad a+(b+1)=(b+1)+a.
   \end{equation*}
   This follows from the injectivity of the successor function and the left and right successor laws that we have previously shown.
 \end{proof}
@@ -687,7 +687,7 @@ Next, we define multiplication of integers.
   \end{equation*}
   For the inductive step, we have to show that
   \begin{equation*}
-    \forall_{a,b\in\mathbb{Z}}a(b+c)=ab+ac\qquad\Leftrightarrow \forall_{a,b\in\mathbb{Z}} a(b+(c+1))=ab+a(c+1).
+    \forall_{a,b\in\mathbb{Z}}a(b+c)=ab+ac\quad\Leftrightarrow\quad \forall_{a,b\in\mathbb{Z}} a(b+(c+1))=ab+a(c+1).
   \end{equation*}
   For the forward implication, assume that $a(b+c)=ab+ac$ is true for any two integers $a$ and $b$. Then we have
   \begin{equation*}
@@ -712,7 +712,7 @@ Next, we define multiplication of integers.
   \end{equation*}
   \exercise Show that multiplication with a nonzero integer $a$ satisfies the cancellation law
   \begin{equation*}
-    ax=ay\qquad\Rightarrow\qquad x=y.
+    ax=ay\quad\Rightarrow\quad x=y.
   \end{equation*}
   \exercise Prove that for any two integers $a$ and $b$, either $b\leq a$ or $a\leq b$.
 \end{routine}
