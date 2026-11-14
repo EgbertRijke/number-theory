@@ -259,47 +259,96 @@ Our next application of \zcref{theorem:prime-fixed-point-congruence} is a theore
 
 \section{The Orbit--Counting Formula}
 
-% Recall from \zcref{definition:orbits} that two elements $x$ and $y$ of a set $X$ lie in the same orbit of a bijection $f:X\to X$ if there exists a natural number $k$ such that $f^k(x)=y$ or $f^k(y)=x$. When $X$ is finite, the condition that there exists a natural number $k$ such that $f^k(x)=y$ suffices.
-
-% \begin{proposition}
-%   The relation $x\sim y$ of lying in the same orbit of a bijection $f$ is an equivalence relation.
-% \end{proposition}
-
-% \begin{proof}
-%   To see that the relation $\sim$ is reflexive, note that $f^0(x)=x$. To see that the relation $\sim$ is transitive, suppose that $f^k(x)=y$ and $f^l(y)=z$. Then it follows that $f^{k+l}(x)=z$.
-
-%   The proof that the relation $\sim$ is symmetric is slightly more work. Let $k$ be the least natural number such that $f^k(x)=y$, and consider the infinite sequence
-%   \begin{equation*}
-%     x,~f(x),~f^2(x),~\ldots
-%   \end{equation*}
-%   Since the set $X$ is assumed to be finite, there must exist a least positive integer $m$ such that $f^m(x)=f^i(x)$ for some $0\leq i<m$. We claim that $i=0$. Indeed, if $0<i$, then the assumption that $f$ is a bijection implies the equation $f^{m-1}(x)=f^{i-1}(x)$, which contradicts the minimality of $m$. Thus the infinite sequence $(f^i(x))_{i\in\mathbb{N}}$ is periodic with period $m$. It follows that $k\leq m$, and that
-%   \begin{equation*}
-%     f^{m-k}(y)=f^{m-k}(f^k(x))=f^m(x)=x.
-%   \end{equation*}
-
-%   Then we have $f^l(y)=f^k(x)$, showing that $y\sim x$. Finally, to see that $\sim$ is transitive, suppose that $f^k(x)=f^l(y)$ and that $f^u(y)=f^v(z)$. Then we have
-%   \begin{equation*}
-%     f^{k+u}(x)=f^u(f^k(x))=f^u(f^l(y))=f^l(f^u(y))=f^l(f^v(z))=f^{l+v}(z).\qedhere
-%   \end{equation*}
-% \end{proof}
-
-% Since the relation $\sim$ is an equivalence relation, it follows that the equivalence classes of the relation $\sim$ partition the set $X$. The equivalence classes of this relation are called \define{orbits}. 
-
 Recall from \zcref{exercise:orbit-order-theorem} that if the orbit of $x$ under a bijection $f:X \to X$ contains exactly $t$ elements, then
 \begin{equation}\label{equation:orbit-order-theorem}
   f^k(x)=x\quad\Leftrightarrow\quad t\mid k. \tag{\textasteriskcentered}
 \end{equation}
-That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ is a multiple of the number of elements in the orbit of $x$. In the following theorem we establish a relation between the numbers of fixed points of the iterates of $f$ and the number of orbits of $f$.
+That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ is a multiple of the number of elements in the orbit of $x$. 
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    alt={
+      A set A with 12 elements labelled a sub 1 through a sub 12 is displayed with exactly one outgoing arrow from each element, indicating a mapping. The mapping is a bijection, so that each element also has exactly one incoming arrow. The mapping sends a sub 1 to a sub 5 to a sub 9 to a sub 1; a sub 2 to itself; a sub 3 to a sub 4 to a sub 8 to a sub 12 to a sub 7 to a sub 3; and a sub 6 to a sub 11 to a sub 10 to a sub 6. Notice that there are four disjoint cycles in this mapping, which are called orbits.
+      },
+    element/.style={circle, draw, thick, minimum size=6.5mm, inner sep=0pt, font=\small},
+    set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=80mm},
+    arrow/.style={->, thick, shorten >=1mm, shorten <=1mm}
+    ]
+
+    \node[set] (A) at (0,0) {};
+
+    \node[element] (a1)  at ($(A.center)+(-3.0,  0.6)$) {$x_1$};
+    \node[element] (a2)  at ($(A.center)+(-0.3,  1.1)$) {$x_2$};
+    \node[element] (a3)  at ($(A.center)+( 1.0,  1.2)$) {$x_3$};
+    \node[element] (a4)  at ($(A.center)+( 2.4,  0.9)$) {$x_4$};
+
+    \node[element] (a5)  at ($(A.center)+(-1.6,  0.5)$) {$x_5$};
+    \node[element] (a6)  at ($(A.center)+(-0.7,  0.0)$) {$x_6$};
+    \node[element] (a7)  at ($(A.center)+( 1.8,  0.2)$) {$x_7$};
+    \node[element] (a8)  at ($(A.center)+( 3.2, -0.1)$) {$x_8$};
+
+    \node[element] (a9)  at ($(A.center)+(-2.5, -0.6)$) {$x_9$};
+    \node[element] (a10) at ($(A.center)+(-1.2, -1.1)$) {$x_{10}$};
+    \node[element] (a11) at ($(A.center)+( 0.5, -0.9)$) {$x_{11}$};
+    \node[element] (a12) at ($(A.center)+( 1.6, -1)$) {$x_{12}$};
+
+    \draw[arrow] (a1) to[bend left=10] (a5);
+    \draw[arrow] (a5) to[bend left=10] (a9);
+    \draw[arrow] (a9) to[bend left=10] (a1);
+
+    \draw[arrow] (a2) to[out=340,in=280,looseness=5] (a2);
+
+    \draw[arrow] (a3) to[bend left=10] (a4);
+    \draw[arrow] (a4) to[bend left=10] (a8);
+    \draw[arrow] (a8) to[bend left=10] (a12);
+    \draw[arrow] (a12) to[bend left=10] (a7);
+    \draw[arrow] (a7) to[bend left=10] (a3);
+
+    \draw[arrow] (a6) to[bend left=10] (a11);
+    \draw[arrow] (a11) to[bend left=10] (a10);
+    \draw[arrow] (a10) to[bend left=10] (a6);
+
+  \end{tikzpicture}  
+  \caption[A bijection on a $12$-element set]{A bijection on a $12$-element set.}
+  \label{figure:orbits-fixed-points-12-element-set}
+\end{figure}
+
+\begin{example}
+  Consider the bijection $f$ displayed in \zcref{figure:orbits-fixed-points-12-element-set}. Since $x_1$ is in a $3$-element orbit, it follows that $x_1$ is a fixed point for $f^k$ if and only if $k$ is a multiple of $3$. Likewise, $x_3$ is in a $5$-element orbit so it is a fixed point for $f^k$ if and only if $k$ is a multiple of $5$. The element $x_2$ is a fixed point of $f$, so it is a fixed point of $f^k$ for every $k\geq 0$.
+
+  The bijection displayed in \zcref{figure:orbits-fixed-points-12-element-set} satisfies $f^{15}(x)=x$ for all $x\in X$, since the length of every orbit is a divisor of $15$. Running through all $0\leq k<15$, we see that the orbit of length $1$ contributes a fixed point for every $k$; each orbit of length $3$ contributes $3$ fixed points every third $k$; and the orbit of length $5$ contributes $5$ fixed points every fifth $k$. Indeed, listing out the number of fixed points for $f^k$ we get the following table
+  \begin{center}
+    \newcolumntype{C}{>{$}w{r}{.4em}<{$}}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{l|@{\hspace{2\tabcolsep}}*{15}{C}}
+      $k$             & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\ \midrule
+      $\cardinality{\mathrm{Fix}(f^k)}$ & 12 & 1 & 1 & 7 & 1 & 6 & 7 & 1 & 1 & 7 & 6 & 1 & 7 & 1 & 1
+    \end{tabular}
+  \end{center}
+  Adding up all these totals gives us $60=4\cdot 15$. We therefore see that the average number of fixed points of $f^k$ over $0\leq k<15$ is exactly the number of orbits. We note also that $\cardinality{\mathrm{Fix}(f^k)}=1$ precisely when $\gcd(k,15)=1$; that $\cardinality{\mathrm{Fix}(f^k)}=7$ precisely when $\gcd(k,15)=3$; and that $\cardinality{\mathrm{Fix}(f^k)}=6$ precisely when $\gcd(k,15)=5$. Since for any $k\mid l$ we have $\gcd(l,n)=k$ if and only if $\gcd(l/k,n/k)=1$, the number of which are determined by Euler's totient function $\varphi$, these observations suggest that
+  \begin{equation*}
+    \frac{1}{15}\sum_{k\mid 15}\varphi(15/k)\,\cardinality{\mathrm{Fix}(f^k)} = 4.
+  \end{equation*}
+  That is, the average number of fixed points of $f^k$, being equal to the number of orbits, can be organized as a divisor-sum. We establish this relation between orbits and fixed points in the following theorem.
+\end{example}
 
 \begin{theorem}[The Orbit--Counting Formula]\label{theorem:orbit-counting}
   Consider a bijection $f:X\to X$ on a finite set $X$, and suppose that $f^n(x)=x$ for all $x\in X$, where $n$ is a positive integer. Let $N$ be the number of orbits of $f$. Then we have
   \begin{equation*}
-    N=\frac{1}{n}\sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f^k)}.
+    N=\frac{1}{n}\sum_{k\mid n}\varphi(n/k)\,\cardinality{\mathrm{Fix}(f^k)}.
   \end{equation*}
 \end{theorem}
 
 \begin{proof}
-  Label the orbits of $f$ with indices $1$ through $N$, and let $f_i$ be the restriction of $f$ to the $i$\supth{} orbit. Then it follows that
+  For each divisor $k\mid n$ and each $1\leq l\leq n$ such that $\gcd(l,n)=k$, we have $\cardinality{\mathrm{Fix}(f^l)}=\cardinality{\mathrm{Fix}(f^k)}$. To see this, consider an element $x$ in an orbit of length $t$. Since $t$ is a divisor of $n$, it follows that $t\mid l\leftrightarrow t\mid k$, which implies the claim. The number of integers $1\leq l\leq n$ such that $\gcd(l,n)=k$ is $\varphi(n/k)$, so we obtain that
+  \begin{equation*}
+    \frac{1}{n}\sum_{k\mid n}\varphi(n/k)\,\cardinality{\mathrm{Fix}(f^k)}=
+    \frac{1}{n}\sum_{k=1}^{n}\cardinality{\mathrm{Fix}(f^k)}=
+    \frac{1}{n}\sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f^k)}.
+  \end{equation*}
+
+  Now label the orbits of $f$ with indices $1$ through $N$, and let $f_i$ be the restriction of $f$ to the $i$\supth{} orbit. Then it follows that
   \begin{equation*}
     \cardinality{\mathrm{Fix}(f^k)}=\sum_{i=1}^N\cardinality{\mathrm{Fix}(f_i^k)}.
   \end{equation*}
@@ -325,26 +374,29 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
   \begin{equation*}
     \sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f_i^k)}=\frac{n}{t_i}t_i=n,
   \end{equation*}
-  so the claim follows.
+  and the claim follows.
 \end{proof}
 
 \begin{remark}
   \zcrefnamed{theorem:orbit-counting} is a special case of a more general theorem of group theory, called \emph{Burnside's Lemma}.
 \end{remark}
 
-\begin{definition}
-  Consider a map $f:X\to X$ on a finite set $X$. We write
-  \begin{equation*}
-    \nu_f(n):=\cardinality{\mathrm{Fix}(f^n)}.
-  \end{equation*}
-\end{definition}
+\begin{example}
+  Let $B$ be a cyclic set consisting of $n$ beads, with one-step rotation $r:B\to B$, and let $C$ be a set of $c$ colors. Then a $C$-coloring of $B$ is a function $B\to C$, and we obtain a bijection $f$ on the $C$-colorings of $B$ by the rotation on $B$. Two $C$-colorings are considered the same if one can be obtained from the other by rotation; that is, if they are in the same orbit under $f$.
 
-\begin{theorem}
-    Consider a finite set $X$ and a map $f:X\to X$ such that $f^n(x)=x$ for all $x\in X$. Let $N$ be the number of orbits of $f$. Then we have
+  For each $k\mid n$, the colorings fixed under the $k$-step rotation $f^k$ are precisely the colorings that are constant on the orbits of $r^k$ on $B$, of which there are $k$. Therefore we have
   \begin{equation*}
-    N=\frac{1}{n}(\nu_f\ast \varphi)(n).
+    \cardinality{\mathrm{Fix}(f^k)}=c^k.
   \end{equation*}
-\end{theorem}
+  Now it follows by \zcrefnamed{theorem:orbit-counting} that the number of rotationally distinct ways to color the cyclic set $B$ is
+  \begin{equation*}
+    \frac{1}{n}\sum_{k\mid n}\varphi(n/k)\cdot c^k.
+  \end{equation*}
+  For example, the number of $3$-colored necklaces with $10$ beads is
+  \begin{equation*}
+    \frac{1}{10}(\varphi(10)\cdot 3^1+\varphi(5)\cdot 3^2+\varphi(2)\cdot 3^5+\varphi(1)\cdot 3^{10})=5934.
+  \end{equation*}
+\end{example}
 
 \section{Cyclic Coloring}
 
@@ -379,6 +431,22 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
     \cardinality{U}=\sum_{p\mid g}\binom{n/p}{k/p}-\sum_{p<q\mid g}\binom{n/pq}{k/pq}+\cdots = -\sum_{d\mid g}\mu(d)\binom{n/d}{k/d}.\qedhere
   \end{equation*}
 \end{proof}
+
+\section{Cyclicity and Arithmetic Functions}
+
+\begin{definition}
+  Consider a map $f:X\to X$ on a finite set $X$. We write
+  \begin{equation*}
+    \nu_f(n):=\cardinality{\mathrm{Fix}(f^n)}.
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}
+    Consider a finite set $X$ and a map $f:X\to X$ such that $f^n(x)=x$ for all $x\in X$. Let $N$ be the number of orbits of $f$. Then we have
+  \begin{equation*}
+    N=\frac{1}{n}(\nu_f\ast \varphi)(n).
+  \end{equation*}
+\end{theorem}
 
 \begin{noteblock}
 \section{Cyclic Integer Partitions}

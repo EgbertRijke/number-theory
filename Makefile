@@ -178,12 +178,18 @@ __volume_set:
 	else max="$(SELECT)"; fi; \
 	case "$$max" in ''|*[!0-9]*) echo "Invalid volume number: $$max" >&2; exit 2 ;; esac; \
 	if [ "$$max" -eq 0 ]; then echo "Volume numbers begin at 1." >&2; exit 2; fi; \
-	n=1; numbers=; \
-	while [ "$$n" -le "$$max" ]; do \
+	if [ "$(MODE)" = quick ] && [ "$(SELECT)" != all ]; then \
+		numbers="$$max"; \
+	else \
+		n=1; numbers=; \
+		while [ "$$n" -le "$$max" ]; do \
+			numbers="$$numbers $$n"; n=$$((n + 1)); \
+		done; \
+	fi; \
+	for n in $$numbers; do \
 		if [ ! -f "volume-$$n.tex" ]; then \
-			echo "Missing predecessor driver: volume-$$n.tex" >&2; exit 2; \
+			echo "Missing volume driver: volume-$$n.tex" >&2; exit 2; \
 		fi; \
-		numbers="$$numbers $$n"; n=$$((n + 1)); \
 	done; \
 	mkdir -p "$(BUILDDIR)"; \
 	if [ "$(FRESH)" = 1 ]; then \
@@ -274,18 +280,14 @@ __volume_set:
 		context="$(BUILDDIR)/$$job.build-context"; \
 		external="$(BUILDDIR)/$$job.external-aux.sig"; \
 		if [ "$(MODE)" = quick ]; then \
-			if needs_rebuild "$$job" quick; then \
-				echo "==> Quick build: $$job.pdf ($$stale_reason)"; \
-				NT_PDF_PROFILE="$(PROFILE)" \
-					NT_VOLUME_SUFFIX="$$suffix" \
-					$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
-				external_aux_signature > "$$external"; \
-				build_context > "$$context"; \
-				touch "$$quick_stamp"; \
-				rm -f "$$full_stamp"; \
-			else \
-				echo "==> Up to date: $$job.pdf"; \
-			fi; \
+			echo "==> Quick build: $$job.pdf"; \
+			NT_PDF_PROFILE="$(PROFILE)" \
+				NT_VOLUME_SUFFIX="$$suffix" \
+				$(ENGINE) $(LATEXFLAGS) -jobname="$$job" "$$tex"; \
+			external_aux_signature > "$$external"; \
+			build_context > "$$context"; \
+			touch "$$quick_stamp"; \
+			rm -f "$$full_stamp"; \
 		else \
 			if needs_rebuild "$$job" full; then \
 				echo "==> Full build: $$job.pdf ($$stale_reason)"; \
@@ -357,7 +359,11 @@ __volume_set:
 			echo "Inspect the logs before raising MAX_VOLUME_SWEEPS." >&2; exit 2; \
 		fi; \
 	fi; \
-	echo "==> Built volumes 1--$$max ($(MODE))"; \
+	if [ "$(MODE)" = quick ] && [ "$(SELECT)" != all ]; then \
+		echo "==> Built volume $$max ($(MODE))"; \
+	else \
+		echo "==> Built volumes 1--$$max ($(MODE))"; \
+	fi; \
 	if [ "$(OPEN_AFTER)" = 1 ]; then \
 		$(OPEN) "$(VOLUME_JOB_PREFIX)$$max$$suffix.pdf"; \
 	fi
@@ -469,10 +475,9 @@ __help:
 		'make ally                         Ally-compatible omnibus PDF' \
 		'make quick ally                   one-pass Ally-compatible update' \
 		'make volume N                     build volumes 1--N' \
-		'make quick volume N               one pass for each volume 1--N' \
+		'make quick volume N               always one pass for volume N only' \
 		'make fresh volume N               reset volume N state; rebuild volumes 1--N' \
-		'make quick fresh volume N         reset volume N state; one pass over 1--N' \
-		'make ally volume N                Ally-compatible volumes 1--N' \
+		'make quick fresh volume N         reset volume N state; one pass for N only' \		'make ally volume N                Ally-compatible volumes 1--N' \
 		'make volumes                      all discovered volumes; stabilize links' \
 		'make quick volumes                one pass over all discovered volumes' \
 		'make fresh volumes                reset and rebuild all discovered volumes' \
