@@ -413,48 +413,56 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
 
 \begin{figure}[t]
   \centering
-  \begin{tikzpicture}[line cap=round,line join=round]
+  \begin{tikzpicture}
     \def\rin{1.0}
     \def\rout{1.5}
     \def\n{7}
-    \def\sep{3.1}
-    \def\drop{1.05}
     \pgfmathsetmacro{\step}{360/\n}
-    \pgfmathtruncatemacro{\last}{\n-1}
     
-    \newcommand{\HemachandraWheel}[2]{%
-      \begin{scope}[shift={(#1,#2)}]
-        \path[fill=white,even odd rule]
-        (0,0) circle[radius=\rout]
-        (0,0) circle[radius=\rin];
-        \draw[thick] (0,0) circle[radius=\rin];
-        \draw[thick] (0,0) circle[radius=\rout];
-        \foreach \k in {0,...,\last} {
-          \draw[thick] ({\k*\step}:\rin)
-          to[bend right=20] ({\k*\step}:\rout);
-        }
-      \end{scope}%
-    }
+    \begin{scope}[shift={(0,0)}]
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+    \end{scope}
     
-    \newcommand{\RestoreTopLeftCrossing}[4]{%
-      \pgfmathsetmacro{\midx}{((#1)+(#3))/2}%
-      \begin{scope}
-        \clip (#3,#4) circle[radius={\rout+0.03}];
-        \clip (-20,-20) rectangle (\midx,20);
-        \HemachandraWheel{#1}{#2}%
-      \end{scope}%
-    }
-    
-    \HemachandraWheel{0}{0}
-    \HemachandraWheel{\sep}{0}
-    \HemachandraWheel{2*\sep}{0}
-    \HemachandraWheel{\sep/2}{-\drop}
-    \HemachandraWheel{3*\sep/2}{-\drop}
-    
-    \RestoreTopLeftCrossing{0}{0}{\sep/2}{-\drop}
-    \RestoreTopLeftCrossing{\sep}{0}{\sep/2}{-\drop}
-    \RestoreTopLeftCrossing{\sep}{0}{3*\sep/2}{-\drop}
-    \RestoreTopLeftCrossing{2*\sep}{0}{3*\sep/2}{-\drop}
+    \begin{scope}[shift={(3.8,0)}]
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+    \end{scope}
+
+    \begin{scope}[shift={(7.6,0)}]
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+    \end{scope}
+
+    \begin{scope}[shift={(1.9,-3.3)}]
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+    \end{scope}
+
+    \begin{scope}[shift={(5.7,-3.3)}]
+      \draw[thick] (0,0) circle[radius=\rin];
+      \draw[thick] (0,0) circle[radius=\rout];
+      
+      \foreach \a in {0,\step,...,324} {
+        \draw[thick] (\a:\rin) to[bend right=20] (\a:\rout);
+      }
+    \end{scope}
   \end{tikzpicture}
   \caption[Hemachandra wheels of order $7$]{Shade the segments of these wheels so as to find all Hemachandra wheels of order $7$.}
   \label{figure:hemachandra-wheels}
