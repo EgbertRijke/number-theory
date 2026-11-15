@@ -326,9 +326,9 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
       $\cardinality{\mathrm{Fix}(f^k)}$ & 12 & 1 & 1 & 7 & 1 & 6 & 7 & 1 & 1 & 7 & 6 & 1 & 7 & 1 & 1
     \end{tabular}
   \end{center}
-  Adding up all these totals gives us $60=4\cdot 15$. We therefore see that the average number of fixed points of $f^k$ over $0\leq k<15$ is exactly the number of orbits. We note also that $\cardinality{\mathrm{Fix}(f^k)}=1$ precisely when $\gcd(k,15)=1$; that $\cardinality{\mathrm{Fix}(f^k)}=7$ precisely when $\gcd(k,15)=3$; and that $\cardinality{\mathrm{Fix}(f^k)}=6$ precisely when $\gcd(k,15)=5$. Since for any $k\mid l$ we have $\gcd(l,n)=k$ if and only if $\gcd(l/k,n/k)=1$, the number of which are determined by Euler's totient function $\varphi$, these observations suggest that
+  Adding up all these totals gives us $60=4\cdot 15$. We therefore see that the average number of fixed points of $f^k$ over $0\leq k<15$ is exactly the number of orbits. We note also that $\cardinality{\mathrm{Fix}(f^k)}=1$ precisely when $\gcd(k,15)=1$; that $\cardinality{\mathrm{Fix}(f^k)}=7$ precisely when $\gcd(k,15)=3$; and that $\cardinality{\mathrm{Fix}(f^k)}=6$ precisely when $\gcd(k,15)=5$. Since for any $k\mid l$ we have $\gcd(l,n)=k$ if and only if $\gcd(l/k,n/k)=1$, the number of which are determined by Euler's totient function $\totient$, these observations suggest that
   \begin{equation*}
-    \frac{1}{15}\sum_{k\mid 15}\varphi(15/k)\,\cardinality{\mathrm{Fix}(f^k)} = 4.
+    \frac{1}{15}\sum_{k\mid 15}\totient(15/k)\,\cardinality{\mathrm{Fix}(f^k)} = 4.
   \end{equation*}
   That is, the average number of fixed points of $f^k$, being equal to the number of orbits, can be organized as a divisor-sum. We establish this relation between orbits and fixed points in the following theorem.
 \end{example}
@@ -336,14 +336,14 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
 \begin{theorem}[The Orbit--Counting Formula]\label{theorem:orbit-counting}
   Consider a bijection $f:X\to X$ on a finite set $X$, and suppose that $f^n(x)=x$ for all $x\in X$, where $n$ is a positive integer. Let $N$ be the number of orbits of $f$. Then we have
   \begin{equation*}
-    N=\frac{1}{n}\sum_{k\mid n}\varphi(n/k)\,\cardinality{\mathrm{Fix}(f^k)}.
+    N=\frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}.
   \end{equation*}
 \end{theorem}
 
 \begin{proof}
-  For each divisor $k\mid n$ and each $1\leq l\leq n$ such that $\gcd(l,n)=k$, we have $\cardinality{\mathrm{Fix}(f^l)}=\cardinality{\mathrm{Fix}(f^k)}$. To see this, consider an element $x$ in an orbit of length $t$. Since $t$ is a divisor of $n$, it follows that $t\mid l\leftrightarrow t\mid k$, which implies the claim. The number of integers $1\leq l\leq n$ such that $\gcd(l,n)=k$ is $\varphi(n/k)$, so we obtain that
+  For each divisor $k\mid n$ and each $1\leq l\leq n$ such that $\gcd(l,n)=k$, we have $\cardinality{\mathrm{Fix}(f^l)}=\cardinality{\mathrm{Fix}(f^k)}$. To see this, consider an element $x$ in an orbit of length $t$. Since $t$ is a divisor of $n$, it follows that $t\mid l\leftrightarrow t\mid k$, which implies the claim. The number of integers $1\leq l\leq n$ such that $\gcd(l,n)=k$ is $\totient(n/k)$, so we obtain that
   \begin{equation*}
-    \frac{1}{n}\sum_{k\mid n}\varphi(n/k)\,\cardinality{\mathrm{Fix}(f^k)}=
+    \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}=
     \frac{1}{n}\sum_{k=1}^{n}\cardinality{\mathrm{Fix}(f^k)}=
     \frac{1}{n}\sum_{k=0}^{n-1}\cardinality{\mathrm{Fix}(f^k)}.
   \end{equation*}
@@ -390,11 +390,11 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
   \end{equation*}
   Now it follows by \zcrefnamed{theorem:orbit-counting} that the number of rotationally distinct ways to color the cyclic set $B$ is
   \begin{equation*}
-    \frac{1}{n}\sum_{k\mid n}\varphi(n/k)\cdot c^k.
+    \frac{1}{n}\sum_{k\mid n}\totient(n/k)\cdot c^k.
   \end{equation*}
   For example, the number of $3$-colored necklaces with $10$ beads is
   \begin{equation*}
-    \frac{1}{10}(\varphi(10)\cdot 3^1+\varphi(5)\cdot 3^2+\varphi(2)\cdot 3^5+\varphi(1)\cdot 3^{10})=5934.
+    \frac{1}{10}(\totient(10)\cdot 3^1+\totient(5)\cdot 3^2+\totient(2)\cdot 3^5+\totient(1)\cdot 3^{10})=5934.
   \end{equation*}
 \end{example}
 
@@ -434,19 +434,66 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
 
 \section{Cyclicity and Arithmetic Functions}
 
+The formula
+\begin{equation*}
+  \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}
+\end{equation*}
+for the number of orbits of a bijection $f:X\to X$ satisfying $f^n(x)=x$ for all $x$ suggests that we can treat of orbits and fixed points in terms of arithmetic functions and their Dirichlet multiplication.
+
 \begin{definition}
   Consider a map $f:X\to X$ on a finite set $X$. We write
   \begin{equation*}
-    \nu_f(n):=\cardinality{\mathrm{Fix}(f^n)}.
+    \nu_f(n):=\cardinality{\mathrm{Fix}(f^n)}
+    \qquad\text{and}\qquad
+    \gamma_f(n):=\cardinality{\{\text{$f$-orbits of length $n$}\}}.
   \end{equation*}
 \end{definition}
 
+Since $x$ is a fixed point for $f^n$ if and only if the length of the orbit of $x$ divides $n$, we obtain the formula
+\begin{equation}\label{equation:fixed-points}
+  \nu_f(n)=\sum_{k\mid n}k\,\gamma_f(k).\tag{\textasteriskcentered\textasteriskcentered}
+\end{equation}
+
+We will write $f\cdot g$ for the \emph{pointwise multiplication} of $f$ and $g$ and we will write $f/g$ for the \emph{pointwise division} of $f$ by $g$; that is,
+\begin{equation*}
+  (f\cdot g)(n)=f(n)g(n)\qquad\text{and}\qquad (f/g)(n)=f(n)/g(n).
+\end{equation*}
+
 \begin{theorem}
-    Consider a finite set $X$ and a map $f:X\to X$ such that $f^n(x)=x$ for all $x\in X$. Let $N$ be the number of orbits of $f$. Then we have
+  Consider a bijection $f$ on a finite nonempty set $X$. Then
   \begin{equation*}
-    N=\frac{1}{n}(\nu_f\ast \varphi)(n).
+    \nu_f\ast\totient=\mathrm{id}\cdot(1\ast \gamma).
   \end{equation*}
+  Consequently, the quantity
+  \begin{equation*}
+    \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}=\sum_{k\mid n}\gamma_f(k)
+  \end{equation*}
+  is an integer for every $n$, and counts the number of orbits whose length divides $n$. If $f^n(x)=x$ for all $x$, then all orbits have a length dividing $n$, so we recover \zcrefnamed{theorem:orbit-counting}.
 \end{theorem}
+
+\begin{proof}
+  Using \zcref{equation:fixed-points} and \zcref{theorem:dirichlet-convolution-phi} we calculate:
+  \begin{align*}
+    (\nu_f\ast\totient)(n)
+    & = \sum_{k\mid n}\nu_f(k)\,\totient(n/k) \\
+    & = \sum_{k\mid n}\sum_{d\mid k}d\,\gamma_f(d)\,\totient(n/k) \\
+    & = \sum_{d\mid n}\sum_{k\mid n/d} d\,\gamma_f(d)\,\totient(n/dk) \\
+    & = \sum_{d\mid n}d\,\gamma_f(d)\sum_{k\mid n/d}\totient((n/d)/k) \\
+    & = \sum_{d\mid n}d\,\gamma_f(d)\,\frac{n}{d} \\
+    & = n\sum_{d\mid n}\gamma_f(d).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Let us write $\omega_f:=(\nu_f\ast\totient)/\mathrm{id}$. Then
+  \begin{equation*}
+    \gamma_f=\mu\ast\omega_f.
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  Since $\omega_f=1\ast\gamma_f$, the claim follows by M\"obius inversion.
+\end{proof}
 
 \begin{noteblock}
 \section{Cyclic Integer Partitions}
@@ -472,7 +519,7 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
       B_n-2 & \text{if $n$ is odd.}
     \end{cases}
   \end{equation*}
-  Answer: $C_n=\sum_{d\mid n}\varphi(n/d)(2^d+2(-1)^d)$.
+  Answer: $C_n=\sum_{d\mid n}\totient(n/d)(2^d+2(-1)^d)$.
 \item Count the number of families of pairwise disjoint two-element subsets of beads of an $n$-cycle
 \end{enumerate}
 \end{noteblock}
