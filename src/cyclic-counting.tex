@@ -593,9 +593,9 @@ Using these conventions, we define
 \end{starter}
 
 \begin{routine}
-  \exercise Let $n=mp^k$, where $p$ is a prime such that $p\nmid m$, and let $F$ be the sequence of Fibonacci numbers. Show that
+  \exercise Let $n=mp^k$, where $p$ is a prime such that $p\nmid m$, and let $F$ be the sequence of Fibonacci numbers. Prove the \define{Gauss congruence} for Lucas numbers
   \begin{equation*}
-    F_{n-1}+F_{n+1}\equiv F_{m-1}+F_{m+1}\pmod{p}.
+    F_{n-1}+F_{n+1}\equiv F_{n/p-1}+F_{n/p+1}\pmod{p^k}.
   \end{equation*}
   \exercise Consider a prime $p$. Show that
   \begin{equation*}

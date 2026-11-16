@@ -23,15 +23,13 @@ local function input_key(letter)
   return key(c[2], c[3])
 end
 
-local function single_char(s)
+local function first_char(s)
   if not s then return end
   if s.id == math_char then return s end
   if s.id == sub_mlist then
     local h = s.head
-    if h and not h.next and h.id == noad and h.subtype == 0
-        and not h.sub and not h.sup and h.nucleus
-        and h.nucleus.id == math_char then
-      return h.nucleus
+    if h and h.id == noad and h.subtype == 0 then
+      return first_char(h.nucleus)
     end
   end
 end
@@ -73,7 +71,7 @@ local function walk(head, pairs)
     end
 
     if n.id == noad and n.subtype == 0 then
-      local b, s = n.nucleus, single_char(n.sub)
+      local b, s = n.nucleus, first_char(n.sub)
       if b and b.id == math_char and s then
         local row = pairs[key(b.fam, b.char)]
         local amount = row and row[key(s.fam, s.char)]
