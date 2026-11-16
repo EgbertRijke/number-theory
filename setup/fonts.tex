@@ -1,23 +1,5 @@
 \input{setup/libertinus-custom-kerning}
 
-\usepackage[
-  script,
-  scriptscript,
-  no-inner,
-  no-close,
-  no-cover
-]{innerscript}
-
-\Umathordbinspacing\scriptstyle=2mu
-\Umathbinordspacing\scriptstyle=2mu
-\Umathordbinspacing\crampedscriptstyle=2mu
-\Umathbinordspacing\crampedscriptstyle=2mu
-
-\Umathordrelspacing\scriptstyle=2mu
-\Umathrelordspacing\scriptstyle=2mu
-\Umathordrelspacing\crampedscriptstyle=2mu
-\Umathrelordspacing\crampedscriptstyle=2mu
-
 \directlua{
   fonts.handlers.otf.addfeature{
     name = "rijkeliga",
@@ -136,5 +118,3 @@
   }
 
 \ExplSyntaxOff
-
-\directlua{require("setup/math-subscript-kerns")}

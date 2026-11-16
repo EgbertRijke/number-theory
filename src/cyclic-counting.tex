@@ -269,7 +269,7 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
   \centering
   \begin{tikzpicture}[
     alt={
-      A set A with 12 elements labelled a sub 1 through a sub 12 is displayed with exactly one outgoing arrow from each element, indicating a mapping. The mapping is a bijection, so that each element also has exactly one incoming arrow. The mapping sends a sub 1 to a sub 5 to a sub 9 to a sub 1; a sub 2 to itself; a sub 3 to a sub 4 to a sub 8 to a sub 12 to a sub 7 to a sub 3; and a sub 6 to a sub 11 to a sub 10 to a sub 6. Notice that there are four disjoint cycles in this mapping, which are called orbits.
+      A set A with 12 elements labelled x sub 1 through x sub 12 is displayed with exactly one outgoing arrow from each element, indicating a mapping. The mapping is a bijection, so that each element also has exactly one incoming arrow. The mapping sends x sub 1 to x sub 5 to x sub 9 to x sub 1; x sub 2 to itself; x sub 3 to x sub 4 to x sub 8 to x sub 12 to x sub 7 to x sub 3; and x sub 6 to x sub 11 to x sub 10 to x sub 6. Notice that there are four disjoint cycles in this mapping, which are called orbits.
       },
     element/.style={circle, draw, thick, minimum size=6.5mm, inner sep=0pt, font=\small},
     set/.style={ellipse, draw=CornflowerBlue, thick, minimum height=35mm, minimum width=80mm},
@@ -398,6 +398,74 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
   \end{equation*}
 \end{example}
 
+\section{Arithmetic Functions of Orbits and Fixed Points}
+
+The formula
+\begin{equation*}
+  \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}
+\end{equation*}
+for the number of orbits of a bijection $f:X\to X$ satisfying $f^n(x)=x$ for all $x$ suggests that we can treat of orbits and fixed points in terms of arithmetic functions and their Dirichlet convolution.
+
+\begin{definition}
+  Consider a map $f:X\to X$ on a finite set $X$. We write
+  \begin{equation*}
+    \nu_f(n):=\cardinality{\mathrm{Fix}(f^n)}
+    \qquad\text{and}\qquad
+    \gamma_f(n):=\cardinality{\{\text{$f$-orbits of length $n$}\}}.
+  \end{equation*}
+\end{definition}
+
+Since $x$ is a fixed point for $f^n$ if and only if the length of the orbit of $x$ divides $n$, we obtain the formula
+\begin{equation}\label{equation:fixed-points}
+  \nu_f(n)=\sum_{k\mid n}k\,\gamma_f(k).\tag{\textasteriskcentered\textasteriskcentered}
+\end{equation}
+
+We will write $f\cdot g$ for the \emph{pointwise multiplication} of $f$ and $g$ and we will write $f/g$ for the \emph{pointwise division} of $f$ by $g$; that is,
+\begin{equation*}
+  (f\cdot g)(n)=f(n)g(n)\qquad\text{and}\qquad (f/g)(n)=f(n)/g(n).
+\end{equation*}
+Using these conventions, we define
+\begin{equation*}
+  \omega_f:=(\nu_f\ast\totient)/\mathrm{id}
+\end{equation*}
+\zcref{theorem:orbit-counting} then asserts that $\omega_f(n)$ is the number of orbits of $f$ if $f^n(x)=x$ for all $x\in X$.
+
+\begin{theorem}
+  Consider a bijection $f$ on a finite nonempty set $X$. Then
+  \begin{equation*}
+    \omega_f=1\ast \gamma.
+  \end{equation*}
+  Consequently, the quantity
+  \begin{equation*}
+    \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}=\sum_{k\mid n}\gamma_f(k)
+  \end{equation*}
+  is an integer for every $n$, and counts the number of orbits whose length divides $n$.
+\end{theorem}
+
+\begin{proof}
+  Using \zcref{equation:fixed-points} and \zcref{theorem:dirichlet-convolution-phi} we calculate:
+  \begin{align*}
+    (\nu_f\ast\totient)(n)
+    & = \sum_{k\mid n}\nu_f(k)\,\totient(n/k) \\
+    & = \sum_{k\mid n}\sum_{d\mid k}d\,\gamma_f(d)\,\totient(n/k) \\
+    & = \sum_{d\mid n}\sum_{k\mid n/d} d\,\gamma_f(d)\,\totient(n/dk) \\
+    & = \sum_{d\mid n}d\,\gamma_f(d)\sum_{k\mid n/d}\totient((n/d)/k) \\
+    & = \sum_{d\mid n}d\,\gamma_f(d)\,\frac{n}{d} \\
+    & = n\sum_{d\mid n}\gamma_f(d).\qedhere
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  For any bijection $f:X\to X$ on a finite set $X$ we have
+  \begin{equation*}
+    \gamma_f=\frac{\mu\ast\nu_f}{\mathrm{id}}.
+  \end{equation*}
+\end{corollary}
+
+\begin{proof}
+  Since $\omega_f=1\ast\gamma_f$, the claim follows by M\"obius inversion.
+\end{proof}
+
 \section{Cyclic Coloring}
 
 \begin{theorem}
@@ -430,69 +498,6 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
   \begin{equation*}
     \cardinality{U}=\sum_{p\mid g}\binom{n/p}{k/p}-\sum_{p<q\mid g}\binom{n/pq}{k/pq}+\cdots = -\sum_{d\mid g}\mu(d)\binom{n/d}{k/d}.\qedhere
   \end{equation*}
-\end{proof}
-
-\section{Arithmetic Functions of Orbits and Fixed Points}
-
-The formula
-\begin{equation*}
-  \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}
-\end{equation*}
-for the number of orbits of a bijection $f:X\to X$ satisfying $f^n(x)=x$ for all $x$ suggests that we can treat of orbits and fixed points in terms of arithmetic functions and their Dirichlet convolution.
-
-\begin{definition}
-  Consider a map $f:X\to X$ on a finite set $X$. We write
-  \begin{equation*}
-    \nu_f(n):=\cardinality{\mathrm{Fix}(f^n)}
-    \qquad\text{and}\qquad
-    \gamma_f(n):=\cardinality{\{\text{$f$-orbits of length $n$}\}}.
-  \end{equation*}
-\end{definition}
-
-Since $x$ is a fixed point for $f^n$ if and only if the length of the orbit of $x$ divides $n$, we obtain the formula
-\begin{equation}\label{equation:fixed-points}
-  \nu_f(n)=\sum_{k\mid n}k\,\gamma_f(k).\tag{\textasteriskcentered\textasteriskcentered}
-\end{equation}
-
-We will write $f\cdot g$ for the \emph{pointwise multiplication} of $f$ and $g$ and we will write $f/g$ for the \emph{pointwise division} of $f$ by $g$; that is,
-\begin{equation*}
-  (f\cdot g)(n)=f(n)g(n)\qquad\text{and}\qquad (f/g)(n)=f(n)/g(n).
-\end{equation*}
-
-\begin{theorem}
-  Consider a bijection $f$ on a finite nonempty set $X$. Then
-  \begin{equation*}
-    \nu_f\ast\totient=\mathrm{id}\cdot(1\ast \gamma).
-  \end{equation*}
-  Consequently, the quantity
-  \begin{equation*}
-    \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}=\sum_{k\mid n}\gamma_f(k)
-  \end{equation*}
-  is an integer for every $n$, and counts the number of orbits whose length divides $n$. If $f^n(x)=x$ for all $x$, then all orbits have a length dividing $n$, so we recover \zcrefnamed{theorem:orbit-counting}.
-\end{theorem}
-
-\begin{proof}
-  Using \zcref{equation:fixed-points} and \zcref{theorem:dirichlet-convolution-phi} we calculate:
-  \begin{align*}
-    (\nu_f\ast\totient)(n)
-    & = \sum_{k\mid n}\nu_f(k)\,\totient(n/k) \\
-    & = \sum_{k\mid n}\sum_{d\mid k}d\,\gamma_f(d)\,\totient(n/k) \\
-    & = \sum_{d\mid n}\sum_{k\mid n/d} d\,\gamma_f(d)\,\totient(n/dk) \\
-    & = \sum_{d\mid n}d\,\gamma_f(d)\sum_{k\mid n/d}\totient((n/d)/k) \\
-    & = \sum_{d\mid n}d\,\gamma_f(d)\,\frac{n}{d} \\
-    & = n\sum_{d\mid n}\gamma_f(d).\qedhere
-  \end{align*}
-\end{proof}
-
-\begin{corollary}
-  Let us write $\omega_f:=(\nu_f\ast\totient)/\mathrm{id}$. Then
-  \begin{equation*}
-    \gamma_f=\mu\ast\omega_f.
-  \end{equation*}
-\end{corollary}
-
-\begin{proof}
-  Since $\omega_f=1\ast\gamma_f$, the claim follows by M\"obius inversion.
 \end{proof}
 
 \begin{noteblock}
