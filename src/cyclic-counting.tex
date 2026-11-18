@@ -433,7 +433,7 @@ Using these conventions, we define
 \begin{theorem}
   Consider a bijection $f$ on a finite nonempty set $X$. Then
   \begin{equation*}
-    \omega_f=1\ast \gamma.
+    \omega_f=1\ast \gamma_f.
   \end{equation*}
   Consequently, the quantity
   \begin{equation*}
@@ -463,8 +463,29 @@ Using these conventions, we define
 \end{corollary}
 
 \begin{proof}
-  Since $\omega_f=1\ast\gamma_f$, the claim follows by M\"obius inversion.
+  Since $\omega_f=1\ast\gamma_f$, M\"obius inversion gives us that $\gamma_f=\mu\ast\omega_f$. Now we compute:
+  \begin{align*}
+    \gamma_f 
+    & = \mu\ast\omega_f \\
+    & = \mu\ast \frac{\totient\ast \nu_f}{\mathrm{id}} \\
+    & = \mu\ast \frac{\totient}{\mathrm{id}}\ast\frac{\nu_f}{\mathrm{id}} \\
+    & = \mu\ast \frac{\mathrm{id}\ast\mu}{\mathrm{id}} \ast \frac{\nu_f}{\mathrm{id}} \\
+    & = \mu\ast \frac{\mathrm{id}}{\mathrm{id}} \ast \frac{\mu}{\mathrm{id}}\ast\frac{\nu_f}{\mathrm{id}} \\
+    & = \mu\ast 1 \ast \frac{\mu\ast\nu_f}{\mathrm{id}} \\
+    & = \frac{\mu\ast\nu_f}{\mathrm{id}}.\qedhere
+  \end{align*}
 \end{proof}
+
+\begin{corollary}[The Gauss congruence]
+  For any bijection $f:X\to X$ on a finite set $X$, we have
+  \begin{equation*}
+    \nu_f(n)\equiv \sum_{p\mid n}\nu_f(n/p)\pmod{n}.
+  \end{equation*}
+  In particular, we have
+  \begin{equation*}
+    \nu_f(p^m)\equiv \nu_f(p^{m-1})\pmod{p^m}.
+  \end{equation*}
+\end{corollary}
 
 \section{Cyclic Coloring}
 
