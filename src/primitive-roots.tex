@@ -77,53 +77,11 @@ Computing the orders of all the elements from $1$ to $12$ modulo $13$ this way, 
 
 While the orders of the integers modulo $13$ might at first glance appear to be somewhat unwieldy, \zcref{theorem:order-power} is the key to some important patterns. For example, given an integer $a\pmod{p}$ with $\ord_p(a)=p-1$ such as $2\pmod{13}$, \zcref{theorem:order-power} tells us that
 \begin{equation*}
-  \ord_p(a^m)=k \Leftrightarrow \frac{p-1}{\gcd(m,p-1)}=k
+  \ord_p(a^m)=k \quad\Leftrightarrow\quad \frac{p-1}{\gcd(m,p-1)}=k
 \end{equation*}
 In particular, $\ord_p(a^m)=p-1$ if and only if $\gcd(m,p-1)=1$. Indeed, we see that there are four integers modulo $13$ of order $12$, corresponding to the powers of $2$ with exponents $1$, $5$, $7$, and $11$.
 
-However, we can go further: There are two integers that have order $6$ modulo $13$, and indeed $\totient(6)=2$ as well. Similarly, we find that there are $\totient(1)$, $\totient(2)$, $\totient(3)$, and $\totient(4)$ integers of order $1$, $2$, $3$, and $4$, respectively. The following proposition tells us that modulo a prime $p$, the number of integers of order $k$ modulo $p$ is either $0$ or $\totient(k)$. This suggests that for any prime number $p$ and any $k\mid p-1$, it should be true that the number of elements of order $k$ is exactly $\totient(k)$. To make this observation precise, we first need a fundamental property of the totient function.
-
-\begin{theorem}\label{theorem:dirichlet-convolution-phi}
-  For every positive integer $n$, we have
-  \begin{equation*}
-    \sum_{d\mid n}\totient(d) = n,
-  \end{equation*}
-  where the sum ranges over the positive integers $d$ dividing $n$.
-\end{theorem}
-
-In terms of Dirichlet convolution, the identity in \zcref{theorem:dirichlet-convolution-phi} can be stated as follows:
-\begin{equation*}
-  \totient\ast 1=\mathrm{id}.
-\end{equation*}
-We will give a combinatorial and an arithmetic proof.
-
-\begin{proof}[Combinatorial proof]
-  The sum suggests that there is a way of partitioning the set $\{1,\ldots,n\}$ into sets $A_d$ of size $\totient(d)$, and this is indeed how this theorem is proven. For each positive divisor $d$ of $n$, define the map
-  \begin{equation*}
-    f_d:{\textstyle \{1\leq x\leq  d \mid \gcd(x,d) = 1\}} \to \{1,\ldots,n\}
-  \end{equation*}
-  by $x\mapsto \frac{n}{d}x$, and define the set $A_d$ to be the image of $f_d$. Since $\frac{n}{d}$ is a positive integer, it follows that the map $f_d$ is injective, and therefore each set $A_d$ has exactly $\totient(d)$ elements. Now notice that
-  \begin{equation*}
-    y\in A_d \quad\Leftrightarrow\quad \gcd(y,n)=\frac{n}{d},
-  \end{equation*}
-  since if $x=y/\gcd(y,n)$, then $\gcd(x,d)=\gcd(y/\gcd(y,n),n/\gcd(y,n))=1$.
-  Therefore, it follows that for every $1\leq y\leq n$ there is exactly one $d\mid n$ such that $y\in A_d$, so it follows that the sets $A_d$ partition the set $\{1,\ldots,n\}$. The sum of the numbers of elements of each $A_d$ is therefore $n$.
-\end{proof}
-
-\begin{proof}[Arithmetic proof]
-  Recall from \zcref{theorem:multiplicative-totient} that $\totient$ is a multiplicative function, which implies by \zcref{theorem:multiplicative-functions} that the function
-  \begin{equation*}
-    n\mapsto \sum_{d\mid n}\totient(d)
-  \end{equation*}
-  is multiplicative. Since multiplicative functions are completely determined by their values on prime powers, it suffices to show that
-  \begin{equation*}
-    \sum_{d\mid p^m}\totient(d)=p^m.
-  \end{equation*}
-  The only divisors of $p^m$ are $p^k$ for $0\leq k\leq m$, and for any $k\geq 1$ we have $\totient(p^k)=p^k-p^{k-1}$. Thus, it follows that
-  \begin{equation*}
-    \sum_{d\mid p^m}\totient(d) = \sum_{k=0}^m\totient(p^k)= 1+\sum_{k=1}^m p^k-p^{k-1}=1+(p^m-1)=p^m.\qedhere
-  \end{equation*}
-\end{proof}
+However, we can go further: There are two integers that have order $6$ modulo $13$, and indeed $\totient(6)=2$ as well. Similarly, we find that there are $\totient(1)$, $\totient(2)$, $\totient(3)$, and $\totient(4)$ integers of order $1$, $2$, $3$, and $4$, respectively. The following theorem tells us that modulo a prime $p$, the number of integers of order $k$ modulo $p$ is either $0$ or $\totient(k)$. This suggests that for any prime number $p$ and any $k\mid p-1$, it should be true that the number of elements of order $k$ is exactly $\totient(k)$.
 
 \begin{theorem}\label{theorem:count-integers-of-order-mod-prime}
   Consider a prime number $p$. Then there are for every $k\mid p-1$ exactly $\totient(k)$ integers of order $k$ modulo $p$.
@@ -349,7 +307,7 @@ The following theorem is a significant generalization of \zcrefnamed{theorem:eul
   This holds if and only if $\frac{m(p-1)}{\gcd(n,p-1)}$ is an integer multiple of $p-1$, which is equivalent to the condition that $\gcd(n,p-1)\mid m$.
 \end{proof}
 
-\begin{proof}[Proof by Lagrange's Theorem]
+\begin{proof}[Proof by Lagrange's theorem]
   For both directions of the proof, we will write $d:=\gcd(n,p-1)$, so that there are integers $k$ and $l$ such that $kd=p-1$ and $ld=n$. It follows that $k$ and $l$ are relatively prime, so that there are integers $u$ and $v$ such that
   \begin{equation*}
     ku+lv=1.

@@ -341,7 +341,7 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
 \end{theorem}
 
 \begin{proof}
-  For each divisor $k\mid n$ and each $1\leq l\leq n$ such that $\gcd(l,n)=k$, we have $\cardinality{\mathrm{Fix}(f^l)}=\cardinality{\mathrm{Fix}(f^k)}$. To see this, consider an element $x$ in an orbit of length $t$. Since $t$ is a divisor of $n$, it follows that $t\mid l\leftrightarrow t\mid k$, which implies the claim. The number of integers $1\leq l\leq n$ such that $\gcd(l,n)=k$ is $\totient(n/k)$, so we obtain that
+  For each divisor $k\mid n$ and each $1\leq l\leq n$ such that $\gcd(l,n)=k$, we have $\cardinality{\mathrm{Fix}(f^l)}=\cardinality{\mathrm{Fix}(f^k)}$. To see this, consider an element $x$ in an orbit of length $t$. Since $t$ is a divisor of $n$, it follows that $t\mid l$ if and only if $t\mid k$, which implies the claim. The number of integers $1\leq l\leq n$ such that $\gcd(l,n)=k$ is $\totient(n/k)$, so we obtain that
   \begin{equation*}
     \frac{1}{n}\sum_{k\mid n}\totient(n/k)\,\cardinality{\mathrm{Fix}(f^k)}=
     \frac{1}{n}\sum_{k=1}^{n}\cardinality{\mathrm{Fix}(f^k)}=
@@ -398,6 +398,88 @@ That is, $x$ is a \emph{fixed point} of the map $f^k:X\to X$ if and only if $k$ 
   \end{equation*}
 \end{example}
 
+\section{The Divisor Sum of the Totient Function}
+
+The orbit--counting theorem implies an important identity, which is sometimes known as \define{Gauss's theorem}.
+
+\begin{theorem}\label{theorem:divisor-sum-totient}
+  Euler's totient function $\totient$ satisfies the following divisor-sum identity:
+  \begin{equation*}
+    \sum_{k\mid n}\totient(k)=n.
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}[Proof via the orbit--counting Theorem]
+  Consider the singleton set $X=\{\star\}$ and let $f:X\to X$ be the identity function. Then $f$ has one orbit. Furthermore, $\cardinality{\mathrm{Fix}(f^k)}=1$ for every $k$, so we obtain by \zcref{theorem:orbit-counting}
+  \begin{equation*}
+    1=\frac{1}{n}\sum_{k\mid n}\totient(k).\qedhere
+  \end{equation*}
+\end{proof}
+
+\zcref{theorem:divisor-sum-totient} is important enough in number theory that it is beneficial to give two more proofs: a combinatorial and an arithmetic proof.
+
+\begin{proof}[Combinatorial proof]
+  The sum suggests that there is a way of partitioning the set $\{1,\ldots,n\}$ into sets $A_d$ of size $\totient(d)$, and this is indeed how this theorem is proven. For each positive divisor $d$ of $n$, define the map
+  \begin{equation*}
+    f_k:{\textstyle \{1\leq x\leq  k \mid \gcd(x,k) = 1\}} \to \{1,\ldots,n\}
+  \end{equation*}
+  by $x\mapsto \frac{n}{k}x$, and define the set $A_k$ to be the image of $f_k$. Since $\frac{n}{k}$ is a positive integer, it follows that the map $f_k$ is injective, and therefore each set $A_k$ has exactly $\totient(k)$ elements. Now notice that
+  \begin{equation*}
+    y\in A_k \quad\Leftrightarrow\quad \gcd(y,n)=\frac{n}{k},
+  \end{equation*}
+  since if $x=y/\gcd(y,n)$, then $\gcd(x,k)=\gcd(y/\gcd(y,n),n/\gcd(y,n))=1$.
+  Therefore, it follows that for every $1\leq y\leq n$ there is exactly one $k\mid n$ such that $y\in A_k$, so it follows that the sets $A_k$ partition the set $\{1,\ldots,n\}$. The sum of the numbers of elements of each $A_k$ is therefore $n$.
+\end{proof}
+
+\begin{proof}[Arithmetic proof]
+  Recall from \zcref{theorem:multiplicative-totient} that $\totient$ is a multiplicative function, which implies by \zcref{theorem:multiplicative-functions} that the function
+  \begin{equation*}
+    n\mapsto \sum_{k\mid n}\totient(k)
+  \end{equation*}
+  is multiplicative. Since multiplicative functions are completely determined by their values on prime powers, it suffices to show that
+  \begin{equation*}
+    \sum_{k\mid p^m}\totient(k)=p^m.
+  \end{equation*}
+  The only divisors of $p^m$ are $p^k$ for $0\leq k\leq m$, and for any $k\geq 1$ we have $\totient(p^k)=p^k-p^{k-1}$. Thus, it follows that
+  \begin{equation*}
+    \sum_{k\mid p^m}\totient(k) = \sum_{k=0}^m\totient(p^k)= 1+\sum_{k=1}^m p^k-p^{k-1}=1+(p^m-1)=p^m.\qedhere
+  \end{equation*}
+\end{proof}
+
+In terms of Dirichlet convolution, the identity in \zcref{theorem:divisor-sum-totient} can be stated as follows:
+\begin{equation*}
+  \totient\ast 1=\mathrm{id}.
+\end{equation*}
+
+\begin{corollary}\label{corollary:mobius-inversion-totient}
+  Euler's totient function satisfies the identity
+  \begin{equation*}
+    \totient(n) = \sum_{k\mid n}\mu(k)\frac{n}{k}
+  \end{equation*}
+  In other words, $\totient=\mu\ast\mathrm{id}$.
+\end{corollary}
+
+\begin{proof}
+  By \zcref{theorem:divisor-sum-totient} we have $\mathrm{id}=1\ast \totient$, so we have $\totient=\mu\ast\mathrm{id}$ by the M\"obius inversion formula.
+\end{proof}
+
+We also give a direct proof of \zcref{corollary:mobius-inversion-totient}.
+
+\begin{proof}[Direct proof of \zcref{corollary:mobius-inversion-totient}]
+  Note that Euler's totient function $\totient$ can be written in the form
+  \begin{equation*}
+    \totient(n) = \sum_{k=1}^n\left\lfloor\frac{1}{\gcd(k,n)}\right\rfloor.
+  \end{equation*}
+  Then it follows from \zcref{theorem:inverse-mobius-function} that
+  \begin{equation*}
+    \totient(n) = \sum_{k=1}^n\sum_{d\mid \gcd(k,n)}\mu(d)
+    = \sum_{k=1}^n\sum_{\substack{d\mid n \\ d\mid k}}\mu(d)
+    = \sum_{d\mid n}\sum_{\substack{k=1 \\ d\mid k}}^n \mu(d)
+    = \sum_{d\mid n} \mu(d)\frac{n}{d}.
+  \end{equation*}
+  The last step follows, since there are exactly $\tfrac{n}{d}$ multiples of $d$ among the numbers from $1$ to $n$.
+\end{proof}
+
 \section{Arithmetic Functions of Orbits and Fixed Points}
 
 The formula
@@ -429,7 +511,7 @@ Using these conventions, we see that the arithmetic functions $\nu_f$ and $\gamm
 \begin{proposition}\label{proposition:fixed-points-orbits}
   Consider a bijection $f:X\to X$ on a finite set $X$. Then
   \begin{equation*}
-    \nu_f=1\ast(\mathrm{id}\cdot\gamma_f)\qquad\text{and}\qquad \gamma_f=\frac{\mu\ast \nu_f}{\mathrm{id}}.\tag{\textasteriskcentered\textasteriskcentered}
+    \nu_f=1\ast(\mathrm{id}\cdot\gamma_f)\qquad\text{and}\qquad \gamma_f=\frac{\mu\ast \nu_f}{\mathrm{id}}.
   \end{equation*}
 \end{proposition}
 
@@ -479,68 +561,24 @@ Defining
   \end{equation*}
 \end{proof}
 
-\section{Cyclic Coloring}
-
-\begin{theorem}
-  Consider two natural numbers $1\leq k<n$, and let $g=\gcd(n,k)$. Define the function
+\begin{example}
+  Consider an $n$-element cyclic set $C$ with one-step rotation $r$. For each $k\mid n$, the $k$-step rotation $r^{k}$ by partitions $C$ into $k$ orbits of size $n/k$. An $m$-element subset of $C$ is then fixed under $r^{k}$ precisely when it is a union of $r^k$-orbits. More conveniently, an $m$-element subset of $C$ is fixed under $r^{n/k}$ precisely when it is a union of $r^{n/k}$-orbits, of which there are $k$. Therefore, it follows that
   \begin{equation*}
-    S(n,k)=-\sum_{\substack{d\mid g\\ d>1}}\mu(d)\binom{n/d}{k/d}.
-  \end{equation*}
-  Then we have
-  \begin{equation*}
-    n\mid \binom{n}{k}\quad\Leftrightarrow\quad n\mid S(n,k).
-  \end{equation*}
-\end{theorem}
-
-\begin{proof}
-  Consider a cyclic set $C$ of order $n$, and let $X$ be the set of all $k$-element subsets of $C$. The number of elements in $X$ is $\binom{n}{k}$. Let $U\subset X$ be the subset consisting of $k$-element subsets of $C$ that are invarant under rotation by $r$ steps for some $0<r<n$. Every $k$-element subset of $C$ outside of $U$ has $n$ distinct rotations. The set $X\setminus U$ is therefore partitioned into orbits of size $n$. Consequently, we obtain
-  \begin{equation*}
-    \binom{n}{k}\equiv \cardinality{U} \pmod{n}.
-  \end{equation*}
-  It remains to show that $S(n,k)$ is the number of $k$-element subsets of $C$ in $U$.
-
-  For each $d\mid n$, let $U_d$ be the collection of $k$-element subsets of $C$ that are invariant under rotation by $n/d$ steps. Note that a $k$-element subset of $C$ belongs to $U_d$ precisely when it is a union of orbits of the rotation by $n/d$ steps. Each such orbit contains exactly $d$ elements, so it follows that $U_d$ is empty unless $d\mid k$. When $d\mid k$, then a $k$-element subset invariant under rotation by $n/d$ steps is a $k/d$-element subset of such orbits. Therefore, we have
-  \begin{equation*}
-    \cardinality{U_d} = \binom{n/d}{k/d}
-  \end{equation*}
-  for every divisor $d\mid g$. Note that $U_d\subseteq U_d'$ for every $1<d'\mid d$. Therefore it follows that
-  \begin{equation*}
-    U=\bigcup_{p\mid g} U_p.
-  \end{equation*}
-  It follows by \zcrefnamed{theorem:inclusion-exclusion-principle} that
-  \begin{equation*}
-    \cardinality{U}=\sum_{p\mid g}\binom{n/p}{k/p}-\sum_{p<q\mid g}\binom{n/pq}{k/pq}+\cdots = -\sum_{d\mid g}\mu(d)\binom{n/d}{k/d}.\qedhere
-  \end{equation*}
-\end{proof}
-
-\begin{noteblock}
-\section{Cyclic Integer Partitions}
-
-\section{Cyclic Lists}
-
-\section{Cyclic Trees}
-
-\begin{enumerate}
-\item Count the number of trivalent trees with $n$ cyclically ordered leaves.
-\item Count the number of rooted trivalent trees with $n$ cyclically ordered leaves.
-\item Count the number of triangulations of the regular $n$-gon up to rotation.
-\item Count the number of trees with $n$ cyclically ordered leaves, so that each node has degree $\geq 3$.
-\item Count the number of rooted trees with $n$ cyclically ordered leaves, so that each node has degree $\geq 3$.
-\item Count the number of bijections up to rotation on a cyclically ordered set with $n$ elements.
-\item Count the number of transitive bijections up to rotation on a cyclically ordered set with $n$ elements.
-\item Count, up to rotation, the number of functions $f:X\to X$ such that for each $x\in X$ the set $f^{-1}(x)$ is empty or has at least two elements, and the set $\{x\in X\mid f^{-1}(x)=\varnothing\}$ is cyclically ordered with $n$ elements.
-\item Count the number $B_n$ of $2$-colorings of a wheel with $n$ beads up to rotation. Say that a $3$-coloring of a wheel is \define{proper} of no two adjacent beads are of the same color. Count the number $C_n$ of proper $3$-colorings of a necklace with $n$ beads up to rotation. Show that
-  \begin{equation*}
-    C_n =
+    \nu_f(n/k)=
     \begin{cases}
-      B_n & \text{if $n$ is even,}\\
-      B_n-2 & \text{if $n$ is odd.}
+      \binom{n/k}{m/k} & \text{if $k\mid m$,}\\
+      0 & \text{otherwise.}
     \end{cases}
   \end{equation*}
-  Answer: $C_n=\sum_{d\mid n}\totient(n/d)(2^d+2(-1)^d)$.
-\item Count the number of families of pairwise disjoint two-element subsets of beads of an $n$-cycle
-\end{enumerate}
-\end{noteblock}
+  This implies that
+  \begin{equation*}
+    \gamma_r(n)=\frac{1}{n}\sum_{k\mid\gcd(m,n)}\mu(k)\binom{n/k}{m/k}.
+  \end{equation*}
+  Gauss's congruence in this case asserts that
+  \begin{equation*}
+    \sum_{k\mid\gcd(m,n)}\mu(k)\binom{n/k}{m/k}\equiv 0\pmod{n}.
+  \end{equation*}
+\end{example}
 
 \exercises
 
@@ -615,7 +653,41 @@ Defining
     \binom{n}{m} \equiv \binom{n-p}{m-p}+\binom{n-p}{m}\pmod{p}.
   \end{equation*}
   \exercise Determine the number of labeled and unlabeled bicolored wheels with $n$ segments in which no three adjacent segments all have the same color.
+  \exercise Prove that
+  \begin{equation*}
+    \sum_{k=1}^n\gcd(k,n)\mu(\gcd(k,n))=\mu(n).
+  \end{equation*}
 \end{routine}
+
+\begin{challenge}
+  \exercise Define \define{Jordan's totient function} $J_k(n)$ by
+  \begin{equation*}
+    J_k(n) = \cardinality{\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}}.
+  \end{equation*}
+  In other words, Jordan's totient function counts the number of $k$-tuples $(x_1,\ldots,x_k)$ of positive integers not exceeding $n$ such that if $d$ simultaneously divides all the integers $x_1,\ldots,x_k$ and $n$, then $d=1$. Note that $J_1(n)$ is just Euler's totient function $\totient$.
+  \begin{subexenum}
+  \item Find $J_2(n)$ for $1\leq n\leq 12$.
+  \item Show that for any divisor $d$ of $n$, the number of elements in the set
+    \begin{equation*}
+      \left\{(x_1,\ldots,x_k) \,\middle|\, 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=\frac{n}{d}\right\}
+    \end{equation*}
+    is exactly $J_k(d)$.
+  \item Show that
+    \begin{equation*}
+      \sum_{d\mid n}J_k(d) = n^k\qquad\text{and}\qquad \sum_{d\mid n}\mu(d)\left(\frac{n}{d}\right)^k = J_k(n).
+    \end{equation*}
+  \item Show that $J_k$ is a multiplicative function.
+  \item Show that
+    \begin{equation*}
+      J_k(p^m) = p^{km}-p^{k(m-1)}
+    \end{equation*}
+    for any prime $p$ and any exponent $m\geq 1$.
+  \item Show that
+    \begin{equation*}
+      J_k(n) = n^k\prod_{p\mid n}\left(1-\frac{1}{p^k}\right).
+    \end{equation*}
+  \end{subexenum}
+\end{challenge}
 
 %%% Local Variables:
 %%% mode: latex

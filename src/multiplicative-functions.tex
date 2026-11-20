@@ -665,35 +665,6 @@ In the previous example, one might wonder whether it matters whether we define $
   \end{align*}
 \end{proof}
 
-\begin{corollary}\label{corollary:mobius-inversion-totient}
-  Euler's totient function satisfies the identity
-  \begin{equation*}
-    \totient(n) = \sum_{d\mid n}\mu(d)\frac{n}{d}
-  \end{equation*}
-  In other words, $\totient=\mu\ast\mathrm{id}$.
-\end{corollary}
-
-\begin{proof}
-  By \zcref{theorem:dirichlet-convolution-phi} we have $\mathrm{id}=1\ast \totient$, so we have $\totient=\mu\ast\mathrm{id}$ by the M\"obius inversion formula.
-\end{proof}
-
-We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offering a second perspective on the totient function.
-
-\begin{proof}[Direct proof of \zcref{corollary:mobius-inversion-totient}]
-  Note that Euler's totient function $\totient$ can be written in the form
-  \begin{equation*}
-    \totient(n) = \sum_{k=1}^n\left\lfloor\frac{1}{\gcd(k,n)}\right\rfloor.
-  \end{equation*}
-  Then it follows from \zcref{theorem:inverse-mobius-function} that
-  \begin{equation*}
-    \totient(n) = \sum_{k=1}^n\sum_{d\mid \gcd(k,n)}\mu(d)
-    = \sum_{k=1}^n\sum_{\substack{d\mid n \\ d\mid k}}\mu(d)
-    = \sum_{d\mid n}\sum_{\substack{k=1 \\ d\mid k}}^n \mu(d)
-    = \sum_{d\mid n} \mu(d)\frac{n}{d}.
-  \end{equation*}
-  The last step follows, since there are exactly $\tfrac{n}{d}$ multiples of $d$ among the numbers from $1$ to $n$.
-\end{proof}
-
 \exercises
 
 \begin{starter}
@@ -779,10 +750,6 @@ We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offer
     where either $p\equiv 3\pmod{8}$ and $k$ is odd or $p\equiv 7\pmod{8}$ and $k$ is even.
   \end{subexenum}
   \exercise Compute $\mu\ast\mu$.
-  \exercise Prove that
-  \begin{equation*}
-    \sum_{k=1}^n\gcd(k,n)\mu(\gcd(k,n))=\mu(n).
-  \end{equation*}
   \exercise
   \begin{subexenum}
   \item Show that if two out of three arithmetic functions $f$, $g$, and $f\ast g$ are multiplicative, then so is the third.
@@ -865,33 +832,6 @@ We also give a direct proof of \zcref{corollary:mobius-inversion-totient}, offer
   \begin{equation*}
     \sigma(2^n-1) = \prod_{\substack{p~\text{odd prime}\\d:=\ord_p(2)\mid n}}\frac{p^{\nu_p(2^d-1)+\nu_p(n/d)+1}-1}{p-1}.
   \end{equation*}
-  \exercise Define \define{Jordan's totient function} $J_k(n)$ by
-  \begin{equation*}
-    J_k(n) = \cardinality{\{(x_1,\ldots,x_k)\mid 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=1\}}.
-  \end{equation*}
-  In other words, Jordan's totient function counts the number of $k$-tuples $(x_1,\ldots,x_k)$ of positive integers not exceeding $n$ such that if $d$ simultaneously divides all the integers $x_1,\ldots,x_k$ and $n$, then $d=1$. Note that $J_1(n)$ is just Euler's totient function $\totient$.
-  \begin{subexenum}
-  \item Find $J_2(n)$ for $1\leq n\leq 12$.
-  \item Show that for any divisor $d$ of $n$, the number of elements in the set
-    \begin{equation*}
-      \left\{(x_1,\ldots,x_k) \,\middle|\, 1\leq x_1,\ldots,x_k\leq n\text{ and }\gcd(x_1,\ldots,x_k,n)=\frac{n}{d}\right\}
-    \end{equation*}
-    is exactly $J_k(d)$.
-  \item Show that
-    \begin{equation*}
-      \sum_{d\mid n}J_k(d) = n^k\qquad\text{and}\qquad \sum_{d\mid n}\mu(d)\left(\frac{n}{d}\right)^k = J_k(n).
-    \end{equation*}
-  \item Show that $J_k$ is a multiplicative function.
-  \item Show that
-    \begin{equation*}
-      J_k(p^m) = p^{km}-p^{k(m-1)}
-    \end{equation*}
-    for any prime $p$ and any exponent $m\geq 1$.
-  \item Show that
-    \begin{equation*}
-      J_k(n) = n^k\prod_{p\mid n}\left(1-\frac{1}{p^k}\right).
-    \end{equation*}
-  \end{subexenum}
   \exercise Let $\Omega$ be the arithmetic function given by
   \begin{equation*}
     \Omega(m)=m_1+\cdots+m_n
